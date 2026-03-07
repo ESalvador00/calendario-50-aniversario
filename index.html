@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calendario de 50 Aniversario</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold:#C9A84C; --gold-light:#E8C97A; --gold-dark:#8B6914;
+      --cream:#FAF6EE; --dark:#1A1410; --mid:#3D2B1F;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    body{background-color:var(--dark);color:var(--cream);font-family:'Cormorant Garamond',serif;min-height:100vh;overflow-x:hidden;}
+    body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 20% 10%,rgba(201,168,76,.08) 0%,transparent 50%),radial-gradient(ellipse at 80% 90%,rgba(124,54,38,.10) 0%,transparent 50%),repeating-linear-gradient(45deg,transparent,transparent 40px,rgba(201,168,76,.015) 40px,rgba(201,168,76,.015) 41px);pointer-events:none;z-index:0;}
+    .page-wrap{position:relative;z-index:1;max-width:1300px;margin:0 auto;padding:0 2rem 6rem;}
+    header{text-align:center;padding:5rem 1rem 3rem;}
+    .header-ornament{display:flex;align-items:center;justify-content:center;gap:1rem;margin-bottom:1.5rem;}
+    .ornament-line{height:1px;width:80px;background:linear-gradient(to right,transparent,var(--gold));}
+    .ornament-line.right{background:linear-gradient(to left,transparent,var(--gold));}
+    .ornament-diamond{width:8px;height:8px;background:var(--gold);transform:rotate(45deg);}
+    h1{font-family:'Playfair Display',serif;font-size:clamp(2.8rem,6vw,5.5rem);font-weight:900;line-height:1.05;background:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 40%,var(--gold-dark) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.5rem;}
+    .dedication{max-width:620px;margin:0 auto 2rem;font-size:1.1rem;font-weight:300;font-style:italic;color:rgba(250,246,238,.65);line-height:1.8;letter-spacing:.03em;}
+    .subtitle{font-size:1.15rem;font-weight:300;color:rgba(250,246,238,.55);letter-spacing:.12em;margin-bottom:3rem;}
+    .preview-badge{display:inline-block;margin-bottom:1rem;padding:.3rem 1rem;border:1px solid rgba(201,168,76,.4);border-radius:20px;font-size:.75rem;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;}
+    .months-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:2rem;}
+    .month-card{background:rgba(255,255,255,.03);border:1px solid rgba(201,168,76,.18);border-radius:4px;overflow:hidden;transition:border-color .3s,transform .3s,box-shadow .3s;}
+    .month-card:hover{border-color:rgba(201,168,76,.55);transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,.4);}
+    .month-header{background:linear-gradient(135deg,rgba(201,168,76,.15) 0%,rgba(201,168,76,.06) 100%);border-bottom:1px solid rgba(201,168,76,.2);padding:1rem 1.2rem .85rem;display:flex;align-items:baseline;gap:.6rem;}
+    .month-name{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:700;color:var(--gold-light);}
+    .month-num{font-size:1.05rem;color:rgba(232,200,100,.9);letter-spacing:.15em;font-weight:500;}
+    .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);padding:.75rem .6rem 1rem;gap:2px;}
+    .dow{text-align:center;font-size:.65rem;letter-spacing:.12em;color:rgba(201,168,76,.45);text-transform:uppercase;padding:.3rem 0;}
+    .day-cell{position:relative;text-align:center;font-size:.82rem;font-weight:400;color:rgba(250,246,238,.75);padding:.35rem 0;border-radius:2px;cursor:pointer;text-decoration:none;display:block;transition:background .18s,color .18s;}
+    .day-cell:hover{background:rgba(201,168,76,.18);color:var(--gold-light);}
+    .day-cell.empty{cursor:default;pointer-events:none;}
+    .day-cell.past{color:rgba(250,246,238,.18);}
+    .day-cell.past.sunday{color:rgba(200,100,80,.2);}
+    .day-cell.past:hover{background:rgba(201,168,76,.1);color:rgba(250,246,238,.35);}
+    .day-cell.future-locked{color:rgba(250,246,238,.75);cursor:pointer;}
+    .day-cell.future-locked:hover{background:rgba(201,168,76,.18);color:var(--gold-light);}
+    .day-cell.today{background:var(--gold);color:var(--dark)!important;font-weight:900;border-radius:50%;box-shadow:0 0 12px rgba(201,168,76,.7),0 0 28px rgba(201,168,76,.35);animation:pulse-today 2s ease-in-out infinite;}
+    .day-cell.today:hover{background:var(--gold-light);}
+    @keyframes pulse-today{0%,100%{box-shadow:0 0 10px rgba(201,168,76,.7),0 0 24px rgba(201,168,76,.3);}50%{box-shadow:0 0 18px rgba(201,168,76,.95),0 0 40px rgba(201,168,76,.55);}}
+    .day-cell.sunday{color:rgba(200,100,80,.7);}
+    .day-cell.sunday:hover{color:#e08070;}
+    .day-cell .fav-badge{position:absolute;top:0;right:1px;font-size:.45rem;line-height:1;pointer-events:none;color:#e05a6a;}
+    .day-cell .done-badge{position:absolute;bottom:0;right:1px;font-size:.5rem;line-height:1;pointer-events:none;color:var(--gold);filter:drop-shadow(0 0 2px rgba(201,168,76,.6));}
+    /* Popup */
+    .popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:100;align-items:center;justify-content:center;}
+    .popup-overlay.visible{display:flex;}
+    .popup-box{background:var(--dark);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:3rem 2.5rem;max-width:420px;width:90%;text-align:center;box-shadow:0 0 60px rgba(0,0,0,.8);}
+    .popup-icon{font-size:3rem;margin-bottom:1rem;}
+    .popup-title{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--gold-light);margin-bottom:1rem;}
+    .popup-msg{font-size:1rem;font-style:italic;color:rgba(250,246,238,.6);line-height:1.7;margin-bottom:2rem;}
+    .popup-btn{display:inline-block;padding:.7rem 2rem;border:1px solid rgba(201,168,76,.4);border-radius:2px;color:var(--gold);font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;background:none;transition:all .2s;}
+    .popup-btn:hover{background:rgba(201,168,76,.1);border-color:var(--gold);}
+    footer{text-align:center;margin-top:5rem;padding-top:2rem;border-top:1px solid rgba(201,168,76,.12);font-size:.8rem;color:rgba(250,246,238,.25);letter-spacing:.2em;}
+    @media(max-width:600px){.months-grid{grid-template-columns:1fr;}}
+  </style>
+</head>
+<body>
+<div class="page-wrap">
+  <header>
+    <div class="header-ornament">
+      <div class="ornament-line"></div><div class="ornament-diamond"></div><div class="ornament-line right"></div>
+    </div>
+    <h1>Calendario de<br>50 Aniversario</h1>
+    <div id="preview-indicator"></div>
+    <p class="dedication">50 años se celebran solo una vez en la vida.<br>Y una vida tan especial merece un regalo igual de especial.<br>Por eso hemos querido llenar este año de pequeños momentos:<br>uno para cada día, para recordarte siempre cuánto te queremos.</p>
+    <p class="subtitle">Selecciona un día para comenzar</p>
+    <div class="header-ornament" style="margin-top:1.5rem;margin-bottom:0">
+      <div class="ornament-line"></div><div class="ornament-diamond"></div><div class="ornament-line right"></div>
+    </div>
+  </header>
+
+  <div class="months-grid" id="calendar"></div>
+
+  <footer>
+    <p>50 ANIVERSARIO &nbsp;·&nbsp; 2028–2029 &nbsp;·&nbsp; TODOS LOS DERECHOS RESERVADOS</p>
+  </footer>
+</div>
+
+<!-- Popup días futuros -->
+<div class="popup-overlay" id="popup">
+  <div class="popup-box">
+    <div class="popup-icon">🎁</div>
+    <p class="popup-title">¡Un poco de paciencia!</p>
+    <p class="popup-msg">No seas impaciente...<br>Este día aún no ha llegado.<br>Ya llegará, y será especial. 🤍</p>
+    <button class="popup-btn" onclick="document.getElementById('popup').classList.remove('visible')">Volver al calendario</button>
+  </div>
+</div>
+
+<script>
+// ── Preview mode ──────────────────────────────────────────────
+const PREVIEW_KEY = 'cal_preview';
+const PREVIEW_PWD = 'UNLOCK';
+const params = new URLSearchParams(window.location.search);
+if (params.get('preview') === PREVIEW_PWD) {
+  localStorage.setItem(PREVIEW_KEY, '1');
+} else if (params.get('preview') === 'off') {
+  localStorage.removeItem(PREVIEW_KEY);
+}
+const isPreview = localStorage.getItem(PREVIEW_KEY) === '1';
+if (isPreview) {
+  document.getElementById('preview-indicator').innerHTML =
+    '<span class="preview-badge">🔓 Modo preview activo</span>';
+}
+
+// ── Calendar data ─────────────────────────────────────────────
+const MONTHS = [
+  { name:"Enero",      year:2028, monthNum:1,  days:31, start:5 },
+  { name:"Febrero",    year:2028, monthNum:2,  days:29, start:1 },
+  { name:"Marzo",      year:2028, monthNum:3,  days:31, start:2 },
+  { name:"Abril",      year:2028, monthNum:4,  days:30, start:5 },
+  { name:"Mayo",       year:2028, monthNum:5,  days:31, start:0 },
+  { name:"Junio",      year:2028, monthNum:6,  days:30, start:3 },
+  { name:"Julio",      year:2028, monthNum:7,  days:31, start:5 },
+  { name:"Agosto",     year:2028, monthNum:8,  days:31, start:1 },
+  { name:"Septiembre", year:2028, monthNum:9,  days:30, start:4 },
+  { name:"Octubre",    year:2028, monthNum:10, days:31, start:6 },
+  { name:"Noviembre",  year:2028, monthNum:11, days:30, start:2 },
+  { name:"Diciembre",  year:2028, monthNum:12, days:31, start:4 },
+  { name:"Enero",      year:2029, monthNum:1,  days:31, start:0 }
+];
+
+function isClickable(year, monthNum, day) {
+  if (year === 2028 && monthNum === 1) return day >= 11;
+  if (year === 2029 && monthNum === 1) return day <= 10;
+  return true;
+}
+function slug(year, monthNum, day) {
+  return `dias/${year}-${String(monthNum).padStart(2,'0')}-${String(day).padStart(2,'0')}.html`;
+}
+function favKey(year, monthNum, day) {
+  return `fav_${year}-${String(monthNum).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+}
+function isFav(year, monthNum, day) {
+  return localStorage.getItem(favKey(year, monthNum, day)) === '1';
+}
+function doneKey(year, monthNum, day) {
+  return `done_${year}-${String(monthNum).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+}
+function isDone(year, monthNum, day) {
+  return localStorage.getItem(doneKey(year, monthNum, day)) === '1';
+}
+
+const today = new Date(); today.setHours(0,0,0,0);
+const DOWS  = ["Lu","Ma","Mi","Ju","Vi","Sá","Do"];
+const cal   = document.getElementById('calendar');
+const popup = document.getElementById('popup');
+
+MONTHS.forEach(m => {
+  const card = document.createElement('div');
+  card.className = 'month-card';
+
+  const hdr = document.createElement('div');
+  hdr.className = 'month-header';
+  hdr.innerHTML = `<span class="month-name">${m.name}</span><span class="month-num">${String(m.monthNum).padStart(2,'0')} ${m.year}</span>`;
+  card.appendChild(hdr);
+
+  const grid = document.createElement('div');
+  grid.className = 'cal-grid';
+  DOWS.forEach(d => {
+    const h = document.createElement('div');
+    h.className = 'dow'; h.textContent = d;
+    grid.appendChild(h);
+  });
+
+  for (let i = 0; i < m.start; i++) {
+    const e = document.createElement('span');
+    e.className = 'day-cell empty';
+    grid.appendChild(e);
+  }
+
+  for (let d = 1; d <= m.days; d++) {
+    const dowIdx   = (m.start + d - 1) % 7;
+    const sunday   = dowIdx === 6;
+    const clickable = isClickable(m.year, m.monthNum, d);
+
+    if (!clickable) {
+      const e = document.createElement('span');
+      e.className = 'day-cell empty';
+      grid.appendChild(e);
+      continue;
+    }
+
+    const cellDate = new Date(m.year, m.monthNum - 1, d);
+    const isToday  = cellDate.toDateString() === today.toDateString();
+    const isPast   = cellDate < today;
+    const isFuture = cellDate > today;
+
+    const el = document.createElement('a');
+    el.href = slug(m.year, m.monthNum, d);
+
+    if (isToday) {
+      el.className = 'day-cell today' + (sunday ? ' sunday' : '');
+    } else if (isPast) {
+      el.className = 'day-cell past' + (sunday ? ' sunday' : '');
+      el.href = slug(m.year, m.monthNum, d);
+    } else {
+      // future
+      el.className = 'day-cell' + (sunday ? ' sunday' : '');
+      if (!isPreview) {
+        el.addEventListener('click', e => {
+          e.preventDefault();
+          popup.classList.add('visible');
+        });
+      }
+    }
+
+    el.textContent = d;
+
+    if (isFav(m.year, m.monthNum, d)) {
+      const badge = document.createElement('span');
+      badge.className = 'fav-badge';
+      badge.textContent = '❤';
+      el.appendChild(badge);
+    }
+    if (isDone(m.year, m.monthNum, d)) {
+      const star = document.createElement('span');
+      star.className = 'done-badge';
+      star.textContent = '★';
+      el.appendChild(star);
+    }
+
+    grid.appendChild(el);
+  }
+
+  card.appendChild(grid);
+  cal.appendChild(card);
+});
+
+// Close popup clicking outside
+popup.addEventListener('click', e => {
+  if (e.target === popup) popup.classList.remove('visible');
+});
+</script>
+</body>
+</html>
