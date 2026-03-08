@@ -22,7 +22,24 @@
     .ornament-diamond{width:8px;height:8px;background:var(--gold);transform:rotate(45deg);}
     h1{font-family:'Playfair Display',serif;font-size:clamp(2.8rem,6vw,5.5rem);font-weight:900;line-height:1.05;background:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 40%,var(--gold-dark) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.5rem;}
     .dedication{max-width:620px;margin:0 auto 2rem;font-size:1.1rem;font-weight:300;font-style:italic;color:rgba(250,246,238,.65);line-height:1.8;letter-spacing:.03em;}
-    .subtitle{font-size:1.15rem;font-weight:300;color:rgba(250,246,238,.55);letter-spacing:.12em;margin-bottom:3rem;}
+    /* ── Barra de filtros ── */
+    .toolbar{display:flex;align-items:center;justify-content:center;gap:1rem;margin-bottom:3rem;flex-wrap:wrap;}
+    .filter-btn{display:flex;align-items:center;gap:.5rem;padding:.55rem 1.2rem;background:transparent;border:1px solid rgba(201,168,76,.25);border-radius:30px;color:rgba(250,246,238,.45);font-family:'Cormorant Garamond',serif;font-size:.9rem;letter-spacing:.08em;cursor:pointer;transition:all .25s;user-select:none;}
+    .filter-btn:hover{border-color:rgba(201,168,76,.55);color:rgba(250,246,238,.8);}
+    .filter-btn.active{background:rgba(201,168,76,.12);border-color:var(--gold);color:var(--gold-light);}
+    .filter-btn .btn-icon{font-size:1.1rem;line-height:1;}
+    .filter-btn.info-btn{border-color:rgba(250,246,238,.15);color:rgba(250,246,238,.35);}
+    .filter-btn.info-btn:hover{border-color:rgba(250,246,238,.4);color:rgba(250,246,238,.7);}
+    .month-card.hidden-filter{display:none;}
+    .day-cell.hidden-filter{visibility:hidden;pointer-events:none;}
+    .help-popup-box{max-width:560px;text-align:left;}
+    .help-popup-box .popup-title{text-align:center;margin-bottom:1.5rem;}
+    .help-section{margin-bottom:1.2rem;}
+    .help-section h4{font-family:'Playfair Display',serif;font-size:1rem;color:var(--gold-light);margin-bottom:.4rem;font-weight:700;}
+    .help-section p{font-size:.92rem;font-style:italic;color:rgba(250,246,238,.6);line-height:1.7;}
+    .help-icons{display:flex;flex-direction:column;gap:.6rem;margin:.5rem 0;}
+    .help-icon-row{display:flex;align-items:flex-start;gap:.8rem;font-size:.88rem;color:rgba(250,246,238,.6);font-style:italic;line-height:1.6;}
+    .help-icon-row .hi{font-size:1.2rem;flex-shrink:0;margin-top:.1rem;}
     .preview-badge{display:inline-block;margin-bottom:1rem;padding:.3rem 1rem;border:1px solid rgba(201,168,76,.4);border-radius:20px;font-size:.75rem;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;}
     .months-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:2rem;}
     .month-card{background:rgba(255,255,255,.03);border:1px solid rgba(201,168,76,.18);border-radius:4px;overflow:hidden;transition:border-color .3s,transform .3s,box-shadow .3s;}
@@ -69,8 +86,18 @@
     <h1>Calendario de<br>50 Aniversario</h1>
     <div id="preview-indicator"></div>
     <p class="dedication">50 años se celebran solo una vez en la vida.<br>Y una vida tan especial merece un regalo igual de especial.<br>Por eso hemos querido llenar este año de pequeños momentos:<br>uno para cada día, para recordarte siempre cuánto te queremos.</p>
-    <p class="subtitle">Selecciona un día para comenzar</p>
-    <div class="header-ornament" style="margin-top:1.5rem;margin-bottom:0">
+    <div class="toolbar">
+      <button class="filter-btn" id="btn-fav" title="Filtrar por favoritos">
+        <span class="btn-icon">♡</span> Favoritos
+      </button>
+      <button class="filter-btn" id="btn-pending" title="Filtrar días pendientes">
+        <span class="btn-icon">☆</span> Pendientes
+      </button>
+      <button class="filter-btn info-btn" id="btn-help" title="Cómo funciona">
+        <span class="btn-icon">?</span> Cómo funciona
+      </button>
+    </div>
+    <div class="header-ornament" style="margin-top:0;margin-bottom:0">
       <div class="ornament-line"></div><div class="ornament-diamond"></div><div class="ornament-line right"></div>
     </div>
   </header>
@@ -92,8 +119,36 @@
   </div>
 </div>
 
-<script>
-// ── Preview mode ──────────────────────────────────────────────
+<!-- Popup instrucciones -->
+<div class="popup-overlay" id="popup-help">
+  <div class="popup-box help-popup-box">
+    <div class="popup-icon" style="text-align:center">📖</div>
+    <p class="popup-title">Cómo funciona</p>
+    <div class="help-section">
+      <h4>Un año de momentos especiales</h4>
+      <p>Este calendario contiene 356 días, cada uno con un reto o desafío único pensado especialmente para ti. Superar cada reto desbloquea una recompensa sorpresa: una foto, un recuerdo, una canción, un cuento... algo distinto cada día.</p>
+    </div>
+    <div class="help-section">
+      <h4>Los iconos de cada día</h4>
+      <div class="help-icons">
+        <div class="help-icon-row"><span class="hi">♡ ❤</span><span>Marca un día como <strong>favorito</strong> para encontrarlo fácilmente. Puedes ver solo tus favoritos con el filtro del calendario.</span></div>
+        <div class="help-icon-row"><span class="hi">☆ ★</span><span>Indica que has <strong>completado el reto</strong> de ese día y desbloqueado tu recompensa. La estrella dorada aparece también en el calendario.</span></div>
+      </div>
+    </div>
+    <div class="help-section">
+      <h4>Los filtros del calendario</h4>
+      <div class="help-icons">
+        <div class="help-icon-row"><span class="hi">♡</span><span><strong>Favoritos:</strong> muestra solo los días que has marcado con corazón.</span></div>
+        <div class="help-icon-row"><span class="hi">☆</span><span><strong>Pendientes:</strong> muestra solo los días pasados que aún no has completado, para que no se te escape ningún reto.</span></div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:1.5rem">
+      <button class="popup-btn" id="help-close">¡Entendido!</button>
+    </div>
+  </div>
+</div>
+
+
 const PREVIEW_KEY = 'cal_preview';
 const PREVIEW_PWD = 'UNLOCK';
 const params = new URLSearchParams(window.location.search);
@@ -211,6 +266,7 @@ MONTHS.forEach(m => {
     }
 
     el.textContent = d;
+    el.dataset.date = `${m.year}-${String(m.monthNum).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
 
     if (isFav(m.year, m.monthNum, d)) {
       const badge = document.createElement('span');
@@ -235,6 +291,70 @@ MONTHS.forEach(m => {
 // Close popup clicking outside
 popup.addEventListener('click', e => {
   if (e.target === popup) popup.classList.remove('visible');
+});
+
+// ── Help popup ────────────────────────────────────────────────
+const popupHelp = document.getElementById('popup-help');
+document.getElementById('btn-help').addEventListener('click', () => {
+  popupHelp.classList.add('visible');
+});
+document.getElementById('help-close').addEventListener('click', () => {
+  popupHelp.classList.remove('visible');
+});
+popupHelp.addEventListener('click', e => {
+  if (e.target === popupHelp) popupHelp.classList.remove('visible');
+});
+
+// ── Filtros ───────────────────────────────────────────────────
+let filterFav     = false;
+let filterPending = false;
+
+function applyFilters() {
+  // Collect all clickable day data
+  document.querySelectorAll('.month-card').forEach(card => {
+    let anyVisible = false;
+
+    card.querySelectorAll('.day-cell:not(.empty)').forEach(el => {
+      const dateStr = el.dataset.date;
+      if (!dateStr) return;
+
+      const [y, m, d] = dateStr.split('-').map(Number);
+      const cellDate  = new Date(y, m - 1, d);
+      const isPast    = cellDate <= today;
+      const fav  = isFav(y, m, d);
+      const done = isDone(y, m, d);
+
+      let show = true;
+      if (filterFav     && !fav)       show = false;
+      if (filterPending && (!isPast || done)) show = false;
+
+      el.classList.toggle('hidden-filter', !show);
+      if (show) anyVisible = true;
+    });
+
+    // Hide entire month card if nothing visible
+    card.classList.toggle('hidden-filter', !anyVisible && (filterFav || filterPending));
+  });
+}
+
+document.getElementById('btn-fav').addEventListener('click', function() {
+  filterFav = !filterFav;
+  if (filterFav) filterPending = false; // mutually exclusive
+  this.classList.toggle('active', filterFav);
+  document.getElementById('btn-pending').classList.toggle('active', filterPending);
+  // Update icon
+  this.querySelector('.btn-icon').textContent = filterFav ? '❤' : '♡';
+  applyFilters();
+});
+
+document.getElementById('btn-pending').addEventListener('click', function() {
+  filterPending = !filterPending;
+  if (filterPending) filterFav = false;
+  this.classList.toggle('active', filterPending);
+  document.getElementById('btn-fav').classList.toggle('active', filterFav);
+  document.getElementById('btn-fav').querySelector('.btn-icon').textContent = filterFav ? '❤' : '♡';
+  this.querySelector('.btn-icon').textContent = filterPending ? '★' : '☆';
+  applyFilters();
 });
 </script>
 </body>
