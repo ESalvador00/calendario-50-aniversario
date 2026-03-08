@@ -1,4 +1,4 @@
-# 🎉 Calendario de 50 Aniversario — 2028
+# 🎉 Calendario de 50 Aniversario — 2028/2029
 
 ## Estructura
 ```
@@ -7,10 +7,11 @@ calendario-50-aniversario/
 └── dias/
     ├── 2028-01-11.html  ← primer día
     ├── ...
-    └── 2028-12-31.html  ← último día
+    ├── 2028-12-31.html
+    └── 2029-01-10.html  ← último día
 ```
 
-356 días en total (del 11 de enero al 31 de diciembre de 2028).
+366 días en total (del 11 de enero de 2028 al 10 de enero de 2029).
 
 ---
 
@@ -20,17 +21,14 @@ calendario-50-aniversario/
 - **Hoy:** círculo dorado con animación de pulso
 - **Días pasados:** visibles y clickables
 - **Días futuros:** clickables pero muestran popup "¡No seas impaciente!"
-- **Filtro Favoritos ♡:** muestra solo los días marcados como favoritos
-- **Filtro Pendientes ☆:** muestra solo los días pasados sin completar
-- **Cómo funciona ?:** popup con explicación del calendario
 
 ### Páginas de cada día
 Cada día tiene dos iconos en la esquina superior derecha:
 
 - **♡ / ❤ Favorito** — se puede marcar y desmarcar libremente. El corazón rojo aparece también en el calendario principal.
 - **☆ / ★ Completado** — indica que se ha superado el reto del día:
-  - Sin completar → muestra popup "¡Tu recompensa te espera! Primero debes resolver el desafío..."
-  - Ya completado → muestra popup con la recompensa del día
+  - Sin completar → popup "¡Tu recompensa te espera! Primero debes resolver el desafío..."
+  - Ya completado → popup con la recompensa del día
   - Solo se puede marcar en **modo preview** (ver más abajo)
 
 ---
