@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>4 de Marzo — 50 Aniversario</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{--gold:#C9A84C;--gold-light:#E8C97A;--gold-dark:#8B6914;--cream:#FAF6EE;--dark:#1A1410;}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    body{background-color:var(--dark);color:var(--cream);font-family:'Cormorant Garamond',serif;min-height:100vh;display:flex;flex-direction:column;}
+    body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 25% 15%,rgba(201,168,76,.10) 0%,transparent 55%),radial-gradient(ellipse at 75% 85%,rgba(124,54,38,.10) 0%,transparent 55%);pointer-events:none;z-index:0;}
+    .wrap{position:relative;z-index:1;max-width:800px;margin:0 auto;padding:3rem 2rem 4rem;flex:1;display:flex;flex-direction:column;}
+    .day-hero{text-align:center;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 0 2rem;position:relative;}
+    .ornament-line-h{display:flex;align-items:center;justify-content:center;gap:1rem;margin-bottom:2rem;}
+    .o-line{height:1px;width:60px;background:linear-gradient(to right,transparent,var(--gold));}
+    .o-line.r{background:linear-gradient(to left,transparent,var(--gold));}
+    .o-dot{width:5px;height:5px;background:var(--gold);border-radius:50%;}
+    .day-of-week{font-size:.85rem;letter-spacing:.4em;text-transform:uppercase;color:rgba(201,168,76,.5);margin-bottom:1rem;}
+    h1{font-family:'Playfair Display',serif;font-size:clamp(3rem,9vw,7rem);font-weight:900;line-height:1;background:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 50%,var(--gold-dark) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.5rem;}
+    .month-label{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3.5vw,2.4rem);font-weight:400;font-style:italic;color:rgba(250,246,238,.45);margin-bottom:2.5rem;}
+    .content-area{width:100%;border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:2.5rem;min-height:220px;background:rgba(255,255,255,.02);color:rgba(250,246,238,.4);font-size:1rem;font-style:italic;text-align:center;display:flex;align-items:center;justify-content:center;}
+    .day-nav{display:flex;justify-content:space-between;align-items:center;padding-top:2.5rem;border-top:1px solid rgba(201,168,76,.1);margin-top:2.5rem;}
+    .nav-btn{font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(201,168,76,.5);text-decoration:none;padding:.6rem 1.2rem;border:1px solid rgba(201,168,76,.18);border-radius:2px;transition:all .2s;}
+    .nav-btn:hover{color:var(--gold-light);border-color:rgba(201,168,76,.5);background:rgba(201,168,76,.05);}
+    .nav-btn.disabled{opacity:0;pointer-events:none;}
+    .year-badge{font-size:.7rem;letter-spacing:.3em;color:rgba(201,168,76,.25);text-transform:uppercase;}
+    .back-link{display:block;text-align:center;margin-top:2rem;color:rgba(201,168,76,.35);font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;text-decoration:none;transition:color .2s;}
+    .back-link:hover{color:var(--gold);}
+    /* Botones fav y done */
+    .action-btns{position:absolute;top:0;right:0;display:flex;flex-direction:column;align-items:center;gap:.2rem;}
+    .icon-btn{background:none;border:none;cursor:pointer;font-size:2rem;line-height:1;transition:color .2s,transform .2s;padding:.2rem;}
+    .icon-btn:hover{transform:scale(1.2);}
+    .fav-btn{color:rgba(250,246,238,.2);}
+    .fav-btn.active{color:#e05a6a;}
+    .fav-btn.active:hover{color:#ff7a88;}
+    .done-btn{color:var(--gold);opacity:0.6;}
+    .done-btn.active{color:var(--gold);opacity:1;}
+    .done-btn.active:hover{color:var(--gold-light);opacity:1;}
+    /* Popup */
+    .popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:100;align-items:center;justify-content:center;}
+    .popup-overlay.visible{display:flex;}
+    .popup-box{background:var(--dark);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:3rem 2.5rem;max-width:420px;width:90%;text-align:center;box-shadow:0 0 60px rgba(0,0,0,.8);}
+    .popup-icon{font-size:3rem;margin-bottom:1rem;}
+    .popup-title{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--gold-light);margin-bottom:1rem;}
+    .popup-msg{font-size:1rem;font-style:italic;color:rgba(250,246,238,.6);line-height:1.7;margin-bottom:2rem;}
+    .popup-btn{display:inline-block;padding:.7rem 2rem;border:1px solid rgba(201,168,76,.4);border-radius:2px;color:var(--gold);font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;background:none;transition:all .2s;}
+    .popup-btn:hover{background:rgba(201,168,76,.1);border-color:var(--gold);}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="day-hero">
+    <div class="action-btns">
+      <button class="icon-btn fav-btn"  id="fav-btn"  title="Añadir a favoritos">♡</button>
+      <button class="icon-btn done-btn" id="done-btn" title="Marcar como completado">☆</button>
+    </div>
+    <div class="ornament-line-h">
+      <div class="o-line"></div><div class="o-dot"></div><div class="o-line r"></div>
+    </div>
+    <p class="day-of-week">Sábado</p>
+    <h1>4</h1>
+    <p class="month-label">de Marzo</p>
+    <div class="content-area">
+      <p>Espacio reservado para el contenido de este día</p>
+    </div>
+  </div>
+  <nav class="day-nav">
+    <a class="nav-btn" href="2028-03-03.html">&#8592; 3 de Marzo</a>
+    <span class="year-badge">50 Aniversario · 2028</span>
+    <a class="nav-btn" id="next-btn" href="2028-03-05.html">5 de Marzo &#8594;</a>
+  </nav>
+  <a class="back-link" href="../index.html">&#8592; Volver al Calendario</a>
+</div>
+
+<div class="popup-overlay" id="popup">
+  <div class="popup-box">
+    <div class="popup-icon">🎁</div>
+    <p class="popup-title">¡Un poco de paciencia!</p>
+    <p class="popup-msg">No seas impaciente...<br>Este día aún no ha llegado.<br>Ya llegará, y será especial. 🤍</p>
+    <button class="popup-btn" onclick="window.location.href='../index.html'">Volver al calendario</button>
+  </div>
+</div>
+
+<!-- Popup estrella bloqueada -->
+<div class="popup-overlay" id="popup-star-blocked">
+  <div class="popup-box">
+    <div class="popup-icon">🏆</div>
+    <p class="popup-title">¡Tu recompensa te espera!</p>
+    <p class="popup-msg">Para acceder a tu recompensa primero debes resolver el desafío de hoy...<br><br>¡Tú puedes! 💪</p>
+    <button class="popup-btn" id="star-blocked-close">Volver</button>
+  </div>
+</div>
+
+<!-- Popup recompensa del día -->
+<div class="popup-overlay" id="popup-star-reward">
+  <div class="popup-box">
+    <div class="popup-icon">🎁</div>
+    <p class="popup-title">¡Tu recompensa!</p>
+    <p class="popup-msg" id="reward-text">✨ Aquí irá la recompensa especial de este día ✨</p>
+    <button class="popup-btn" id="star-reward-close">¡Genial!</button>
+  </div>
+</div>
+
+<script>
+const PREVIEW_KEY  = 'cal_preview';
+const isPreview    = localStorage.getItem(PREVIEW_KEY) === '1';
+const today        = new Date(); today.setHours(0,0,0,0);
+const thisDate     = new Date('2028-03-04'); thisDate.setHours(0,0,0,0);
+const nextDateStr  = '2028-03-05';
+const popup        = document.getElementById('popup');
+
+if (!isPreview && thisDate > today) {
+  document.querySelector('.day-hero').style.filter = 'blur(4px)';
+  document.querySelector('.day-nav').style.visibility = 'hidden';
+  popup.classList.add('visible');
+}
+
+if (!isPreview && nextDateStr) {
+  const nextDate = new Date(nextDateStr); nextDate.setHours(0,0,0,0);
+  if (nextDate > today) {
+    const nextBtn = document.getElementById('next-btn');
+    if (nextBtn) nextBtn.addEventListener('click', e => { e.preventDefault(); popup.classList.add('visible'); });
+  }
+}
+
+popup.addEventListener('click', e => { if (e.target === popup) window.location.href = '../index.html'; });
+
+// ── Favourite ──────────────────────────────────────────────
+const FAV_KEY = 'fav_2028-03-04';
+const favBtn  = document.getElementById('fav-btn');
+function updateFav() {
+  const on = localStorage.getItem(FAV_KEY) === '1';
+  favBtn.textContent = on ? '❤' : '♡';
+  favBtn.classList.toggle('active', on);
+  favBtn.title = on ? 'Quitar de favoritos' : 'Añadir a favoritos';
+}
+favBtn.addEventListener('click', () => {
+  const on = localStorage.getItem(FAV_KEY) === '1';
+  on ? localStorage.removeItem(FAV_KEY) : localStorage.setItem(FAV_KEY, '1');
+  updateFav();
+});
+updateFav();
+
+// ── Done (actividad completada) ────────────────────────────
+const DONE_KEY = 'done_2028-03-04';
+const doneBtn  = document.getElementById('done-btn');
+const popupStarBlocked = document.getElementById('popup-star-blocked');
+const popupStarReward  = document.getElementById('popup-star-reward');
+
+document.getElementById('star-blocked-close').addEventListener('click', () => {
+  popupStarBlocked.classList.remove('visible');
+});
+popupStarBlocked.addEventListener('click', e => {
+  if (e.target === popupStarBlocked) popupStarBlocked.classList.remove('visible');
+});
+
+document.getElementById('star-reward-close').addEventListener('click', () => {
+  popupStarReward.classList.remove('visible');
+});
+popupStarReward.addEventListener('click', e => {
+  if (e.target === popupStarReward) popupStarReward.classList.remove('visible');
+});
+
+function updateDone() {
+  const on = localStorage.getItem(DONE_KEY) === '1';
+  doneBtn.textContent = on ? '★' : '☆';
+  doneBtn.classList.toggle('active', on);
+  doneBtn.title = on ? 'Ver recompensa' : 'Marcar como completado';
+}
+doneBtn.addEventListener('click', () => {
+  const on = localStorage.getItem(DONE_KEY) === '1';
+  if (on) {
+    // Already done → show reward
+    popupStarReward.classList.add('visible');
+  } else {
+    // Not done → only allowed in preview mode
+    if (isPreview) {
+      localStorage.setItem(DONE_KEY, '1');
+      updateDone();
+    } else {
+      popupStarBlocked.classList.add('visible');
+    }
+  }
+});
+updateDone();
+</script>
+</body>
+</html>
