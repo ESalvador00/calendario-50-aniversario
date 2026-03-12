@@ -75,3 +75,46 @@ https://esalvador00.github.io/calendario-50-aniversario/
 ## Pendiente de añadir
 - Contenido de los retos de cada día (en `content-area` de cada página)
 - Recompensas de cada día (en el popup `reward-text` de cada página)
+
+---
+
+## Sistema de pistas
+
+Cada página de día puede tener N pistas (el número varía según el día). Se implementan con bolitas de colores debajo del campo de código:
+
+- 🔴 **Rojo** — pista bloqueada, no clickable
+- 🟡 **Ámbar** — pista disponible, clickable (pulsa para verla)
+- 🟢 **Verde** — pista ya vista, se puede releer
+
+**Comportamiento:** al cargar la página siempre se reinicia — solo la primera bolita está en ámbar. Cada vez que se cierra el popup de una pista, esa bolita se vuelve verde y la siguiente pasa a ámbar.
+
+### Cómo añadir/editar las pistas de un día
+
+En el JS de cada página busca el array `PISTAS` y añade o edita las cadenas de texto:
+
+```javascript
+const PISTAS = [
+  'Texto de la pista 1...',
+  'Texto de la pista 2...',
+  'Texto de la pista 3...',
+  // tantas como quieras
+];
+```
+
+Las bolitas del HTML deben coincidir en número con las entradas del array. Ajusta el bloque HTML de las bolitas según las pistas que tenga ese día:
+
+```html
+<!-- 3 pistas -->
+<div class="pistas-wrap">
+  <div class="pista-dot ambar" id="pista-1">1</div>
+  <div class="pista-dot rojo"  id="pista-2">2</div>
+  <div class="pista-dot rojo"  id="pista-3">3</div>
+</div>
+```
+
+Y actualiza el array `dotIds` en el JS para que coincida:
+
+```javascript
+const dotIds = ['pista-1','pista-2','pista-3'];
+let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
+```
