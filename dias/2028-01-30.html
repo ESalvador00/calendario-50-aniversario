@@ -29,19 +29,29 @@
     .reto-img-wrap:hover{border-color:rgba(201,168,76,.4);}
     .reto-img-wrap img{display:block;width:100%;height:auto;transition:transform .2s;}
 
+    /* ── Título foto ── */
+    .foto-titulo{font-family:'Playfair Display',serif;font-size:1rem;font-weight:400;font-style:italic;color:rgba(201,168,76,.7);letter-spacing:.06em;margin-bottom:.6rem;text-align:center;}
+
     /* ── Código secreto ── */
     .codigo-wrap{width:100%;display:flex;flex-direction:column;align-items:center;gap:.9rem;}
-    .codigo-label{font-size:.85rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(201,168,76,.55);}
-    .codigo-row{display:flex;gap:.6rem;width:100%;max-width:340px;}
+    .codigo-row{display:flex;gap:.6rem;width:100%;max-width:340px;align-items:center;}
+    .lock-icon{font-size:1.4rem;flex-shrink:0;opacity:.6;}
     .codigo-input{flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.25);border-radius:2px;color:var(--cream);font-family:'Cormorant Garamond',serif;font-size:1.1rem;letter-spacing:.2em;text-align:center;padding:.55rem .8rem;outline:none;transition:border-color .2s;}
     .codigo-input:focus{border-color:rgba(201,168,76,.6);}
     .codigo-input.error{border-color:rgba(255,90,90,.5);animation:shake .3s ease;}
-    @keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-6px);}75%{transform:translateX(6px);}
-    }
+    @keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-6px);}75%{transform:translateX(6px);}}
     .btn-validar{padding:.55rem 1.4rem;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.35);border-radius:2px;color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:all .2s;white-space:nowrap;}
     .btn-validar:hover{background:rgba(201,168,76,.2);border-color:var(--gold);}
-    .btn-pista{background:none;border:none;color:rgba(201,168,76,.35);font-family:'Cormorant Garamond',serif;font-size:.78rem;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;transition:color .2s;text-decoration:underline;text-underline-offset:3px;}
-    .btn-pista:hover{color:rgba(201,168,76,.7);}
+
+    /* ── Bolitas de pistas ── */
+    .pistas-wrap{display:flex;gap:.7rem;align-items:center;justify-content:center;}
+    .pista-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;letter-spacing:0;cursor:default;border:2px solid transparent;transition:all .25s;user-select:none;font-family:'Cormorant Garamond',serif;}
+    .pista-dot.rojo  {background:rgba(180,50,50,.25); border-color:rgba(180,50,50,.4); color:rgba(255,120,120,.5);}
+    .pista-dot.ambar {background:rgba(220,160,40,.2);  border-color:rgba(220,160,40,.7); color:rgba(240,190,80,.9); cursor:pointer; animation:pulse-ambar 1.5s ease-in-out infinite;}
+    .pista-dot.verde {background:rgba(50,180,100,.2);  border-color:rgba(50,180,100,.6); color:rgba(80,220,130,.9); cursor:pointer;}
+    .pista-dot.ambar:hover{background:rgba(220,160,40,.35);}
+    .pista-dot.verde:hover{background:rgba(50,180,100,.35);}
+    @keyframes pulse-ambar{0%,100%{box-shadow:0 0 0 0 rgba(220,160,40,.4);}50%{box-shadow:0 0 0 5px rgba(220,160,40,.0);}}
 
     /* ── Nav ── */
     .day-nav{display:flex;justify-content:space-between;align-items:center;padding-top:2.5rem;border-top:1px solid rgba(201,168,76,.1);margin-top:2.5rem;}
@@ -99,6 +109,9 @@
     <p class="month-label">de Enero</p>
 
     <div class="content-area">
+      <!-- Título foto -->
+      <p class="foto-titulo">Celebrando el fin de año del 2020, Terrassa</p>
+
       <!-- Imagen del reto -->
       <div class="reto-img-wrap" id="img-wrap" title="Clic para ampliar">
         <img src="../media/FinAno2020.png" alt="Reto del día" id="reto-img" draggable="false"/>
@@ -106,15 +119,20 @@
 
       <!-- Código secreto -->
       <div class="codigo-wrap">
-        <p class="codigo-label">Introduce el código secreto</p>
         <div class="codigo-row">
+          <span class="lock-icon">🔒</span>
           <input type="text" class="codigo-input" id="codigo-input" placeholder="· · · · ·" maxlength="20" autocomplete="off"/>
           <button class="btn-validar" id="btn-validar">Validar</button>
         </div>
-        <button class="btn-pista" id="btn-pista">¿Necesitas una pista?</button>
+        <!-- Bolitas de pistas -->
+        <div class="pistas-wrap">
+          <div class="pista-dot ambar" id="pista-1" title="Pista 1">1</div>
+          <div class="pista-dot rojo"  id="pista-2" title="Pista 2">2</div>
+          <div class="pista-dot rojo"  id="pista-3" title="Pista 3">3</div>
+          <div class="pista-dot rojo"  id="pista-4" title="Pista 4">4</div>
+        </div>
       </div>
-    </div>
-  </div>
+    </div>  </div>
 
   <nav class="day-nav">
     <a class="nav-btn" href="2028-01-29.html">&#8592; 29 de Enero</a>
@@ -254,11 +272,15 @@ updateDone();
 
 // ── Código secreto ─────────────────────────────────────────
 const SECRET      = '99274';
-const PISTAS      = []; // se rellenarán más adelante
+const PISTAS      = [
+  'Para abrir el candado necesitas un código numérico de 5 dígitos... fíjate bien en la imagen.',
+  'Sí, cierto, esta es dificililla... imagina que en lugar de estar en casa estás en el Club Náutico, en un ambiente más marino.',
+  'Uy, ¿y esa guirnalda? ¿Quién puso esa guirnalda ahí? Yo no lo recordaba...',
+  'Esas banderas, o mejor dicho esos "gallardetes", ¿qué significan según el Código Internacional de Señales Marítimas?'
+];
 const codigoInput = document.getElementById('codigo-input');
 const popupError  = document.getElementById('popup-error');
 const popupPista  = document.getElementById('popup-pista');
-let   pistaIdx    = 0;
 
 document.getElementById('btn-validar').addEventListener('click', validar);
 codigoInput.addEventListener('keydown', e => { if (e.key === 'Enter') validar(); });
@@ -282,22 +304,45 @@ document.getElementById('error-close').addEventListener('click', () => {
   codigoInput.focus();
 });
 popupError.addEventListener('click', e => {
-  if (e.target === popupError) {
-    popupError.classList.remove('visible');
-    codigoInput.value = '';
-  }
+  if (e.target === popupError) { popupError.classList.remove('visible'); codigoInput.value = ''; }
 });
 
-document.getElementById('btn-pista').addEventListener('click', () => {
-  const texto = PISTAS.length > 0
-    ? PISTAS[pistaIdx % PISTAS.length]
-    : 'Las pistas para este día aún no están disponibles. ¡Sigue intentándolo! 💪';
-  document.getElementById('pista-texto').textContent = texto;
-  pistaIdx++;
-  popupPista.classList.add('visible');
+// ── Bolitas de pistas ──────────────────────────────────────
+// Estado inicial: siempre se reinicia al cargar la página
+// 0=rojo, 1=ambar(disponible), 2=verde(vista)
+const dotIds = ['pista-1','pista-2','pista-3','pista-4'];
+let pistaEstado = [1, 0, 0, 0]; // 0=rojo, 1=ambar, 2=verde
+
+function renderDots() {
+  dotIds.forEach((id, i) => {
+    const el = document.getElementById(id);
+    el.className = 'pista-dot ' + ['rojo','ambar','verde'][pistaEstado[i]];
+  });
+}
+
+dotIds.forEach((id, i) => {
+  document.getElementById(id).addEventListener('click', () => {
+    if (pistaEstado[i] !== 1 && pistaEstado[i] !== 2) return; // rojo = no clickable
+    // Mostrar pista
+    document.getElementById('pista-texto').textContent = PISTAS[i];
+    popupPista.classList.add('visible');
+    // Al cerrar: marcar como verde y activar la siguiente
+    const onClose = () => {
+      pistaEstado[i] = 2; // verde
+      if (i + 1 < dotIds.length) pistaEstado[i + 1] = 1; // siguiente ambar
+      renderDots();
+      document.getElementById('pista-close').removeEventListener('click', onClose);
+      popupPista.removeEventListener('click', outsideClose);
+    };
+    const outsideClose = e => {
+      if (e.target === popupPista) onClose();
+    };
+    document.getElementById('pista-close').addEventListener('click', onClose);
+    popupPista.addEventListener('click', outsideClose);
+  });
 });
-document.getElementById('pista-close').addEventListener('click', () => popupPista.classList.remove('visible'));
-popupPista.addEventListener('click', e => { if (e.target === popupPista) popupPista.classList.remove('visible'); });
+
+renderDots();
 
 // ── Lightbox ───────────────────────────────────────────────
 const lightbox      = document.getElementById('lightbox');
