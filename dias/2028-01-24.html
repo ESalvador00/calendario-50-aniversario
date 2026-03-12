@@ -24,7 +24,7 @@
     .foto-titulo{font-family:'Playfair Display',serif;font-size:1rem;font-weight:400;font-style:italic;color:rgba(201,168,76,.7);letter-spacing:.06em;text-align:center;}
     .foto-scene{position:relative;width:100%;max-width:500px;margin:0 auto;}
     .reto-img{display:block;width:100%;height:auto;border-radius:3px;border:1px solid rgba(201,168,76,.12);}
-    .bocadillo{position:absolute;top:50%;right:-2%;transform:translateY(-50%);width:44%;background:#FAF6EE;border:2px solid rgba(201,168,76,.55);border-radius:18px;padding:.9rem 1rem;min-height:80px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(0,0,0,.45);}
+    .bocadillo{position:absolute;top:50%;right:18%;transform:translateY(-50%);width:44%;background:#FAF6EE;border:2px solid rgba(201,168,76,.55);border-radius:18px;padding:.9rem 1rem;min-height:80px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(0,0,0,.45);}
     .bocadillo::before{content:'';position:absolute;left:-14px;top:50%;transform:translateY(-50%);border:7px solid transparent;border-right-color:rgba(201,168,76,.55);}
     .bocadillo::after{content:'';position:absolute;left:-10px;top:50%;transform:translateY(-50%);border:6px solid transparent;border-right-color:#FAF6EE;}
     .bocadillo-texto{font-family:'Cormorant Garamond',serif;font-size:.78rem;font-style:italic;color:#3D2B1F;line-height:1.5;text-align:center;min-height:2.5em;}
@@ -74,9 +74,9 @@
     .popup-btn{display:inline-block;padding:.7rem 2rem;border:1px solid rgba(201,168,76,.4);border-radius:2px;color:var(--gold);font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;background:none;transition:all .2s;}
     .popup-btn:hover{background:rgba(201,168,76,.1);border-color:var(--gold);}
     @media(max-width:480px){
-      .bocadillo{position:static;transform:none;width:100%;margin-top:1rem;border-radius:14px;}
-      .bocadillo::before,.bocadillo::after{display:none;}
       .foto-scene{display:flex;flex-direction:column;align-items:center;}
+      .bocadillo{position:static;transform:none;width:100%;order:-1;margin-bottom:1rem;border-radius:14px;}
+      .bocadillo::before,.bocadillo::after{display:none;}
     }
   </style>
 </head>
@@ -106,6 +106,11 @@
 
       <div class="codigo-wrap">
         <p class="codigo-label">Adivina quién soy</p>
+        <div class="codigo-row">
+          <span class="lock-icon">🔒</span>
+          <input type="text" class="codigo-input" id="codigo-input" placeholder="· · · · · · · ·" maxlength="20" autocomplete="off"/>
+          <button class="btn-validar" id="btn-validar">Validar</button>
+        </div>
         <div class="pistas-wrap">
           <div class="pista-dot ambar" id="pista-1" title="Pista 1">1</div>
           <div class="pista-dot rojo"  id="pista-2" title="Pista 2">2</div>
@@ -116,11 +121,6 @@
           <div class="pista-dot rojo"  id="pista-7" title="Pista 7">7</div>
           <div class="pista-dot rojo"  id="pista-8" title="Pista 8">8</div>
           <div class="pista-dot rojo"  id="pista-9" title="Pista 9">9</div>
-        </div>
-        <div class="codigo-row">
-          <span class="lock-icon">🔒</span>
-          <input type="text" class="codigo-input" id="codigo-input" placeholder="· · · · · · · ·" maxlength="20" autocomplete="off"/>
-          <button class="btn-validar" id="btn-validar">Validar</button>
         </div>
       </div>
     </div>
