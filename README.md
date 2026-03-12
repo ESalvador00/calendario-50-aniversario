@@ -4,6 +4,10 @@
 ```
 calendario-50-aniversario/
 ├── index.html
+├── media/              ← imágenes, vídeos, audios usados en los días
+│   ├── *.png / *.jpg
+│   ├── *.mp4 / *.webm
+│   └── *.mp3 / *.ogg
 └── dias/
     ├── 2028-01-11.html  ← primer día
     ├── ...
