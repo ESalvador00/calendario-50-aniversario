@@ -41,7 +41,7 @@
     @keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-6px);}75%{transform:translateX(6px);}}
     .btn-validar{padding:.55rem 1.4rem;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.35);border-radius:2px;color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:all .2s;white-space:nowrap;}
     .btn-validar:hover{background:rgba(201,168,76,.2);border-color:var(--gold);}
-    .pistas-wrap{display:flex;gap:.6rem;align-items:center;justify-content:center;flex-wrap:wrap;}
+    .pistas-wrap{display:flex;gap:.6rem;align-items:center;justify-content:center;flex-wrap:nowrap;}
     .pista-dot{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.82rem;font-weight:900;cursor:default;border:2px solid transparent;transition:all .25s;user-select:none;font-family:'Playfair Display',serif;}
     .pista-dot.rojo{background:rgba(180,50,50,.25);border-color:rgba(180,50,50,.4);color:rgba(255,120,120,.5);}
     .pista-dot.ambar{background:rgba(220,160,40,.2);border-color:rgba(220,160,40,.7);color:rgba(240,190,80,.9);cursor:pointer;animation:pulse-ambar 1.5s ease-in-out infinite;}
@@ -77,6 +77,8 @@
       .foto-scene{display:flex;flex-direction:column;align-items:center;}
       .bocadillo{position:static;transform:none;width:100%;order:-1;margin-bottom:1rem;border-radius:14px;}
       .bocadillo::before,.bocadillo::after{display:none;}
+      .pistas-wrap{gap:.35rem;}
+      .pista-dot{width:24px;height:24px;font-size:.7rem;}
     }
   </style>
 </head>
