@@ -312,6 +312,7 @@ popupError.addEventListener('click', e => {
 // 0=rojo, 1=ambar(disponible), 2=verde(vista)
 const dotIds = ['pista-1','pista-2','pista-3','pista-4'];
 let pistaEstado = [1, 0, 0, 0]; // 0=rojo, 1=ambar, 2=verde
+let pistaCallback = null; // qué hacer al cerrar el popup actual
 
 function renderDots() {
   dotIds.forEach((id, i) => {
@@ -320,25 +321,27 @@ function renderDots() {
   });
 }
 
+function cerrarPista() {
+  popupPista.classList.remove('visible');
+  if (pistaCallback) { pistaCallback(); pistaCallback = null; }
+}
+
+document.getElementById('pista-close').addEventListener('click', cerrarPista);
+popupPista.addEventListener('click', e => { if (e.target === popupPista) cerrarPista(); });
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && popupPista.classList.contains('visible')) cerrarPista();
+});
+
 dotIds.forEach((id, i) => {
   document.getElementById(id).addEventListener('click', () => {
-    if (pistaEstado[i] !== 1 && pistaEstado[i] !== 2) return; // rojo = no clickable
-    // Mostrar pista
+    if (pistaEstado[i] === 0) return; // rojo = bloqueada
     document.getElementById('pista-texto').textContent = PISTAS[i];
     popupPista.classList.add('visible');
-    // Al cerrar: marcar como verde y activar la siguiente
-    const onClose = () => {
+    pistaCallback = () => {
       pistaEstado[i] = 2; // verde
       if (i + 1 < dotIds.length) pistaEstado[i + 1] = 1; // siguiente ambar
       renderDots();
-      document.getElementById('pista-close').removeEventListener('click', onClose);
-      popupPista.removeEventListener('click', outsideClose);
     };
-    const outsideClose = e => {
-      if (e.target === popupPista) onClose();
-    };
-    document.getElementById('pista-close').addEventListener('click', onClose);
-    popupPista.addEventListener('click', outsideClose);
   });
 });
 
