@@ -166,7 +166,7 @@
 <div class="popup-overlay" id="popup-pista">
   <div class="popup-box">
     <div class="popup-icon">💡</div>
-    <p class="popup-title">Pista</p>
+    <p class="popup-title" id="pista-titulo">Pista</p>
     <p class="popup-msg" id="pista-texto">La pista aparecerá aquí.</p>
     <button class="popup-btn" id="pista-close">Entendido</button>
   </div>
@@ -336,10 +336,12 @@ dotIds.forEach((id, i) => {
   document.getElementById(id).addEventListener('click', () => {
     if (pistaEstado[i] === 0) return; // rojo = bloqueada
     document.getElementById('pista-texto').textContent = PISTAS[i];
+    document.getElementById('pista-titulo').textContent = `Pista ${i + 1}`;
     popupPista.classList.add('visible');
     pistaCallback = () => {
+      const eraAmbar = pistaEstado[i] === 1;
       pistaEstado[i] = 2; // verde
-      if (i + 1 < dotIds.length) pistaEstado[i + 1] = 1; // siguiente ambar
+      if (eraAmbar && i + 1 < dotIds.length) pistaEstado[i + 1] = 1; // siguiente ambar solo si era la primera vez
       renderDots();
     };
   });
