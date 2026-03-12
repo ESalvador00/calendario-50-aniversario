@@ -76,12 +76,6 @@ https://esalvador00.github.io/calendario-50-aniversario/
 
 ---
 
-## Pendiente de añadir
-- Contenido de los retos de cada día (en `content-area` de cada página)
-- Recompensas de cada día (en el popup `reward-text` de cada página)
-
----
-
 ## Sistema de pistas
 
 Cada página de día puede tener N pistas (el número varía según el día). Se implementan con bolitas de colores debajo del campo de código:
@@ -122,3 +116,12 @@ Y actualiza el array `dotIds` en el JS para que coincida:
 const dotIds = ['pista-1','pista-2','pista-3'];
 let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 ```
+
+---
+
+## Resumen de días con contenido
+
+| Día | Reto | Clave | Media | Actores | Recompensa |
+|-----|------|-------|-------|---------|------------|
+| 2028-01-24 | Adivina quién soy | HEIMDALL | Alex_20220817.png | Alex | PDTE |
+| 2028-01-30 | Agudeza visual — banderas Código Internacional de Señales Marítimas | 99274 | FinAno2020.png | Nieves, Enric, Ari, Alex | PDTE |
