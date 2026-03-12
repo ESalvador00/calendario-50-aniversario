@@ -24,9 +24,9 @@
     .foto-titulo{font-family:'Playfair Display',serif;font-size:1rem;font-weight:400;font-style:italic;color:rgba(201,168,76,.7);letter-spacing:.06em;text-align:center;}
     .foto-scene{position:relative;width:100%;max-width:500px;margin:0 auto;}
     .reto-img{display:block;width:100%;height:auto;border-radius:3px;border:1px solid rgba(201,168,76,.12);}
-    .bocadillo{position:absolute;top:50%;right:8%;transform:translateY(-50%);width:44%;background:#FAF6EE;border:2px solid rgba(201,168,76,.55);border-radius:18px;padding:.9rem 1rem;min-height:80px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(0,0,0,.45);}
-    .bocadillo::before{content:'';position:absolute;left:-14px;top:50%;transform:translateY(-50%);border:7px solid transparent;border-right-color:rgba(201,168,76,.55);}
-    .bocadillo::after{content:'';position:absolute;left:-10px;top:50%;transform:translateY(-50%);border:6px solid transparent;border-right-color:#FAF6EE;}
+    .bocadillo{position:absolute;top:8%;right:8%;transform:none;width:44%;background:#FAF6EE;border:2px solid rgba(201,168,76,.55);border-radius:18px;padding:.9rem 1rem;min-height:80px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(0,0,0,.45);}
+    .bocadillo::before{content:'';position:absolute;left:-14px;top:28px;transform:none;border:7px solid transparent;border-right-color:rgba(201,168,76,.55);}
+    .bocadillo::after{content:'';position:absolute;left:-10px;top:29px;transform:none;border:6px solid transparent;border-right-color:#FAF6EE;}
     .bocadillo-texto{font-family:'Cormorant Garamond',serif;font-size:.78rem;font-style:italic;color:#3D2B1F;line-height:1.5;text-align:center;min-height:2.5em;}
     .bocadillo-texto.typing::after{content:'|';animation:blink .6s step-end infinite;color:var(--gold-dark);}
     @keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
@@ -34,7 +34,7 @@
     .codigo-label{font-size:.8rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(201,168,76,.55);}
     .codigo-row{display:flex;gap:.6rem;width:100%;max-width:340px;align-items:center;}
     .lock-icon{font-size:1.4rem;flex-shrink:0;opacity:.6;}
-    .codigo-input{flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.25);border-radius:2px;color:var(--cream);font-family:'Cormorant Garamond',serif;font-size:1.1rem;letter-spacing:.2em;text-align:center;padding:.55rem .8rem;outline:none;transition:border-color .2s;}
+    .codigo-input{flex:1;min-width:0;background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.25);border-radius:2px;color:var(--cream);font-family:'Cormorant Garamond',serif;font-size:1.1rem;letter-spacing:.2em;text-align:center;padding:.55rem .8rem;outline:none;transition:border-color .2s;}
     .codigo-input:focus{border-color:rgba(201,168,76,.6);}
     .codigo-input.error{border-color:rgba(255,90,90,.5);animation:shake .3s ease;}
     .codigo-input.ok{border-color:rgba(80,200,120,.6);}
