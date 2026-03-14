@@ -85,10 +85,18 @@
     .popup-btn:hover{background:rgba(201,168,76,.1);border-color:var(--gold);}
 
     /* ── Mobile ── */
-    @media(max-width:480px){
+    @media(max-width:600px){
+      .wrap{padding:1rem 1rem 2rem;}
+      .day-hero{padding:1rem 0 1rem;}
+      h1{font-size:clamp(2rem,14vw,4rem);}
+      .month-label{font-size:clamp(1rem,4vw,1.6rem);margin-bottom:1rem;}
+      .content-area{padding:1rem;gap:1rem;}
+      .reto-img{max-height:38vh;width:auto;max-width:100%;object-fit:contain;}
       .pistas-wrap{gap:.4rem;}
       .pista-dot{width:24px;height:24px;font-size:.7rem;}
       .codigo-row{max-width:100%;}
+      .day-nav{margin-top:1rem;padding-top:1rem;}
+      .ornament-line-h{margin-bottom:1rem;}
     }
 
     /* ── Lightbox ── */
