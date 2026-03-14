@@ -70,8 +70,7 @@
     .popup-msg{font-size:1rem;font-style:italic;color:rgba(250,246,238,.6);line-height:1.7;margin-bottom:2rem;}
     .popup-btn{display:inline-block;padding:.7rem 2rem;border:1px solid rgba(201,168,76,.4);border-radius:2px;color:var(--gold);font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;background:none;transition:all .2s;}
     .popup-btn:hover{background:rgba(201,168,76,.1);border-color:var(--gold);}
-    .typing::after{content:'|';animation:blink .6s step-end infinite;color:var(--gold-dark);}
-    @keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
+
     @media(max-width:600px){
       .wrap{padding:1rem 1rem 2rem;}
       .day-hero{padding:1rem 0 1rem;}
@@ -328,8 +327,6 @@ const PISTAS = [
 const dotIds      = ['pista-1','pista-2','pista-3','pista-4','pista-5','pista-6','pista-7','pista-8','pista-9'];
 let pistaEstado   = [1, 0, 0, 0, 0, 0, 0, 0, 0];
 let pistaCallback = null;
-let typing        = false;
-let typeTimer     = null;
 
 const popupPista  = document.getElementById('popup-pista');
 const pistaTexto  = document.getElementById('pista-texto');
@@ -341,27 +338,7 @@ function renderDots() {
   });
 }
 
-function typeText(text, el, onDone) {
-  if (typing) clearTimeout(typeTimer);
-  typing = true;
-  el.textContent = '';
-  el.classList.add('typing');
-  let i = 0;
-  function step() {
-    if (i < text.length) {
-      el.textContent += text[i++];
-      typeTimer = setTimeout(step, 22);
-    } else {
-      el.classList.remove('typing');
-      typing = false;
-      if (onDone) onDone();
-    }
-  }
-  step();
-}
-
 function cerrarPista() {
-  if (typing) { clearTimeout(typeTimer); typing = false; pistaTexto.classList.remove('typing'); }
   popupPista.classList.remove('visible');
   if (pistaCallback) { pistaCallback(); pistaCallback = null; }
 }
@@ -376,9 +353,8 @@ dotIds.forEach((id, i) => {
   document.getElementById(id).addEventListener('click', () => {
     if (pistaEstado[i] === 0) return;
     pistaTitulo.textContent = `Pista ${i + 1}`;
-    pistaTexto.textContent = '';
+    pistaTexto.textContent = PISTAS[i];
     popupPista.classList.add('visible');
-    typeText(PISTAS[i], pistaTexto);
     pistaCallback = () => {
       const eraAmbar = pistaEstado[i] === 1;
       pistaEstado[i] = 2;
