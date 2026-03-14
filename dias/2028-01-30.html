@@ -30,7 +30,7 @@
     .reto-img-wrap img{display:block;width:100%;height:auto;transition:transform .2s;}
 
     /* ── Título foto ── */
-    .foto-titulo{font-family:'Playfair Display',serif;font-size:1rem;font-weight:400;font-style:italic;color:rgba(201,168,76,.7);letter-spacing:.06em;margin-bottom:.6rem;text-align:center;}
+    .foto-titulo{font-family:'Playfair Display',serif;font-size:.8rem;font-weight:400;font-style:italic;color:rgba(201,168,76,.7);letter-spacing:.06em;text-align:right;width:100%;margin-bottom:0;}
 
     /* ── Código secreto ── */
     .codigo-wrap{width:100%;display:flex;flex-direction:column;align-items:center;gap:.9rem;}
@@ -117,12 +117,11 @@
     <p class="month-label">de Enero</p>
 
     <div class="content-area">
-      <!-- Título foto -->
-      <p class="foto-titulo">Celebrando el fin de año del 2020, Terrassa</p>
-
       <!-- Imagen del reto -->
-      <div class="reto-img-wrap" id="img-wrap" title="Clic para ampliar">
-        <img src="../media/FinAno2020.png" alt="Reto del día" id="reto-img" draggable="false"/>
+      <div class="reto-img-wrap" id="img-wrap" title="Clic para ampliar" style="display:flex;flex-direction:column;gap:0;cursor:default;overflow:visible;border:none;">
+        <p class="foto-titulo">Terrassa, 31 de diciembre de 2020</p>
+        <div style="width:100%;cursor:zoom-in;border-radius:3px;overflow:hidden;border:1px solid rgba(201,168,76,.12);transition:border-color .2s;" id="img-inner">
+        <img src="../media/FinAno2020.png" alt="Reto del día" id="reto-img" draggable="false" style="display:block;width:100%;height:auto;transition:transform .2s;"/></div>
       </div>
 
       <!-- Código secreto -->
@@ -285,7 +284,7 @@ const PISTAS      = [
   'Para abrir el candado necesitas un código numérico de 5 dígitos que NO guarda relación con el día en que se tomó la foto... fíjate bien en los detalles de la imagen.',
   'Sí, cierto, esta es dificililla... imagina que en lugar de estar en casa estás en el Club Náutico, en un ambiente más marino.',
   'Uy, ¿y esa guirnalda? ¿Quién puso esa guirnalda ahí? Yo no lo recordaba...',
-  'Esas banderas, o mejor dicho esos "gallardetes", ¿qué significan según el Código Internacional de Señales Marítimas?'
+  'Ojalá conociera el Código Internacional de Señales Marítimas para saber qué significan esos gallardetes.'
 ];
 const codigoInput = document.getElementById('codigo-input');
 const popupError  = document.getElementById('popup-error');
@@ -382,7 +381,7 @@ function closeLightbox() {
   applyTransform();
 }
 
-document.getElementById('img-wrap').addEventListener('click', openLightbox);
+document.getElementById('img-inner').addEventListener('click', openLightbox);
 document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
 lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
 
