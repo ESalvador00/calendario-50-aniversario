@@ -27,7 +27,7 @@
     /* ── Frase oculta ── */
     .frase-negra-wrap{
       width:100%;
-      background:#0a0704;
+      background:var(--dark);
       border-radius:3px;
       border:1px solid rgba(201,168,76,.08);
       padding:2.2rem 2rem;
@@ -45,7 +45,7 @@
       text-transform:uppercase;
       letter-spacing:.06em;
       text-align:center;
-      color:#0a0704;           /* mismo que fondo: invisible */
+      color:var(--dark);      /* mismo que fondo: invisible */
       user-select:text;
       cursor:text;
     }
@@ -307,7 +307,7 @@ doneBtn.addEventListener('click', () => {
 updateDone();
 
 // ── Código secreto ──────────────────────────────────────────
-const RESPUESTAS_OK = ['300000', '300.000', 'TRESCIENTOS MIL', '300 000', '300,000'];
+const RESPUESTAS_OK = ['300000', '300.000', 'TRESCIENTOS MIL', '300 000', '300,000', '300K', '300MIL'];
 const codigoInput   = document.getElementById('codigo-input');
 const popupError    = document.getElementById('popup-error');
 
@@ -339,10 +339,10 @@ popupError.addEventListener('click', e => {
 
 // ── Pistas ──────────────────────────────────────────────────
 const PISTAS = [
-  'No buscamos una palabra, buscamos una cifra. Y no es cualquier número: tiene seis dígitos y muchos, muchos ceros. Piensa en grande... ¡y en rápido!',
-  'Hoy es Black Friday y todos cazan el chollo perfecto. Pero recuerda la regla de oro: las mejores ofertas nunca están en el escaparate. Están ocultas a simple vista... igual que la respuesta.',
-  '¿Oyes esa canción que suena? Es un clásico de los Rolling Stones. Escúchala bien... Mick Jagger pintó algo de negro hoy. ¿Será una pista sobre lo que tienes delante?',
-  'Parece que no hay nada, pero te aseguro que estar, está. Como diría Carles Porta en Crims: "Posem llum a la foscor." Selecciona lo que ves... o lo que no ves.'
+  'No buscamos una palabra, buscamos una cifra. Prepárate, porque la respuesta es un número... y uno con muchos ceros',
+  'Hoy es Black Friday y todos buscan un chollo. Pero recuerda la regla de oro: las mejores ofertas nunca están en el escaparate, están ocultas a simple vista.',
+  '¿Oyes eso que suena en la radio? Es un clásico de los Rolling Stones. Escucha bien... creo que Mick Jagger estaría muy contento de ver cómo hemos dejado esta prueba...',
+  "Parece que no hay nada, pero te aseguro que estar, está. ¿Cómo es eso que siempre dice Carles Porta en Crims? 'Posem llum a la foscor'"
 ];
 
 const dotIds      = ['pista-1','pista-2','pista-3','pista-4'];
