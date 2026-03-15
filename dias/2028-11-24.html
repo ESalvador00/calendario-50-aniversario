@@ -27,9 +27,9 @@
     /* ── Frase oculta ── */
     .frase-negra-wrap{
       width:100%;
-      background:var(--dark);
+      background:#2f271b;
       border-radius:3px;
-      border:1px solid rgba(201,168,76,.08);
+      border:none;
       padding:2.2rem 2rem;
       display:flex;
       align-items:center;
@@ -45,7 +45,7 @@
       text-transform:uppercase;
       letter-spacing:.06em;
       text-align:center;
-      color:var(--dark);      /* mismo que fondo: invisible */
+      color:#2f271b;      /* mismo que fondo: invisible */
       user-select:text;
       cursor:text;
     }
@@ -149,7 +149,6 @@
 
       <!-- Reproductor de audio -->
       <div class="audio-wrap">
-        <p class="audio-label">♪ Música de fondo</p>
         <audio id="audio-player" loop controls>
           <source src="../media/The_Rolling_Stones_Paint_It_Black.mp3" type="audio/mpeg"/>
         </audio>
