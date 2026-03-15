@@ -7,56 +7,92 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
-    :root{--gold:#C9A84C;--gold-light:#E8C97A;--gold-dark:#8B6914;--cream:#FAF6EE;--dark:#1A1410;}
+    :root{--gold:#8c487c;--gold-light:#b05e9a;--gold-dark:#5a2a50;--cream:#f9eef5;--dark:#e4b6d8;}
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-    body{background-color:var(--dark);color:var(--cream);font-family:'Cormorant Garamond',serif;min-height:100vh;display:flex;flex-direction:column;}
-    body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 25% 15%,rgba(201,168,76,.10) 0%,transparent 55%),radial-gradient(ellipse at 75% 85%,rgba(124,54,38,.10) 0%,transparent 55%);pointer-events:none;z-index:0;}
+    body{background-color:var(--dark);color:var(--gold-dark);font-family:'Cormorant Garamond',serif;min-height:100vh;display:flex;flex-direction:column;}
+    body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 25% 15%,rgba(140,72,124,.12) 0%,transparent 55%),radial-gradient(ellipse at 75% 85%,rgba(90,42,80,.10) 0%,transparent 55%);pointer-events:none;z-index:0;}
     .wrap{position:relative;z-index:1;max-width:800px;margin:0 auto;padding:3rem 2rem 4rem;flex:1;display:flex;flex-direction:column;}
     .day-hero{text-align:center;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 0 2rem;position:relative;}
     .ornament-line-h{display:flex;align-items:center;justify-content:center;gap:1rem;margin-bottom:2rem;}
     .o-line{height:1px;width:60px;background:linear-gradient(to right,transparent,var(--gold));}
     .o-line.r{background:linear-gradient(to left,transparent,var(--gold));}
     .o-dot{width:5px;height:5px;background:var(--gold);border-radius:50%;}
-    .day-of-week{font-size:.85rem;letter-spacing:.4em;text-transform:uppercase;color:rgba(201,168,76,.5);margin-bottom:1rem;}
+    .day-of-week{font-size:.85rem;letter-spacing:.4em;text-transform:uppercase;color:rgba(90,42,80,.55);margin-bottom:1rem;}
     h1{font-family:'Playfair Display',serif;font-size:clamp(3rem,9vw,7rem);font-weight:900;line-height:1;background:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 50%,var(--gold-dark) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.5rem;}
-    .month-label{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3.5vw,2.4rem);font-weight:400;font-style:italic;color:rgba(250,246,238,.45);margin-bottom:2.5rem;}
-    .content-area{width:100%;border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:2.5rem;min-height:220px;background:rgba(255,255,255,.02);color:rgba(250,246,238,.4);font-size:1rem;font-style:italic;text-align:center;display:flex;align-items:center;justify-content:center;}
-    .day-nav{display:flex;justify-content:space-between;align-items:center;padding-top:2.5rem;border-top:1px solid rgba(201,168,76,.1);margin-top:2.5rem;}
-    .nav-btn{font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(201,168,76,.5);text-decoration:none;padding:.6rem 1.2rem;border:1px solid rgba(201,168,76,.18);border-radius:2px;transition:all .2s;}
-    .nav-btn:hover{color:var(--gold-light);border-color:rgba(201,168,76,.5);background:rgba(201,168,76,.05);}
+    .month-label{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3.5vw,2.4rem);font-weight:400;font-style:italic;color:rgba(90,42,80,.55);margin-bottom:2.5rem;}
+    .content-area{width:100%;border:1px solid rgba(140,72,124,.25);border-radius:4px;padding:2rem;background:rgba(255,255,255,.25);display:flex;flex-direction:column;align-items:center;gap:1.8rem;}
+    .fotos-grid{width:100%;display:grid;grid-template-columns:repeat(7,1fr);gap:6px;}
+    .foto-thumb{cursor:zoom-in;border-radius:2px;overflow:hidden;border:1px solid rgba(140,72,124,.2);transition:border-color .2s,transform .15s;}
+    .foto-thumb:hover{border-color:rgba(140,72,124,.7);transform:scale(1.04);}
+    .foto-thumb img{display:block;width:100%;aspect-ratio:1/1;object-fit:cover;filter:grayscale(100%) sepia(60%) hue-rotate(260deg) saturate(120%);transition:filter .2s;}
+    .foto-thumb:hover img{filter:grayscale(60%) sepia(60%) hue-rotate(260deg) saturate(150%);}
+    .codigo-wrap{width:100%;display:flex;flex-direction:column;align-items:center;gap:.9rem;}
+    .codigo-label{font-size:.8rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(90,42,80,.7);}
+    .codigo-row{display:flex;gap:.6rem;width:100%;max-width:340px;align-items:center;}
+    .lock-icon{font-size:1.4rem;flex-shrink:0;opacity:.6;}
+    .codigo-input{flex:1;min-width:0;background:rgba(255,255,255,.5);border:1px solid rgba(140,72,124,.35);border-radius:2px;color:var(--gold-dark);font-family:'Cormorant Garamond',serif;font-size:1.1rem;letter-spacing:.2em;text-align:center;padding:.55rem .8rem;outline:none;transition:border-color .2s;}
+    .codigo-input:focus{border-color:rgba(140,72,124,.8);}
+    .codigo-input.error{border-color:rgba(200,50,50,.6);animation:shake .3s ease;}
+    .codigo-input.ok{border-color:rgba(50,150,80,.7);}
+    @keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-6px);}75%{transform:translateX(6px);}}
+    .btn-validar{padding:.55rem 1.4rem;background:rgba(140,72,124,.12);border:1px solid rgba(140,72,124,.45);border-radius:2px;color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:all .2s;white-space:nowrap;}
+    .btn-validar:hover{background:rgba(140,72,124,.25);border-color:var(--gold);}
+    .pistas-wrap{display:flex;gap:.5rem;align-items:center;justify-content:center;flex-wrap:nowrap;}
+    .pista-dot{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:700;cursor:default;border:2px solid transparent;transition:all .25s;user-select:none;font-family:'Cormorant Garamond',serif;}
+    .pista-dot.rojo  {background:rgba(180,50,50,.15);border-color:rgba(180,50,50,.35);color:rgba(180,50,50,.5);}
+    .pista-dot.ambar {background:rgba(140,72,124,.2);border-color:rgba(140,72,124,.8);color:var(--gold);cursor:pointer;animation:pulse-ambar 1.5s ease-in-out infinite;}
+    .pista-dot.verde {background:rgba(50,150,80,.15);border-color:rgba(50,150,80,.6);color:rgba(30,120,60,.9);cursor:pointer;}
+    .pista-dot.ambar:hover{background:rgba(140,72,124,.35);}
+    .pista-dot.verde:hover{background:rgba(50,150,80,.25);}
+    @keyframes pulse-ambar{0%,100%{box-shadow:0 0 0 0 rgba(140,72,124,.4);}50%{box-shadow:0 0 0 5px rgba(140,72,124,.0);}}
+    .day-nav{display:flex;justify-content:space-between;align-items:center;padding-top:2.5rem;border-top:1px solid rgba(140,72,124,.2);margin-top:2.5rem;}
+    .nav-btn{font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(90,42,80,.6);text-decoration:none;padding:.6rem 1.2rem;border:1px solid rgba(140,72,124,.25);border-radius:2px;transition:all .2s;}
+    .nav-btn:hover{color:var(--gold-dark);border-color:rgba(140,72,124,.7);background:rgba(140,72,124,.08);}
     .nav-btn.disabled{opacity:0;pointer-events:none;}
-    .year-badge{font-size:.7rem;letter-spacing:.3em;color:rgba(201,168,76,.25);text-transform:uppercase;}
-    .back-link{display:block;text-align:center;margin-top:2rem;color:rgba(201,168,76,.35);font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;text-decoration:none;transition:color .2s;}
+    .year-badge{font-size:.7rem;letter-spacing:.3em;color:rgba(90,42,80,.4);text-transform:uppercase;}
+    .back-link{display:block;text-align:center;margin-top:2rem;color:rgba(90,42,80,.45);font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;text-decoration:none;transition:color .2s;}
     .back-link:hover{color:var(--gold);}
-    /* Botones fav y done */
     .action-btns{position:absolute;top:0;right:0;display:flex;flex-direction:column;align-items:center;gap:.2rem;}
     .icon-btn{background:none;border:none;cursor:pointer;font-size:2rem;line-height:1;transition:color .2s,transform .2s;padding:.2rem;}
     .icon-btn:hover{transform:scale(1.2);}
-    .fav-btn{color:rgba(250,246,238,.2);}
+    .fav-btn{color:rgba(90,42,80,.3);}
     .fav-btn.active{color:#e05a6a;}
     .fav-btn.active:hover{color:#ff7a88;}
     .done-btn{color:var(--gold);opacity:0.6;}
     .done-btn.active{color:var(--gold);opacity:1;}
     .done-btn.active:hover{color:var(--gold-light);opacity:1;}
-    /* Popup */
-    .popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:100;align-items:center;justify-content:center;}
+    .popup-overlay{display:none;position:fixed;inset:0;background:rgba(90,42,80,.5);z-index:100;align-items:center;justify-content:center;}
     .popup-overlay.visible{display:flex;}
-    .popup-box{background:var(--dark);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:3rem 2.5rem;max-width:420px;width:90%;text-align:center;box-shadow:0 0 60px rgba(0,0,0,.8);}
+    .popup-box{background:#f9eef5;border:1px solid rgba(140,72,124,.4);border-radius:6px;padding:3rem 2.5rem;max-width:420px;width:90%;text-align:center;box-shadow:0 0 60px rgba(90,42,80,.3);}
     .popup-icon{font-size:3rem;margin-bottom:1rem;}
-    .popup-title{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--gold-light);margin-bottom:1rem;}
-    .popup-msg{font-size:1rem;font-style:italic;color:rgba(250,246,238,.6);line-height:1.7;margin-bottom:2rem;}
-    .popup-btn{display:inline-block;padding:.7rem 2rem;border:1px solid rgba(201,168,76,.4);border-radius:2px;color:var(--gold);font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;background:none;transition:all .2s;}
-    .popup-btn:hover{background:rgba(201,168,76,.1);border-color:var(--gold);}
+    .popup-title{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--gold);margin-bottom:1rem;}
+    .popup-msg{font-size:1rem;font-style:italic;color:rgba(90,42,80,.75);line-height:1.7;margin-bottom:2rem;}
+    .popup-btn{display:inline-block;padding:.7rem 2rem;border:1px solid rgba(140,72,124,.45);border-radius:2px;color:var(--gold);font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;background:none;transition:all .2s;}
+    .popup-btn:hover{background:rgba(140,72,124,.1);border-color:var(--gold);}
     @media(max-width:600px){
       .wrap{padding:1rem 1rem 2rem;}
       .day-hero{padding:1rem 0 1rem;}
       h1{font-size:clamp(2rem,14vw,4rem);}
       .month-label{font-size:clamp(1rem,4vw,1.6rem);margin-bottom:1rem;}
-      .content-area{padding:1.2rem;min-height:120px;}
+      .content-area{padding:1rem;gap:1rem;}
+      .fotos-grid{grid-template-columns:1fr;gap:8px;}
+      .foto-thumb img{aspect-ratio:16/9;}
+      .pistas-wrap{gap:.3rem;}
+      .pista-dot{width:22px;height:22px;font-size:.62rem;}
+      .codigo-row{max-width:100%;}
       .day-nav{margin-top:1rem;padding-top:1rem;}
       .ornament-line-h{margin-bottom:1rem;}
     }
-</style>
+    .lightbox{display:none;position:fixed;inset:0;background:rgba(60,20,55,.92);z-index:200;align-items:center;justify-content:center;cursor:zoom-out;}
+    .lightbox.visible{display:flex;}
+    .lightbox-inner{position:relative;width:min(85vw,85vh);height:min(85vw,85vh);overflow:hidden;touch-action:none;}
+    .lightbox-inner img{display:block;width:100%;height:100%;object-fit:contain;transform-origin:center center;transition:transform .2s ease;user-select:none;cursor:grab;filter:grayscale(100%) sepia(60%) hue-rotate(260deg) saturate(120%);}
+    .lightbox-inner img.grabbing{cursor:grabbing;}
+    .lightbox-close{position:fixed;top:1.2rem;right:1.5rem;background:none;border:none;color:rgba(228,182,216,.6);font-size:2rem;cursor:pointer;z-index:201;line-height:1;transition:color .2s;}
+    .lightbox-close:hover{color:#e4b6d8;}
+    .lightbox-hint{position:fixed;bottom:1.2rem;left:50%;transform:translateX(-50%);font-size:.7rem;letter-spacing:.2em;color:rgba(228,182,216,.35);text-transform:uppercase;pointer-events:none;}
+    .lightbox-counter{position:fixed;top:1.2rem;left:50%;transform:translateX(-50%);font-size:.7rem;letter-spacing:.2em;color:rgba(228,182,216,.5);text-transform:uppercase;pointer-events:none;}
+  </style>
 </head>
 <body>
 <div class="wrap">
@@ -71,10 +107,42 @@
     <p class="day-of-week">Miércoles</p>
     <h1>8</h1>
     <p class="month-label">de Marzo</p>
+
     <div class="content-area">
-      <p>Espacio reservado para el contenido de este día</p>
+
+      <div class="fotos-grid" id="fotos-grid">
+        <div class="foto-thumb" data-idx="0"><img src="../media/Lugar02_01.jpg" alt="Lugar 1" draggable="false"/></div>
+        <div class="foto-thumb" data-idx="1"><img src="../media/Lugar02_02.jpg" alt="Lugar 2" draggable="false"/></div>
+        <div class="foto-thumb" data-idx="2"><img src="../media/Lugar02_03.jpg" alt="Lugar 3" draggable="false"/></div>
+        <div class="foto-thumb" data-idx="3"><img src="../media/Lugar02_04.jpg" alt="Lugar 4" draggable="false"/></div>
+        <div class="foto-thumb" data-idx="4"><img src="../media/Lugar02_05.jpg" alt="Lugar 5" draggable="false"/></div>
+        <div class="foto-thumb" data-idx="5"><img src="../media/Lugar02_06.jpg" alt="Lugar 6" draggable="false"/></div>
+        <div class="foto-thumb" data-idx="6"><img src="../media/Lugar02_07.jpg" alt="Lugar 7" draggable="false"/></div>
+      </div>
+
+      <div class="codigo-wrap">
+        <p class="codigo-label">Adivina el lugar</p>
+        <div class="codigo-row">
+          <span class="lock-icon">🔒</span>
+          <input type="text" class="codigo-input" id="codigo-input" placeholder="· · · · · · ·" maxlength="20" autocomplete="off"/>
+          <button class="btn-validar" id="btn-validar">Validar</button>
+        </div>
+        <div class="pistas-wrap">
+          <div class="pista-dot ambar" id="pista-1" title="Pista 1">1</div>
+          <div class="pista-dot rojo"  id="pista-2" title="Pista 2">2</div>
+          <div class="pista-dot rojo"  id="pista-3" title="Pista 3">3</div>
+          <div class="pista-dot rojo"  id="pista-4" title="Pista 4">4</div>
+          <div class="pista-dot rojo"  id="pista-5" title="Pista 5">5</div>
+          <div class="pista-dot rojo"  id="pista-6" title="Pista 6">6</div>
+          <div class="pista-dot rojo"  id="pista-7" title="Pista 7">7</div>
+          <div class="pista-dot rojo"  id="pista-8" title="Pista 8">8</div>
+          <div class="pista-dot rojo"  id="pista-9" title="Pista 9">9</div>
+        </div>
+      </div>
+
     </div>
   </div>
+
   <nav class="day-nav">
     <a class="nav-btn" href="2028-03-07.html">&#8592; 7 de Marzo</a>
     <span class="year-badge">50 Aniversario · 2028</span>
@@ -83,6 +151,7 @@
   <a class="back-link" href="../index.html">&#8592; Volver al Calendario</a>
 </div>
 
+<!-- Popup: día futuro -->
 <div class="popup-overlay" id="popup">
   <div class="popup-box">
     <div class="popup-icon">🎁</div>
@@ -92,7 +161,27 @@
   </div>
 </div>
 
-<!-- Popup estrella bloqueada -->
+<!-- Popup: código incorrecto -->
+<div class="popup-overlay" id="popup-error">
+  <div class="popup-box">
+    <div class="popup-icon">🔍</div>
+    <p class="popup-title">¡Casi lo tienes!</p>
+    <p class="popup-msg">Ese no es el código correcto...<br>Fíjate bien y vuelve a intentarlo. 💪</p>
+    <button class="popup-btn" id="error-close">Intentarlo de nuevo</button>
+  </div>
+</div>
+
+<!-- Popup: pista -->
+<div class="popup-overlay" id="popup-pista">
+  <div class="popup-box">
+    <div class="popup-icon">💡</div>
+    <p class="popup-title" id="pista-titulo">Pista</p>
+    <p class="popup-msg" id="pista-texto"></p>
+    <button class="popup-btn" id="pista-close">Entendido</button>
+  </div>
+</div>
+
+<!-- Popup: estrella bloqueada -->
 <div class="popup-overlay" id="popup-star-blocked">
   <div class="popup-box">
     <div class="popup-icon">🏆</div>
@@ -102,7 +191,7 @@
   </div>
 </div>
 
-<!-- Popup recompensa del día -->
+<!-- Popup: recompensa -->
 <div class="popup-overlay" id="popup-star-reward">
   <div class="popup-box">
     <div class="popup-icon">🎁</div>
@@ -112,20 +201,30 @@
   </div>
 </div>
 
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightbox-close">✕</button>
+  <p class="lightbox-counter" id="lightbox-counter"></p>
+  <div class="lightbox-inner" id="lightbox-inner">
+    <img src="" alt="Lugar" id="lightbox-img" draggable="false"/>
+  </div>
+  <p class="lightbox-hint">Scroll para zoom · Arrastra para mover · ← → para navegar · ESC para cerrar</p>
+</div>
+
 <script>
-const PREVIEW_KEY  = 'cal_preview';
-const isPreview    = localStorage.getItem(PREVIEW_KEY) === '1';
-const today        = new Date(); today.setHours(0,0,0,0);
-const thisDate     = new Date('2028-03-08'); thisDate.setHours(0,0,0,0);
-const nextDateStr  = '2028-03-09';
-const popup        = document.getElementById('popup');
+// ── Preview / bloqueo ───────────────────────────────────────
+const PREVIEW_KEY = 'cal_preview';
+const isPreview   = localStorage.getItem(PREVIEW_KEY) === '1';
+const today       = new Date(); today.setHours(0,0,0,0);
+const thisDate    = new Date('2028-03-08'); thisDate.setHours(0,0,0,0);
+const nextDateStr = '2028-03-09';
+const popup       = document.getElementById('popup');
 
 if (!isPreview && thisDate > today) {
   document.querySelector('.day-hero').style.filter = 'blur(4px)';
   document.querySelector('.day-nav').style.visibility = 'hidden';
   popup.classList.add('visible');
 }
-
 if (!isPreview && nextDateStr) {
   const nextDate = new Date(nextDateStr); nextDate.setHours(0,0,0,0);
   if (nextDate > today) {
@@ -133,10 +232,9 @@ if (!isPreview && nextDateStr) {
     if (nextBtn) nextBtn.addEventListener('click', e => { e.preventDefault(); popup.classList.add('visible'); });
   }
 }
-
 popup.addEventListener('click', e => { if (e.target === popup) window.location.href = '../index.html'; });
 
-// ── Favourite ──────────────────────────────────────────────
+// ── Favourites ──────────────────────────────────────────────
 const FAV_KEY = 'fav_2028-03-08';
 const favBtn  = document.getElementById('fav-btn');
 function updateFav() {
@@ -152,26 +250,18 @@ favBtn.addEventListener('click', () => {
 });
 updateFav();
 
-// ── Done (actividad completada) ────────────────────────────
-const DONE_KEY = 'done_2028-03-08';
-const doneBtn  = document.getElementById('done-btn');
+// ── Done ────────────────────────────────────────────────────
+const DONE_KEY         = 'done_2028-03-08';
+const doneBtn          = document.getElementById('done-btn');
 const popupStarBlocked = document.getElementById('popup-star-blocked');
 const popupStarReward  = document.getElementById('popup-star-reward');
 
-document.getElementById('star-blocked-close').addEventListener('click', () => {
-  popupStarBlocked.classList.remove('visible');
-});
-popupStarBlocked.addEventListener('click', e => {
-  if (e.target === popupStarBlocked) popupStarBlocked.classList.remove('visible');
-});
+document.getElementById('star-blocked-close').addEventListener('click', () => popupStarBlocked.classList.remove('visible'));
+popupStarBlocked.addEventListener('click', e => { if (e.target === popupStarBlocked) popupStarBlocked.classList.remove('visible'); });
+document.getElementById('star-reward-close').addEventListener('click', () => popupStarReward.classList.remove('visible'));
+popupStarReward.addEventListener('click', e => { if (e.target === popupStarReward) popupStarReward.classList.remove('visible'); });
 
-document.getElementById('star-reward-close').addEventListener('click', () => {
-  popupStarReward.classList.remove('visible');
-});
-popupStarReward.addEventListener('click', e => {
-  if (e.target === popupStarReward) popupStarReward.classList.remove('visible');
-});
-
+function markDone() { localStorage.setItem(DONE_KEY, '1'); updateDone(); }
 function updateDone() {
   const on = localStorage.getItem(DONE_KEY) === '1';
   doneBtn.textContent = on ? '★' : '☆';
@@ -180,20 +270,203 @@ function updateDone() {
 }
 doneBtn.addEventListener('click', () => {
   const on = localStorage.getItem(DONE_KEY) === '1';
-  if (on) {
-    // Already done → show reward
-    popupStarReward.classList.add('visible');
-  } else {
-    // Not done → only allowed in preview mode
-    if (isPreview) {
-      localStorage.setItem(DONE_KEY, '1');
-      updateDone();
-    } else {
-      popupStarBlocked.classList.add('visible');
-    }
-  }
+  if (on) { popupStarReward.classList.add('visible'); }
+  else if (isPreview) { markDone(); }
+  else { popupStarBlocked.classList.add('visible'); }
 });
 updateDone();
+
+// ── Código secreto ──────────────────────────────────────────
+const RESPUESTAS_OK = ['JAMAICA'];
+const codigoInput   = document.getElementById('codigo-input');
+const popupError    = document.getElementById('popup-error');
+
+document.getElementById('btn-validar').addEventListener('click', validar);
+codigoInput.addEventListener('keydown', e => { if (e.key === 'Enter') validar(); });
+
+function validar() {
+  const val = codigoInput.value.trim().toUpperCase();
+  if (RESPUESTAS_OK.includes(val)) {
+    codigoInput.classList.remove('error');
+    codigoInput.classList.add('ok');
+    markDone();
+    setTimeout(() => popupStarReward.classList.add('visible'), 400);
+  } else {
+    codigoInput.classList.remove('ok');
+    codigoInput.classList.add('error');
+    setTimeout(() => codigoInput.classList.remove('error'), 600);
+    popupError.classList.add('visible');
+  }
+}
+document.getElementById('error-close').addEventListener('click', () => {
+  popupError.classList.remove('visible');
+  codigoInput.value = '';
+  codigoInput.focus();
+});
+popupError.addEventListener('click', e => {
+  if (e.target === popupError) { popupError.classList.remove('visible'); codigoInput.value = ''; }
+});
+
+// ── Pistas ──────────────────────────────────────────────────
+const PISTAS = [
+  'Todas son mujeres que marcaron la historia reciente. Junta las iniciales de sus nombres y descubrirás el destino.',
+  '👗 Una de ellas... transformó para siempre la industria de la moda al liberar la silueta femenina y crear un estilo eterno.',
+  '🏛️ Una de ellas... ejerció el cargo de primer ministro en la India, siendo una figura clave de la política asiática del siglo XX.',
+  '🧪 Una de ellas... hizo historia al ganar dos Premios Nobel en disciplinas científicas distintas por sus estudios sobre la radiactividad.',
+  '✍️ Una de ellas... es la figura más vendida de la literatura de misterio, creando personajes icónicos como Hércules Poirot.',
+  '🏛️ Una de ellas... lideró una potencia europea durante 16 años, siendo considerada la mujer más poderosa del mundo.',
+  '🎤 Una de ellas... es una leyenda de la música apodada "la Reina del Soul" por su potencia vocal y técnica inigualable.',
+  '🦍 Una de ellas... revolucionó la ciencia al convivir y estudiar chimpancés en su hábitat natural durante décadas.',
+  '¿En serio? ¿Aún necesitas más pistas? El lugar que buscamos es una preciosa isla caribeña, famosa por sus playas y su cultura rastafari.'
+];
+
+const dotIds      = ['pista-1','pista-2','pista-3','pista-4','pista-5','pista-6','pista-7','pista-8','pista-9'];
+let pistaEstado   = [1, 0, 0, 0, 0, 0, 0, 0, 0];
+let pistaCallback = null;
+
+const popupPista  = document.getElementById('popup-pista');
+const pistaTexto  = document.getElementById('pista-texto');
+const pistaTitulo = document.getElementById('pista-titulo');
+
+function renderDots() {
+  dotIds.forEach((id, i) => {
+    document.getElementById(id).className = 'pista-dot ' + ['rojo','ambar','verde'][pistaEstado[i]];
+  });
+}
+
+function cerrarPista() {
+  popupPista.classList.remove('visible');
+  if (pistaCallback) { pistaCallback(); pistaCallback = null; }
+}
+
+document.getElementById('pista-close').addEventListener('click', cerrarPista);
+popupPista.addEventListener('click', e => { if (e.target === popupPista) cerrarPista(); });
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && popupPista.classList.contains('visible')) cerrarPista();
+});
+
+dotIds.forEach((id, i) => {
+  document.getElementById(id).addEventListener('click', () => {
+    if (pistaEstado[i] === 0) return;
+    pistaTitulo.textContent = `Pista ${i + 1}`;
+    pistaTexto.textContent = PISTAS[i];
+    popupPista.classList.add('visible');
+    pistaCallback = () => {
+      const eraAmbar = pistaEstado[i] === 1;
+      pistaEstado[i] = 2;
+      if (eraAmbar && i + 1 < dotIds.length) pistaEstado[i + 1] = 1;
+      renderDots();
+    };
+  });
+});
+renderDots();
+
+// ── Lightbox multi-imagen ───────────────────────────────────
+const IMGS = [
+  '../media/Lugar02_01.jpg',
+  '../media/Lugar02_02.jpg',
+  '../media/Lugar02_03.jpg',
+  '../media/Lugar02_04.jpg',
+  '../media/Lugar02_05.jpg',
+  '../media/Lugar02_06.jpg',
+  '../media/Lugar02_07.jpg'
+];
+
+const lightbox    = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightbox-img');
+const lightboxCtr = document.getElementById('lightbox-counter');
+let lbScale = 1, lbX = 0, lbY = 0;
+let dragging = false, dragStartX, dragStartY, imgStartX, imgStartY;
+let currentIdx = 0;
+
+function applyTransform() {
+  lightboxImg.style.transform = `scale(${lbScale}) translate(${lbX / lbScale}px, ${lbY / lbScale}px)`;
+}
+function openLightbox(idx) {
+  currentIdx = idx;
+  lbScale = 1; lbX = 0; lbY = 0;
+  lightboxImg.src = IMGS[currentIdx];
+  lightboxCtr.textContent = `${currentIdx + 1} / ${IMGS.length}`;
+  applyTransform();
+  lightbox.classList.add('visible');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  lightbox.classList.remove('visible');
+  document.body.style.overflow = '';
+  lbScale = 1; lbX = 0; lbY = 0;
+  applyTransform();
+}
+
+document.querySelectorAll('.foto-thumb').forEach(el => {
+  el.addEventListener('click', () => openLightbox(parseInt(el.dataset.idx)));
+});
+document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+
+lightbox.addEventListener('wheel', e => {
+  e.preventDefault();
+  lbScale = Math.min(Math.max(lbScale + (e.deltaY > 0 ? -0.15 : 0.15), 1), 5);
+  if (lbScale === 1) { lbX = 0; lbY = 0; }
+  applyTransform();
+}, { passive: false });
+
+lightboxImg.addEventListener('mousedown', e => {
+  if (lbScale <= 1) return;
+  dragging = true; dragStartX = e.clientX; dragStartY = e.clientY;
+  imgStartX = lbX; imgStartY = lbY;
+  lightboxImg.classList.add('grabbing'); e.preventDefault();
+});
+window.addEventListener('mousemove', e => {
+  if (!dragging) return;
+  lbX = imgStartX + (e.clientX - dragStartX);
+  lbY = imgStartY + (e.clientY - dragStartY);
+  applyTransform();
+});
+window.addEventListener('mouseup', () => { dragging = false; lightboxImg.classList.remove('grabbing'); });
+
+let lastTouchDist = null;
+lightbox.addEventListener('touchstart', e => {
+  if (e.touches.length === 2) {
+    lastTouchDist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
+  } else if (e.touches.length === 1 && lbScale > 1) {
+    dragging = true; dragStartX = e.touches[0].clientX; dragStartY = e.touches[0].clientY;
+    imgStartX = lbX; imgStartY = lbY;
+  }
+}, { passive: true });
+lightbox.addEventListener('touchmove', e => {
+  if (e.touches.length === 2 && lastTouchDist) {
+    const dist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
+    lbScale = Math.min(Math.max(lbScale * (dist / lastTouchDist), 1), 5);
+    lastTouchDist = dist;
+    if (lbScale === 1) { lbX = 0; lbY = 0; }
+    applyTransform(); e.preventDefault();
+  } else if (e.touches.length === 1 && dragging) {
+    lbX = imgStartX + (e.touches[0].clientX - dragStartX);
+    lbY = imgStartY + (e.touches[0].clientY - dragStartY);
+    applyTransform(); e.preventDefault();
+  }
+}, { passive: false });
+lightbox.addEventListener('touchend', () => { lastTouchDist = null; dragging = false; });
+
+document.addEventListener('keydown', e => {
+  if (!lightbox.classList.contains('visible')) return;
+  if (e.key === 'Escape') { closeLightbox(); return; }
+  if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+    currentIdx = e.key === 'ArrowRight'
+      ? (currentIdx + 1) % IMGS.length
+      : (currentIdx - 1 + IMGS.length) % IMGS.length;
+    lbScale = 1; lbX = 0; lbY = 0;
+    lightboxImg.src = IMGS[currentIdx];
+    lightboxCtr.textContent = `${currentIdx + 1} / ${IMGS.length}`;
+    applyTransform();
+  }
+});
+
+window.addEventListener('popstate', () => {
+  if (lightbox.classList.contains('visible')) { closeLightbox(); history.pushState(null, '', ''); }
+});
+history.pushState(null, '', '');
 </script>
 </body>
 </html>
