@@ -208,7 +208,7 @@
   <div class="lightbox-inner" id="lightbox-inner">
     <img src="" alt="Lugar" id="lightbox-img" draggable="false"/>
   </div>
-  <p class="lightbox-hint">Scroll para zoom · Arrastra para mover · ← → para navegar · ESC para cerrar</p>
+  <p class="lightbox-hint">Scroll para zoom · Arrastra para mover · ← → para navegar · Desliza en móvil · ESC para cerrar</p>
 </div>
 
 <script>
@@ -426,12 +426,19 @@ window.addEventListener('mousemove', e => {
 window.addEventListener('mouseup', () => { dragging = false; lightboxImg.classList.remove('grabbing'); });
 
 let lastTouchDist = null;
+let swipeStartX = null, swipeStartY = null;
 lightbox.addEventListener('touchstart', e => {
   if (e.touches.length === 2) {
     lastTouchDist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
-  } else if (e.touches.length === 1 && lbScale > 1) {
-    dragging = true; dragStartX = e.touches[0].clientX; dragStartY = e.touches[0].clientY;
-    imgStartX = lbX; imgStartY = lbY;
+    swipeStartX = null;
+  } else if (e.touches.length === 1) {
+    if (lbScale > 1) {
+      dragging = true; dragStartX = e.touches[0].clientX; dragStartY = e.touches[0].clientY;
+      imgStartX = lbX; imgStartY = lbY;
+    } else {
+      swipeStartX = e.touches[0].clientX;
+      swipeStartY = e.touches[0].clientY;
+    }
   }
 }, { passive: true });
 lightbox.addEventListener('touchmove', e => {
@@ -447,7 +454,23 @@ lightbox.addEventListener('touchmove', e => {
     applyTransform(); e.preventDefault();
   }
 }, { passive: false });
-lightbox.addEventListener('touchend', () => { lastTouchDist = null; dragging = false; });
+lightbox.addEventListener('touchend', e => {
+  lastTouchDist = null; dragging = false;
+  if (swipeStartX !== null && e.changedTouches.length === 1) {
+    const dx = e.changedTouches[0].clientX - swipeStartX;
+    const dy = e.changedTouches[0].clientY - swipeStartY;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
+      currentIdx = dx < 0
+        ? (currentIdx + 1) % IMGS.length
+        : (currentIdx - 1 + IMGS.length) % IMGS.length;
+      lbScale = 1; lbX = 0; lbY = 0;
+      lightboxImg.src = IMGS[currentIdx];
+      lightboxCtr.textContent = `${currentIdx + 1} / ${IMGS.length}`;
+      applyTransform();
+    }
+    swipeStartX = null; swipeStartY = null;
+  }
+});
 
 document.addEventListener('keydown', e => {
   if (!lightbox.classList.contains('visible')) return;
