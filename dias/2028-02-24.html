@@ -25,9 +25,9 @@
     .foto-scene{position:relative;width:100%;max-width:500px;margin:0 auto;display:flex;flex-direction:column;gap:0;}
     .reto-img{display:block;width:100%;height:auto;border-radius:3px;border:1px solid rgba(201,168,76,.12);}
     /* Bocadillo izquierda-arriba: colita apunta a la derecha */
-    .bocadillo{position:absolute;top:8%;left:8%;transform:none;width:44%;background:#FAF6EE;border:2px solid rgba(201,168,76,.55);border-radius:18px;padding:.9rem 1rem;min-height:80px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(0,0,0,.45);}
-    .bocadillo::before{content:'';position:absolute;right:-14px;top:28px;border:7px solid transparent;border-left-color:rgba(201,168,76,.55);}
-    .bocadillo::after{content:'';position:absolute;right:-10px;top:29px;border:6px solid transparent;border-left-color:#FAF6EE;}
+    .bocadillo{position:absolute;top:75%;left:8%;transform:translateY(-50%);width:44%;background:#FAF6EE;border:2px solid rgba(201,168,76,.55);border-radius:18px;padding:.9rem 1rem;min-height:80px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(0,0,0,.45);}
+    .bocadillo::before{content:'';position:absolute;right:-14px;top:50%;transform:translateY(-50%);border:7px solid transparent;border-left-color:rgba(201,168,76,.55);}
+    .bocadillo::after{content:'';position:absolute;right:-10px;top:50%;transform:translateY(-50%);border:6px solid transparent;border-left-color:#FAF6EE;}
     .bocadillo-texto{font-family:'Cormorant Garamond',serif;font-size:1rem;font-style:italic;color:#3D2B1F;line-height:1.5;text-align:center;min-height:2.5em;}
     .bocadillo-texto.typing::after{content:'|';animation:blink .6s step-end infinite;color:var(--gold-dark);}
     @keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
@@ -110,7 +110,7 @@
 
       <div class="foto-scene">
         <p class="foto-titulo">Terrassa, 5 de agosto de 2022</p>
-        <img class="reto-img" src="../media/Gerard_20220805.png" alt="Reto del día" draggable="false"/>
+        <img class="reto-img" src="../media/David_20220805.png" alt="Reto del día" draggable="false"/>
         <div class="bocadillo" id="bocadillo">
           <p class="bocadillo-texto" id="bocadillo-texto">Adivina quién soy, te doy seis pistas…</p>
         </div>
