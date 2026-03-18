@@ -198,16 +198,19 @@
       <!-- Fila 3: textos ocultos -->
       <div class="text-row" id="text-row">
         <div class="text-cell" data-col="0">1492 — Dos mundos, una fecha</div>
-        <div class="text-cell" data-col="1">1865 — Lincoln y los samuráis</div>
+        <div class="text-cell" data-col="1">1865 — Tradición y democracia</div>
         <div class="text-cell" data-col="2">1863 — Modernidad y castigo antiguo</div>
-        <div class="text-cell" data-col="3">1889 — Cultura y creación</div>
+        <div class="text-cell" data-col="3">1889 — Cultura y caminos oscuros</div>
         <div class="text-cell" data-col="4">1940 — Negocio vs horror</div>
         <div class="text-cell" data-col="5">1945 — Destrucción y esperanza</div>
       </div>
 
       <!-- Label + botón -->
       <p class="reto-label">Empareja los hechos históricos y ordena cronológicamente</p>
-      <button class="btn-validar" id="btn-validar">Validar</button>
+      <div style="display:flex;align-items:center;gap:.7rem;">
+        <span style="font-size:1.4rem;opacity:.6;">🔒</span>
+        <button class="btn-validar" id="btn-validar">Validar</button>
+      </div>
 
       <!-- Pistas -->
       <div class="pistas-wrap" id="pistas-wrap">
@@ -240,7 +243,7 @@
   <div class="popup-box">
     <div class="popup-icon">🧩</div>
     <p class="popup-title">¡Casi lo tienes!</p>
-    <p class="popup-msg">El orden no es del todo correcto...<br>Revisa bien la cronología y vuelve a intentarlo. 💪</p>
+    <p class="popup-msg" id="fail-msg">El orden no es del todo correcto...<br>Revisa bien la cronología y vuelve a intentarlo. 💪</p>
     <button class="popup-btn" id="fail-close">Seguir intentando</button>
   </div>
 </div>
@@ -278,6 +281,11 @@
 <script>
 // ── Preview / bloqueo ───────────────────────────────────────
 const PREVIEW_KEY = 'cal_preview';
+
+// Definida aquí arriba para poder llamarla desde cualquier punto
+function revealTexts() {
+  document.querySelectorAll('.text-cell').forEach(cell => cell.classList.add('revealed'));
+}
 const isPreview   = localStorage.getItem(PREVIEW_KEY) === '1';
 const today       = new Date(); today.setHours(0,0,0,0);
 const thisDate    = new Date('2028-01-28'); thisDate.setHours(0,0,0,0);
@@ -340,6 +348,9 @@ doneBtn.addEventListener('click', () => {
 });
 updateDone();
 
+// Si ya está completado, revelar textos al cargar
+if (localStorage.getItem(DONE_KEY) === '1') revealTexts();
+
 // ── Datos de las filas ──────────────────────────────────────
 const ROW_A = [
   { src:'../media/Timeline01_01A.png', tip:'Llegada de Cristóbal Colón a América',               correct:0 },
@@ -352,7 +363,7 @@ const ROW_A = [
 const ROW_B = [
   { src:'../media/Timeline01_01B.png', tip:'Fin de la Reconquista (Caída de Granada)',            correct:0 },
   { src:'../media/Timeline01_02B.png', tip:'Samuráis del periodo Edo en Japón',                   correct:1 },
-  { src:'../media/Timeline01_03B.png', tip:'Se realizan ejecuciones públicas por ahorcamiento en el Reino Unido', correct:2 },
+  { src:'../media/Timeline01_03B.png', tip:'Ejecuciones públicas por ahorcamiento', correct:2 },
   { src:'../media/Timeline01_04B.png', tip:'Nace Adolf Hitler',                                   correct:3 },
   { src:'../media/Timeline01_05B.png', tip:'Llegada de los primeros prisioneros a Auschwitz',     correct:4 },
   { src:'../media/Timeline01_06B.png', tip:'Fundación de Organización de las Naciones Unidas (ONU)', correct:5 },
@@ -507,33 +518,74 @@ function initDrag(container) {
 
 // ── Validación ──────────────────────────────────────────────
 const popupFail = document.getElementById('popup-fail');
+const failMsg   = document.getElementById('fail-msg');
 document.getElementById('fail-close').addEventListener('click', () => popupFail.classList.remove('visible'));
 popupFail.addEventListener('click', e => { if (e.target === popupFail) popupFail.classList.remove('visible'); });
 
-function checkRow(rowId) {
+function countCorrect(rowId) {
   const slots = document.getElementById(rowId).querySelectorAll('.img-slot');
-  return [...slots].every((slot, idx) => parseInt(slot.dataset.correct) === idx);
-}
-
-function revealTexts() {
-  document.querySelectorAll('.text-cell').forEach(cell => cell.classList.add('revealed'));
+  return [...slots].filter((slot, idx) => parseInt(slot.dataset.correct) === idx).length;
 }
 
 document.getElementById('btn-validar').addEventListener('click', () => {
-  const okA = checkRow('row-a');
-  const okB = checkRow('row-b');
-  if (okA && okB) {
+  const cA = countCorrect('row-a');
+  const cB = countCorrect('row-b');
+  if (cA === 6 && cB === 6) {
     revealTexts();
     markDone();
     setTimeout(() => popupStarReward.classList.add('visible'), 500);
   } else {
+    failMsg.innerHTML = `El orden no es del todo correcto...<br>
+      Fila 1: <strong>${cA} de 6</strong> correctos &nbsp;·&nbsp; Fila 2: <strong>${cB} de 6</strong> correctos<br><br>
+      ¡Revisa la cronología y vuelve a intentarlo! 💪`;
     popupFail.classList.add('visible');
   }
 });
 
+// ── Lightbox al clicar imagen ───────────────────────────────
+const lbOverlay = document.createElement('div');
+lbOverlay.id = 'img-lightbox';
+lbOverlay.style.cssText = 'display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:300;align-items:center;justify-content:center;flex-direction:column;gap:1rem;cursor:zoom-out;';
+lbOverlay.innerHTML = `
+  <button id="lb-close" style="position:fixed;top:1.2rem;right:1.5rem;background:none;border:none;color:rgba(255,255,255,.5);font-size:2rem;cursor:pointer;z-index:301;line-height:1;">✕</button>
+  <div style="width:min(85vw,85vh);height:min(85vw,85vh);display:flex;align-items:center;justify-content:center;">
+    <img id="lb-img" src="" alt="" style="max-width:100%;max-height:100%;object-fit:contain;border-radius:3px;"/>
+  </div>
+  <p id="lb-tip" style="font-family:'Cormorant Garamond',serif;font-size:1rem;font-style:italic;color:rgba(250,246,238,.7);text-align:center;max-width:80%;padding:0 1rem;"></p>`;
+document.body.appendChild(lbOverlay);
+
+const lbImg = document.getElementById('lb-img');
+const lbTip = document.getElementById('lb-tip');
+
+function openLightbox(src, tip) {
+  lbImg.src = src;
+  lbTip.textContent = tip;
+  lbOverlay.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  lbOverlay.style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+document.getElementById('lb-close').addEventListener('click', closeLightbox);
+lbOverlay.addEventListener('click', e => { if (e.target === lbOverlay) closeLightbox(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && lbOverlay.style.display === 'flex') closeLightbox(); });
+
+// Delegar clic en slots (funciona aunque se reordenen)
+['row-a','row-b'].forEach(rowId => {
+  document.getElementById(rowId).addEventListener('click', e => {
+    const slot = e.target.closest('.img-slot');
+    if (!slot) return;
+    const img = slot.querySelector('img');
+    const tip = slot.querySelector('.tooltip').textContent;
+    openLightbox(img.src, tip);
+  });
+});
+
 // ── Pistas ──────────────────────────────────────────────────
 const PISTAS = [
-  'Debes emparejar cada hecho de la primera fila con su correspondiente en la segunda fila y ordenarlas cronológicamente.',
+  'Empareja los hechos de la primera fila con los de la segunda y ordénalos cronológicamente. Puedes arrastrar y soltar para intercambiar hechos, pero solo dentro de la misma fila.',
   'Democracia moderna y sociedad feudal coexistiendo.',
   'El peor uso de la ciencia... y el intento global de evitar que vuelva a pasar.',
   'El nacimiento de la cultura de consumo moderna... junto al inicio del mayor horror del siglo.',
