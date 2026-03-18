@@ -342,20 +342,20 @@ updateDone();
 
 // ── Datos de las filas ──────────────────────────────────────
 const ROW_A = [
-  { src:'../media/Timeline01_01A.jpg', tip:'Llegada de Cristóbal Colón a América',               correct:0 },
-  { src:'../media/Timeline01_02A.jpg', tip:'Asesinato de Abraham Lincoln',                        correct:1 },
-  { src:'../media/Timeline01_03A.jpg', tip:'Abre el Metro de Londres (Metropolitan Railway)',     correct:2 },
-  { src:'../media/Timeline01_04A.jpg', tip:'Vincent van Gogh pinta La noche estrellada',          correct:3 },
-  { src:'../media/Timeline01_05A.jpg', tip:'Abre el primer McDonald\'s en California',            correct:4 },
-  { src:'../media/Timeline01_06A.jpg', tip:'Bombardeos atómicos de Hiroshima y Nagasaki',         correct:5 },
+  { src:'../media/Timeline01_01A.png', tip:'Llegada de Cristóbal Colón a América',               correct:0 },
+  { src:'../media/Timeline01_02A.png', tip:'Asesinato de Abraham Lincoln',                        correct:1 },
+  { src:'../media/Timeline01_03A.png', tip:'Abre el Metro de Londres (Metropolitan Railway)',     correct:2 },
+  { src:'../media/Timeline01_04A.png', tip:'Vincent van Gogh pinta La noche estrellada',          correct:3 },
+  { src:'../media/Timeline01_05A.png', tip:'Abre el primer McDonald\'s en California',            correct:4 },
+  { src:'../media/Timeline01_06A.png', tip:'Bombardeos atómicos de Hiroshima y Nagasaki',         correct:5 },
 ];
 const ROW_B = [
-  { src:'../media/Timeline01_01B.jpg', tip:'Fin de la Reconquista (Caída de Granada)',            correct:0 },
-  { src:'../media/Timeline01_02B.jpg', tip:'Samuráis del periodo Edo en Japón',                   correct:1 },
-  { src:'../media/Timeline01_03B.jpg', tip:'Se realizan ejecuciones públicas por ahorcamiento en el Reino Unido', correct:2 },
-  { src:'../media/Timeline01_04B.jpg', tip:'Nace Adolf Hitler',                                   correct:3 },
-  { src:'../media/Timeline01_05B.jpg', tip:'Llegada de los primeros prisioneros a Auschwitz',     correct:4 },
-  { src:'../media/Timeline01_06B.jpg', tip:'Fundación de Organización de las Naciones Unidas (ONU)', correct:5 },
+  { src:'../media/Timeline01_01B.png', tip:'Fin de la Reconquista (Caída de Granada)',            correct:0 },
+  { src:'../media/Timeline01_02B.png', tip:'Samuráis del periodo Edo en Japón',                   correct:1 },
+  { src:'../media/Timeline01_03B.png', tip:'Se realizan ejecuciones públicas por ahorcamiento en el Reino Unido', correct:2 },
+  { src:'../media/Timeline01_04B.png', tip:'Nace Adolf Hitler',                                   correct:3 },
+  { src:'../media/Timeline01_05B.png', tip:'Llegada de los primeros prisioneros a Auschwitz',     correct:4 },
+  { src:'../media/Timeline01_06B.png', tip:'Fundación de Organización de las Naciones Unidas (ONU)', correct:5 },
 ];
 
 // ── Utilidades ──────────────────────────────────────────────
@@ -532,10 +532,18 @@ document.getElementById('btn-validar').addEventListener('click', () => {
 });
 
 // ── Pistas ──────────────────────────────────────────────────
-// (se añadirán en una siguiente sesión)
-const PISTAS = [];
-const dotIds  = [];
-let pistaEstado   = [];
+const PISTAS = [
+  'Debes emparejar cada hecho de la primera fila con su correspondiente en la segunda fila y ordenarlas cronológicamente.',
+  'Democracia moderna y sociedad feudal coexistiendo.',
+  'El peor uso de la ciencia... y el intento global de evitar que vuelva a pasar.',
+  'El nacimiento de la cultura de consumo moderna... junto al inicio del mayor horror del siglo.',
+  'Arte inmortal... y el nacimiento de quien marcaría una de las etapas más oscuras de la historia.',
+  'Transporte urbano moderno… pero con prácticas penales medievales aún vigentes.',
+  'El mismo año que termina una era en la península ibérica... empieza la expansión europea global.',
+  'Esta pista es visual; quizá con los años resulte más fácil.'
+];
+const dotIds  = ['pista-1','pista-2','pista-3','pista-4','pista-5','pista-6','pista-7','pista-8'];
+let pistaEstado   = [1, 0, 0, 0, 0, 0, 0, 0];
 let pistaCallback = null;
 
 const popupPista  = document.getElementById('popup-pista');
@@ -561,6 +569,8 @@ function renderDots() {
         const eraAmbar = pistaEstado[i] === 1;
         pistaEstado[i] = 2;
         if (eraAmbar && i + 1 < dotIds.length) pistaEstado[i+1] = 1;
+        // Pista 8 (índice 7): revela los textos de la fila 3
+        if (i === 7) revealTexts();
         renderDots();
       };
     });
