@@ -24,6 +24,8 @@
     /* ── Contenido ── */
     .content-area{width:100%;border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:2rem;background:rgba(255,255,255,.02);display:flex;flex-direction:column;align-items:center;gap:1.6rem;}
 
+    /* ── Contenedor de ambos grids ── */
+    .grids-wrap{width:100%;display:flex;flex-direction:column;gap:6px;}
     /* ── Grid principal ── */
     .music-grid{width:100%;display:grid;grid-template-columns:repeat(10,1fr);gap:6px;}
 
@@ -140,8 +142,11 @@
       h1{font-size:clamp(2rem,14vw,4rem);}
       .month-label{font-size:clamp(1rem,4vw,1.6rem);margin-bottom:1rem;}
       .content-area{padding:1rem;gap:1rem;}
-      .music-grid{grid-template-columns:repeat(2,1fr);}
-      .year-grid{grid-template-columns:repeat(2,1fr);}
+      /* Envolver ambos grids en un flex row */
+      .grids-wrap{display:flex;flex-direction:row;gap:6px;width:100%;align-items:start;}
+      .music-grid{grid-template-columns:1fr;flex:3;}
+      .year-grid{grid-template-columns:1fr;flex:1;}
+      .year-cell{font-size:.65rem;min-height:0;}
       .play-btn{opacity:1;width:32px;height:32px;font-size:.9rem;}
       .pistas-wrap{gap:.35rem;}
       .pista-dot{width:22px;height:22px;font-size:.62rem;}
@@ -166,21 +171,26 @@
 
     <div class="content-area">
 
-      <!-- Grid A: portadas de CD -->
-      <div class="music-grid" id="music-grid"></div>
+      <!-- Grids A y B envueltos para layout móvil -->
+      <div class="grids-wrap">
 
-      <!-- Grid B: años ocultos -->
-      <div class="year-grid" id="year-grid">
-        <div class="year-cell">2000</div>
-        <div class="year-cell">2001</div>
-        <div class="year-cell">2002</div>
-        <div class="year-cell">2003</div>
-        <div class="year-cell">2004</div>
-        <div class="year-cell">2005</div>
-        <div class="year-cell">2006</div>
-        <div class="year-cell">2007</div>
-        <div class="year-cell">2008</div>
-        <div class="year-cell">2009</div>
+        <!-- Grid A: portadas de CD -->
+        <div class="music-grid" id="music-grid"></div>
+
+        <!-- Grid B: años ocultos -->
+        <div class="year-grid" id="year-grid">
+          <div class="year-cell">2000</div>
+          <div class="year-cell">2001</div>
+          <div class="year-cell">2002</div>
+          <div class="year-cell">2003</div>
+          <div class="year-cell">2004</div>
+          <div class="year-cell">2005</div>
+          <div class="year-cell">2006</div>
+          <div class="year-cell">2007</div>
+          <div class="year-cell">2008</div>
+          <div class="year-cell">2009</div>
+        </div>
+
       </div>
 
       <!-- Label + botón -->
