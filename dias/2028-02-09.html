@@ -608,10 +608,11 @@ document.getElementById('btn-validar').addEventListener('click', () => {
 // ── Pistas ───────────────────────────────────────────────────
 const PISTAS = [
   'Ordena estos temazos cronológicamente. Todos ellos lo petaron en la década de los 2000. Puedes arrastrar y soltar para cambiar el orden de las canciones o darle al play y bailar un rato. 🕺',
-  'Esta pista es visual; quizá con los años resulte más fácil.'
+  'Esta pista es visual; quizá con los años resulte más fácil.',
+  'Sí, sí... no es tan fácil como parece. Puedes googlear las canciones, eso ayudará. 😉'
 ];
-const dotIds    = ['pista-1','pista-2'];
-let pistaEstado = [1, 0];
+const dotIds    = ['pista-1','pista-2','pista-3'];
+let pistaEstado = [1, 0, 0];
 let pistaCallback = null;
 
 const popupPista  = document.getElementById('popup-pista');
