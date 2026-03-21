@@ -127,6 +127,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-01-24 | Adivina quién soy | HEIMDALL | Alex_20220817.png | Alex | PDTE |
 | 2028-01-28 | Timeline histórico doble | A:01-06 / B:01-06 | Timeline01_01A..06A.png + Timeline01_01B..06B.png | N/A | PDTE |
 | 2028-01-30 | Agudeza visual — banderas Código Internacional de Señales Marítimas | 99274 | FinAno2020.png | Nieves, Enric, Ari, Alex | PDTE |
+| 2028-02-09 | Timeline musical | 2000-2009 | Ave_Maria.jpg .. Colgando_en_tus_manos.jpg | N/A | PDTE |
 | 2028-02-24 | Adivina quién soy | DIONISIO | David_20220805.png | David | PDTE |
 | 2028-03-08 | Cultura: iniciales de famosos, especial mujeres | JAMAICA | Lugar02_01.jpg .. Lugar02_07.jpg | Ajenos | PDTE |
 | 2028-07-11 | Timeline histórico doble | A:01-06 / B:01-06 | Timeline02_01A..06A.png + Timeline02_01B..06B.png | N/A | PDTE |
