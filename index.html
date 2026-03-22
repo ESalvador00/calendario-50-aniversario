@@ -41,6 +41,8 @@
     .day-cell.sunday:hover{color:#e08070;}
     .day-cell .fav-badge{position:absolute;top:0;right:1px;font-size:.45rem;line-height:1;pointer-events:none;color:#e05a6a;}
     .day-cell .done-badge{position:absolute;bottom:0;right:1px;font-size:.5rem;line-height:1;pointer-events:none;color:var(--gold);filter:drop-shadow(0 0 2px rgba(201,168,76,.6));}
+    /* DEV MARKER — comentar la línea siguiente para ocultar los indicadores de días desarrollados */
+    .day-cell.dev::after{content:'';position:absolute;top:2px;left:2px;width:5px;height:5px;border-radius:50%;background:#4fc97a;box-shadow:0 0 4px rgba(79,201,122,.8);pointer-events:none;}
     .popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:100;align-items:center;justify-content:center;}
     .popup-overlay.visible{display:flex;}
     .popup-box{background:var(--dark);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:3rem 2.5rem;max-width:420px;width:90%;text-align:center;box-shadow:0 0 60px rgba(0,0,0,.8);}
@@ -182,15 +184,24 @@ MONTHS.forEach(m => {
     const isToday  = cellDate.toDateString() === today.toDateString();
     const isPast   = cellDate < today;
 
+    // Días con contenido desarrollado
+    const DEV_DAYS = new Set([
+      '2028-01-21','2028-01-24','2028-01-28','2028-01-30',
+      '2028-02-09','2028-02-24','2028-03-08','2028-05-09',
+      '2028-07-11','2028-07-28','2028-11-24'
+    ]);
+    const dateStr  = slug(m.year, m.monthNum, d).replace('dias/','').replace('.html','');
+    const isDev    = DEV_DAYS.has(dateStr);
+
     const el = document.createElement('a');
     el.href = slug(m.year, m.monthNum, d);
 
     if (isToday) {
-      el.className = 'day-cell today' + (sunday ? ' sunday' : '');
+      el.className = 'day-cell today' + (sunday ? ' sunday' : '') + (isDev ? ' dev' : '');
     } else if (isPast) {
-      el.className = 'day-cell past' + (sunday ? ' sunday' : '');
+      el.className = 'day-cell past' + (sunday ? ' sunday' : '') + (isDev ? ' dev' : '');
     } else {
-      el.className = 'day-cell' + (sunday ? ' sunday' : '');
+      el.className = 'day-cell' + (sunday ? ' sunday' : '') + (isDev ? ' dev' : '');
       if (!isPreview) {
         el.addEventListener('click', e => {
           e.preventDefault();
