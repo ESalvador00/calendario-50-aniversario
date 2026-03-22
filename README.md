@@ -133,3 +133,12 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-05-09 | Timeline musical, España en los 80 | 1980-1987 | No_dudaria.jpg .. Hijo_de_la_luna.jpg | N/A | PDTE |
 | 2028-07-11 | Timeline histórico doble | A:01-06 / B:01-06 | Timeline02_01A..06A.png + Timeline02_01B..06B.png | N/A | PDTE |
 | 2028-11-24 | Ingenio: negro sobre negro | 300.000 | The_Rolling_Stones_Paint_It_Black.mp3 | N/A | PDTE |
+
+---
+
+## Utilidades
+
+### Descargar audio desde YouTube a MP3
+- **yoump3.app** → https://yoump3.app/es11
+  Permite convertir y descargar cualquier vídeo de YouTube como archivo MP3.
+  Útil para obtener los audios de las canciones usadas en los días de tipo "Timeline musical".
