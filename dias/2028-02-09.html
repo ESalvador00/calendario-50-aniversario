@@ -27,7 +27,7 @@
     /* ── Contenedor de ambos grids ── */
     .grids-wrap{width:100%;display:flex;flex-direction:column;gap:6px;}
     /* ── Grid principal ── */
-    .music-grid{width:100%;display:grid;grid-template-columns:repeat(10,1fr);gap:6px;}
+    .music-grid{width:100%;display:grid;grid-template-columns:repeat(6,1fr);gap:6px;}
 
     /* ── Slot de CD ── */
     .cd-slot{
@@ -78,7 +78,7 @@
     .cd-slot.drag-over{border-color:var(--gold);transform:scale(1.06);box-shadow:0 0 12px rgba(201,168,76,.4);}
 
     /* ── Grid B: años ocultos ── */
-    .year-grid{width:100%;display:grid;grid-template-columns:repeat(10,1fr);gap:6px;}
+    .year-grid{width:100%;display:grid;grid-template-columns:repeat(6,1fr);gap:6px;}
     .year-cell{
       font-family:'Playfair Display',serif;font-size:.72rem;font-weight:700;
       letter-spacing:.05em;text-align:center;padding:.4rem .2rem;
@@ -203,16 +203,12 @@
 
         <!-- Grid B: años ocultos -->
         <div class="year-grid" id="year-grid">
-          <div class="year-cell">2000</div>
-          <div class="year-cell">2001</div>
           <div class="year-cell">2002</div>
           <div class="year-cell">2003</div>
           <div class="year-cell">2004</div>
-          <div class="year-cell">2005</div>
           <div class="year-cell">2006</div>
           <div class="year-cell">2007</div>
           <div class="year-cell">2008</div>
-          <div class="year-cell">2009</div>
         </div>
 
       </div>
@@ -363,16 +359,12 @@ if (localStorage.getItem(DONE_KEY) === '1') revealYears();
 
 // ── Datos canciones ─────────────────────────────────────────
 const SONGS = [
-  { img:'../media/Ave_Maria.jpg',            tip:'Ave María – David Bisbal',          audio:'../media/Ave_Maria.mp3',            correct:0 },
-  { img:'../media/Asereje.jpg',              tip:'Aserejé – Las Ketchup',              audio:'../media/Asereje.mp3',              correct:1 },
-  { img:'../media/Color_esperanza.jpg',      tip:'Color esperanza – Diego Torres',    audio:'../media/Color_esperanza.mp3',      correct:2 },
-  { img:'../media/La_camisa_negra.jpg',      tip:'La camisa negra – Juanes',          audio:'../media/La_camisa_negra.mp3',      correct:3 },
-  { img:'../media/Rosas.jpg',                tip:'Rosas – La Oreja de Van Gogh',      audio:'../media/Rosas.mp3',                correct:4 },
-  { img:'../media/Ella.jpg',                 tip:'Ella – Bebe',                       audio:'../media/Ella.mp3',                 correct:5 },
-  { img:'../media/Hips_Dont_Lie.jpg',        tip:'Hips Don\'t Lie – Shakira',         audio:'../media/Hips_Dont_Lie.mp3',        correct:6 },
-  { img:'../media/Todo_ira_bien.jpg',        tip:'Todo irá bien – Chenoa',            audio:'../media/Todo_ira_bien.mp3',        correct:7 },
-  { img:'../media/Tenia_tanto_que_darte.jpg',tip:'Tenía tanto que darte – Nena Daconte', audio:'../media/Tenia_tanto_que_darte.mp3',correct:8 },
-  { img:'../media/Colgando_en_tus_manos.jpg',tip:'Colgando en tus manos – Carlos Baute', audio:'../media/Colgando_en_tus_manos.mp3',correct:9 },
+  { img:'../media/Asereje.jpg',              tip:'Aserejé – Las Ketchup',                 audio:'../media/Asereje.mp3',              correct:0 },
+  { img:'../media/Rosas.jpg',                tip:'Rosas – La Oreja de Van Gogh',          audio:'../media/Rosas.mp3',                correct:1 },
+  { img:'../media/Ella.jpg',                 tip:'Ella – Bebe',                           audio:'../media/Ella.mp3',                 correct:2 },
+  { img:'../media/Hips_Dont_Lie.jpg',        tip:'Hips Don\'t Lie – Shakira',             audio:'../media/Hips_Dont_Lie.mp3',        correct:3 },
+  { img:'../media/Todo_ira_bien.jpg',        tip:'Todo irá bien – Chenoa',                audio:'../media/Todo_ira_bien.mp3',        correct:4 },
+  { img:'../media/Tenia_tanto_que_darte.jpg',tip:'Tenía tanto que darte – Nena Daconte',  audio:'../media/Tenia_tanto_que_darte.mp3',correct:5 },
 ];
 
 // ── Shuffle ─────────────────────────────────────────────────
@@ -609,10 +601,15 @@ document.getElementById('btn-validar').addEventListener('click', () => {
 const PISTAS = [
   'Ordena estos temazos cronológicamente. Todos ellos lo petaron en la década de los 2000. Puedes arrastrar y soltar para cambiar el orden de las canciones o darle al play y bailar un rato. 🕺',
   'Esta pista es visual; quizá con los años resulte más fácil.',
-  'Sí, sí... no es tan fácil como parece. Puedes googlear las canciones, eso ayudará. 😉'
+  'Todo irá bien (Chenoa). Llegó a las radios el mismo año que salió a la venta el primer iPhone, cambiando los teléfonos para siempre.',
+  'Tenía tanto que darte (Nena Daconte). Se lanzó cuando Barack Obama ganaba sus primeras elecciones presidenciales en EE. UU.',
+  'Ella (Bebe). Se convirtió en un himno de empoderamiento el mismo año que nació Facebook en una habitación de Harvard.',
+  'Aserejé (Las Ketchup). Fue la canción del verano indiscutible mientras el mundo aún se estaba acostumbrando al euro en sus bolsillos.',
+  'Rosas (La Oreja de Van Gogh). Salió cuando los teléfonos Nokia con pantalla a color eran el objeto de deseo de cualquier adolescente.',
+  'Hips Don\'t Lie (Shakira). Esta colaboración con Wyclef Jean fue el tema principal del Mundial de Alemania, donde la escuchamos en la ceremonia de clausura.'
 ];
-const dotIds    = ['pista-1','pista-2','pista-3'];
-let pistaEstado = [1, 0, 0];
+const dotIds    = ['pista-1','pista-2','pista-3','pista-4','pista-5','pista-6','pista-7','pista-8'];
+let pistaEstado = [1, 0, 0, 0, 0, 0, 0, 0];
 let pistaCallback = null;
 
 const popupPista  = document.getElementById('popup-pista');
