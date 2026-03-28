@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>3 de Enero 2029 — 50 Aniversario</title>
+  <title>3 de Enero — 50 Aniversario</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
@@ -11,7 +11,7 @@
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
     body{background-color:var(--dark);color:var(--cream);font-family:'Cormorant Garamond',serif;min-height:100vh;display:flex;flex-direction:column;}
     body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 25% 15%,rgba(201,168,76,.10) 0%,transparent 55%),radial-gradient(ellipse at 75% 85%,rgba(124,54,38,.10) 0%,transparent 55%);pointer-events:none;z-index:0;}
-    .wrap{position:relative;z-index:1;max-width:800px;margin:0 auto;padding:3rem 2rem 4rem;flex:1;display:flex;flex-direction:column;}
+    .wrap{position:relative;z-index:1;max-width:1000px;margin:0 auto;padding:3rem 2rem 4rem;flex:1;display:flex;flex-direction:column;}
     .day-hero{text-align:center;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 0 2rem;position:relative;}
     .ornament-line-h{display:flex;align-items:center;justify-content:center;gap:1rem;margin-bottom:2rem;}
     .o-line{height:1px;width:60px;background:linear-gradient(to right,transparent,var(--gold));}
@@ -20,7 +20,33 @@
     .day-of-week{font-size:.85rem;letter-spacing:.4em;text-transform:uppercase;color:rgba(201,168,76,.5);margin-bottom:1rem;}
     h1{font-family:'Playfair Display',serif;font-size:clamp(3rem,9vw,7rem);font-weight:900;line-height:1;background:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 50%,var(--gold-dark) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.5rem;}
     .month-label{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3.5vw,2.4rem);font-weight:400;font-style:italic;color:rgba(250,246,238,.45);margin-bottom:2.5rem;}
-    .content-area{width:100%;border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:2.5rem;min-height:220px;background:rgba(255,255,255,.02);color:rgba(250,246,238,.4);font-size:1rem;font-style:italic;text-align:center;display:flex;align-items:center;justify-content:center;}
+    .content-area{width:100%;border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:2rem;background:rgba(255,255,255,.02);display:flex;flex-direction:column;align-items:center;gap:1.6rem;}
+    .grids-wrap{width:100%;display:flex;flex-direction:column;gap:6px;}
+    .music-grid{width:100%;display:grid;grid-template-columns:repeat(6,1fr);gap:6px;}
+    .cd-slot{position:relative;aspect-ratio:1/1;border-radius:3px;overflow:hidden;border:2px solid rgba(201,168,76,.12);transition:border-color .2s,transform .15s,box-shadow .2s;cursor:grab;background:#0a0704;touch-action:none;}
+    .cd-slot:active{cursor:grabbing;}
+    .cd-slot img{display:block;width:100%;height:100%;object-fit:cover;pointer-events:none;user-select:none;}
+    .cd-slot .tooltip{position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,.85);color:#FAF6EE;font-family:'Cormorant Garamond',serif;font-size:.6rem;font-style:italic;line-height:1.25;padding:.3rem .35rem;text-align:center;opacity:0;transition:opacity .2s;pointer-events:none;}
+    .cd-slot:hover .tooltip{opacity:1;}
+    .cd-slot.playing{border-color:var(--gold-light);box-shadow:0 0 14px rgba(232,201,122,.55);}
+    .play-btn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:28px;height:28px;border-radius:50%;background:rgba(0,0,0,.65);border:1.5px solid rgba(201,168,76,.5);color:var(--gold-light);font-size:.75rem;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;transition:opacity .2s;z-index:2;pointer-events:auto;}
+    .cd-slot:hover .play-btn,.cd-slot.playing .play-btn{opacity:1;}
+    .cd-slot.dragging{opacity:.35;border-color:rgba(201,168,76,.5);}
+    .cd-slot.drag-over{border-color:var(--gold);transform:scale(1.06);box-shadow:0 0 12px rgba(201,168,76,.4);}
+    .year-grid{width:100%;display:grid;grid-template-columns:repeat(6,1fr);gap:6px;}
+    .year-cell{font-family:'Playfair Display',serif;font-size:.72rem;font-weight:700;letter-spacing:.05em;text-align:center;padding:.4rem .2rem;color:transparent;transition:color .6s ease;min-height:1.8rem;display:flex;align-items:center;justify-content:center;border-radius:2px;}
+    .year-cell.revealed{color:rgba(201,168,76,.85);}
+    .reto-label{font-family:'Playfair Display',serif;font-size:.78rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:rgba(201,168,76,.6);text-align:center;}
+    .btn-validar{padding:.65rem 2.5rem;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.35);border-radius:2px;color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:.85rem;letter-spacing:.25em;text-transform:uppercase;cursor:pointer;transition:all .2s;}
+    .btn-validar:hover{background:rgba(201,168,76,.2);border-color:var(--gold);}
+    .pistas-wrap{display:flex;gap:.6rem;align-items:center;justify-content:center;flex-wrap:nowrap;}
+    .pista-dot{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:700;cursor:default;border:2px solid transparent;transition:all .25s;user-select:none;font-family:'Cormorant Garamond',serif;}
+    .pista-dot.rojo{background:rgba(180,50,50,.25);border-color:rgba(180,50,50,.4);color:rgba(255,120,120,.5);}
+    .pista-dot.ambar{background:rgba(220,160,40,.2);border-color:rgba(220,160,40,.7);color:rgba(240,190,80,.9);cursor:pointer;animation:pulse-ambar 1.5s ease-in-out infinite;}
+    .pista-dot.verde{background:rgba(50,180,100,.2);border-color:rgba(50,180,100,.6);color:rgba(80,220,130,.9);cursor:pointer;}
+    .pista-dot.ambar:hover{background:rgba(220,160,40,.35);}
+    .pista-dot.verde:hover{background:rgba(50,180,100,.35);}
+    @keyframes pulse-ambar{0%,100%{box-shadow:0 0 0 0 rgba(220,160,40,.4);}50%{box-shadow:0 0 0 5px rgba(220,160,40,.0);}}
     .day-nav{display:flex;justify-content:space-between;align-items:center;padding-top:2.5rem;border-top:1px solid rgba(201,168,76,.1);margin-top:2.5rem;}
     .nav-btn{font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(201,168,76,.5);text-decoration:none;padding:.6rem 1.2rem;border:1px solid rgba(201,168,76,.18);border-radius:2px;transition:all .2s;}
     .nav-btn:hover{color:var(--gold-light);border-color:rgba(201,168,76,.5);background:rgba(201,168,76,.05);}
@@ -28,7 +54,6 @@
     .year-badge{font-size:.7rem;letter-spacing:.3em;color:rgba(201,168,76,.25);text-transform:uppercase;}
     .back-link{display:block;text-align:center;margin-top:2rem;color:rgba(201,168,76,.35);font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;text-decoration:none;transition:color .2s;}
     .back-link:hover{color:var(--gold);}
-    /* Botones fav y done */
     .action-btns{position:absolute;top:0;right:0;display:flex;flex-direction:column;align-items:center;gap:.2rem;}
     .icon-btn{background:none;border:none;cursor:pointer;font-size:2rem;line-height:1;transition:color .2s,transform .2s;padding:.2rem;}
     .icon-btn:hover{transform:scale(1.2);}
@@ -38,7 +63,6 @@
     .done-btn{color:var(--gold);opacity:0.6;}
     .done-btn.active{color:var(--gold);opacity:1;}
     .done-btn.active:hover{color:var(--gold-light);opacity:1;}
-    /* Popup */
     .popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:100;align-items:center;justify-content:center;}
     .popup-overlay.visible{display:flex;}
     .popup-box{background:var(--dark);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:3rem 2.5rem;max-width:420px;width:90%;text-align:center;box-shadow:0 0 60px rgba(0,0,0,.8);}
@@ -52,11 +76,19 @@
       .day-hero{padding:1rem 0 1rem;}
       h1{font-size:clamp(2rem,14vw,4rem);}
       .month-label{font-size:clamp(1rem,4vw,1.6rem);margin-bottom:1rem;}
-      .content-area{padding:1.2rem;min-height:120px;}
+      .content-area{padding:1rem;gap:1rem;}
+      .grids-wrap{display:grid;grid-template-columns:1fr 1fr;gap:0;}
+      .music-grid{grid-column:1;grid-row:1;display:flex;flex-direction:column;gap:4px;}
+      .year-grid{grid-column:2;grid-row:1;display:flex;flex-direction:column;gap:4px;}
+      .cd-slot{aspect-ratio:1/1;width:100%;}
+      .year-cell{aspect-ratio:1/1;width:100%;font-size:.8rem;}
+      .play-btn{opacity:1;width:28px;height:28px;font-size:.8rem;}
+      .pistas-wrap{gap:.35rem;}
+      .pista-dot{width:22px;height:22px;font-size:.62rem;}
       .day-nav{margin-top:1rem;padding-top:1rem;}
       .ornament-line-h{margin-bottom:1rem;}
     }
-</style>
+  </style>
 </head>
 <body>
 <div class="wrap">
@@ -70,11 +102,29 @@
     </div>
     <p class="day-of-week">Miércoles</p>
     <h1>3</h1>
-    <p class="month-label">de Enero 2029</p>
+    <p class="month-label">de Enero</p>
+
     <div class="content-area">
-      <p>Espacio reservado para el contenido de este día</p>
+      <div class="grids-wrap">
+        <div class="music-grid" id="music-grid"></div>
+        <div class="year-grid" id="year-grid">
+          <div class="year-cell">2000</div>
+          <div class="year-cell">2002</div>
+          <div class="year-cell">2003</div>
+          <div class="year-cell">2006</div>
+          <div class="year-cell">2007</div>
+          <div class="year-cell">2009</div>
+        </div>
+      </div>
+      <p class="reto-label">Ordena los temazos cronológicamente</p>
+      <div style="display:flex;align-items:center;gap:.7rem;">
+        <span style="font-size:1.4rem;opacity:.6;">🔒</span>
+        <button class="btn-validar" id="btn-validar">Validar</button>
+      </div>
+      <div class="pistas-wrap" id="pistas-wrap"></div>
     </div>
   </div>
+
   <nav class="day-nav">
     <a class="nav-btn" href="2029-01-02.html">&#8592; 2 de Enero</a>
     <span class="year-badge">50 Aniversario · 2029</span>
@@ -83,6 +133,7 @@
   <a class="back-link" href="../index.html">&#8592; Volver al Calendario</a>
 </div>
 
+<!-- Popup: día futuro -->
 <div class="popup-overlay" id="popup">
   <div class="popup-box">
     <div class="popup-icon">🎁</div>
@@ -92,43 +143,65 @@
   </div>
 </div>
 
-<!-- Popup estrella bloqueada -->
+<!-- Popup: fallo con contador -->
+<div class="popup-overlay" id="popup-fail">
+  <div class="popup-box">
+    <div class="popup-icon">🎵</div>
+    <p class="popup-title">¡Casi lo tienes!</p>
+    <p class="popup-msg" id="fail-msg"></p>
+    <button class="popup-btn" id="fail-close">Seguir intentando</button>
+  </div>
+</div>
+
+<!-- Popup: pista -->
+<div class="popup-overlay" id="popup-pista">
+  <div class="popup-box">
+    <div class="popup-icon">💡</div>
+    <p class="popup-title" id="pista-titulo">Pista</p>
+    <p class="popup-msg" id="pista-texto"></p>
+    <button class="popup-btn" id="pista-close">Entendido</button>
+  </div>
+</div>
+
+<!-- Popup: estrella bloqueada -->
 <div class="popup-overlay" id="popup-star-blocked">
   <div class="popup-box">
-    <div class="popup-icon">⭐</div>
-    <p class="popup-title">¡Tú puedes!</p>
-    <p class="popup-msg">Primero debes completar el reto de este día.<br>¡Seguro que puedes lograrlo! 💪</p>
+    <div class="popup-icon">🏆</div>
+    <p class="popup-title">¡Tu recompensa te espera!</p>
+    <p class="popup-msg">Para acceder a tu recompensa primero debes resolver el desafío de hoy...<br><br>¡Tú puedes! 💪</p>
     <button class="popup-btn" id="star-blocked-close">Volver</button>
   </div>
 </div>
 
-<!-- Popup confirmar reinicio -->
-<div class="popup-overlay" id="popup-star-reset">
+<!-- Popup: recompensa -->
+<div class="popup-overlay" id="popup-star-reward">
   <div class="popup-box">
-    <div class="popup-icon">🔄</div>
-    <p class="popup-title">¿Reiniciar el reto?</p>
-    <p class="popup-msg">¿Seguro que quieres marcar este día como no completado?<br>Perderás el progreso de hoy. 🤔</p>
-    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
-      <button class="popup-btn" id="star-reset-confirm">Sí, reiniciar</button>
-      <button class="popup-btn" id="star-reset-cancel" style="opacity:.5">Cancelar</button>
-    </div>
+    <div class="popup-icon">🎁</div>
+    <p class="popup-title">¡Tu recompensa!</p>
+    <p class="popup-msg" id="reward-text">✨ Aquí irá la recompensa especial de este día ✨</p>
+    <button class="popup-btn" id="star-reward-close">¡Genial!</button>
   </div>
 </div>
 
 <script>
-const PREVIEW_KEY  = 'cal_preview';
-const isPreview    = localStorage.getItem(PREVIEW_KEY) === '1';
-const today        = new Date(); today.setHours(0,0,0,0);
-const thisDate     = new Date('2029-01-03'); thisDate.setHours(0,0,0,0);
-const nextDateStr  = '2029-01-04';
-const popup        = document.getElementById('popup');
+// ── Reveal años ─────────────────────────────────────────────
+function revealYears() {
+  document.querySelectorAll('.year-cell').forEach(c => c.classList.add('revealed'));
+}
+
+// ── Preview / bloqueo ───────────────────────────────────────
+const PREVIEW_KEY = 'cal_preview';
+const isPreview   = localStorage.getItem(PREVIEW_KEY) === '1';
+const today       = new Date(); today.setHours(0,0,0,0);
+const thisDate    = new Date('2029-01-03'); thisDate.setHours(0,0,0,0);
+const nextDateStr = '2029-01-04';
+const popup       = document.getElementById('popup');
 
 if (!isPreview && thisDate > today) {
   document.querySelector('.day-hero').style.filter = 'blur(4px)';
   document.querySelector('.day-nav').style.visibility = 'hidden';
   popup.classList.add('visible');
 }
-
 if (!isPreview && nextDateStr) {
   const nextDate = new Date(nextDateStr); nextDate.setHours(0,0,0,0);
   if (nextDate > today) {
@@ -136,10 +209,9 @@ if (!isPreview && nextDateStr) {
     if (nextBtn) nextBtn.addEventListener('click', e => { e.preventDefault(); popup.classList.add('visible'); });
   }
 }
-
 popup.addEventListener('click', e => { if (e.target === popup) window.location.href = '../index.html'; });
 
-// ── Favourite ──────────────────────────────────────────────
+// ── Favourites ──────────────────────────────────────────────
 const FAV_KEY = 'fav_2029-01-03';
 const favBtn  = document.getElementById('fav-btn');
 function updateFav() {
@@ -155,53 +227,228 @@ favBtn.addEventListener('click', () => {
 });
 updateFav();
 
-// ── Done (actividad completada) ────────────────────────────
-const DONE_KEY = 'done_2029-01-03';
-const doneBtn  = document.getElementById('done-btn');
+// ── Done ────────────────────────────────────────────────────
+const DONE_KEY         = 'done_2029-01-03';
+const doneBtn          = document.getElementById('done-btn');
 const popupStarBlocked = document.getElementById('popup-star-blocked');
-const popupStarReset   = document.getElementById('popup-star-reset');
+const popupStarReward  = document.getElementById('popup-star-reward');
 
-document.getElementById('star-blocked-close').addEventListener('click', () => {
-  popupStarBlocked.classList.remove('visible');
-});
-popupStarBlocked.addEventListener('click', e => {
-  if (e.target === popupStarBlocked) popupStarBlocked.classList.remove('visible');
-});
+document.getElementById('star-blocked-close').addEventListener('click', () => popupStarBlocked.classList.remove('visible'));
+popupStarBlocked.addEventListener('click', e => { if (e.target === popupStarBlocked) popupStarBlocked.classList.remove('visible'); });
+document.getElementById('star-reward-close').addEventListener('click', () => popupStarReward.classList.remove('visible'));
+popupStarReward.addEventListener('click', e => { if (e.target === popupStarReward) popupStarReward.classList.remove('visible'); });
 
-document.getElementById('star-reset-confirm').addEventListener('click', () => {
-  localStorage.removeItem(DONE_KEY);
-  updateDone();
-  popupStarReset.classList.remove('visible');
-});
-document.getElementById('star-reset-cancel').addEventListener('click', () => {
-  popupStarReset.classList.remove('visible');
-});
-popupStarReset.addEventListener('click', e => {
-  if (e.target === popupStarReset) popupStarReset.classList.remove('visible');
-});
-
+function markDone() { localStorage.setItem(DONE_KEY, '1'); updateDone(); }
 function updateDone() {
   const on = localStorage.getItem(DONE_KEY) === '1';
   doneBtn.textContent = on ? '★' : '☆';
   doneBtn.classList.toggle('active', on);
-  doneBtn.title = on ? 'Marcar como no completado' : 'Marcar como completado';
+  doneBtn.title = on ? 'Ver recompensa' : 'Marcar como completado';
 }
 doneBtn.addEventListener('click', () => {
   const on = localStorage.getItem(DONE_KEY) === '1';
-  if (on) {
-    // Already done → ask to reset
-    popupStarReset.classList.add('visible');
-  } else {
-    // Not done → only allowed in preview mode
-    if (isPreview) {
-      localStorage.setItem(DONE_KEY, '1');
-      updateDone();
-    } else {
-      popupStarBlocked.classList.add('visible');
-    }
-  }
+  if (on) { popupStarReward.classList.add('visible'); }
+  else if (isPreview) { markDone(); }
+  else { popupStarBlocked.classList.add('visible'); }
 });
 updateDone();
+
+if (localStorage.getItem(DONE_KEY) === '1') revealYears();
+
+// ── Datos canciones ─────────────────────────────────────────
+const SONGS = [
+  { img:'../media/Music.jpg',           tip:'Music – Madonna',                    audio:'../media/Music.mp3',           correct:0 },
+  { img:'../media/Complicated.jpg',     tip:'Complicated – Avril Lavigne',        audio:'../media/Complicated.mp3',     correct:1 },
+  { img:'../media/Hey_Ya.jpg',          tip:'Hey Ya! – Outkast',                  audio:'../media/Hey_Ya.mp3',          correct:2 },
+  { img:'../media/Crazy.jpg',           tip:'Crazy – Gnarls Barkley',             audio:'../media/Crazy.mp3',           correct:3 },
+  { img:'../media/Umbrella.jpg',        tip:'Umbrella – Rihanna',                 audio:'../media/Umbrella.mp3',        correct:4 },
+  { img:'../media/I_Gotta_Feeling.jpg', tip:'I Gotta Feeling – Black Eyed Peas',  audio:'../media/I_Gotta_Feeling.mp3', correct:5 },
+];
+
+// ── Shuffle ─────────────────────────────────────────────────
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+// ── Audio manager ────────────────────────────────────────────
+let currentAudio = null;
+let currentSlot  = null;
+
+function stopCurrent() {
+  if (currentAudio) { currentAudio.pause(); currentAudio.currentTime = 0; currentAudio = null; }
+  if (currentSlot)  { currentSlot.classList.remove('playing'); currentSlot.querySelector('.play-btn').textContent = '▶'; currentSlot = null; }
+}
+
+function togglePlay(slot) {
+  if (currentSlot === slot) { stopCurrent(); return; }
+  stopCurrent();
+  currentAudio = slot._audio;
+  currentSlot  = slot;
+  slot.classList.add('playing');
+  slot.querySelector('.play-btn').textContent = '⏸';
+  slot._audio.play().catch(() => {});
+  slot._audio.onended = () => {
+    slot.classList.remove('playing');
+    slot.querySelector('.play-btn').textContent = '▶';
+    currentAudio = null; currentSlot = null;
+  };
+}
+
+// ── Render grid A ────────────────────────────────────────────
+function buildMusicGrid() {
+  const container = document.getElementById('music-grid');
+  container.innerHTML = '';
+  const shuffled = shuffle(SONGS);
+  shuffled.forEach((song, idx) => {
+    const slot = document.createElement('div');
+    slot.className = 'cd-slot';
+    slot.dataset.correct = song.correct;
+    slot.dataset.pos     = idx;
+    slot.draggable       = true;
+    const audio = new Audio(song.audio);
+    audio.preload = 'none';
+    slot._audio = audio;
+    slot._tip   = song.tip;
+    slot._img   = song.img;
+    slot.innerHTML = `<img src="${song.img}" alt="" draggable="false"/>
+      <span class="tooltip">${song.tip}</span>
+      <button class="play-btn" title="Reproducir">▶</button>`;
+    slot.querySelector('.play-btn').addEventListener('click', e => { e.stopPropagation(); togglePlay(slot); });
+    container.appendChild(slot);
+  });
+  initDrag(container);
+}
+buildMusicGrid();
+
+// ── Drag & Drop ──────────────────────────────────────────────
+function swapSlots(a, b) {
+  const isPlayingA = (currentSlot === a);
+  const isPlayingB = (currentSlot === b);
+  const tmpImg = a.querySelector('img').src, tmpTip = a.querySelector('.tooltip').textContent,
+        tmpCorrect = a.dataset.correct, tmpAudio = a._audio, tmpSrcTip = a._tip, tmpSrcImg = a._img;
+  a.querySelector('img').src = b.querySelector('img').src;
+  a.querySelector('.tooltip').textContent = b.querySelector('.tooltip').textContent;
+  a.dataset.correct = b.dataset.correct; a._audio = b._audio; a._tip = b._tip; a._img = b._img;
+  b.querySelector('img').src = tmpImg; b.querySelector('.tooltip').textContent = tmpTip;
+  b.dataset.correct = tmpCorrect; b._audio = tmpAudio; b._tip = tmpSrcTip; b._img = tmpSrcImg;
+  if (isPlayingA) { a.classList.remove('playing'); b.classList.add('playing'); a.querySelector('.play-btn').textContent='▶'; b.querySelector('.play-btn').textContent='⏸'; currentSlot = b; }
+  if (isPlayingB) { b.classList.remove('playing'); a.classList.add('playing'); b.querySelector('.play-btn').textContent='▶'; a.querySelector('.play-btn').textContent='⏸'; currentSlot = a; }
+}
+
+function initDrag(container) {
+  let dragSrc = null;
+  container.addEventListener('dragstart', e => {
+    const slot = e.target.closest('.cd-slot'); if (!slot) return;
+    dragSrc = slot;
+    if (e.target.classList.contains('play-btn')) { e.preventDefault(); return; }
+    slot.classList.add('dragging'); e.dataTransfer.effectAllowed = 'move';
+  });
+  container.addEventListener('dragend', e => {
+    const slot = e.target.closest('.cd-slot'); if (slot) slot.classList.remove('dragging');
+    container.querySelectorAll('.cd-slot').forEach(s => s.classList.remove('drag-over')); dragSrc = null;
+  });
+  container.addEventListener('dragover', e => {
+    e.preventDefault(); const slot = e.target.closest('.cd-slot');
+    if (!slot || slot === dragSrc) return;
+    container.querySelectorAll('.cd-slot').forEach(s => s.classList.remove('drag-over'));
+    slot.classList.add('drag-over'); e.dataTransfer.dropEffect = 'move';
+  });
+  container.addEventListener('dragleave', e => { const slot = e.target.closest('.cd-slot'); if (slot) slot.classList.remove('drag-over'); });
+  container.addEventListener('drop', e => {
+    e.preventDefault(); const target = e.target.closest('.cd-slot');
+    if (!target || target === dragSrc) return; target.classList.remove('drag-over'); swapSlots(dragSrc, target);
+  });
+}
+
+// ── Touch drag (móvil) ───────────────────────────────────────
+(function initTouch() {
+  let touchSrc=null, touchClone=null, startX=0, startY=0, dragStarted=false;
+  const DRAG_THRESHOLD = 8;
+  function slotFromPoint(x,y){if(touchClone)touchClone.style.display='none';const el=document.elementFromPoint(x,y);if(touchClone)touchClone.style.display='';return el?el.closest('.cd-slot'):null;}
+  function startClone(slot){const rect=slot.getBoundingClientRect();touchClone=slot.cloneNode(true);touchClone.style.cssText=`position:fixed;width:${rect.width}px;height:${rect.height}px;opacity:.7;pointer-events:none;z-index:999;top:${rect.top}px;left:${rect.left}px;border-radius:3px;transition:none;`;document.body.appendChild(touchClone);slot.classList.add('dragging');}
+  function cleanup(){if(touchClone){touchClone.remove();touchClone=null;}if(touchSrc){touchSrc.classList.remove('dragging');}document.querySelectorAll('.cd-slot').forEach(s=>s.classList.remove('drag-over'));touchSrc=null;dragStarted=false;}
+  document.addEventListener('touchstart',e=>{if(e.target.closest('.play-btn'))return;const slot=e.target.closest('.cd-slot');if(!slot)return;touchSrc=slot;startX=e.touches[0].clientX;startY=e.touches[0].clientY;dragStarted=false;},{passive:true});
+  document.addEventListener('touchmove',e=>{if(!touchSrc)return;const t=e.touches[0],dx=Math.abs(t.clientX-startX),dy=Math.abs(t.clientY-startY);if(!dragStarted){if(dx<DRAG_THRESHOLD&&dy<DRAG_THRESHOLD)return;dragStarted=true;startClone(touchSrc);}e.preventDefault();touchClone.style.top=(t.clientY-touchClone.offsetHeight/2)+'px';touchClone.style.left=(t.clientX-touchClone.offsetWidth/2)+'px';document.querySelectorAll('.cd-slot').forEach(s=>s.classList.remove('drag-over'));const over=slotFromPoint(t.clientX,t.clientY);if(over&&over!==touchSrc)over.classList.add('drag-over');},{passive:false});
+  document.addEventListener('touchend',e=>{if(!touchSrc)return;if(dragStarted){const t=e.changedTouches[0],over=slotFromPoint(t.clientX,t.clientY);if(over&&over!==touchSrc)swapSlots(touchSrc,over);}cleanup();});
+  document.addEventListener('touchcancel',cleanup);
+})();
+
+// ── Validación ───────────────────────────────────────────────
+const popupFail = document.getElementById('popup-fail');
+const failMsg   = document.getElementById('fail-msg');
+document.getElementById('fail-close').addEventListener('click', () => popupFail.classList.remove('visible'));
+popupFail.addEventListener('click', e => { if (e.target === popupFail) popupFail.classList.remove('visible'); });
+
+document.getElementById('btn-validar').addEventListener('click', () => {
+  const slots   = document.getElementById('music-grid').querySelectorAll('.cd-slot');
+  const correct = [...slots].filter((s, i) => parseInt(s.dataset.correct) === i).length;
+  const total   = slots.length;
+  if (correct === total) {
+    revealYears(); markDone();
+    setTimeout(() => popupStarReward.classList.add('visible'), 500);
+  } else {
+    failMsg.innerHTML = `El orden no es del todo correcto...<br><strong>${correct} de ${total}</strong> canciones en su sitio.<br><br>¡Sigue bailando y reordenando! 💃🕺`;
+    popupFail.classList.add('visible');
+  }
+});
+
+// ── Pistas ───────────────────────────────────────────────────
+const PISTAS = [
+  'Ordena estos temazos cronológicamente. Todos ellos lo petaron en la década de los 2000. Puedes arrastrar y soltar para cambiar el orden de las canciones o darle al play y bailar un rato. 🕺😄',
+  'Esta pista es visual; quizá con los años resulte más fácil.',
+  'Mientras la voz de CeeLo Green hipnotizaba a la radio, Italia ganaba el Mundial de Alemania tras el famoso cabezazo de Zidane a Materazzi.',
+  'Los Black Eyed Peas nos prometían que la noche sería buena el mismo año que el mundo lloraba la inesperada muerte del "Rey del Pop", Michael Jackson.',
+  'Avril Lavigne irrumpía con su corbata y su estética skater el mismo año que el Euro llegaba físicamente a nuestros bolsillos en forma de billetes y monedas.',
+  'El éxito de Rihanna coincidió con el estreno de la primera película de "Transformers", llenando las pantallas de robots gigantes.',
+  'Mientras Outkast ponía a todo el mundo a bailar, el cine vivía el épico final de la trilogía de "El Señor de los Anillos: El Retorno del Rey".',
+  'Mientras la "Ambición Rubia" nos decía que la música unía a la gente, el mundo entero suspiraba aliviado al ver que el Efecto 2000 (Y2K) no había colapsado los ordenadores.',
+];
+const dotIds    = ['pista-1','pista-2','pista-3','pista-4','pista-5','pista-6','pista-7','pista-8'];
+let pistaEstado = [1, 0, 0, 0, 0, 0, 0, 0];
+let pistaCallback = null;
+
+const popupPista  = document.getElementById('popup-pista');
+const pistaTexto  = document.getElementById('pista-texto');
+const pistaTitulo = document.getElementById('pista-titulo');
+
+function renderDots() {
+  const wrap = document.getElementById('pistas-wrap');
+  wrap.innerHTML = '';
+  dotIds.forEach((id, i) => {
+    const d = document.createElement('div');
+    d.className = 'pista-dot ' + ['rojo','ambar','verde'][pistaEstado[i]];
+    d.id = id; d.title = `Pista ${i+1}`; d.textContent = i + 1;
+    wrap.appendChild(d);
+    d.addEventListener('click', () => {
+      if (pistaEstado[i] === 0) return;
+      pistaTitulo.textContent = `Pista ${i+1}`;
+      pistaTexto.textContent  = PISTAS[i];
+      popupPista.classList.add('visible');
+      pistaCallback = () => {
+        const eraAmbar = pistaEstado[i] === 1;
+        pistaEstado[i] = 2;
+        if (eraAmbar && i + 1 < dotIds.length) pistaEstado[i+1] = 1;
+        if (i === 1) revealYears();
+        renderDots();
+      };
+    });
+  });
+}
+
+function cerrarPista() {
+  popupPista.classList.remove('visible');
+  if (pistaCallback) { pistaCallback(); pistaCallback = null; }
+}
+document.getElementById('pista-close').addEventListener('click', cerrarPista);
+popupPista.addEventListener('click', e => { if (e.target === popupPista) cerrarPista(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && popupPista.classList.contains('visible')) cerrarPista(); });
+
+renderDots();
 </script>
 </body>
 </html>
