@@ -25,6 +25,26 @@ calendario-50-aniversario/
 - **Hoy:** círculo dorado con animación de pulso
 - **Días pasados:** visibles y clickables
 - **Días futuros:** clickables pero muestran popup "¡No seas impaciente!"
+- **Días desarrollados:** punto verde 🟢 en la esquina superior izquierda de la celda
+
+#### Indicador de días desarrollados (punto verde)
+El `index.html` marca visualmente los días que ya tienen contenido implementado mediante un pequeño punto verde en la esquina superior izquierda de su celda.
+
+**Cómo funciona:** el array `DEV_DAYS` en el JS del `index.html` contiene las fechas desarrolladas. Cada celda que coincide recibe la clase CSS `.dev`, que activa el punto mediante `::after`.
+
+**Para desactivarlo** cuando ya no sea necesario, basta con comentar una sola línea en el CSS del `index.html`:
+```css
+/* DEV MARKER — comentar la línea siguiente para ocultar los indicadores */
+/* .day-cell.dev::after{...} */
+```
+
+**Para añadir un nuevo día** al marcador, agregar su fecha al array `DEV_DAYS` en el JS:
+```javascript
+const DEV_DAYS = new Set([
+  '2028-01-21', '2028-01-24', // ... etc
+  '2028-XX-XX'  // ← añadir aquí
+]);
+```
 
 ### Páginas de cada día
 Cada día tiene dos iconos en la esquina superior derecha:
@@ -133,6 +153,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-05-09 | Timeline musical, España en los 80 | 1980-1987 | No_dudaria.jpg .. Hijo_de_la_luna.jpg | N/A | PDTE |
 | 2028-07-11 | Timeline histórico doble | A:01-06 / B:01-06 | Timeline02_01A..06A.png + Timeline02_01B..06B.png | N/A | PDTE |
 | 2028-07-28 | Timeline musical, España en los 90 | 1990-1999 | Entre_dos_tierras.jpg .. Tu_calorro.jpg | N/A | PDTE |
+| 2028-10-18 | Timeline musical, Internacional en los 90 | 1990-1999 | Ice_ice_baby.jpg, Losing_my_religion.jpg, Zombie.jpg, Wannabe.jpg, Baby_one_more_time.jpg, Genie_in_a_Bottle.jpg + .mp3 | N/A | PDTE |
 | 2028-11-24 | Ingenio: negro sobre negro | 300.000 | The_Rolling_Stones_Paint_It_Black.mp3 | N/A | PDTE |
 
 ---
