@@ -20,7 +20,36 @@
     .day-of-week{font-size:.85rem;letter-spacing:.4em;text-transform:uppercase;color:rgba(201,168,76,.5);margin-bottom:1rem;}
     h1{font-family:'Playfair Display',serif;font-size:clamp(3rem,9vw,7rem);font-weight:900;line-height:1;background:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 50%,var(--gold-dark) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.5rem;}
     .month-label{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3.5vw,2.4rem);font-weight:400;font-style:italic;color:rgba(250,246,238,.45);margin-bottom:2.5rem;}
-    .content-area{width:100%;border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:2.5rem;min-height:220px;background:rgba(255,255,255,.02);color:rgba(250,246,238,.4);font-size:1rem;font-style:italic;text-align:center;display:flex;align-items:center;justify-content:center;}
+    .content-area{width:100%;border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:2rem;background:rgba(255,255,255,.02);display:flex;flex-direction:column;align-items:center;gap:1.8rem;}
+    .foto-titulo{font-family:'Playfair Display',serif;font-size:.8rem;font-weight:400;font-style:italic;color:rgba(201,168,76,.7);letter-spacing:.06em;text-align:right;width:100%;max-width:500px;margin-bottom:0;}
+    .foto-scene{position:relative;width:100%;max-width:500px;margin:0 auto;display:flex;flex-direction:column;gap:0;}
+    .reto-img{display:block;width:100%;height:auto;border-radius:3px;border:1px solid rgba(201,168,76,.12);}
+    /* Bocadillo lado derecho, vertical 40% */
+    .bocadillo{position:absolute;top:40%;right:8%;transform:translateY(-50%);width:44%;background:#FAF6EE;border:2px solid rgba(201,168,76,.55);border-radius:18px;padding:.9rem 1rem;min-height:80px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(0,0,0,.45);}
+    .bocadillo::before{content:'';position:absolute;left:-14px;top:50%;transform:translateY(-50%);border:7px solid transparent;border-right-color:rgba(201,168,76,.55);}
+    .bocadillo::after{content:'';position:absolute;left:-10px;top:50%;transform:translateY(-50%);border:6px solid transparent;border-right-color:#FAF6EE;}
+    .bocadillo-texto{font-family:'Cormorant Garamond',serif;font-size:1rem;font-style:italic;color:#3D2B1F;line-height:1.5;text-align:center;min-height:2.5em;}
+    .bocadillo-texto.typing::after{content:'|';animation:blink .6s step-end infinite;color:var(--gold-dark);}
+    @keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
+    .codigo-wrap{width:100%;display:flex;flex-direction:column;align-items:center;gap:.9rem;}
+    .codigo-label{font-size:.8rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(201,168,76,.55);}
+    .codigo-row{display:flex;gap:.6rem;width:100%;max-width:340px;align-items:center;}
+    .lock-icon{font-size:1.4rem;flex-shrink:0;opacity:.6;}
+    .codigo-input{flex:1;min-width:0;background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.25);border-radius:2px;color:var(--cream);font-family:'Cormorant Garamond',serif;font-size:1.1rem;letter-spacing:.2em;text-align:center;padding:.55rem .8rem;outline:none;transition:border-color .2s;}
+    .codigo-input:focus{border-color:rgba(201,168,76,.6);}
+    .codigo-input.error{border-color:rgba(255,90,90,.5);animation:shake .3s ease;}
+    .codigo-input.ok{border-color:rgba(80,200,120,.6);}
+    @keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-6px);}75%{transform:translateX(6px);}}
+    .btn-validar{padding:.55rem 1.4rem;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.35);border-radius:2px;color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:all .2s;white-space:nowrap;}
+    .btn-validar:hover{background:rgba(201,168,76,.2);border-color:var(--gold);}
+    .pistas-wrap{display:flex;gap:.6rem;align-items:center;justify-content:center;flex-wrap:nowrap;}
+    .pista-dot{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.82rem;font-weight:900;cursor:default;border:2px solid transparent;transition:all .25s;user-select:none;font-family:'Playfair Display',serif;}
+    .pista-dot.rojo{background:rgba(180,50,50,.25);border-color:rgba(180,50,50,.4);color:rgba(255,120,120,.5);}
+    .pista-dot.ambar{background:rgba(220,160,40,.2);border-color:rgba(220,160,40,.7);color:rgba(240,190,80,.9);cursor:pointer;animation:pulse-ambar 1.5s ease-in-out infinite;}
+    .pista-dot.verde{background:rgba(50,180,100,.2);border-color:rgba(50,180,100,.6);color:rgba(80,220,130,.9);cursor:pointer;}
+    .pista-dot.ambar:hover{background:rgba(220,160,40,.35);}
+    .pista-dot.verde:hover{background:rgba(50,180,100,.35);}
+    @keyframes pulse-ambar{0%,100%{box-shadow:0 0 0 0 rgba(220,160,40,.4);}50%{box-shadow:0 0 0 5px rgba(220,160,40,0);}}
     .day-nav{display:flex;justify-content:space-between;align-items:center;padding-top:2.5rem;border-top:1px solid rgba(201,168,76,.1);margin-top:2.5rem;}
     .nav-btn{font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(201,168,76,.5);text-decoration:none;padding:.6rem 1.2rem;border:1px solid rgba(201,168,76,.18);border-radius:2px;transition:all .2s;}
     .nav-btn:hover{color:var(--gold-light);border-color:rgba(201,168,76,.5);background:rgba(201,168,76,.05);}
@@ -28,7 +57,6 @@
     .year-badge{font-size:.7rem;letter-spacing:.3em;color:rgba(201,168,76,.25);text-transform:uppercase;}
     .back-link{display:block;text-align:center;margin-top:2rem;color:rgba(201,168,76,.35);font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;text-decoration:none;transition:color .2s;}
     .back-link:hover{color:var(--gold);}
-    /* Botones fav y done */
     .action-btns{position:absolute;top:0;right:0;display:flex;flex-direction:column;align-items:center;gap:.2rem;}
     .icon-btn{background:none;border:none;cursor:pointer;font-size:2rem;line-height:1;transition:color .2s,transform .2s;padding:.2rem;}
     .icon-btn:hover{transform:scale(1.2);}
@@ -38,7 +66,6 @@
     .done-btn{color:var(--gold);opacity:0.6;}
     .done-btn.active{color:var(--gold);opacity:1;}
     .done-btn.active:hover{color:var(--gold-light);opacity:1;}
-    /* Popup */
     .popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:100;align-items:center;justify-content:center;}
     .popup-overlay.visible{display:flex;}
     .popup-box{background:var(--dark);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:3rem 2.5rem;max-width:420px;width:90%;text-align:center;box-shadow:0 0 60px rgba(0,0,0,.8);}
@@ -52,11 +79,18 @@
       .day-hero{padding:1rem 0 1rem;}
       h1{font-size:clamp(2rem,14vw,4rem);}
       .month-label{font-size:clamp(1rem,4vw,1.6rem);margin-bottom:1rem;}
-      .content-area{padding:1.2rem;min-height:120px;}
+      .content-area{padding:1rem;gap:1rem;}
+      .foto-scene{display:flex;flex-direction:column;align-items:center;}
+      .reto-img{max-height:38vh;width:auto;max-width:100%;object-fit:contain;}
+      .bocadillo{position:static;transform:none;width:100%;order:-1;margin-bottom:.6rem;border-radius:14px;}
+      .bocadillo::before,.bocadillo::after{display:none;}
+      .bocadillo-texto{font-size:.9rem;}
+      .pistas-wrap{gap:.35rem;}
+      .pista-dot{width:24px;height:24px;font-size:.7rem;}
       .day-nav{margin-top:1rem;padding-top:1rem;}
       .ornament-line-h{margin-bottom:1rem;}
     }
-</style>
+  </style>
 </head>
 <body>
 <div class="wrap">
@@ -71,10 +105,37 @@
     <p class="day-of-week">Lunes</p>
     <h1>8</h1>
     <p class="month-label">de Mayo</p>
+
     <div class="content-area">
-      <p>Espacio reservado para el contenido de este día</p>
+
+      <div class="foto-scene">
+        <p class="foto-titulo">Los Cantos, 7 de agosto de 2017</p>
+        <img class="reto-img" src="../media/Alex_20170807.png" alt="Alex en Los Cantos" draggable="false"/>
+        <div class="bocadillo" id="bocadillo">
+          <p class="bocadillo-texto" id="bocadillo-texto">Adivina quién soy, te doy siete pistas... aunque te van a sobrar.</p>
+        </div>
+      </div>
+
+      <div class="codigo-wrap">
+        <p class="codigo-label">Adivina quién soy</p>
+        <div class="codigo-row">
+          <span class="lock-icon">🔒</span>
+          <input type="text" class="codigo-input" id="codigo-input" placeholder="· · · · · · · ·" maxlength="30" autocomplete="off"/>
+          <button class="btn-validar" id="btn-validar">Validar</button>
+        </div>
+        <div class="pistas-wrap">
+          <div class="pista-dot ambar" id="pista-1" title="Pista 1">1</div>
+          <div class="pista-dot rojo"  id="pista-2" title="Pista 2">2</div>
+          <div class="pista-dot rojo"  id="pista-3" title="Pista 3">3</div>
+          <div class="pista-dot rojo"  id="pista-4" title="Pista 4">4</div>
+          <div class="pista-dot rojo"  id="pista-5" title="Pista 5">5</div>
+          <div class="pista-dot rojo"  id="pista-6" title="Pista 6">6</div>
+          <div class="pista-dot rojo"  id="pista-7" title="Pista 7">7</div>
+        </div>
+      </div>
     </div>
   </div>
+
   <nav class="day-nav">
     <a class="nav-btn" href="2028-05-07.html">&#8592; 7 de Mayo</a>
     <span class="year-badge">50 Aniversario · 2028</span>
@@ -83,6 +144,7 @@
   <a class="back-link" href="../index.html">&#8592; Volver al Calendario</a>
 </div>
 
+<!-- Popup: día futuro -->
 <div class="popup-overlay" id="popup">
   <div class="popup-box">
     <div class="popup-icon">🎁</div>
@@ -92,7 +154,7 @@
   </div>
 </div>
 
-<!-- Popup estrella bloqueada -->
+<!-- Popup: estrella bloqueada -->
 <div class="popup-overlay" id="popup-star-blocked">
   <div class="popup-box">
     <div class="popup-icon">🏆</div>
@@ -102,7 +164,7 @@
   </div>
 </div>
 
-<!-- Popup recompensa del día -->
+<!-- Popup: recompensa -->
 <div class="popup-overlay" id="popup-star-reward">
   <div class="popup-box">
     <div class="popup-icon">🎁</div>
@@ -112,20 +174,30 @@
   </div>
 </div>
 
+<!-- Popup: fallo -->
+<div class="popup-overlay" id="popup-fail">
+  <div class="popup-box">
+    <div class="popup-icon">🤔</div>
+    <p class="popup-title">¡Casi, casi!</p>
+    <p class="popup-msg">Esa no es la respuesta correcta...<br>¡Sigue intentándolo! Las pistas te guiarán. 💪</p>
+    <button class="popup-btn" id="fail-close">Intentar de nuevo</button>
+  </div>
+</div>
+
 <script>
-const PREVIEW_KEY  = 'cal_preview';
-const isPreview    = localStorage.getItem(PREVIEW_KEY) === '1';
-const today        = new Date(); today.setHours(0,0,0,0);
-const thisDate     = new Date('2028-05-08'); thisDate.setHours(0,0,0,0);
-const nextDateStr  = '2028-05-09';
-const popup        = document.getElementById('popup');
+// ── Preview / bloqueo ───────────────────────────────────────
+const PREVIEW_KEY = 'cal_preview';
+const isPreview   = localStorage.getItem(PREVIEW_KEY) === '1';
+const today       = new Date(); today.setHours(0,0,0,0);
+const thisDate    = new Date('2028-05-08'); thisDate.setHours(0,0,0,0);
+const nextDateStr = '2028-05-09';
+const popup       = document.getElementById('popup');
 
 if (!isPreview && thisDate > today) {
   document.querySelector('.day-hero').style.filter = 'blur(4px)';
   document.querySelector('.day-nav').style.visibility = 'hidden';
   popup.classList.add('visible');
 }
-
 if (!isPreview && nextDateStr) {
   const nextDate = new Date(nextDateStr); nextDate.setHours(0,0,0,0);
   if (nextDate > today) {
@@ -133,10 +205,9 @@ if (!isPreview && nextDateStr) {
     if (nextBtn) nextBtn.addEventListener('click', e => { e.preventDefault(); popup.classList.add('visible'); });
   }
 }
-
 popup.addEventListener('click', e => { if (e.target === popup) window.location.href = '../index.html'; });
 
-// ── Favourite ──────────────────────────────────────────────
+// ── Favourites ──────────────────────────────────────────────
 const FAV_KEY = 'fav_2028-05-08';
 const favBtn  = document.getElementById('fav-btn');
 function updateFav() {
@@ -152,26 +223,18 @@ favBtn.addEventListener('click', () => {
 });
 updateFav();
 
-// ── Done (actividad completada) ────────────────────────────
-const DONE_KEY = 'done_2028-05-08';
-const doneBtn  = document.getElementById('done-btn');
+// ── Done ────────────────────────────────────────────────────
+const DONE_KEY         = 'done_2028-05-08';
+const doneBtn          = document.getElementById('done-btn');
 const popupStarBlocked = document.getElementById('popup-star-blocked');
 const popupStarReward  = document.getElementById('popup-star-reward');
 
-document.getElementById('star-blocked-close').addEventListener('click', () => {
-  popupStarBlocked.classList.remove('visible');
-});
-popupStarBlocked.addEventListener('click', e => {
-  if (e.target === popupStarBlocked) popupStarBlocked.classList.remove('visible');
-});
+document.getElementById('star-blocked-close').addEventListener('click', () => popupStarBlocked.classList.remove('visible'));
+popupStarBlocked.addEventListener('click', e => { if (e.target === popupStarBlocked) popupStarBlocked.classList.remove('visible'); });
+document.getElementById('star-reward-close').addEventListener('click', () => popupStarReward.classList.remove('visible'));
+popupStarReward.addEventListener('click', e => { if (e.target === popupStarReward) popupStarReward.classList.remove('visible'); });
 
-document.getElementById('star-reward-close').addEventListener('click', () => {
-  popupStarReward.classList.remove('visible');
-});
-popupStarReward.addEventListener('click', e => {
-  if (e.target === popupStarReward) popupStarReward.classList.remove('visible');
-});
-
+function markDone() { localStorage.setItem(DONE_KEY, '1'); updateDone(); }
 function updateDone() {
   const on = localStorage.getItem(DONE_KEY) === '1';
   doneBtn.textContent = on ? '★' : '☆';
@@ -180,20 +243,110 @@ function updateDone() {
 }
 doneBtn.addEventListener('click', () => {
   const on = localStorage.getItem(DONE_KEY) === '1';
-  if (on) {
-    // Already done → show reward
-    popupStarReward.classList.add('visible');
-  } else {
-    // Not done → only allowed in preview mode
-    if (isPreview) {
-      localStorage.setItem(DONE_KEY, '1');
-      updateDone();
-    } else {
-      popupStarBlocked.classList.add('visible');
-    }
-  }
+  if (on) { popupStarReward.classList.add('visible'); }
+  else if (isPreview) { markDone(); }
+  else { popupStarBlocked.classList.add('visible'); }
 });
 updateDone();
+
+// ── Pistas con typewriter ────────────────────────────────────
+const PISTAS = [
+  'Mi mayor obsesión siempre ha sido vencer a la muerte, incluso si eso implica romper las reglas más fundamentales de la naturaleza.',
+  'No nací en el mundo al que realmente pertenezco, pero desde joven supe que estaba destinado a algo mucho más grande que quienes me rodeaban.',
+  'Mi pasado está marcado por secretos, cambios de identidad y decisiones que me alejaron cada vez más de lo que alguna vez fui.',
+  'Tengo una conexión muy particular con cierta serpiente y con un objeto antiguo que guarda más de lo que aparenta.',
+  'Muchos temen incluso pronunciar mi nombre, y prefieren referirse a mí de otras maneras.',
+  'Fui estudiante en Hogwarts y destaqué por mi inteligencia, aunque mi camino tomó un rumbo oscuro.',
+  'Soy el enemigo más temido de Harry Potter y líder de los Mortífagos.',
+];
+
+const dotIds    = ['pista-1','pista-2','pista-3','pista-4','pista-5','pista-6','pista-7'];
+let pistaEstado = [1, 0, 0, 0, 0, 0, 0];
+let typing      = false;
+let typeTimer   = null;
+const bocadilloTexto = document.getElementById('bocadillo-texto');
+
+function renderDots() {
+  dotIds.forEach((id, i) => {
+    document.getElementById(id).className = 'pista-dot ' + ['rojo','ambar','verde'][pistaEstado[i]];
+  });
+}
+
+function typeText(text, onDone) {
+  if (typing) clearTimeout(typeTimer);
+  typing = true;
+  bocadilloTexto.textContent = '';
+  bocadilloTexto.classList.add('typing');
+  let i = 0;
+  function step() {
+    if (i < text.length) {
+      bocadilloTexto.textContent += text[i++];
+      typeTimer = setTimeout(step, 28);
+    } else {
+      bocadilloTexto.classList.remove('typing');
+      typing = false;
+      if (onDone) onDone();
+    }
+  }
+  step();
+}
+
+dotIds.forEach((id, idx) => {
+  document.getElementById(id).addEventListener('click', () => {
+    if (pistaEstado[idx] === 0) return;
+    typeText(PISTAS[idx], () => {
+      const eraAmbar = pistaEstado[idx] === 1;
+      pistaEstado[idx] = 2;
+      if (eraAmbar && idx + 1 < dotIds.length) pistaEstado[idx + 1] = 1;
+      renderDots();
+    });
+  });
+});
+renderDots();
+
+// ── Validación ───────────────────────────────────────────────
+const RESPUESTAS_OK = [
+  'LORD VOLDEMORT',
+  'VOLDEMORT',
+  'TOM MARVOLO RIDDLE',
+  'TOM RIDDLE',
+  'TOM SORVOLO RYDDLE',
+  'EL SEÑOR TENEBROSO',
+  'EL SEÑOR OSCURO',
+  'EL QUE NO DEBE SER NOMBRADO',
+  'QUIEN-TÚ-SABES',
+  'QUIEN TÚ SABES',
+  'EL QUE TÚ SABES',
+  'EL INNOMBRABLE',
+];
+const codigoInput = document.getElementById('codigo-input');
+const btnValidar  = document.getElementById('btn-validar');
+const popupFail   = document.getElementById('popup-fail');
+
+document.getElementById('fail-close').addEventListener('click', () => {
+  popupFail.classList.remove('visible');
+  codigoInput.value = '';
+  codigoInput.focus();
+});
+popupFail.addEventListener('click', e => { if (e.target === popupFail) popupFail.classList.remove('visible'); });
+
+function validar() {
+  const val = codigoInput.value.trim().toUpperCase();
+  if (RESPUESTAS_OK.includes(val)) {
+    codigoInput.classList.remove('error');
+    codigoInput.classList.add('ok');
+    markDone();
+    setTimeout(() => popupStarReward.classList.add('visible'), 400);
+  } else {
+    codigoInput.classList.remove('ok');
+    codigoInput.classList.add('error');
+    setTimeout(() => codigoInput.classList.remove('error'), 600);
+    popupFail.classList.add('visible');
+  }
+}
+
+btnValidar.addEventListener('click', validar);
+codigoInput.addEventListener('keydown', e => { if (e.key === 'Enter') validar(); });
 </script>
 </body>
 </html>
