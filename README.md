@@ -149,7 +149,9 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-01-30 | Agudeza visual — banderas Código Internacional de Señales Marítimas | 99274 | FinAno2020.png | Nieves, Enric, Ari, Alex | PDTE |
 | 2028-02-09 | Timeline musical, España en los 2000 | 2002-2008 | Asereje.jpg .. Tenia_tanto_que_darte.jpg | N/A | PDTE |
 | 2028-02-24 | Adivina quién soy | DIONISIO | David_20220805.png | David | PDTE |
+| 2028-03-15 | Adivina quién soy | AGATHA CHRISTIE | Mari_20220819.png | Mari | PDTE |
 | 2028-03-08 | Cultura: iniciales de famosos, especial mujeres | JAMAICA | Lugar02_01.jpg .. Lugar02_07.jpg | Ajenos | PDTE |
+| 2028-04-11 | Adivina quién soy | DALÍ | Ari_20130601.png | Ariadna | PDTE |
 | 2028-05-08 | Adivina quién soy | VOLDEMORT | Alex_20200222.png | Alex | PDTE |
 | 2028-05-09 | Timeline musical, España en los 80 | 1980-1987 | No_dudaria.jpg .. Hijo_de_la_luna.jpg | N/A | PDTE |
 | 2028-06-14 | Cultura: iniciales de famosos | OKINAWA | Lugar03_01.jpg .. Lugar03_07.jpg | Ajenos | PDTE |
