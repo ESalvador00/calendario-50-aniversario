@@ -308,9 +308,9 @@ renderDots();
 
 // ── Validación ───────────────────────────────────────────────
 const RESPUESTAS_OK = [
-  'SALVADOR FELIPE JACINTO DALÍ I DOMÈNECH',
-  'DALÍ',
-  'SALVADOR DALÍ',
+  'SALVADOR FELIPE JACINTO DALI I DOMENECH',
+  'DALI',
+  'SALVADOR DALI',
 ];
 const codigoInput = document.getElementById('codigo-input');
 const btnValidar  = document.getElementById('btn-validar');
@@ -323,8 +323,15 @@ document.getElementById('fail-close').addEventListener('click', () => {
 });
 popupFail.addEventListener('click', e => { if (e.target === popupFail) popupFail.classList.remove('visible'); });
 
+function normalizar(s) {
+  return s.trim().toUpperCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')  // quita tildes y diacríticos
+    .replace(/\u00D1/g, 'N')                            // Ñ → N (ya pasada a mayús)
+    .replace(/[^A-Z0-9 ]/g, '');                        // elimina el resto de especiales
+}
+
 function validar() {
-  const val = codigoInput.value.trim().toUpperCase();
+  const val = normalizar(codigoInput.value);
   if (RESPUESTAS_OK.includes(val)) {
     codigoInput.classList.remove('error');
     codigoInput.classList.add('ok');
