@@ -278,15 +278,22 @@ doneBtn.addEventListener('click', () => {
 updateDone();
 
 // ── Código secreto ──────────────────────────────────────────
-const RESPUESTAS_OK = ['CORCEGA', 'CÓRCEGA'];
+const RESPUESTAS_OK = ['CORCEGA'];
 const codigoInput   = document.getElementById('codigo-input');
 const popupError    = document.getElementById('popup-error');
 
 document.getElementById('btn-validar').addEventListener('click', validar);
 codigoInput.addEventListener('keydown', e => { if (e.key === 'Enter') validar(); });
 
+function normalizar(s) {
+  return s.trim().toUpperCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .replace(/\u00D1/g, 'N')
+    .replace(/[^A-Z0-9 ]/g, '');
+}
+
 function validar() {
-  const val = codigoInput.value.trim().toUpperCase();
+  const val = normalizar(codigoInput.value);
   if (RESPUESTAS_OK.includes(val)) {
     codigoInput.classList.remove('error');
     codigoInput.classList.add('ok');
