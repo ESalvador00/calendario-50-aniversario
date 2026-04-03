@@ -39,6 +39,9 @@
     .reto-label{font-family:'Playfair Display',serif;font-size:.78rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:rgba(201,168,76,.6);text-align:center;}
     .btn-validar{padding:.65rem 2.5rem;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.35);border-radius:2px;color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:.85rem;letter-spacing:.25em;text-transform:uppercase;cursor:pointer;transition:all .2s;}
     .btn-validar:hover{background:rgba(201,168,76,.2);border-color:var(--gold);}
+    .btn-playlist{padding:.65rem 1rem;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.35);border-radius:2px;color:var(--gold);font-size:1rem;cursor:pointer;transition:all .2s;line-height:1;}
+    .btn-playlist:hover{background:rgba(201,168,76,.2);border-color:var(--gold);}
+    .btn-playlist.playing{background:rgba(201,168,76,.2);border-color:var(--gold);}
     .pistas-wrap{display:flex;gap:.6rem;align-items:center;justify-content:center;flex-wrap:nowrap;}
     .pista-dot{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:700;cursor:default;border:2px solid transparent;transition:all .25s;user-select:none;font-family:'Cormorant Garamond',serif;}
     .pista-dot.rojo{background:rgba(180,50,50,.25);border-color:rgba(180,50,50,.4);color:rgba(255,120,120,.5);}
@@ -120,6 +123,7 @@
       <div style="display:flex;align-items:center;gap:.7rem;">
         <span style="font-size:1.4rem;opacity:.6;">🔒</span>
         <button class="btn-validar" id="btn-validar">Validar</button>
+        <button class="btn-playlist" id="btn-playlist" title="Reproducir playlist">▶</button>
       </div>
       <div class="pistas-wrap" id="pistas-wrap"></div>
     </div>
@@ -279,13 +283,25 @@ function shuffle(arr) {
 let currentAudio = null;
 let currentSlot  = null;
 
+// Playlist global (orden fijo al cargar la página)
+let playlist  = [];
+let plIdx     = -1;
+let plActive  = false;
+
+function updatePlaylistBtn() {
+  const btn = document.getElementById('btn-playlist');
+  if (!btn) return;
+  btn.textContent = plActive ? '⏸' : '▶';
+  btn.classList.toggle('playing', plActive);
+  btn.title = plActive ? 'Pausar playlist' : 'Reproducir playlist';
+}
+
 function stopCurrent() {
   if (currentAudio) { currentAudio.pause(); currentAudio.currentTime = 0; currentAudio = null; }
   if (currentSlot)  { currentSlot.classList.remove('playing'); currentSlot.querySelector('.play-btn').textContent = '▶'; currentSlot = null; }
 }
 
-function togglePlay(slot) {
-  if (currentSlot === slot) { stopCurrent(); return; }
+function playSlotDirect(slot) {
   stopCurrent();
   currentAudio = slot._audio;
   currentSlot  = slot;
@@ -296,7 +312,31 @@ function togglePlay(slot) {
     slot.classList.remove('playing');
     slot.querySelector('.play-btn').textContent = '▶';
     currentAudio = null; currentSlot = null;
+    if (plActive) {
+      plIdx = (plIdx + 1) % playlist.length;
+      playSlotDirect(playlist[plIdx]);
+    }
   };
+}
+
+function togglePlay(slot) {
+  if (currentSlot === slot) {
+    plActive = false; updatePlaylistBtn(); stopCurrent();
+  } else {
+    plActive = false; updatePlaylistBtn(); playSlotDirect(slot);
+  }
+}
+
+function togglePlaylist() {
+  if (plActive) {
+    plActive = false; updatePlaylistBtn(); stopCurrent();
+  } else {
+    plActive = true;
+    if (currentSlot) stopCurrent();
+    if (plIdx < 0 || plIdx >= playlist.length) plIdx = 0;
+    updatePlaylistBtn();
+    playSlotDirect(playlist[plIdx]);
+  }
 }
 
 // ── Render grid A ────────────────────────────────────────────
@@ -324,6 +364,9 @@ function buildMusicGrid() {
   initDrag(container);
 }
 buildMusicGrid();
+
+playlist = [...document.getElementById('music-grid').querySelectorAll('.cd-slot')];
+document.getElementById('btn-playlist').addEventListener('click', togglePlaylist);
 
 // ── Drag & Drop ──────────────────────────────────────────────
 function swapSlots(a, b) {

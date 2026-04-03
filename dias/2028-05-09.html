@@ -95,6 +95,9 @@
     /* ── Botón validar ── */
     .btn-validar{padding:.65rem 2.5rem;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.35);border-radius:2px;color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:.85rem;letter-spacing:.25em;text-transform:uppercase;cursor:pointer;transition:all .2s;}
     .btn-validar:hover{background:rgba(201,168,76,.2);border-color:var(--gold);}
+    .btn-playlist{padding:.65rem 1rem;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.35);border-radius:2px;color:var(--gold);font-size:1rem;cursor:pointer;transition:all .2s;line-height:1;}
+    .btn-playlist:hover{background:rgba(201,168,76,.2);border-color:var(--gold);}
+    .btn-playlist.playing{background:rgba(201,168,76,.2);border-color:var(--gold);}
 
     /* ── Bolitas de pistas ── */
     .pistas-wrap{display:flex;gap:.6rem;align-items:center;justify-content:center;flex-wrap:nowrap;}
@@ -219,6 +222,7 @@
       <div style="display:flex;align-items:center;gap:.7rem;">
         <span style="font-size:1.4rem;opacity:.6;">🔒</span>
         <button class="btn-validar" id="btn-validar">Validar</button>
+        <button class="btn-playlist" id="btn-playlist" title="Reproducir playlist">▶</button>
       </div>
 
       <!-- Pistas -->
@@ -382,6 +386,19 @@ function shuffle(arr) {
 let currentAudio = null;
 let currentSlot  = null;
 
+// Playlist global (orden fijo al cargar la página)
+let playlist      = [];
+let plIdx         = -1;
+let plActive      = false;
+
+function updatePlaylistBtn() {
+  const btn = document.getElementById('btn-playlist');
+  if (!btn) return;
+  btn.textContent = plActive ? '⏸' : '▶';
+  btn.classList.toggle('playing', plActive);
+  btn.title = plActive ? 'Pausar playlist' : 'Reproducir playlist';
+}
+
 function stopCurrent() {
   if (currentAudio) {
     currentAudio.pause();
@@ -395,25 +412,49 @@ function stopCurrent() {
   }
 }
 
-function togglePlay(slot) {
+function playSlotDirect(slot, fromPlaylist) {
+  stopCurrent();
   const audio = slot._audio;
+  currentAudio = audio;
+  currentSlot  = slot;
+  slot.classList.add('playing');
+  slot.querySelector('.play-btn').textContent = '⏸';
+  audio.play().catch(() => {});
+  audio.onended = () => {
+    slot.classList.remove('playing');
+    slot.querySelector('.play-btn').textContent = '▶';
+    currentAudio = null;
+    currentSlot  = null;
+    if (plActive) {
+      plIdx = (plIdx + 1) % playlist.length;
+      playSlotDirect(playlist[plIdx], true);
+    }
+  };
+}
+
+function togglePlay(slot) {
   if (currentSlot === slot) {
-    // Pausar la que suena
+    plActive = false;
+    updatePlaylistBtn();
     stopCurrent();
   } else {
-    // Parar la anterior y reproducir esta
+    plActive = false;
+    updatePlaylistBtn();
+    playSlotDirect(slot, false);
+  }
+}
+
+function togglePlaylist() {
+  if (plActive) {
+    plActive = false;
+    updatePlaylistBtn();
     stopCurrent();
-    currentAudio = audio;
-    currentSlot  = slot;
-    slot.classList.add('playing');
-    slot.querySelector('.play-btn').textContent = '⏸';
-    audio.play().catch(() => {});
-    audio.onended = () => {
-      slot.classList.remove('playing');
-      slot.querySelector('.play-btn').textContent = '▶';
-      currentAudio = null;
-      currentSlot  = null;
-    };
+  } else {
+    plActive = true;
+    if (currentSlot) stopCurrent();
+    if (plIdx < 0 || plIdx >= playlist.length) plIdx = 0;
+    updatePlaylistBtn();
+    playSlotDirect(playlist[plIdx], true);
   }
 }
 
@@ -455,6 +496,9 @@ function buildMusicGrid() {
 }
 
 buildMusicGrid();
+
+playlist = [...document.getElementById('music-grid').querySelectorAll('.cd-slot')];
+document.getElementById('btn-playlist').addEventListener('click', togglePlaylist);
 
 // ── Drag & Drop ──────────────────────────────────────────────
 function swapSlots(a, b) {
