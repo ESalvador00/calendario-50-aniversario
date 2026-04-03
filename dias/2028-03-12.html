@@ -20,7 +20,40 @@
     .day-of-week{font-size:.85rem;letter-spacing:.4em;text-transform:uppercase;color:rgba(201,168,76,.5);margin-bottom:1rem;}
     h1{font-family:'Playfair Display',serif;font-size:clamp(3rem,9vw,7rem);font-weight:900;line-height:1;background:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 50%,var(--gold-dark) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.5rem;}
     .month-label{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3.5vw,2.4rem);font-weight:400;font-style:italic;color:rgba(250,246,238,.45);margin-bottom:2.5rem;}
-    .content-area{width:100%;border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:2.5rem;min-height:220px;background:rgba(255,255,255,.02);color:rgba(250,246,238,.4);font-size:1rem;font-style:italic;text-align:center;display:flex;align-items:center;justify-content:center;}
+
+    /* ── Área de contenido ── */
+    .content-area{width:100%;border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:2rem;background:rgba(255,255,255,.02);display:flex;flex-direction:column;align-items:center;gap:1.8rem;}
+
+    /* ── Imagen del reto ── */
+    .reto-img-wrap{width:100%;cursor:zoom-in;border-radius:3px;overflow:hidden;border:1px solid rgba(201,168,76,.12);transition:border-color .2s;}
+    .reto-img-wrap:hover{border-color:rgba(201,168,76,.4);}
+    .reto-img-wrap img{display:block;width:100%;height:auto;transition:transform .2s;}
+    .foto-titulo{font-family:'Playfair Display',serif;font-size:.8rem;font-weight:400;font-style:italic;color:rgba(201,168,76,.7);letter-spacing:.06em;text-align:right;width:100%;margin-bottom:0;}
+
+    /* ── Código secreto ── */
+    .codigo-wrap{width:100%;display:flex;flex-direction:column;align-items:center;gap:.9rem;}
+    .codigo-label{font-size:.8rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(201,168,76,.55);}
+    .codigo-row{display:flex;gap:.6rem;width:100%;max-width:340px;align-items:center;}
+    .lock-icon{font-size:1.4rem;flex-shrink:0;opacity:.6;}
+    .codigo-input{flex:1;min-width:0;background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.25);border-radius:2px;color:var(--cream);font-family:'Cormorant Garamond',serif;font-size:1.1rem;letter-spacing:.2em;text-align:center;padding:.55rem .8rem;outline:none;transition:border-color .2s;}
+    .codigo-input:focus{border-color:rgba(201,168,76,.6);}
+    .codigo-input.error{border-color:rgba(255,90,90,.5);animation:shake .3s ease;}
+    .codigo-input.ok{border-color:rgba(80,200,120,.6);}
+    @keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-6px);}75%{transform:translateX(6px);}}
+    .btn-validar{padding:.55rem 1.4rem;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.35);border-radius:2px;color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:all .2s;white-space:nowrap;}
+    .btn-validar:hover{background:rgba(201,168,76,.2);border-color:var(--gold);}
+
+    /* ── Bolitas de pistas ── */
+    .pistas-wrap{display:flex;gap:.7rem;align-items:center;justify-content:center;flex-wrap:nowrap;}
+    .pista-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;letter-spacing:0;cursor:default;border:2px solid transparent;transition:all .25s;user-select:none;font-family:'Cormorant Garamond',serif;}
+    .pista-dot.rojo  {background:rgba(180,50,50,.25); border-color:rgba(180,50,50,.4); color:rgba(255,120,120,.5);}
+    .pista-dot.ambar {background:rgba(220,160,40,.2);  border-color:rgba(220,160,40,.7); color:rgba(240,190,80,.9); cursor:pointer; animation:pulse-ambar 1.5s ease-in-out infinite;}
+    .pista-dot.verde {background:rgba(50,180,100,.2);  border-color:rgba(50,180,100,.6); color:rgba(80,220,130,.9); cursor:pointer;}
+    .pista-dot.ambar:hover{background:rgba(220,160,40,.35);}
+    .pista-dot.verde:hover{background:rgba(50,180,100,.35);}
+    @keyframes pulse-ambar{0%,100%{box-shadow:0 0 0 0 rgba(220,160,40,.4);}50%{box-shadow:0 0 0 5px rgba(220,160,40,.0);}}
+
+    /* ── Nav ── */
     .day-nav{display:flex;justify-content:space-between;align-items:center;padding-top:2.5rem;border-top:1px solid rgba(201,168,76,.1);margin-top:2.5rem;}
     .nav-btn{font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(201,168,76,.5);text-decoration:none;padding:.6rem 1.2rem;border:1px solid rgba(201,168,76,.18);border-radius:2px;transition:all .2s;}
     .nav-btn:hover{color:var(--gold-light);border-color:rgba(201,168,76,.5);background:rgba(201,168,76,.05);}
@@ -28,7 +61,8 @@
     .year-badge{font-size:.7rem;letter-spacing:.3em;color:rgba(201,168,76,.25);text-transform:uppercase;}
     .back-link{display:block;text-align:center;margin-top:2rem;color:rgba(201,168,76,.35);font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;text-decoration:none;transition:color .2s;}
     .back-link:hover{color:var(--gold);}
-    /* Botones fav y done */
+
+    /* ── Action btns ── */
     .action-btns{position:absolute;top:0;right:0;display:flex;flex-direction:column;align-items:center;gap:.2rem;}
     .icon-btn{background:none;border:none;cursor:pointer;font-size:2rem;line-height:1;transition:color .2s,transform .2s;padding:.2rem;}
     .icon-btn:hover{transform:scale(1.2);}
@@ -38,7 +72,8 @@
     .done-btn{color:var(--gold);opacity:0.6;}
     .done-btn.active{color:var(--gold);opacity:1;}
     .done-btn.active:hover{color:var(--gold-light);opacity:1;}
-    /* Popup */
+
+    /* ── Popups ── */
     .popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:100;align-items:center;justify-content:center;}
     .popup-overlay.visible{display:flex;}
     .popup-box{background:var(--dark);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:3rem 2.5rem;max-width:420px;width:90%;text-align:center;box-shadow:0 0 60px rgba(0,0,0,.8);}
@@ -47,16 +82,32 @@
     .popup-msg{font-size:1rem;font-style:italic;color:rgba(250,246,238,.6);line-height:1.7;margin-bottom:2rem;}
     .popup-btn{display:inline-block;padding:.7rem 2rem;border:1px solid rgba(201,168,76,.4);border-radius:2px;color:var(--gold);font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;background:none;transition:all .2s;}
     .popup-btn:hover{background:rgba(201,168,76,.1);border-color:var(--gold);}
+
+    /* ── Mobile ── */
     @media(max-width:600px){
       .wrap{padding:1rem 1rem 2rem;}
       .day-hero{padding:1rem 0 1rem;}
       h1{font-size:clamp(2rem,14vw,4rem);}
       .month-label{font-size:clamp(1rem,4vw,1.6rem);margin-bottom:1rem;}
-      .content-area{padding:1.2rem;min-height:120px;}
+      .content-area{padding:1rem;gap:1rem;}
+      .reto-img{max-height:38vh;width:auto;max-width:100%;object-fit:contain;}
+      .pistas-wrap{gap:.4rem;}
+      .pista-dot{width:24px;height:24px;font-size:.7rem;}
+      .codigo-row{max-width:100%;}
       .day-nav{margin-top:1rem;padding-top:1rem;}
       .ornament-line-h{margin-bottom:1rem;}
     }
-</style>
+
+    /* ── Lightbox ── */
+    .lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:200;align-items:center;justify-content:center;cursor:zoom-out;}
+    .lightbox.visible{display:flex;}
+    .lightbox-inner{position:relative;max-width:95vw;max-height:95vh;overflow:hidden;touch-action:none;}
+    .lightbox-inner img{display:block;max-width:95vw;max-height:95vh;object-fit:contain;transform-origin:center center;transition:transform .2s ease;user-select:none;cursor:grab;}
+    .lightbox-inner img.grabbing{cursor:grabbing;}
+    .lightbox-close{position:fixed;top:1.2rem;right:1.5rem;background:none;border:none;color:rgba(255,255,255,.5);font-size:2rem;cursor:pointer;z-index:201;line-height:1;transition:color .2s;}
+    .lightbox-close:hover{color:white;}
+    .lightbox-hint{position:fixed;bottom:1.2rem;left:50%;transform:translateX(-50%);font-size:.7rem;letter-spacing:.2em;color:rgba(255,255,255,.25);text-transform:uppercase;pointer-events:none;}
+  </style>
 </head>
 <body>
 <div class="wrap">
@@ -71,10 +122,35 @@
     <p class="day-of-week">Domingo</p>
     <h1>12</h1>
     <p class="month-label">de Marzo</p>
+
     <div class="content-area">
-      <p>Espacio reservado para el contenido de este día</p>
+      <!-- Imagen del reto -->
+      <div class="reto-img-wrap" id="img-inner" style="display:flex;flex-direction:column;gap:0;cursor:default;overflow:visible;border:none;">
+        <p class="foto-titulo">6 de octubre de 2019</p>
+        <div style="width:100%;cursor:zoom-in;border-radius:3px;overflow:hidden;border:1px solid rgba(201,168,76,.12);transition:border-color .2s;" id="img-click">
+          <img src="../media/Alex_20191006.png" alt="Alex" id="reto-img" draggable="false" style="display:block;width:100%;height:auto;transition:transform .2s;"/>
+        </div>
+      </div>
+
+      <!-- Código secreto -->
+      <div class="codigo-wrap">
+        <p class="codigo-label">RUO SD UHFH, SODWD QR HV</p>
+        <div class="codigo-row">
+          <span class="lock-icon">🔒</span>
+          <input type="text" class="codigo-input" id="codigo-input" placeholder="· · · · · · · ·" maxlength="20" autocomplete="off"/>
+          <button class="btn-validar" id="btn-validar">Validar</button>
+        </div>
+        <!-- Bolitas de pistas -->
+        <div class="pistas-wrap">
+          <div class="pista-dot ambar" id="pista-1" title="Pista 1">1</div>
+          <div class="pista-dot rojo"  id="pista-2" title="Pista 2">2</div>
+          <div class="pista-dot rojo"  id="pista-3" title="Pista 3">3</div>
+          <div class="pista-dot rojo"  id="pista-4" title="Pista 4">4</div>
+        </div>
+      </div>
     </div>
   </div>
+
   <nav class="day-nav">
     <a class="nav-btn" href="2028-03-11.html">&#8592; 11 de Marzo</a>
     <span class="year-badge">50 Aniversario · 2028</span>
@@ -83,6 +159,7 @@
   <a class="back-link" href="../index.html">&#8592; Volver al Calendario</a>
 </div>
 
+<!-- Popup: día futuro -->
 <div class="popup-overlay" id="popup">
   <div class="popup-box">
     <div class="popup-icon">🎁</div>
@@ -92,7 +169,27 @@
   </div>
 </div>
 
-<!-- Popup estrella bloqueada -->
+<!-- Popup: código incorrecto -->
+<div class="popup-overlay" id="popup-error">
+  <div class="popup-box">
+    <div class="popup-icon">🔍</div>
+    <p class="popup-title">¡Casi lo tienes!</p>
+    <p class="popup-msg">Esa no es la respuesta correcta...<br>Fíjate bien y vuelve a intentarlo. 💪</p>
+    <button class="popup-btn" id="error-close">Intentarlo de nuevo</button>
+  </div>
+</div>
+
+<!-- Popup: pista -->
+<div class="popup-overlay" id="popup-pista">
+  <div class="popup-box">
+    <div class="popup-icon">💡</div>
+    <p class="popup-title" id="pista-titulo">Pista</p>
+    <p class="popup-msg" id="pista-texto">La pista aparecerá aquí.</p>
+    <button class="popup-btn" id="pista-close">Entendido</button>
+  </div>
+</div>
+
+<!-- Popup: estrella bloqueada -->
 <div class="popup-overlay" id="popup-star-blocked">
   <div class="popup-box">
     <div class="popup-icon">🏆</div>
@@ -102,7 +199,7 @@
   </div>
 </div>
 
-<!-- Popup recompensa del día -->
+<!-- Popup: recompensa -->
 <div class="popup-overlay" id="popup-star-reward">
   <div class="popup-box">
     <div class="popup-icon">🎁</div>
@@ -112,20 +209,28 @@
   </div>
 </div>
 
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightbox-close">✕</button>
+  <div class="lightbox-inner" id="lightbox-inner">
+    <img src="../media/Alex_20191006.png" alt="Alex" id="lightbox-img" draggable="false"/>
+  </div>
+  <p class="lightbox-hint">Scroll para zoom · Arrastra para mover · ESC para cerrar</p>
+</div>
+
 <script>
-const PREVIEW_KEY  = 'cal_preview';
-const isPreview    = localStorage.getItem(PREVIEW_KEY) === '1';
-const today        = new Date(); today.setHours(0,0,0,0);
-const thisDate     = new Date('2028-03-12'); thisDate.setHours(0,0,0,0);
-const nextDateStr  = '2028-03-13';
-const popup        = document.getElementById('popup');
+const PREVIEW_KEY = 'cal_preview';
+const isPreview   = localStorage.getItem(PREVIEW_KEY) === '1';
+const today       = new Date(); today.setHours(0,0,0,0);
+const thisDate    = new Date('2028-03-12'); thisDate.setHours(0,0,0,0);
+const nextDateStr = '2028-03-13';
+const popup       = document.getElementById('popup');
 
 if (!isPreview && thisDate > today) {
   document.querySelector('.day-hero').style.filter = 'blur(4px)';
   document.querySelector('.day-nav').style.visibility = 'hidden';
   popup.classList.add('visible');
 }
-
 if (!isPreview && nextDateStr) {
   const nextDate = new Date(nextDateStr); nextDate.setHours(0,0,0,0);
   if (nextDate > today) {
@@ -133,10 +238,9 @@ if (!isPreview && nextDateStr) {
     if (nextBtn) nextBtn.addEventListener('click', e => { e.preventDefault(); popup.classList.add('visible'); });
   }
 }
-
 popup.addEventListener('click', e => { if (e.target === popup) window.location.href = '../index.html'; });
 
-// ── Favourite ──────────────────────────────────────────────
+// ── Favourites ─────────────────────────────────────────────
 const FAV_KEY = 'fav_2028-03-12';
 const favBtn  = document.getElementById('fav-btn');
 function updateFav() {
@@ -152,26 +256,21 @@ favBtn.addEventListener('click', () => {
 });
 updateFav();
 
-// ── Done (actividad completada) ────────────────────────────
-const DONE_KEY = 'done_2028-03-12';
-const doneBtn  = document.getElementById('done-btn');
+// ── Done ───────────────────────────────────────────────────
+const DONE_KEY         = 'done_2028-03-12';
+const doneBtn          = document.getElementById('done-btn');
 const popupStarBlocked = document.getElementById('popup-star-blocked');
 const popupStarReward  = document.getElementById('popup-star-reward');
 
-document.getElementById('star-blocked-close').addEventListener('click', () => {
-  popupStarBlocked.classList.remove('visible');
-});
-popupStarBlocked.addEventListener('click', e => {
-  if (e.target === popupStarBlocked) popupStarBlocked.classList.remove('visible');
-});
+document.getElementById('star-blocked-close').addEventListener('click', () => popupStarBlocked.classList.remove('visible'));
+popupStarBlocked.addEventListener('click', e => { if (e.target === popupStarBlocked) popupStarBlocked.classList.remove('visible'); });
+document.getElementById('star-reward-close').addEventListener('click', () => popupStarReward.classList.remove('visible'));
+popupStarReward.addEventListener('click', e => { if (e.target === popupStarReward) popupStarReward.classList.remove('visible'); });
 
-document.getElementById('star-reward-close').addEventListener('click', () => {
-  popupStarReward.classList.remove('visible');
-});
-popupStarReward.addEventListener('click', e => {
-  if (e.target === popupStarReward) popupStarReward.classList.remove('visible');
-});
-
+function markDone() {
+  localStorage.setItem(DONE_KEY, '1');
+  updateDone();
+}
 function updateDone() {
   const on = localStorage.getItem(DONE_KEY) === '1';
   doneBtn.textContent = on ? '★' : '☆';
@@ -181,19 +280,204 @@ function updateDone() {
 doneBtn.addEventListener('click', () => {
   const on = localStorage.getItem(DONE_KEY) === '1';
   if (on) {
-    // Already done → show reward
     popupStarReward.classList.add('visible');
   } else {
-    // Not done → only allowed in preview mode
-    if (isPreview) {
-      localStorage.setItem(DONE_KEY, '1');
-      updateDone();
-    } else {
-      popupStarBlocked.classList.add('visible');
-    }
+    if (isPreview) { markDone(); } else { popupStarBlocked.classList.add('visible'); }
   }
 });
 updateDone();
+
+// ── Código secreto ─────────────────────────────────────────
+const RESPUESTAS_OK = ['PLATANO'];
+const codigoInput   = document.getElementById('codigo-input');
+const popupError    = document.getElementById('popup-error');
+
+document.getElementById('btn-validar').addEventListener('click', validar);
+codigoInput.addEventListener('keydown', e => { if (e.key === 'Enter') validar(); });
+
+function normalizar(s) {
+  return s.trim().toUpperCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .replace(/\u00D1/g, 'N')
+    .replace(/[^A-Z0-9 ]/g, '');
+}
+
+function validar() {
+  const val = normalizar(codigoInput.value);
+  if (RESPUESTAS_OK.includes(val)) {
+    codigoInput.classList.add('ok');
+    markDone();
+    setTimeout(() => popupStarReward.classList.add('visible'), 400);
+  } else {
+    codigoInput.classList.remove('ok');
+    codigoInput.classList.add('error');
+    setTimeout(() => codigoInput.classList.remove('error'), 400);
+    popupError.classList.add('visible');
+  }
+}
+
+document.getElementById('error-close').addEventListener('click', () => {
+  popupError.classList.remove('visible');
+  codigoInput.value = '';
+  codigoInput.focus();
+});
+popupError.addEventListener('click', e => {
+  if (e.target === popupError) { popupError.classList.remove('visible'); codigoInput.value = ''; }
+});
+
+// ── Bolitas de pistas ──────────────────────────────────────
+const PISTAS = [
+  'No creas que es un idioma inventado o que está escrito en otro idioma. El mensaje simplemente está cifrado; las letras que ves no son las que parecen.',
+  'El personaje del busto tiene la llave de todo. Se dice que él mismo inventó este sistema para enviar mensajes secretos durante la guerra sin que sus enemigos se enteraran de nada.',
+  'No busques una frase profunda de filosofía. El texto resultante no es algo aleatorio, sino una estructura con muchísimo sentido (y seguramente te suene de toda la vida).',
+  'Si te has quedado bloqueada, quizás debas preguntarle a Google cómo cifraba César sus mensajes. ¡Ahí tienes la solución técnica!',
+];
+
+const dotIds      = ['pista-1','pista-2','pista-3','pista-4'];
+let pistaEstado   = [1, 0, 0, 0];
+let pistaCallback = null;
+const popupPista  = document.getElementById('popup-pista');
+
+function renderDots() {
+  dotIds.forEach((id, i) => {
+    const el = document.getElementById(id);
+    el.className = 'pista-dot ' + ['rojo','ambar','verde'][pistaEstado[i]];
+  });
+}
+
+function cerrarPista() {
+  popupPista.classList.remove('visible');
+  if (pistaCallback) { pistaCallback(); pistaCallback = null; }
+}
+
+document.getElementById('pista-close').addEventListener('click', cerrarPista);
+popupPista.addEventListener('click', e => { if (e.target === popupPista) cerrarPista(); });
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && popupPista.classList.contains('visible')) cerrarPista();
+});
+
+dotIds.forEach((id, i) => {
+  document.getElementById(id).addEventListener('click', () => {
+    if (pistaEstado[i] === 0) return;
+    document.getElementById('pista-texto').textContent = PISTAS[i];
+    document.getElementById('pista-titulo').textContent = `Pista ${i + 1}`;
+    popupPista.classList.add('visible');
+    pistaCallback = () => {
+      const eraAmbar = pistaEstado[i] === 1;
+      pistaEstado[i] = 2;
+      if (eraAmbar && i + 1 < dotIds.length) pistaEstado[i + 1] = 1;
+      renderDots();
+    };
+  });
+});
+
+renderDots();
+
+// ── Lightbox ───────────────────────────────────────────────
+const lightbox      = document.getElementById('lightbox');
+const lightboxImg   = document.getElementById('lightbox-img');
+let   lbScale       = 1;
+let   lbX = 0, lbY = 0;
+let   dragging      = false;
+let   dragStartX, dragStartY, imgStartX, imgStartY;
+
+function applyTransform() {
+  lightboxImg.style.transform = `scale(${lbScale}) translate(${lbX / lbScale}px, ${lbY / lbScale}px)`;
+}
+function openLightbox() {
+  lbScale = 1; lbX = 0; lbY = 0;
+  applyTransform();
+  lightbox.classList.add('visible');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  lightbox.classList.remove('visible');
+  document.body.style.overflow = '';
+  lbScale = 1; lbX = 0; lbY = 0;
+  applyTransform();
+}
+
+document.getElementById('img-click').addEventListener('click', openLightbox);
+document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+
+// Scroll = zoom
+lightbox.addEventListener('wheel', e => {
+  e.preventDefault();
+  const delta = e.deltaY > 0 ? -0.15 : 0.15;
+  lbScale = Math.min(Math.max(lbScale + delta, 1), 5);
+  if (lbScale === 1) { lbX = 0; lbY = 0; }
+  applyTransform();
+}, { passive: false });
+
+// Drag to pan
+lightboxImg.addEventListener('mousedown', e => {
+  if (lbScale <= 1) return;
+  dragging = true;
+  dragStartX = e.clientX; dragStartY = e.clientY;
+  imgStartX = lbX; imgStartY = lbY;
+  lightboxImg.classList.add('grabbing');
+  e.preventDefault();
+});
+window.addEventListener('mousemove', e => {
+  if (!dragging) return;
+  lbX = imgStartX + (e.clientX - dragStartX);
+  lbY = imgStartY + (e.clientY - dragStartY);
+  applyTransform();
+});
+window.addEventListener('mouseup', () => {
+  dragging = false;
+  lightboxImg.classList.remove('grabbing');
+});
+
+// Touch pinch zoom + drag
+let lastTouchDist = null;
+lightbox.addEventListener('touchstart', e => {
+  if (e.touches.length === 2) {
+    lastTouchDist = Math.hypot(
+      e.touches[0].clientX - e.touches[1].clientX,
+      e.touches[0].clientY - e.touches[1].clientY
+    );
+  } else if (e.touches.length === 1 && lbScale > 1) {
+    dragging = true;
+    dragStartX = e.touches[0].clientX; dragStartY = e.touches[0].clientY;
+    imgStartX = lbX; imgStartY = lbY;
+  }
+}, { passive: true });
+lightbox.addEventListener('touchmove', e => {
+  if (e.touches.length === 2 && lastTouchDist) {
+    const dist = Math.hypot(
+      e.touches[0].clientX - e.touches[1].clientX,
+      e.touches[0].clientY - e.touches[1].clientY
+    );
+    lbScale = Math.min(Math.max(lbScale * (dist / lastTouchDist), 1), 5);
+    lastTouchDist = dist;
+    if (lbScale === 1) { lbX = 0; lbY = 0; }
+    applyTransform();
+    e.preventDefault();
+  } else if (e.touches.length === 1 && dragging) {
+    lbX = imgStartX + (e.touches[0].clientX - dragStartX);
+    lbY = imgStartY + (e.touches[0].clientY - dragStartY);
+    applyTransform();
+    e.preventDefault();
+  }
+}, { passive: false });
+lightbox.addEventListener('touchend', () => {
+  lastTouchDist = null;
+  dragging = false;
+});
+
+// ESC / Back
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && lightbox.classList.contains('visible')) closeLightbox();
+});
+window.addEventListener('popstate', () => {
+  if (lightbox.classList.contains('visible')) {
+    closeLightbox();
+    history.pushState(null, '', '');
+  }
+});
+history.pushState(null, '', '');
 </script>
 </body>
 </html>
