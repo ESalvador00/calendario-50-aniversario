@@ -191,12 +191,13 @@
           <span>Película</span>
           <span class="progreso-num" id="progreso-actual">1</span>
           <span>de 5</span>
+          <span style="margin-left:.8rem;color:rgba(201,168,76,.4);">(<span id="puntos-display">10.050</span> pts)</span>
         </div>
       </div>
 
       <!-- Mensaje final -->
       <div class="reto-completado" id="reto-completado">
-        <p>🎬 ¡Todas las películas descubiertas! ¡Bien hecho! 🎬</p>
+        <p id="reto-completado-msg">🎬 ¡Genial! Has descubierto todas las películas.</p>
       </div>
 
     </div>
@@ -411,6 +412,26 @@ let pistaCallback  = null;
 let currentAudio   = null;
 let currentSlot    = null;
 
+// ── Puntuación ────────────────────────────────────────────
+const PUNTOS_INICIAL   = 10050;
+const COSTE_PISTAS     = [100, 200, 300, 400, 500]; // por índice
+const COSTE_BSO        = 400;
+let puntos             = PUNTOS_INICIAL;
+let bsoUsadaEnPelicula = false; // se resetea por película
+
+function actualizarPuntos(delta) {
+  puntos = Math.max(0, puntos - delta);
+  document.getElementById('puntos-display').textContent = puntos.toLocaleString('es-ES');
+}
+
+function categoriaFinal(pts) {
+  if (pts > 8500)  return '🏆 Cinéfilo de Culto (Pro)';
+  if (pts >= 6500) return '🎬 Director de Primera Fila';
+  if (pts >= 4000) return '✍️ Guionista Aventajado';
+  if (pts >= 1500) return '🍷 Crítico de Butaca Roja';
+  return '🍿 Aficionado Gourmet';
+}
+
 const codigoInput    = document.getElementById('codigo-input');
 const popupError     = document.getElementById('popup-error');
 const popupPista     = document.getElementById('popup-pista');
@@ -436,6 +457,11 @@ function toggleSlotPlay(slot, audio) {
     return;
   }
   stopCurrent();
+  // Penalizar BSO solo la primera vez en esta película
+  if (!bsoUsadaEnPelicula) {
+    bsoUsadaEnPelicula = true;
+    actualizarPuntos(COSTE_BSO);
+  }
   currentAudio = audio;
   currentSlot  = slot;
   slot.classList.add('playing');
@@ -490,7 +516,11 @@ document.addEventListener('keydown', e => {
     pistaCallback = () => {
       const eraAmbar = pistaEstado[i] === 1;
       pistaEstado[i] = 2;
-      if (eraAmbar && i + 1 < 5) pistaEstado[i + 1] = 1;
+      if (eraAmbar) {
+        // Solo descuenta la primera vez (cuando era ámbar)
+        actualizarPuntos(COSTE_PISTAS[i]);
+        if (i + 1 < 5) pistaEstado[i + 1] = 1;
+      }
       renderDots();
     };
   });
@@ -512,6 +542,7 @@ function validar() {
       if (peliculaActual < PELICULAS.length) {
         // Siguiente película
         pistaEstado = [1, 0, 0, 0, 0];
+        bsoUsadaEnPelicula = false;
         renderDots();
         progresoActual.textContent = peliculaActual + 1;
         // Marcar slot activo
@@ -521,6 +552,9 @@ function validar() {
       } else {
         // Todas completadas
         markDone();
+        const cat = categoriaFinal(puntos);
+        document.getElementById('reto-completado-msg').textContent =
+          `🎬 ¡Genial! Has descubierto todas las películas. Tu puntuación es de ${puntos.toLocaleString('es-ES')} pts, eres un auténtico ${cat}.`;
         document.getElementById('codigo-wrap').style.display = 'none';
         document.getElementById('reto-completado').classList.add('visible');
         document.querySelectorAll('.movie-slot').forEach(s => s.classList.remove('active'));
