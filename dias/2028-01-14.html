@@ -26,28 +26,21 @@
 
     /* ── Grid de películas ── */
     .movie-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;width:100%;}
-    .movie-slot{position:relative;aspect-ratio:2/3;border-radius:3px;overflow:hidden;border:1px solid rgba(201,168,76,.15);background:rgba(255,255,255,.03);transition:border-color .2s;}
-    .movie-slot.revealed{border-color:rgba(201,168,76,.5);}
+    .movie-slot{position:relative;aspect-ratio:2/3;border-radius:3px;overflow:hidden;border:1px solid rgba(201,168,76,.15);background:rgba(255,255,255,.03);transition:border-color .2s,box-shadow .2s;}
+    .movie-slot.revealed{border-color:rgba(50,180,100,.7);box-shadow:0 0 8px rgba(50,180,100,.25);}
     .movie-slot img{display:block;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .4s ease;}
     .movie-slot.revealed img{opacity:1;}
     .movie-slot .movie-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.85) 0%,transparent 50%);opacity:0;transition:opacity .2s;display:flex;align-items:flex-end;padding:.4rem;}
     .movie-slot.revealed:hover .movie-overlay{opacity:1;}
     .movie-slot .movie-title{font-family:'Cormorant Garamond',serif;font-size:.65rem;font-style:italic;color:var(--cream);line-height:1.3;text-align:center;width:100%;}
-    /* Placeholder cuando no está revelada */
     .movie-slot .movie-placeholder{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:1.8rem;opacity:.15;transition:opacity .2s;}
     .movie-slot.revealed .movie-placeholder{opacity:0;}
-    /* Slot activo (el que toca adivinar) */
-    .movie-slot.active{border-color:rgba(201,168,76,.6);animation:pulse-slot 2s ease-in-out infinite;}
+    .movie-slot.active{border-color:rgba(201,168,76,.7);animation:pulse-slot 2s ease-in-out infinite;}
     @keyframes pulse-slot{0%,100%{box-shadow:0 0 0 0 rgba(201,168,76,.3);}50%{box-shadow:0 0 0 6px rgba(201,168,76,0);}}
-
-    /* ── Reproductor BSO ── */
-    .bso-wrap{width:100%;display:flex;flex-direction:column;align-items:center;gap:.6rem;}
-    .bso-label{font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(201,168,76,.45);}
-    .bso-controls{display:flex;align-items:center;gap:1rem;}
-    .bso-play-btn{width:44px;height:44px;border-radius:50%;background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.4);color:var(--gold);font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;}
-    .bso-play-btn:hover{background:rgba(201,168,76,.25);border-color:var(--gold);}
-    .bso-play-btn.playing{background:rgba(201,168,76,.2);border-color:var(--gold);}
-    .bso-title{font-family:'Playfair Display',serif;font-size:.9rem;font-style:italic;color:rgba(201,168,76,.8);}
+    .play-btn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:30px;height:30px;border-radius:50%;background:rgba(0,0,0,.65);border:1.5px solid rgba(201,168,76,.5);color:var(--gold-light);font-size:.78rem;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;transition:opacity .2s;z-index:2;}
+    .movie-slot.active .play-btn,.movie-slot.active:hover .play-btn{opacity:1;}
+    .movie-slot.playing .play-btn{opacity:1;border-color:var(--gold);background:rgba(0,0,0,.8);}
+    .movie-slot.playing{box-shadow:0 0 14px rgba(232,201,122,.45);}
 
     /* ── Código secreto ── */
     .codigo-wrap{width:100%;display:flex;flex-direction:column;align-items:center;gap:.9rem;}
@@ -119,7 +112,6 @@
       .month-label{font-size:clamp(1rem,4vw,1.6rem);margin-bottom:1rem;}
       .content-area{padding:1rem;gap:1rem;}
       .movie-grid{gap:5px;}
-      .bso-title{font-size:.8rem;}
       .codigo-row{max-width:100%;}
       .pistas-wrap{gap:.4rem;}
       .pista-dot{width:24px;height:24px;font-size:.7rem;}
@@ -149,42 +141,38 @@
         <div class="movie-slot" id="slot-0">
           <div class="movie-placeholder">🎬</div>
           <img src="../media/Los_Cazafantasmas.jpg" alt="Los Cazafantasmas" draggable="false"/>
+          <button class="play-btn" title="Reproducir BSO">▶</button>
           <div class="movie-overlay"><span class="movie-title">Los Cazafantasmas (1984)</span></div>
         </div>
         <div class="movie-slot" id="slot-1">
           <div class="movie-placeholder">🎬</div>
           <img src="../media/Frozen.jpg" alt="Frozen" draggable="false"/>
+          <button class="play-btn" title="Reproducir BSO">▶</button>
           <div class="movie-overlay"><span class="movie-title">Frozen (2013)</span></div>
         </div>
         <div class="movie-slot" id="slot-2">
           <div class="movie-placeholder">🎬</div>
           <img src="../media/Dirty_Dancing.jpg" alt="Dirty Dancing" draggable="false"/>
+          <button class="play-btn" title="Reproducir BSO">▶</button>
           <div class="movie-overlay"><span class="movie-title">Dirty Dancing (1987)</span></div>
         </div>
         <div class="movie-slot" id="slot-3">
           <div class="movie-placeholder">🎬</div>
           <img src="../media/Matrix.jpg" alt="Matrix" draggable="false"/>
+          <button class="play-btn" title="Reproducir BSO">▶</button>
           <div class="movie-overlay"><span class="movie-title">Matrix (1999)</span></div>
         </div>
         <div class="movie-slot" id="slot-4">
           <div class="movie-placeholder">🎬</div>
           <img src="../media/La_Mision.jpg" alt="La Misión" draggable="false"/>
+          <button class="play-btn" title="Reproducir BSO">▶</button>
           <div class="movie-overlay"><span class="movie-title">La Misión (1986)</span></div>
-        </div>
-      </div>
-
-      <!-- Reproductor BSO -->
-      <div class="bso-wrap" id="bso-wrap">
-        <p class="bso-label">Banda Sonora Original</p>
-        <div class="bso-controls">
-          <button class="bso-play-btn" id="bso-play-btn" title="Reproducir / Pausar">▶</button>
-          <span class="bso-title" id="bso-title">—</span>
         </div>
       </div>
 
       <!-- Código secreto -->
       <div class="codigo-wrap" id="codigo-wrap">
-        <p class="codigo-label">Adivina la película</p>
+        <p class="codigo-label">Adivina las películas</p>
         <div class="codigo-row">
           <span class="lock-icon">🔒</span>
           <input type="text" class="codigo-input" id="codigo-input" placeholder="· · · · · · · ·" maxlength="30" autocomplete="off"/>
@@ -420,53 +408,57 @@ function normalizar(s) {
 let peliculaActual = 0;
 let pistaEstado    = [1, 0, 0, 0, 0];
 let pistaCallback  = null;
-let bsoAudio       = null;
-let bsoPlaying     = false;
+let currentAudio   = null;
+let currentSlot    = null;
 
 const codigoInput    = document.getElementById('codigo-input');
 const popupError     = document.getElementById('popup-error');
 const popupPista     = document.getElementById('popup-pista');
 const progresoActual = document.getElementById('progreso-actual');
-const bsoPlayBtn     = document.getElementById('bso-play-btn');
-const bsoTitle       = document.getElementById('bso-title');
 
-// ── Audio BSO ─────────────────────────────────────────────
-function stopBso() {
-  if (bsoAudio) {
-    bsoAudio.pause();
-    bsoAudio.currentTime = 0;
+// ── Audio en slot ─────────────────────────────────────────
+function stopCurrent() {
+  if (currentAudio) {
+    currentAudio.pause();
+    currentAudio.currentTime = 0;
+    currentAudio = null;
   }
-  bsoPlaying = false;
-  bsoPlayBtn.textContent = '▶';
-  bsoPlayBtn.classList.remove('playing');
+  if (currentSlot) {
+    currentSlot.classList.remove('playing');
+    currentSlot.querySelector('.play-btn').textContent = '▶';
+    currentSlot = null;
+  }
 }
 
-function loadBso(idx) {
-  stopBso();
-  if (bsoAudio) { bsoAudio.src = ''; }
-  bsoAudio = new Audio(PELICULAS[idx].audio);
-  bsoAudio.preload = 'none';
-  bsoTitle.textContent = PELICULAS[idx].titulo;
-  bsoAudio.onended = () => {
-    bsoPlaying = false;
-    bsoPlayBtn.textContent = '▶';
-    bsoPlayBtn.classList.remove('playing');
+function toggleSlotPlay(slot, audio) {
+  if (currentSlot === slot) {
+    stopCurrent();
+    return;
+  }
+  stopCurrent();
+  currentAudio = audio;
+  currentSlot  = slot;
+  slot.classList.add('playing');
+  slot.querySelector('.play-btn').textContent = '⏸';
+  audio.play().catch(() => {});
+  audio.onended = () => {
+    slot.classList.remove('playing');
+    slot.querySelector('.play-btn').textContent = '▶';
+    currentAudio = null;
+    currentSlot  = null;
   };
 }
 
-bsoPlayBtn.addEventListener('click', () => {
-  if (!bsoAudio) return;
-  if (bsoPlaying) {
-    bsoAudio.pause();
-    bsoPlaying = false;
-    bsoPlayBtn.textContent = '▶';
-    bsoPlayBtn.classList.remove('playing');
-  } else {
-    bsoAudio.play().catch(() => {});
-    bsoPlaying = true;
-    bsoPlayBtn.textContent = '⏸';
-    bsoPlayBtn.classList.add('playing');
-  }
+// Asignar audio a cada slot y conectar el play-btn
+PELICULAS.forEach((pel, idx) => {
+  const slot  = document.getElementById(pel.slotId);
+  const audio = new Audio(pel.audio);
+  audio.preload = 'none';
+  slot._audio = audio;
+  slot.querySelector('.play-btn').addEventListener('click', e => {
+    e.stopPropagation();
+    toggleSlotPlay(slot, slot._audio);
+  });
 });
 
 // ── Pistas ───────────────────────────────────────────────
@@ -512,7 +504,7 @@ function validar() {
     codigoInput.classList.add('ok');
     // Revelar imagen del slot
     document.getElementById(PELICULAS[peliculaActual].slotId).classList.add('revealed');
-    stopBso();
+    stopCurrent();
     setTimeout(() => {
       codigoInput.classList.remove('ok');
       codigoInput.value = '';
@@ -522,7 +514,6 @@ function validar() {
         pistaEstado = [1, 0, 0, 0, 0];
         renderDots();
         progresoActual.textContent = peliculaActual + 1;
-        loadBso(peliculaActual);
         // Marcar slot activo
         document.querySelectorAll('.movie-slot').forEach((s, i) => {
           s.classList.toggle('active', i === peliculaActual);
@@ -531,7 +522,6 @@ function validar() {
         // Todas completadas
         markDone();
         document.getElementById('codigo-wrap').style.display = 'none';
-        document.getElementById('bso-wrap').style.display = 'none';
         document.getElementById('reto-completado').classList.add('visible');
         document.querySelectorAll('.movie-slot').forEach(s => s.classList.remove('active'));
         setTimeout(() => popupStarReward.classList.add('visible'), 600);
@@ -559,11 +549,7 @@ popupError.addEventListener('click', e => {
 
 // ── Inicialización ────────────────────────────────────────
 function init() {
-  // Marcar primer slot como activo
   document.getElementById('slot-0').classList.add('active');
-  // Cargar primera BSO
-  loadBso(0);
-  // Renderizar pistas
   renderDots();
 }
 
