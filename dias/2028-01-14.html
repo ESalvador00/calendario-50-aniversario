@@ -191,7 +191,7 @@
           <span>Película</span>
           <span class="progreso-num" id="progreso-actual">1</span>
           <span>de 5</span>
-          <span style="margin-left:.8rem;color:rgba(201,168,76,.4);">(<span id="puntos-display">10.050</span> pts)</span>
+          <span style="margin-left:.8rem;color:rgba(201,168,76,.4);">(<span id="puntos-display">10.000</span> puntos)</span>
         </div>
       </div>
 
@@ -413,7 +413,7 @@ let currentAudio   = null;
 let currentSlot    = null;
 
 // ── Puntuación ────────────────────────────────────────────
-const PUNTOS_INICIAL   = 10050;
+const PUNTOS_INICIAL   = 10000;
 const COSTE_PISTAS     = [100, 200, 300, 400, 500]; // por índice
 const COSTE_BSO        = 400;
 let puntos             = PUNTOS_INICIAL;
@@ -554,7 +554,7 @@ function validar() {
         markDone();
         const cat = categoriaFinal(puntos);
         document.getElementById('reto-completado-msg').textContent =
-          `🎬 ¡Genial! Has descubierto todas las películas. Tu puntuación es de ${puntos.toLocaleString('es-ES')} pts, eres un auténtico ${cat}.`;
+          `🎬 ¡Genial! Has descubierto todas las películas. Tu puntuación es de ${puntos.toLocaleString('es-ES')} puntos, eres un auténtico ${cat}.`;
         document.getElementById('codigo-wrap').style.display = 'none';
         document.getElementById('reto-completado').classList.add('visible');
         document.querySelectorAll('.movie-slot').forEach(s => s.classList.remove('active'));
