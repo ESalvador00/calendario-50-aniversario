@@ -20,7 +20,47 @@
     .day-of-week{font-size:.85rem;letter-spacing:.4em;text-transform:uppercase;color:rgba(201,168,76,.5);margin-bottom:1rem;}
     h1{font-family:'Playfair Display',serif;font-size:clamp(3rem,9vw,7rem);font-weight:900;line-height:1;background:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 50%,var(--gold-dark) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.5rem;}
     .month-label{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3.5vw,2.4rem);font-weight:400;font-style:italic;color:rgba(250,246,238,.45);margin-bottom:2.5rem;}
-    .content-area{width:100%;border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:2.5rem;min-height:220px;background:rgba(255,255,255,.02);color:rgba(250,246,238,.4);font-size:1rem;font-style:italic;text-align:center;display:flex;align-items:center;justify-content:center;}
+    .content-area{width:100%;border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:2rem;background:rgba(255,255,255,.02);display:flex;flex-direction:column;align-items:center;gap:1.8rem;}
+    .movie-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;width:100%;}
+    .movie-slot{position:relative;aspect-ratio:2/3;border-radius:3px;overflow:hidden;border:1px solid rgba(201,168,76,.15);background:rgba(255,255,255,.03);transition:border-color .2s,box-shadow .2s;}
+    .movie-slot.revealed{border-color:rgba(50,180,100,.7);box-shadow:0 0 8px rgba(50,180,100,.25);}
+    .movie-slot img{display:block;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .4s ease;}
+    .movie-slot.revealed img{opacity:1;}
+    .movie-slot .movie-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.85) 0%,transparent 50%);opacity:0;transition:opacity .2s;display:flex;align-items:flex-end;padding:.4rem;}
+    .movie-slot.revealed:hover .movie-overlay{opacity:1;}
+    .movie-slot .movie-title{font-family:'Cormorant Garamond',serif;font-size:.65rem;font-style:italic;color:var(--cream);line-height:1.3;text-align:center;width:100%;}
+    .movie-slot .movie-placeholder{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:1.8rem;opacity:.15;transition:opacity .2s;}
+    .movie-slot.revealed .movie-placeholder{opacity:0;}
+    .movie-slot.active{border-color:rgba(201,168,76,.7);animation:pulse-slot 2s ease-in-out infinite;}
+    @keyframes pulse-slot{0%,100%{box-shadow:0 0 0 0 rgba(201,168,76,.3);}50%{box-shadow:0 0 0 6px rgba(201,168,76,0);}}
+    .play-btn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:30px;height:30px;border-radius:50%;background:rgba(0,0,0,.65);border:1.5px solid rgba(201,168,76,.5);color:var(--gold-light);font-size:.78rem;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;transition:opacity .2s;z-index:2;}
+    .movie-slot.active .play-btn,.movie-slot.active:hover .play-btn{opacity:1;}
+    .movie-slot.playing .play-btn{opacity:1;border-color:var(--gold);background:rgba(0,0,0,.8);}
+    .movie-slot.playing{box-shadow:0 0 14px rgba(232,201,122,.45);}
+    .codigo-wrap{width:100%;display:flex;flex-direction:column;align-items:center;gap:.9rem;}
+    .codigo-label{font-size:.8rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(201,168,76,.55);}
+    .codigo-row{display:flex;gap:.6rem;width:100%;max-width:380px;align-items:center;}
+    .lock-icon{font-size:1.4rem;flex-shrink:0;opacity:.6;}
+    .codigo-input{flex:1;min-width:0;background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.25);border-radius:2px;color:var(--cream);font-family:'Cormorant Garamond',serif;font-size:1.1rem;letter-spacing:.1em;text-align:center;padding:.55rem .8rem;outline:none;transition:border-color .2s;}
+    .codigo-input:focus{border-color:rgba(201,168,76,.6);}
+    .codigo-input.error{border-color:rgba(255,90,90,.5);animation:shake .3s ease;}
+    .codigo-input.ok{border-color:rgba(80,200,120,.6);}
+    @keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-6px);}75%{transform:translateX(6px);}}
+    .btn-validar{padding:.55rem 1.4rem;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.35);border-radius:2px;color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:all .2s;white-space:nowrap;}
+    .btn-validar:hover{background:rgba(201,168,76,.2);border-color:var(--gold);}
+    .pistas-wrap{display:flex;gap:.7rem;align-items:center;justify-content:center;flex-wrap:nowrap;}
+    .pista-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;letter-spacing:0;cursor:default;border:2px solid transparent;transition:all .25s;user-select:none;font-family:'Cormorant Garamond',serif;}
+    .pista-dot.rojo  {background:rgba(180,50,50,.25); border-color:rgba(180,50,50,.4); color:rgba(255,120,120,.5);}
+    .pista-dot.ambar {background:rgba(220,160,40,.2);  border-color:rgba(220,160,40,.7); color:rgba(240,190,80,.9); cursor:pointer; animation:pulse-ambar 1.5s ease-in-out infinite;}
+    .pista-dot.verde {background:rgba(50,180,100,.2);  border-color:rgba(50,180,100,.6); color:rgba(80,220,130,.9); cursor:pointer;}
+    .pista-dot.ambar:hover{background:rgba(220,160,40,.35);}
+    .pista-dot.verde:hover{background:rgba(50,180,100,.35);}
+    @keyframes pulse-ambar{0%,100%{box-shadow:0 0 0 0 rgba(220,160,40,.4);}50%{box-shadow:0 0 0 5px rgba(220,160,40,.0);}}
+    .progreso-wrap{display:flex;align-items:center;gap:.5rem;font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(201,168,76,.4);}
+    .progreso-num{font-family:'Playfair Display',serif;font-size:1rem;color:var(--gold);}
+    .reto-completado{display:none;text-align:center;padding:1rem 0;}
+    .reto-completado.visible{display:block;}
+    .reto-completado p{font-family:'Playfair Display',serif;font-size:1.1rem;font-style:italic;color:var(--gold-light);}
     .day-nav{display:flex;justify-content:space-between;align-items:center;padding-top:2.5rem;border-top:1px solid rgba(201,168,76,.1);margin-top:2.5rem;}
     .nav-btn{font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(201,168,76,.5);text-decoration:none;padding:.6rem 1.2rem;border:1px solid rgba(201,168,76,.18);border-radius:2px;transition:all .2s;}
     .nav-btn:hover{color:var(--gold-light);border-color:rgba(201,168,76,.5);background:rgba(201,168,76,.05);}
@@ -28,7 +68,6 @@
     .year-badge{font-size:.7rem;letter-spacing:.3em;color:rgba(201,168,76,.25);text-transform:uppercase;}
     .back-link{display:block;text-align:center;margin-top:2rem;color:rgba(201,168,76,.35);font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;text-decoration:none;transition:color .2s;}
     .back-link:hover{color:var(--gold);}
-    /* Botones fav y done */
     .action-btns{position:absolute;top:0;right:0;display:flex;flex-direction:column;align-items:center;gap:.2rem;}
     .icon-btn{background:none;border:none;cursor:pointer;font-size:2rem;line-height:1;transition:color .2s,transform .2s;padding:.2rem;}
     .icon-btn:hover{transform:scale(1.2);}
@@ -38,7 +77,6 @@
     .done-btn{color:var(--gold);opacity:0.6;}
     .done-btn.active{color:var(--gold);opacity:1;}
     .done-btn.active:hover{color:var(--gold-light);opacity:1;}
-    /* Popup */
     .popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:100;align-items:center;justify-content:center;}
     .popup-overlay.visible{display:flex;}
     .popup-box{background:var(--dark);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:3rem 2.5rem;max-width:420px;width:90%;text-align:center;box-shadow:0 0 60px rgba(0,0,0,.8);}
@@ -52,11 +90,15 @@
       .day-hero{padding:1rem 0 1rem;}
       h1{font-size:clamp(2rem,14vw,4rem);}
       .month-label{font-size:clamp(1rem,4vw,1.6rem);margin-bottom:1rem;}
-      .content-area{padding:1.2rem;min-height:120px;}
+      .content-area{padding:1rem;gap:1rem;}
+      .movie-grid{gap:5px;}
+      .codigo-row{max-width:100%;}
+      .pistas-wrap{gap:.4rem;}
+      .pista-dot{width:24px;height:24px;font-size:.7rem;}
       .day-nav{margin-top:1rem;padding-top:1rem;}
       .ornament-line-h{margin-bottom:1rem;}
     }
-</style>
+  </style>
 </head>
 <body>
 <div class="wrap">
@@ -71,10 +113,74 @@
     <p class="day-of-week">Viernes</p>
     <h1>3</h1>
     <p class="month-label">de Marzo</p>
+
     <div class="content-area">
-      <p>Espacio reservado para el contenido de este día</p>
+
+      <!-- Grid de películas -->
+      <div class="movie-grid" id="movie-grid">
+        <div class="movie-slot" id="slot-0">
+          <div class="movie-placeholder">🎬</div>
+          <img src="../media/El_Guardaespaldas.jpg" alt="El Guardaespaldas" draggable="false"/>
+          <button class="play-btn" title="Reproducir BSO">▶</button>
+          <div class="movie-overlay"><span class="movie-title">El Guardaespaldas (1992)</span></div>
+        </div>
+        <div class="movie-slot" id="slot-1">
+          <div class="movie-placeholder">🎬</div>
+          <img src="../media/Ghost.jpg" alt="Ghost" draggable="false"/>
+          <button class="play-btn" title="Reproducir BSO">▶</button>
+          <div class="movie-overlay"><span class="movie-title">Ghost (1990)</span></div>
+        </div>
+        <div class="movie-slot" id="slot-2">
+          <div class="movie-placeholder">🎬</div>
+          <img src="../media/Amelie.jpg" alt="Amélie" draggable="false"/>
+          <button class="play-btn" title="Reproducir BSO">▶</button>
+          <div class="movie-overlay"><span class="movie-title">Amélie (2001)</span></div>
+        </div>
+        <div class="movie-slot" id="slot-3">
+          <div class="movie-placeholder">🎬</div>
+          <img src="../media/Sherlock_Holmes.jpg" alt="Sherlock Holmes" draggable="false"/>
+          <button class="play-btn" title="Reproducir BSO">▶</button>
+          <div class="movie-overlay"><span class="movie-title">Sherlock Holmes (2009)</span></div>
+        </div>
+        <div class="movie-slot" id="slot-4">
+          <div class="movie-placeholder">🎬</div>
+          <img src="../media/Oppenheimer.jpg" alt="Oppenheimer" draggable="false"/>
+          <button class="play-btn" title="Reproducir BSO">▶</button>
+          <div class="movie-overlay"><span class="movie-title">Oppenheimer (2023)</span></div>
+        </div>
+      </div>
+
+      <!-- Código secreto -->
+      <div class="codigo-wrap" id="codigo-wrap">
+        <p class="codigo-label">Adivina las películas</p>
+        <div class="codigo-row">
+          <span class="lock-icon">🔒</span>
+          <input type="text" class="codigo-input" id="codigo-input" placeholder="· · · · · · · ·" maxlength="30" autocomplete="off"/>
+          <button class="btn-validar" id="btn-validar">Validar</button>
+        </div>
+        <div class="pistas-wrap" id="pistas-wrap">
+          <div class="pista-dot ambar" id="pista-1">1</div>
+          <div class="pista-dot rojo"  id="pista-2">2</div>
+          <div class="pista-dot rojo"  id="pista-3">3</div>
+          <div class="pista-dot rojo"  id="pista-4">4</div>
+          <div class="pista-dot rojo"  id="pista-5">5</div>
+        </div>
+        <div class="progreso-wrap">
+          <span>Película</span>
+          <span class="progreso-num" id="progreso-actual">1</span>
+          <span>de 5</span>
+          <span style="margin-left:.8rem;color:rgba(201,168,76,.4);">(<span id="puntos-display">10.000</span> puntos)</span>
+        </div>
+      </div>
+
+      <!-- Mensaje final -->
+      <div class="reto-completado" id="reto-completado">
+        <p id="reto-completado-msg">🎬 ¡Genial! Has descubierto todas las películas.</p>
+      </div>
+
     </div>
   </div>
+
   <nav class="day-nav">
     <a class="nav-btn" href="2028-03-02.html">&#8592; 2 de Marzo</a>
     <span class="year-badge">50 Aniversario · 2028</span>
@@ -83,6 +189,7 @@
   <a class="back-link" href="../index.html">&#8592; Volver al Calendario</a>
 </div>
 
+<!-- Popup: día futuro -->
 <div class="popup-overlay" id="popup">
   <div class="popup-box">
     <div class="popup-icon">🎁</div>
@@ -92,7 +199,27 @@
   </div>
 </div>
 
-<!-- Popup estrella bloqueada -->
+<!-- Popup: código incorrecto -->
+<div class="popup-overlay" id="popup-error">
+  <div class="popup-box">
+    <div class="popup-icon">🤔</div>
+    <p class="popup-title">¡Casi, casi!</p>
+    <p class="popup-msg">Esa no es la película correcta...<br>¡Sigue intentándolo! Las pistas te guiarán. 💪</p>
+    <button class="popup-btn" id="error-close">Intentar de nuevo</button>
+  </div>
+</div>
+
+<!-- Popup: pista -->
+<div class="popup-overlay" id="popup-pista">
+  <div class="popup-box">
+    <div class="popup-icon">💡</div>
+    <p class="popup-title" id="pista-titulo">Pista</p>
+    <p class="popup-msg" id="pista-texto">La pista aparecerá aquí.</p>
+    <button class="popup-btn" id="pista-close">Entendido</button>
+  </div>
+</div>
+
+<!-- Popup: estrella bloqueada -->
 <div class="popup-overlay" id="popup-star-blocked">
   <div class="popup-box">
     <div class="popup-icon">🏆</div>
@@ -102,7 +229,7 @@
   </div>
 </div>
 
-<!-- Popup recompensa del día -->
+<!-- Popup: recompensa -->
 <div class="popup-overlay" id="popup-star-reward">
   <div class="popup-box">
     <div class="popup-icon">🎁</div>
@@ -113,19 +240,18 @@
 </div>
 
 <script>
-const PREVIEW_KEY  = 'cal_preview';
-const isPreview    = localStorage.getItem(PREVIEW_KEY) === '1';
-const today        = new Date(); today.setHours(0,0,0,0);
-const thisDate     = new Date('2028-03-03'); thisDate.setHours(0,0,0,0);
-const nextDateStr  = '2028-03-04';
-const popup        = document.getElementById('popup');
+const PREVIEW_KEY = 'cal_preview';
+const isPreview   = localStorage.getItem(PREVIEW_KEY) === '1';
+const today       = new Date(); today.setHours(0,0,0,0);
+const thisDate    = new Date('2028-03-03'); thisDate.setHours(0,0,0,0);
+const nextDateStr = '2028-03-04';
+const popup       = document.getElementById('popup');
 
 if (!isPreview && thisDate > today) {
   document.querySelector('.day-hero').style.filter = 'blur(4px)';
   document.querySelector('.day-nav').style.visibility = 'hidden';
   popup.classList.add('visible');
 }
-
 if (!isPreview && nextDateStr) {
   const nextDate = new Date(nextDateStr); nextDate.setHours(0,0,0,0);
   if (nextDate > today) {
@@ -133,10 +259,9 @@ if (!isPreview && nextDateStr) {
     if (nextBtn) nextBtn.addEventListener('click', e => { e.preventDefault(); popup.classList.add('visible'); });
   }
 }
-
 popup.addEventListener('click', e => { if (e.target === popup) window.location.href = '../index.html'; });
 
-// ── Favourite ──────────────────────────────────────────────
+// ── Favourites ─────────────────────────────────────────────
 const FAV_KEY = 'fav_2028-03-03';
 const favBtn  = document.getElementById('fav-btn');
 function updateFav() {
@@ -152,26 +277,18 @@ favBtn.addEventListener('click', () => {
 });
 updateFav();
 
-// ── Done (actividad completada) ────────────────────────────
-const DONE_KEY = 'done_2028-03-03';
-const doneBtn  = document.getElementById('done-btn');
+// ── Done ───────────────────────────────────────────────────
+const DONE_KEY         = 'done_2028-03-03';
+const doneBtn          = document.getElementById('done-btn');
 const popupStarBlocked = document.getElementById('popup-star-blocked');
 const popupStarReward  = document.getElementById('popup-star-reward');
 
-document.getElementById('star-blocked-close').addEventListener('click', () => {
-  popupStarBlocked.classList.remove('visible');
-});
-popupStarBlocked.addEventListener('click', e => {
-  if (e.target === popupStarBlocked) popupStarBlocked.classList.remove('visible');
-});
+document.getElementById('star-blocked-close').addEventListener('click', () => popupStarBlocked.classList.remove('visible'));
+popupStarBlocked.addEventListener('click', e => { if (e.target === popupStarBlocked) popupStarBlocked.classList.remove('visible'); });
+document.getElementById('star-reward-close').addEventListener('click', () => popupStarReward.classList.remove('visible'));
+popupStarReward.addEventListener('click', e => { if (e.target === popupStarReward) popupStarReward.classList.remove('visible'); });
 
-document.getElementById('star-reward-close').addEventListener('click', () => {
-  popupStarReward.classList.remove('visible');
-});
-popupStarReward.addEventListener('click', e => {
-  if (e.target === popupStarReward) popupStarReward.classList.remove('visible');
-});
-
+function markDone() { localStorage.setItem(DONE_KEY, '1'); updateDone(); }
 function updateDone() {
   const on = localStorage.getItem(DONE_KEY) === '1';
   doneBtn.textContent = on ? '★' : '☆';
@@ -180,20 +297,250 @@ function updateDone() {
 }
 doneBtn.addEventListener('click', () => {
   const on = localStorage.getItem(DONE_KEY) === '1';
-  if (on) {
-    // Already done → show reward
-    popupStarReward.classList.add('visible');
-  } else {
-    // Not done → only allowed in preview mode
-    if (isPreview) {
-      localStorage.setItem(DONE_KEY, '1');
-      updateDone();
-    } else {
-      popupStarBlocked.classList.add('visible');
-    }
-  }
+  if (on) { popupStarReward.classList.add('visible'); }
+  else if (isPreview) { markDone(); }
+  else { popupStarBlocked.classList.add('visible'); }
 });
 updateDone();
+
+// ── Datos de películas ─────────────────────────────────────
+const PELICULAS = [
+  {
+    titulo:    'El Guardaespaldas (1992)',
+    audio:     '../media/El_Guardaespaldas.mp3',
+    slotId:    'slot-0',
+    respuestas: ['EL GUARDAESPALDAS','GUARDAESPALDAS','THE BODYGUARD','BODYGUARD'],
+    pistas: [
+      'Un resumen: Un exagente del servicio secreto acepta a regañadientes proteger a una estrella del pop que está siendo acosada.',
+      'Un dato: La banda sonora de 1992 es la más vendida de todos los tiempos por una artista femenina.',
+      'Una frase: "I will always love you..." (aunque sea un cover de Dolly Parton, aquí es el alma de la cinta).',
+      'Una imagen: Él llevándola en brazos bajo la lluvia después de un altercado en un concierto multitudinario.',
+      'Un spoiler: Protagonizada por Kevin Costner y la cantante Whitney Houston en su debut cinematográfico.',
+    ],
+  },
+  {
+    titulo:    'Ghost (1990)',
+    audio:     '../media/Ghost.mp3',
+    slotId:    'slot-1',
+    respuestas: ['GHOST'],
+    pistas: [
+      'Un resumen: Tras un asalto fatal, un hombre permanece en el plano terrenal para advertir a su pareja de un peligro inminente.',
+      'Un dato: Fue la película más taquillera de 1990 y le dio un Óscar a Whoopi Goldberg como mejor actriz de reparto.',
+      'Una frase: "Ídem".',
+      'Una imagen: Una pareja moldeando arcilla en un torno de alfarero mientras suena una balada clásica de fondo.',
+      'Un spoiler: Patrick Swayze intenta comunicarse con Demi Moore a través de una médium un poco farsante.',
+    ],
+  },
+  {
+    titulo:    'Amélie (2001)',
+    audio:     '../media/Amelie.mp3',
+    slotId:    'slot-2',
+    respuestas: ['AMELIE','AMELI','AMELY'],
+    pistas: [
+      'Un resumen: Una camarera introvertida decide dedicar su vida a cambiar discretamente la existencia de los demás mediante pequeños gestos.',
+      'Un dato: Película francesa de 2001 con una estética visual única basada en colores saturados (verde, rojo y amarillo) y música de Yann Tiersen.',
+      'Una frase: "Sin ti, las emociones de hoy no serían más que las fundas muertas de las de ayer".',
+      'Una imagen: Una chica con corte de pelo bob metiendo la mano en un saco de legumbres o devolviendo fotos carné a un álbum.',
+      'Un spoiler: Audrey Tautou es la protagonista de esta fábula moderna ambientada en el barrio de Montmartre, en París.',
+    ],
+  },
+  {
+    titulo:    'Sherlock Holmes (2009)',
+    audio:     '../media/Sherlock_Holmes.mp3',
+    slotId:    'slot-3',
+    respuestas: ['SHERLOCK HOLMES','SHERLOCK'],
+    pistas: [
+      'Un resumen: Un detective con métodos poco ortodoxos y un pasado de lucha callejera investiga una supuesta conspiración sobrenatural en Londres.',
+      'Un dato: Dirigida en 2009 por el ex de Madonna, destaca por una banda sonora experimental de Hans Zimmer que usa un piano desafinado.',
+      'Una frase: "Juego acabado... ¡no, el juego ha comenzado!".',
+      'Una imagen: El protagonista analizando una pelea en cámara lenta en su mente antes de ejecutar los golpes en tiempo real.',
+      'Un spoiler: Robert Downey Jr. interpreta al famoso detective de Baker Street junto a Jude Law como el Dr. Watson.',
+    ],
+  },
+  {
+    titulo:    'Oppenheimer (2023)',
+    audio:     '../media/Oppenheimer.mp3',
+    slotId:    'slot-4',
+    respuestas: ['OPPENHEIMER','OPENHEIMER','OPPENEIMER','OPENEIMER'],
+    pistas: [
+      'Un resumen: Un físico brillante lidera un proyecto gubernamental para crear una fuerza destructiva que cambiará la geopolítica para siempre.',
+      'Un dato: Gran triunfadora de los Óscar 2024, dirigida por Christopher Nolan y rodada parcialmente en IMAX blanco y negro.',
+      'Una frase: "Ahora me he convertido en la Muerte, el destructor de mundos".',
+      'Una imagen: El silencio absoluto durante la explosión de la prueba Trinity, seguido por el sonido de una onda expansiva atronadora.',
+      'Un spoiler: Cillian Murphy encarna al "padre de la bomba atómica" en este drama biográfico de tres horas.',
+    ],
+  },
+];
+
+// ── Normalización ─────────────────────────────────────────
+function normalizar(s) {
+  return s.trim().toUpperCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .replace(/\u00D1/g, 'N')
+    .replace(/[^A-Z0-9 ]/g, '');
+}
+
+// ── Estado del reto ───────────────────────────────────────
+let peliculaActual = 0;
+let pistaEstado    = [1, 0, 0, 0, 0];
+let pistaCallback  = null;
+let currentAudio   = null;
+let currentSlot    = null;
+
+// ── Puntuación ────────────────────────────────────────────
+const PUNTOS_INICIAL = 10000;
+const COSTE_PISTAS   = [100, 200, 300, 400, 500];
+const COSTE_BSO      = 400;
+let puntos           = PUNTOS_INICIAL;
+
+function actualizarPuntos(delta) {
+  puntos = Math.max(0, puntos - delta);
+  document.getElementById('puntos-display').textContent = puntos.toLocaleString('es-ES');
+}
+
+function categoriaFinal(pts) {
+  if (pts > 8500)  return '🏆 Cinéfilo de Culto (Pro)';
+  if (pts >= 6500) return '🎬 Director de Primera Fila';
+  if (pts >= 4000) return '✍️ Guionista Aventajado';
+  if (pts >= 1500) return '🍷 Crítico de Butaca Roja';
+  return '🍿 Aficionado Gourmet';
+}
+
+const codigoInput    = document.getElementById('codigo-input');
+const popupError     = document.getElementById('popup-error');
+const popupPista     = document.getElementById('popup-pista');
+const progresoActual = document.getElementById('progreso-actual');
+
+// ── Audio en slot ─────────────────────────────────────────
+function stopCurrent() {
+  if (currentAudio) { currentAudio.pause(); currentAudio.currentTime = 0; currentAudio = null; }
+  if (currentSlot)  { currentSlot.classList.remove('playing'); currentSlot.querySelector('.play-btn').textContent = '▶'; currentSlot = null; }
+}
+
+function toggleSlotPlay(slot, audio) {
+  if (currentSlot === slot) { stopCurrent(); return; }
+  stopCurrent();
+  // Descontar BSO solo la primera vez que se escucha este slot
+  if (!slot._bsoDesbloqueada) {
+    slot._bsoDesbloqueada = true;
+    // Solo descuenta si es la película en curso (no las ya reveladas)
+    if (!slot.classList.contains('revealed')) {
+      actualizarPuntos(COSTE_BSO);
+    }
+  }
+  currentAudio = audio;
+  currentSlot  = slot;
+  slot.classList.add('playing');
+  slot.querySelector('.play-btn').textContent = '⏸';
+  audio.play().catch(() => {});
+  audio.onended = () => {
+    slot.classList.remove('playing');
+    slot.querySelector('.play-btn').textContent = '▶';
+    currentAudio = null; currentSlot = null;
+  };
+}
+
+PELICULAS.forEach((pel) => {
+  const slot  = document.getElementById(pel.slotId);
+  const audio = new Audio(pel.audio);
+  audio.preload = 'none';
+  slot._audio           = audio;
+  slot._bsoDesbloqueada = false;
+  slot.querySelector('.play-btn').addEventListener('click', e => {
+    e.stopPropagation();
+    // Solo permitir si es el slot activo o ya está revelado
+    if (!slot.classList.contains('active') && !slot.classList.contains('revealed')) return;
+    toggleSlotPlay(slot, slot._audio);
+  });
+});
+
+// ── Pistas ───────────────────────────────────────────────
+function renderDots() {
+  ['pista-1','pista-2','pista-3','pista-4','pista-5'].forEach((id, i) => {
+    const el = document.getElementById(id);
+    if (el) el.className = 'pista-dot ' + ['rojo','ambar','verde'][pistaEstado[i]];
+  });
+}
+
+function cerrarPista() {
+  popupPista.classList.remove('visible');
+  if (pistaCallback) { pistaCallback(); pistaCallback = null; }
+}
+
+document.getElementById('pista-close').addEventListener('click', cerrarPista);
+popupPista.addEventListener('click', e => { if (e.target === popupPista) cerrarPista(); });
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && popupPista.classList.contains('visible')) cerrarPista();
+});
+
+['pista-1','pista-2','pista-3','pista-4','pista-5'].forEach((id, i) => {
+  document.getElementById(id).addEventListener('click', () => {
+    if (pistaEstado[i] === 0) return;
+    document.getElementById('pista-texto').textContent = PELICULAS[peliculaActual].pistas[i];
+    document.getElementById('pista-titulo').textContent = `Pista ${i + 1}`;
+    popupPista.classList.add('visible');
+    pistaCallback = () => {
+      const eraAmbar = pistaEstado[i] === 1;
+      pistaEstado[i] = 2;
+      if (eraAmbar) { actualizarPuntos(COSTE_PISTAS[i]); if (i + 1 < 5) pistaEstado[i + 1] = 1; }
+      renderDots();
+    };
+  });
+});
+
+// ── Validación ───────────────────────────────────────────
+function validar() {
+  const val = normalizar(codigoInput.value);
+  if (PELICULAS[peliculaActual].respuestas.includes(val)) {
+    codigoInput.classList.remove('error');
+    codigoInput.classList.add('ok');
+    document.getElementById(PELICULAS[peliculaActual].slotId).classList.add('revealed');
+    stopCurrent();
+    setTimeout(() => {
+      codigoInput.classList.remove('ok');
+      codigoInput.value = '';
+      peliculaActual++;
+      if (peliculaActual < PELICULAS.length) {
+        pistaEstado = [1, 0, 0, 0, 0];
+        renderDots();
+        progresoActual.textContent = peliculaActual + 1;
+        document.querySelectorAll('.movie-slot').forEach((s, i) => {
+          s.classList.toggle('active', i === peliculaActual);
+        });
+      } else {
+        markDone();
+        const cat = categoriaFinal(puntos);
+        document.getElementById('reto-completado-msg').textContent =
+          `🎬 ¡Genial! Has descubierto todas las películas. Tu puntuación es de ${puntos.toLocaleString('es-ES')} puntos, eres un auténtico ${cat}.`;
+        document.getElementById('codigo-wrap').style.display = 'none';
+        document.getElementById('reto-completado').classList.add('visible');
+        document.querySelectorAll('.movie-slot').forEach(s => s.classList.remove('active'));
+        setTimeout(() => popupStarReward.classList.add('visible'), 600);
+      }
+    }, 500);
+  } else {
+    codigoInput.classList.remove('ok');
+    codigoInput.classList.add('error');
+    setTimeout(() => codigoInput.classList.remove('error'), 400);
+    popupError.classList.add('visible');
+  }
+}
+
+document.getElementById('btn-validar').addEventListener('click', validar);
+codigoInput.addEventListener('keydown', e => { if (e.key === 'Enter') validar(); });
+
+document.getElementById('error-close').addEventListener('click', () => {
+  popupError.classList.remove('visible');
+  codigoInput.value = '';
+  codigoInput.focus();
+});
+popupError.addEventListener('click', e => {
+  if (e.target === popupError) { popupError.classList.remove('visible'); codigoInput.value = ''; }
+});
+
+// ── Inicialización ────────────────────────────────────────
+document.getElementById('slot-0').classList.add('active');
+renderDots();
 </script>
 </body>
 </html>

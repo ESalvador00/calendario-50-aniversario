@@ -392,7 +392,6 @@ const PUNTOS_INICIAL   = 10000;
 const COSTE_PISTAS     = [100, 200, 300, 400, 500];
 const COSTE_BSO        = 400;
 let puntos             = PUNTOS_INICIAL;
-let bsoUsadaEnPelicula = false;
 
 function actualizarPuntos(delta) {
   puntos = Math.max(0, puntos - delta);
@@ -421,7 +420,14 @@ function stopCurrent() {
 function toggleSlotPlay(slot, audio) {
   if (currentSlot === slot) { stopCurrent(); return; }
   stopCurrent();
-  if (!bsoUsadaEnPelicula) { bsoUsadaEnPelicula = true; actualizarPuntos(COSTE_BSO); }
+  // Descontar BSO solo la primera vez que se escucha este slot
+  if (!slot._bsoDesbloqueada) {
+    slot._bsoDesbloqueada = true;
+    // Solo descuenta si es la película en curso (no las ya reveladas)
+    if (!slot.classList.contains('revealed')) {
+      actualizarPuntos(COSTE_BSO);
+    }
+  }
   currentAudio = audio;
   currentSlot  = slot;
   slot.classList.add('playing');
@@ -438,9 +444,12 @@ PELICULAS.forEach((pel) => {
   const slot  = document.getElementById(pel.slotId);
   const audio = new Audio(pel.audio);
   audio.preload = 'none';
-  slot._audio = audio;
+  slot._audio           = audio;
+  slot._bsoDesbloqueada = false;
   slot.querySelector('.play-btn').addEventListener('click', e => {
     e.stopPropagation();
+    // Solo permitir si es el slot activo o ya está revelado
+    if (!slot.classList.contains('active') && !slot.classList.contains('revealed')) return;
     toggleSlotPlay(slot, slot._audio);
   });
 });
@@ -493,7 +502,6 @@ function validar() {
       peliculaActual++;
       if (peliculaActual < PELICULAS.length) {
         pistaEstado = [1, 0, 0, 0, 0];
-        bsoUsadaEnPelicula = false;
         renderDots();
         progresoActual.textContent = peliculaActual + 1;
         document.querySelectorAll('.movie-slot').forEach((s, i) => {
