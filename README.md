@@ -143,7 +143,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 
 | Día | Reto | Clave | Media | Actores | Recompensa |
 |-----|------|-------|-------|---------|------------|
-| 2028-01-14 | Bandas sonoras originales | Dirty Dancing, Frozen, La Mision, Los Cazafantasmas, Matrix | Dirty Dancing, Frozen, La Mision, Los Cazafantasmas, Matrix (mp3 y jpg) | N/A | PDTE |
+| 2028-01-14 | Adivina las películas | Dirty Dancing, Frozen, La Mision, Los Cazafantasmas, Matrix | Dirty_Dancing, Frozen, La_Mision, Los_Cazafantasmas, Matrix (mp3 y jpg) | N/A | PDTE |
 | 2028-01-21 | Cultura: iniciales de famosos | CORCEGA | Lugar01_01.jpg .. Lugar01_07.jpg | Ajenos | PDTE |
 | 2028-01-24 | Adivina quién soy | HEIMDALL | Alex_20220817.png | Alex | PDTE |
 | 2028-01-28 | Timeline histórico doble | A:01-06 / B:01-06 | Timeline01_01A..06A.png + Timeline01_01B..06B.png | N/A | PDTE |
