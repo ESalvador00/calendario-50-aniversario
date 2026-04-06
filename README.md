@@ -150,8 +150,9 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-01-30 | Agudeza visual — banderas Código Internacional de Señales Marítimas | 99274 | FinAno2020.png | Nieves, Enric, Ari, Alex | PDTE |
 | 2028-02-06 | Agudeza visual — clickmap museo (binario) | ENRIC | Museo_visual.png + Museo_clickmap.png + Ultima_cena.png + Ariadna_20190701.png | Ariadna | PDTE |
 | 2028-02-09 | Timeline musical, España en los 2000 | 2002-2008 | Asereje.jpg .. Tenia_tanto_que_darte.jpg | N/A | PDTE |
-| 2028-02-18 | Adivina las películas | Regreso al Futuro, E.T., Mision Imposible, Toy Story, Alien | Regreso_al_Futuro, ET_El_Extraterrestre, Mision_Imposible, Toy_Story, Alien_El_octavo_pasajero (mp3 y jpg) | N/A | PDTE |
+| 2028-02-18 | Adivina las películas | Dirty Dancing, Frozen, La Mision, Los Cazafantasmas, Matrix | Dirty_Dancing, Frozen, La_Mision, Los_Cazafantasmas, Matrix (mp3 y jpg) | N/A | PDTE |
 | 2028-02-24 | Adivina quién soy | DIONISIO | David_20220805.png | David | PDTE |
+| 2028-03-03 | Adivina las películas | Amelie, El Guardaespaldas, Ghost, Oppenheimer, Sherlock Holmes | Amelie, El_Guardaespaldas, Ghost, Oppenheimer, Sherlock_Holmes (mp3 y jpg) | N/A | PDTE |
 | 2028-03-15 | Adivina quién soy | AGATHA CHRISTIE | Mari_20220819.png | Mari | PDTE |
 | 2028-03-08 | Cultura: iniciales de famosos, especial mujeres | JAMAICA | Lugar02_01.jpg .. Lugar02_07.jpg | Ajenos | PDTE |
 | 2028-03-12 | Agudeza visual — cifrado César | PLATANO | Alex_20191006.png | Alex | PDTE |
