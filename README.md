@@ -163,17 +163,20 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-05-09 | Timeline musical, España en los 80 | 1980-1987 | No_dudaria.jpg .. Hijo_de_la_luna.jpg | N/A | PDTE |
 | 2028-05-14 | Palabras Intraducibles - Japonés | BOKETTO | Enric_20220816.png | Enric | PDTE |
 | 2028-05-26 | Adivina las películas | Fiebre del Sábado Noche, Jurassic Park, Coco, Gladiator, Pulp Fiction | Fiebre_del_Sabado_Noche, Jurassic_Park, Coco, Gladiator, Pulp_Fiction (mp3 y jpg) | N/A | PDTE |
+| 2028-06-11 | Agudeza visual — Fibonacci | 1597 | Alex_20170807.png | Alex | PDTE |
 | 2028-06-14 | Cultura: iniciales de famosos | OKINAWA | Lugar03_01.jpg .. Lugar03_07.jpg | Ajenos | PDTE |
 | 2028-06-15 | Adivina quién soy | TESLA | Gerard_20160205.png | Gerard | PDTE |
 | 2028-06-16 | Adivina las películas | Flashdance, El Señor de los Anillos, Batman, Up, Cinema Paradiso | Flashdance, El_Senor_de_los_Anillos, Batman, Up, Cinema_Paradiso (mp3 y jpg) | N/A | PDTE |
 | 2028-07-11 | Timeline histórico doble | A:01-06 / B:01-06 | Timeline02_01A..06A.png + Timeline02_01B..06B.png | N/A | PDTE |
 | 2028-07-12 | Adivina quién soy | POE | David_20231209.png | David | PDTE |
+| 2028-07-21 | Adivina las películas | Superman, Grease, La Sirenita, Indiana Jones, American Beauty | Superman, Grease, La_Sirenita, Indiana_Jones, American_Beauty (mp3 y jpg) | N/A | PDTE |
 | 2028-07-28 | Timeline musical, España en los 90 | 1990-1999 | Entre_dos_tierras.jpg .. Tu_calorro.jpg | N/A | PDTE |
 | 2028-08-17 | Adivina quién soy | NAPOLEON | Juan_20190813.png | Juan | PDTE |
 | 2028-09-12 | Adivina quién soy | MARY SHELLEY | Cristina_20130713.png | Cristina | PDTE |
 | 2028-10-18 | Timeline musical, Internacional en los 90 | 1990-1999 | Ice_ice_baby.jpg, Losing_my_religion.jpg, Zombie.jpg, Wannabe.jpg, Baby_one_more_time.jpg, Genie_in_a_Bottle.jpg + .mp3 | N/A | PDTE |
 | 2028-10-24 | Adivina quién soy | GOYA | Enric_20110101.png | Enric | PDTE |
 | 2028-11-24 | Ingenio: negro sobre negro | 300.000 | The_Rolling_Stones_Paint_It_Black.mp3 | N/A | PDTE |
+| 2028-12-13 | Adivina quién soy | DARTH VADER | Enric_20130227.png | Enric | PDTE |
 | 2029-01-03 | Timeline musical, Internacional en los 2000 | 2000-2009 | Music.jpg, Complicated.jpg, Hey_Ya.jpg, Crazy.jpg, Umbrella.jpg, I_Gotta_Feeling.jpg + .mp3 | N/A | PDTE |
 
 ---
