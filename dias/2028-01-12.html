@@ -26,7 +26,7 @@
     .reto-label{font-size:.8rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(201,168,76,.5);}
 
     /* Scroll de letra */
-    .letra-scroll-wrap{width:100%;max-height:320px;overflow:hidden;position:relative;mask-image:linear-gradient(to bottom,transparent 0%,black 18%,black 82%,transparent 100%);-webkit-mask-image:linear-gradient(to bottom,transparent 0%,black 18%,black 82%,transparent 100%);}
+    .letra-scroll-wrap{width:100%;max-height:200px;overflow:hidden;position:relative;mask-image:linear-gradient(to bottom,transparent 0%,black 18%,black 82%,transparent 100%);-webkit-mask-image:linear-gradient(to bottom,transparent 0%,black 18%,black 82%,transparent 100%);}
     .letra-scroll{display:flex;flex-direction:column;align-items:center;gap:.5rem;padding:5rem 0;transition:transform .55s cubic-bezier(.4,0,.2,1);}
 
     /* Frases */
@@ -98,7 +98,7 @@
       h1{font-size:clamp(2rem,14vw,4rem);}
       .month-label{font-size:clamp(1rem,4vw,1.6rem);margin-bottom:1rem;}
       .content-area{padding:1rem;gap:1.2rem;}
-      .letra-scroll-wrap{max-height:260px;}
+      .letra-scroll-wrap{max-height:180px;}
       .frase{font-size:1.1rem;}
       .frase.sistema-activa{font-size:1.2rem;}
       .input-row{max-width:100%;}
@@ -124,8 +124,6 @@
     <p class="month-label">de Enero</p>
 
     <div class="content-area">
-
-      <p class="reto-label">&#127925; Sigue la letra</p>
 
       <div class="letra-scroll-wrap" id="letra-scroll-wrap">
         <div class="letra-scroll" id="letra-scroll"></div>
@@ -279,15 +277,15 @@ updateDone();
 // Datos de la cancion
 // turno: 'sistema' | 'usuario'
 const FRASES = [
-  { texto: 'En la vida conoc\u00ed',          turno: 'sistema',  palabras: 4, respuesta: 'EN LA VIDA CONOCI' },
-  { texto: 'Mujer igual a la flaca',        turno: 'usuario',  palabras: 5, respuesta: 'MUJER IGUAL A LA FLACA' },
-  { texto: 'Coral negro de la Habana',      turno: 'sistema',  palabras: 5, respuesta: 'CORAL NEGRO DE LA HABANA' },
-  { texto: 'Trem end\u00edsima mulata',        turno: 'usuario',  palabras: 2, respuesta: 'TREMENDISIMA MULATA' },
-  { texto: 'Cien libras de piel y hueso',   turno: 'sistema',  palabras: 6, respuesta: 'CIEN LIBRAS DE PIEL Y HUESO' },
-  { texto: 'cuarenta kilos de salsa',       turno: 'usuario',  palabras: 4, respuesta: 'CUARENTA KILOS DE SALSA' },
-  { texto: 'y en la cara dos soles',        turno: 'sistema',  palabras: 6, respuesta: 'Y EN LA CARA DOS SOLES' },
-  { texto: 'que sin palabras hablan',       turno: 'usuario',  palabras: 4, respuesta: 'QUE SIN PALABRAS HABLAN' },
-  { texto: 'que sin palabras hablan',       turno: 'sistema',  palabras: 4, respuesta: 'QUE SIN PALABRAS HABLAN' },
+  { texto: 'En la vida conoc\u00ed',          turno: 'sistema',  palabras: 4, respuestas: ['EN LA VIDA CONOCI'] },
+  { texto: 'Mujer igual a la flaca',        turno: 'usuario',  palabras: 5, respuestas: ['MUJER IGUAL A LA FLACA'] },
+  { texto: 'Coral negro de la Habana',      turno: 'sistema',  palabras: 5, respuestas: ['CORAL NEGRO DE LA HABANA'] },
+  { texto: 'Trem end\u00edsima mulata',        turno: 'usuario',  palabras: 2, respuestas: ['TREMENDISIMA MULATA'] },
+  { texto: 'Cien libras de piel y hueso',   turno: 'sistema',  palabras: 6, respuestas: ['CIEN LIBRAS DE PIEL Y HUESO'] },
+  { texto: 'cuarenta kilos de salsa',       turno: 'usuario',  palabras: 4, respuestas: ['CUARENTA KILOS DE SALSA','40 KILOS DE SALSA','CUARENTA QUILOS DE SALSA','40 QUILOS DE SALSA','CUARENTA KG DE SALSA','40 KG DE SALSA'] },
+  { texto: 'y en la cara dos soles',        turno: 'sistema',  palabras: 6, respuestas: ['Y EN LA CARA DOS SOLES'] },
+  { texto: 'que sin palabras hablan',       turno: 'usuario',  palabras: 4, respuestas: ['QUE SIN PALABRAS HABLAN'] },
+  { texto: 'que sin palabras hablan',       turno: 'sistema',  palabras: 4, respuestas: ['QUE SIN PALABRAS HABLAN'] },
 ];
 
 const PISTAS = [
@@ -387,13 +385,17 @@ document.addEventListener('keydown', function(e) {
 const letraInput = document.getElementById('letra-input');
 const popupError = document.getElementById('popup-error');
 
+// Audio de la cancion completa (se reproduce al completar)
+const audioFinal = new Audio('../media/La_flaca.mp3');
+audioFinal.preload = 'none';
+
 function validar() {
   if (turnoUsuario >= FRASES.length) return;
 
   const val      = normalizar(letraInput.value);
-  const esperado = normalizar(FRASES[turnoUsuario].respuesta);
+  const validas  = FRASES[turnoUsuario].respuestas.map(function(r) { return normalizar(r); });
 
-  if (val === esperado) {
+  if (validas.includes(val)) {
     letraInput.classList.remove('error');
     letraInput.classList.add('ok');
 
@@ -445,6 +447,8 @@ function completarReto() {
   document.getElementById('input-zone').style.display = 'none';
   document.getElementById('reto-completado').classList.add('visible');
   markDone();
+  // Reproducir la cancion completa
+  audioFinal.play().catch(function() {});
   setTimeout(function() { popupStarReward.classList.add('visible'); }, 700);
 }
 
