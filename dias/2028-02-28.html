@@ -24,8 +24,8 @@
     .content-area{width:100%;border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:2rem 1.5rem;background:rgba(255,255,255,.02);display:flex;flex-direction:column;align-items:center;gap:1.6rem;}
 
     /* Scroll de letra */
-    .letra-scroll-wrap{width:100%;max-height:200px;overflow:hidden;position:relative;mask-image:linear-gradient(to bottom,transparent 0%,black 18%,black 82%,transparent 100%);-webkit-mask-image:linear-gradient(to bottom,transparent 0%,black 18%,black 82%,transparent 100%);}
-    .letra-scroll{display:flex;flex-direction:column;align-items:center;gap:.5rem;padding:5rem 0;transition:transform .55s cubic-bezier(.4,0,.2,1);}
+    .letra-scroll-wrap{width:100%;max-height:260px;overflow:hidden;position:relative;mask-image:linear-gradient(to bottom,transparent 0%,black 15%,black 78%,transparent 100%);-webkit-mask-image:linear-gradient(to bottom,transparent 0%,black 15%,black 78%,transparent 100%);}
+    .letra-scroll{display:flex;flex-direction:column;align-items:center;gap:.35rem;padding:4rem 0 2rem;transition:transform .55s cubic-bezier(.4,0,.2,1);}
 
     /* Frases */
     .frase{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-style:italic;text-align:center;padding:.35rem 1.2rem;border-radius:2px;transition:all .45s ease;line-height:1.5;user-select:none;}
@@ -96,7 +96,7 @@
       h1{font-size:clamp(2rem,14vw,4rem);}
       .month-label{font-size:clamp(1rem,4vw,1.6rem);margin-bottom:1rem;}
       .content-area{padding:1rem;gap:1.2rem;}
-      .letra-scroll-wrap{max-height:180px;}
+      .letra-scroll-wrap{max-height:230px;}
       .frase{font-size:1.1rem;}
       .frase.sistema-activa{font-size:1.2rem;}
       .input-row{max-width:100%;}
@@ -343,7 +343,9 @@ function centrarFrase(idx) {
   const wrapH   = wrap.offsetHeight;
   const itemTop = div.offsetTop;
   const itemH   = div.offsetHeight;
-  const target  = itemTop + itemH / 2 - wrapH / 2;
+  // Posicionar la frase activa al 62% del alto de la caja (más abajo del centro),
+  // dejando espacio visible arriba para las frases anteriores.
+  const target  = itemTop + itemH / 2 - wrapH * 0.62;
   scrollEl.style.transform = 'translateY(' + (-target) + 'px)';
 }
 
