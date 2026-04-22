@@ -143,7 +143,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 
 | Día | Reto | Clave | Media | Actores | Recompensa |
 |-----|------|-------|-------|---------|------------|
-| 2028-01-12 | Sigue la letra | LA FLACA (Jarabe de Palo) | La_flaca.mp3 | N/A | PDTE |
+| 2028-01-12 | Sigue la letra | La flaca (Jarabe de Palo) | La_flaca.mp3 | N/A | PDTE |
 | 2028-01-14 | Adivina las películas | Dirty Dancing, Frozen, La Mision, Los Cazafantasmas, Matrix | Dirty_Dancing, Frozen, La_Mision, Los_Cazafantasmas, Matrix (mp3 y jpg) | N/A | PDTE |
 | 2028-01-21 | Cultura: iniciales de famosos | CORCEGA | Lugar01_01.jpg .. Lugar01_07.jpg | Ajenos | PDTE |
 | 2028-01-24 | Adivina quién soy | HEIMDALL | Alex_20220817.png | Alex | PDTE |
@@ -184,14 +184,16 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-08-20 | Palabras Intraducibles - Tagalo | GIGIL | Alex_20140531.png | Alex | PDTE |
 | 2028-08-23 | Sigue la letra | Hijo de la luna (Mecano) | Hijo_de_la_luna.mp3 | N/A | PDTE |
 | 2028-09-12 | Adivina quién soy | MARY SHELLEY | Cristina_20130713.png | Cristina | PDTE |
-| 2028-09-20 | Sigue la letra | Ella (Viceversa) | Ella.mp3 | N/A | PDTE |
 | 2028-09-22 | Adivina las películas | Pesadilla antes de Navidad, La La Land, El Último Mohicano, The Pianist, Inside Out | Pesadilla_antes_de_Navidad, La_La_Land, El_Ultimo_Mohicano, The_Pianist, Inside_Out (mp3 y jpg) | N/A | PDTE |
+| 2028-10-16 | Sigue la letra | Chiquilla (Seguridad Social) | Chiquilla.mp3 | N/A | PDTE |
 | 2028-10-18 | Timeline musical, Internacional en los 90 | 1990-1999 | Ice_ice_baby.jpg, Losing_my_religion.jpg, Zombie.jpg, Wannabe.jpg, Baby_one_more_time.jpg, Genie_in_a_Bottle.jpg + .mp3 | N/A | PDTE |
 | 2028-10-20 | Adivina las películas | Rocky, Harry Potter, Aladdin, Superdetective en Hollywood, Karate Kid | Rocky, Harry_Potter, Aladdin, Superdetective_en_Hollywood, Karate_Kid (mp3 y jpg) | N/A | PDTE |
 | 2028-10-24 | Adivina quién soy | GOYA | Enric_20110101.png | Enric | PDTE |
 | 2028-11-10 | Adivina las películas | Armageddon, Fama, Los Increíbles, La historia interminable, Los Goonies | Armageddon, Fama, Los_Increibles, La_historia_interminable, Los_Goonies (mp3 y jpg) | N/A | PDTE |
+| 2028-11-13 | Sigue la letra | Voy a pasármelo bien (Hombres G) | Voy_a_pasarmelo_bien.mp3 | N/A | PDTE |
 | 2028-11-14 | Adivina quién soy | ELEVEN | Ari_20220701.png | Ariadna | PDTE |
 | 2028-11-24 | Ingenio: negro sobre negro | 300.000 | The_Rolling_Stones_Paint_It_Black.mp3 | N/A | PDTE |
+| 2028-12-11 | Sigue la letra | Cuéntame un cuento (Celtas Cortos) | Cuentame_un_cuento.mp3 | N/A | PDTE |
 | 2028-12-13 | Adivina quién soy | DARTH VADER | Enric_20130227.png | Enric | PDTE |
 | 2028-12-15 | Adivina las películas | Sister Act, Beetlejuice, Reservoir Dogs, El resplandor, Jumanji | Sister_Act, Beetlejuice, Reservoir_Dogs, El_resplandor, Jumanji (mp3 y jpg) | N/A | PDTE |
 | 2029-01-03 | Timeline musical, Internacional en los 2000 | 2000-2009 | Music.jpg, Complicated.jpg, Hey_Ya.jpg, Crazy.jpg, Umbrella.jpg, I_Gotta_Feeling.jpg + .mp3 | N/A | PDTE |
