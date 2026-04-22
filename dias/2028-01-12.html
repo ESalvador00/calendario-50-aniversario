@@ -59,6 +59,12 @@
     .pista-dot.verde:hover{background:rgba(50,180,100,.35);}
     @keyframes pulse-ambar{0%,100%{box-shadow:0 0 0 0 rgba(220,160,40,.4);}50%{box-shadow:0 0 0 5px rgba(220,160,40,.0);}}
 
+    /* Botón play/pausa de audio (aparece al gastar la 3ª pista) */
+    .audio-btn{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;cursor:pointer;border:2px solid rgba(201,168,76,.5);background:rgba(201,168,76,.12);color:var(--gold);transition:all .25s;user-select:none;line-height:1;}
+    .audio-btn:hover{background:rgba(201,168,76,.25);border-color:var(--gold);}
+    .audio-btn.playing{background:rgba(201,168,76,.2);border-color:var(--gold-light);color:var(--gold-light);animation:pulse-ambar 1.5s ease-in-out infinite;}
+    .audio-btn.oculto{display:none;}
+
     .reto-completado{display:none;text-align:center;padding:.5rem 0;}
     .reto-completado.visible{display:block;}
     .reto-completado p{font-family:'Playfair Display',serif;font-size:1.1rem;font-style:italic;color:var(--gold-light);}
@@ -139,6 +145,7 @@
           <div class="pista-dot ambar" id="pista-1">1</div>
           <div class="pista-dot rojo"  id="pista-2">2</div>
           <div class="pista-dot rojo"  id="pista-3">3</div>
+          <div class="audio-btn oculto" id="audio-pista" title="Escuchar la canción">&#9654;</div>
         </div>
       </div>
 
@@ -378,6 +385,7 @@ document.addEventListener('keydown', function(e) {
       const eraAmbar = pistaEstado[i] === 1;
       pistaEstado[i] = 2;
       if (eraAmbar && i + 1 < 3) pistaEstado[i + 1] = 1;
+      if (eraAmbar && i === 2) document.getElementById('audio-pista').classList.remove('oculto');
       renderDots();
     };
   });
@@ -390,6 +398,27 @@ const popupError = document.getElementById('popup-error');
 // Audio de la cancion completa (se reproduce al completar)
 const audioFinal = new Audio('../media/La_flaca.mp3');
 audioFinal.preload = 'none';
+
+// Botón play/pausa de pista de audio
+const audioPistaBtn = document.getElementById('audio-pista');
+audioPistaBtn.addEventListener('click', function() {
+  if (audioFinal.paused) {
+    audioFinal.play().catch(function() {});
+    audioPistaBtn.innerHTML = '&#9646;&#9646;';
+    audioPistaBtn.classList.add('playing');
+    audioPistaBtn.title = 'Pausar';
+  } else {
+    audioFinal.pause();
+    audioPistaBtn.innerHTML = '&#9654;';
+    audioPistaBtn.classList.remove('playing');
+    audioPistaBtn.title = 'Escuchar la canci\u00f3n';
+  }
+});
+audioFinal.addEventListener('ended', function() {
+  audioPistaBtn.innerHTML = '&#9654;';
+  audioPistaBtn.classList.remove('playing');
+  audioPistaBtn.title = 'Escuchar la canci\u00f3n';
+});
 
 function validar() {
   if (turnoUsuario >= FRASES.length) return;
@@ -451,6 +480,10 @@ function completarReto() {
   markDone();
   // Reproducir la cancion completa
   audioFinal.play().catch(function() {});
+  audioPistaBtn.innerHTML = '&#9646;&#9646;';
+  audioPistaBtn.classList.remove('oculto');
+  audioPistaBtn.classList.add('playing');
+  audioPistaBtn.title = 'Pausar';
   setTimeout(function() { popupStarReward.classList.add('visible'); }, 700);
 }
 
