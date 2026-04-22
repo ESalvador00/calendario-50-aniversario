@@ -47,6 +47,16 @@
     .pista-dot.ambar:hover{background:rgba(220,160,40,.35);}
     .pista-dot.verde:hover{background:rgba(50,180,100,.35);}
     @keyframes pulse-ambar{0%,100%{box-shadow:0 0 0 0 rgba(220,160,40,.4);}50%{box-shadow:0 0 0 5px rgba(220,160,40,.0);}}
+
+    /* Controles de audio (aparecen al gastar la 3ª pista) */
+    .audio-btn{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;cursor:pointer;border:2px solid rgba(201,168,76,.5);background:rgba(201,168,76,.12);color:var(--gold);transition:all .25s;user-select:none;line-height:1;}
+    .audio-btn:hover{background:rgba(201,168,76,.25);border-color:var(--gold);}
+    .audio-btn.playing{background:rgba(201,168,76,.2);border-color:var(--gold-light);color:var(--gold-light);animation:pulse-ambar 1.5s ease-in-out infinite;}
+    .audio-btn.oculto{display:none;}
+    .rewind-btn{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;border:2px solid rgba(201,168,76,.5);background:rgba(201,168,76,.12);color:var(--gold);transition:all .25s;user-select:none;}
+    .rewind-btn:hover{background:rgba(201,168,76,.25);border-color:var(--gold);}
+    .rewind-btn.oculto{display:none;}
+    .rewind-btn svg{width:15px;height:15px;}
     .reto-completado{display:none;text-align:center;padding:.5rem 0;}
     .reto-completado.visible{display:block;}
     .reto-completado p{font-family:'Playfair Display',serif;font-size:1.1rem;font-style:italic;color:var(--gold-light);}
@@ -119,6 +129,13 @@
           <div class="pista-dot ambar" id="pista-1">1</div>
           <div class="pista-dot rojo"  id="pista-2">2</div>
           <div class="pista-dot rojo"  id="pista-3">3</div>
+          <div class="audio-btn oculto" id="audio-pista" title="Escuchar la canción">&#9654;</div>
+          <div class="rewind-btn oculto" id="rewind-pista" title="Retroceder 10 segundos">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 5V2L7 7l5 5V8c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z" fill="currentColor"/>
+              <text x="8.5" y="15.5" font-size="6" font-family="sans-serif" font-weight="700" fill="currentColor" text-anchor="middle">10</text>
+            </svg>
+          </div>
         </div>
       </div>
       <div class="reto-completado" id="reto-completado">
@@ -352,6 +369,10 @@ document.addEventListener('keydown', function(e) {
       var eraAmbar = pistaEstado[i] === 1;
       pistaEstado[i] = 2;
       if (eraAmbar && i + 1 < 3) pistaEstado[i + 1] = 1;
+      if (eraAmbar && i === 2) {
+        document.getElementById('audio-pista').classList.remove('oculto');
+        document.getElementById('rewind-pista').classList.remove('oculto');
+      }
       renderDots();
     };
   });
@@ -383,6 +404,33 @@ const popupError = document.getElementById('popup-error');
 
 var audioFinal = new Audio('../media/Vino_tinto.mp3');
 audioFinal.preload = 'none';
+
+// Botón play/pausa de pista de audio
+const audioPistaBtn = document.getElementById('audio-pista');
+audioPistaBtn.addEventListener('click', function() {
+  if (audioFinal.paused) {
+    audioFinal.play().catch(function() {});
+    audioPistaBtn.innerHTML = '&#9646;&#9646;';
+    audioPistaBtn.classList.add('playing');
+    audioPistaBtn.title = 'Pausar';
+  } else {
+    audioFinal.pause();
+    audioPistaBtn.innerHTML = '&#9654;';
+    audioPistaBtn.classList.remove('playing');
+    audioPistaBtn.title = 'Escuchar la canción';
+  }
+});
+audioFinal.addEventListener('ended', function() {
+  audioPistaBtn.innerHTML = '&#9654;';
+  audioPistaBtn.classList.remove('playing');
+  audioPistaBtn.title = 'Escuchar la canción';
+});
+
+// Botón retroceder 10 segundos
+const rewindBtn = document.getElementById('rewind-pista');
+rewindBtn.addEventListener('click', function() {
+  audioFinal.currentTime = Math.max(0, audioFinal.currentTime - 10);
+});
 
 function validar() {
   if (cursor >= FRASES.length || FRASES[cursor].turno !== 'usuario') return;
@@ -425,7 +473,13 @@ function completarReto() {
   document.getElementById('input-zone').style.display = 'none';
   document.getElementById('reto-completado').classList.add('visible');
   markDone();
+  audioFinal.currentTime = 0;
   audioFinal.play().catch(function() {});
+  audioPistaBtn.innerHTML = '&#9646;&#9646;';
+  audioPistaBtn.classList.remove('oculto');
+  audioPistaBtn.classList.add('playing');
+  audioPistaBtn.title = 'Pausar';
+  rewindBtn.classList.remove('oculto');
   setTimeout(function() { popupStarReward.classList.add('visible'); }, 700);
 }
 
