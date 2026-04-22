@@ -22,10 +22,15 @@
     .month-label{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3.5vw,2.4rem);font-weight:400;font-style:italic;color:rgba(90,42,80,.55);margin-bottom:2.5rem;}
     .content-area{width:100%;border:1px solid rgba(140,72,124,.25);border-radius:4px;padding:2rem;background:rgba(255,255,255,.25);display:flex;flex-direction:column;align-items:center;gap:1.8rem;}
     .fotos-grid{width:100%;display:grid;grid-template-columns:repeat(7,1fr);gap:6px;}
+    .foto-cell{display:flex;flex-direction:column;gap:4px;}
     .foto-thumb{cursor:zoom-in;border-radius:2px;overflow:hidden;border:1px solid rgba(140,72,124,.2);transition:border-color .2s,transform .15s;}
     .foto-thumb:hover{border-color:rgba(140,72,124,.7);transform:scale(1.04);}
     .foto-thumb img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;filter:grayscale(100%) sepia(60%) hue-rotate(260deg) saturate(120%);transition:filter .2s;}
     .foto-thumb:hover img{filter:grayscale(60%) sepia(60%) hue-rotate(260deg) saturate(150%);}
+    .inicial-select{width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.2);border-radius:2px;color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:.85rem;font-weight:700;letter-spacing:.05em;text-align:center;padding:.25rem .1rem;outline:none;cursor:pointer;appearance:none;-webkit-appearance:none;transition:border-color .2s;}
+    .inicial-select:focus{border-color:rgba(201,168,76,.6);}
+    .inicial-select option{background:var(--dark);color:var(--cream);}
+    .inicial-select.seleccionada{border-color:rgba(201,168,76,.55);color:var(--gold-light);background:rgba(201,168,76,.08);}
     .codigo-wrap{width:100%;display:flex;flex-direction:column;align-items:center;gap:.9rem;}
     .codigo-label{font-size:.8rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(90,42,80,.7);}
     .codigo-row{display:flex;gap:.6rem;width:100%;max-width:340px;align-items:center;}
@@ -111,13 +116,34 @@
     <div class="content-area">
 
       <div class="fotos-grid" id="fotos-grid">
-        <div class="foto-thumb" data-idx="0"><img src="../media/Lugar02_01.jpg" alt="Lugar 1" draggable="false"/></div>
-        <div class="foto-thumb" data-idx="1"><img src="../media/Lugar02_02.jpg" alt="Lugar 2" draggable="false"/></div>
-        <div class="foto-thumb" data-idx="2"><img src="../media/Lugar02_03.jpg" alt="Lugar 3" draggable="false"/></div>
-        <div class="foto-thumb" data-idx="3"><img src="../media/Lugar02_04.jpg" alt="Lugar 4" draggable="false"/></div>
-        <div class="foto-thumb" data-idx="4"><img src="../media/Lugar02_05.jpg" alt="Lugar 5" draggable="false"/></div>
-        <div class="foto-thumb" data-idx="5"><img src="../media/Lugar02_06.jpg" alt="Lugar 6" draggable="false"/></div>
-        <div class="foto-thumb" data-idx="6"><img src="../media/Lugar02_07.jpg" alt="Lugar 7" draggable="false"/></div>
+        <div class="foto-cell">
+          <div class="foto-thumb" data-idx="0"><img src="../media/Lugar02_01.jpg" alt="Lugar 1" draggable="false"/></div>
+          <select class="inicial-select" id="sel-0" aria-label="Inicial foto 1"></select>
+        </div>
+        <div class="foto-cell">
+          <div class="foto-thumb" data-idx="1"><img src="../media/Lugar02_02.jpg" alt="Lugar 2" draggable="false"/></div>
+          <select class="inicial-select" id="sel-1" aria-label="Inicial foto 2"></select>
+        </div>
+        <div class="foto-cell">
+          <div class="foto-thumb" data-idx="2"><img src="../media/Lugar02_03.jpg" alt="Lugar 3" draggable="false"/></div>
+          <select class="inicial-select" id="sel-2" aria-label="Inicial foto 3"></select>
+        </div>
+        <div class="foto-cell">
+          <div class="foto-thumb" data-idx="3"><img src="../media/Lugar02_04.jpg" alt="Lugar 4" draggable="false"/></div>
+          <select class="inicial-select" id="sel-3" aria-label="Inicial foto 4"></select>
+        </div>
+        <div class="foto-cell">
+          <div class="foto-thumb" data-idx="4"><img src="../media/Lugar02_05.jpg" alt="Lugar 5" draggable="false"/></div>
+          <select class="inicial-select" id="sel-4" aria-label="Inicial foto 5"></select>
+        </div>
+        <div class="foto-cell">
+          <div class="foto-thumb" data-idx="5"><img src="../media/Lugar02_06.jpg" alt="Lugar 6" draggable="false"/></div>
+          <select class="inicial-select" id="sel-5" aria-label="Inicial foto 6"></select>
+        </div>
+        <div class="foto-cell">
+          <div class="foto-thumb" data-idx="6"><img src="../media/Lugar02_07.jpg" alt="Lugar 7" draggable="false"/></div>
+          <select class="inicial-select" id="sel-6" aria-label="Inicial foto 7"></select>
+        </div>
       </div>
 
       <div class="codigo-wrap">
@@ -275,6 +301,20 @@ doneBtn.addEventListener('click', () => {
   else { popupStarBlocked.classList.add('visible'); }
 });
 updateDone();
+
+// ── Selects de iniciales ────────────────────────────────────
+const LETRAS = ['','A','B','C','D','E','F','G','H','I','J','K','L','M','N','Ñ','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+document.querySelectorAll('.inicial-select').forEach(function(sel) {
+  LETRAS.forEach(function(l) {
+    var opt = document.createElement('option');
+    opt.value = l;
+    opt.textContent = l === '' ? '—' : l;
+    sel.appendChild(opt);
+  });
+  sel.addEventListener('change', function() {
+    sel.classList.toggle('seleccionada', sel.value !== '');
+  });
+});
 
 // ── Código secreto ──────────────────────────────────────────
 const RESPUESTAS_OK = ['JAMAICA'];
