@@ -20,7 +20,50 @@
     .day-of-week{font-size:.85rem;letter-spacing:.4em;text-transform:uppercase;color:rgba(201,168,76,.5);margin-bottom:1rem;}
     h1{font-family:'Playfair Display',serif;font-size:clamp(3rem,9vw,7rem);font-weight:900;line-height:1;background:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 50%,var(--gold-dark) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.5rem;}
     .month-label{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3.5vw,2.4rem);font-weight:400;font-style:italic;color:rgba(250,246,238,.45);margin-bottom:2.5rem;}
-    .content-area{width:100%;border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:2.5rem;min-height:220px;background:rgba(255,255,255,.02);color:rgba(250,246,238,.4);font-size:1rem;font-style:italic;text-align:center;display:flex;align-items:center;justify-content:center;}
+
+    .content-area{width:100%;border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:2rem 1.5rem;background:rgba(255,255,255,.02);display:flex;flex-direction:column;align-items:center;gap:1.6rem;}
+
+    .reto-label{font-size:.8rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(201,168,76,.5);}
+
+    /* Scroll de letra */
+    .letra-scroll-wrap{width:100%;max-height:260px;overflow:hidden;position:relative;mask-image:linear-gradient(to bottom,transparent 0%,black 15%,black 78%,transparent 100%);-webkit-mask-image:linear-gradient(to bottom,transparent 0%,black 15%,black 78%,transparent 100%);}
+    .letra-scroll{display:flex;flex-direction:column;align-items:center;gap:.35rem;padding:4rem 0 2rem;transition:transform .55s cubic-bezier(.4,0,.2,1);}
+
+    /* Frases */
+    .frase{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-style:italic;text-align:center;padding:.35rem 1.2rem;border-radius:2px;transition:all .45s ease;line-height:1.5;user-select:none;}
+    .frase.sistema-activa{color:var(--gold-light);text-shadow:0 0 18px rgba(232,201,122,.45);font-weight:500;font-size:1.35rem;}
+    .frase.sistema-pasada{color:rgba(250,246,238,.22);}
+    .frase.usuario-pasada{color:rgba(250,246,238,.30);}
+    .frase.oculta{color:transparent;text-shadow:none;background:rgba(255,255,255,.04);filter:blur(5px);border:1px solid rgba(201,168,76,.06);pointer-events:none;}
+
+    /* Input */
+    .input-zone{width:100%;display:flex;flex-direction:column;align-items:center;gap:.85rem;}
+    .palabras-hint{font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(201,168,76,.5);}
+    .palabras-hint span{font-family:'Playfair Display',serif;font-size:1rem;color:var(--gold);}
+    .input-row{display:flex;gap:.6rem;width:100%;max-width:420px;}
+    .letra-input{flex:1;min-width:0;background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.25);border-radius:2px;color:var(--cream);font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-style:italic;letter-spacing:.05em;text-align:center;padding:.55rem .8rem;outline:none;transition:border-color .2s;}
+    .letra-input:focus{border-color:rgba(201,168,76,.6);}
+    .letra-input.error{border-color:rgba(255,90,90,.5);animation:shake .3s ease;}
+    .letra-input.ok{border-color:rgba(80,200,120,.6);}
+    @keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-6px);}75%{transform:translateX(6px);}}
+    .btn-cantar{padding:.55rem 1.4rem;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.35);border-radius:2px;color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:all .2s;white-space:nowrap;}
+    .btn-cantar:hover{background:rgba(201,168,76,.2);border-color:var(--gold);}
+
+    /* Pistas */
+    .pistas-wrap{display:flex;gap:.7rem;align-items:center;justify-content:center;}
+    .pista-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;cursor:default;border:2px solid transparent;transition:all .25s;user-select:none;font-family:'Cormorant Garamond',serif;}
+    .pista-dot.rojo  {background:rgba(180,50,50,.25);border-color:rgba(180,50,50,.4);color:rgba(255,120,120,.5);}
+    .pista-dot.ambar {background:rgba(220,160,40,.2);border-color:rgba(220,160,40,.7);color:rgba(240,190,80,.9);cursor:pointer;animation:pulse-ambar 1.5s ease-in-out infinite;}
+    .pista-dot.verde {background:rgba(50,180,100,.2);border-color:rgba(50,180,100,.6);color:rgba(80,220,130,.9);cursor:pointer;}
+    .pista-dot.ambar:hover{background:rgba(220,160,40,.35);}
+    .pista-dot.verde:hover{background:rgba(50,180,100,.35);}
+    @keyframes pulse-ambar{0%,100%{box-shadow:0 0 0 0 rgba(220,160,40,.4);}50%{box-shadow:0 0 0 5px rgba(220,160,40,.0);}}
+
+    .reto-completado{display:none;text-align:center;padding:.5rem 0;}
+    .reto-completado.visible{display:block;}
+    .reto-completado p{font-family:'Playfair Display',serif;font-size:1.1rem;font-style:italic;color:var(--gold-light);}
+
+    /* Nav */
     .day-nav{display:flex;justify-content:space-between;align-items:center;padding-top:2.5rem;border-top:1px solid rgba(201,168,76,.1);margin-top:2.5rem;}
     .nav-btn{font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(201,168,76,.5);text-decoration:none;padding:.6rem 1.2rem;border:1px solid rgba(201,168,76,.18);border-radius:2px;transition:all .2s;}
     .nav-btn:hover{color:var(--gold-light);border-color:rgba(201,168,76,.5);background:rgba(201,168,76,.05);}
@@ -28,7 +71,7 @@
     .year-badge{font-size:.7rem;letter-spacing:.3em;color:rgba(201,168,76,.25);text-transform:uppercase;}
     .back-link{display:block;text-align:center;margin-top:2rem;color:rgba(201,168,76,.35);font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;text-decoration:none;transition:color .2s;}
     .back-link:hover{color:var(--gold);}
-    /* Botones fav y done */
+
     .action-btns{position:absolute;top:0;right:0;display:flex;flex-direction:column;align-items:center;gap:.2rem;}
     .icon-btn{background:none;border:none;cursor:pointer;font-size:2rem;line-height:1;transition:color .2s,transform .2s;padding:.2rem;}
     .icon-btn:hover{transform:scale(1.2);}
@@ -38,7 +81,8 @@
     .done-btn{color:var(--gold);opacity:0.6;}
     .done-btn.active{color:var(--gold);opacity:1;}
     .done-btn.active:hover{color:var(--gold-light);opacity:1;}
-    /* Popup */
+
+    /* Popups */
     .popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:100;align-items:center;justify-content:center;}
     .popup-overlay.visible{display:flex;}
     .popup-box{background:var(--dark);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:3rem 2.5rem;max-width:420px;width:90%;text-align:center;box-shadow:0 0 60px rgba(0,0,0,.8);}
@@ -47,23 +91,30 @@
     .popup-msg{font-size:1rem;font-style:italic;color:rgba(250,246,238,.6);line-height:1.7;margin-bottom:2rem;}
     .popup-btn{display:inline-block;padding:.7rem 2rem;border:1px solid rgba(201,168,76,.4);border-radius:2px;color:var(--gold);font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;background:none;transition:all .2s;}
     .popup-btn:hover{background:rgba(201,168,76,.1);border-color:var(--gold);}
+
     @media(max-width:600px){
       .wrap{padding:1rem 1rem 2rem;}
       .day-hero{padding:1rem 0 1rem;}
       h1{font-size:clamp(2rem,14vw,4rem);}
       .month-label{font-size:clamp(1rem,4vw,1.6rem);margin-bottom:1rem;}
-      .content-area{padding:1.2rem;min-height:120px;}
+      .content-area{padding:1rem;gap:1.2rem;}
+      .letra-scroll-wrap{max-height:230px;}
+      .frase{font-size:1.1rem;}
+      .frase.sistema-activa{font-size:1.2rem;}
+      .input-row{max-width:100%;}
+      .pistas-wrap{gap:.4rem;}
+      .pista-dot{width:24px;height:24px;font-size:.7rem;}
       .day-nav{margin-top:1rem;padding-top:1rem;}
       .ornament-line-h{margin-bottom:1rem;}
     }
-</style>
+  </style>
 </head>
 <body>
 <div class="wrap">
   <div class="day-hero">
     <div class="action-btns">
-      <button class="icon-btn fav-btn"  id="fav-btn"  title="Añadir a favoritos">♡</button>
-      <button class="icon-btn done-btn" id="done-btn" title="Marcar como completado">☆</button>
+      <button class="icon-btn fav-btn"  id="fav-btn"  title="A&#241;adir a favoritos">&#9825;</button>
+      <button class="icon-btn done-btn" id="done-btn" title="Marcar como completado">&#9734;</button>
     </div>
     <div class="ornament-line-h">
       <div class="o-line"></div><div class="o-dot"></div><div class="o-line r"></div>
@@ -71,61 +122,104 @@
     <p class="day-of-week">Lunes</p>
     <h1>13</h1>
     <p class="month-label">de Noviembre</p>
+
     <div class="content-area">
-      <p>Espacio reservado para el contenido de este día</p>
+
+      <div class="letra-scroll-wrap" id="letra-scroll-wrap">
+        <div class="letra-scroll" id="letra-scroll"></div>
+      </div>
+
+      <div class="input-zone" id="input-zone">
+        <p class="palabras-hint">Introduce <span id="palabras-num">8</span> palabras</p>
+        <div class="input-row">
+          <input type="text" class="letra-input" id="letra-input" placeholder="&middot; &middot; &middot; &middot; &middot;" autocomplete="off" autocorrect="off" spellcheck="false"/>
+          <button class="btn-cantar" id="btn-cantar">Cantar</button>
+        </div>
+        <div class="pistas-wrap" id="pistas-wrap">
+          <div class="pista-dot ambar" id="pista-1">1</div>
+          <div class="pista-dot rojo"  id="pista-2">2</div>
+          <div class="pista-dot rojo"  id="pista-3">3</div>
+        </div>
+      </div>
+
+      <div class="reto-completado" id="reto-completado">
+        <p>&#127926; &#161;Bravo! Has completado la canci&#243;n. <em>Voy a pasármelo bien</em> de Hombres G.</p>
+      </div>
+
     </div>
   </div>
+
   <nav class="day-nav">
     <a class="nav-btn" href="2028-11-12.html">&#8592; 12 de Noviembre</a>
-    <span class="year-badge">50 Aniversario · 2028</span>
+    <span class="year-badge">50 Aniversario &middot; 2028</span>
     <a class="nav-btn" id="next-btn" href="2028-11-14.html">14 de Noviembre &#8594;</a>
   </nav>
   <a class="back-link" href="../index.html">&#8592; Volver al Calendario</a>
 </div>
 
+<!-- Popup: dia futuro -->
 <div class="popup-overlay" id="popup">
   <div class="popup-box">
-    <div class="popup-icon">🎁</div>
-    <p class="popup-title">¡Un poco de paciencia!</p>
-    <p class="popup-msg">No seas impaciente...<br>Este día aún no ha llegado.<br>Ya llegará, y será especial. 🤍</p>
+    <div class="popup-icon">&#127873;</div>
+    <p class="popup-title">&#161;Un poco de paciencia!</p>
+    <p class="popup-msg">No seas impaciente...<br>Este d&#237;a a&#250;n no ha llegado.<br>Ya llegar&#225;, y ser&#225; especial. &#129300;</p>
     <button class="popup-btn" onclick="window.location.href='../index.html'">Volver al calendario</button>
   </div>
 </div>
 
-<!-- Popup estrella bloqueada -->
+<!-- Popup: frase incorrecta -->
+<div class="popup-overlay" id="popup-error">
+  <div class="popup-box">
+    <div class="popup-icon">&#127908;</div>
+    <p class="popup-title">&#161;Eso no suena bien!</p>
+    <p class="popup-msg">Esa no es la letra correcta...<br>&#161;Escucha de nuevo y vuelve a intentarlo! &#127925;</p>
+    <button class="popup-btn" id="error-close">Intentar de nuevo</button>
+  </div>
+</div>
+
+<!-- Popup: pista -->
+<div class="popup-overlay" id="popup-pista">
+  <div class="popup-box">
+    <div class="popup-icon">&#128161;</div>
+    <p class="popup-title" id="pista-titulo">Pista</p>
+    <p class="popup-msg" id="pista-texto">La pista aparecer&#225; aqu&#237;.</p>
+    <button class="popup-btn" id="pista-close">Entendido</button>
+  </div>
+</div>
+
+<!-- Popup: estrella bloqueada -->
 <div class="popup-overlay" id="popup-star-blocked">
   <div class="popup-box">
-    <div class="popup-icon">🏆</div>
-    <p class="popup-title">¡Tu recompensa te espera!</p>
-    <p class="popup-msg">Para acceder a tu recompensa primero debes resolver el desafío de hoy...<br><br>¡Tú puedes! 💪</p>
+    <div class="popup-icon">&#127942;</div>
+    <p class="popup-title">&#161;Tu recompensa te espera!</p>
+    <p class="popup-msg">Para acceder a tu recompensa primero debes completar el reto de hoy...<br><br>&#161;T&#250; puedes! &#128170;</p>
     <button class="popup-btn" id="star-blocked-close">Volver</button>
   </div>
 </div>
 
-<!-- Popup recompensa del día -->
+<!-- Popup: recompensa -->
 <div class="popup-overlay" id="popup-star-reward">
   <div class="popup-box">
-    <div class="popup-icon">🎁</div>
-    <p class="popup-title">¡Tu recompensa!</p>
-    <p class="popup-msg" id="reward-text">✨ Aquí irá la recompensa especial de este día ✨</p>
-    <button class="popup-btn" id="star-reward-close">¡Genial!</button>
+    <div class="popup-icon">&#127873;</div>
+    <p class="popup-title">&#161;Tu recompensa!</p>
+    <p class="popup-msg" id="reward-text">&#10024; Aqu&#237; ir&#225; la recompensa especial de este d&#237;a &#10024;</p>
+    <button class="popup-btn" id="star-reward-close">&#161;Genial!</button>
   </div>
 </div>
 
 <script>
-const PREVIEW_KEY  = 'cal_preview';
-const isPreview    = localStorage.getItem(PREVIEW_KEY) === '1';
-const today        = new Date(); today.setHours(0,0,0,0);
-const thisDate     = new Date('2028-11-13'); thisDate.setHours(0,0,0,0);
-const nextDateStr  = '2028-11-14';
-const popup        = document.getElementById('popup');
+const PREVIEW_KEY = 'cal_preview';
+const isPreview   = localStorage.getItem(PREVIEW_KEY) === '1';
+const today       = new Date(); today.setHours(0,0,0,0);
+const thisDate    = new Date('2028-11-13'); thisDate.setHours(0,0,0,0);
+const nextDateStr = '2028-11-14';
+const popup       = document.getElementById('popup');
 
 if (!isPreview && thisDate > today) {
   document.querySelector('.day-hero').style.filter = 'blur(4px)';
   document.querySelector('.day-nav').style.visibility = 'hidden';
   popup.classList.add('visible');
 }
-
 if (!isPreview && nextDateStr) {
   const nextDate = new Date(nextDateStr); nextDate.setHours(0,0,0,0);
   if (nextDate > today) {
@@ -133,17 +227,16 @@ if (!isPreview && nextDateStr) {
     if (nextBtn) nextBtn.addEventListener('click', e => { e.preventDefault(); popup.classList.add('visible'); });
   }
 }
-
 popup.addEventListener('click', e => { if (e.target === popup) window.location.href = '../index.html'; });
 
-// ── Favourite ──────────────────────────────────────────────
+// Favorito
 const FAV_KEY = 'fav_2028-11-13';
 const favBtn  = document.getElementById('fav-btn');
 function updateFav() {
   const on = localStorage.getItem(FAV_KEY) === '1';
-  favBtn.textContent = on ? '❤' : '♡';
+  favBtn.textContent = on ? '\u2764' : '\u2661';
   favBtn.classList.toggle('active', on);
-  favBtn.title = on ? 'Quitar de favoritos' : 'Añadir a favoritos';
+  favBtn.title = on ? 'Quitar de favoritos' : 'A\u00f1adir a favoritos';
 }
 favBtn.addEventListener('click', () => {
   const on = localStorage.getItem(FAV_KEY) === '1';
@@ -152,48 +245,233 @@ favBtn.addEventListener('click', () => {
 });
 updateFav();
 
-// ── Done (actividad completada) ────────────────────────────
-const DONE_KEY = 'done_2028-11-13';
-const doneBtn  = document.getElementById('done-btn');
+// Completado
+const DONE_KEY         = 'done_2028-11-13';
+const doneBtn          = document.getElementById('done-btn');
 const popupStarBlocked = document.getElementById('popup-star-blocked');
 const popupStarReward  = document.getElementById('popup-star-reward');
 
-document.getElementById('star-blocked-close').addEventListener('click', () => {
-  popupStarBlocked.classList.remove('visible');
-});
-popupStarBlocked.addEventListener('click', e => {
-  if (e.target === popupStarBlocked) popupStarBlocked.classList.remove('visible');
-});
+document.getElementById('star-blocked-close').addEventListener('click', () => popupStarBlocked.classList.remove('visible'));
+popupStarBlocked.addEventListener('click', e => { if (e.target === popupStarBlocked) popupStarBlocked.classList.remove('visible'); });
+document.getElementById('star-reward-close').addEventListener('click', () => popupStarReward.classList.remove('visible'));
+popupStarReward.addEventListener('click', e => { if (e.target === popupStarReward) popupStarReward.classList.remove('visible'); });
 
-document.getElementById('star-reward-close').addEventListener('click', () => {
-  popupStarReward.classList.remove('visible');
-});
-popupStarReward.addEventListener('click', e => {
-  if (e.target === popupStarReward) popupStarReward.classList.remove('visible');
-});
-
+function markDone() {
+  localStorage.setItem(DONE_KEY, '1');
+  updateDone();
+}
 function updateDone() {
   const on = localStorage.getItem(DONE_KEY) === '1';
-  doneBtn.textContent = on ? '★' : '☆';
+  doneBtn.textContent = on ? '\u2605' : '\u2606';
   doneBtn.classList.toggle('active', on);
   doneBtn.title = on ? 'Ver recompensa' : 'Marcar como completado';
 }
 doneBtn.addEventListener('click', () => {
   const on = localStorage.getItem(DONE_KEY) === '1';
-  if (on) {
-    // Already done → show reward
-    popupStarReward.classList.add('visible');
-  } else {
-    // Not done → only allowed in preview mode
-    if (isPreview) {
-      localStorage.setItem(DONE_KEY, '1');
-      updateDone();
-    } else {
-      popupStarBlocked.classList.add('visible');
-    }
-  }
+  if (on) { popupStarReward.classList.add('visible'); }
+  else if (isPreview) { markDone(); }
+  else { popupStarBlocked.classList.add('visible'); }
 });
 updateDone();
+
+// Datos de la cancion
+// turno: 'sistema' | 'usuario'
+const FRASES = [
+  { texto: 'Hoy me he levantado dando un salto mortal',       turno: 'sistema',  palabras: 8,  respuestas: ['HOY ME HE LEVANTADO DANDO UN SALTO MORTAL'] },
+  { texto: 'Echado un par de huevos a mi sart\u00e9n',        turno: 'usuario',  palabras: 8,  respuestas: ['ECHADO UN PAR DE HUEVOS A MI SARTEN'] },
+  { texto: 'Dando volteretas he llegado al ba\u00f1o',         turno: 'sistema',  palabras: 6,  respuestas: ['DANDO VOLTERETAS HE LLEGADO AL BANO'] },
+  { texto: 'Me he duchado y he despilfarrado el gel',         turno: 'usuario',  palabras: 8,  respuestas: ['ME HE DUCHADO Y HE DESPILFARRADO EL GEL'] },
+  { texto: 'Porque hoy, algo me dice',                        turno: 'sistema',  palabras: 5,  respuestas: ['PORQUE HOY ALGO ME DICE'] },
+  { texto: 'Que voy a pas\u00e1rmelo bien',                   turno: 'usuario',  palabras: 5,  respuestas: ['QUE VOY A PASARMELO BIEN'] },
+  { texto: 'S\u00e9 que tengo algunos enemigos',              turno: 'sistema',  palabras: 5,  respuestas: ['SE QUE TENGO ALGUNOS ENEMIGOS'] },
+  { texto: 'Pero esta noche no podr\u00e1n contar conmigo',   turno: 'usuario',  palabras: 7,  respuestas: ['PERO ESTA NOCHE NO PODRAN CONTAR CONMIGO'] },
+  { texto: 'Porque voy a convertirme en hombre lobo',         turno: 'sistema',  palabras: 7,  respuestas: ['PORQUE VOY A CONVERTIRME EN HOMBRE LOBO'] },
+  { texto: 'Me he jurado a m\u00ed mismo que no dormir\u00e9 solo', turno: 'usuario', palabras: 10, respuestas: ['ME HE JURADO A MI MISMO QUE NO DORMIRE SOLO'] },
+  { texto: 'Porque hoy, de hoy no pasa',                      turno: 'sistema',  palabras: 6,  respuestas: ['PORQUE HOY DE HOY NO PASA'] },
+  { texto: 'Y voy a pas\u00e1rmelo bien',                     turno: 'usuario',  palabras: 5,  respuestas: ['Y VOY A PASARMELO BIEN'] },
+];
+
+const PISTAS = [
+  'Esta canci\u00f3n se convirti\u00f3 en un fen\u00f3meno de masas en 1989, capturando perfectamente el esp\u00edritu fiestero y despreocupado de la \u00e9poca.',
+  'Es uno de los mayores \u00e9xitos de Hombres G, la banda liderada por David Summers que desataba la locura all\u00e1 donde iba.',
+  "El t\u00edtulo de la canci\u00f3n es 'Voy a pas\u00e1rmelo bien', una declaraci\u00f3n de intenciones que empieza con el famoso 'hoy me he levantado dando un salto mortal'.",
+];
+
+function normalizar(s) {
+  return s.trim().toUpperCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .replace(/\u00D1/g, 'N')
+    .replace(/[^A-Z0-9 ]/g, '');
+}
+
+// Estado
+let turnoUsuario = 1;
+let pistaEstado  = [1, 0, 0];
+let pistaCallback = null;
+
+// Render de frases
+const scrollEl = document.getElementById('letra-scroll');
+
+FRASES.forEach(function(f, i) {
+  const div = document.createElement('div');
+  div.className = 'frase';
+  div.id = 'frase-' + i;
+  if (i === 0) {
+    div.classList.add('sistema-activa');
+  } else {
+    div.classList.add('oculta');
+  }
+  div.textContent = f.texto;
+  scrollEl.appendChild(div);
+});
+
+function centrarFrase(idx) {
+  const wrap    = document.getElementById('letra-scroll-wrap');
+  const div     = document.getElementById('frase-' + idx);
+  if (!div) return;
+  const wrapH   = wrap.offsetHeight;
+  const itemTop = div.offsetTop;
+  const itemH   = div.offsetHeight;
+  const target  = itemTop + itemH / 2 - wrapH * 0.62;
+  scrollEl.style.transform = 'translateY(' + (-target) + 'px)';
+}
+
+function actualizarScroll() {
+  centrarFrase(turnoUsuario - 1);
+}
+
+function actualizarHint() {
+  if (turnoUsuario < FRASES.length) {
+    document.getElementById('palabras-num').textContent = FRASES[turnoUsuario].palabras;
+  }
+}
+
+// Pistas
+function renderDots() {
+  ['pista-1','pista-2','pista-3'].forEach(function(id, i) {
+    const el = document.getElementById(id);
+    if (el) el.className = 'pista-dot ' + ['rojo','ambar','verde'][pistaEstado[i]];
+  });
+}
+
+function cerrarPista() {
+  document.getElementById('popup-pista').classList.remove('visible');
+  if (pistaCallback) { pistaCallback(); pistaCallback = null; }
+}
+
+document.getElementById('pista-close').addEventListener('click', cerrarPista);
+document.getElementById('popup-pista').addEventListener('click', function(e) {
+  if (e.target === document.getElementById('popup-pista')) cerrarPista();
+});
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape' && document.getElementById('popup-pista').classList.contains('visible')) cerrarPista();
+});
+
+['pista-1','pista-2','pista-3'].forEach(function(id, i) {
+  document.getElementById(id).addEventListener('click', function() {
+    if (pistaEstado[i] === 0) return;
+    document.getElementById('pista-texto').textContent = PISTAS[i];
+    document.getElementById('pista-titulo').textContent = 'Pista ' + (i + 1);
+    document.getElementById('popup-pista').classList.add('visible');
+    pistaCallback = function() {
+      const eraAmbar = pistaEstado[i] === 1;
+      pistaEstado[i] = 2;
+      if (eraAmbar && i + 1 < 3) pistaEstado[i + 1] = 1;
+      renderDots();
+    };
+  });
+});
+
+// Validacion
+const letraInput = document.getElementById('letra-input');
+const popupError = document.getElementById('popup-error');
+
+// Audio final (se reproduce al completar todas las frases)
+const audioFinal = new Audio('../media/Voy_a_pasarmelo_bien.mp3');
+audioFinal.preload = 'none';
+
+function validar() {
+  if (turnoUsuario >= FRASES.length) return;
+
+  const val     = normalizar(letraInput.value);
+  const validas = FRASES[turnoUsuario].respuestas.map(function(r) { return normalizar(r); });
+
+  if (validas.includes(val)) {
+    letraInput.classList.remove('error');
+    letraInput.classList.add('ok');
+
+    setTimeout(function() {
+      letraInput.classList.remove('ok');
+      letraInput.value = '';
+
+      // La frase del sistema anterior pasa a pasada
+      const divSistema = document.getElementById('frase-' + (turnoUsuario - 1));
+      divSistema.classList.remove('sistema-activa');
+      divSistema.classList.add('sistema-pasada');
+
+      // Revelar frase del usuario
+      const divUsuario = document.getElementById('frase-' + turnoUsuario);
+      divUsuario.classList.remove('oculta');
+      divUsuario.classList.add('usuario-pasada');
+
+      turnoUsuario++;
+
+      if (turnoUsuario < FRASES.length) {
+        // Revelar siguiente frase del sistema
+        const divSigSistema = document.getElementById('frase-' + turnoUsuario);
+        divSigSistema.classList.remove('oculta');
+        divSigSistema.classList.add('sistema-activa');
+
+        turnoUsuario++;
+
+        actualizarScroll();
+
+        if (turnoUsuario < FRASES.length) {
+          actualizarHint();
+        } else {
+          completarReto();
+        }
+      } else {
+        completarReto();
+      }
+    }, 350);
+
+  } else {
+    letraInput.classList.remove('ok');
+    letraInput.classList.add('error');
+    setTimeout(function() { letraInput.classList.remove('error'); }, 400);
+    popupError.classList.add('visible');
+  }
+}
+
+function completarReto() {
+  document.getElementById('input-zone').style.display = 'none';
+  document.getElementById('reto-completado').classList.add('visible');
+  markDone();
+  // Reproducir la cancion completa antes del popup de recompensa
+  audioFinal.play().catch(function() {});
+  setTimeout(function() { popupStarReward.classList.add('visible'); }, 700);
+}
+
+document.getElementById('btn-cantar').addEventListener('click', validar);
+letraInput.addEventListener('keydown', function(e) { if (e.key === 'Enter') validar(); });
+
+document.getElementById('error-close').addEventListener('click', function() {
+  popupError.classList.remove('visible');
+  letraInput.value = '';
+  letraInput.focus();
+});
+popupError.addEventListener('click', function(e) {
+  if (e.target === popupError) { popupError.classList.remove('visible'); letraInput.value = ''; }
+});
+
+// Init
+function init() {
+  actualizarHint();
+  actualizarScroll();
+  renderDots();
+}
+setTimeout(init, 80);
 </script>
 </body>
 </html>
