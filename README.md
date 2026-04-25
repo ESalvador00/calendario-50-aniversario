@@ -158,7 +158,6 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-03-03 | Adivina las películas | Amelie, El Guardaespaldas, Ghost, Oppenheimer, Sherlock Holmes | Amelie, El_Guardaespaldas, Ghost, Oppenheimer, Sherlock_Holmes (mp3 y jpg) | N/A | PDTE |
 | 2028-03-14 | Sigue la letra | Sin ti no soy nada (Amaral) | Sin_ti_no_soy_nada.mp3 | N/A | PDTE |
 | 2028-03-15 | Adivina quién soy | AGATHA CHRISTIE | Mari_20220819.png | Mari | PDTE |
-| 2028-03-26 | Palabras Intraducibles - Brasileño | CAFUNE | NievesAri_20210817.png | Nieves y Ariadna | PDTE |
 | 2028-03-08 | Cultura: iniciales de famosos, especial mujeres | JAMAICA | Lugar02_01.jpg .. Lugar02_07.jpg | Ajenos | PDTE |
 | 2028-03-12 | Agudeza visual — cifrado César | PLATANO | Alex_20191006.png | Alex | PDTE |
 | 2028-04-11 | Adivina quién soy | DALI | Ari_20130601.png | Ariadna | PDTE |
@@ -201,6 +200,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-11-10 | Adivina las películas | Armageddon, Fama, Los Increíbles, La historia interminable, Los Goonies | Armageddon, Fama, Los_Increibles, La_historia_interminable, Los_Goonies (mp3 y jpg) | N/A | PDTE |
 | 2028-11-13 | Sigue la letra | Voy a pasármelo bien (Hombres G) | Voy_a_pasarmelo_bien.mp3 | N/A | PDTE |
 | 2028-11-14 | Adivina quién soy | ELEVEN | Ari_20220701.png | Ariadna | PDTE |
+| 2028-11-19 | Palabras Intraducibles - Yiddish | NAKHES | Alex_20250622.jpg | Alexandra | PDTE |
 | 2028-11-21 | Cultura: iniciales de famosos | MALTA | Lugar12_01.jpg .. Lugar12_05.jpg | Ajenos | PDTE |
 | 2028-11-24 | Ingenio: negro sobre negro | 300.000 | The_Rolling_Stones_Paint_It_Black.mp3 | N/A | PDTE |
 | 2028-12-11 | Sigue la letra | Cuéntame un cuento (Celtas Cortos) | Cuentame_un_cuento.mp3 | N/A | PDTE |
