@@ -153,6 +153,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-02-06 | Agudeza visual — clickmap museo (binario) | ENRIC | Museo_visual.png + Museo_clickmap.png + Ultima_cena.png + Ariadna_20190701.png | Ariadna | PDTE |
 | 2028-02-09 | Timeline musical, España en los 2000 | 2002-2008 | Asereje.jpg .. Tenia_tanto_que_darte.jpg | N/A | PDTE |
 | 2028-02-18 | Adivina las películas | Regreso al Futuro, ET El Extraterrestre, Mision Imposible, Toy Story, Alien El octavo pasajero | Regreso_al_Futuro, ET_El_Extraterrestre, Mision_Imposible, Toy_Story, Alien_El_octavo_pasajero (mp3 y jpg) | N/A | PDTE |
+| 2028-02-20 | Palabras Intraducibles - Japonés | IKIGAI | NievesAriAlex_20160406.jpg | Nieves, Ariadna y Alexandra | PDTE |
 | 2028-02-24 | Adivina quién soy | DIONISIO | David_20220805.png | David | PDTE |
 | 2028-02-28 | Sigue la letra | Llamando a la Tierra (M-Clan) | Llamando_a_la_Tierra.mp3 | N/A | PDTE |
 | 2028-03-03 | Adivina las películas | Amelie, El Guardaespaldas, Ghost, Oppenheimer, Sherlock Holmes | Amelie, El_Guardaespaldas, Ghost, Oppenheimer, Sherlock_Holmes (mp3 y jpg) | N/A | PDTE |
