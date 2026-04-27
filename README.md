@@ -184,6 +184,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-07-18 | Cultura: iniciales de famosos | HAWAII | Lugar09_01.jpg .. Lugar09_06.jpg | Ajenos | PDTE |
 | 2028-07-19 | Sigue la letra | Vino tinto (Estopa) | Vino_tinto.mp3 | N/A | PDTE |
 | 2028-07-21 | Adivina las películas | Superman, Grease, La Sirenita, Indiana Jones, American Beauty | Superman, Grease, La_Sirenita, Indiana_Jones, American_Beauty (mp3 y jpg) | N/A | PDTE |
+| 2028-07-23 | Palabras Intraducibles - Alemán | SEHNSUCHT | AriAlex_20170611.jpg | Ariadna y Alex | PDTE |
 | 2028-07-28 | Timeline musical, España en los 90 | 1990-1999 | Entre_dos_tierras.jpg .. Tu_calorro.jpg | N/A | PDTE |
 | 2028-08-11 | Adivina las películas | La Bella y la Bestia, Solo en Casa, Halloween, Top Gun, El Caballero Oscuro | La_Bella_y_la_Bestia, Solo_en_Casa, Halloween, Top_Gun, El_Caballero_Oscuro (mp3 y jpg) | N/A | PDTE |
 | 2028-08-17 | Adivina quién soy | NAPOLEON | Juan_20190813.png | Juan | PDTE |
