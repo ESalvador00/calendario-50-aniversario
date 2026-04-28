@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>26 de Febrero — 50 Aniversario</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:wght@300;400;500&family=Share+Tech+Mono&display=swap" rel="stylesheet">
   <style>
-    :root{--gold:#C9A84C;--gold-light:#E8C97A;--gold-dark:#8B6914;--cream:#FAF6EE;--dark:#1A1410;}
+    :root{--gold:#C9A84C;--gold-light:#E8C97A;--gold-dark:#8B6914;--cream:#FAF6EE;--dark:#1A1410;--crt-green:#33FF33;--crt-bg:#000a00;}
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
     body{background-color:var(--dark);color:var(--cream);font-family:'Cormorant Garamond',serif;min-height:100vh;display:flex;flex-direction:column;}
     body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 25% 15%,rgba(201,168,76,.10) 0%,transparent 55%),radial-gradient(ellipse at 75% 85%,rgba(124,54,38,.10) 0%,transparent 55%);pointer-events:none;z-index:0;}
-    .wrap{position:relative;z-index:1;max-width:800px;margin:0 auto;padding:3rem 2rem 4rem;flex:1;display:flex;flex-direction:column;}
-    .day-hero{text-align:center;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 0 2rem;position:relative;}
+    .wrap{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:3rem 2rem 4rem;flex:1;display:flex;flex-direction:column;}
+    .day-hero{text-align:center;flex:1;display:flex;flex-direction:column;align-items:center;padding:3rem 0 2rem;position:relative;}
     .ornament-line-h{display:flex;align-items:center;justify-content:center;gap:1rem;margin-bottom:2rem;}
     .o-line{height:1px;width:60px;background:linear-gradient(to right,transparent,var(--gold));}
     .o-line.r{background:linear-gradient(to left,transparent,var(--gold));}
@@ -20,25 +20,39 @@
     .day-of-week{font-size:.85rem;letter-spacing:.4em;text-transform:uppercase;color:rgba(201,168,76,.5);margin-bottom:1rem;}
     h1{font-family:'Playfair Display',serif;font-size:clamp(3rem,9vw,7rem);font-weight:900;line-height:1;background:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 50%,var(--gold-dark) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.5rem;}
     .month-label{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3.5vw,2.4rem);font-weight:400;font-style:italic;color:rgba(250,246,238,.45);margin-bottom:2.5rem;}
-    .content-area{width:100%;border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:2.5rem;min-height:220px;background:rgba(255,255,255,.02);color:rgba(250,246,238,.4);font-size:1rem;font-style:italic;text-align:center;display:flex;align-items:center;justify-content:center;}
-    .day-nav{display:flex;justify-content:space-between;align-items:center;padding-top:2.5rem;border-top:1px solid rgba(201,168,76,.1);margin-top:2.5rem;}
-    .nav-btn{font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(201,168,76,.5);text-decoration:none;padding:.6rem 1.2rem;border:1px solid rgba(201,168,76,.18);border-radius:2px;transition:all .2s;}
-    .nav-btn:hover{color:var(--gold-light);border-color:rgba(201,168,76,.5);background:rgba(201,168,76,.05);}
-    .nav-btn.disabled{opacity:0;pointer-events:none;}
-    .year-badge{font-size:.7rem;letter-spacing:.3em;color:rgba(201,168,76,.25);text-transform:uppercase;}
-    .back-link{display:block;text-align:center;margin-top:2rem;color:rgba(201,168,76,.35);font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;text-decoration:none;transition:color .2s;}
-    .back-link:hover{color:var(--gold);}
-    /* Botones fav y done */
+
+    /* ── Área de contenido ── */
+    .content-area{width:100%;border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:2rem;background:rgba(255,255,255,.02);display:flex;flex-direction:column;align-items:center;gap:1.4rem;}
+
+    /* ── Consola CRT ── */
+    .crt-console{width:100%;background:var(--crt-bg);border:1px solid rgba(51,255,51,.25);border-radius:3px;padding:.65rem 1rem;font-family:'Share Tech Mono',monospace;font-size:.9rem;color:var(--crt-green);min-height:2.6rem;display:flex;align-items:center;position:relative;overflow:hidden;box-shadow:0 0 8px rgba(51,255,51,.1),inset 0 0 18px rgba(0,0,0,.8);}
+    .crt-console::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.15) 2px,rgba(0,0,0,.15) 4px);pointer-events:none;z-index:1;}
+    .crt-text{position:relative;z-index:2;letter-spacing:.05em;text-shadow:0 0 6px rgba(51,255,51,.7);white-space:pre;}
+    .crt-cursor{display:inline-block;width:8px;height:1em;background:var(--crt-green);margin-left:2px;vertical-align:middle;animation:blink-cursor .7s step-end infinite;box-shadow:0 0 4px rgba(51,255,51,.8);}
+    @keyframes blink-cursor{0%,100%{opacity:1;}50%{opacity:0;}}
+
+    /* ── Escenario ── */
+    .escenario-wrap{width:100%;position:relative;border:1px solid rgba(201,168,76,.12);border-radius:3px;overflow:hidden;line-height:0;}
+    .escenario-img{width:100%;height:auto;display:block;cursor:crosshair;user-select:none;-webkit-user-drag:none;}
+
+    /* ── Action btns ── */
     .action-btns{position:absolute;top:0;right:0;display:flex;flex-direction:column;align-items:center;gap:.2rem;}
     .icon-btn{background:none;border:none;cursor:pointer;font-size:2rem;line-height:1;transition:color .2s,transform .2s;padding:.2rem;}
     .icon-btn:hover{transform:scale(1.2);}
     .fav-btn{color:rgba(250,246,238,.2);}
     .fav-btn.active{color:#e05a6a;}
-    .fav-btn.active:hover{color:#ff7a88;}
     .done-btn{color:var(--gold);opacity:0.6;}
     .done-btn.active{color:var(--gold);opacity:1;}
-    .done-btn.active:hover{color:var(--gold-light);opacity:1;}
-    /* Popup */
+
+    /* ── Nav ── */
+    .day-nav{display:flex;justify-content:space-between;align-items:center;padding-top:2.5rem;border-top:1px solid rgba(201,168,76,.1);margin-top:2.5rem;}
+    .nav-btn{font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(201,168,76,.5);text-decoration:none;padding:.6rem 1.2rem;border:1px solid rgba(201,168,76,.18);border-radius:2px;transition:all .2s;}
+    .nav-btn:hover{color:var(--gold-light);border-color:rgba(201,168,76,.5);background:rgba(201,168,76,.05);}
+    .year-badge{font-size:.7rem;letter-spacing:.3em;color:rgba(201,168,76,.25);text-transform:uppercase;}
+    .back-link{display:block;text-align:center;margin-top:2rem;color:rgba(201,168,76,.35);font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;text-decoration:none;transition:color .2s;}
+    .back-link:hover{color:var(--gold);}
+
+    /* ── Popups ── */
     .popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:100;align-items:center;justify-content:center;}
     .popup-overlay.visible{display:flex;}
     .popup-box{background:var(--dark);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:3rem 2.5rem;max-width:420px;width:90%;text-align:center;box-shadow:0 0 60px rgba(0,0,0,.8);}
@@ -47,85 +61,110 @@
     .popup-msg{font-size:1rem;font-style:italic;color:rgba(250,246,238,.6);line-height:1.7;margin-bottom:2rem;}
     .popup-btn{display:inline-block;padding:.7rem 2rem;border:1px solid rgba(201,168,76,.4);border-radius:2px;color:var(--gold);font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;background:none;transition:all .2s;}
     .popup-btn:hover{background:rgba(201,168,76,.1);border-color:var(--gold);}
+
+    /* ── Mobile ── */
     @media(max-width:600px){
       .wrap{padding:1rem 1rem 2rem;}
       .day-hero{padding:1rem 0 1rem;}
       h1{font-size:clamp(2rem,14vw,4rem);}
       .month-label{font-size:clamp(1rem,4vw,1.6rem);margin-bottom:1rem;}
-      .content-area{padding:1.2rem;min-height:120px;}
+      .content-area{padding:1rem;gap:1rem;}
+      .crt-console{font-size:.78rem;padding:.5rem .75rem;}
       .day-nav{margin-top:1rem;padding-top:1rem;}
       .ornament-line-h{margin-bottom:1rem;}
     }
-</style>
+  </style>
 </head>
 <body>
 <div class="wrap">
   <div class="day-hero">
     <div class="action-btns">
-      <button class="icon-btn fav-btn"  id="fav-btn"  title="Añadir a favoritos">♡</button>
-      <button class="icon-btn done-btn" id="done-btn" title="Marcar como completado">☆</button>
+      <button class="icon-btn fav-btn"  id="fav-btn"  title="Añadir a favoritos">&#9825;</button>
+      <button class="icon-btn done-btn" id="done-btn" title="Marcar como completado">&#9733;</button>
     </div>
     <div class="ornament-line-h">
       <div class="o-line"></div><div class="o-dot"></div><div class="o-line r"></div>
     </div>
-    <p class="day-of-week">Sábado</p>
+    <p class="day-of-week">S&#225;bado</p>
     <h1>26</h1>
     <p class="month-label">de Febrero</p>
+
     <div class="content-area">
-      <p>Espacio reservado para el contenido de este día</p>
+
+      <!-- Consola CRT -->
+      <div class="crt-console" id="crt-console">
+        <span class="crt-text" id="crt-text"></span><span class="crt-cursor" id="crt-cursor"></span>
+      </div>
+
+      <!-- Escenario -->
+      <div class="escenario-wrap">
+        <img
+          src="../media/ER01_EscenarioVisual.jpg"
+          alt="Escape Room - Escenario"
+          id="escenario-img"
+          class="escenario-img"
+          draggable="false"
+        />
+      </div>
+
     </div>
   </div>
+
   <nav class="day-nav">
     <a class="nav-btn" href="2028-02-25.html">&#8592; 25 de Febrero</a>
-    <span class="year-badge">50 Aniversario · 2028</span>
+    <span class="year-badge">50 Aniversario &middot; 2028</span>
     <a class="nav-btn" id="next-btn" href="2028-02-27.html">27 de Febrero &#8594;</a>
   </nav>
   <a class="back-link" href="../index.html">&#8592; Volver al Calendario</a>
 </div>
 
+<!-- Popup: dia futuro -->
 <div class="popup-overlay" id="popup">
   <div class="popup-box">
-    <div class="popup-icon">🎁</div>
-    <p class="popup-title">¡Un poco de paciencia!</p>
-    <p class="popup-msg">No seas impaciente...<br>Este día aún no ha llegado.<br>Ya llegará, y será especial. 🤍</p>
+    <div class="popup-icon">&#127873;</div>
+    <p class="popup-title">&#161;Un poco de paciencia!</p>
+    <p class="popup-msg">No seas impaciente...<br>Este d&#237;a a&#250;n no ha llegado.<br>Ya llegar&#225;, y ser&#225; especial. &#128156;</p>
     <button class="popup-btn" onclick="window.location.href='../index.html'">Volver al calendario</button>
   </div>
 </div>
 
-<!-- Popup estrella bloqueada -->
+<!-- Popup: estrella bloqueada -->
 <div class="popup-overlay" id="popup-star-blocked">
   <div class="popup-box">
-    <div class="popup-icon">🏆</div>
-    <p class="popup-title">¡Tu recompensa te espera!</p>
-    <p class="popup-msg">Para acceder a tu recompensa primero debes resolver el desafío de hoy...<br><br>¡Tú puedes! 💪</p>
+    <div class="popup-icon">&#127942;</div>
+    <p class="popup-title">&#161;Tu recompensa te espera!</p>
+    <p class="popup-msg">Para acceder a tu recompensa primero debes resolver el desaf&#237;o de hoy...<br><br>&#161;T&#250; puedes! &#128170;</p>
     <button class="popup-btn" id="star-blocked-close">Volver</button>
   </div>
 </div>
 
-<!-- Popup recompensa del día -->
+<!-- Popup: recompensa -->
 <div class="popup-overlay" id="popup-star-reward">
   <div class="popup-box">
-    <div class="popup-icon">🎁</div>
-    <p class="popup-title">¡Tu recompensa!</p>
-    <p class="popup-msg" id="reward-text">✨ Aquí irá la recompensa especial de este día ✨</p>
-    <button class="popup-btn" id="star-reward-close">¡Genial!</button>
+    <div class="popup-icon">&#127873;</div>
+    <p class="popup-title">&#161;Tu recompensa!</p>
+    <p class="popup-msg" id="reward-text">&#10024; Aqu&#237; ir&#225; la recompensa especial de este d&#237;a &#10024;</p>
+    <button class="popup-btn" id="star-reward-close">&#161;Genial!</button>
   </div>
 </div>
 
+<!-- Canvas oculto para clickmap -->
+<canvas id="clickmap-canvas" style="display:none;"></canvas>
+
 <script>
-const PREVIEW_KEY  = 'cal_preview';
-const isPreview    = localStorage.getItem(PREVIEW_KEY) === '1';
-const today        = new Date(); today.setHours(0,0,0,0);
-const thisDate     = new Date('2028-02-26'); thisDate.setHours(0,0,0,0);
-const nextDateStr  = '2028-02-27';
-const popup        = document.getElementById('popup');
+// Preview / bloqueo
+const PREVIEW_KEY = 'cal_preview';
+const isPreview   = localStorage.getItem(PREVIEW_KEY) === '1';
+const today       = new Date(); today.setHours(0,0,0,0);
+const thisDate    = new Date('2028-02-26'); thisDate.setHours(0,0,0,0);
+const nextDateStr = '2028-02-27';
+const popup       = document.getElementById('popup');
 
 if (!isPreview && thisDate > today) {
   document.querySelector('.day-hero').style.filter = 'blur(4px)';
   document.querySelector('.day-nav').style.visibility = 'hidden';
   popup.classList.add('visible');
 }
-
 if (!isPreview && nextDateStr) {
   const nextDate = new Date(nextDateStr); nextDate.setHours(0,0,0,0);
   if (nextDate > today) {
@@ -133,15 +172,14 @@ if (!isPreview && nextDateStr) {
     if (nextBtn) nextBtn.addEventListener('click', e => { e.preventDefault(); popup.classList.add('visible'); });
   }
 }
-
 popup.addEventListener('click', e => { if (e.target === popup) window.location.href = '../index.html'; });
 
-// ── Favourite ──────────────────────────────────────────────
+// Favorito
 const FAV_KEY = 'fav_2028-02-26';
 const favBtn  = document.getElementById('fav-btn');
 function updateFav() {
   const on = localStorage.getItem(FAV_KEY) === '1';
-  favBtn.textContent = on ? '❤' : '♡';
+  favBtn.textContent = on ? '\u2764' : '\u2661';
   favBtn.classList.toggle('active', on);
   favBtn.title = on ? 'Quitar de favoritos' : 'Añadir a favoritos';
 }
@@ -152,48 +190,195 @@ favBtn.addEventListener('click', () => {
 });
 updateFav();
 
-// ── Done (actividad completada) ────────────────────────────
-const DONE_KEY = 'done_2028-02-26';
-const doneBtn  = document.getElementById('done-btn');
+// Completado
+const DONE_KEY         = 'done_2028-02-26';
+const doneBtn          = document.getElementById('done-btn');
 const popupStarBlocked = document.getElementById('popup-star-blocked');
 const popupStarReward  = document.getElementById('popup-star-reward');
 
-document.getElementById('star-blocked-close').addEventListener('click', () => {
-  popupStarBlocked.classList.remove('visible');
-});
-popupStarBlocked.addEventListener('click', e => {
-  if (e.target === popupStarBlocked) popupStarBlocked.classList.remove('visible');
-});
+document.getElementById('star-blocked-close').addEventListener('click', () => popupStarBlocked.classList.remove('visible'));
+popupStarBlocked.addEventListener('click', e => { if (e.target === popupStarBlocked) popupStarBlocked.classList.remove('visible'); });
+document.getElementById('star-reward-close').addEventListener('click', () => popupStarReward.classList.remove('visible'));
+popupStarReward.addEventListener('click', e => { if (e.target === popupStarReward) popupStarReward.classList.remove('visible'); });
 
-document.getElementById('star-reward-close').addEventListener('click', () => {
-  popupStarReward.classList.remove('visible');
-});
-popupStarReward.addEventListener('click', e => {
-  if (e.target === popupStarReward) popupStarReward.classList.remove('visible');
-});
-
+function markDone() { localStorage.setItem(DONE_KEY, '1'); updateDone(); }
 function updateDone() {
   const on = localStorage.getItem(DONE_KEY) === '1';
-  doneBtn.textContent = on ? '★' : '☆';
+  doneBtn.textContent = on ? '\u2605' : '\u2606';
   doneBtn.classList.toggle('active', on);
   doneBtn.title = on ? 'Ver recompensa' : 'Marcar como completado';
 }
 doneBtn.addEventListener('click', () => {
   const on = localStorage.getItem(DONE_KEY) === '1';
-  if (on) {
-    // Already done → show reward
-    popupStarReward.classList.add('visible');
-  } else {
-    // Not done → only allowed in preview mode
-    if (isPreview) {
-      localStorage.setItem(DONE_KEY, '1');
-      updateDone();
-    } else {
-      popupStarBlocked.classList.add('visible');
-    }
-  }
+  if (on) { popupStarReward.classList.add('visible'); }
+  else { if (isPreview) { markDone(); } else { popupStarBlocked.classList.add('visible'); } }
 });
 updateDone();
+
+// ─── Consola CRT ────────────────────────────────────────────
+const crtText   = document.getElementById('crt-text');
+const crtCursor = document.getElementById('crt-cursor');
+let twTimer  = null;
+let twTarget = '';
+let twIdx    = 0;
+
+function typeWrite(msg) {
+  if (msg === twTarget && twIdx >= twTarget.length) return;
+  if (twTimer) { clearTimeout(twTimer); twTimer = null; }
+
+  const oldText = crtText.textContent;
+  if (!oldText) { startType(msg); return; }
+
+  // Parpadeo de borrado: 3 flashes x 60ms
+  let flashes = 0;
+  function flashClear() {
+    crtText.textContent = (flashes % 2 === 0) ? '' : oldText;
+    flashes++;
+    if (flashes < 4) { twTimer = setTimeout(flashClear, 60); }
+    else { crtText.textContent = ''; startType(msg); }
+  }
+  flashClear();
+}
+
+function startType(msg) {
+  twTarget = msg;
+  twIdx    = 0;
+  function tick() {
+    if (twIdx <= twTarget.length) {
+      crtText.textContent = twTarget.slice(0, twIdx);
+      twIdx++;
+      twTimer = setTimeout(tick, 40);
+    } else { twTimer = null; }
+  }
+  tick();
+}
+
+window.addEventListener('load', () => {
+  typeWrite('> SISTEMA LISTO. EXPLORA LA OFICINA...');
+});
+
+// ─── Mapa de colores ─────────────────────────────────────────
+const TOL = 18;
+
+const COLOR_MAP = [
+  { hex:'FEFE00', alias:'obj_maquinaEscribir'  },
+  { hex:'8FABDD', alias:'obj_bandejaSalida'    },
+  { hex:'00FF41', alias:'obj_tarjetasMesa'     },
+  { hex:'1F3765', alias:'obj_selloGoma'        },
+  { hex:'7E01FF', alias:'obj_archivador1'      },
+  { hex:'BF00FE', alias:'obj_archivador2'      },
+  { hex:'FE0041', alias:'obj_archivador3'      },
+  { hex:'FE00C0', alias:'obj_archivador4'      },
+  { hex:'FE007F', alias:'obj_archivador5'      },
+  { hex:'FE00FE', alias:'obj_archivador6'      },
+  { hex:'81FE00', alias:'obj_puerta'           },
+  { hex:'FE4002', alias:'obj_archivadoCerrado' },
+  { hex:'00C0FE', alias:'obj_cajonVacio'       },
+  { hex:'00FE81', alias:'obj_cajonLleno'       },
+  { hex:'FE0000', alias:'obj_consola'          },
+  { hex:'FFE59A', alias:'obj_zonaIzquierda'    },
+  { hex:'92D14F', alias:'obj_zonaCentro'       },
+  { hex:'70AD46', alias:'obj_zonaDerecha'      },
+];
+
+const HOVER_MSG = {
+  obj_maquinaEscribir:  '[ M\u00c1QUINA DE ESCRIBIR ]',
+  obj_bandejaSalida:    '[ BANDEJA DE SALIDA ]',
+  obj_tarjetasMesa:     '[ TARJETAS EN BLANCO ]',
+  obj_lectorTarjetas:   '[ LECTOR DE TARJETAS ]',
+  obj_selloGoma:        '[ SELLO DE GOMA ]',
+  obj_archivador1:      '[ ARCHIVADOR ]',
+  obj_archivador2:      '[ ARCHIVADOR ]',
+  obj_archivador3:      '[ ARCHIVADOR ]',
+  obj_archivador4:      '[ ARCHIVADOR ]',
+  obj_archivador5:      '[ ARCHIVADOR ]',
+  obj_archivador6:      '[ ARCHIVADOR ]',
+  obj_archivadoCerrado: '[ ARCHIVADOR ]',
+  obj_cajonVacio:       '[ CAJ\u00d3N ]',
+  obj_cajonLleno:       '[ CAJ\u00d3N ]',
+  obj_puerta:           '[ PUERTA DE SALIDA ]',
+  obj_zonaIzquierda:    '[ INDICADOR LUMINOSO ]',
+  obj_zonaCentro:       '[ INDICADOR LUMINOSO ]',
+  obj_zonaDerecha:      '[ INDICADOR LUMINOSO ]',
+  obj_consola:          null,
+};
+
+function hexToRgb(hex) {
+  return { r:parseInt(hex.slice(0,2),16), g:parseInt(hex.slice(2,4),16), b:parseInt(hex.slice(4,6),16) };
+}
+function aliasFromPixel(r, g, b) {
+  for (const entry of COLOR_MAP) {
+    const c = hexToRgb(entry.hex);
+    if (Math.abs(r-c.r)<=TOL && Math.abs(g-c.g)<=TOL && Math.abs(b-c.b)<=TOL) return entry.alias;
+  }
+  return null;
+}
+
+// Canvas clickmap
+const cmCanvas = document.getElementById('clickmap-canvas');
+const cmCtx    = cmCanvas.getContext('2d', { willReadFrequently:true });
+const cmImg    = new Image();
+cmImg.crossOrigin = 'anonymous';
+cmImg.src = '../media/ER01_EscenarioClickmap.jpg';
+let cmReady = false;
+cmImg.onload = () => {
+  cmCanvas.width  = cmImg.naturalWidth;
+  cmCanvas.height = cmImg.naturalHeight;
+  cmCtx.drawImage(cmImg, 0, 0);
+  cmReady = true;
+};
+
+function getPixelAlias(clientX, clientY, imgEl) {
+  if (!cmReady) return null;
+  const rect = imgEl.getBoundingClientRect();
+  const relX = (clientX - rect.left)  / rect.width;
+  const relY = (clientY - rect.top)   / rect.height;
+  const px   = Math.round(relX * (cmCanvas.width  - 1));
+  const py   = Math.round(relY * (cmCanvas.height - 1));
+  const d    = cmCtx.getImageData(px, py, 1, 1).data;
+  return aliasFromPixel(d[0], d[1], d[2]);
+}
+
+// Interaccion con el escenario
+const escenarioImg = document.getElementById('escenario-img');
+let lastAlias = null;
+
+escenarioImg.addEventListener('mousemove', e => {
+  const alias = getPixelAlias(e.clientX, e.clientY, escenarioImg);
+  if (alias === lastAlias) return;
+  lastAlias = alias;
+  if (alias && HOVER_MSG[alias]) {
+    typeWrite('> ' + HOVER_MSG[alias]);
+  } else if (!alias) {
+    typeWrite('> SISTEMA LISTO. EXPLORA LA OFICINA...');
+  }
+});
+
+escenarioImg.addEventListener('mouseleave', () => {
+  lastAlias = null;
+  typeWrite('> SISTEMA LISTO. EXPLORA LA OFICINA...');
+});
+
+escenarioImg.addEventListener('click', e => {
+  const alias = getPixelAlias(e.clientX, e.clientY, escenarioImg);
+  if (alias) handleClick(alias);
+});
+
+escenarioImg.addEventListener('touchmove', e => {
+  e.preventDefault();
+  const t = e.touches[0];
+  const alias = getPixelAlias(t.clientX, t.clientY, escenarioImg);
+  if (alias === lastAlias) return;
+  lastAlias = alias;
+  if (alias && HOVER_MSG[alias]) typeWrite('> ' + HOVER_MSG[alias]);
+}, { passive:false });
+
+// Handler de clicks — se completara en fases siguientes
+function handleClick(alias) {
+  if (HOVER_MSG[alias]) {
+    typeWrite('> ' + HOVER_MSG[alias] + ' \u2014 SELECCIONADO');
+  }
+}
 </script>
 </body>
 </html>
