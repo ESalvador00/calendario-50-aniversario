@@ -28,42 +28,62 @@
     .escenario-wrap{width:100%;position:relative;border:1px solid rgba(201,168,76,.12);border-radius:3px;overflow:hidden;line-height:0;cursor:pointer;}
     .escenario-img{width:100%;height:auto;display:block;user-select:none;-webkit-user-drag:none;cursor:pointer;}
 
-    /* Consola CRT — overlay sobre obj_consola (x:18%..83%, y:86%..97% de la imagen) */
+    /* Consola CRT — overlay sobre obj_consola */
+    @keyframes blink-cursor{0%,100%{opacity:1;}50%{opacity:0;}}
+    @keyframes crt-flicker{
+      0%,89%,91%,96%,100%{opacity:1;}
+      90%{opacity:.85;}
+      97%{opacity:.93;}
+    }
     .crt-overlay{
       position:absolute;
-      left:18%;
-      width:65%;
-      top:86%;
-      height:11%;
-      background:rgba(0,8,0,.82);
-      border:1px solid rgba(51,255,51,.2);
+      left:18%; width:65%;
+      top:83%;  height:14%;
+      background:rgba(0,10,0,.88);
+      border:1px solid rgba(51,255,51,.3);
       border-radius:2px;
       display:flex;
       align-items:center;
-      padding:0 2.5%;
+      padding:0 2%;
       overflow:hidden;
       pointer-events:none;
-      z-index:10;
+      z-index:20;
+      animation:crt-flicker 7s infinite;
+      box-shadow:inset 0 0 20px rgba(0,0,0,.8), inset 0 0 4px rgba(51,255,51,.06);
+    }
+    /* Scanlines */
+    .crt-overlay::before{
+      content:'';position:absolute;inset:0;pointer-events:none;z-index:1;
+      background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.22) 2px,rgba(0,0,0,.22) 4px);
+    }
+    /* Viñeta */
+    .crt-overlay::after{
+      content:'';position:absolute;inset:0;pointer-events:none;z-index:1;
+      background:radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,.55) 100%);
     }
     .crt-text{
-      position:relative;z-index:10;
+      position:relative;z-index:2;
       flex:1;min-width:0;
       font-family:'Share Tech Mono',monospace;
-      font-size:clamp(.45rem,.9vw,.75rem);
+      font-size:clamp(.8rem,1.2vw,1rem);
+      line-height:1.3;
       color:#33FF33;
-      letter-spacing:.04em;
-      text-shadow:0 0 4px #33FF33, 0 0 8px #33FF33, 0 0 2px #000;
+      letter-spacing:.05em;
       white-space:nowrap;
       overflow:hidden;
+      text-shadow:0 0 2px #33FF33,0 0 7px rgba(51,255,51,.75),0 0 16px rgba(51,255,51,.35);
     }
     .crt-cursor{
-      display:inline-block;width:6px;height:.9em;
-      background:#33FF33;margin-left:2px;vertical-align:middle;
+      flex-shrink:0;
+      display:inline-block;
+      width:8px;height:1em;
+      background:#33FF33;
+      margin-left:3px;
+      vertical-align:middle;
+      position:relative;z-index:2;
       animation:blink-cursor .7s step-end infinite;
-      box-shadow:0 0 4px #33FF33;
-      z-index:10;
+      box-shadow:0 0 5px #33FF33,0 0 12px rgba(51,255,51,.5);
     }
-    @keyframes blink-cursor{0%,100%{opacity:1;}50%{opacity:0;}}
 
     /* Lightbox fullscreen */
     .lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.96);z-index:200;align-items:center;justify-content:center;}
@@ -73,29 +93,42 @@
     /* Consola CRT dentro del lightbox — mismas proporciones */
     .lightbox-crt{
       position:absolute;
-      left:18%;width:65%;top:86%;height:11%;
-      background:rgba(0,8,0,.82);
-      border:1px solid rgba(51,255,51,.2);
+      left:18%;width:65%;top:83%;height:14%;
+      background:rgba(0,10,0,.88);
+      border:1px solid rgba(51,255,51,.3);
       border-radius:2px;
-      display:flex;align-items:center;padding:0 2.5%;
+      display:flex;align-items:center;padding:0 2%;
       overflow:hidden;pointer-events:none;
-      z-index:10;
+      z-index:20;
+      animation:crt-flicker 7s infinite;
+      box-shadow:inset 0 0 20px rgba(0,0,0,.8),inset 0 0 4px rgba(51,255,51,.06);
+    }
+    .lightbox-crt::before{
+      content:'';position:absolute;inset:0;pointer-events:none;z-index:1;
+      background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.22) 2px,rgba(0,0,0,.22) 4px);
+    }
+    .lightbox-crt::after{
+      content:'';position:absolute;inset:0;pointer-events:none;z-index:1;
+      background:radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,.55) 100%);
     }
     .lightbox-crt-text{
-      position:relative;z-index:10;
+      position:relative;z-index:2;
       flex:1;min-width:0;
       font-family:'Share Tech Mono',monospace;
-      font-size:clamp(.55rem,1.2vw,.95rem);
+      font-size:clamp(.9rem,1.4vw,1.1rem);
+      line-height:1.3;
       color:#33FF33;
-      letter-spacing:.04em;
-      text-shadow:0 0 4px #33FF33, 0 0 8px #33FF33, 0 0 2px #000;
+      letter-spacing:.05em;
       white-space:nowrap;overflow:hidden;
+      text-shadow:0 0 2px #33FF33,0 0 7px rgba(51,255,51,.75),0 0 16px rgba(51,255,51,.35);
     }
     .lightbox-crt-cursor{
-      display:inline-block;width:7px;height:.9em;
-      background:#33FF33;margin-left:2px;vertical-align:middle;
+      flex-shrink:0;
+      display:inline-block;width:8px;height:1em;
+      background:#33FF33;margin-left:3px;vertical-align:middle;
+      position:relative;z-index:2;
       animation:blink-cursor .7s step-end infinite;
-      z-index:10;
+      box-shadow:0 0 5px #33FF33,0 0 12px rgba(51,255,51,.5);
     }
     .lightbox-close{position:fixed;top:1rem;right:1.5rem;background:none;border:none;color:rgba(255,255,255,.5);font-size:2rem;cursor:pointer;z-index:201;line-height:1;transition:color .2s;}
     .lightbox-close:hover{color:white;}
@@ -232,11 +265,12 @@ const thisDate    = new Date('2028-02-26'); thisDate.setHours(0,0,0,0);
 const nextDateStr = '2028-02-27';
 const popup       = document.getElementById('popup');
 
-if (!isPreview && thisDate > today) {
-  document.querySelector('.day-hero').style.filter = 'blur(4px)';
-  document.querySelector('.day-nav').style.visibility = 'hidden';
-  popup.classList.add('visible');
-}
+// DIAGNÓSTICO: bloqueo de fecha desactivado temporalmente
+// if (!isPreview && thisDate > today) {
+//   document.querySelector('.day-hero').style.filter = 'blur(4px)';
+//   document.querySelector('.day-nav').style.visibility = 'hidden';
+//   popup.classList.add('visible');
+// }
 if (!isPreview && nextDateStr) {
   const nextDate = new Date(nextDateStr); nextDate.setHours(0,0,0,0);
   if (nextDate > today) {
