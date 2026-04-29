@@ -32,16 +32,15 @@
     @keyframes blink-cursor{0%,100%{opacity:1;}50%{opacity:0;}}
     @keyframes crt-flicker{
       0%,89%,91%,96%,100%{opacity:1;}
-      90%{opacity:.85;}
-      97%{opacity:.93;}
+      90%{opacity:.82;}
+      97%{opacity:.91;}
     }
     .crt-overlay{
       position:absolute;
       left:18%; width:65%;
       top:83%;  height:14%;
-      background:rgba(0,10,0,.88);
-      border:1px solid rgba(51,255,51,.3);
-      border-radius:2px;
+      background:transparent;
+      border:none;
       display:flex;
       align-items:center;
       padding:0 2%;
@@ -49,40 +48,30 @@
       pointer-events:none;
       z-index:20;
       animation:crt-flicker 7s infinite;
-      box-shadow:inset 0 0 20px rgba(0,0,0,.8), inset 0 0 4px rgba(51,255,51,.06);
-    }
-    /* Scanlines */
-    .crt-overlay::before{
-      content:'';position:absolute;inset:0;pointer-events:none;z-index:1;
-      background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.22) 2px,rgba(0,0,0,.22) 4px);
-    }
-    /* Viñeta */
-    .crt-overlay::after{
-      content:'';position:absolute;inset:0;pointer-events:none;z-index:1;
-      background:radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,.55) 100%);
     }
     .crt-text{
       position:relative;z-index:2;
-      flex:1;min-width:0;
+      display:block;
+      width:100%;
       font-family:'Share Tech Mono',monospace;
       font-size:clamp(.8rem,1.2vw,1rem);
-      line-height:1.3;
+      line-height:1;
       color:#33FF33;
       letter-spacing:.05em;
       white-space:nowrap;
-      overflow:hidden;
+      overflow:visible;
+      text-align:left;
       text-shadow:0 0 2px #33FF33,0 0 7px rgba(51,255,51,.75),0 0 16px rgba(51,255,51,.35);
     }
+    /* Cursor inline que parpadea — se inyecta via JS junto al texto */
     .crt-cursor{
-      flex-shrink:0;
       display:inline-block;
-      width:8px;height:1em;
+      width:.55em; height:.85em;
       background:#33FF33;
-      margin-left:3px;
-      vertical-align:middle;
-      position:relative;z-index:2;
+      margin-left:1px;
+      vertical-align:text-bottom;
       animation:blink-cursor .7s step-end infinite;
-      box-shadow:0 0 5px #33FF33,0 0 12px rgba(51,255,51,.5);
+      box-shadow:0 0 5px #33FF33,0 0 10px rgba(51,255,51,.5);
     }
 
     /* Lightbox fullscreen */
@@ -94,41 +83,24 @@
     .lightbox-crt{
       position:absolute;
       left:18%;width:65%;top:83%;height:14%;
-      background:rgba(0,10,0,.88);
-      border:1px solid rgba(51,255,51,.3);
-      border-radius:2px;
+      background:transparent;
+      border:none;
       display:flex;align-items:center;padding:0 2%;
       overflow:hidden;pointer-events:none;
       z-index:20;
       animation:crt-flicker 7s infinite;
-      box-shadow:inset 0 0 20px rgba(0,0,0,.8),inset 0 0 4px rgba(51,255,51,.06);
-    }
-    .lightbox-crt::before{
-      content:'';position:absolute;inset:0;pointer-events:none;z-index:1;
-      background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.22) 2px,rgba(0,0,0,.22) 4px);
-    }
-    .lightbox-crt::after{
-      content:'';position:absolute;inset:0;pointer-events:none;z-index:1;
-      background:radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,.55) 100%);
     }
     .lightbox-crt-text{
       position:relative;z-index:2;
-      flex:1;min-width:0;
+      display:block;width:100%;
       font-family:'Share Tech Mono',monospace;
       font-size:clamp(.9rem,1.4vw,1.1rem);
-      line-height:1.3;
+      line-height:1;
       color:#33FF33;
       letter-spacing:.05em;
-      white-space:nowrap;overflow:hidden;
+      white-space:nowrap;overflow:visible;
+      text-align:left;
       text-shadow:0 0 2px #33FF33,0 0 7px rgba(51,255,51,.75),0 0 16px rgba(51,255,51,.35);
-    }
-    .lightbox-crt-cursor{
-      flex-shrink:0;
-      display:inline-block;width:8px;height:1em;
-      background:#33FF33;margin-left:3px;vertical-align:middle;
-      position:relative;z-index:2;
-      animation:blink-cursor .7s step-end infinite;
-      box-shadow:0 0 5px #33FF33,0 0 12px rgba(51,255,51,.5);
     }
     .lightbox-close{position:fixed;top:1rem;right:1.5rem;background:none;border:none;color:rgba(255,255,255,.5);font-size:2rem;cursor:pointer;z-index:201;line-height:1;transition:color .2s;}
     .lightbox-close:hover{color:white;}
@@ -160,7 +132,36 @@
     .popup-btn{display:inline-block;padding:.7rem 2rem;border:1px solid rgba(201,168,76,.4);border-radius:2px;color:var(--gold);font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;background:none;transition:all .2s;}
     .popup-btn:hover{background:rgba(201,168,76,.1);border-color:var(--gold);}
 
-    /* Mobile */
+    /* obj_tarjetablanca — tarjeta de fichar con esquina doblada, arrastrable */
+    .tarjeta-blanca {
+      position: absolute;
+      width: 6%;        /* relativo al escenario-wrap */
+      aspect-ratio: 3/4;
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 1px;
+      z-index: 30;
+      cursor: grab;
+      pointer-events: all;
+      /* Esquina doblada: recorta la esquina superior derecha */
+      clip-path: polygon(0 0, 80% 0, 100% 20%, 100% 100%, 0 100%);
+      box-shadow: 2px 3px 8px rgba(0,0,0,.45), 1px 1px 2px rgba(0,0,0,.25);
+      /* Líneas de texto simuladas */
+      background-image:
+        linear-gradient(transparent calc(35% - 1px), #ddd calc(35% - 1px), #ddd 35%, transparent 35%),
+        linear-gradient(transparent calc(55% - 1px), #ddd calc(55% - 1px), #ddd 55%, transparent 55%),
+        linear-gradient(transparent calc(75% - 1px), #ddd calc(75% - 1px), #ddd 75%, transparent 75%);
+      /* Triángulo de la esquina doblada */
+    }
+    .tarjeta-blanca::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 20%; height: 20%;
+      background: linear-gradient(225deg, #e8e8e8 50%, transparent 50%);
+      box-shadow: -1px 1px 2px rgba(0,0,0,.15);
+    }
+    .tarjeta-blanca:active { cursor: grabbing; }
     @media(max-width:600px){
       .wrap{padding:1rem 1rem 2rem;}
       .day-hero{padding:1rem 0 1rem;}
@@ -198,8 +199,9 @@
         />
         <!-- Consola CRT overlay: x:18%..83%, y:86%..97% de la imagen -->
         <div class="crt-overlay" id="crt-overlay">
-          <span class="crt-text" id="crt-text"></span><span class="crt-cursor"></span>
-        </div>
+          <span class="crt-text" id="crt-text"></span>
+        <!-- obj_tarjetablanca — inicialmente sobre obj_tarjetasMesa (centro ~48%, ~43%) -->
+        <div class="tarjeta-blanca" id="obj-tarjetablanca"></div>
       </div>
     </div>
   </div>
@@ -248,7 +250,7 @@
   <div class="lightbox-inner" id="lightbox-inner">
     <img src="../media/ER01_EscenarioVisual.jpg" alt="Escape Room" id="lightbox-img" draggable="false"/>
     <div class="lightbox-crt" id="lightbox-crt">
-      <span class="lightbox-crt-text" id="lightbox-crt-text"></span><span class="lightbox-crt-cursor"></span>
+      <span class="lightbox-crt-text" id="lightbox-crt-text"></span>
     </div>
   </div>
 </div>
@@ -265,12 +267,11 @@ const thisDate    = new Date('2028-02-26'); thisDate.setHours(0,0,0,0);
 const nextDateStr = '2028-02-27';
 const popup       = document.getElementById('popup');
 
-// DIAGNÓSTICO: bloqueo de fecha desactivado temporalmente
-// if (!isPreview && thisDate > today) {
-//   document.querySelector('.day-hero').style.filter = 'blur(4px)';
-//   document.querySelector('.day-nav').style.visibility = 'hidden';
-//   popup.classList.add('visible');
-// }
+if (!isPreview && thisDate > today) {
+  document.querySelector('.day-hero').style.filter = 'blur(4px)';
+  document.querySelector('.day-nav').style.visibility = 'hidden';
+  popup.classList.add('visible');
+}
 if (!isPreview && nextDateStr) {
   const nextDate = new Date(nextDateStr); nextDate.setHours(0,0,0,0);
   if (nextDate > today) {
@@ -324,60 +325,158 @@ updateDone();
 // ─── Consola CRT ─────────────────────────────────────────────
 const crtText        = document.getElementById('crt-text');
 const lightboxCrtTxt = document.getElementById('lightbox-crt-text');
+// El cursor es un span inline que se escribe junto al texto via innerHTML
+const CURSOR_HTML = '<span class="crt-cursor"></span>';
+
 let twTimer  = null;
 let twTarget = '';
 let twIdx    = 0;
 
-// Sincroniza ambas consolas (normal + lightbox)
-function syncConsoles(txt) {
-  crtText.textContent        = txt;
-  lightboxCrtTxt.textContent = txt;
+function setConsoles(txt) {
+  // txt ya incluye el cursor HTML si se quiere mostrar
+  crtText.innerHTML        = txt;
+  lightboxCrtTxt.innerHTML = txt;
 }
 
 function typeWrite(msg) {
   if (msg === twTarget && twIdx >= twTarget.length) return;
   if (twTimer) { clearTimeout(twTimer); twTimer = null; }
-
+  // Si no hay texto previo arranca directamente
+  if (!crtText.textContent) { startType(msg); return; }
+  // Flash rápido de borrado antes de escribir el nuevo mensaje
+  let f = 0;
   const old = crtText.textContent;
-  if (!old) { startType(msg); return; }
-
-  let flashes = 0;
-  function flashClear() {
-    const t = (flashes % 2 === 0) ? '' : old;
-    syncConsoles(t);
-    flashes++;
-    if (flashes < 4) { twTimer = setTimeout(flashClear, 55); }
-    else { syncConsoles(''); startType(msg); }
+  function flash() {
+    setConsoles(f % 2 === 0 ? '' : old + CURSOR_HTML);
+    f++;
+    if (f < 4) { twTimer = setTimeout(flash, 50); }
+    else        { setConsoles(''); startType(msg); }
   }
-  flashClear();
+  flash();
 }
 
 function clearConsole() {
   if (twTimer) { clearTimeout(twTimer); twTimer = null; }
   twTarget = '';
   twIdx    = 0;
-  syncConsoles('');
+  setConsoles(CURSOR_HTML); // cursor solo parpadeando
 }
 
 function startType(msg) {
   twTarget = msg;
   twIdx    = 0;
   function tick() {
-    if (twIdx <= twTarget.length) {
-      syncConsoles(twTarget.slice(0, twIdx));
+    // Texto escrito hasta ahora + cursor pegado al final
+    setConsoles(twTarget.slice(0, twIdx) + CURSOR_HTML);
+    if (twIdx < twTarget.length) {
       twIdx++;
-      twTimer = setTimeout(tick, 40);
-    } else { twTimer = null; }
+      twTimer = setTimeout(tick, 25); // 25ms por carácter
+    } else {
+      twTimer = null; // fin — cursor queda al final del texto
+    }
   }
   tick();
 }
 
-// Mensaje inicial al cargar — confirma que la consola es visible
 window.addEventListener('load', () => {
-  setTimeout(() => typeWrite('> SISTEMA INICIADO_'), 600);
+  setTimeout(() => typeWrite('> SISTEMA INICIADO'), 600);
 });
 
-// ─── Mapa de colores ──────────────────────────────────────────
+// ─── obj_tarjetablanca ────────────────────────────────────────
+// Variable global de estado
+const tarjetablanca = {
+  ubicacion: 'tarjetasMesa'   // dónde se encuentra actualmente
+};
+
+const tbEl   = document.getElementById('obj-tarjetablanca');
+const scWrap = document.getElementById('escenario-wrap');
+
+// Posiciones predefinidas por ubicación (% respecto al escenario)
+// Se añadirán más ubicaciones según avance el juego
+const TB_POSICIONES = {
+  tarjetasMesa:     { left: 45, top: 37 },  // sobre obj_tarjetasMesa
+};
+
+function posicionarTarjeta(ubicacion) {
+  const pos = TB_POSICIONES[ubicacion];
+  if (!pos) return;
+  tbEl.style.left = pos.left + '%';
+  tbEl.style.top  = pos.top  + '%';
+  tarjetablanca.ubicacion = ubicacion;
+}
+
+// Posicionar al cargar
+posicionarTarjeta('tarjetasMesa');
+
+// ─── Drag & drop de la tarjeta ───────────────────────────────
+let drag = null;   // estado del arrastre en curso
+
+tbEl.addEventListener('mousedown', e => {
+  e.stopPropagation();
+  const wRect = scWrap.getBoundingClientRect();
+  drag = {
+    startX: e.clientX,
+    startY: e.clientY,
+    origLeft: tbEl.offsetLeft / scWrap.offsetWidth  * 100,
+    origTop:  tbEl.offsetTop  / scWrap.offsetHeight * 100,
+  };
+  tbEl.style.transition = 'none';
+  tbEl.style.cursor     = 'grabbing';
+});
+
+document.addEventListener('mousemove', e => {
+  if (!drag) return;
+  const wRect = scWrap.getBoundingClientRect();
+  const dx = (e.clientX - drag.startX) / wRect.width  * 100;
+  const dy = (e.clientY - drag.startY) / wRect.height * 100;
+  tbEl.style.left = (drag.origLeft + dx) + '%';
+  tbEl.style.top  = (drag.origTop  + dy) + '%';
+});
+
+document.addEventListener('mouseup', e => {
+  if (!drag) return;
+  drag = null;
+  tbEl.style.cursor = 'grab';
+  // Detectar sobre qué objeto cayó la tarjeta al soltarla
+  const wRect = scWrap.getBoundingClientRect();
+  const relX  = (e.clientX - wRect.left)  / wRect.width;
+  const relY  = (e.clientY - wRect.top)   / wRect.height;
+  if (relX >= 0 && relX <= 1 && relY >= 0 && relY <= 1) {
+    const alias = getAlias(e.clientX, e.clientY, escenarioImg);
+    if (alias) tarjetablanca.ubicacion = alias.replace('obj_', '');
+  }
+});
+
+// Touch drag
+tbEl.addEventListener('touchstart', e => {
+  e.stopPropagation();
+  const t = e.touches[0];
+  drag = {
+    startX: t.clientX,
+    startY: t.clientY,
+    origLeft: tbEl.offsetLeft / scWrap.offsetWidth  * 100,
+    origTop:  tbEl.offsetTop  / scWrap.offsetHeight * 100,
+  };
+  tbEl.style.transition = 'none';
+}, { passive: true });
+
+document.addEventListener('touchmove', e => {
+  if (!drag || !e.touches[0]) return;
+  const t     = e.touches[0];
+  const wRect = scWrap.getBoundingClientRect();
+  const dx = (t.clientX - drag.startX) / wRect.width  * 100;
+  const dy = (t.clientY - drag.startY) / wRect.height * 100;
+  tbEl.style.left = (drag.origLeft + dx) + '%';
+  tbEl.style.top  = (drag.origTop  + dy) + '%';
+}, { passive: true });
+
+document.addEventListener('touchend', e => {
+  if (!drag) return;
+  drag = null;
+  const t = e.changedTouches[0];
+  const alias = getAlias(t.clientX, t.clientY, escenarioImg);
+  if (alias) tarjetablanca.ubicacion = alias.replace('obj_', '');
+});
 const TOL = 10;
 
 const COLOR_MAP = [
