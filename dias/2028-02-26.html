@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>26 de Febrero — 50 Aniversario</title>
+  <title>26 de Febrero &mdash; 50 Aniversario</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:wght@300;400;500&family=Share+Tech+Mono&display=swap" rel="stylesheet">
   <style>
@@ -21,21 +21,92 @@
     h1{font-family:'Playfair Display',serif;font-size:clamp(3rem,9vw,7rem);font-weight:900;line-height:1;background:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 50%,var(--gold-dark) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.5rem;}
     .month-label{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3.5vw,2.4rem);font-weight:400;font-style:italic;color:rgba(250,246,238,.45);margin-bottom:2.5rem;}
 
-    /* ── Área de contenido ── */
-    .content-area{width:100%;border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:2rem;background:rgba(255,255,255,.02);display:flex;flex-direction:column;align-items:center;gap:1.4rem;}
+    /* Contenido */
+    .content-area{width:100%;border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:2rem;background:rgba(255,255,255,.02);display:flex;flex-direction:column;align-items:center;gap:0;}
 
-    /* ── Consola CRT ── */
-    .crt-console{width:100%;background:var(--crt-bg);border:1px solid rgba(51,255,51,.25);border-radius:3px;padding:.65rem 1rem;font-family:'Share Tech Mono',monospace;font-size:.9rem;color:var(--crt-green);min-height:2.6rem;display:flex;align-items:center;position:relative;overflow:hidden;box-shadow:0 0 8px rgba(51,255,51,.1),inset 0 0 18px rgba(0,0,0,.8);}
-    .crt-console::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.15) 2px,rgba(0,0,0,.15) 4px);pointer-events:none;z-index:1;}
-    .crt-text{position:relative;z-index:2;letter-spacing:.05em;text-shadow:0 0 6px rgba(51,255,51,.7);white-space:pre;}
-    .crt-cursor{display:inline-block;width:8px;height:1em;background:var(--crt-green);margin-left:2px;vertical-align:middle;animation:blink-cursor .7s step-end infinite;box-shadow:0 0 4px rgba(51,255,51,.8);}
+    /* Escenario con consola overlay */
+    .escenario-wrap{width:100%;position:relative;border:1px solid rgba(201,168,76,.12);border-radius:3px;overflow:hidden;line-height:0;cursor:pointer;}
+    .escenario-img{width:100%;height:auto;display:block;user-select:none;-webkit-user-drag:none;cursor:pointer;}
+
+    /* Consola CRT — overlay sobre obj_consola (x:18%..83%, y:86%..97% de la imagen) */
+    .crt-overlay{
+      position:absolute;
+      left:18%;
+      width:65%;        /* 83%-18% */
+      top:86%;
+      height:11%;       /* 97%-86% */
+      background:var(--crt-bg);
+      border:1px solid rgba(51,255,51,.3);
+      border-radius:2px;
+      display:flex;
+      align-items:center;
+      padding:0 2.5%;
+      overflow:hidden;
+      pointer-events:none;
+      box-shadow:0 0 6px rgba(51,255,51,.12),inset 0 0 14px rgba(0,0,0,.9);
+    }
+    .crt-overlay::before{
+      content:'';position:absolute;inset:0;
+      background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.18) 2px,rgba(0,0,0,.18) 4px);
+      pointer-events:none;z-index:1;
+    }
+    .crt-text{
+      position:relative;z-index:2;
+      font-family:'Share Tech Mono',monospace;
+      font-size:clamp(.45rem,.9vw,.75rem);
+      color:var(--crt-green);
+      letter-spacing:.04em;
+      text-shadow:0 0 5px rgba(51,255,51,.7);
+      white-space:nowrap;
+      overflow:hidden;
+    }
+    .crt-cursor{
+      display:inline-block;width:6px;height:.9em;
+      background:var(--crt-green);margin-left:2px;vertical-align:middle;
+      animation:blink-cursor .7s step-end infinite;
+      box-shadow:0 0 3px rgba(51,255,51,.8);
+    }
     @keyframes blink-cursor{0%,100%{opacity:1;}50%{opacity:0;}}
 
-    /* ── Escenario ── */
-    .escenario-wrap{width:100%;position:relative;border:1px solid rgba(201,168,76,.12);border-radius:3px;overflow:hidden;line-height:0;}
-    .escenario-img{width:100%;height:auto;display:block;cursor:crosshair;user-select:none;-webkit-user-drag:none;}
+    /* Lightbox fullscreen */
+    .lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.96);z-index:200;align-items:center;justify-content:center;}
+    .lightbox.visible{display:flex;}
+    .lightbox-inner{position:relative;max-width:98vw;max-height:98vh;line-height:0;cursor:pointer;}
+    .lightbox-inner img{display:block;max-width:98vw;max-height:98vh;object-fit:contain;user-select:none;}
+    /* Consola CRT dentro del lightbox — mismas proporciones */
+    .lightbox-crt{
+      position:absolute;
+      left:18%;width:65%;top:86%;height:11%;
+      background:var(--crt-bg);
+      border:1px solid rgba(51,255,51,.3);
+      border-radius:2px;
+      display:flex;align-items:center;padding:0 2.5%;
+      overflow:hidden;pointer-events:none;
+      box-shadow:0 0 6px rgba(51,255,51,.12),inset 0 0 14px rgba(0,0,0,.9);
+    }
+    .lightbox-crt::before{
+      content:'';position:absolute;inset:0;
+      background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.18) 2px,rgba(0,0,0,.18) 4px);
+      pointer-events:none;z-index:1;
+    }
+    .lightbox-crt-text{
+      position:relative;z-index:2;
+      font-family:'Share Tech Mono',monospace;
+      font-size:clamp(.55rem,1.2vw,.95rem);
+      color:var(--crt-green);
+      letter-spacing:.04em;
+      text-shadow:0 0 5px rgba(51,255,51,.7);
+      white-space:nowrap;overflow:hidden;
+    }
+    .lightbox-crt-cursor{
+      display:inline-block;width:7px;height:.9em;
+      background:var(--crt-green);margin-left:2px;vertical-align:middle;
+      animation:blink-cursor .7s step-end infinite;
+    }
+    .lightbox-close{position:fixed;top:1rem;right:1.5rem;background:none;border:none;color:rgba(255,255,255,.5);font-size:2rem;cursor:pointer;z-index:201;line-height:1;transition:color .2s;}
+    .lightbox-close:hover{color:white;}
 
-    /* ── Action btns ── */
+    /* Action btns */
     .action-btns{position:absolute;top:0;right:0;display:flex;flex-direction:column;align-items:center;gap:.2rem;}
     .icon-btn{background:none;border:none;cursor:pointer;font-size:2rem;line-height:1;transition:color .2s,transform .2s;padding:.2rem;}
     .icon-btn:hover{transform:scale(1.2);}
@@ -44,7 +115,7 @@
     .done-btn{color:var(--gold);opacity:0.6;}
     .done-btn.active{color:var(--gold);opacity:1;}
 
-    /* ── Nav ── */
+    /* Nav */
     .day-nav{display:flex;justify-content:space-between;align-items:center;padding-top:2.5rem;border-top:1px solid rgba(201,168,76,.1);margin-top:2.5rem;}
     .nav-btn{font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(201,168,76,.5);text-decoration:none;padding:.6rem 1.2rem;border:1px solid rgba(201,168,76,.18);border-radius:2px;transition:all .2s;}
     .nav-btn:hover{color:var(--gold-light);border-color:rgba(201,168,76,.5);background:rgba(201,168,76,.05);}
@@ -52,7 +123,7 @@
     .back-link{display:block;text-align:center;margin-top:2rem;color:rgba(201,168,76,.35);font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;text-decoration:none;transition:color .2s;}
     .back-link:hover{color:var(--gold);}
 
-    /* ── Popups ── */
+    /* Popups */
     .popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:100;align-items:center;justify-content:center;}
     .popup-overlay.visible{display:flex;}
     .popup-box{background:var(--dark);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:3rem 2.5rem;max-width:420px;width:90%;text-align:center;box-shadow:0 0 60px rgba(0,0,0,.8);}
@@ -62,14 +133,13 @@
     .popup-btn{display:inline-block;padding:.7rem 2rem;border:1px solid rgba(201,168,76,.4);border-radius:2px;color:var(--gold);font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;background:none;transition:all .2s;}
     .popup-btn:hover{background:rgba(201,168,76,.1);border-color:var(--gold);}
 
-    /* ── Mobile ── */
+    /* Mobile */
     @media(max-width:600px){
       .wrap{padding:1rem 1rem 2rem;}
       .day-hero{padding:1rem 0 1rem;}
       h1{font-size:clamp(2rem,14vw,4rem);}
       .month-label{font-size:clamp(1rem,4vw,1.6rem);margin-bottom:1rem;}
-      .content-area{padding:1rem;gap:1rem;}
-      .crt-console{font-size:.78rem;padding:.5rem .75rem;}
+      .content-area{padding:.5rem;}
       .day-nav{margin-top:1rem;padding-top:1rem;}
       .ornament-line-h{margin-bottom:1rem;}
     }
@@ -79,34 +149,31 @@
 <div class="wrap">
   <div class="day-hero">
     <div class="action-btns">
-      <button class="icon-btn fav-btn"  id="fav-btn"  title="Añadir a favoritos">&#9825;</button>
+      <button class="icon-btn fav-btn"  id="fav-btn"  title="A&ntilde;adir a favoritos">&#9825;</button>
       <button class="icon-btn done-btn" id="done-btn" title="Marcar como completado">&#9733;</button>
     </div>
     <div class="ornament-line-h">
       <div class="o-line"></div><div class="o-dot"></div><div class="o-line r"></div>
     </div>
-    <p class="day-of-week">S&#225;bado</p>
+    <p class="day-of-week">S&aacute;bado</p>
     <h1>26</h1>
     <p class="month-label">de Febrero</p>
 
     <div class="content-area">
-
-      <!-- Consola CRT -->
-      <div class="crt-console" id="crt-console">
-        <span class="crt-text" id="crt-text"></span><span class="crt-cursor" id="crt-cursor"></span>
-      </div>
-
-      <!-- Escenario -->
-      <div class="escenario-wrap">
+      <!-- Escenario con consola CRT encima de obj_consola -->
+      <div class="escenario-wrap" id="escenario-wrap">
         <img
           src="../media/ER01_EscenarioVisual.jpg"
-          alt="Escape Room - Escenario"
+          alt="Escape Room"
           id="escenario-img"
           class="escenario-img"
           draggable="false"
         />
+        <!-- Consola CRT overlay: x:18%..83%, y:86%..97% de la imagen -->
+        <div class="crt-overlay" id="crt-overlay">
+          <span class="crt-text" id="crt-text"></span><span class="crt-cursor"></span>
+        </div>
       </div>
-
     </div>
   </div>
 
@@ -123,7 +190,7 @@
   <div class="popup-box">
     <div class="popup-icon">&#127873;</div>
     <p class="popup-title">&#161;Un poco de paciencia!</p>
-    <p class="popup-msg">No seas impaciente...<br>Este d&#237;a a&#250;n no ha llegado.<br>Ya llegar&#225;, y ser&#225; especial. &#128156;</p>
+    <p class="popup-msg">No seas impaciente...<br>Este d&iacute;a a&uacute;n no ha llegado.<br>Ya llegar&aacute;, y ser&aacute; especial. &#128156;</p>
     <button class="popup-btn" onclick="window.location.href='../index.html'">Volver al calendario</button>
   </div>
 </div>
@@ -133,7 +200,7 @@
   <div class="popup-box">
     <div class="popup-icon">&#127942;</div>
     <p class="popup-title">&#161;Tu recompensa te espera!</p>
-    <p class="popup-msg">Para acceder a tu recompensa primero debes resolver el desaf&#237;o de hoy...<br><br>&#161;T&#250; puedes! &#128170;</p>
+    <p class="popup-msg">Para acceder a tu recompensa primero debes resolver el desaf&iacute;o de hoy...<br><br>&#161;T&uacute; puedes! &#128170;</p>
     <button class="popup-btn" id="star-blocked-close">Volver</button>
   </div>
 </div>
@@ -143,8 +210,19 @@
   <div class="popup-box">
     <div class="popup-icon">&#127873;</div>
     <p class="popup-title">&#161;Tu recompensa!</p>
-    <p class="popup-msg" id="reward-text">&#10024; Aqu&#237; ir&#225; la recompensa especial de este d&#237;a &#10024;</p>
+    <p class="popup-msg" id="reward-text">&#10024; Aqu&iacute; ir&aacute; la recompensa especial de este d&iacute;a &#10024;</p>
     <button class="popup-btn" id="star-reward-close">&#161;Genial!</button>
+  </div>
+</div>
+
+<!-- Lightbox fullscreen -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightbox-close">&#10005;</button>
+  <div class="lightbox-inner" id="lightbox-inner">
+    <img src="../media/ER01_EscenarioVisual.jpg" alt="Escape Room" id="lightbox-img" draggable="false"/>
+    <div class="lightbox-crt" id="lightbox-crt">
+      <span class="lightbox-crt-text" id="lightbox-crt-text"></span><span class="lightbox-crt-cursor"></span>
+    </div>
   </div>
 </div>
 
@@ -168,8 +246,8 @@ if (!isPreview && thisDate > today) {
 if (!isPreview && nextDateStr) {
   const nextDate = new Date(nextDateStr); nextDate.setHours(0,0,0,0);
   if (nextDate > today) {
-    const nextBtn = document.getElementById('next-btn');
-    if (nextBtn) nextBtn.addEventListener('click', e => { e.preventDefault(); popup.classList.add('visible'); });
+    const nb = document.getElementById('next-btn');
+    if (nb) nb.addEventListener('click', e => { e.preventDefault(); popup.classList.add('visible'); });
   }
 }
 popup.addEventListener('click', e => { if (e.target === popup) window.location.href = '../index.html'; });
@@ -181,7 +259,7 @@ function updateFav() {
   const on = localStorage.getItem(FAV_KEY) === '1';
   favBtn.textContent = on ? '\u2764' : '\u2661';
   favBtn.classList.toggle('active', on);
-  favBtn.title = on ? 'Quitar de favoritos' : 'Añadir a favoritos';
+  favBtn.title = on ? 'Quitar de favoritos' : 'A\u00f1adir a favoritos';
 }
 favBtn.addEventListener('click', () => {
   const on = localStorage.getItem(FAV_KEY) === '1';
@@ -215,29 +293,42 @@ doneBtn.addEventListener('click', () => {
 });
 updateDone();
 
-// ─── Consola CRT ────────────────────────────────────────────
-const crtText   = document.getElementById('crt-text');
-const crtCursor = document.getElementById('crt-cursor');
+// ─── Consola CRT ─────────────────────────────────────────────
+const crtText        = document.getElementById('crt-text');
+const lightboxCrtTxt = document.getElementById('lightbox-crt-text');
 let twTimer  = null;
 let twTarget = '';
 let twIdx    = 0;
+
+// Sincroniza ambas consolas (normal + lightbox)
+function syncConsoles(txt) {
+  crtText.textContent        = txt;
+  lightboxCrtTxt.textContent = txt;
+}
 
 function typeWrite(msg) {
   if (msg === twTarget && twIdx >= twTarget.length) return;
   if (twTimer) { clearTimeout(twTimer); twTimer = null; }
 
-  const oldText = crtText.textContent;
-  if (!oldText) { startType(msg); return; }
+  const old = crtText.textContent;
+  if (!old) { startType(msg); return; }
 
-  // Parpadeo de borrado: 3 flashes x 60ms
   let flashes = 0;
   function flashClear() {
-    crtText.textContent = (flashes % 2 === 0) ? '' : oldText;
+    const t = (flashes % 2 === 0) ? '' : old;
+    syncConsoles(t);
     flashes++;
-    if (flashes < 4) { twTimer = setTimeout(flashClear, 60); }
-    else { crtText.textContent = ''; startType(msg); }
+    if (flashes < 4) { twTimer = setTimeout(flashClear, 55); }
+    else { syncConsoles(''); startType(msg); }
   }
   flashClear();
+}
+
+function clearConsole() {
+  if (twTimer) { clearTimeout(twTimer); twTimer = null; }
+  twTarget = '';
+  twIdx    = 0;
+  syncConsoles('');
 }
 
 function startType(msg) {
@@ -245,7 +336,7 @@ function startType(msg) {
   twIdx    = 0;
   function tick() {
     if (twIdx <= twTarget.length) {
-      crtText.textContent = twTarget.slice(0, twIdx);
+      syncConsoles(twTarget.slice(0, twIdx));
       twIdx++;
       twTimer = setTimeout(tick, 40);
     } else { twTimer = null; }
@@ -253,32 +344,29 @@ function startType(msg) {
   tick();
 }
 
-window.addEventListener('load', () => {
-  typeWrite('> SISTEMA LISTO. EXPLORA LA OFICINA...');
-});
-
-// ─── Mapa de colores ─────────────────────────────────────────
-const TOL = 18;
+// ─── Mapa de colores ──────────────────────────────────────────
+const TOL = 10;
 
 const COLOR_MAP = [
-  { hex:'FEFE00', alias:'obj_maquinaEscribir'  },
-  { hex:'8FABDD', alias:'obj_bandejaSalida'    },
-  { hex:'00FF41', alias:'obj_tarjetasMesa'     },
-  { hex:'1F3765', alias:'obj_selloGoma'        },
-  { hex:'7E01FF', alias:'obj_archivador1'      },
-  { hex:'BF00FE', alias:'obj_archivador2'      },
-  { hex:'FE0041', alias:'obj_archivador3'      },
-  { hex:'FE00C0', alias:'obj_archivador4'      },
-  { hex:'FE007F', alias:'obj_archivador5'      },
-  { hex:'FE00FE', alias:'obj_archivador6'      },
-  { hex:'81FE00', alias:'obj_puerta'           },
-  { hex:'FE4002', alias:'obj_archivadoCerrado' },
-  { hex:'00C0FE', alias:'obj_cajonVacio'       },
-  { hex:'00FE81', alias:'obj_cajonLleno'       },
-  { hex:'FE0000', alias:'obj_consola'          },
-  { hex:'FFE59A', alias:'obj_zonaIzquierda'    },
-  { hex:'92D14F', alias:'obj_zonaCentro'       },
-  { hex:'70AD46', alias:'obj_zonaDerecha'      },
+  { hex:'19E6E6', alias:'obj_maquinaEscribir'  },
+  { hex:'192EE6', alias:'obj_bandejaSalida'    },
+  { hex:'19E6A8', alias:'obj_tarjetasMesa'     },
+  { hex:'E65719', alias:'obj_lectorTarjetas'   },
+  { hex:'196BE6', alias:'obj_selloGoma'        },
+  { hex:'E69419', alias:'obj_archivador1'      },
+  { hex:'E6D119', alias:'obj_archivador2'      },
+  { hex:'BDE619', alias:'obj_archivador3'      },
+  { hex:'80E619', alias:'obj_archivador4'      },
+  { hex:'42E619', alias:'obj_archivador5'      },
+  { hex:'19E62E', alias:'obj_archivador6'      },
+  { hex:'E61919', alias:'obj_puerta'           },
+  { hex:'19E66B', alias:'obj_archivadoCerrado' },
+  { hex:'4219E6', alias:'obj_cajonVacio'       },
+  { hex:'8019E6', alias:'obj_cajonLleno'       },
+  { hex:'BD19E6', alias:'obj_consola'          },
+  { hex:'E619D1', alias:'obj_zonaIzquierda'    },
+  { hex:'E61994', alias:'obj_zonaCentro'       },
+  { hex:'E61957', alias:'obj_zonaDerecha'      },
 ];
 
 const HOVER_MSG = {
@@ -307,9 +395,9 @@ function hexToRgb(hex) {
   return { r:parseInt(hex.slice(0,2),16), g:parseInt(hex.slice(2,4),16), b:parseInt(hex.slice(4,6),16) };
 }
 function aliasFromPixel(r, g, b) {
-  for (const entry of COLOR_MAP) {
-    const c = hexToRgb(entry.hex);
-    if (Math.abs(r-c.r)<=TOL && Math.abs(g-c.g)<=TOL && Math.abs(b-c.b)<=TOL) return entry.alias;
+  for (const e of COLOR_MAP) {
+    const c = hexToRgb(e.hex);
+    if (Math.abs(r-c.r)<=TOL && Math.abs(g-c.g)<=TOL && Math.abs(b-c.b)<=TOL) return e.alias;
   }
   return null;
 }
@@ -319,7 +407,7 @@ const cmCanvas = document.getElementById('clickmap-canvas');
 const cmCtx    = cmCanvas.getContext('2d', { willReadFrequently:true });
 const cmImg    = new Image();
 cmImg.crossOrigin = 'anonymous';
-cmImg.src = '../media/ER01_EscenarioClickmap.jpg';
+cmImg.src = '../media/ER01_EscenarioClickmap.png';
 let cmReady = false;
 cmImg.onload = () => {
   cmCanvas.width  = cmImg.naturalWidth;
@@ -328,56 +416,109 @@ cmImg.onload = () => {
   cmReady = true;
 };
 
-function getPixelAlias(clientX, clientY, imgEl) {
+function getAlias(clientX, clientY, imgEl) {
   if (!cmReady) return null;
   const rect = imgEl.getBoundingClientRect();
   const relX = (clientX - rect.left)  / rect.width;
   const relY = (clientY - rect.top)   / rect.height;
-  const px   = Math.round(relX * (cmCanvas.width  - 1));
-  const py   = Math.round(relY * (cmCanvas.height - 1));
-  const d    = cmCtx.getImageData(px, py, 1, 1).data;
+  if (relX < 0 || relX > 1 || relY < 0 || relY > 1) return null;
+  const px = Math.round(relX * (cmCanvas.width  - 1));
+  const py = Math.round(relY * (cmCanvas.height - 1));
+  const d  = cmCtx.getImageData(px, py, 1, 1).data;
   return aliasFromPixel(d[0], d[1], d[2]);
 }
 
-// Interaccion con el escenario
+// ─── Interacción con el escenario ────────────────────────────
 const escenarioImg = document.getElementById('escenario-img');
-let lastAlias = null;
+let lastAlias      = null;
 
-escenarioImg.addEventListener('mousemove', e => {
-  const alias = getPixelAlias(e.clientX, e.clientY, escenarioImg);
+function onHover(alias) {
   if (alias === lastAlias) return;
   lastAlias = alias;
   if (alias && HOVER_MSG[alias]) {
     typeWrite('> ' + HOVER_MSG[alias]);
-  } else if (!alias) {
-    typeWrite('> SISTEMA LISTO. EXPLORA LA OFICINA...');
+  } else if (!alias || !HOVER_MSG[alias]) {
+    clearConsole();
   }
-});
+}
 
+escenarioImg.addEventListener('mousemove', e => {
+  onHover(getAlias(e.clientX, e.clientY, escenarioImg));
+});
 escenarioImg.addEventListener('mouseleave', () => {
   lastAlias = null;
-  typeWrite('> SISTEMA LISTO. EXPLORA LA OFICINA...');
+  clearConsole();
 });
 
 escenarioImg.addEventListener('click', e => {
-  const alias = getPixelAlias(e.clientX, e.clientY, escenarioImg);
+  const alias = getAlias(e.clientX, e.clientY, escenarioImg);
   if (alias) handleClick(alias);
 });
 
 escenarioImg.addEventListener('touchmove', e => {
   e.preventDefault();
   const t = e.touches[0];
-  const alias = getPixelAlias(t.clientX, t.clientY, escenarioImg);
-  if (alias === lastAlias) return;
-  lastAlias = alias;
-  if (alias && HOVER_MSG[alias]) typeWrite('> ' + HOVER_MSG[alias]);
+  onHover(getAlias(t.clientX, t.clientY, escenarioImg));
 }, { passive:false });
+escenarioImg.addEventListener('touchend', () => {
+  lastAlias = null;
+  clearConsole();
+});
 
-// Handler de clicks — se completara en fases siguientes
+// ─── Lightbox ────────────────────────────────────────────────
+const lightbox     = document.getElementById('lightbox');
+const lightboxImg  = document.getElementById('lightbox-img');
+const lightboxInner = document.getElementById('lightbox-inner');
+let lbOpen = false;
+
+function openLightbox() {
+  lbOpen = true;
+  lightbox.classList.add('visible');
+  document.body.style.overflow = 'hidden';
+  // Reasignar eventos al lightbox-img también
+  lightboxImg.addEventListener('mousemove', onLightboxMove);
+  lightboxImg.addEventListener('mouseleave', onLightboxLeave);
+  lightboxImg.addEventListener('click', onLightboxClick);
+}
+function closeLightbox() {
+  lbOpen = false;
+  lightbox.classList.remove('visible');
+  document.body.style.overflow = '';
+  lastAlias = null;
+  clearConsole();
+  lightboxImg.removeEventListener('mousemove', onLightboxMove);
+  lightboxImg.removeEventListener('mouseleave', onLightboxLeave);
+  lightboxImg.removeEventListener('click', onLightboxClick);
+}
+
+function onLightboxMove(e) {
+  onHover(getAlias(e.clientX, e.clientY, lightboxImg));
+}
+function onLightboxLeave() {
+  lastAlias = null;
+  clearConsole();
+}
+function onLightboxClick(e) {
+  const alias = getAlias(e.clientX, e.clientY, lightboxImg);
+  if (alias === 'obj_zonaIzquierda') { closeLightbox(); return; }
+  if (alias) handleClick(alias);
+}
+
+document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+lightbox.addEventListener('click', e => {
+  if (e.target === lightbox) closeLightbox();
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && lbOpen) closeLightbox();
+});
+
+// ─── Handler de clicks ───────────────────────────────────────
 function handleClick(alias) {
-  if (HOVER_MSG[alias]) {
-    typeWrite('> ' + HOVER_MSG[alias] + ' \u2014 SELECCIONADO');
+  if (alias === 'obj_zonaIzquierda') {
+    if (lbOpen) { closeLightbox(); } else { openLightbox(); }
+    return;
   }
+  // Resto de mecánicas se añadirán en fases siguientes
 }
 </script>
 </body>
