@@ -336,6 +336,11 @@ function startType(msg) {
   tick();
 }
 
+// Mensaje inicial al cargar — confirma que la consola es visible
+window.addEventListener('load', () => {
+  setTimeout(() => typeWrite('> SISTEMA INICIADO_'), 600);
+});
+
 // ─── Mapa de colores ──────────────────────────────────────────
 const TOL = 10;
 
@@ -428,10 +433,13 @@ function onHover(alias) {
   if (alias === lastAlias) return;
   lastAlias = alias;
   if (alias && HOVER_MSG[alias]) {
+    // Objeto con mensaje definido → mostrar
     typeWrite('> ' + HOVER_MSG[alias]);
-  } else if (!alias || !HOVER_MSG[alias]) {
+  } else if (!alias) {
+    // Fuera de cualquier objeto → limpiar
     clearConsole();
   }
+  // Si alias existe pero HOVER_MSG[alias] === null (p.ej. obj_consola) → no hacer nada
 }
 
 escenarioImg.addEventListener('mousemove', e => {
