@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>26 de Febrero &mdash; 50 Aniversario</title>
+  <title>26 de Febrero — 50 Aniversario</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:wght@300;400;500&family=Share+Tech+Mono&display=swap" rel="stylesheet">
   <style>
-    :root{--gold:#C9A84C;--gold-light:#E8C97A;--gold-dark:#8B6914;--cream:#FAF6EE;--dark:#1A1410;--crt-green:#33FF33;--crt-bg:#000a00;}
+    :root{--gold:#C9A84C;--gold-light:#E8C97A;--gold-dark:#8B6914;--cream:#FAF6EE;--dark:#1A1410;}
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
     body{background-color:var(--dark);color:var(--cream);font-family:'Cormorant Garamond',serif;min-height:100vh;display:flex;flex-direction:column;}
     body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 25% 15%,rgba(201,168,76,.10) 0%,transparent 55%),radial-gradient(ellipse at 75% 85%,rgba(124,54,38,.10) 0%,transparent 55%);pointer-events:none;z-index:0;}
@@ -24,86 +24,81 @@
     /* Contenido */
     .content-area{width:100%;border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:2rem;background:rgba(255,255,255,.02);display:flex;flex-direction:column;align-items:center;gap:0;}
 
-    /* Escenario con consola overlay */
-    .escenario-wrap{width:100%;position:relative;border:1px solid rgba(201,168,76,.12);border-radius:3px;overflow:hidden;line-height:0;cursor:pointer;}
+    /* Escenario */
+    .escenario-wrap{width:100%;position:relative;border:1px solid rgba(201,168,76,.12);border-radius:3px;line-height:0;}
     .escenario-img{width:100%;height:auto;display:block;user-select:none;-webkit-user-drag:none;cursor:pointer;}
 
-    /* Consola CRT — overlay sobre obj_consola */
+    /* ── Consola CRT ── */
     @keyframes blink-cursor{0%,100%{opacity:1;}50%{opacity:0;}}
-    @keyframes crt-flicker{
-      0%,89%,91%,96%,100%{opacity:1;}
-      90%{opacity:.82;}
-      97%{opacity:.91;}
-    }
+    @keyframes crt-flicker{0%,89%,91%,96%,100%{opacity:1;}90%{opacity:.82;}97%{opacity:.91;}}
     .crt-overlay{
-      position:absolute;
-      left:18%; width:65%;
-      top:83%;  height:14%;
-      background:transparent;
-      border:none;
-      display:flex;
-      align-items:center;
-      padding:0 2%;
-      overflow:hidden;
-      pointer-events:none;
-      z-index:20;
+      position:absolute;left:18%;width:65%;top:83%;height:14%;
+      background:transparent;border:none;
+      display:flex;align-items:center;padding:0 2%;
+      overflow:hidden;pointer-events:none;z-index:20;
       animation:crt-flicker 7s infinite;
     }
     .crt-text{
-      position:relative;z-index:2;
-      display:block;
-      width:100%;
+      position:relative;z-index:2;display:block;width:100%;
       font-family:'Share Tech Mono',monospace;
-      font-size:clamp(.8rem,1.2vw,1rem);
-      line-height:1;
-      color:#33FF33;
-      letter-spacing:.05em;
-      white-space:nowrap;
-      overflow:visible;
-      text-align:left;
+      font-size:clamp(.8rem,1.2vw,1rem);line-height:1;
+      color:#33FF33;letter-spacing:.05em;
+      white-space:nowrap;overflow:visible;text-align:left;
       text-shadow:0 0 2px #33FF33,0 0 7px rgba(51,255,51,.75),0 0 16px rgba(51,255,51,.35);
     }
-    /* Cursor inline que parpadea — se inyecta via JS junto al texto */
     .crt-cursor{
-      display:inline-block;
-      width:.55em; height:.85em;
-      background:#33FF33;
-      margin-left:1px;
-      vertical-align:text-bottom;
+      display:inline-block;width:.55em;height:.85em;
+      background:#33FF33;margin-left:1px;vertical-align:text-bottom;
       animation:blink-cursor .7s step-end infinite;
       box-shadow:0 0 5px #33FF33,0 0 10px rgba(51,255,51,.5);
     }
 
-    /* Lightbox fullscreen */
+    /* ── Lightbox de imagen superpuesta ── */
+    .lb-overlay{
+      display:none;position:fixed;inset:0;
+      background:rgba(0,0,0,.82);
+      z-index:200;align-items:center;justify-content:center;cursor:pointer;
+    }
+    .lb-overlay.visible{display:flex;}
+    .lb-inner{position:relative;max-width:90vw;max-height:90vh;line-height:0;cursor:default;}
+    .lb-inner img{display:block;max-width:90vw;max-height:90vh;object-fit:contain;user-select:none;border:1px solid rgba(201,168,76,.2);border-radius:3px;box-shadow:0 0 60px rgba(0,0,0,.8);}
+    .lb-close{position:absolute;top:-.5rem;right:-.5rem;width:1.8rem;height:1.8rem;background:rgba(30,20,15,.9);border:1px solid rgba(201,168,76,.3);border-radius:50%;color:rgba(250,246,238,.7);font-size:.85rem;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;transition:all .2s;z-index:1;}
+    .lb-close:hover{color:var(--cream);border-color:var(--gold);}
+
+    /* ── Lightbox del escenario ampliado (zona izquierda) ── */
     .lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.96);z-index:200;align-items:center;justify-content:center;}
     .lightbox.visible{display:flex;}
     .lightbox-inner{position:relative;max-width:98vw;max-height:98vh;line-height:0;cursor:pointer;}
     .lightbox-inner img{display:block;max-width:98vw;max-height:98vh;object-fit:contain;user-select:none;}
-    /* Consola CRT dentro del lightbox — mismas proporciones */
-    .lightbox-crt{
-      position:absolute;
-      left:18%;width:65%;top:83%;height:14%;
-      background:transparent;
-      border:none;
-      display:flex;align-items:center;padding:0 2%;
-      overflow:hidden;pointer-events:none;
-      z-index:20;
-      animation:crt-flicker 7s infinite;
-    }
-    .lightbox-crt-text{
-      position:relative;z-index:2;
-      display:block;width:100%;
-      font-family:'Share Tech Mono',monospace;
-      font-size:clamp(.9rem,1.4vw,1.1rem);
-      line-height:1;
-      color:#33FF33;
-      letter-spacing:.05em;
-      white-space:nowrap;overflow:visible;
-      text-align:left;
-      text-shadow:0 0 2px #33FF33,0 0 7px rgba(51,255,51,.75),0 0 16px rgba(51,255,51,.35);
-    }
+    .lightbox-crt{position:absolute;left:18%;width:65%;top:83%;height:14%;background:transparent;border:none;display:flex;align-items:center;padding:0 2%;overflow:hidden;pointer-events:none;z-index:20;animation:crt-flicker 7s infinite;}
+    .lightbox-crt-text{position:relative;z-index:2;display:block;width:100%;font-family:'Share Tech Mono',monospace;font-size:clamp(.9rem,1.4vw,1.1rem);line-height:1;color:#33FF33;letter-spacing:.05em;white-space:nowrap;overflow:visible;text-align:left;text-shadow:0 0 2px #33FF33,0 0 7px rgba(51,255,51,.75),0 0 16px rgba(51,255,51,.35);}
     .lightbox-close{position:fixed;top:1rem;right:1.5rem;background:none;border:none;color:rgba(255,255,255,.5);font-size:2rem;cursor:pointer;z-index:201;line-height:1;transition:color .2s;}
     .lightbox-close:hover{color:white;}
+
+    /* ── obj_tarjetablanca ── */
+    .tarjeta-blanca{
+      position:absolute;
+      width:42px;height:56px;   /* tamaño fijo, no cambia */
+      background:#fff;
+      border:1px solid #bbb;
+      border-radius:1px;
+      z-index:30;
+      cursor:grab;
+      pointer-events:all;
+      clip-path:polygon(0 0,78% 0,100% 22%,100% 100%,0 100%);
+      box-shadow:2px 3px 8px rgba(0,0,0,.5),1px 1px 2px rgba(0,0,0,.3);
+      background-image:
+        linear-gradient(transparent 32%,#ddd 32%,#ddd 34%,transparent 34%),
+        linear-gradient(transparent 52%,#ddd 52%,#ddd 54%,transparent 54%),
+        linear-gradient(transparent 72%,#ddd 72%,#ddd 74%,transparent 74%);
+      user-select:none;
+    }
+    .tarjeta-blanca::before{
+      content:'';position:absolute;top:0;right:0;
+      width:22%;height:22%;
+      background:linear-gradient(225deg,#d0d0d0 50%,transparent 50%);
+    }
+    .tarjeta-blanca:active{cursor:grabbing;}
 
     /* Action btns */
     .action-btns{position:absolute;top:0;right:0;display:flex;flex-direction:column;align-items:center;gap:.2rem;}
@@ -122,7 +117,7 @@
     .back-link{display:block;text-align:center;margin-top:2rem;color:rgba(201,168,76,.35);font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;text-decoration:none;transition:color .2s;}
     .back-link:hover{color:var(--gold);}
 
-    /* Popups */
+    /* Popups estándar */
     .popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:100;align-items:center;justify-content:center;}
     .popup-overlay.visible{display:flex;}
     .popup-box{background:var(--dark);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:3rem 2.5rem;max-width:420px;width:90%;text-align:center;box-shadow:0 0 60px rgba(0,0,0,.8);}
@@ -132,36 +127,6 @@
     .popup-btn{display:inline-block;padding:.7rem 2rem;border:1px solid rgba(201,168,76,.4);border-radius:2px;color:var(--gold);font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;background:none;transition:all .2s;}
     .popup-btn:hover{background:rgba(201,168,76,.1);border-color:var(--gold);}
 
-    /* obj_tarjetablanca — tarjeta de fichar con esquina doblada, arrastrable */
-    .tarjeta-blanca {
-      position: absolute;
-      width: 6%;        /* relativo al escenario-wrap */
-      aspect-ratio: 3/4;
-      background: #fff;
-      border: 1px solid #ccc;
-      border-radius: 1px;
-      z-index: 30;
-      cursor: grab;
-      pointer-events: all;
-      /* Esquina doblada: recorta la esquina superior derecha */
-      clip-path: polygon(0 0, 80% 0, 100% 20%, 100% 100%, 0 100%);
-      box-shadow: 2px 3px 8px rgba(0,0,0,.45), 1px 1px 2px rgba(0,0,0,.25);
-      /* Líneas de texto simuladas */
-      background-image:
-        linear-gradient(transparent calc(35% - 1px), #ddd calc(35% - 1px), #ddd 35%, transparent 35%),
-        linear-gradient(transparent calc(55% - 1px), #ddd calc(55% - 1px), #ddd 55%, transparent 55%),
-        linear-gradient(transparent calc(75% - 1px), #ddd calc(75% - 1px), #ddd 75%, transparent 75%);
-      /* Triángulo de la esquina doblada */
-    }
-    .tarjeta-blanca::before {
-      content: '';
-      position: absolute;
-      top: 0; right: 0;
-      width: 20%; height: 20%;
-      background: linear-gradient(225deg, #e8e8e8 50%, transparent 50%);
-      box-shadow: -1px 1px 2px rgba(0,0,0,.15);
-    }
-    .tarjeta-blanca:active { cursor: grabbing; }
     @media(max-width:600px){
       .wrap{padding:1rem 1rem 2rem;}
       .day-hero{padding:1rem 0 1rem;}
@@ -177,34 +142,34 @@
 <div class="wrap">
   <div class="day-hero">
     <div class="action-btns">
-      <button class="icon-btn fav-btn"  id="fav-btn"  title="A&ntilde;adir a favoritos">&#9825;</button>
+      <button class="icon-btn fav-btn"  id="fav-btn"  title="Añadir a favoritos">&#9825;</button>
       <button class="icon-btn done-btn" id="done-btn" title="Marcar como completado">&#9733;</button>
     </div>
     <div class="ornament-line-h">
       <div class="o-line"></div><div class="o-dot"></div><div class="o-line r"></div>
     </div>
-    <p class="day-of-week">S&aacute;bado</p>
+    <p class="day-of-week">Sábado</p>
     <h1>26</h1>
     <p class="month-label">de Febrero</p>
 
     <div class="content-area">
-      <!-- Escenario con consola CRT encima de obj_consola -->
       <div class="escenario-wrap" id="escenario-wrap">
-        <img
-          src="../media/ER01_EscenarioVisual.jpg"
-          alt="Escape Room"
-          id="escenario-img"
-          class="escenario-img"
-          draggable="false"
-        />
-        <!-- Consola CRT overlay: x:18%..83%, y:86%..97% de la imagen -->
+
+        <!-- Imagen base del escenario -->
+        <img src="../media/ER01_EscenarioVisual.jpg" alt="Escape Room"
+             id="escenario-img" class="escenario-img" draggable="false"/>
+
+        <!-- Consola CRT: overlay sobre obj_consola (x:18%..83%, y:83%..97%) -->
         <div class="crt-overlay" id="crt-overlay">
           <span class="crt-text" id="crt-text"></span>
-        <!-- obj_tarjetablanca — inicialmente sobre obj_tarjetasMesa (centro ~48%, ~43%) -->
+        </div>
+
+        <!-- obj_tarjetablanca: encima del escenario, inicialmente sobre obj_tarjetasMesa -->
         <div class="tarjeta-blanca" id="obj-tarjetablanca"></div>
-      </div>
-    </div>
-  </div>
+
+      </div><!-- /escenario-wrap -->
+    </div><!-- /content-area -->
+  </div><!-- /day-hero -->
 
   <nav class="day-nav">
     <a class="nav-btn" href="2028-02-25.html">&#8592; 25 de Febrero</a>
@@ -214,12 +179,12 @@
   <a class="back-link" href="../index.html">&#8592; Volver al Calendario</a>
 </div>
 
-<!-- Popup: dia futuro -->
+<!-- Popup: día futuro -->
 <div class="popup-overlay" id="popup">
   <div class="popup-box">
     <div class="popup-icon">&#127873;</div>
     <p class="popup-title">&#161;Un poco de paciencia!</p>
-    <p class="popup-msg">No seas impaciente...<br>Este d&iacute;a a&uacute;n no ha llegado.<br>Ya llegar&aacute;, y ser&aacute; especial. &#128156;</p>
+    <p class="popup-msg">No seas impaciente...<br>Este día aún no ha llegado.<br>Ya llegará, y será especial. &#128156;</p>
     <button class="popup-btn" onclick="window.location.href='../index.html'">Volver al calendario</button>
   </div>
 </div>
@@ -229,7 +194,7 @@
   <div class="popup-box">
     <div class="popup-icon">&#127942;</div>
     <p class="popup-title">&#161;Tu recompensa te espera!</p>
-    <p class="popup-msg">Para acceder a tu recompensa primero debes resolver el desaf&iacute;o de hoy...<br><br>&#161;T&uacute; puedes! &#128170;</p>
+    <p class="popup-msg">Para acceder a tu recompensa primero debes resolver el desafío de hoy...<br><br>&#161;Tú puedes! &#128170;</p>
     <button class="popup-btn" id="star-blocked-close">Volver</button>
   </div>
 </div>
@@ -239,12 +204,12 @@
   <div class="popup-box">
     <div class="popup-icon">&#127873;</div>
     <p class="popup-title">&#161;Tu recompensa!</p>
-    <p class="popup-msg" id="reward-text">&#10024; Aqu&iacute; ir&aacute; la recompensa especial de este d&iacute;a &#10024;</p>
+    <p class="popup-msg" id="reward-text">&#10024; Aquí irá la recompensa especial de este día &#10024;</p>
     <button class="popup-btn" id="star-reward-close">&#161;Genial!</button>
   </div>
 </div>
 
-<!-- Lightbox fullscreen -->
+<!-- Lightbox: escenario ampliado (obj_zonaIzquierda) -->
 <div class="lightbox" id="lightbox">
   <button class="lightbox-close" id="lightbox-close">&#10005;</button>
   <div class="lightbox-inner" id="lightbox-inner">
@@ -255,11 +220,19 @@
   </div>
 </div>
 
+<!-- Lightbox: imagen superpuesta (archivadores, cajones...) -->
+<div class="lb-overlay" id="lb-overlay">
+  <div class="lb-inner" id="lb-inner">
+    <img id="lb-img" src="" alt=""/>
+    <button class="lb-close" id="lb-close">&#10005;</button>
+  </div>
+</div>
+
 <!-- Canvas oculto para clickmap -->
 <canvas id="clickmap-canvas" style="display:none;"></canvas>
 
 <script>
-// Preview / bloqueo
+// ── Preview / bloqueo ─────────────────────────────────────────
 const PREVIEW_KEY = 'cal_preview';
 const isPreview   = localStorage.getItem(PREVIEW_KEY) === '1';
 const today       = new Date(); today.setHours(0,0,0,0);
@@ -281,14 +254,13 @@ if (!isPreview && nextDateStr) {
 }
 popup.addEventListener('click', e => { if (e.target === popup) window.location.href = '../index.html'; });
 
-// Favorito
+// ── Favorito ──────────────────────────────────────────────────
 const FAV_KEY = 'fav_2028-02-26';
 const favBtn  = document.getElementById('fav-btn');
 function updateFav() {
   const on = localStorage.getItem(FAV_KEY) === '1';
   favBtn.textContent = on ? '\u2764' : '\u2661';
   favBtn.classList.toggle('active', on);
-  favBtn.title = on ? 'Quitar de favoritos' : 'A\u00f1adir a favoritos';
 }
 favBtn.addEventListener('click', () => {
   const on = localStorage.getItem(FAV_KEY) === '1';
@@ -297,23 +269,20 @@ favBtn.addEventListener('click', () => {
 });
 updateFav();
 
-// Completado
+// ── Completado ────────────────────────────────────────────────
 const DONE_KEY         = 'done_2028-02-26';
 const doneBtn          = document.getElementById('done-btn');
 const popupStarBlocked = document.getElementById('popup-star-blocked');
 const popupStarReward  = document.getElementById('popup-star-reward');
-
 document.getElementById('star-blocked-close').addEventListener('click', () => popupStarBlocked.classList.remove('visible'));
 popupStarBlocked.addEventListener('click', e => { if (e.target === popupStarBlocked) popupStarBlocked.classList.remove('visible'); });
 document.getElementById('star-reward-close').addEventListener('click', () => popupStarReward.classList.remove('visible'));
 popupStarReward.addEventListener('click', e => { if (e.target === popupStarReward) popupStarReward.classList.remove('visible'); });
-
 function markDone() { localStorage.setItem(DONE_KEY, '1'); updateDone(); }
 function updateDone() {
   const on = localStorage.getItem(DONE_KEY) === '1';
   doneBtn.textContent = on ? '\u2605' : '\u2606';
   doneBtn.classList.toggle('active', on);
-  doneBtn.title = on ? 'Ver recompensa' : 'Marcar como completado';
 }
 doneBtn.addEventListener('click', () => {
   const on = localStorage.getItem(DONE_KEY) === '1';
@@ -322,28 +291,20 @@ doneBtn.addEventListener('click', () => {
 });
 updateDone();
 
-// ─── Consola CRT ─────────────────────────────────────────────
+// ── Consola CRT ───────────────────────────────────────────────
 const crtText        = document.getElementById('crt-text');
 const lightboxCrtTxt = document.getElementById('lightbox-crt-text');
-// El cursor es un span inline que se escribe junto al texto via innerHTML
-const CURSOR_HTML = '<span class="crt-cursor"></span>';
+const CURSOR_HTML    = '<span class="crt-cursor"></span>';
+let twTimer = null, twTarget = '', twIdx = 0;
 
-let twTimer  = null;
-let twTarget = '';
-let twIdx    = 0;
-
-function setConsoles(txt) {
-  // txt ya incluye el cursor HTML si se quiere mostrar
-  crtText.innerHTML        = txt;
-  lightboxCrtTxt.innerHTML = txt;
+function setConsoles(html) {
+  crtText.innerHTML        = html;
+  lightboxCrtTxt.innerHTML = html;
 }
-
 function typeWrite(msg) {
   if (msg === twTarget && twIdx >= twTarget.length) return;
   if (twTimer) { clearTimeout(twTimer); twTimer = null; }
-  // Si no hay texto previo arranca directamente
   if (!crtText.textContent) { startType(msg); return; }
-  // Flash rápido de borrado antes de escribir el nuevo mensaje
   let f = 0;
   const old = crtText.textContent;
   function flash() {
@@ -354,131 +315,31 @@ function typeWrite(msg) {
   }
   flash();
 }
-
 function clearConsole() {
   if (twTimer) { clearTimeout(twTimer); twTimer = null; }
-  twTarget = '';
-  twIdx    = 0;
-  setConsoles(CURSOR_HTML); // cursor solo parpadeando
+  twTarget = ''; twIdx = 0;
+  setConsoles(CURSOR_HTML);
 }
-
 function startType(msg) {
-  twTarget = msg;
-  twIdx    = 0;
+  twTarget = msg; twIdx = 0;
   function tick() {
-    // Texto escrito hasta ahora + cursor pegado al final
     setConsoles(twTarget.slice(0, twIdx) + CURSOR_HTML);
-    if (twIdx < twTarget.length) {
-      twIdx++;
-      twTimer = setTimeout(tick, 25); // 25ms por carácter
-    } else {
-      twTimer = null; // fin — cursor queda al final del texto
-    }
+    if (twIdx < twTarget.length) { twIdx++; twTimer = setTimeout(tick, 25); }
+    else { twTimer = null; }
   }
   tick();
 }
+window.addEventListener('load', () => { setTimeout(() => typeWrite('> SISTEMA INICIADO'), 600); });
 
-window.addEventListener('load', () => {
-  setTimeout(() => typeWrite('> SISTEMA INICIADO'), 600);
-});
-
-// ─── obj_tarjetablanca ────────────────────────────────────────
-// Variable global de estado
+// ── Variables de estado globales ──────────────────────────────
 const tarjetablanca = {
-  ubicacion: 'tarjetasMesa'   // dónde se encuentra actualmente
+  ubicacion: 'obj_tarjetasMesa',  // enum: alias del objeto donde está
+  sello:     false,               // boolean: ha sido sellada
+  texto:     ''                   // string: texto escrito en la tarjeta
 };
 
-const tbEl   = document.getElementById('obj-tarjetablanca');
-const scWrap = document.getElementById('escenario-wrap');
-
-// Posiciones predefinidas por ubicación (% respecto al escenario)
-// Se añadirán más ubicaciones según avance el juego
-const TB_POSICIONES = {
-  tarjetasMesa:     { left: 45, top: 37 },  // sobre obj_tarjetasMesa
-};
-
-function posicionarTarjeta(ubicacion) {
-  const pos = TB_POSICIONES[ubicacion];
-  if (!pos) return;
-  tbEl.style.left = pos.left + '%';
-  tbEl.style.top  = pos.top  + '%';
-  tarjetablanca.ubicacion = ubicacion;
-}
-
-// Posicionar al cargar
-posicionarTarjeta('tarjetasMesa');
-
-// ─── Drag & drop de la tarjeta ───────────────────────────────
-let drag = null;   // estado del arrastre en curso
-
-tbEl.addEventListener('mousedown', e => {
-  e.stopPropagation();
-  const wRect = scWrap.getBoundingClientRect();
-  drag = {
-    startX: e.clientX,
-    startY: e.clientY,
-    origLeft: tbEl.offsetLeft / scWrap.offsetWidth  * 100,
-    origTop:  tbEl.offsetTop  / scWrap.offsetHeight * 100,
-  };
-  tbEl.style.transition = 'none';
-  tbEl.style.cursor     = 'grabbing';
-});
-
-document.addEventListener('mousemove', e => {
-  if (!drag) return;
-  const wRect = scWrap.getBoundingClientRect();
-  const dx = (e.clientX - drag.startX) / wRect.width  * 100;
-  const dy = (e.clientY - drag.startY) / wRect.height * 100;
-  tbEl.style.left = (drag.origLeft + dx) + '%';
-  tbEl.style.top  = (drag.origTop  + dy) + '%';
-});
-
-document.addEventListener('mouseup', e => {
-  if (!drag) return;
-  drag = null;
-  tbEl.style.cursor = 'grab';
-  // Detectar sobre qué objeto cayó la tarjeta al soltarla
-  const wRect = scWrap.getBoundingClientRect();
-  const relX  = (e.clientX - wRect.left)  / wRect.width;
-  const relY  = (e.clientY - wRect.top)   / wRect.height;
-  if (relX >= 0 && relX <= 1 && relY >= 0 && relY <= 1) {
-    const alias = getAlias(e.clientX, e.clientY, escenarioImg);
-    if (alias) tarjetablanca.ubicacion = alias.replace('obj_', '');
-  }
-});
-
-// Touch drag
-tbEl.addEventListener('touchstart', e => {
-  e.stopPropagation();
-  const t = e.touches[0];
-  drag = {
-    startX: t.clientX,
-    startY: t.clientY,
-    origLeft: tbEl.offsetLeft / scWrap.offsetWidth  * 100,
-    origTop:  tbEl.offsetTop  / scWrap.offsetHeight * 100,
-  };
-  tbEl.style.transition = 'none';
-}, { passive: true });
-
-document.addEventListener('touchmove', e => {
-  if (!drag || !e.touches[0]) return;
-  const t     = e.touches[0];
-  const wRect = scWrap.getBoundingClientRect();
-  const dx = (t.clientX - drag.startX) / wRect.width  * 100;
-  const dy = (t.clientY - drag.startY) / wRect.height * 100;
-  tbEl.style.left = (drag.origLeft + dx) + '%';
-  tbEl.style.top  = (drag.origTop  + dy) + '%';
-}, { passive: true });
-
-document.addEventListener('touchend', e => {
-  if (!drag) return;
-  drag = null;
-  const t = e.changedTouches[0];
-  const alias = getAlias(t.clientX, t.clientY, escenarioImg);
-  if (alias) tarjetablanca.ubicacion = alias.replace('obj_', '');
-});
+// ── Mapa de colores ───────────────────────────────────────────
 const TOL = 10;
-
 const COLOR_MAP = [
   { hex:'19E6E6', alias:'obj_maquinaEscribir'  },
   { hex:'192EE6', alias:'obj_bandejaSalida'    },
@@ -500,7 +361,6 @@ const COLOR_MAP = [
   { hex:'E61994', alias:'obj_zonaCentro'       },
   { hex:'E61957', alias:'obj_zonaDerecha'      },
 ];
-
 const HOVER_MSG = {
   obj_maquinaEscribir:  '[ M\u00c1QUINA DE ESCRIBIR ]',
   obj_bandejaSalida:    '[ BANDEJA DE SALIDA ]',
@@ -522,139 +382,217 @@ const HOVER_MSG = {
   obj_zonaDerecha:      '[ INDICADOR LUMINOSO ]',
   obj_consola:          null,
 };
-
-function hexToRgb(hex) {
-  return { r:parseInt(hex.slice(0,2),16), g:parseInt(hex.slice(2,4),16), b:parseInt(hex.slice(4,6),16) };
-}
-function aliasFromPixel(r, g, b) {
-  for (const e of COLOR_MAP) {
-    const c = hexToRgb(e.hex);
-    if (Math.abs(r-c.r)<=TOL && Math.abs(g-c.g)<=TOL && Math.abs(b-c.b)<=TOL) return e.alias;
-  }
+function hexToRgb(h){ return {r:parseInt(h.slice(0,2),16),g:parseInt(h.slice(2,4),16),b:parseInt(h.slice(4,6),16)}; }
+function aliasFromPixel(r,g,b){
+  for(const e of COLOR_MAP){ const c=hexToRgb(e.hex); if(Math.abs(r-c.r)<=TOL&&Math.abs(g-c.g)<=TOL&&Math.abs(b-c.b)<=TOL) return e.alias; }
   return null;
 }
 
 // Canvas clickmap
 const cmCanvas = document.getElementById('clickmap-canvas');
-const cmCtx    = cmCanvas.getContext('2d', { willReadFrequently:true });
+const cmCtx    = cmCanvas.getContext('2d',{willReadFrequently:true});
 const cmImg    = new Image();
 cmImg.crossOrigin = 'anonymous';
 cmImg.src = '../media/ER01_EscenarioClickmap.png';
 let cmReady = false;
-cmImg.onload = () => {
-  cmCanvas.width  = cmImg.naturalWidth;
-  cmCanvas.height = cmImg.naturalHeight;
-  cmCtx.drawImage(cmImg, 0, 0);
-  cmReady = true;
-};
+cmImg.onload = () => { cmCanvas.width=cmImg.naturalWidth; cmCanvas.height=cmImg.naturalHeight; cmCtx.drawImage(cmImg,0,0); cmReady=true; };
 
 function getAlias(clientX, clientY, imgEl) {
   if (!cmReady) return null;
   const rect = imgEl.getBoundingClientRect();
-  const relX = (clientX - rect.left)  / rect.width;
-  const relY = (clientY - rect.top)   / rect.height;
-  if (relX < 0 || relX > 1 || relY < 0 || relY > 1) return null;
-  const px = Math.round(relX * (cmCanvas.width  - 1));
-  const py = Math.round(relY * (cmCanvas.height - 1));
-  const d  = cmCtx.getImageData(px, py, 1, 1).data;
-  return aliasFromPixel(d[0], d[1], d[2]);
+  const relX = (clientX-rect.left)/rect.width;
+  const relY = (clientY-rect.top)/rect.height;
+  if (relX<0||relX>1||relY<0||relY>1) return null;
+  const px = Math.round(relX*(cmCanvas.width-1));
+  const py = Math.round(relY*(cmCanvas.height-1));
+  const d  = cmCtx.getImageData(px,py,1,1).data;
+  return aliasFromPixel(d[0],d[1],d[2]);
 }
 
-// ─── Interacción con el escenario ────────────────────────────
-const escenarioImg = document.getElementById('escenario-img');
-let lastAlias      = null;
+// ── Imagen superpuesta (archivadores, cajones) ────────────────
+const lbOverlay = document.getElementById('lb-overlay');
+const lbImg     = document.getElementById('lb-img');
+const lbClose   = document.getElementById('lb-close');
+const escWrap   = document.getElementById('escenario-wrap');
+const escImg    = document.getElementById('escenario-img');
+
+function showImgOverlay(src) {
+  lbImg.src = src;
+  lbOverlay.classList.add('visible');
+  document.body.style.overflow = 'hidden';
+}
+function hideImgOverlay() {
+  lbOverlay.classList.remove('visible');
+  document.body.style.overflow = '';
+  lbImg.src = '';
+}
+lbClose.addEventListener('click', e => { e.stopPropagation(); hideImgOverlay(); });
+lbOverlay.addEventListener('click', () => hideImgOverlay());
+document.addEventListener('keydown', e => { if (e.key==='Escape') { hideImgOverlay(); closeLightbox(); } });
+
+// ── Interacción con el escenario ──────────────────────────────
+let lastAlias = null;
 
 function onHover(alias) {
   if (alias === lastAlias) return;
   lastAlias = alias;
-  if (alias && HOVER_MSG[alias]) {
-    // Objeto con mensaje definido → mostrar
-    typeWrite('> ' + HOVER_MSG[alias]);
-  } else if (!alias) {
-    // Fuera de cualquier objeto → limpiar
-    clearConsole();
-  }
-  // Si alias existe pero HOVER_MSG[alias] === null (p.ej. obj_consola) → no hacer nada
+  if (alias && HOVER_MSG[alias]) { typeWrite('> ' + HOVER_MSG[alias]); }
+  else if (!alias) { clearConsole(); }
 }
 
-escenarioImg.addEventListener('mousemove', e => {
-  onHover(getAlias(e.clientX, e.clientY, escenarioImg));
-});
-escenarioImg.addEventListener('mouseleave', () => {
-  lastAlias = null;
-  clearConsole();
-});
+escImg.addEventListener('mousemove', e => { onHover(getAlias(e.clientX, e.clientY, escImg)); });
+escImg.addEventListener('mouseleave', () => { lastAlias=null; clearConsole(); });
+escImg.addEventListener('click', e => { const a=getAlias(e.clientX,e.clientY,escImg); if(a) handleClick(a); });
+escImg.addEventListener('touchmove', e => { e.preventDefault(); const t=e.touches[0]; onHover(getAlias(t.clientX,t.clientY,escImg)); },{passive:false});
+escImg.addEventListener('touchend', () => { lastAlias=null; clearConsole(); });
 
-escenarioImg.addEventListener('click', e => {
-  const alias = getAlias(e.clientX, e.clientY, escenarioImg);
-  if (alias) handleClick(alias);
-});
-
-escenarioImg.addEventListener('touchmove', e => {
-  e.preventDefault();
-  const t = e.touches[0];
-  onHover(getAlias(t.clientX, t.clientY, escenarioImg));
-}, { passive:false });
-escenarioImg.addEventListener('touchend', () => {
-  lastAlias = null;
-  clearConsole();
-});
-
-// ─── Lightbox ────────────────────────────────────────────────
-const lightbox     = document.getElementById('lightbox');
-const lightboxImg  = document.getElementById('lightbox-img');
-const lightboxInner = document.getElementById('lightbox-inner');
+// ── Lightbox escenario ampliado (obj_zonaIzquierda) ──────────
+const lightbox    = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightbox-img');
 let lbOpen = false;
 
 function openLightbox() {
   lbOpen = true;
   lightbox.classList.add('visible');
   document.body.style.overflow = 'hidden';
-  // Reasignar eventos al lightbox-img también
-  lightboxImg.addEventListener('mousemove', onLightboxMove);
-  lightboxImg.addEventListener('mouseleave', onLightboxLeave);
-  lightboxImg.addEventListener('click', onLightboxClick);
+  lightboxImg.addEventListener('mousemove', onLbMove);
+  lightboxImg.addEventListener('mouseleave', onLbLeave);
+  lightboxImg.addEventListener('click', onLbClick);
 }
 function closeLightbox() {
+  if (!lbOpen) return;
   lbOpen = false;
   lightbox.classList.remove('visible');
   document.body.style.overflow = '';
-  lastAlias = null;
-  clearConsole();
-  lightboxImg.removeEventListener('mousemove', onLightboxMove);
-  lightboxImg.removeEventListener('mouseleave', onLightboxLeave);
-  lightboxImg.removeEventListener('click', onLightboxClick);
+  lastAlias=null; clearConsole();
+  lightboxImg.removeEventListener('mousemove', onLbMove);
+  lightboxImg.removeEventListener('mouseleave', onLbLeave);
+  lightboxImg.removeEventListener('click', onLbClick);
 }
-
-function onLightboxMove(e) {
-  onHover(getAlias(e.clientX, e.clientY, lightboxImg));
-}
-function onLightboxLeave() {
-  lastAlias = null;
-  clearConsole();
-}
-function onLightboxClick(e) {
-  const alias = getAlias(e.clientX, e.clientY, lightboxImg);
-  if (alias === 'obj_zonaIzquierda') { closeLightbox(); return; }
-  if (alias) handleClick(alias);
-}
-
+function onLbMove(e)  { onHover(getAlias(e.clientX,e.clientY,lightboxImg)); }
+function onLbLeave()  { lastAlias=null; clearConsole(); }
+function onLbClick(e) { const a=getAlias(e.clientX,e.clientY,lightboxImg); if(a==='obj_zonaIzquierda'){closeLightbox();return;} if(a) handleClick(a); }
 document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
-lightbox.addEventListener('click', e => {
-  if (e.target === lightbox) closeLightbox();
+lightbox.addEventListener('click', e => { if(e.target===lightbox) closeLightbox(); });
+
+// ── Handler de clicks ─────────────────────────────────────────
+function handleClick(alias) {
+  switch(alias) {
+
+    case 'obj_zonaIzquierda':
+      lbOpen ? closeLightbox() : openLightbox();
+      break;
+
+    case 'obj_lectorTarjetas':
+      typeWrite('> Un lector de tarjetas. Incre\u00edble, \u00bfverdad? Si le acercas una, igual hasta hace su trabajo.');
+      break;
+
+    case 'obj_selloGoma':
+      typeWrite('> El sello oficial. La \u00fanica forma de que alguien te tome en serio por aqu\u00ed.');
+      break;
+
+    case 'obj_cajonVacio':
+      typeWrite('> Absolutamente nada. Vac\u00edo, como el resto de tus pistas. Deja de mirar el polvo y sigue jugando, que el tiempo vuela.');
+      showImgOverlay('../media/ER01_CajonVacio.png');
+      break;
+
+    case 'obj_puerta':
+      typeWrite('> Est\u00e1 cerrada a cal y canto. \u00bfDe verdad cre\u00edas que te iban a dejar salir solo por pedirlo por favor? Curr\u00e1telo un poco.');
+      break;
+
+    case 'obj_archivadoCerrado':
+      typeWrite('> Este no se abre. Est\u00e1 m\u00e1s bloqueado que tus posibilidades de salir de aqu\u00ed ahora mismo. Y no, no veo ninguna llave por la sala, as\u00ed que ni lo intentes.');
+      break;
+
+    case 'obj_archivador1':
+    case 'obj_archivador2':
+    case 'obj_archivador3':
+    case 'obj_archivador4':
+    case 'obj_archivador5':
+    case 'obj_archivador6': {
+      const n = alias.replace('obj_archivador','');
+      typeWrite('> \u00a1Vaya, un golpe de suerte! Este s\u00ed est\u00e1 abierto. Mira cu\u00e1ntas carpetas tiene...');
+      showImgOverlay('../media/ER01_Archivador' + n + '.png');
+      break;
+    }
+
+    // Resto de mecánicas se añadirán en fases siguientes
+  }
+}
+
+// ── obj_tarjetablanca — drag & drop ───────────────────────────
+const tbEl  = document.getElementById('obj-tarjetablanca');
+
+// Posiciones iniciales en px desde esquina sup-izq del escenario (% del wrap)
+// obj_tarjetasMesa centro: ~48% x, ~43% y — centramos la tarjeta (42x56px) sobre él
+function posicionarEnObjeto(alias) {
+  // Coordenadas medidas del clickmap (en % de la imagen)
+  const POSICIONES = {
+    obj_tarjetasMesa: { cx: 48.2, cy: 43.2 },
+  };
+  const pos = POSICIONES[alias];
+  if (!pos) return;
+  // Convertir % a px restando la mitad del tamaño de la tarjeta para centrarla
+  const ww = escWrap.offsetWidth;
+  const wh = escWrap.offsetHeight;
+  tbEl.style.left = (pos.cx/100 * ww - 21) + 'px';
+  tbEl.style.top  = (pos.cy/100 * wh - 28) + 'px';
+  tarjetablanca.ubicacion = alias;
+}
+
+// Esperar a que la imagen cargue para que offsetWidth/Height sean correctos
+escImg.addEventListener('load', () => posicionarEnObjeto('obj_tarjetasMesa'));
+if (escImg.complete)                  posicionarEnObjeto('obj_tarjetasMesa');
+
+// Drag & drop — mouse
+let drag = null;
+tbEl.addEventListener('mousedown', e => {
+  e.stopPropagation();
+  drag = {
+    startX:   e.clientX,
+    startY:   e.clientY,
+    origLeft: tbEl.offsetLeft,
+    origTop:  tbEl.offsetTop,
+  };
+  tbEl.style.cursor = 'grabbing';
+  tbEl.style.zIndex = 50;
 });
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape' && lbOpen) closeLightbox();
+document.addEventListener('mousemove', e => {
+  if (!drag) return;
+  tbEl.style.left = (drag.origLeft + e.clientX - drag.startX) + 'px';
+  tbEl.style.top  = (drag.origTop  + e.clientY - drag.startY) + 'px';
+});
+document.addEventListener('mouseup', e => {
+  if (!drag) return;
+  drag = null;
+  tbEl.style.cursor = 'grab';
+  tbEl.style.zIndex = 30;
+  // Actualizar ubicación según objeto bajo el punto de suelta
+  const a = getAlias(e.clientX, e.clientY, escImg);
+  if (a) tarjetablanca.ubicacion = a;
 });
 
-// ─── Handler de clicks ───────────────────────────────────────
-function handleClick(alias) {
-  if (alias === 'obj_zonaIzquierda') {
-    if (lbOpen) { closeLightbox(); } else { openLightbox(); }
-    return;
-  }
-  // Resto de mecánicas se añadirán en fases siguientes
-}
+// Drag & drop — touch
+tbEl.addEventListener('touchstart', e => {
+  e.stopPropagation();
+  const t = e.touches[0];
+  drag = { startX:t.clientX, startY:t.clientY, origLeft:tbEl.offsetLeft, origTop:tbEl.offsetTop };
+  tbEl.style.zIndex = 50;
+}, {passive:true});
+document.addEventListener('touchmove', e => {
+  if (!drag||!e.touches[0]) return;
+  const t = e.touches[0];
+  tbEl.style.left = (drag.origLeft + t.clientX - drag.startX) + 'px';
+  tbEl.style.top  = (drag.origTop  + t.clientY - drag.startY) + 'px';
+}, {passive:true});
+document.addEventListener('touchend', e => {
+  if (!drag) return;
+  drag = null;
+  tbEl.style.zIndex = 30;
+  const t = e.changedTouches[0];
+  const a = getAlias(t.clientX, t.clientY, escImg);
+  if (a) tarjetablanca.ubicacion = a;
+});
 </script>
 </body>
 </html>
