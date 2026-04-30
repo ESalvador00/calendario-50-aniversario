@@ -80,7 +80,7 @@
     /* ── obj_tarjetablanca ── */
     .tarjeta-blanca{
       position:absolute;
-      width:42px;height:56px;   /* tamaño fijo, no cambia */
+      width:42px;height:56px;
       background:#fff;
       border:1px solid #bbb;
       border-radius:1px;
@@ -94,6 +94,7 @@
         linear-gradient(transparent 52%,#ddd 52%,#ddd 54%,transparent 54%),
         linear-gradient(transparent 72%,#ddd 72%,#ddd 74%,transparent 74%);
       user-select:none;
+      display:none; /* oculta hasta que el usuario la coge */
     }
     .tarjeta-blanca::before{
       content:'';position:absolute;top:0;right:0;
@@ -101,6 +102,70 @@
       background:linear-gradient(225deg,#d0d0d0 50%,transparent 50%);
     }
     .tarjeta-blanca:active{cursor:grabbing;}
+    /* Marca de escritura (puntitos) */
+    .tarjeta-blanca .tb-escrita{
+      position:absolute;inset:0;pointer-events:none;
+      background-image:radial-gradient(circle,#555 1px,transparent 1px);
+      background-size:5px 5px;background-position:4px 18px;
+      opacity:0.35;clip-path:inherit;
+    }
+    /* Marca de sello (círculo verde) */
+    .tarjeta-blanca .tb-sello{
+      position:absolute;top:50%;left:50%;
+      width:22px;height:22px;
+      transform:translate(-50%,-50%);
+      border-radius:50%;
+      border:2px solid #2a9d2a;
+      background:rgba(42,157,42,0.18);
+      pointer-events:none;
+    }
+    /* Textbox para código */
+    .tb-input-wrap{
+      position:fixed;inset:0;z-index:300;
+      display:none;align-items:center;justify-content:center;
+      background:rgba(0,0,0,.75);
+    }
+    .tb-input-wrap.visible{display:flex;}
+    .tb-input-box{
+      background:var(--dark);border:1px solid rgba(201,168,76,.4);
+      border-radius:4px;padding:2rem 2rem 1.5rem;
+      text-align:center;width:280px;
+    }
+    .tb-input-box p{
+      font-family:'Cormorant Garamond',serif;font-size:1rem;
+      color:rgba(250,246,238,.7);margin-bottom:1rem;line-height:1.5;
+    }
+    .tb-input-box input{
+      font-family:'Share Tech Mono',monospace;font-size:1.6rem;
+      letter-spacing:.4em;text-align:center;text-transform:uppercase;
+      background:rgba(255,255,255,.05);border:1px solid rgba(201,168,76,.3);
+      color:var(--gold-light);border-radius:2px;padding:.5rem 1rem;
+      width:100%;outline:none;
+      -webkit-text-security:disc;
+    }
+    .tb-input-box input:focus{border-color:var(--gold);}
+    .tb-input-actions{display:flex;gap:.8rem;margin-top:1rem;justify-content:center;}
+    .tb-btn{padding:.5rem 1.4rem;border:1px solid rgba(201,168,76,.35);border-radius:2px;
+      background:none;color:var(--gold);font-size:.75rem;letter-spacing:.2em;
+      text-transform:uppercase;cursor:pointer;transition:all .2s;}
+    .tb-btn:hover{background:rgba(201,168,76,.1);border-color:var(--gold);}
+    /* Alarma roja overlay */
+    @keyframes alarm-pulse{0%,100%{opacity:0;}50%{opacity:.2;}}
+    .alarm-overlay{
+      display:none;position:fixed;inset:0;z-index:190;
+      background:#FF0000;pointer-events:none;
+    }
+    .alarm-overlay.active{display:block;animation:alarm-pulse 0.8s ease-in-out 3;}
+    /* Screen shake */
+    @keyframes shake{0%,100%{transform:translate(0,0);}20%{transform:translate(-4px,2px);}40%{transform:translate(4px,-2px);}60%{transform:translate(-3px,3px);}80%{transform:translate(3px,-1px);}}
+    .escenario-wrap.shaking{animation:shake .25s ease;}
+    /* CRT error (rojo parpadeante) */
+    @keyframes crt-error-blink{0%,100%{opacity:1;}30%,70%{opacity:.2;}}
+    .crt-text.error,.lightbox-crt-text.error{
+      color:#FF0000!important;font-weight:700;
+      text-shadow:0 0 4px #FF0000,0 0 10px rgba(255,0,0,.6)!important;
+      animation:crt-error-blink .15s steps(1,end) 12;
+    }
 
     /* Action btns */
     .action-btns{position:absolute;top:0;right:0;display:flex;flex-direction:column;align-items:center;gap:.2rem;}
@@ -166,8 +231,11 @@
           <span class="crt-text" id="crt-text"></span>
         </div>
 
-        <!-- obj_tarjetablanca: encima del escenario, inicialmente sobre obj_tarjetasMesa -->
-        <div class="tarjeta-blanca" id="obj-tarjetablanca"></div>
+        <!-- obj_tarjetablanca: aparece al coger una tarjeta de obj_tarjetasMesa -->
+        <div class="tarjeta-blanca" id="obj-tarjetablanca">
+          <div class="tb-escrita" id="tb-escrita" style="display:none"></div>
+          <div class="tb-sello"   id="tb-sello"   style="display:none"></div>
+        </div>
 
       </div><!-- /escenario-wrap -->
     </div><!-- /content-area -->
@@ -229,6 +297,21 @@
     <button class="lb-close" id="lb-close">&#10005;</button>
   </div>
 </div>
+
+<!-- Textbox: escribir código en la máquina -->
+<div class="tb-input-wrap" id="tb-input-wrap">
+  <div class="tb-input-box">
+    <p>Escribe el código secreto<br><em>(máximo 6 caracteres)</em></p>
+    <input type="password" id="tb-input-field" maxlength="6" autocomplete="off" spellcheck="false"/>
+    <div class="tb-input-actions">
+      <button class="tb-btn" id="tb-btn-ok">Imprimir</button>
+      <button class="tb-btn" id="tb-btn-cancel">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Alarma roja de escenario -->
+<div class="alarm-overlay" id="alarm-overlay"></div>
 
 <!-- Canvas oculto para clickmap -->
 <canvas id="clickmap-canvas" style="display:none;"></canvas>
@@ -367,10 +450,24 @@ function wrapMsg(msg) {
 
 // ── Variables de estado globales ──────────────────────────────
 const tarjetablanca = {
-  ubicacion: 'obj_tarjetasMesa',  // enum: alias del objeto donde está
-  sello:     false,               // boolean: ha sido sellada
-  texto:     ''                   // string: texto escrito en la tarjeta
+  ubicacion: '',    // '' = no cogida; alias = donde está
+  sello:     false,
+  texto:     ''
 };
+
+// Referencias a marcas visuales de la tarjeta
+const tbEscrita = document.getElementById('tb-escrita');
+const tbSello   = document.getElementById('tb-sello');
+
+// Inicializar (o resetear) la tarjetablanca completamente
+function resetTarjeta() {
+  tarjetablanca.ubicacion = '';
+  tarjetablanca.sello     = false;
+  tarjetablanca.texto     = '';
+  tbEscrita.style.display = 'none';
+  tbSello.style.display   = 'none';
+  tbEl.style.display      = 'none';
+}
 
 // ── Mapa de colores ───────────────────────────────────────────
 const TOL = 8;
@@ -448,12 +545,14 @@ const lbClose   = document.getElementById('lb-close');
 const escWrap   = document.getElementById('escenario-wrap');
 const escImg    = document.getElementById('escenario-img');
 
-function showImgOverlay(src) {
+let lbChainCallback = null;
+
+function showImgOverlay(src, onClose) {
   lbImg.src = src;
+  lbChainCallback = onClose || null;
   lbOverlay.classList.add('visible');
   const inner = lbOverlay.querySelector('.lb-inner');
   inner.classList.remove('zooming');
-  // forzar reflow para que la animación se dispare siempre
   void inner.offsetWidth;
   inner.classList.add('zooming');
   document.body.style.overflow = 'hidden';
@@ -462,6 +561,9 @@ function hideImgOverlay() {
   lbOverlay.classList.remove('visible');
   document.body.style.overflow = '';
   lbImg.src = '';
+  const cb = lbChainCallback;
+  lbChainCallback = null;
+  if (cb) setTimeout(cb, 80);
 }
 lbClose.addEventListener('click', e => { e.stopPropagation(); hideImgOverlay(); });
 lbOverlay.addEventListener('click', () => hideImgOverlay());
@@ -555,6 +657,76 @@ function onLbClick(e) {
 document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
 lightbox.addEventListener('click', e => { if(e.target===lightbox) closeLightbox(); });
 
+// ── Alarma de error ────────────────────────────────────────────
+const alarmOverlay = document.getElementById('alarm-overlay');
+
+function triggerError(msgInicial, msgFinal) {
+  // 1. CRT en rojo parpadeante
+  setConsoleError(true);
+  typeWrite(msgInicial);
+  // 2. Overlay rojo pulso
+  alarmOverlay.classList.remove('active');
+  void alarmOverlay.offsetWidth;
+  alarmOverlay.classList.add('active');
+  // 3. Screen shake
+  escWrap.classList.remove('shaking');
+  void escWrap.offsetWidth;
+  escWrap.classList.add('shaking');
+  escWrap.addEventListener('animationend', () => escWrap.classList.remove('shaking'), {once:true});
+  // 4. Buzzer (Web Audio API — no necesita fichero externo)
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.type = 'sawtooth'; osc.frequency.value = 80;
+    gain.gain.setValueAtTime(0.4, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35);
+    osc.start(); osc.stop(ctx.currentTime + 0.35);
+  } catch(e) {}
+  // 5. Tras 2s, recuperar CRT normal y mostrar mensaje final
+  setTimeout(() => {
+    setConsoleError(false);
+    typeWrite(msgFinal);
+  }, 2000);
+}
+
+function setConsoleError(on) {
+  crtText.classList.toggle('error', on);
+  lightboxCrtTxt.classList.toggle('error', on);
+}
+
+// ── Textbox de código ─────────────────────────────────────────
+const tbInputWrap  = document.getElementById('tb-input-wrap');
+const tbInputField = document.getElementById('tb-input-field');
+const tbBtnOk      = document.getElementById('tb-btn-ok');
+const tbBtnCancel  = document.getElementById('tb-btn-cancel');
+
+function abrirTextbox() {
+  tbInputField.value = '';
+  tbInputWrap.classList.add('visible');
+  setTimeout(() => tbInputField.focus(), 50);
+}
+function cerrarTextbox() {
+  tbInputWrap.classList.remove('visible');
+}
+function normalizarTexto(s) {
+  return s.trim().toUpperCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^A-Z0-9]/g, '');
+}
+
+tbBtnOk.addEventListener('click', () => {
+  const val = normalizarTexto(tbInputField.value);
+  if (!val) return;
+  tarjetablanca.texto = val;
+  tbEscrita.style.display = 'block';
+  cerrarTextbox();
+  typeWrite('> Código impreso. Espero que no te hayas equivocado de tecla, porque borrar aquí es un poco complicado...');
+});
+tbInputField.addEventListener('keydown', e => { if(e.key==='Enter') tbBtnOk.click(); if(e.key==='Escape') cerrarTextbox(); });
+tbBtnCancel.addEventListener('click', cerrarTextbox);
+
 // ── Handler de clicks ─────────────────────────────────────────
 function handleClick(alias) {
   switch(alias) {
@@ -565,12 +737,55 @@ function handleClick(alias) {
       lbOpen ? closeLightbox() : openLightbox();
       break;
 
-    case 'obj_lectorTarjetas':
-      typeWrite('> Un lector de tarjetas. Increíble, ¿verdad? Si le acercas una, igual hasta hace su trabajo.');
+    case 'obj_tarjetasMesa':
+      if (tarjetablanca.ubicacion === '') {
+        typeWrite('> Un montón de tarjetas en blanco. Toma una, a ver si así dejas de mirarlas con esa cara de confusión.');
+        // Mostrar tarjeta y posicionarla
+        tbEl.style.display = 'block';
+        posicionarEnObjeto('obj_tarjetasMesa');
+        tarjetablanca.ubicacion = 'obj_tarjetasMesa';
+      } else {
+        typeWrite('> Más tarjetas, como la que ya tienes. Antes de andar cogiendo otra, ¿por qué no usas la que ya has tomado? No seas ansias.');
+      }
+      break;
+
+    case 'obj_maquinaEscribir':
+      if (tarjetablanca.ubicacion === 'obj_maquinaEscribir') {
+        if (tarjetablanca.texto !== '') {
+          typeWrite('> Ya has escrito en ella, pero sin el sello esto no vale ni para posavasos.');
+        } else {
+          typeWrite('> Ahora asegúrate de escribir la palabra secreta correcta; si te inventas el código, el lector de tarjetas se va a reír de ti en tu cara.');
+          abrirTextbox();
+        }
+      } else {
+        typeWrite('> Es una máquina de escribir, no un oráculo. No esperes que escriba por telepatía: ponle una tarjeta y quizás hasta saques algo útil de ella.');
+      }
       break;
 
     case 'obj_selloGoma':
       typeWrite('> El sello oficial. La única forma de que alguien te tome en serio por aquí.');
+      break;
+
+    case 'obj_lectorTarjetas':
+      if (tarjetablanca.texto === '' || tarjetablanca.sello === false) {
+        triggerError(
+          '> LECTURA ERRÓNEA: Tarjeta no válida.',
+          '> Empieza de nuevo y la próxima vez asegúrate de presentar una tarjeta con el código correcto Y debidamente sellada. No aceptamos trabajos a medias.'
+        );
+        setTimeout(() => resetTarjeta(), 2200);
+      } else {
+        const codigo = normalizarTexto(tarjetablanca.texto);
+        if (codigo === 'ENIGMA') {
+          typeWrite('> ¡¡LO HAS LOGRADO!! Quién lo habría dicho... parece que al final sí que sirves para algo. La puerta se abre por fin, ya puedes escapar antes de que se arrepientan.');
+          // TODO: marcar día como completado
+        } else {
+          triggerError(
+            '> LECTURA ERRÓNEA: Código incorrecto.',
+            '> El código de salida no es válido. ¿Seguro que sabes leer? Revisa bien ese Post-it, anda.'
+          );
+          setTimeout(() => resetTarjeta(), 2200);
+        }
+      }
       break;
 
     case 'obj_puerta':
@@ -587,8 +802,10 @@ function handleClick(alias) {
       break;
 
     case 'obj_cajonLleno':
-      typeWrite('> Hay algo ahí dentro...');
-      showImgOverlay('../media/ER01_CajonLleno.png');
+      typeWrite('> ¡Bingo! Parece que con este has tenido suerte: alguien se dejó un Post-it arrugado por aquí.');
+      showImgOverlay('../media/ER01_CajonPostit.png', () => {
+        showImgOverlay('../media/ER01_Postit.png');
+      });
       break;
 
     case 'obj_archivador1':
@@ -602,8 +819,6 @@ function handleClick(alias) {
       showImgOverlay('../media/ER01_Archivador' + n + '.png');
       break;
     }
-
-    // Resto de mecánicas se añadirán en fases siguientes
   }
 }
 
@@ -626,7 +841,10 @@ function clampTb(left, top) {
 function posicionarEnObjeto(alias) {
   // Coordenadas medidas del clickmap (en % de la imagen)
   const POSICIONES = {
-    obj_tarjetasMesa: { cx: 46.4, cy: 43.3 },
+    obj_tarjetasMesa:    { cx: 46.4, cy: 43.3 },
+    obj_maquinaEscribir: { cx: 75.0, cy: 91.6 },
+    obj_selloGoma:       { cx: 96.6, cy: 91.6 },
+    obj_lectorTarjetas:  { cx: 58.3, cy: 38.0 },
   };
   const pos = POSICIONES[alias];
   if (!pos) return;
@@ -638,9 +856,42 @@ function posicionarEnObjeto(alias) {
   tarjetablanca.ubicacion = alias;
 }
 
-// Esperar a que la imagen cargue para que offsetWidth/Height sean correctos
-escImg.addEventListener('load', () => posicionarEnObjeto('obj_tarjetasMesa'));
-if (escImg.complete)                  posicionarEnObjeto('obj_tarjetasMesa');
+// ── Handler de drop de tarjetablanca ─────────────────────────
+function handleDrop(alias) {
+  if (tarjetablanca.ubicacion === '') return; // tarjeta no existe todavía
+
+  switch(alias) {
+    case 'obj_maquinaEscribir':
+      tarjetablanca.ubicacion = 'obj_maquinaEscribir';
+      posicionarEnObjeto('obj_maquinaEscribir');
+      typeWrite('> Vale, ya tienes la máquina con papel. No ha sido tan difícil, ¿verdad? Ahora ya la puedes usar para escribir algo... si es que sabes qué poner.');
+      break;
+
+    case 'obj_selloGoma':
+      tarjetablanca.ubicacion = 'obj_selloGoma';
+      tarjetablanca.sello = true;
+      tbSello.style.display = 'block';
+      posicionarEnObjeto('obj_selloGoma');
+      if (tarjetablanca.texto !== '') {
+        typeWrite('> ¡PUM! Vale, con el código y el sello ya parece un documento oficial de verdad. Ahora prueba suerte en el lector, a ver si hay alguien al otro lado.');
+      } else {
+        typeWrite('> Vale, ya la tienes sellada, pero sigue estando más blanca que tu expediente. Sin el código no creo que el lector se dé por aludido, ¿no crees?');
+      }
+      break;
+
+    case 'obj_lectorTarjetas':
+      tarjetablanca.ubicacion = 'obj_lectorTarjetas';
+      posicionarEnObjeto('obj_lectorTarjetas');
+      // Delegar en el click handler que ya tiene toda la lógica
+      handleClick('obj_lectorTarjetas');
+      break;
+
+    default:
+      tarjetablanca.ubicacion = alias;
+  }
+}
+
+// Esperar a que la imagen cargue — tarjeta NO se posiciona al inicio
 
 // Drag & drop — mouse
 let drag = null;
@@ -666,9 +917,8 @@ document.addEventListener('mouseup', e => {
   drag = null;
   tbEl.style.cursor = 'grab';
   tbEl.style.zIndex = 30;
-  // Actualizar ubicación según objeto bajo el punto de suelta
   const a = getAlias(e.clientX, e.clientY, escImg);
-  if (a) tarjetablanca.ubicacion = a;
+  if (a) handleDrop(a);
 });
 
 // Drag & drop — touch
@@ -691,7 +941,7 @@ document.addEventListener('touchend', e => {
   tbEl.style.zIndex = 30;
   const t = e.changedTouches[0];
   const a = getAlias(t.clientX, t.clientY, escImg);
-  if (a) tarjetablanca.ubicacion = a;
+  if (a) handleDrop(a);
 });
 </script>
 </body>
