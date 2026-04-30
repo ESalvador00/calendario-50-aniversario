@@ -32,9 +32,9 @@
     @keyframes blink-cursor{0%,100%{opacity:1;}50%{opacity:0;}}
     @keyframes crt-flicker{0%,89%,91%,96%,100%{opacity:1;}90%{opacity:.82;}97%{opacity:.91;}}
     .crt-overlay{
-      position:absolute;left:18%;width:65%;top:83%;height:14%;
+      position:absolute;left:2.8%;width:79.8%;top:86.0%;height:11.1%;
       background:transparent;border:none;
-      display:flex;align-items:flex-start;padding:1% 2% 0;
+      display:flex;align-items:flex-start;padding:1.5% 2% 0;
       overflow:hidden;pointer-events:none;z-index:20;
       animation:crt-flicker 7s infinite;
     }
@@ -72,7 +72,7 @@
     .lightbox.visible{display:flex;}
     .lightbox-inner{position:relative;max-width:98vw;max-height:98vh;line-height:0;cursor:pointer;}
     .lightbox-inner img{display:block;max-width:98vw;max-height:98vh;object-fit:contain;user-select:none;}
-    .lightbox-crt{position:absolute;left:18%;width:65%;top:83%;height:14%;background:transparent;border:none;display:flex;align-items:flex-start;padding:1% 2% 0;overflow:hidden;pointer-events:none;z-index:20;animation:crt-flicker 7s infinite;}
+    .lightbox-crt{position:absolute;left:2.8%;width:79.8%;top:86.0%;height:11.1%;background:transparent;border:none;display:flex;align-items:flex-start;padding:1.5% 2% 0;overflow:hidden;pointer-events:none;z-index:20;animation:crt-flicker 7s infinite;}
     .lightbox-crt-text{position:relative;z-index:2;display:block;width:100%;font-family:'Share Tech Mono',monospace;font-size:clamp(.9rem,1.4vw,1.1rem);line-height:1.35;color:#33FF33;letter-spacing:.05em;white-space:pre-wrap;word-break:break-word;overflow:visible;text-align:left;text-shadow:0 0 2px #33FF33,0 0 7px rgba(51,255,51,.75),0 0 16px rgba(51,255,51,.35);}
     .lightbox-close{position:fixed;top:1rem;right:1.5rem;background:none;border:none;color:rgba(255,255,255,.5);font-size:2rem;cursor:pointer;z-index:201;line-height:1;transition:color .2s;}
     .lightbox-close:hover{color:white;}
@@ -161,7 +161,7 @@
         <img src="../media/ER01_EscenarioVisual.jpg" alt="Escape Room"
              id="escenario-img" class="escenario-img" draggable="false"/>
 
-        <!-- Consola CRT: overlay sobre obj_consola (x:18%..83%, y:83%..97%) -->
+        <!-- Consola CRT: overlay sobre obj_consola (x:2.8%..82.6%, y:86%..97%) -->
         <div class="crt-overlay" id="crt-overlay">
           <span class="crt-text" id="crt-text"></span>
         </div>
@@ -373,31 +373,29 @@ const tarjetablanca = {
 };
 
 // ── Mapa de colores ───────────────────────────────────────────
-const TOL = 10;
+const TOL = 8;
 const COLOR_MAP = [
-  { hex:'19E6E6', alias:'obj_maquinaEscribir'  },
-  { hex:'192EE6', alias:'obj_bandejaSalida'    },
-  { hex:'19E6A8', alias:'obj_tarjetasMesa'     },
-  { hex:'E65719', alias:'obj_lectorTarjetas'   },
-  { hex:'196BE6', alias:'obj_selloGoma'        },
-  { hex:'E69419', alias:'obj_archivador1'      },
-  { hex:'E6D119', alias:'obj_archivador2'      },
-  { hex:'BDE619', alias:'obj_archivador3'      },
-  { hex:'80E619', alias:'obj_archivador4'      },
-  { hex:'42E619', alias:'obj_archivador5'      },
-  { hex:'19E62E', alias:'obj_archivador6'      },
-  { hex:'E61919', alias:'obj_puerta'           },
-  { hex:'19E66B', alias:'obj_archivadoCerrado' },
-  { hex:'4219E6', alias:'obj_cajonVacio'       },
-  { hex:'8019E6', alias:'obj_cajonLleno'       },
-  { hex:'BD19E6', alias:'obj_consola'          },
-  { hex:'E619D1', alias:'obj_zonaIzquierda'    },
-  { hex:'E61994', alias:'obj_zonaCentro'       },
-  { hex:'E61957', alias:'obj_zonaDerecha'      },
+  { hex:'FEFE00', alias:'obj_maquinaEscribir'  },
+  { hex:'FEC000', alias:'obj_tarjetasMesa'     },
+  { hex:'00FE41', alias:'obj_lectorTarjetas'   },
+  { hex:'1F3764', alias:'obj_selloGoma'        },
+  { hex:'BF00FE', alias:'obj_archivador1'      },
+  { hex:'FE00FE', alias:'obj_archivador2'      },
+  { hex:'FE00C0', alias:'obj_archivador3'      },
+  { hex:'FE007F', alias:'obj_archivador4'      },
+  { hex:'FE0041', alias:'obj_archivador5'      },
+  { hex:'7E00FE', alias:'obj_archivador6'      },
+  { hex:'81FE00', alias:'obj_puerta'           },
+  { hex:'FE4102', alias:'obj_archivadoCerrado' },
+  { hex:'00BFFE', alias:'obj_cajonVacio'       },
+  { hex:'00FE80', alias:'obj_cajonLleno'       },
+  { hex:'FE0000', alias:'obj_consola'          },
+  { hex:'FEE598', alias:'obj_zonaIzquierda'    },
+  { hex:'92D04F', alias:'obj_zonaCentro'       },
+  { hex:'6FAD46', alias:'obj_zonaDerecha'      },
 ];
 const HOVER_MSG = {
   obj_maquinaEscribir:  '[ M\u00c1QUINA DE ESCRIBIR ]',
-  obj_bandejaSalida:    '[ BANDEJA DE SALIDA ]',
   obj_tarjetasMesa:     '[ TARJETAS EN BLANCO ]',
   obj_lectorTarjetas:   '[ LECTOR DE TARJETAS ]',
   obj_selloGoma:        '[ SELLO DE GOMA ]',
@@ -411,9 +409,9 @@ const HOVER_MSG = {
   obj_cajonVacio:       '[ CAJ\u00d3N ]',
   obj_cajonLleno:       '[ CAJ\u00d3N ]',
   obj_puerta:           '[ PUERTA DE SALIDA ]',
-  obj_zonaIzquierda:    '[ INDICADOR LUMINOSO ]',
-  obj_zonaCentro:       '[ INDICADOR LUMINOSO ]',
-  obj_zonaDerecha:      '[ INDICADOR LUMINOSO ]',
+  obj_zonaIzquierda:    null,
+  obj_zonaCentro:       null,
+  obj_zonaDerecha:      null,
   obj_consola:          null,
 };
 function hexToRgb(h){ return {r:parseInt(h.slice(0,2),16),g:parseInt(h.slice(2,4),16),b:parseInt(h.slice(4,6),16)}; }
@@ -467,7 +465,12 @@ function hideImgOverlay() {
 }
 lbClose.addEventListener('click', e => { e.stopPropagation(); hideImgOverlay(); });
 lbOverlay.addEventListener('click', () => hideImgOverlay());
-document.addEventListener('keydown', e => { if (e.key==='Escape') { hideImgOverlay(); closeLightbox(); } });
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    if (lbOverlay.classList.contains('visible')) { hideImgOverlay(); }
+    else { closeLightbox(); }
+  }
+});
 
 // ── Interacción con el escenario ──────────────────────────────
 let lastAlias = null;
@@ -520,12 +523,11 @@ function openLightbox() {
 function closeLightbox() {
   if (!lbOpen) return;
   lbOpen = false;
-  lightbox.classList.remove('visible');
-  document.body.style.overflow = '';
   lastAlias=null; clearConsole();
-  // Devolver tarjeta al escenario original
+  // Devolver tarjeta al escenario original ANTES de ocultar el lightbox
   if (tbEl._savedParent) {
     const lbInner = document.getElementById('lightbox-inner');
+    // Leer dimensiones mientras todavía es visible
     const lw = lbInner.offsetWidth  || 1;
     const lh = lbInner.offsetHeight || 1;
     const tbLeft = parseFloat(tbEl.style.left) || 0;
@@ -537,13 +539,19 @@ function closeLightbox() {
     tbEl.style.top  = (tbTop  / lh * wh) + 'px';
     tbEl._savedParent = null;
   }
+  lightbox.classList.remove('visible');
+  document.body.style.overflow = '';
   lightboxImg.removeEventListener('mousemove', onLbMove);
   lightboxImg.removeEventListener('mouseleave', onLbLeave);
   lightboxImg.removeEventListener('click', onLbClick);
 }
 function onLbMove(e)  { onHover(getAlias(e.clientX,e.clientY,lightboxImg)); }
 function onLbLeave()  { lastAlias=null; clearConsole(); }
-function onLbClick(e) { const a=getAlias(e.clientX,e.clientY,lightboxImg); if(a==='obj_zonaIzquierda'){closeLightbox();return;} if(a) handleClick(a); }
+function onLbClick(e) {
+  const a = getAlias(e.clientX, e.clientY, lightboxImg);
+  if (a === 'obj_zonaIzquierda' || a === 'obj_zonaCentro' || a === 'obj_zonaDerecha') { closeLightbox(); return; }
+  if (a) handleClick(a);
+}
 document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
 lightbox.addEventListener('click', e => { if(e.target===lightbox) closeLightbox(); });
 
@@ -552,28 +560,35 @@ function handleClick(alias) {
   switch(alias) {
 
     case 'obj_zonaIzquierda':
+    case 'obj_zonaCentro':
+    case 'obj_zonaDerecha':
       lbOpen ? closeLightbox() : openLightbox();
       break;
 
     case 'obj_lectorTarjetas':
-      typeWrite('> Un lector de tarjetas. Incre\u00edble, \u00bfverdad? Si le acercas una, igual hasta hace su trabajo.');
+      typeWrite('> Un lector de tarjetas. Increíble, ¿verdad? Si le acercas una, igual hasta hace su trabajo.');
       break;
 
     case 'obj_selloGoma':
-      typeWrite('> El sello oficial. La \u00fanica forma de que alguien te tome en serio por aqu\u00ed.');
-      break;
-
-    case 'obj_cajonVacio':
-      typeWrite('> Absolutamente nada. Vac\u00edo, como el resto de tus pistas. Deja de mirar el polvo y sigue jugando, que el tiempo vuela.');
-      showImgOverlay('../media/ER01_CajonVacio.png');
+      typeWrite('> El sello oficial. La única forma de que alguien te tome en serio por aquí.');
       break;
 
     case 'obj_puerta':
-      typeWrite('> Est\u00e1 cerrada a cal y canto. \u00bfDe verdad cre\u00edas que te iban a dejar salir solo por pedirlo por favor? Curr\u00e1telo un poco.');
+      typeWrite('> Está cerrada a cal y canto. ¿De verdad creías que te iban a dejar salir solo por pedirlo por favor? Currátelo un poco.');
       break;
 
     case 'obj_archivadoCerrado':
-      typeWrite('> Este no se abre. Est\u00e1 m\u00e1s bloqueado que tus posibilidades de salir de aqu\u00ed ahora mismo. Y no, no veo ninguna llave por la sala, as\u00ed que ni lo intentes.');
+      typeWrite('> Este no se abre. Está más bloqueado que tus posibilidades de salir de aquí ahora mismo.');
+      break;
+
+    case 'obj_cajonVacio':
+      typeWrite('> Absolutamente nada. Vacío, como el resto de tus pistas. Sigue buscando.');
+      showImgOverlay('../media/ER01_CajonVacio.png');
+      break;
+
+    case 'obj_cajonLleno':
+      typeWrite('> Hay algo ahí dentro...');
+      showImgOverlay('../media/ER01_CajonLleno.png');
       break;
 
     case 'obj_archivador1':
@@ -583,7 +598,7 @@ function handleClick(alias) {
     case 'obj_archivador5':
     case 'obj_archivador6': {
       const n = alias.replace('obj_archivador','');
-      typeWrite('> \u00a1Vaya, un golpe de suerte! Este s\u00ed est\u00e1 abierto. Mira cu\u00e1ntas carpetas tiene...');
+      typeWrite('> ¡Vaya, un golpe de suerte! Este sí está abierto. Mira cuántas carpetas tiene...');
       showImgOverlay('../media/ER01_Archivador' + n + '.png');
       break;
     }
@@ -611,7 +626,7 @@ function clampTb(left, top) {
 function posicionarEnObjeto(alias) {
   // Coordenadas medidas del clickmap (en % de la imagen)
   const POSICIONES = {
-    obj_tarjetasMesa: { cx: 48.2, cy: 43.2 },
+    obj_tarjetasMesa: { cx: 46.4, cy: 43.3 },
   };
   const pos = POSICIONES[alias];
   if (!pos) return;
