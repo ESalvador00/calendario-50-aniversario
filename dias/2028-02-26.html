@@ -34,16 +34,16 @@
     .crt-overlay{
       position:absolute;left:18%;width:65%;top:83%;height:14%;
       background:transparent;border:none;
-      display:flex;align-items:center;padding:0 2%;
+      display:flex;align-items:flex-start;padding:1% 2% 0;
       overflow:hidden;pointer-events:none;z-index:20;
       animation:crt-flicker 7s infinite;
     }
     .crt-text{
       position:relative;z-index:2;display:block;width:100%;
       font-family:'Share Tech Mono',monospace;
-      font-size:clamp(.8rem,1.2vw,1rem);line-height:1;
+      font-size:clamp(.8rem,1.2vw,1rem);line-height:1.35;
       color:#33FF33;letter-spacing:.05em;
-      white-space:nowrap;overflow:visible;text-align:left;
+      white-space:pre-wrap;word-break:break-word;overflow:visible;text-align:left;
       text-shadow:0 0 2px #33FF33,0 0 7px rgba(51,255,51,.75),0 0 16px rgba(51,255,51,.35);
     }
     .crt-cursor{
@@ -54,6 +54,7 @@
     }
 
     /* ── Lightbox de imagen superpuesta ── */
+    @keyframes lb-zoom-in{from{transform:scale(.15);opacity:0;}to{transform:scale(1);opacity:1;}}
     .lb-overlay{
       display:none;position:fixed;inset:0;
       background:rgba(0,0,0,.82);
@@ -61,7 +62,8 @@
     }
     .lb-overlay.visible{display:flex;}
     .lb-inner{position:relative;max-width:90vw;max-height:90vh;line-height:0;cursor:default;}
-    .lb-inner img{display:block;max-width:90vw;max-height:90vh;object-fit:contain;user-select:none;border:1px solid rgba(201,168,76,.2);border-radius:3px;box-shadow:0 0 60px rgba(0,0,0,.8);}
+    .lb-inner.zooming{animation:lb-zoom-in .25s cubic-bezier(.2,.8,.3,1.1) both;}
+    .lb-inner img{display:block;max-width:90vw;max-height:90vh;object-fit:contain;user-select:none;box-shadow:0 0 60px rgba(0,0,0,.8);}
     .lb-close{position:absolute;top:-.5rem;right:-.5rem;width:1.8rem;height:1.8rem;background:rgba(30,20,15,.9);border:1px solid rgba(201,168,76,.3);border-radius:50%;color:rgba(250,246,238,.7);font-size:.85rem;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;transition:all .2s;z-index:1;}
     .lb-close:hover{color:var(--cream);border-color:var(--gold);}
 
@@ -70,8 +72,8 @@
     .lightbox.visible{display:flex;}
     .lightbox-inner{position:relative;max-width:98vw;max-height:98vh;line-height:0;cursor:pointer;}
     .lightbox-inner img{display:block;max-width:98vw;max-height:98vh;object-fit:contain;user-select:none;}
-    .lightbox-crt{position:absolute;left:18%;width:65%;top:83%;height:14%;background:transparent;border:none;display:flex;align-items:center;padding:0 2%;overflow:hidden;pointer-events:none;z-index:20;animation:crt-flicker 7s infinite;}
-    .lightbox-crt-text{position:relative;z-index:2;display:block;width:100%;font-family:'Share Tech Mono',monospace;font-size:clamp(.9rem,1.4vw,1.1rem);line-height:1;color:#33FF33;letter-spacing:.05em;white-space:nowrap;overflow:visible;text-align:left;text-shadow:0 0 2px #33FF33,0 0 7px rgba(51,255,51,.75),0 0 16px rgba(51,255,51,.35);}
+    .lightbox-crt{position:absolute;left:18%;width:65%;top:83%;height:14%;background:transparent;border:none;display:flex;align-items:flex-start;padding:1% 2% 0;overflow:hidden;pointer-events:none;z-index:20;animation:crt-flicker 7s infinite;}
+    .lightbox-crt-text{position:relative;z-index:2;display:block;width:100%;font-family:'Share Tech Mono',monospace;font-size:clamp(.9rem,1.4vw,1.1rem);line-height:1.35;color:#33FF33;letter-spacing:.05em;white-space:pre-wrap;word-break:break-word;overflow:visible;text-align:left;text-shadow:0 0 2px #33FF33,0 0 7px rgba(51,255,51,.75),0 0 16px rgba(51,255,51,.35);}
     .lightbox-close{position:fixed;top:1rem;right:1.5rem;background:none;border:none;color:rgba(255,255,255,.5);font-size:2rem;cursor:pointer;z-index:201;line-height:1;transition:color .2s;}
     .lightbox-close:hover{color:white;}
 
@@ -302,19 +304,21 @@ function setConsoles(html) {
   lightboxCrtTxt.innerHTML = html;
 }
 function typeWrite(msg) {
-  if (msg === twTarget && twIdx >= twTarget.length) return;
+  const wrapped = wrapMsg(msg);
+  if (wrapped === twTarget && twIdx >= twTarget.length) return;
   if (twTimer) { clearTimeout(twTimer); twTimer = null; }
-  if (!crtText.textContent) { startType(msg); return; }
+  if (!crtText.textContent) { startType(wrapped); return; }
   let f = 0;
   const old = crtText.textContent;
   function flash() {
     setConsoles(f % 2 === 0 ? '' : old + CURSOR_HTML);
     f++;
     if (f < 4) { twTimer = setTimeout(flash, 50); }
-    else        { setConsoles(''); startType(msg); }
+    else        { setConsoles(''); startType(wrapped); }
   }
   flash();
 }
+window.addEventListener('load', () => { setTimeout(() => typeWrite('> SISTEMA INICIADO'), 600); });
 function clearConsole() {
   if (twTimer) { clearTimeout(twTimer); twTimer = null; }
   twTarget = ''; twIdx = 0;
@@ -329,7 +333,37 @@ function startType(msg) {
   }
   tick();
 }
-window.addEventListener('load', () => { setTimeout(() => typeWrite('> SISTEMA INICIADO'), 600); });
+// Partir msg en líneas según el ancho real del span (monospace: todos los chars igual)
+function wrapMsg(msg) {
+  const span = crtText;
+  // Medir ancho de 1 carácter en la fuente actual
+  const tmp = document.createElement('span');
+  tmp.style.cssText = 'font-family:"Share Tech Mono",monospace;font-size:' +
+    getComputedStyle(span).fontSize + ';letter-spacing:.05em;visibility:hidden;position:absolute;white-space:pre;';
+  tmp.textContent = 'X';
+  document.body.appendChild(tmp);
+  const charW = tmp.getBoundingClientRect().width;
+  document.body.removeChild(tmp);
+  const containerW = span.getBoundingClientRect().width || span.parentElement.getBoundingClientRect().width;
+  const cols = charW > 0 ? Math.max(10, Math.floor(containerW / charW)) : 47;
+  // Partir respetando palabras
+  const words = msg.split(' ');
+  const lines = [];
+  let cur = '';
+  for (const w of words) {
+    if ((cur + (cur ? ' ' : '') + w).length <= cols) {
+      cur += (cur ? ' ' : '') + w;
+    } else {
+      if (cur) lines.push(cur);
+      // palabra más larga que la línea: cortar a cols
+      let rem = w;
+      while (rem.length > cols) { lines.push(rem.slice(0, cols)); rem = rem.slice(cols); }
+      cur = rem;
+    }
+  }
+  if (cur) lines.push(cur);
+  return lines.join('\n');
+}
 
 // ── Variables de estado globales ──────────────────────────────
 const tarjetablanca = {
@@ -419,6 +453,11 @@ const escImg    = document.getElementById('escenario-img');
 function showImgOverlay(src) {
   lbImg.src = src;
   lbOverlay.classList.add('visible');
+  const inner = lbOverlay.querySelector('.lb-inner');
+  inner.classList.remove('zooming');
+  // forzar reflow para que la animación se dispare siempre
+  void inner.offsetWidth;
+  inner.classList.add('zooming');
   document.body.style.overflow = 'hidden';
 }
 function hideImgOverlay() {
@@ -455,6 +494,25 @@ function openLightbox() {
   lbOpen = true;
   lightbox.classList.add('visible');
   document.body.style.overflow = 'hidden';
+  // Mover tarjeta al lightbox-inner para que sea visible encima del escenario ampliado
+  const lbInner = document.getElementById('lightbox-inner');
+  // Calcular posición relativa actual en escWrap y replicarla en lbInner
+  const tbLeft = parseFloat(tbEl.style.left) || 0;
+  const tbTop  = parseFloat(tbEl.style.top)  || 0;
+  const ww = escWrap.offsetWidth  || 1;
+  const wh = escWrap.offsetHeight || 1;
+  tbEl._savedParent   = tbEl.parentElement;
+  tbEl._savedLeft     = tbEl.style.left;
+  tbEl._savedTop      = tbEl.style.top;
+  tbEl._savedPosition = tbEl.style.position;
+  lbInner.appendChild(tbEl);
+  // Posicionar proporcionalmente en el nuevo contenedor (se actualizará tras render)
+  requestAnimationFrame(() => {
+    const lw = lbInner.offsetWidth  || ww;
+    const lh = lbInner.offsetHeight || wh;
+    tbEl.style.left = (tbLeft / ww * lw) + 'px';
+    tbEl.style.top  = (tbTop  / wh * lh) + 'px';
+  });
   lightboxImg.addEventListener('mousemove', onLbMove);
   lightboxImg.addEventListener('mouseleave', onLbLeave);
   lightboxImg.addEventListener('click', onLbClick);
@@ -465,6 +523,20 @@ function closeLightbox() {
   lightbox.classList.remove('visible');
   document.body.style.overflow = '';
   lastAlias=null; clearConsole();
+  // Devolver tarjeta al escenario original
+  if (tbEl._savedParent) {
+    const lbInner = document.getElementById('lightbox-inner');
+    const lw = lbInner.offsetWidth  || 1;
+    const lh = lbInner.offsetHeight || 1;
+    const tbLeft = parseFloat(tbEl.style.left) || 0;
+    const tbTop  = parseFloat(tbEl.style.top)  || 0;
+    const ww = escWrap.offsetWidth  || lw;
+    const wh = escWrap.offsetHeight || lh;
+    tbEl._savedParent.appendChild(tbEl);
+    tbEl.style.left = (tbLeft / lw * ww) + 'px';
+    tbEl.style.top  = (tbTop  / lh * wh) + 'px';
+    tbEl._savedParent = null;
+  }
   lightboxImg.removeEventListener('mousemove', onLbMove);
   lightboxImg.removeEventListener('mouseleave', onLbLeave);
   lightboxImg.removeEventListener('click', onLbClick);
@@ -523,6 +595,17 @@ function handleClick(alias) {
 // ── obj_tarjetablanca — drag & drop ───────────────────────────
 const tbEl  = document.getElementById('obj-tarjetablanca');
 
+// Clampea (left, top) para que la tarjeta no salga del contenedor activo
+function clampTb(left, top) {
+  const container = lbOpen ? document.getElementById('lightbox-inner') : escWrap;
+  const cw = container.offsetWidth;
+  const ch = container.offsetHeight;
+  return {
+    left: Math.max(0, Math.min(left, cw - tbEl.offsetWidth)),
+    top:  Math.max(0, Math.min(top,  ch - tbEl.offsetHeight)),
+  };
+}
+
 // Posiciones iniciales en px desde esquina sup-izq del escenario (% del wrap)
 // obj_tarjetasMesa centro: ~48% x, ~43% y — centramos la tarjeta (42x56px) sobre él
 function posicionarEnObjeto(alias) {
@@ -559,8 +642,9 @@ tbEl.addEventListener('mousedown', e => {
 });
 document.addEventListener('mousemove', e => {
   if (!drag) return;
-  tbEl.style.left = (drag.origLeft + e.clientX - drag.startX) + 'px';
-  tbEl.style.top  = (drag.origTop  + e.clientY - drag.startY) + 'px';
+  const pos = clampTb(drag.origLeft + e.clientX - drag.startX, drag.origTop + e.clientY - drag.startY);
+  tbEl.style.left = pos.left + 'px';
+  tbEl.style.top  = pos.top  + 'px';
 });
 document.addEventListener('mouseup', e => {
   if (!drag) return;
@@ -582,8 +666,9 @@ tbEl.addEventListener('touchstart', e => {
 document.addEventListener('touchmove', e => {
   if (!drag||!e.touches[0]) return;
   const t = e.touches[0];
-  tbEl.style.left = (drag.origLeft + t.clientX - drag.startX) + 'px';
-  tbEl.style.top  = (drag.origTop  + t.clientY - drag.startY) + 'px';
+  const pos = clampTb(drag.origLeft + t.clientX - drag.startX, drag.origTop + t.clientY - drag.startY);
+  tbEl.style.left = pos.left + 'px';
+  tbEl.style.top  = pos.top  + 'px';
 }, {passive:true});
 document.addEventListener('touchend', e => {
   if (!drag) return;
