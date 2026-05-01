@@ -5,20 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>6 de Marzo — El Reto de los Logos</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Cormorant+Garamond:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Cormorant+Garamond:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
       --gold: #C9A84C;
       --gold-light: #E8C97A;
-      --gold-dark: #8B6914;
-      --cream: #FAF6EE;
       --dark: #1A1410;
+      --cream: #FAF6EE;
       --success: #4CAF50;
       --error: #E05A6A;
     }
-
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     body {
       background-color: var(--dark);
       color: var(--cream);
@@ -29,266 +26,215 @@
       overflow: hidden;
       touch-action: none;
     }
-
-    /* Fondo con degradado sutil */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background: radial-gradient(circle at 50% 50%, rgba(201,168,76,0.05) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
     .wrap {
       position: relative;
       z-index: 1;
-      max-width: 900px;
+      max-width: 800px;
       margin: 0 auto;
-      padding: 2rem;
+      padding: 2rem 1.5rem;
       flex: 1;
       display: flex;
       flex-direction: column;
-      justify-content: center;
       width: 100%;
-    }
-
-    header { text-align: center; margin-bottom: 3rem; }
-    
-    .date-label {
-      font-family: 'Playfair Display', serif;
-      font-size: 0.9rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 0.5rem;
-    }
-
-    h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 3.5rem;
-      font-weight: 900;
-      line-height: 1.1;
-      background: linear-gradient(to bottom, var(--gold-light), var(--gold));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 1rem;
-    }
-
-    /* Contenedor de Juego */
-    .game-area {
-      display: flex;
-      align-items: center;
       justify-content: center;
-      gap: 2rem;
-      margin-bottom: 3rem;
+    }
+    .game-container { text-align: center; }
+    h1 { 
+      font-family: 'Playfair Display', serif; 
+      font-size: 2.5rem; 
+      color: var(--gold); 
+      margin-bottom: 1.5rem;
     }
 
-    .logo-card {
-      flex: 1;
-      max-width: 300px;
-      aspect-ratio: 1/1;
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid rgba(201, 168, 76, 0.15);
-      border-radius: 4px;
+    /* Área de Juego */
+    .logo-row {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem;
-      cursor: pointer;
-      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-    }
-
-    .logo-card:hover {
-      border-color: var(--gold);
-      background: rgba(201, 168, 76, 0.05);
-      transform: translateY(-5px);
-    }
-
-    .logo-card img {
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: contain;
-      filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3));
-    }
-
-    /* Temporizador de Lujo */
-    .timer-rail {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      height: 180px;
-      width: 4px;
-    }
-
-    .timer-segment {
-      flex: 1;
-      background: rgba(201, 168, 76, 0.1);
-      border-radius: 2px;
-      transition: all 0.3s ease;
-    }
-
-    .timer-segment.active {
-      background: var(--gold);
-      box-shadow: 0 0 15px var(--gold);
-    }
-
-    /* Progreso Inferior */
-    .footer-progress {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
       gap: 1.5rem;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 2rem;
     }
-
-    .dots-grid {
+    .logo-option {
+      flex: 1;
+      max-width: 250px;
+      aspect-ratio: 1/1;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(201,168,76,0.3);
+      border-radius: 12px;
       display: flex;
-      gap: 12px;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      padding: 1.5rem;
+      transition: all 0.2s;
     }
+    .logo-option:hover { border-color: var(--gold); transform: scale(1.03); }
+    .logo-option img { max-width: 100%; max-height: 100%; object-fit: contain; pointer-events: none; }
 
+    /* Contador Vertical */
+    .timer-bar {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      width: 12px;
+      height: 150px;
+    }
+    .timer-seg {
+      flex: 1;
+      background: rgba(201,168,76,0.1);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 3px;
+      transition: all 0.3s;
+    }
+    .timer-seg.on { background: var(--gold); box-shadow: 0 0 10px var(--gold); }
+
+    /* Puntos de Progreso */
+    .progress { display: flex; gap: 8px; justify-content: center; margin-top: 2rem; }
     .dot {
-      width: 8px;
-      height: 8px;
+      width: 12px;
+      height: 12px;
       border-radius: 50%;
-      border: 1px solid rgba(201, 168, 76, 0.3);
-      transition: all 0.4s ease;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(201,168,76,0.3);
     }
-
-    .dot.current { background: var(--gold); transform: scale(1.3); border-color: var(--gold-light); }
+    .dot.active { background: var(--gold); border-color: var(--gold-light); }
     .dot.correct { background: var(--success); border-color: var(--success); }
     .dot.wrong { background: var(--error); border-color: var(--error); }
 
     @media (max-width: 600px) {
-      h1 { font-size: 2.2rem; }
-      .game-area { gap: 1rem; }
-      .logo-card { padding: 1rem; }
-      .timer-rail { height: 120px; }
+      .logo-row { gap: 0.8rem; }
+      .logo-option { padding: 0.8rem; }
+      .timer-bar { height: 100px; width: 8px; }
     }
   </style>
 </head>
 <body>
 
 <div class="wrap">
-  <header>
-    <p class="date-label">6 de Marzo</p>
-    <h1>¿Cuál es el logo real?</h1>
-  </header>
+  <div class="game-container">
+    <h1>¿Cuál es el correcto?</h1>
+    
+    <div class="logo-row">
+      <div class="logo-option" id="btn-A" onclick="checkAnswer('A')">
+        <img id="img-A" src="" alt="Opción A">
+      </div>
 
-  <main class="game-area">
-    <div class="logo-card" id="card-A" onclick="selectOption('A')">
-      <img id="img-A" src="" alt="Opción A">
+      <div class="timer-bar">
+        <div id="t-3" class="timer-seg on"></div>
+        <div id="t-2" class="timer-seg on"></div>
+        <div id="t-1" class="timer-seg on"></div>
+      </div>
+
+      <div class="logo-option" id="btn-B" onclick="checkAnswer('B')">
+        <img id="img-B" src="" alt="Opción B">
+      </div>
     </div>
 
-    <div class="timer-rail">
-      <div id="seg-3" class="timer-segment active"></div>
-      <div id="seg-2" class="timer-segment active"></div>
-      <div id="seg-1" class="timer-segment active"></div>
-    </div>
-
-    <div class="logo-card" id="card-B" onclick="selectOption('B')">
-      <img id="img-B" src="" alt="Opción B">
-    </div>
-  </main>
-
-  <footer class="footer-progress">
-    <div class="dots-grid" id="dots-container"></div>
-  </footer>
+    <div class="progress" id="progress-bar"></div>
+  </div>
 </div>
 
 <script>
-  const gameData = [
-    { n: 'Apple', c: 'A' }, { n: 'BMW', c: 'A' }, { n: 'Chanel', c: 'B' },
-    { n: 'DominosPizza', c: 'B' }, { n: 'Google', c: 'B' }, { n: 'Instagram', c: 'B' },
-    { n: 'JuegosOlimpicos', c: 'B' }, { n: 'Microsoft', c: 'A' }, { n: 'Rolex', c: 'A' },
-    { n: 'Santander', c: 'A' }, { n: 'Tesla', c: 'A' }, { n: 'Tiktok', c: 'A' }
+  const logos = [
+    { name: 'Apple', correct: 'A' },
+    { name: 'BMW', correct: 'A' },
+    { name: 'Chanel', correct: 'B' },
+    { name: 'DominosPizza', correct: 'B' },
+    { name: 'Google', correct: 'B' },
+    { name: 'Instagram', correct: 'B' },
+    { name: 'JuegosOlimpicos', correct: 'B' },
+    { name: 'Microsoft', correct: 'A' },
+    { name: 'Rolex', correct: 'A' },
+    { name: 'Santander', correct: 'A' },
+    { name: 'Tesla', correct: 'A' },
+    { name: 'Tiktok', correct: 'A' }
   ];
 
-  // Audios (Asegúrate de que existan en /media)
-  const sndTick = new Audio('../media/tick.mp3');
-  const sndCorrect = new Audio('../media/correct.mp3');
-  const sndWrong = new Audio('../media/wrong.mp3');
-
-  let currentStep = 0;
+  let currentIdx = 0;
   let timeLeft = 3;
-  let timerLoop;
+  let timerInterval;
 
-  // Inicializar puntos de progreso
-  const dotsContainer = document.getElementById('dots-container');
-  gameData.forEach((_, i) => {
+  // Crear puntos de progreso
+  const progressContainer = document.getElementById('progress-bar');
+  logos.forEach((_, i) => {
     const d = document.createElement('div');
-    d.className = 'dot' + (i === 0 ? ' current' : '');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
     d.id = `dot-${i}`;
-    dotsContainer.appendChild(d);
+    progressContainer.appendChild(d);
   });
 
-  function loadChallenge() {
-    if (currentStep >= gameData.length) {
-      alert("¡Reto superado!");
+  function loadPair() {
+    if (currentIdx >= logos.length) {
+      alert("¡Reto finalizado!");
       return;
     }
-
-    const item = gameData[currentStep];
-    document.getElementById('img-A').src = `../media/${item.n}_A.png`;
-    document.getElementById('img-B').src = `../media/${item.n}_B.png`;
     
-    startTimer();
+    const current = logos[currentIdx];
+    document.getElementById('img-A').src = `../media/${current.name}_A.png`;
+    document.getElementById('img-B').src = `../media/${current.name}_B.png`;
+    
+    resetTimer();
   }
 
-  function startTimer() {
+  function resetTimer() {
     timeLeft = 3;
-    updateTimerVisuals();
-    clearInterval(timerLoop);
-    
-    timerLoop = setInterval(() => {
+    updateTimerUI();
+    clearInterval(timerInterval);
+    timerInterval = setInterval(() => {
       timeLeft--;
-      if (timeLeft > 0) sndTick.play().catch(()=>{});
-      updateTimerVisuals();
-      
-      if (timeLeft <= 0) {
-        clearInterval(timerLoop);
-        selectOption(null); // Fallo por tiempo
+      updateTimerUI();
+      if (timeLeft === 0) {
+        checkAnswer(null); // Falla por tiempo
       }
     }, 1000);
   }
 
-  function updateTimerVisuals() {
+  function updateTimerUI() {
     for (let i = 1; i <= 3; i++) {
-      document.getElementById(`seg-${i}`).classList.toggle('active', i <= timeLeft);
+      document.getElementById(`t-${i}`).classList.toggle('on', i <= timeLeft);
     }
   }
 
-  function selectOption(choice) {
-    clearInterval(timerLoop);
-    const correctChoice = gameData[currentStep].c;
-    const dot = document.getElementById(`dot-${currentStep}`);
+  function checkAnswer(choice) {
+    clearInterval(timerInterval);
+    const correct = logos[currentIdx].correct;
+    const dot = document.getElementById(`dot-${currentIdx}`);
     
-    dot.classList.remove('current');
-
-    if (choice === correctChoice) {
-      sndCorrect.play().catch(()=>{});
+    dot.classList.remove('active');
+    if (choice === correct) {
       dot.classList.add('correct');
     } else {
-      sndWrong.play().catch(()=>{});
       dot.classList.add('wrong');
     }
 
-    currentStep++;
-    if (currentStep < gameData.length) {
-      document.getElementById(`dot-${currentStep}`).classList.add('current');
-      setTimeout(loadChallenge, 600);
+    currentIdx++;
+    if (currentIdx < logos.length) {
+      document.getElementById(`dot-${currentIdx}`).classList.add('active');
+      setTimeout(loadPair, 500); // Pequeña pausa antes del siguiente
     } else {
-      // Fin del juego
-      document.querySelector('h1').innerText = "Reto Completado";
+      // Aquí irá la lógica de fin de juego
+      console.log("Juego terminado");
     }
   }
 
-  // Soporte para teclado
+  // Controles de Teclado
   window.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowLeft') selectOption('A');
-    if (e.key === 'ArrowRight') selectOption('B');
+    if (e.key === 'ArrowLeft') checkAnswer('A');
+    if (e.key === 'ArrowRight') checkAnswer('B');
   });
 
-  // Iniciar juego
-  loadChallenge();
+  // Controles Swipe (Móvil)
+  let touchStartX = 0;
+  window.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX);
+  window.addEventListener('touchend', e => {
+    let diff = e.changedTouches[0].screenX - touchStartX;
+    if (Math.abs(diff) > 50) {
+      checkAnswer(diff > 0 ? 'B' : 'A');
+    }
+  });
+
+  // Iniciar
+  loadPair();
 </script>
 
 </body>
