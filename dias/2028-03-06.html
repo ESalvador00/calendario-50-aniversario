@@ -5,17 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>6 de Marzo — El Reto de los Logos</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Cormorant+Garamond:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Cormorant+Garamond:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
     :root {
       --gold: #C9A84C;
       --gold-light: #E8C97A;
-      --dark: #1A1410;
+      --gold-dark: #8B6914;
       --cream: #FAF6EE;
+      --dark: #1A1410;
       --success: #4CAF50;
       --error: #E05A6A;
     }
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
       background-color: var(--dark);
       color: var(--cream);
@@ -26,216 +29,278 @@
       overflow: hidden;
       touch-action: none;
     }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at 50% 50%, rgba(201,168,76,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
     .wrap {
       position: relative;
       z-index: 1;
-      max-width: 800px;
+      max-width: 900px;
       margin: 0 auto;
-      padding: 2rem 1.5rem;
+      padding: 2rem;
       flex: 1;
       display: flex;
       flex-direction: column;
+      justify-content: center;
       width: 100%;
-      justify-content: center;
-    }
-    .game-container { text-align: center; }
-    h1 { 
-      font-family: 'Playfair Display', serif; 
-      font-size: 2.5rem; 
-      color: var(--gold); 
-      margin-bottom: 1.5rem;
     }
 
-    /* Área de Juego */
-    .logo-row {
-      display: flex;
-      gap: 1.5rem;
-      justify-content: center;
-      align-items: center;
-      margin-bottom: 2rem;
+    header { text-align: center; margin-bottom: 3rem; }
+    
+    .date-label {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.9rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
     }
-    .logo-option {
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem;
+      font-weight: 900;
+      line-height: 1.1;
+      background: linear-gradient(to bottom, var(--gold-light), var(--gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 1rem;
+    }
+
+    .game-area {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .logo-card {
       flex: 1;
-      max-width: 250px;
+      max-width: 300px;
       aspect-ratio: 1/1;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(201,168,76,0.3);
-      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(201, 168, 76, 0.15);
+      border-radius: 4px;
       display: flex;
       align-items: center;
       justify-content: center;
+      padding: 2rem;
       cursor: pointer;
-      padding: 1.5rem;
-      transition: all 0.2s;
+      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
     }
-    .logo-option:hover { border-color: var(--gold); transform: scale(1.03); }
-    .logo-option img { max-width: 100%; max-height: 100%; object-fit: contain; pointer-events: none; }
 
-    /* Contador Vertical */
-    .timer-bar {
+    .logo-card:hover {
+      border-color: var(--gold);
+      background: rgba(201, 168, 76, 0.05);
+      transform: translateY(-5px);
+    }
+
+    .logo-card img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    .timer-rail {
       display: flex;
       flex-direction: column;
-      gap: 5px;
-      width: 12px;
-      height: 150px;
+      gap: 6px;
+      height: 180px;
+      width: 4px;
     }
-    .timer-seg {
-      flex: 1;
-      background: rgba(201,168,76,0.1);
-      border: 1px solid rgba(201,168,76,0.2);
-      border-radius: 3px;
-      transition: all 0.3s;
-    }
-    .timer-seg.on { background: var(--gold); box-shadow: 0 0 10px var(--gold); }
 
-    /* Puntos de Progreso */
-    .progress { display: flex; gap: 8px; justify-content: center; margin-top: 2rem; }
-    .dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(201,168,76,0.3);
+    .timer-segment {
+      flex: 1;
+      background: rgba(201, 168, 76, 0.1);
+      border-radius: 2px;
+      transition: all 0.3s ease;
     }
-    .dot.active { background: var(--gold); border-color: var(--gold-light); }
-    .dot.correct { background: var(--success); border-color: var(--success); }
-    .dot.wrong { background: var(--error); border-color: var(--error); }
+
+    .timer-segment.active {
+      background: var(--gold);
+      box-shadow: 0 0 15px var(--gold);
+    }
+
+    .dots-grid {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      border: 1px solid rgba(201, 168, 76, 0.3);
+      transition: all 0.4s ease;
+    }
+
+    .dot.current { background: var(--gold); transform: scale(1.3); border-color: var(--gold-light); }
+    .dot.correct { background: var(--success); border-color: var(--success); box-shadow: 0 0 8px var(--success); }
+    .dot.wrong { background: var(--error); border-color: var(--error); box-shadow: 0 0 8px var(--error); }
 
     @media (max-width: 600px) {
-      .logo-row { gap: 0.8rem; }
-      .logo-option { padding: 0.8rem; }
-      .timer-bar { height: 100px; width: 8px; }
+      h1 { font-size: 2.2rem; }
+      .game-area { gap: 1rem; }
+      .logo-card { padding: 1rem; }
     }
   </style>
 </head>
 <body>
 
 <div class="wrap">
-  <div class="game-container">
-    <h1>¿Cuál es el correcto?</h1>
-    
-    <div class="logo-row">
-      <div class="logo-option" id="btn-A" onclick="checkAnswer('A')">
-        <img id="img-A" src="" alt="Opción A">
-      </div>
+  <header>
+    <p class="date-label">6 de Marzo</p>
+    <h1>¿Cuál es el logo real?</h1>
+  </header>
 
-      <div class="timer-bar">
-        <div id="t-3" class="timer-seg on"></div>
-        <div id="t-2" class="timer-seg on"></div>
-        <div id="t-1" class="timer-seg on"></div>
-      </div>
-
-      <div class="logo-option" id="btn-B" onclick="checkAnswer('B')">
-        <img id="img-B" src="" alt="Opción B">
-      </div>
+  <main class="game-area">
+    <div class="logo-card" id="card-A" onclick="selectOption('A')">
+      <img id="img-A" src="" alt="Opción A">
     </div>
 
-    <div class="progress" id="progress-bar"></div>
-  </div>
+    <div class="timer-rail">
+      <div id="seg-3" class="timer-segment active"></div>
+      <div id="seg-2" class="timer-segment active"></div>
+      <div id="seg-1" class="timer-segment active"></div>
+    </div>
+
+    <div class="logo-card" id="card-B" onclick="selectOption('B')">
+      <img id="img-B" src="" alt="Opción B">
+    </div>
+  </main>
+
+  <footer class="footer-progress">
+    <div class="dots-grid" id="dots-container"></div>
+  </footer>
 </div>
 
 <script>
-  const logos = [
-    { name: 'Apple', correct: 'A' },
-    { name: 'BMW', correct: 'A' },
-    { name: 'Chanel', correct: 'B' },
-    { name: 'DominosPizza', correct: 'B' },
-    { name: 'Google', correct: 'B' },
-    { name: 'Instagram', correct: 'B' },
-    { name: 'JuegosOlimpicos', correct: 'B' },
-    { name: 'Microsoft', correct: 'A' },
-    { name: 'Rolex', correct: 'A' },
-    { name: 'Santander', correct: 'A' },
-    { name: 'Tesla', correct: 'A' },
-    { name: 'Tiktok', correct: 'A' }
+  // Configuración de Logos[cite: 5, 7]
+  const gameData = [
+    { n: 'Apple', c: 'A' }, { n: 'BMW', c: 'A' }, { n: 'Chanel', c: 'B' },
+    { n: 'DominosPizza', c: 'B' }, { n: 'Google', c: 'B' }, { n: 'Instagram', c: 'B' },
+    { n: 'JuegosOlimpicos', c: 'B' }, { n: 'Microsoft', c: 'A' }, { n: 'Rolex', c: 'A' },
+    { n: 'Santander', c: 'A' }, { n: 'Tesla', c: 'A' }, { n: 'Tiktok', c: 'A' }
   ];
 
-  let currentIdx = 0;
-  let timeLeft = 3;
-  let timerInterval;
+  // --- MOTOR DE AUDIO SINTETIZADO ---
+  const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
-  // Crear puntos de progreso
-  const progressContainer = document.getElementById('progress-bar');
-  logos.forEach((_, i) => {
-    const d = document.createElement('div');
-    d.className = 'dot' + (i === 0 ? ' active' : '');
-    d.id = `dot-${i}`;
-    progressContainer.appendChild(d);
-  });
-
-  function loadPair() {
-    if (currentIdx >= logos.length) {
-      alert("¡Reto finalizado!");
-      return;
-    }
-    
-    const current = logos[currentIdx];
-    document.getElementById('img-A').src = `../media/${current.name}_A.png`;
-    document.getElementById('img-B').src = `../media/${current.name}_B.png`;
-    
-    resetTimer();
+  function playTone(freq, type, start, duration, vol = 0.1) {
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = type;
+    osc.frequency.setValueAtTime(freq, start);
+    gain.gain.setValueAtTime(vol, start);
+    gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    osc.start(start);
+    osc.stop(start + duration);
   }
 
-  function resetTimer() {
+  const sounds = {
+    tick: () => {
+      playTone(440, 'sine', audioCtx.currentTime, 0.1, 0.05);
+    },
+    correct: () => {
+      const now = audioCtx.currentTime;
+      // Melodía ascendente elegante (Arpegio Mayor)
+      playTone(523.25, 'triangle', now, 0.3); // Do5
+      playTone(659.25, 'triangle', now + 0.1, 0.3); // Mi5
+      playTone(783.99, 'triangle', now + 0.2, 0.3); // Sol5
+      playTone(1046.50, 'triangle', now + 0.3, 0.5); // Do6
+    },
+    wrong: () => {
+      const now = audioCtx.currentTime;
+      // Melodía descendente sombría
+      playTone(220, 'sawtooth', now, 0.4, 0.05); // La3
+      playTone(207.65, 'sawtooth', now + 0.15, 0.4, 0.05); // Lab3
+      playTone(196, 'sawtooth', now + 0.3, 0.6, 0.05); // Sol3
+    }
+  };
+
+  // --- LÓGICA DEL JUEGO ---
+  let currentStep = 0;
+  let timeLeft = 3;
+  let timerLoop;
+
+  const dotsContainer = document.getElementById('dots-container');
+  gameData.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' current' : '');
+    d.id = `dot-${i}`;
+    dotsContainer.appendChild(d);
+  });
+
+  function loadChallenge() {
+    if (currentStep >= gameData.length) return;
+    const item = gameData[currentStep];
+    document.getElementById('img-A').src = `../media/${item.n}_A.png`;
+    document.getElementById('img-B').src = `../media/${item.n}_B.png`;
+    startTimer();
+  }
+
+  function startTimer() {
     timeLeft = 3;
-    updateTimerUI();
-    clearInterval(timerInterval);
-    timerInterval = setInterval(() => {
+    updateTimerVisuals();
+    clearInterval(timerLoop);
+    timerLoop = setInterval(() => {
       timeLeft--;
-      updateTimerUI();
-      if (timeLeft === 0) {
-        checkAnswer(null); // Falla por tiempo
+      if (timeLeft > 0) sounds.tick();
+      updateTimerVisuals();
+      if (timeLeft <= 0) {
+        clearInterval(timerLoop);
+        selectOption(null);
       }
     }, 1000);
   }
 
-  function updateTimerUI() {
+  function updateTimerVisuals() {
     for (let i = 1; i <= 3; i++) {
-      document.getElementById(`t-${i}`).classList.toggle('on', i <= timeLeft);
+      document.getElementById(`seg-${i}`).classList.toggle('active', i <= timeLeft);
     }
   }
 
-  function checkAnswer(choice) {
-    clearInterval(timerInterval);
-    const correct = logos[currentIdx].correct;
-    const dot = document.getElementById(`dot-${currentIdx}`);
+  function selectOption(choice) {
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+    clearInterval(timerLoop);
     
-    dot.classList.remove('active');
-    if (choice === correct) {
+    const correctChoice = gameData[currentStep].c;
+    const dot = document.getElementById(`dot-${currentStep}`);
+    dot.classList.remove('current');
+
+    if (choice === correctChoice) {
+      sounds.correct();
       dot.classList.add('correct');
     } else {
+      sounds.wrong();
       dot.classList.add('wrong');
     }
 
-    currentIdx++;
-    if (currentIdx < logos.length) {
-      document.getElementById(`dot-${currentIdx}`).classList.add('active');
-      setTimeout(loadPair, 500); // Pequeña pausa antes del siguiente
+    currentStep++;
+    if (currentStep < gameData.length) {
+      document.getElementById(`dot-${currentStep}`).classList.add('current');
+      setTimeout(loadChallenge, 800);
     } else {
-      // Aquí irá la lógica de fin de juego
-      console.log("Juego terminado");
+      document.querySelector('h1').innerText = "Reto Completado";
     }
   }
 
-  // Controles de Teclado
   window.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowLeft') checkAnswer('A');
-    if (e.key === 'ArrowRight') checkAnswer('B');
+    if (e.key === 'ArrowLeft') selectOption('A');
+    if (e.key === 'ArrowRight') selectOption('B');
   });
 
-  // Controles Swipe (Móvil)
-  let touchStartX = 0;
-  window.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX);
-  window.addEventListener('touchend', e => {
-    let diff = e.changedTouches[0].screenX - touchStartX;
-    if (Math.abs(diff) > 50) {
-      checkAnswer(diff > 0 ? 'B' : 'A');
-    }
-  });
-
-  // Iniciar
-  loadPair();
+  loadChallenge();
 </script>
-
 </body>
 </html>
