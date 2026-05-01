@@ -468,6 +468,97 @@ function startType(msg) {
   tick();
 }
 // Partir msg en líneas según el ancho real del span (monospace: todos los chars igual)
+// ── Detección de contexto para mensajes adaptativos ───────────
+// Contextos: 'pcMax' | 'pcNorm' | 'mobHoriz' | 'mobVert'
+function getCtx() {
+  const vw = window.innerWidth;
+  if (vw < 480)  return 'mobVert';
+  if (vw < 768)  return 'mobHoriz';
+  return lbOpen ? 'pcMax' : 'pcNorm';
+}
+
+// Mensajes por contexto: [pcMax, pcNorm, mobHoriz, mobVert]
+const MSG = {
+  tarjetasToma:      ['> Un montón de tarjetas en blanco. Toma una, a ver si así dejas de mirarlas con esa cara de confusión.',
+                      '> Tarjetas en blanco. Toma una y deja de mirarlas con esa cara de confusión.',
+                      '> Tarjetas en blanco. Toma una y deja de mirarlas con esa cara de confusión.',
+                      '> Toma una tarjeta en blanco.'],
+  tarjetasYaTienes:  ['> Más tarjetas, como la que ya tienes. Antes de coger otra, ¿por qué no usas la que ya has tomado? No seas ansias.',
+                      '> Más tarjetas. Antes de coger otra, ¿por qué no usas la que ya has tomado? No seas ansias.',
+                      '> Más tarjetas. Antes de coger otra, ¿por qué no usas la que ya tienes? No seas ansias.',
+                      '> Usa la tarjeta que ya tienes.'],
+  maquinaSinPapel:   ['> Es una máquina de escribir, no un oráculo. Ponle una tarjeta y quizás hasta saques algo útil de ella.',
+                      '> Es una máquina, no un oráculo. Ponle una tarjeta y quizás hasta saques algo útil de ella.',
+                      '> Es una máquina, no un oráculo. Ponle una tarjeta y quizás saques algo útil de ella.',
+                      '> Ponle una tarjeta a la máquina.'],
+  maquinaConPapel:   ['> Vale, ya tienes la máquina con papel. ¿Ves qué fácil? Ahora ya la puedes usar para escribir algo... si sabes el qué.',
+                      '> Ya tienes papel. ¿Ves qué fácil? Ahora ya puedes usar la máquina para escribir algo...',
+                      '> Ya tienes papel. ¿Ves qué fácil? Ahora ya puedes usar la máquina para escribir algo...',
+                      '> Escribe algo en la tarjeta.'],
+  maquinaInstruccion:['> Asegúrate de escribir la palabra secreta correcta; si te inventas el código, el lector se va a reír de ti.',
+                      '> Escribe la palabra secreta; si te inventas el código, el lector se va a reír de ti.',
+                      '> Escribe la palabra secreta; si te inventas el código, el lector se va a reír de ti.',
+                      '> Escribe el código correcto.'],
+  codigoImpreso:     ['> Código impreso. Espero que no te hayas equivocado de tecla, porque borrar aquí es un poco complicado...',
+                      '> Código impreso. Espero que no te hayas equivocado, porque borrar aquí es un poco complicado...',
+                      '> Código impreso. Espero que no te hayas equivocado, porque borrar aquí es complicado...',
+                      '> Código impreso. No falles.'],
+  selloClick:        ['> El sello oficial. La única forma de que alguien te tome en serio por aquí.',
+                      '> El sello oficial. La única forma de que alguien te tome en serio por aquí.',
+                      '> El sello oficial. La única forma de que alguien te tome en serio por aquí.',
+                      '> El sello oficial del sitio.'],
+  selladaSinCodigo:  ['> Vale, ya la tienes sellada, pero sigue estando más blanca que tu expediente. Sin el código no creo que el lector funcione.',
+                      '> Ya está sellada, pero está blanca. Sin el código no creo que el lector funcione.',
+                      '> Ya está sellada, pero está blanca. Sin el código no creo que el lector funcione.',
+                      '> Sellada, pero falta el código.'],
+  escritaSinSello:   ['> Ya has escrito en ella, pero sin el sello oficial esto no vale ni para posavasos.',
+                      '> Ya has escrito en ella, pero sin el sello esto no vale ni para posavasos.',
+                      '> Ya has escrito en ella, pero sin el sello esto no vale ni para posavasos.',
+                      '> Sin sello no vale para nada.'],
+  listaParaLector:   ['> ¡PUM! Con el código y el sello ya parece un documento oficial. Ahora prueba suerte en el lector a ver qué pasa.',
+                      '> ¡PUM! Con el código y el sello ya parece oficial. Ahora prueba suerte en el lector.',
+                      '> ¡PUM! Con el código y el sello ya parece oficial. Prueba suerte en el lector ahora.',
+                      '> ¡Lista! Úsala en el lector.'],
+  errorIncompleta:   ['> LECTURA ERRÓNEA: TARJETA NO VÁLIDA. Asegúrate de presentar una tarjeta con el código correcto Y debidamente sellada.',
+                      '> LECTURA ERRÓNEA: TARJETA NO VÁLIDA. Asegúrate de presentar código correcto y sello oficial.',
+                      '> LECTURA ERRÓNEA: TARJETA NO VÁLIDA. Asegúrate de presentar código correcto y sello oficial.',
+                      '> ERROR: Falta código o sello.'],
+  errorCodigo:       ['> LECTURA ERRÓNEA: CÓDIGO INCORRECTO. El código de salida no es válido. ¿Seguro que sabes leer? Revisa bien ese Post-it.',
+                      '> LECTURA ERRÓNEA: CÓDIGO INCORRECTO. El código no es válido. ¿Sabes leer? Revisa el Post-it.',
+                      '> LECTURA ERRÓNEA: CÓDIGO INCORRECTO. El código no es válido. ¿Sabes leer? Revisa el Post-it.',
+                      '> ERROR: Código incorrecto.'],
+  exito:             ['> ¡¡LO HAS LOGRADO!! Quién lo habría dicho... La puerta se abre por fin, ya puedes escapar antes de que se arrepientan.',
+                      '> ¡¡LO HAS LOGRADO!! Quién lo habría dicho... La puerta se abre, escapa antes de que se arrepientan.',
+                      '> ¡¡LO HAS LOGRADO!! Quién lo habría dicho... La puerta se abre, escapa ya.',
+                      '> ¡LOGRADO! Escapa ahora.'],
+  puertaCerrada:     ['> Está cerrada a cal y canto. ¿Crees que te dejarán salir solo por pedirlo por favor? Currátelo un poco.',
+                      '> Está cerrada. ¿Crees que te dejarán salir solo por pedirlo por favor? Currátelo un poco.',
+                      '> Está cerrada. ¿Crees que te dejarán salir solo por pedirlo por favor? Currátelo un poco.',
+                      '> Puerta cerrada a cal y canto.'],
+  cajonBloqueado:    ['> Este no se abre. Está más bloqueado que tus posibilidades de salir de aquí ahora mismo.',
+                      '> Este no se abre. Está más bloqueado que tus posibilidades de salir de aquí.',
+                      '> Este no se abre. Está más bloqueado que tus posibilidades de salir de aquí.',
+                      '> Cajón bloqueado. No abre.'],
+  cajonVacio:        ['> Absolutamente nada. Vacío, como el resto de tus pistas. Sigue buscando.',
+                      '> Absolutamente nada. Vacío, como el resto de tus pistas. Sigue buscando.',
+                      '> Absolutamente nada. Vacío, como el resto de tus pistas. Sigue buscando.',
+                      '> Cajón vacío. Sigue buscando.'],
+  cajonPostit:       ['> ¡Bingo! Parece que con este has tenido suerte: alguien se dejó un Post-it arrugado por aquí.',
+                      '> ¡Bingo! Con este has tenido suerte: alguien se dejó un Post-it arrugado por aquí.',
+                      '> ¡Bingo! Con este has tenido suerte: alguien se dejó un Post-it arrugado por aquí.',
+                      '> ¡Bingo! Hay un Post-it.'],
+  cajonCarpetas:     ['> ¡Vaya, un golpe de suerte! Este sí está abierto. Mira cuántas carpetas tiene...',
+                      '> ¡Vaya, un golpe de suerte! Este sí está abierto. Mira cuántas carpetas tiene...',
+                      '> ¡Vaya, un golpe de suerte! Este sí está abierto. Mira cuántas carpetas tiene...',
+                      '> Abierto. Lleno de carpetas.'],
+  lectorEspera:      ['> El lector brilla con impaciencia. ¿Tienes alguna tarjeta a mano? Si es que sí, tráela y le echamos un vistazo.',
+                      '> El lector brilla con impaciencia. ¿Tienes alguna tarjeta a mano? Si es que sí, tráela y le echamos un vistazo.',
+                      '> El lector brilla con impaciencia. ¿Tienes alguna tarjeta a mano? Si es que sí, tráela y le echamos un vistazo.',
+                      '> El lector espera una tarjeta.'],
+};
+const CTX_IDX = { pcMax:0, pcNorm:1, mobHoriz:2, mobVert:3 };
+function m(key) { return MSG[key][CTX_IDX[getCtx()]]; }
+
 function wrapMsg(msg) {
   // Usar el span activo según si el lightbox está abierto
   const span = lbOpen ? lightboxCrtTxt : crtText;
@@ -807,10 +898,10 @@ function triggerError(msgInicial, msgFinal) {
     gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35);
     osc.start(); osc.stop(ctx.currentTime + 0.35);
   } catch(e) {}
-  // 5. Tras 2s, recuperar CRT normal y mostrar mensaje final
+  // 5. Tras 2s, recuperar CRT normal (y mensaje final si se pasa)
   setTimeout(() => {
     setConsoleError(false);
-    typeWrite(msgFinal);
+    if (msgFinal) typeWrite(msgFinal);
   }, 2000);
 }
 
@@ -846,7 +937,7 @@ tbBtnOk.addEventListener('click', () => {
   tbEscrita.style.display = 'block';
   cerrarTextbox();
   lightNextBulb(); // bombilla 2
-  typeWrite('> Código impreso. Espero que no te hayas equivocado de tecla, porque borrar aquí es un poco complicado...');
+  typeWrite(m('codigoImpreso'));
 });
 tbInputField.addEventListener('keydown', e => { if(e.key==='Enter') tbBtnOk.click(); if(e.key==='Escape') cerrarTextbox(); });
 tbBtnCancel.addEventListener('click', cerrarTextbox);
@@ -863,54 +954,54 @@ function handleClick(alias) {
 
     case 'obj_tarjetasMesa':
       if (tarjetablanca.ubicacion === '') {
-        typeWrite('> Un montón de tarjetas en blanco. Toma una, a ver si así dejas de mirarlas con esa cara de confusión.');
+        typeWrite(m('tarjetasToma'));
         // Mostrar tarjeta y posicionarla
         tbEl.style.display = 'block';
         posicionarEnObjeto('obj_tarjetasMesa');
         tarjetablanca.ubicacion = 'obj_tarjetasMesa';
         lightNextBulb(); // bombilla 1
       } else {
-        typeWrite('> Más tarjetas, como la que ya tienes. Antes de andar cogiendo otra, ¿por qué no usas la que ya has tomado? No seas ansias.');
+        typeWrite(m('tarjetasYaTienes'));
       }
       break;
 
     case 'obj_maquinaEscribir':
       if (tarjetablanca.ubicacion === 'obj_maquinaEscribir') {
         if (tarjetablanca.texto !== '') {
-          typeWrite('> Ya has escrito en ella, pero sin el sello esto no vale ni para posavasos.');
+          typeWrite(m('escritaSinSello'));
         } else {
-          typeWrite('> Ahora asegúrate de escribir la palabra secreta correcta; si te inventas el código, el lector de tarjetas se va a reír de ti en tu cara.');
+          typeWrite(m('maquinaInstruccion'));
           abrirTextbox();
         }
       } else {
-        typeWrite('> Es una máquina de escribir, no un oráculo. No esperes que escriba por telepatía: ponle una tarjeta y quizás hasta saques algo útil de ella.');
+        typeWrite(m('maquinaSinPapel'));
       }
       break;
 
     case 'obj_selloGoma':
-      typeWrite('> El sello oficial. La única forma de que alguien te tome en serio por aquí.');
+      typeWrite(m('selloClick'));
       break;
 
     case 'obj_lectorTarjetas':
-      typeWrite('> El lector brilla con impaciencia. ¿Tienes alguna tarjeta a mano? Si es que sí, tráela y le echamos un vistazo.');
+      typeWrite(m('lectorEspera'));
       break;
 
     case 'obj_puerta':
-      typeWrite('> Está cerrada a cal y canto. ¿De verdad creías que te iban a dejar salir solo por pedirlo por favor? Currátelo un poco.');
+      typeWrite(m('puertaCerrada'));
       break;
 
     case 'obj_archivadoCerrado':
-      typeWrite('> Este no se abre. Está más bloqueado que tus posibilidades de salir de aquí ahora mismo.');
+      typeWrite(m('cajonBloqueado'));
       break;
 
     case 'obj_cajonVacio':
-      typeWrite('> Absolutamente nada. Vacío, como el resto de tus pistas. Sigue buscando.');
-      showImgOverlay('../media/ER01_CajonVacio.png');
+      typeWrite(m('cajonVacio'));
+      showImgOverlay('../media/ER01_CajonVacio.webp');
       break;
 
     case 'obj_cajonLleno':
-      typeWrite('> ¡Bingo! Parece que con este has tenido suerte: alguien se dejó un Post-it arrugado por aquí.');
-      showImgOverlay('../media/ER01_CajonPostit.png', () => {
+      typeWrite(m('cajonPostit'));
+      showImgOverlay('../media/ER01_CajonPostit.webp', () => {
         showImgOverlay('../media/ER01_Postit.png');
       });
       break;
@@ -922,8 +1013,8 @@ function handleClick(alias) {
     case 'obj_archivador5':
     case 'obj_archivador6': {
       const n = alias.replace('obj_archivador','');
-      typeWrite('> ¡Vaya, un golpe de suerte! Este sí está abierto. Mira cuántas carpetas tiene...');
-      showImgOverlay('../media/ER01_Archivador' + n + '.png');
+      typeWrite(m('cajonCarpetas'));
+      showImgOverlay('../media/ER01_Archivador' + n + '.webp');
       break;
     }
   }
@@ -971,7 +1062,7 @@ function handleDrop(alias) {
     case 'obj_maquinaEscribir':
       tarjetablanca.ubicacion = 'obj_maquinaEscribir';
       posicionarEnObjeto('obj_maquinaEscribir');
-      typeWrite('> Vale, ya tienes la máquina con papel. No ha sido tan difícil, ¿verdad? Ahora ya la puedes usar para escribir algo... si es que sabes qué poner.');
+      typeWrite(m('maquinaConPapel'));
       break;
 
     case 'obj_selloGoma':
@@ -981,9 +1072,9 @@ function handleDrop(alias) {
       posicionarEnObjeto('obj_selloGoma');
       lightNextBulb(); // bombilla 3
       if (tarjetablanca.texto !== '') {
-        typeWrite('> ¡PUM! Vale, con el código y el sello ya parece un documento oficial de verdad. Ahora prueba suerte en el lector, a ver si hay alguien al otro lado.');
+        typeWrite(m('listaParaLector'));
       } else {
-        typeWrite('> Vale, ya la tienes sellada, pero sigue estando más blanca que tu expediente. Sin el código no creo que el lector se dé por aludido, ¿no crees?');
+        typeWrite(m('selladaSinCodigo'));
       }
       break;
 
@@ -992,24 +1083,18 @@ function handleDrop(alias) {
       posicionarEnObjeto('obj_lectorTarjetas');
       if (tarjetablanca.texto === '' || tarjetablanca.sello === false) {
         bulbsErrorAndReset();
-        triggerError(
-          '> LECTURA ERRÓNEA: Tarjeta no válida.',
-          '> Empieza de nuevo y la próxima vez asegúrate de presentar una tarjeta con el código correcto Y debidamente sellada. No aceptamos trabajos a medias.'
-        );
+        triggerError(m('errorIncompleta'), null);
         setTimeout(() => resetTarjeta(), 2200);
       } else {
         const codigo = normalizarTexto(tarjetablanca.texto);
         if (codigo === 'ENIGMA') {
           lightNextBulb();    // bombilla 4
           bulbsTriumph();
-          typeWrite('> ¡¡LO HAS LOGRADO!! Quién lo habría dicho... parece que al final sí que sirves para algo. La puerta se abre por fin, ya puedes escapar antes de que se arrepientan.');
+          typeWrite(m('exito'));
           // TODO: marcar día como completado
         } else {
           bulbsErrorAndReset();
-          triggerError(
-            '> LECTURA ERRÓNEA: Código incorrecto.',
-            '> El código de salida no es válido. ¿Seguro que sabes leer? Revisa bien ese Post-it, anda.'
-          );
+          triggerError(m('errorCodigo'), null);
           setTimeout(() => resetTarjeta(), 2200);
         }
       }
