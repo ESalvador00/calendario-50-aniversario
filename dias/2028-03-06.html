@@ -118,7 +118,7 @@
 
     <div class="content-area">
 
-      <p class="logo-intro">¿Cuál es el logo auténtico?</p>
+      <p class="logo-intro">Adivina el logo correcto</p>
 
       <!-- Arena del juego -->
       <div class="game-arena" id="game-arena">
@@ -197,6 +197,16 @@
     <p class="popup-title">¡Casi, casi!</p>
     <p class="popup-msg">Esa no era la respuesta correcta.<br>¡Sigue intentándolo!</p>
     <button class="popup-btn" id="fail-close">Continuar</button>
+  </div>
+</div>
+
+<!-- Popup: introducción al juego -->
+<div class="popup-overlay visible" id="popup-intro">
+  <div class="popup-box">
+    <div class="popup-icon">🔍</div>
+    <p class="popup-title">¿Listo para el reto?</p>
+    <p class="popup-msg">Se mostrarán dos versiones de un logo famoso.<br>Una es la auténtica, la otra tiene una pequeña trampa.<br><br>Tienes <strong style="color:var(--gold-light)">3 segundos</strong> para decidir.<br>¡Buena suerte!</p>
+    <button class="popup-btn" id="intro-start">¡Empezar!</button>
   </div>
 </div>
 
@@ -378,12 +388,16 @@ function resolve(choice) {
 function endGame() {
   gameArena.style.opacity='.2'; gameArena.style.pointerEvents='none';
   finalWrap.classList.add('visible');
-  const pct=Math.round(aciertos/TOTAL*100);
   document.getElementById('final-score').textContent=aciertos+' / '+TOTAL;
-  const msgs=['Los logos guardan sus secretos bien. ¡Inténtalo otra vez!','Nada mal, algunos logos son muy parecidos.','¡Muy bien! Tienes buen ojo para los detalles.','¡Perfecto! Ojo de águila absoluto.'];
-  document.getElementById('final-sub').textContent=msgs[pct===100?3:pct>=75?2:pct>=50?1:0];
-  if (isPreview) { markDone(); }
-  else { setTimeout(()=>popupStarBlocked.classList.add('visible'),500); }
+  if (aciertos>=10) {
+    document.getElementById('final-sub').textContent='¡Reto superado! '+(['Los logos guardan sus secretos bien.','Nada mal, algunos logos son muy parecidos.','¡Muy bien! Tienes buen ojo para los detalles.','¡Perfecto! Ojo de águila absoluto.'][aciertos===TOTAL?3:aciertos>=11?2:1]);
+    document.getElementById('btn-reiniciar').style.display='none';
+    if (isPreview) { markDone(); }
+    setTimeout(()=>popupStarReward.classList.add('visible'),600);
+  } else {
+    document.getElementById('final-sub').textContent='Reto no superado — necesitas al menos 10 aciertos. '+(['Los logos guardan sus secretos bien. ¡Inténtalo otra vez!','Nada mal, algunos logos son muy parecidos.'][aciertos>=5?1:0]);
+    document.getElementById('btn-reiniciar').style.display='';
+  }
 }
 
 // ── Reinicio ──────────────────────────────────────────────────
@@ -391,6 +405,7 @@ document.getElementById('btn-reiniciar').addEventListener('click',()=>{
   step=0; aciertos=0;
   gameArena.style.opacity=''; gameArena.style.pointerEvents='';
   finalWrap.classList.remove('visible');
+  document.getElementById('btn-reiniciar').style.display='';
   document.querySelectorAll('.prog-dot').forEach(d=>{d.className='prog-dot';});
   loadStep(0);
 });
@@ -416,8 +431,12 @@ document.addEventListener('touchend',e=>{
   resolve(dx<0?'B':'A');
 });
 
-// ── Arranque ──────────────────────────────────────────────────
-loadStep(0);
+// ── Popup de introducción ─────────────────────────────────────
+const popupIntro = document.getElementById('popup-intro');
+document.getElementById('intro-start').addEventListener('click',()=>{
+  popupIntro.classList.remove('visible');
+  loadStep(0);
+});
 </script>
 </body>
 </html>
