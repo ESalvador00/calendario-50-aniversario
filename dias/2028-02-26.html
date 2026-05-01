@@ -150,39 +150,43 @@
       text-transform:uppercase;cursor:pointer;transition:all .2s;}
     .tb-btn:hover{background:rgba(201,168,76,.1);border-color:var(--gold);}
     /* ── Panel de bombillas de progreso ── */
-    @keyframes bulb-triumph{0%,100%{filter:brightness(1) drop-shadow(0 0 4px #39FF14);}50%{filter:brightness(2.2) drop-shadow(0 0 14px #39FF14);}}
-    @keyframes bulb-error  {0%,100%{filter:brightness(1) drop-shadow(0 0 4px #FF2200);}50%{filter:brightness(2.2) drop-shadow(0 0 14px #FF2200);}}
+    @keyframes bulb-triumph{0%,100%{filter:brightness(1.2) drop-shadow(0 0 3px #39FF14);}50%{filter:brightness(2.5) drop-shadow(0 0 10px #39FF14) drop-shadow(0 0 20px #39FF14);}}
+    @keyframes bulb-error  {0%,100%{filter:brightness(1) drop-shadow(0 0 3px #FF2200);}50%{filter:brightness(2.5) drop-shadow(0 0 10px #FF2200);}}
     .bulb-panel{
       position:absolute;
       left:89.84%; width:8.39%;
       top:88.23%;  height:6.67%;
-      display:flex; align-items:center; justify-content:space-around;
-      padding:0 4%;
+      display:flex; align-items:center; justify-content:space-evenly;
       pointer-events:none; z-index:25;
+      overflow:visible;
     }
     .bulb{
-      width:22%; aspect-ratio:1;
+      width:clamp(6px, 1.4vw, 14px);
+      height:clamp(6px, 1.4vw, 14px);
       border-radius:50%;
-      background:#2a0a0a;
-      box-shadow:0 0 2px rgba(0,0,0,.8);
-      transition:background .3s, box-shadow .3s;
+      background:#3a0808;
+      border:1px solid rgba(255,255,255,.08);
       flex-shrink:0;
+      transition:background .3s, box-shadow .3s;
     }
     .bulb.on{
       background:#39FF14;
-      box-shadow:0 0 6px #39FF14, 0 0 14px rgba(57,255,20,.6);
+      box-shadow:0 0 4px #39FF14, 0 0 10px rgba(57,255,20,.7), 0 0 18px rgba(57,255,20,.4);
     }
     .bulb.triumph{
       background:#39FF14;
-      animation:bulb-triumph .35s ease-in-out infinite;
+      box-shadow:0 0 4px #39FF14, 0 0 12px rgba(57,255,20,.8);
+      animation:bulb-triumph .4s ease-in-out infinite;
     }
     .bulb.error-flash{
       background:#FF2200;
-      animation:bulb-error .18s steps(1,end) infinite;
+      box-shadow:0 0 4px #FF2200, 0 0 10px rgba(255,34,0,.7);
+      animation:bulb-error .2s steps(1,end) infinite;
     }
+    @keyframes alarm-pulse{0%,100%{opacity:0;}50%{opacity:.25;}}
     .alarm-overlay{
-      display:none;position:fixed;inset:0;z-index:190;
-      background:#FF0000;pointer-events:none;
+      display:none;position:absolute;inset:0;z-index:40;
+      background:#FF0000;pointer-events:none;border-radius:3px;
     }
     .alarm-overlay.active{display:block;animation:alarm-pulse 0.8s ease-in-out 3;}
     /* Screen shake */
@@ -263,6 +267,9 @@
           <div class="bulb" id="bulb-3"></div>
         </div>
 
+        <!-- Alarma roja — confinada al escenario -->
+        <div class="alarm-overlay" id="alarm-overlay"></div>
+
         <!-- Consola CRT: overlay sobre obj_consola (x:2.8%..82.6%, y:86%..97%) -->
         <div class="crt-overlay" id="crt-overlay">
           <span class="crt-text" id="crt-text"></span>
@@ -328,6 +335,8 @@
       <div class="bulb" id="bulb-lb-2"></div>
       <div class="bulb" id="bulb-lb-3"></div>
     </div>
+    <!-- Alarma roja en lightbox -->
+    <div class="alarm-overlay" id="alarm-overlay-lb"></div>
     <div class="lightbox-crt" id="lightbox-crt">
       <span class="lightbox-crt-text" id="lightbox-crt-text"></span>
     </div>
@@ -353,9 +362,6 @@
     </div>
   </div>
 </div>
-
-<!-- Alarma roja de escenario -->
-<div class="alarm-overlay" id="alarm-overlay"></div>
 
 <!-- Canvas oculto para clickmap -->
 <canvas id="clickmap-canvas" style="display:none;"></canvas>
@@ -767,17 +773,24 @@ function bulbsErrorAndReset() {
 }
 
 
-const alarmOverlay = document.getElementById('alarm-overlay');
+const alarmOverlay   = document.getElementById('alarm-overlay');
+const alarmOverlayLb = document.getElementById('alarm-overlay-lb');
+
+function fireAlarm() {
+  [alarmOverlay, alarmOverlayLb].forEach(el => {
+    el.classList.remove('active');
+    void el.offsetWidth;
+    el.classList.add('active');
+    el.addEventListener('animationend', () => el.classList.remove('active'), {once:true});
+  });
+}
 
 function triggerError(msgInicial, msgFinal) {
   // 1. CRT en rojo parpadeante
   setConsoleError(true);
   typeWrite(msgInicial);
-  // 2. Overlay rojo pulso
-  alarmOverlay.classList.remove('active');
-  void alarmOverlay.offsetWidth;
-  alarmOverlay.classList.add('active');
-  alarmOverlay.addEventListener('animationend', () => alarmOverlay.classList.remove('active'), {once:true});
+  // 2. Overlay rojo pulso (solo sobre el escenario)
+  fireAlarm();
   // 3. Screen shake
   escWrap.classList.remove('shaking');
   void escWrap.offsetWidth;
