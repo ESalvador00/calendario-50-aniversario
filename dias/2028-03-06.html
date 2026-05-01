@@ -3,304 +3,419 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>6 de Marzo — El Reto de los Logos</title>
+  <title>6 de Marzo — 50 Aniversario</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Cormorant+Garamond:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --gold: #C9A84C;
-      --gold-light: #E8C97A;
-      --gold-dark: #8B6914;
-      --cream: #FAF6EE;
-      --dark: #1A1410;
-      --success: #4CAF50;
-      --error: #E05A6A;
-    }
+    :root{--gold:#C9A84C;--gold-light:#E8C97A;--gold-dark:#8B6914;--cream:#FAF6EE;--dark:#1A1410;--success:#4CAF50;--error:#E05A6A;}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    body{background-color:var(--dark);color:var(--cream);font-family:'Cormorant Garamond',serif;min-height:100vh;display:flex;flex-direction:column;}
+    body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 25% 15%,rgba(201,168,76,.10) 0%,transparent 55%),radial-gradient(ellipse at 75% 85%,rgba(124,54,38,.10) 0%,transparent 55%);pointer-events:none;z-index:0;}
+    .wrap{position:relative;z-index:1;max-width:800px;margin:0 auto;padding:3rem 2rem 4rem;flex:1;display:flex;flex-direction:column;}
+    .day-hero{text-align:center;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:3rem 0 2rem;position:relative;}
+    .ornament-line-h{display:flex;align-items:center;justify-content:center;gap:1rem;margin-bottom:2rem;}
+    .o-line{height:1px;width:60px;background:linear-gradient(to right,transparent,var(--gold));}
+    .o-line.r{background:linear-gradient(to left,transparent,var(--gold));}
+    .o-dot{width:5px;height:5px;background:var(--gold);border-radius:50%;}
+    .day-of-week{font-size:.85rem;letter-spacing:.4em;text-transform:uppercase;color:rgba(201,168,76,.5);margin-bottom:1rem;}
+    h1{font-family:'Playfair Display',serif;font-size:clamp(3rem,9vw,7rem);font-weight:900;line-height:1;background:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 50%,var(--gold-dark) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.5rem;}
+    .month-label{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3.5vw,2.4rem);font-weight:400;font-style:italic;color:rgba(250,246,238,.45);margin-bottom:2.5rem;}
+    .content-area{width:100%;border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:2rem 1.5rem 1.5rem;background:rgba(255,255,255,.02);display:flex;flex-direction:column;align-items:center;gap:1.5rem;}
+    .reto-intro{font-size:1rem;font-style:italic;color:rgba(250,246,238,.5);letter-spacing:.04em;text-align:center;}
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    /* ARENA */
+    .game-arena{width:100%;display:flex;align-items:center;justify-content:center;gap:1.2rem;user-select:none;}
 
-    body {
-      background-color: var(--dark);
-      color: var(--cream);
-      font-family: 'Cormorant Garamond', serif;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      touch-action: none;
-    }
+    /* Tarjetas */
+    .logo-card{flex:1;max-width:260px;aspect-ratio:1/1;background:rgba(255,255,255,.025);border:1.5px solid rgba(201,168,76,.18);border-radius:6px;display:flex;align-items:center;justify-content:center;padding:1.5rem;cursor:pointer;transition:border-color .35s ease,background .35s ease,box-shadow .35s ease;position:relative;overflow:visible;}
+    .logo-card:hover{border-color:var(--gold);background:rgba(201,168,76,.06);box-shadow:0 8px 30px rgba(0,0,0,.4);}
+    .logo-card.selected-ok{border-color:var(--success)!important;background:rgba(76,175,80,.08)!important;}
+    .logo-card.selected-err{border-color:var(--error)!important;background:rgba(224,90,106,.08)!important;}
+    .logo-card.reveal-ok{border-color:var(--success)!important;}
+    .logo-card img{max-width:100%;max-height:100%;object-fit:contain;pointer-events:none;display:block;transform-origin:center bottom;}
+    .card-label{position:absolute;bottom:.4rem;left:50%;transform:translateX(-50%);font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(201,168,76,.3);font-family:'Playfair Display',serif;}
 
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background: radial-gradient(circle at 50% 50%, rgba(201,168,76,0.08) 0%, transparent 70%);
-      pointer-events: none;
-    }
+    /* Oscilación - aplicada a la imagen dentro de la tarjeta */
+    @keyframes swayR{0%,100%{transform:rotate(0deg);}50%{transform:rotate(2.5deg);}}
+    @keyframes swayL{0%,100%{transform:rotate(0deg);}50%{transform:rotate(-2.5deg);}}
+    .logo-card-A.playing img{animation:swayR 3s cubic-bezier(.45,.05,.55,.95) infinite;}
+    .logo-card-B.playing img{animation:swayL 3s cubic-bezier(.45,.05,.55,.95) infinite;}
 
-    .wrap {
-      position: relative;
-      z-index: 1;
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 2rem;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      width: 100%;
-    }
+    /* Barra vertical central */
+    .timer-rail{display:flex;flex-direction:column;gap:5px;height:180px;width:6px;flex-shrink:0;}
+    .timer-seg{flex:1;border-radius:3px;background:rgba(201,168,76,.12);transition:background .5s ease,box-shadow .5s ease;}
+    .timer-seg.on{background:var(--gold);box-shadow:0 0 12px rgba(201,168,76,.55);}
 
-    header { text-align: center; margin-bottom: 3rem; }
-    
-    .date-label {
-      font-family: 'Playfair Display', serif;
-      font-size: 0.9rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 0.5rem;
-    }
+    /* Bolitas de progreso */
+    .progress-row{display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap;}
+    .prog-dot{width:10px;height:10px;border-radius:50%;border:1.5px solid rgba(201,168,76,.3);background:transparent;transition:all .4s ease;}
+    .prog-dot.current{background:var(--gold);border-color:var(--gold-light);transform:scale(1.45);box-shadow:0 0 8px rgba(201,168,76,.55);}
+    .prog-dot.correct{background:var(--success);border-color:var(--success);box-shadow:0 0 8px rgba(76,175,80,.6);transform:scale(1);}
+    .prog-dot.wrong{background:var(--error);border-color:var(--error);box-shadow:0 0 8px rgba(224,90,106,.6);transform:scale(1);}
 
-    h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 3.5rem;
-      font-weight: 900;
-      line-height: 1.1;
-      background: linear-gradient(to bottom, var(--gold-light), var(--gold));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 1rem;
-    }
+    /* Resultado final */
+    .final-msg{display:none;flex-direction:column;align-items:center;gap:.8rem;text-align:center;padding:.5rem 0;}
+    .final-msg.visible{display:flex;}
+    .final-score{font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:700;background:linear-gradient(135deg,var(--gold-light),var(--gold),var(--gold-dark));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+    .final-sub{font-style:italic;color:rgba(250,246,238,.5);font-size:.95rem;line-height:1.5;}
+    .btn-restart{margin-top:.4rem;padding:.55rem 1.6rem;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.35);border-radius:2px;color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:all .2s;}
+    .btn-restart:hover{background:rgba(201,168,76,.2);border-color:var(--gold);}
 
-    .game-area {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 2rem;
-      margin-bottom: 3rem;
-    }
+    /* Nav */
+    .day-nav{display:flex;justify-content:space-between;align-items:center;padding-top:2.5rem;border-top:1px solid rgba(201,168,76,.1);margin-top:2.5rem;}
+    .nav-btn{font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(201,168,76,.5);text-decoration:none;padding:.6rem 1.2rem;border:1px solid rgba(201,168,76,.18);border-radius:2px;transition:all .2s;}
+    .nav-btn:hover{color:var(--gold-light);border-color:rgba(201,168,76,.5);background:rgba(201,168,76,.05);}
+    .year-badge{font-size:.7rem;letter-spacing:.3em;color:rgba(201,168,76,.25);text-transform:uppercase;}
+    .back-link{display:block;text-align:center;margin-top:2rem;color:rgba(201,168,76,.35);font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;text-decoration:none;transition:color .2s;}
+    .back-link:hover{color:var(--gold);}
+    .action-btns{position:absolute;top:0;right:0;display:flex;flex-direction:column;align-items:center;gap:.2rem;}
+    .icon-btn{background:none;border:none;cursor:pointer;font-size:2rem;line-height:1;transition:color .2s,transform .2s;padding:.2rem;}
+    .icon-btn:hover{transform:scale(1.2);}
+    .fav-btn{color:rgba(250,246,238,.2);}
+    .fav-btn.active{color:#e05a6a;}
+    .done-btn{color:var(--gold);opacity:.6;}
+    .done-btn.active{color:var(--gold);opacity:1;}
 
-    .logo-card {
-      flex: 1;
-      max-width: 300px;
-      aspect-ratio: 1/1;
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid rgba(201, 168, 76, 0.15);
-      border-radius: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem;
-      cursor: pointer;
-      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-    }
+    /* Popups */
+    .popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:100;align-items:center;justify-content:center;}
+    .popup-overlay.visible{display:flex;}
+    .popup-box{background:var(--dark);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:3rem 2.5rem;max-width:420px;width:90%;text-align:center;box-shadow:0 0 60px rgba(0,0,0,.8);}
+    .popup-icon{font-size:3rem;margin-bottom:1rem;}
+    .popup-title{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--gold-light);margin-bottom:1rem;}
+    .popup-msg{font-size:1rem;font-style:italic;color:rgba(250,246,238,.6);line-height:1.7;margin-bottom:2rem;}
+    .popup-btn{display:inline-block;padding:.7rem 2rem;border:1px solid rgba(201,168,76,.4);border-radius:2px;color:var(--gold);font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;background:none;transition:all .2s;}
+    .popup-btn:hover{background:rgba(201,168,76,.1);border-color:var(--gold);}
 
-    .logo-card:hover {
-      border-color: var(--gold);
-      background: rgba(201, 168, 76, 0.05);
-      transform: translateY(-5px);
-    }
-
-    .logo-card img {
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: contain;
-    }
-
-    .timer-rail {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      height: 180px;
-      width: 4px;
-    }
-
-    .timer-segment {
-      flex: 1;
-      background: rgba(201, 168, 76, 0.1);
-      border-radius: 2px;
-      transition: all 0.3s ease;
-    }
-
-    .timer-segment.active {
-      background: var(--gold);
-      box-shadow: 0 0 15px var(--gold);
-    }
-
-    .dots-grid {
-      display: flex;
-      gap: 12px;
-      justify-content: center;
-    }
-
-    .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      border: 1px solid rgba(201, 168, 76, 0.3);
-      transition: all 0.4s ease;
-    }
-
-    .dot.current { background: var(--gold); transform: scale(1.3); border-color: var(--gold-light); }
-    .dot.correct { background: var(--success); border-color: var(--success); box-shadow: 0 0 8px var(--success); }
-    .dot.wrong { background: var(--error); border-color: var(--error); box-shadow: 0 0 8px var(--error); }
-
-    @media (max-width: 600px) {
-      h1 { font-size: 2.2rem; }
-      .game-area { gap: 1rem; }
-      .logo-card { padding: 1rem; }
+    @media(max-width:600px){
+      .wrap{padding:1rem 1rem 2rem;}
+      .day-hero{padding:1rem 0 1rem;}
+      h1{font-size:clamp(2rem,14vw,4rem);}
+      .month-label{font-size:clamp(1rem,4vw,1.6rem);margin-bottom:1rem;}
+      .content-area{padding:.8rem .8rem 1rem;gap:1rem;}
+      .game-arena{gap:.5rem;}
+      .logo-card{padding:.8rem;max-width:calc(50vw - 40px);}
+      .timer-rail{height:110px;width:5px;}
+      .day-nav{margin-top:1rem;padding-top:1rem;}
+      .ornament-line-h{margin-bottom:1rem;}
     }
   </style>
 </head>
 <body>
-
 <div class="wrap">
-  <header>
-    <p class="date-label">6 de Marzo</p>
-    <h1>¿Cuál es el logo real?</h1>
-  </header>
+  <div class="day-hero">
 
-  <main class="game-area">
-    <div class="logo-card" id="card-A" onclick="selectOption('A')">
-      <img id="img-A" src="" alt="Opción A">
+    <div class="action-btns">
+      <button class="icon-btn fav-btn"  id="fav-btn"  title="Añadir a favoritos">♡</button>
+      <button class="icon-btn done-btn" id="done-btn" title="Marcar como completado">☆</button>
     </div>
 
-    <div class="timer-rail">
-      <div id="seg-3" class="timer-segment active"></div>
-      <div id="seg-2" class="timer-segment active"></div>
-      <div id="seg-1" class="timer-segment active"></div>
+    <div class="ornament-line-h">
+      <div class="o-line"></div><div class="o-dot"></div><div class="o-line r"></div>
+    </div>
+    <p class="day-of-week">Miércoles</p>
+    <h1>6</h1>
+    <p class="month-label">de Marzo</p>
+
+    <div class="content-area" id="content-area">
+      <p class="reto-intro">¿Cuál es el logo auténtico?</p>
+
+      <div class="game-arena" id="game-arena">
+        <div class="logo-card logo-card-A" id="card-A" role="button" aria-label="Opción A">
+          <img id="img-A" src="" alt="Logo A" draggable="false"/>
+          <span class="card-label">A</span>
+        </div>
+
+        <div class="timer-rail" id="timer-rail">
+          <div class="timer-seg on" id="seg-3"></div>
+          <div class="timer-seg on" id="seg-2"></div>
+          <div class="timer-seg on" id="seg-1"></div>
+        </div>
+
+        <div class="logo-card logo-card-B" id="card-B" role="button" aria-label="Opción B">
+          <img id="img-B" src="" alt="Logo B" draggable="false"/>
+          <span class="card-label">B</span>
+        </div>
+      </div>
+
+      <div class="progress-row" id="progress-row"></div>
+
+      <div class="final-msg" id="final-msg">
+        <div class="final-score" id="final-score"></div>
+        <p class="final-sub" id="final-sub"></p>
+        <button class="btn-restart" id="btn-restart">Volver a intentarlo</button>
+      </div>
     </div>
 
-    <div class="logo-card" id="card-B" onclick="selectOption('B')">
-      <img id="img-B" src="" alt="Opción B">
-    </div>
-  </main>
+  </div>
 
-  <footer class="footer-progress">
-    <div class="dots-grid" id="dots-container"></div>
-  </footer>
+  <nav class="day-nav">
+    <a class="nav-btn" href="2028-03-05.html">← 5 de Marzo</a>
+    <span class="year-badge">50 Aniversario · 2028</span>
+    <a class="nav-btn" id="next-btn" href="2028-03-07.html">7 de Marzo →</a>
+  </nav>
+  <a class="back-link" href="../index.html">← Volver al Calendario</a>
+
+</div>
+
+<!-- Popup: día futuro bloqueado -->
+<div class="popup-overlay" id="popup">
+  <div class="popup-box">
+    <div class="popup-icon">🔒</div>
+    <p class="popup-title">¡No seas impaciente!</p>
+    <p class="popup-msg">Este día todavía no ha llegado.<br>Vuelve cuando llegue el momento.</p>
+    <button class="popup-btn" onclick="history.back()">Volver</button>
+  </div>
+</div>
+
+<!-- Popup: completado sin validar -->
+<div class="popup-overlay" id="popup-star-blocked">
+  <div class="popup-box">
+    <div class="popup-icon">⭐</div>
+    <p class="popup-title">¡Tu recompensa te espera!</p>
+    <p class="popup-msg">Primero debes resolver el desafío del día para desbloquear tu premio.</p>
+    <button class="popup-btn" onclick="document.getElementById('popup-star-blocked').classList.remove('visible')">Entendido</button>
+  </div>
+</div>
+
+<!-- Popup: recompensa -->
+<div class="popup-overlay" id="popup-star-reward">
+  <div class="popup-box">
+    <div class="popup-icon">🏆</div>
+    <p class="popup-title">¡Enhorabuena!</p>
+    <p class="popup-msg">PDTE</p>
+    <button class="popup-btn" onclick="document.getElementById('popup-star-reward').classList.remove('visible')">¡Genial!</button>
+  </div>
+</div>
+
+<!-- Popup: fallo (no usado activamente en este tipo, requerido por arquitectura) -->
+<div class="popup-overlay" id="popup-fail">
+  <div class="popup-box">
+    <div class="popup-icon">😅</div>
+    <p class="popup-title">¡Casi!</p>
+    <p class="popup-msg">Esa no era la respuesta correcta.</p>
+    <button class="popup-btn" onclick="document.getElementById('popup-fail').classList.remove('visible')">Continuar</button>
+  </div>
 </div>
 
 <script>
-  // Configuración de Logos[cite: 5, 7]
-  const gameData = [
-    { n: 'Apple', c: 'A' }, { n: 'BMW', c: 'A' }, { n: 'Chanel', c: 'B' },
-    { n: 'DominosPizza', c: 'B' }, { n: 'Google', c: 'B' }, { n: 'Instagram', c: 'B' },
-    { n: 'JuegosOlimpicos', c: 'B' }, { n: 'Microsoft', c: 'A' }, { n: 'Rolex', c: 'A' },
-    { n: 'Santander', c: 'A' }, { n: 'Tesla', c: 'A' }, { n: 'Tiktok', c: 'A' }
+/* ── PREVIEW / BLOQUEO ── */
+const PREVIEW_KEY = 'cal_preview';
+const isPreview   = localStorage.getItem(PREVIEW_KEY) === '1';
+const today       = new Date(); today.setHours(0,0,0,0);
+const thisDate    = new Date('2028-03-06'); thisDate.setHours(0,0,0,0);
+const nextDateStr = '2028-03-07';
+
+const _p = new URLSearchParams(location.search);
+if (_p.get('preview') === 'UNLOCK') { localStorage.setItem(PREVIEW_KEY,'1'); location.replace(location.pathname); }
+if (_p.get('preview') === 'off')    { localStorage.removeItem(PREVIEW_KEY);  location.replace(location.pathname); }
+
+if (!isPreview && thisDate > today) {
+  document.querySelector('.day-hero').style.filter = 'blur(4px)';
+  document.querySelector('.day-nav').style.visibility = 'hidden';
+  document.getElementById('popup').classList.add('visible');
+}
+
+/* ── FAVORITO / COMPLETADO ── */
+const FAV_KEY  = 'fav_2028-03-06';
+const DONE_KEY = 'done_2028-03-06';
+const favBtn   = document.getElementById('fav-btn');
+const doneBtn  = document.getElementById('done-btn');
+
+if (localStorage.getItem(FAV_KEY)  === '1') { favBtn.textContent='❤'; favBtn.classList.add('active'); }
+if (localStorage.getItem(DONE_KEY) === '1') { doneBtn.textContent='★'; doneBtn.classList.add('active'); doneBtn.style.opacity='1'; }
+
+favBtn.addEventListener('click', () => {
+  const on = favBtn.classList.toggle('active');
+  favBtn.textContent = on ? '❤' : '♡';
+  localStorage.setItem(FAV_KEY, on ? '1' : '0');
+});
+doneBtn.addEventListener('click', () => {
+  if (!isPreview) {
+    if (localStorage.getItem(DONE_KEY) !== '1')
+      document.getElementById('popup-star-blocked').classList.add('visible');
+    else
+      document.getElementById('popup-star-reward').classList.add('visible');
+    return;
+  }
+  const on = doneBtn.classList.toggle('active');
+  doneBtn.textContent = on ? '★' : '☆';
+  doneBtn.style.opacity = on ? '1' : '.6';
+  localStorage.setItem(DONE_KEY, on ? '1' : '0');
+  if (on) document.getElementById('popup-star-reward').classList.add('visible');
+});
+
+/* ── DATOS ── */
+const LOGOS = [
+  { name:'Apple',           correct:'A' },
+  { name:'BMW',             correct:'A' },
+  { name:'Chanel',          correct:'B' },
+  { name:'DominosPizza',    correct:'B' },
+  { name:'Google',          correct:'B' },
+  { name:'Instagram',       correct:'B' },
+  { name:'JuegosOlimpicos', correct:'B' },
+  { name:'Microsoft',       correct:'A' },
+  { name:'Rolex',           correct:'A' },
+  { name:'Santander',       correct:'A' },
+  { name:'Tesla',           correct:'A' },
+  { name:'Tiktok',          correct:'A' },
+];
+const TOTAL = LOGOS.length;
+
+/* ── AUDIO ── */
+let _audioCtx = null;
+function getAudio() {
+  if (!_audioCtx) _audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  if (_audioCtx.state === 'suspended') _audioCtx.resume();
+  return _audioCtx;
+}
+function tone(freq, type, t0, dur, vol) {
+  vol = vol || 0.08;
+  const ctx = getAudio();
+  const osc = ctx.createOscillator();
+  const g   = ctx.createGain();
+  osc.type = type; osc.frequency.setValueAtTime(freq, t0);
+  g.gain.setValueAtTime(vol, t0);
+  g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+  osc.connect(g); g.connect(ctx.destination);
+  osc.start(t0); osc.stop(t0 + dur);
+}
+function soundTick()    { const t=getAudio().currentTime; tone(380,'sine',t,.08,.04); }
+function soundCorrect() { const t=getAudio().currentTime; tone(523.25,'triangle',t,.25); tone(659.25,'triangle',t+.1,.25); tone(783.99,'triangle',t+.2,.25); tone(1046.5,'triangle',t+.3,.45); }
+function soundWrong()   { const t=getAudio().currentTime; tone(250,'sawtooth',t,.35,.06); tone(220,'sawtooth',t+.15,.35,.06); tone(196,'sawtooth',t+.3,.5,.06); }
+
+/* ── ESTADO ── */
+let step = 0, timeLeft = 3, timerID = null, busy = false, correctCount = 0;
+
+const cardA = document.getElementById('card-A');
+const cardB = document.getElementById('card-B');
+const imgA  = document.getElementById('img-A');
+const imgB  = document.getElementById('img-B');
+const progressRow = document.getElementById('progress-row');
+const finalMsg    = document.getElementById('final-msg');
+const gameArena   = document.getElementById('game-arena');
+
+/* ── BOLITAS ── */
+for (let i = 0; i < TOTAL; i++) {
+  const d = document.createElement('div');
+  d.className = 'prog-dot' + (i===0 ? ' current' : '');
+  d.id = 'pdot-' + i;
+  progressRow.appendChild(d);
+}
+
+/* ── TEMPORIZADOR ── */
+function updateTimer() {
+  for (let i = 1; i <= 3; i++)
+    document.getElementById('seg-'+i).classList.toggle('on', i <= timeLeft);
+}
+function startTimer() {
+  clearInterval(timerID);
+  timeLeft = 3;
+  updateTimer();
+  timerID = setInterval(() => {
+    timeLeft--;
+    if (timeLeft > 0) soundTick();
+    updateTimer();
+    if (timeLeft <= 0) { clearInterval(timerID); resolve(null); }
+  }, 1000);
+}
+
+/* ── OSCILACIÓN ── */
+function startSway() { cardA.classList.add('playing'); cardB.classList.add('playing'); }
+function stopSway()  { cardA.classList.remove('playing'); cardB.classList.remove('playing'); }
+
+/* ── CARGA ── */
+function loadStep(i) {
+  if (i >= TOTAL) { endGame(); return; }
+  busy = false;
+  const logo = LOGOS[i];
+  imgA.src = '../media/' + logo.name + '_A.png';
+  imgB.src = '../media/' + logo.name + '_B.png';
+  document.querySelectorAll('.prog-dot').forEach(d => d.classList.remove('current'));
+  document.getElementById('pdot-'+i).classList.add('current');
+  cardA.className = 'logo-card logo-card-A';
+  cardB.className = 'logo-card logo-card-B';
+  startSway();
+  startTimer();
+}
+
+/* ── RESOLVER ── */
+function resolve(choice) {
+  if (busy) return;
+  busy = true;
+  clearInterval(timerID);
+  stopSway();
+  const logo = LOGOS[step];
+  const dot  = document.getElementById('pdot-'+step);
+  dot.classList.remove('current');
+  if (choice === logo.correct) {
+    soundCorrect();
+    dot.classList.add('correct');
+    correctCount++;
+    (choice==='A' ? cardA : cardB).classList.add('selected-ok');
+  } else {
+    soundWrong();
+    dot.classList.add('wrong');
+    if (choice) (choice==='A' ? cardA : cardB).classList.add('selected-err');
+    (logo.correct==='A' ? cardA : cardB).classList.add('reveal-ok');
+  }
+  step++;
+  setTimeout(() => loadStep(step), 1000);
+}
+
+/* ── FIN ── */
+function endGame() {
+  gameArena.style.opacity = '.25';
+  gameArena.style.pointerEvents = 'none';
+  finalMsg.classList.add('visible');
+  const pct = Math.round(correctCount/TOTAL*100);
+  document.getElementById('final-score').textContent = correctCount + ' / ' + TOTAL;
+  const msgs = [
+    'Los logos guardan sus secretos mejor de lo esperado.',
+    'Nada mal. Algunos logos son muy parecidos.',
+    '¡Muy bien! Tienes buen ojo para los detalles.',
+    '¡Perfecto! Ojo de águila absoluto.'
   ];
-
-  // --- MOTOR DE AUDIO SINTETIZADO ---
-  const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-
-  function playTone(freq, type, start, duration, vol = 0.1) {
-    const osc = audioCtx.createOscillator();
-    const gain = audioCtx.createGain();
-    osc.type = type;
-    osc.frequency.setValueAtTime(freq, start);
-    gain.gain.setValueAtTime(vol, start);
-    gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
-    osc.connect(gain);
-    gain.connect(audioCtx.destination);
-    osc.start(start);
-    osc.stop(start + duration);
+  document.getElementById('final-sub').textContent = msgs[pct===100?3:pct>=75?2:pct>=50?1:0];
+  if (isPreview) {
+    doneBtn.textContent='★'; doneBtn.classList.add('active'); doneBtn.style.opacity='1';
+    localStorage.setItem(DONE_KEY,'1');
+  } else {
+    setTimeout(() => document.getElementById('popup-star-blocked').classList.add('visible'), 400);
   }
+}
 
-  const sounds = {
-    tick: () => {
-      playTone(440, 'sine', audioCtx.currentTime, 0.1, 0.05);
-    },
-    correct: () => {
-      const now = audioCtx.currentTime;
-      // Melodía ascendente elegante (Arpegio Mayor)
-      playTone(523.25, 'triangle', now, 0.3); // Do5
-      playTone(659.25, 'triangle', now + 0.1, 0.3); // Mi5
-      playTone(783.99, 'triangle', now + 0.2, 0.3); // Sol5
-      playTone(1046.50, 'triangle', now + 0.3, 0.5); // Do6
-    },
-    wrong: () => {
-      const now = audioCtx.currentTime;
-      // Melodía descendente sombría
-      playTone(220, 'sawtooth', now, 0.4, 0.05); // La3
-      playTone(207.65, 'sawtooth', now + 0.15, 0.4, 0.05); // Lab3
-      playTone(196, 'sawtooth', now + 0.3, 0.6, 0.05); // Sol3
-    }
-  };
+/* ── REINICIO ── */
+document.getElementById('btn-restart').addEventListener('click', () => {
+  step=0; correctCount=0;
+  gameArena.style.opacity=''; gameArena.style.pointerEvents='';
+  finalMsg.classList.remove('visible');
+  document.querySelectorAll('.prog-dot').forEach(d => { d.className='prog-dot'; });
+  loadStep(0);
+});
 
-  // --- LÓGICA DEL JUEGO ---
-  let currentStep = 0;
-  let timeLeft = 3;
-  let timerLoop;
+/* ── CLICK ── */
+cardA.addEventListener('click', () => { if(!busy) resolve('A'); });
+cardB.addEventListener('click', () => { if(!busy) resolve('B'); });
 
-  const dotsContainer = document.getElementById('dots-container');
-  gameData.forEach((_, i) => {
-    const d = document.createElement('div');
-    d.className = 'dot' + (i === 0 ? ' current' : '');
-    d.id = `dot-${i}`;
-    dotsContainer.appendChild(d);
-  });
+/* ── TECLADO ── */
+document.addEventListener('keydown', e => {
+  if(busy) return;
+  if(e.key==='ArrowLeft')  resolve('A');
+  if(e.key==='ArrowRight') resolve('B');
+});
 
-  function loadChallenge() {
-    if (currentStep >= gameData.length) return;
-    const item = gameData[currentStep];
-    document.getElementById('img-A').src = `../media/${item.n}_A.png`;
-    document.getElementById('img-B').src = `../media/${item.n}_B.png`;
-    startTimer();
-  }
+/* ── SWIPE ── */
+let _tx = null;
+document.addEventListener('touchstart', e => { _tx = e.touches[0].clientX; }, {passive:true});
+document.addEventListener('touchend',   e => {
+  if(_tx===null) return;
+  const dx = e.changedTouches[0].clientX - _tx; _tx=null;
+  if(Math.abs(dx)<40||busy) return;
+  resolve(dx<0 ? 'B' : 'A');
+});
 
-  function startTimer() {
-    timeLeft = 3;
-    updateTimerVisuals();
-    clearInterval(timerLoop);
-    timerLoop = setInterval(() => {
-      timeLeft--;
-      if (timeLeft > 0) sounds.tick();
-      updateTimerVisuals();
-      if (timeLeft <= 0) {
-        clearInterval(timerLoop);
-        selectOption(null);
-      }
-    }, 1000);
-  }
-
-  function updateTimerVisuals() {
-    for (let i = 1; i <= 3; i++) {
-      document.getElementById(`seg-${i}`).classList.toggle('active', i <= timeLeft);
-    }
-  }
-
-  function selectOption(choice) {
-    if (audioCtx.state === 'suspended') audioCtx.resume();
-    clearInterval(timerLoop);
-    
-    const correctChoice = gameData[currentStep].c;
-    const dot = document.getElementById(`dot-${currentStep}`);
-    dot.classList.remove('current');
-
-    if (choice === correctChoice) {
-      sounds.correct();
-      dot.classList.add('correct');
-    } else {
-      sounds.wrong();
-      dot.classList.add('wrong');
-    }
-
-    currentStep++;
-    if (currentStep < gameData.length) {
-      document.getElementById(`dot-${currentStep}`).classList.add('current');
-      setTimeout(loadChallenge, 800);
-    } else {
-      document.querySelector('h1').innerText = "Reto Completado";
-    }
-  }
-
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowLeft') selectOption('A');
-    if (e.key === 'ArrowRight') selectOption('B');
-  });
-
-  loadChallenge();
+/* ── ARRANQUE ── */
+loadStep(0);
 </script>
 </body>
 </html>
