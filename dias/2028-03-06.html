@@ -7,12 +7,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
-    :root{--gold:#C9A84C;--gold-light:#E8C97A;--gold-dark:#8B6914;--cream:#FAF6EE;--dark:#1A1410;--success:#4CAF50;--error:#E05A6A;}
+    :root{--gold:#C9A84C;--gold-light:#E8C97A;--gold-dark:#8B6914;--cream:#FAF6EE;--dark:#1A1410;}
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
     body{background-color:var(--dark);color:var(--cream);font-family:'Cormorant Garamond',serif;min-height:100vh;display:flex;flex-direction:column;}
     body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 25% 15%,rgba(201,168,76,.10) 0%,transparent 55%),radial-gradient(ellipse at 75% 85%,rgba(124,54,38,.10) 0%,transparent 55%);pointer-events:none;z-index:0;}
     .wrap{position:relative;z-index:1;max-width:800px;margin:0 auto;padding:3rem 2rem 4rem;flex:1;display:flex;flex-direction:column;}
-    .day-hero{text-align:center;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:3rem 0 2rem;position:relative;}
+    .day-hero{text-align:center;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 0 2rem;position:relative;}
     .ornament-line-h{display:flex;align-items:center;justify-content:center;gap:1rem;margin-bottom:2rem;}
     .o-line{height:1px;width:60px;background:linear-gradient(to right,transparent,var(--gold));}
     .o-line.r{background:linear-gradient(to left,transparent,var(--gold));}
@@ -20,51 +20,51 @@
     .day-of-week{font-size:.85rem;letter-spacing:.4em;text-transform:uppercase;color:rgba(201,168,76,.5);margin-bottom:1rem;}
     h1{font-family:'Playfair Display',serif;font-size:clamp(3rem,9vw,7rem);font-weight:900;line-height:1;background:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 50%,var(--gold-dark) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.5rem;}
     .month-label{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3.5vw,2.4rem);font-weight:400;font-style:italic;color:rgba(250,246,238,.45);margin-bottom:2.5rem;}
-    .content-area{width:100%;border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:2rem 1.5rem 1.5rem;background:rgba(255,255,255,.02);display:flex;flex-direction:column;align-items:center;gap:1.5rem;}
-    .reto-intro{font-size:1rem;font-style:italic;color:rgba(250,246,238,.5);letter-spacing:.04em;text-align:center;}
+    .content-area{width:100%;border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:2rem;background:rgba(255,255,255,.02);display:flex;flex-direction:column;align-items:center;gap:1.8rem;}
 
-    /* ARENA */
-    .game-arena{width:100%;display:flex;align-items:center;justify-content:center;gap:1.2rem;user-select:none;}
+    /* ── JUEGO: Adivina el logo correcto ── */
+    .logo-intro{font-size:.8rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(201,168,76,.55);}
 
-    /* Tarjetas */
-    .logo-card{flex:1;max-width:260px;aspect-ratio:1/1;background:rgba(255,255,255,.025);border:1.5px solid rgba(201,168,76,.18);border-radius:6px;display:flex;align-items:center;justify-content:center;padding:1.5rem;cursor:pointer;transition:border-color .35s ease,background .35s ease,box-shadow .35s ease;position:relative;overflow:visible;}
-    .logo-card:hover{border-color:var(--gold);background:rgba(201,168,76,.06);box-shadow:0 8px 30px rgba(0,0,0,.4);}
-    .logo-card.selected-ok{border-color:var(--success)!important;background:rgba(76,175,80,.08)!important;}
-    .logo-card.selected-err{border-color:var(--error)!important;background:rgba(224,90,106,.08)!important;}
-    .logo-card.reveal-ok{border-color:var(--success)!important;}
+    .game-arena{width:100%;display:flex;align-items:center;justify-content:center;gap:1.4rem;user-select:none;}
+
+    .logo-card{flex:1;max-width:240px;aspect-ratio:1/1;background:rgba(255,255,255,.02);border:1px solid rgba(201,168,76,.2);border-radius:4px;display:flex;align-items:center;justify-content:center;padding:1.5rem;cursor:pointer;position:relative;transition:border-color .3s,background .3s,box-shadow .3s;}
+    .logo-card:hover{border-color:var(--gold);background:rgba(201,168,76,.05);box-shadow:0 6px 28px rgba(0,0,0,.45);}
+    .logo-card.ok {border-color:#4CAF50!important;background:rgba(76,175,80,.07)!important;}
+    .logo-card.err{border-color:#E05A6A!important;background:rgba(224,90,106,.07)!important;}
     .logo-card img{max-width:100%;max-height:100%;object-fit:contain;pointer-events:none;display:block;transform-origin:center bottom;}
-    .card-label{position:absolute;bottom:.4rem;left:50%;transform:translateX(-50%);font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(201,168,76,.3);font-family:'Playfair Display',serif;}
+    .card-label{position:absolute;bottom:.4rem;left:50%;transform:translateX(-50%);font-family:'Playfair Display',serif;font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(201,168,76,.3);}
 
-    /* Oscilación - aplicada a la imagen dentro de la tarjeta */
+    /* Oscilación: A hacia la derecha, B hacia la izquierda (efecto espejo) */
     @keyframes swayR{0%,100%{transform:rotate(0deg);}50%{transform:rotate(2.5deg);}}
     @keyframes swayL{0%,100%{transform:rotate(0deg);}50%{transform:rotate(-2.5deg);}}
-    .logo-card-A.playing img{animation:swayR 3s cubic-bezier(.45,.05,.55,.95) infinite;}
-    .logo-card-B.playing img{animation:swayL 3s cubic-bezier(.45,.05,.55,.95) infinite;}
+    .logo-card.card-a.playing img{animation:swayR 3s cubic-bezier(.45,.05,.55,.95) infinite;}
+    .logo-card.card-b.playing img{animation:swayL 3s cubic-bezier(.45,.05,.55,.95) infinite;}
 
     /* Barra vertical central */
-    .timer-rail{display:flex;flex-direction:column;gap:5px;height:180px;width:6px;flex-shrink:0;}
-    .timer-seg{flex:1;border-radius:3px;background:rgba(201,168,76,.12);transition:background .5s ease,box-shadow .5s ease;}
-    .timer-seg.on{background:var(--gold);box-shadow:0 0 12px rgba(201,168,76,.55);}
+    .timer-rail{display:flex;flex-direction:column;gap:5px;height:160px;width:5px;flex-shrink:0;}
+    .t-seg{flex:1;border-radius:3px;background:rgba(201,168,76,.12);transition:background .4s ease,box-shadow .4s ease;}
+    .t-seg.on{background:var(--gold);box-shadow:0 0 10px rgba(201,168,76,.5);}
 
     /* Bolitas de progreso */
-    .progress-row{display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap;}
+    .prog-row{display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap;}
     .prog-dot{width:10px;height:10px;border-radius:50%;border:1.5px solid rgba(201,168,76,.3);background:transparent;transition:all .4s ease;}
-    .prog-dot.current{background:var(--gold);border-color:var(--gold-light);transform:scale(1.45);box-shadow:0 0 8px rgba(201,168,76,.55);}
-    .prog-dot.correct{background:var(--success);border-color:var(--success);box-shadow:0 0 8px rgba(76,175,80,.6);transform:scale(1);}
-    .prog-dot.wrong{background:var(--error);border-color:var(--error);box-shadow:0 0 8px rgba(224,90,106,.6);transform:scale(1);}
+    .prog-dot.current{background:var(--gold);border-color:var(--gold-light);transform:scale(1.4);box-shadow:0 0 8px rgba(201,168,76,.5);}
+    .prog-dot.correct{background:#4CAF50;border-color:#4CAF50;box-shadow:0 0 8px rgba(76,175,80,.6);transform:scale(1);}
+    .prog-dot.wrong  {background:#E05A6A;border-color:#E05A6A;box-shadow:0 0 8px rgba(224,90,106,.6);transform:scale(1);}
 
-    /* Resultado final */
-    .final-msg{display:none;flex-direction:column;align-items:center;gap:.8rem;text-align:center;padding:.5rem 0;}
-    .final-msg.visible{display:flex;}
-    .final-score{font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:700;background:linear-gradient(135deg,var(--gold-light),var(--gold),var(--gold-dark));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-    .final-sub{font-style:italic;color:rgba(250,246,238,.5);font-size:.95rem;line-height:1.5;}
-    .btn-restart{margin-top:.4rem;padding:.55rem 1.6rem;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.35);border-radius:2px;color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:all .2s;}
-    .btn-restart:hover{background:rgba(201,168,76,.2);border-color:var(--gold);}
+    /* Pantalla final */
+    .final-wrap{display:none;flex-direction:column;align-items:center;gap:.9rem;text-align:center;}
+    .final-wrap.visible{display:flex;}
+    .final-score{font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:900;background:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 50%,var(--gold-dark) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+    .final-sub{font-style:italic;color:rgba(250,246,238,.5);font-size:1rem;line-height:1.6;}
+    .btn-validar{padding:.55rem 1.4rem;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.35);border-radius:2px;color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:all .2s;}
+    .btn-validar:hover{background:rgba(201,168,76,.2);border-color:var(--gold);}
 
-    /* Nav */
+    /* Nav y utilidades — idénticos al resto del proyecto */
     .day-nav{display:flex;justify-content:space-between;align-items:center;padding-top:2.5rem;border-top:1px solid rgba(201,168,76,.1);margin-top:2.5rem;}
     .nav-btn{font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(201,168,76,.5);text-decoration:none;padding:.6rem 1.2rem;border:1px solid rgba(201,168,76,.18);border-radius:2px;transition:all .2s;}
     .nav-btn:hover{color:var(--gold-light);border-color:rgba(201,168,76,.5);background:rgba(201,168,76,.05);}
+    .nav-btn.disabled{opacity:0;pointer-events:none;}
     .year-badge{font-size:.7rem;letter-spacing:.3em;color:rgba(201,168,76,.25);text-transform:uppercase;}
     .back-link{display:block;text-align:center;margin-top:2rem;color:rgba(201,168,76,.35);font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;text-decoration:none;transition:color .2s;}
     .back-link:hover{color:var(--gold);}
@@ -73,10 +73,10 @@
     .icon-btn:hover{transform:scale(1.2);}
     .fav-btn{color:rgba(250,246,238,.2);}
     .fav-btn.active{color:#e05a6a;}
+    .fav-btn.active:hover{color:#ff7a88;}
     .done-btn{color:var(--gold);opacity:.6;}
     .done-btn.active{color:var(--gold);opacity:1;}
-
-    /* Popups */
+    .done-btn.active:hover{color:var(--gold-light);opacity:1;}
     .popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:100;align-items:center;justify-content:center;}
     .popup-overlay.visible{display:flex;}
     .popup-box{background:var(--dark);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:3rem 2.5rem;max-width:420px;width:90%;text-align:center;box-shadow:0 0 60px rgba(0,0,0,.8);}
@@ -91,10 +91,10 @@
       .day-hero{padding:1rem 0 1rem;}
       h1{font-size:clamp(2rem,14vw,4rem);}
       .month-label{font-size:clamp(1rem,4vw,1.6rem);margin-bottom:1rem;}
-      .content-area{padding:.8rem .8rem 1rem;gap:1rem;}
-      .game-arena{gap:.5rem;}
-      .logo-card{padding:.8rem;max-width:calc(50vw - 40px);}
-      .timer-rail{height:110px;width:5px;}
+      .content-area{padding:1rem;gap:1rem;}
+      .game-arena{gap:.6rem;}
+      .logo-card{padding:.8rem;max-width:calc(50vw - 48px);}
+      .timer-rail{height:110px;}
       .day-nav{margin-top:1rem;padding-top:1rem;}
       .ornament-line-h{margin-bottom:1rem;}
     }
@@ -116,135 +116,157 @@
     <h1>6</h1>
     <p class="month-label">de Marzo</p>
 
-    <div class="content-area" id="content-area">
-      <p class="reto-intro">¿Cuál es el logo auténtico?</p>
+    <div class="content-area">
 
+      <p class="logo-intro">¿Cuál es el logo auténtico?</p>
+
+      <!-- Arena del juego -->
       <div class="game-arena" id="game-arena">
-        <div class="logo-card logo-card-A" id="card-A" role="button" aria-label="Opción A">
-          <img id="img-A" src="" alt="Logo A" draggable="false"/>
+        <div class="logo-card card-a" id="card-a">
+          <img id="img-a" src="" alt="Opción A" draggable="false"/>
           <span class="card-label">A</span>
         </div>
 
-        <div class="timer-rail" id="timer-rail">
-          <div class="timer-seg on" id="seg-3"></div>
-          <div class="timer-seg on" id="seg-2"></div>
-          <div class="timer-seg on" id="seg-1"></div>
+        <div class="timer-rail">
+          <div class="t-seg on" id="seg-3"></div>
+          <div class="t-seg on" id="seg-2"></div>
+          <div class="t-seg on" id="seg-1"></div>
         </div>
 
-        <div class="logo-card logo-card-B" id="card-B" role="button" aria-label="Opción B">
-          <img id="img-B" src="" alt="Logo B" draggable="false"/>
+        <div class="logo-card card-b" id="card-b">
+          <img id="img-b" src="" alt="Opción B" draggable="false"/>
           <span class="card-label">B</span>
         </div>
       </div>
 
-      <div class="progress-row" id="progress-row"></div>
+      <!-- Bolitas de progreso (12 logos) -->
+      <div class="prog-row" id="prog-row"></div>
 
-      <div class="final-msg" id="final-msg">
+      <!-- Pantalla de resultado final -->
+      <div class="final-wrap" id="final-wrap">
         <div class="final-score" id="final-score"></div>
         <p class="final-sub" id="final-sub"></p>
-        <button class="btn-restart" id="btn-restart">Volver a intentarlo</button>
+        <button class="btn-validar" id="btn-reiniciar">Volver a intentarlo</button>
       </div>
-    </div>
 
-  </div>
+    </div><!-- /content-area -->
+  </div><!-- /day-hero -->
 
   <nav class="day-nav">
-    <a class="nav-btn" href="2028-03-05.html">← 5 de Marzo</a>
+    <a class="nav-btn" href="2028-03-05.html">&#8592; 5 de Marzo</a>
     <span class="year-badge">50 Aniversario · 2028</span>
-    <a class="nav-btn" id="next-btn" href="2028-03-07.html">7 de Marzo →</a>
+    <a class="nav-btn" id="next-btn" href="2028-03-07.html">7 de Marzo &#8594;</a>
   </nav>
-  <a class="back-link" href="../index.html">← Volver al Calendario</a>
-
+  <a class="back-link" href="../index.html">&#8592; Volver al Calendario</a>
 </div>
 
-<!-- Popup: día futuro bloqueado -->
+<!-- Popup: día futuro -->
 <div class="popup-overlay" id="popup">
   <div class="popup-box">
-    <div class="popup-icon">🔒</div>
-    <p class="popup-title">¡No seas impaciente!</p>
-    <p class="popup-msg">Este día todavía no ha llegado.<br>Vuelve cuando llegue el momento.</p>
-    <button class="popup-btn" onclick="history.back()">Volver</button>
+    <div class="popup-icon">🎁</div>
+    <p class="popup-title">¡Un poco de paciencia!</p>
+    <p class="popup-msg">No seas impaciente...<br>Este día aún no ha llegado.<br>Ya llegará, y será especial. 🤍</p>
+    <button class="popup-btn" onclick="window.location.href='../index.html'">Volver al calendario</button>
   </div>
 </div>
 
-<!-- Popup: completado sin validar -->
+<!-- Popup: estrella bloqueada -->
 <div class="popup-overlay" id="popup-star-blocked">
   <div class="popup-box">
-    <div class="popup-icon">⭐</div>
+    <div class="popup-icon">🏆</div>
     <p class="popup-title">¡Tu recompensa te espera!</p>
-    <p class="popup-msg">Primero debes resolver el desafío del día para desbloquear tu premio.</p>
-    <button class="popup-btn" onclick="document.getElementById('popup-star-blocked').classList.remove('visible')">Entendido</button>
+    <p class="popup-msg">Para acceder a tu recompensa primero debes resolver el desafío de hoy...<br><br>¡Tú puedes! 💪</p>
+    <button class="popup-btn" id="star-blocked-close">Volver</button>
   </div>
 </div>
 
 <!-- Popup: recompensa -->
 <div class="popup-overlay" id="popup-star-reward">
   <div class="popup-box">
-    <div class="popup-icon">🏆</div>
-    <p class="popup-title">¡Enhorabuena!</p>
+    <div class="popup-icon">🎁</div>
+    <p class="popup-title">¡Tu recompensa!</p>
     <p class="popup-msg">PDTE</p>
-    <button class="popup-btn" onclick="document.getElementById('popup-star-reward').classList.remove('visible')">¡Genial!</button>
+    <button class="popup-btn" id="star-reward-close">¡Genial!</button>
   </div>
 </div>
 
-<!-- Popup: fallo (no usado activamente en este tipo, requerido por arquitectura) -->
+<!-- Popup: fallo (requerido por arquitectura) -->
 <div class="popup-overlay" id="popup-fail">
   <div class="popup-box">
-    <div class="popup-icon">😅</div>
-    <p class="popup-title">¡Casi!</p>
-    <p class="popup-msg">Esa no era la respuesta correcta.</p>
-    <button class="popup-btn" onclick="document.getElementById('popup-fail').classList.remove('visible')">Continuar</button>
+    <div class="popup-icon">🤔</div>
+    <p class="popup-title">¡Casi, casi!</p>
+    <p class="popup-msg">Esa no era la respuesta correcta.<br>¡Sigue intentándolo!</p>
+    <button class="popup-btn" id="fail-close">Continuar</button>
   </div>
 </div>
 
 <script>
-/* ── PREVIEW / BLOQUEO ── */
+// ── Preview / bloqueo ─────────────────────────────────────────
 const PREVIEW_KEY = 'cal_preview';
 const isPreview   = localStorage.getItem(PREVIEW_KEY) === '1';
 const today       = new Date(); today.setHours(0,0,0,0);
 const thisDate    = new Date('2028-03-06'); thisDate.setHours(0,0,0,0);
 const nextDateStr = '2028-03-07';
-
-const _p = new URLSearchParams(location.search);
-if (_p.get('preview') === 'UNLOCK') { localStorage.setItem(PREVIEW_KEY,'1'); location.replace(location.pathname); }
-if (_p.get('preview') === 'off')    { localStorage.removeItem(PREVIEW_KEY);  location.replace(location.pathname); }
+const popup       = document.getElementById('popup');
 
 if (!isPreview && thisDate > today) {
   document.querySelector('.day-hero').style.filter = 'blur(4px)';
   document.querySelector('.day-nav').style.visibility = 'hidden';
-  document.getElementById('popup').classList.add('visible');
+  popup.classList.add('visible');
 }
-
-/* ── FAVORITO / COMPLETADO ── */
-const FAV_KEY  = 'fav_2028-03-06';
-const DONE_KEY = 'done_2028-03-06';
-const favBtn   = document.getElementById('fav-btn');
-const doneBtn  = document.getElementById('done-btn');
-
-if (localStorage.getItem(FAV_KEY)  === '1') { favBtn.textContent='❤'; favBtn.classList.add('active'); }
-if (localStorage.getItem(DONE_KEY) === '1') { doneBtn.textContent='★'; doneBtn.classList.add('active'); doneBtn.style.opacity='1'; }
-
-favBtn.addEventListener('click', () => {
-  const on = favBtn.classList.toggle('active');
-  favBtn.textContent = on ? '❤' : '♡';
-  localStorage.setItem(FAV_KEY, on ? '1' : '0');
-});
-doneBtn.addEventListener('click', () => {
-  if (!isPreview) {
-    if (localStorage.getItem(DONE_KEY) !== '1')
-      document.getElementById('popup-star-blocked').classList.add('visible');
-    else
-      document.getElementById('popup-star-reward').classList.add('visible');
-    return;
+if (!isPreview && nextDateStr) {
+  const nextDate = new Date(nextDateStr); nextDate.setHours(0,0,0,0);
+  if (nextDate > today) {
+    const nextBtn = document.getElementById('next-btn');
+    if (nextBtn) nextBtn.addEventListener('click', e => { e.preventDefault(); popup.classList.add('visible'); });
   }
-  const on = doneBtn.classList.toggle('active');
-  doneBtn.textContent = on ? '★' : '☆';
-  doneBtn.style.opacity = on ? '1' : '.6';
-  localStorage.setItem(DONE_KEY, on ? '1' : '0');
-  if (on) document.getElementById('popup-star-reward').classList.add('visible');
-});
+}
+popup.addEventListener('click', e => { if (e.target === popup) window.location.href = '../index.html'; });
 
-/* ── DATOS ── */
+// ── Favoritos ─────────────────────────────────────────────────
+const FAV_KEY = 'fav_2028-03-06';
+const favBtn  = document.getElementById('fav-btn');
+function updateFav() {
+  const on = localStorage.getItem(FAV_KEY) === '1';
+  favBtn.textContent = on ? '❤' : '♡';
+  favBtn.classList.toggle('active', on);
+  favBtn.title = on ? 'Quitar de favoritos' : 'Añadir a favoritos';
+}
+favBtn.addEventListener('click', () => {
+  const on = localStorage.getItem(FAV_KEY) === '1';
+  on ? localStorage.removeItem(FAV_KEY) : localStorage.setItem(FAV_KEY, '1');
+  updateFav();
+});
+updateFav();
+
+// ── Completado ────────────────────────────────────────────────
+const DONE_KEY         = 'done_2028-03-06';
+const doneBtn          = document.getElementById('done-btn');
+const popupStarBlocked = document.getElementById('popup-star-blocked');
+const popupStarReward  = document.getElementById('popup-star-reward');
+
+document.getElementById('star-blocked-close').addEventListener('click', () => popupStarBlocked.classList.remove('visible'));
+popupStarBlocked.addEventListener('click', e => { if (e.target === popupStarBlocked) popupStarBlocked.classList.remove('visible'); });
+document.getElementById('star-reward-close').addEventListener('click', () => popupStarReward.classList.remove('visible'));
+popupStarReward.addEventListener('click', e => { if (e.target === popupStarReward) popupStarReward.classList.remove('visible'); });
+document.getElementById('fail-close').addEventListener('click', () => document.getElementById('popup-fail').classList.remove('visible'));
+
+function markDone() { localStorage.setItem(DONE_KEY, '1'); updateDone(); }
+function updateDone() {
+  const on = localStorage.getItem(DONE_KEY) === '1';
+  doneBtn.textContent = on ? '★' : '☆';
+  doneBtn.classList.toggle('active', on);
+  doneBtn.title = on ? 'Ver recompensa' : 'Marcar como completado';
+}
+doneBtn.addEventListener('click', () => {
+  const on = localStorage.getItem(DONE_KEY) === '1';
+  if (on)          { popupStarReward.classList.add('visible'); }
+  else if (isPreview) { markDone(); }
+  else             { popupStarBlocked.classList.add('visible'); }
+});
+updateDone();
+
+// ── Datos del juego ───────────────────────────────────────────
 const LOGOS = [
   { name:'Apple',           correct:'A' },
   { name:'BMW',             correct:'A' },
@@ -261,160 +283,140 @@ const LOGOS = [
 ];
 const TOTAL = LOGOS.length;
 
-/* ── AUDIO ── */
-let _audioCtx = null;
-function getAudio() {
-  if (!_audioCtx) _audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  if (_audioCtx.state === 'suspended') _audioCtx.resume();
-  return _audioCtx;
+// ── Audio sintetizado ─────────────────────────────────────────
+let _ctx = null;
+function getCtx() {
+  if (!_ctx) _ctx = new (window.AudioContext || window.webkitAudioContext)();
+  if (_ctx.state === 'suspended') _ctx.resume();
+  return _ctx;
 }
 function tone(freq, type, t0, dur, vol) {
-  vol = vol || 0.08;
-  const ctx = getAudio();
-  const osc = ctx.createOscillator();
-  const g   = ctx.createGain();
+  const ctx = getCtx();
+  const osc = ctx.createOscillator(), g = ctx.createGain();
   osc.type = type; osc.frequency.setValueAtTime(freq, t0);
-  g.gain.setValueAtTime(vol, t0);
-  g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+  g.gain.setValueAtTime(vol || .08, t0);
+  g.gain.exponentialRampToValueAtTime(.0001, t0 + dur);
   osc.connect(g); g.connect(ctx.destination);
   osc.start(t0); osc.stop(t0 + dur);
 }
-function soundTick()    { const t=getAudio().currentTime; tone(380,'sine',t,.08,.04); }
-function soundCorrect() { const t=getAudio().currentTime; tone(523.25,'triangle',t,.25); tone(659.25,'triangle',t+.1,.25); tone(783.99,'triangle',t+.2,.25); tone(1046.5,'triangle',t+.3,.45); }
-function soundWrong()   { const t=getAudio().currentTime; tone(250,'sawtooth',t,.35,.06); tone(220,'sawtooth',t+.15,.35,.06); tone(196,'sawtooth',t+.3,.5,.06); }
+function soundTick()    { const t=getCtx().currentTime; tone(380,'sine',t,.08,.04); }
+function soundCorrect() { const t=getCtx().currentTime; tone(523.25,'triangle',t,.25); tone(659.25,'triangle',t+.1,.25); tone(783.99,'triangle',t+.2,.25); tone(1046.5,'triangle',t+.3,.45); }
+function soundWrong()   { const t=getCtx().currentTime; tone(250,'sawtooth',t,.35,.06); tone(220,'sawtooth',t+.15,.35,.06); tone(196,'sawtooth',t+.3,.5,.06); }
 
-/* ── ESTADO ── */
-let step = 0, timeLeft = 3, timerID = null, busy = false, correctCount = 0;
+// ── Estado ────────────────────────────────────────────────────
+let step=0, timeLeft=3, timerID=null, busy=false, aciertos=0;
 
-const cardA = document.getElementById('card-A');
-const cardB = document.getElementById('card-B');
-const imgA  = document.getElementById('img-A');
-const imgB  = document.getElementById('img-B');
-const progressRow = document.getElementById('progress-row');
-const finalMsg    = document.getElementById('final-msg');
-const gameArena   = document.getElementById('game-arena');
+const cardA    = document.getElementById('card-a');
+const cardB    = document.getElementById('card-b');
+const imgA     = document.getElementById('img-a');
+const imgB     = document.getElementById('img-b');
+const progRow  = document.getElementById('prog-row');
+const finalWrap= document.getElementById('final-wrap');
+const gameArena= document.getElementById('game-arena');
 
-/* ── BOLITAS ── */
-for (let i = 0; i < TOTAL; i++) {
+// Crear bolitas
+for (let i=0; i<TOTAL; i++) {
   const d = document.createElement('div');
-  d.className = 'prog-dot' + (i===0 ? ' current' : '');
-  d.id = 'pdot-' + i;
-  progressRow.appendChild(d);
+  d.className = 'prog-dot' + (i===0?' current':'');
+  d.id = 'pd-'+i;
+  progRow.appendChild(d);
 }
 
-/* ── TEMPORIZADOR ── */
+// ── Temporizador ──────────────────────────────────────────────
 function updateTimer() {
-  for (let i = 1; i <= 3; i++)
-    document.getElementById('seg-'+i).classList.toggle('on', i <= timeLeft);
+  for (let i=1; i<=3; i++)
+    document.getElementById('seg-'+i).classList.toggle('on', i<=timeLeft);
 }
 function startTimer() {
-  clearInterval(timerID);
-  timeLeft = 3;
-  updateTimer();
-  timerID = setInterval(() => {
+  clearInterval(timerID); timeLeft=3; updateTimer();
+  timerID = setInterval(()=>{
     timeLeft--;
-    if (timeLeft > 0) soundTick();
+    if (timeLeft>0) soundTick();
     updateTimer();
-    if (timeLeft <= 0) { clearInterval(timerID); resolve(null); }
+    if (timeLeft<=0) { clearInterval(timerID); resolve(null); }
   }, 1000);
 }
 
-/* ── OSCILACIÓN ── */
-function startSway() { cardA.classList.add('playing'); cardB.classList.add('playing'); }
-function stopSway()  { cardA.classList.remove('playing'); cardB.classList.remove('playing'); }
+// ── Oscilación ────────────────────────────────────────────────
+function startSway(){ cardA.classList.add('playing'); cardB.classList.add('playing'); }
+function stopSway() { cardA.classList.remove('playing'); cardB.classList.remove('playing'); }
 
-/* ── CARGA ── */
+// ── Cargar ronda ──────────────────────────────────────────────
 function loadStep(i) {
-  if (i >= TOTAL) { endGame(); return; }
-  busy = false;
-  const logo = LOGOS[i];
-  imgA.src = '../media/' + logo.name + '_A.png';
-  imgB.src = '../media/' + logo.name + '_B.png';
-  document.querySelectorAll('.prog-dot').forEach(d => d.classList.remove('current'));
-  document.getElementById('pdot-'+i).classList.add('current');
-  cardA.className = 'logo-card logo-card-A';
-  cardB.className = 'logo-card logo-card-B';
-  startSway();
-  startTimer();
+  if (i>=TOTAL) { endGame(); return; }
+  busy=false;
+  const logo=LOGOS[i];
+  imgA.src='../media/'+logo.name+'_A.png';
+  imgB.src='../media/'+logo.name+'_B.png';
+  document.querySelectorAll('.prog-dot').forEach(d=>d.classList.remove('current'));
+  document.getElementById('pd-'+i).classList.add('current');
+  cardA.className='logo-card card-a';
+  cardB.className='logo-card card-b';
+  startSway(); startTimer();
 }
 
-/* ── RESOLVER ── */
+// ── Resolver ──────────────────────────────────────────────────
 function resolve(choice) {
-  if (busy) return;
-  busy = true;
-  clearInterval(timerID);
-  stopSway();
-  const logo = LOGOS[step];
-  const dot  = document.getElementById('pdot-'+step);
+  if (busy) return; busy=true;
+  clearInterval(timerID); stopSway();
+  const logo=LOGOS[step];
+  const dot=document.getElementById('pd-'+step);
   dot.classList.remove('current');
-  if (choice === logo.correct) {
-    soundCorrect();
-    dot.classList.add('correct');
-    correctCount++;
-    (choice==='A' ? cardA : cardB).classList.add('selected-ok');
+  if (choice===logo.correct) {
+    soundCorrect(); dot.classList.add('correct'); aciertos++;
+    (choice==='A'?cardA:cardB).classList.add('ok');
   } else {
-    soundWrong();
-    dot.classList.add('wrong');
-    if (choice) (choice==='A' ? cardA : cardB).classList.add('selected-err');
-    (logo.correct==='A' ? cardA : cardB).classList.add('reveal-ok');
+    soundWrong(); dot.classList.add('wrong');
+    if (choice) (choice==='A'?cardA:cardB).classList.add('err');
+    (logo.correct==='A'?cardA:cardB).classList.add('ok');
   }
   step++;
-  setTimeout(() => loadStep(step), 1000);
+  setTimeout(()=>loadStep(step), 1000);
 }
 
-/* ── FIN ── */
+// ── Fin de juego ──────────────────────────────────────────────
 function endGame() {
-  gameArena.style.opacity = '.25';
-  gameArena.style.pointerEvents = 'none';
-  finalMsg.classList.add('visible');
-  const pct = Math.round(correctCount/TOTAL*100);
-  document.getElementById('final-score').textContent = correctCount + ' / ' + TOTAL;
-  const msgs = [
-    'Los logos guardan sus secretos mejor de lo esperado.',
-    'Nada mal. Algunos logos son muy parecidos.',
-    '¡Muy bien! Tienes buen ojo para los detalles.',
-    '¡Perfecto! Ojo de águila absoluto.'
-  ];
-  document.getElementById('final-sub').textContent = msgs[pct===100?3:pct>=75?2:pct>=50?1:0];
-  if (isPreview) {
-    doneBtn.textContent='★'; doneBtn.classList.add('active'); doneBtn.style.opacity='1';
-    localStorage.setItem(DONE_KEY,'1');
-  } else {
-    setTimeout(() => document.getElementById('popup-star-blocked').classList.add('visible'), 400);
-  }
+  gameArena.style.opacity='.2'; gameArena.style.pointerEvents='none';
+  finalWrap.classList.add('visible');
+  const pct=Math.round(aciertos/TOTAL*100);
+  document.getElementById('final-score').textContent=aciertos+' / '+TOTAL;
+  const msgs=['Los logos guardan sus secretos bien. ¡Inténtalo otra vez!','Nada mal, algunos logos son muy parecidos.','¡Muy bien! Tienes buen ojo para los detalles.','¡Perfecto! Ojo de águila absoluto.'];
+  document.getElementById('final-sub').textContent=msgs[pct===100?3:pct>=75?2:pct>=50?1:0];
+  if (isPreview) { markDone(); }
+  else { setTimeout(()=>popupStarBlocked.classList.add('visible'),500); }
 }
 
-/* ── REINICIO ── */
-document.getElementById('btn-restart').addEventListener('click', () => {
-  step=0; correctCount=0;
+// ── Reinicio ──────────────────────────────────────────────────
+document.getElementById('btn-reiniciar').addEventListener('click',()=>{
+  step=0; aciertos=0;
   gameArena.style.opacity=''; gameArena.style.pointerEvents='';
-  finalMsg.classList.remove('visible');
-  document.querySelectorAll('.prog-dot').forEach(d => { d.className='prog-dot'; });
+  finalWrap.classList.remove('visible');
+  document.querySelectorAll('.prog-dot').forEach(d=>{d.className='prog-dot';});
   loadStep(0);
 });
 
-/* ── CLICK ── */
-cardA.addEventListener('click', () => { if(!busy) resolve('A'); });
-cardB.addEventListener('click', () => { if(!busy) resolve('B'); });
+// ── Interacción: click ────────────────────────────────────────
+cardA.addEventListener('click',()=>{ if(!busy) resolve('A'); });
+cardB.addEventListener('click',()=>{ if(!busy) resolve('B'); });
 
-/* ── TECLADO ── */
-document.addEventListener('keydown', e => {
+// ── Interacción: teclado ──────────────────────────────────────
+document.addEventListener('keydown',e=>{
   if(busy) return;
   if(e.key==='ArrowLeft')  resolve('A');
   if(e.key==='ArrowRight') resolve('B');
 });
 
-/* ── SWIPE ── */
-let _tx = null;
-document.addEventListener('touchstart', e => { _tx = e.touches[0].clientX; }, {passive:true});
-document.addEventListener('touchend',   e => {
+// ── Interacción: swipe táctil ─────────────────────────────────
+let _tx=null;
+document.addEventListener('touchstart',e=>{ _tx=e.touches[0].clientX; },{passive:true});
+document.addEventListener('touchend',e=>{
   if(_tx===null) return;
-  const dx = e.changedTouches[0].clientX - _tx; _tx=null;
+  const dx=e.changedTouches[0].clientX-_tx; _tx=null;
   if(Math.abs(dx)<40||busy) return;
-  resolve(dx<0 ? 'B' : 'A');
+  resolve(dx<0?'B':'A');
 });
 
-/* ── ARRANQUE ── */
+// ── Arranque ──────────────────────────────────────────────────
 loadStep(0);
 </script>
 </body>
