@@ -34,7 +34,7 @@
     .crt-overlay{
       position:absolute;left:2.8%;width:79.8%;top:86.0%;height:11.1%;
       background:transparent;border:none;
-      display:flex;align-items:flex-start;padding:1.5% 2% 0;
+      display:flex;align-items:flex-start;padding:1% 2% 0;
       overflow:hidden;pointer-events:none;z-index:20;
       animation:crt-flicker 7s infinite;
     }
@@ -72,7 +72,7 @@
     .lightbox.visible{display:flex;}
     .lightbox-inner{position:relative;max-width:98vw;max-height:98vh;line-height:0;cursor:pointer;}
     .lightbox-inner img{display:block;max-width:98vw;max-height:98vh;object-fit:contain;user-select:none;}
-    .lightbox-crt{position:absolute;left:2.8%;width:79.8%;top:86.0%;height:11.1%;background:transparent;border:none;display:flex;align-items:flex-start;padding:1.5% 2% 0;overflow:hidden;pointer-events:none;z-index:20;animation:crt-flicker 7s infinite;}
+    .lightbox-crt{position:absolute;left:2.8%;width:79.8%;top:86.0%;height:11.1%;background:transparent;border:none;display:flex;align-items:flex-start;padding:1% 2% 0;overflow:hidden;pointer-events:none;z-index:20;animation:crt-flicker 7s infinite;}
     .lightbox-crt-text{position:relative;z-index:2;display:block;width:100%;font-family:'Share Tech Mono',monospace;font-size:clamp(.9rem,1.4vw,1.1rem);line-height:1.35;color:#33FF33;letter-spacing:.05em;white-space:pre-wrap;word-break:break-word;overflow:visible;text-align:left;text-shadow:0 0 2px #33FF33,0 0 7px rgba(51,255,51,.75),0 0 16px rgba(51,255,51,.35);}
     .lightbox-close{position:fixed;top:1rem;right:1.5rem;background:none;border:none;color:rgba(255,255,255,.5);font-size:2rem;cursor:pointer;z-index:201;line-height:1;transition:color .2s;}
     .lightbox-close:hover{color:white;}
@@ -149,8 +149,37 @@
       background:none;color:var(--gold);font-size:.75rem;letter-spacing:.2em;
       text-transform:uppercase;cursor:pointer;transition:all .2s;}
     .tb-btn:hover{background:rgba(201,168,76,.1);border-color:var(--gold);}
-    /* Alarma roja overlay */
-    @keyframes alarm-pulse{0%,100%{opacity:0;}50%{opacity:.2;}}
+    /* ── Panel de bombillas de progreso ── */
+    @keyframes bulb-triumph{0%,100%{filter:brightness(1) drop-shadow(0 0 4px #39FF14);}50%{filter:brightness(2.2) drop-shadow(0 0 14px #39FF14);}}
+    @keyframes bulb-error  {0%,100%{filter:brightness(1) drop-shadow(0 0 4px #FF2200);}50%{filter:brightness(2.2) drop-shadow(0 0 14px #FF2200);}}
+    .bulb-panel{
+      position:absolute;
+      left:89.84%; width:8.39%;
+      top:88.23%;  height:6.67%;
+      display:flex; align-items:center; justify-content:space-around;
+      padding:0 4%;
+      pointer-events:none; z-index:25;
+    }
+    .bulb{
+      width:22%; aspect-ratio:1;
+      border-radius:50%;
+      background:#2a0a0a;
+      box-shadow:0 0 2px rgba(0,0,0,.8);
+      transition:background .3s, box-shadow .3s;
+      flex-shrink:0;
+    }
+    .bulb.on{
+      background:#39FF14;
+      box-shadow:0 0 6px #39FF14, 0 0 14px rgba(57,255,20,.6);
+    }
+    .bulb.triumph{
+      background:#39FF14;
+      animation:bulb-triumph .35s ease-in-out infinite;
+    }
+    .bulb.error-flash{
+      background:#FF2200;
+      animation:bulb-error .18s steps(1,end) infinite;
+    }
     .alarm-overlay{
       display:none;position:fixed;inset:0;z-index:190;
       background:#FF0000;pointer-events:none;
@@ -226,6 +255,14 @@
         <img src="../media/ER01_EscenarioVisual.jpg" alt="Escape Room"
              id="escenario-img" class="escenario-img" draggable="false"/>
 
+        <!-- Panel de bombillas de progreso (sobre obj_zonaCentro + obj_zonaDerecha) -->
+        <div class="bulb-panel" id="bulb-panel">
+          <div class="bulb" id="bulb-0"></div>
+          <div class="bulb" id="bulb-1"></div>
+          <div class="bulb" id="bulb-2"></div>
+          <div class="bulb" id="bulb-3"></div>
+        </div>
+
         <!-- Consola CRT: overlay sobre obj_consola (x:2.8%..82.6%, y:86%..97%) -->
         <div class="crt-overlay" id="crt-overlay">
           <span class="crt-text" id="crt-text"></span>
@@ -284,6 +321,13 @@
   <button class="lightbox-close" id="lightbox-close">&#10005;</button>
   <div class="lightbox-inner" id="lightbox-inner">
     <img src="../media/ER01_EscenarioVisual.jpg" alt="Escape Room" id="lightbox-img" draggable="false"/>
+    <!-- Panel de bombillas duplicado para el lightbox -->
+    <div class="bulb-panel" id="bulb-panel-lb">
+      <div class="bulb" id="bulb-lb-0"></div>
+      <div class="bulb" id="bulb-lb-1"></div>
+      <div class="bulb" id="bulb-lb-2"></div>
+      <div class="bulb" id="bulb-lb-3"></div>
+    </div>
     <div class="lightbox-crt" id="lightbox-crt">
       <span class="lightbox-crt-text" id="lightbox-crt-text"></span>
     </div>
@@ -380,13 +424,14 @@ updateDone();
 const crtText        = document.getElementById('crt-text');
 const lightboxCrtTxt = document.getElementById('lightbox-crt-text');
 const CURSOR_HTML    = '<span class="crt-cursor"></span>';
-let twTimer = null, twTarget = '', twIdx = 0;
+let twTimer = null, twTarget = '', twIdx = 0, lastRawMsg = '';
 
 function setConsoles(html) {
   crtText.innerHTML        = html;
   lightboxCrtTxt.innerHTML = html;
 }
 function typeWrite(msg) {
+  lastRawMsg = msg;
   const wrapped = wrapMsg(msg);
   if (wrapped === twTarget && twIdx >= twTarget.length) return;
   if (twTimer) { clearTimeout(twTimer); twTimer = null; }
@@ -418,8 +463,8 @@ function startType(msg) {
 }
 // Partir msg en líneas según el ancho real del span (monospace: todos los chars igual)
 function wrapMsg(msg) {
-  const span = crtText;
-  // Medir ancho de 1 carácter en la fuente actual
+  // Usar el span activo según si el lightbox está abierto
+  const span = lbOpen ? lightboxCrtTxt : crtText;
   const tmp = document.createElement('span');
   tmp.style.cssText = 'font-family:"Share Tech Mono",monospace;font-size:' +
     getComputedStyle(span).fontSize + ';letter-spacing:.05em;visibility:hidden;position:absolute;white-space:pre;';
@@ -429,7 +474,6 @@ function wrapMsg(msg) {
   document.body.removeChild(tmp);
   const containerW = span.getBoundingClientRect().width || span.parentElement.getBoundingClientRect().width;
   const cols = charW > 0 ? Math.max(10, Math.floor(containerW / charW)) : 47;
-  // Partir respetando palabras
   const words = msg.split(' ');
   const lines = [];
   let cur = '';
@@ -438,7 +482,6 @@ function wrapMsg(msg) {
       cur += (cur ? ' ' : '') + w;
     } else {
       if (cur) lines.push(cur);
-      // palabra más larga que la línea: cortar a cols
       let rem = w;
       while (rem.length > cols) { lines.push(rem.slice(0, cols)); rem = rem.slice(cols); }
       cur = rem;
@@ -467,6 +510,7 @@ function resetTarjeta() {
   tbEscrita.style.display = 'none';
   tbSello.style.display   = 'none';
   tbEl.style.display      = 'none';
+  // Las bombillas se resetean vía bulbsErrorAndReset (ya lo gestiona el lector)
 }
 
 // ── Mapa de colores ───────────────────────────────────────────
@@ -507,8 +551,8 @@ const HOVER_MSG = {
   obj_cajonLleno:       '[ CAJ\u00d3N ]',
   obj_puerta:           '[ PUERTA DE SALIDA ]',
   obj_zonaIzquierda:    null,
-  obj_zonaCentro:       null,
-  obj_zonaDerecha:      null,
+  obj_zonaCentro:       '[ INDICADORES DE PROGRESO ]',
+  obj_zonaDerecha:      '[ INDICADORES DE PROGRESO ]',
   obj_consola:          null,
 };
 function hexToRgb(h){ return {r:parseInt(h.slice(0,2),16),g:parseInt(h.slice(2,4),16),b:parseInt(h.slice(4,6),16)}; }
@@ -557,35 +601,51 @@ function showImgOverlay(src, onClose) {
   inner.classList.add('zooming');
   document.body.style.overflow = 'hidden';
 }
-function hideImgOverlay() {
+function hideImgOverlay(runChain) {
   lbOverlay.classList.remove('visible');
   document.body.style.overflow = '';
   lbImg.src = '';
   const cb = lbChainCallback;
   lbChainCallback = null;
-  if (cb) setTimeout(cb, 80);
+  if (runChain && cb) setTimeout(cb, 80);
 }
-lbClose.addEventListener('click', e => { e.stopPropagation(); hideImgOverlay(); });
-lbOverlay.addEventListener('click', () => hideImgOverlay());
+lbClose.addEventListener('click', e => { e.stopPropagation(); hideImgOverlay(false); });
+lbOverlay.addEventListener('click', e => {
+  // click en el fondo (no en la imagen ni en el botón X) → cierra sin chain
+  if (e.target === lbOverlay) hideImgOverlay(false);
+});
+// click en la imagen → cierra CON chain (para cajonPostit → Postit)
+document.getElementById('lb-img').addEventListener('click', e => {
+  e.stopPropagation();
+  hideImgOverlay(true);
+});
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') {
-    if (lbOverlay.classList.contains('visible')) { hideImgOverlay(); }
+    if (lbOverlay.classList.contains('visible')) { hideImgOverlay(false); }
     else { closeLightbox(); }
   }
 });
 
 // ── Interacción con el escenario ──────────────────────────────
 let lastAlias = null;
+let dropHoverBlock = false;
 
 function onHover(alias) {
+  if (dropHoverBlock) return;
   if (alias === lastAlias) return;
   lastAlias = alias;
   if (alias && HOVER_MSG[alias]) { typeWrite('> ' + HOVER_MSG[alias]); }
   else if (!alias) { clearConsole(); }
 }
 
+function blockHoverBriefly() {
+  dropHoverBlock = true;
+  lastAlias = null; // forzar que el próximo hover sí actualice
+  setTimeout(() => { dropHoverBlock = false; }, 1200);
+}
+
 escImg.addEventListener('mousemove', e => { onHover(getAlias(e.clientX, e.clientY, escImg)); });
-escImg.addEventListener('mouseleave', () => { lastAlias=null; clearConsole(); });
+escImg.addEventListener('mouseleave', () => { if (!dropHoverBlock) { lastAlias=null; clearConsole(); } });
 escImg.addEventListener('click', e => { const a=getAlias(e.clientX,e.clientY,escImg); if(a) handleClick(a); });
 escImg.addEventListener('touchmove', e => { e.preventDefault(); const t=e.touches[0]; onHover(getAlias(t.clientX,t.clientY,escImg)); },{passive:false});
 escImg.addEventListener('touchend', () => { lastAlias=null; clearConsole(); });
@@ -621,6 +681,8 @@ function openLightbox() {
   lightboxImg.addEventListener('mousemove', onLbMove);
   lightboxImg.addEventListener('mouseleave', onLbLeave);
   lightboxImg.addEventListener('click', onLbClick);
+  // Recalcular partición de texto para el tamaño del lightbox
+  if (lastRawMsg) setTimeout(() => { if(lbOpen) typeWrite(lastRawMsg); }, 50);
 }
 function closeLightbox() {
   if (!lbOpen) return;
@@ -646,6 +708,8 @@ function closeLightbox() {
   lightboxImg.removeEventListener('mousemove', onLbMove);
   lightboxImg.removeEventListener('mouseleave', onLbLeave);
   lightboxImg.removeEventListener('click', onLbClick);
+  // Recalcular partición de texto para el tamaño normal
+  if (lastRawMsg) setTimeout(() => { if(!lbOpen) typeWrite(lastRawMsg); }, 50);
 }
 function onLbMove(e)  { onHover(getAlias(e.clientX,e.clientY,lightboxImg)); }
 function onLbLeave()  { lastAlias=null; clearConsole(); }
@@ -657,7 +721,52 @@ function onLbClick(e) {
 document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
 lightbox.addEventListener('click', e => { if(e.target===lightbox) closeLightbox(); });
 
-// ── Alarma de error ────────────────────────────────────────────
+// ── Panel de bombillas ────────────────────────────────────────
+const BULBS    = [0,1,2,3].map(i => document.getElementById('bulb-' + i));
+const BULBS_LB = [0,1,2,3].map(i => document.getElementById('bulb-lb-' + i));
+let bulbCount = 0; // 0..4 bombillas encendidas
+
+function allBulbs(fn) {
+  BULBS.forEach((b,i) => fn(b, BULBS_LB[i], i));
+}
+
+function setBulbState(idx, state) {
+  // state: 'off' | 'on' | 'triumph' | 'error-flash'
+  [BULBS[idx], BULBS_LB[idx]].forEach(b => {
+    b.className = 'bulb' + (state !== 'off' ? ' ' + state : '');
+  });
+}
+
+function lightNextBulb() {
+  if (bulbCount >= 4) return;
+  setBulbState(bulbCount, 'on');
+  bulbCount++;
+}
+
+function bulbsTriumph() {
+  allBulbs((b, lb) => {
+    b.className  = 'bulb triumph';
+    lb.className = 'bulb triumph';
+  });
+}
+
+function bulbsErrorAndReset() {
+  // 1. Flash rojo
+  allBulbs((b, lb) => {
+    b.className  = 'bulb error-flash';
+    lb.className = 'bulb error-flash';
+  });
+  // 2. Tras 1.8s volver a apagadas
+  setTimeout(() => {
+    bulbCount = 0;
+    allBulbs((b, lb) => {
+      b.className  = 'bulb';
+      lb.className = 'bulb';
+    });
+  }, 1800);
+}
+
+
 const alarmOverlay = document.getElementById('alarm-overlay');
 
 function triggerError(msgInicial, msgFinal) {
@@ -668,6 +777,7 @@ function triggerError(msgInicial, msgFinal) {
   alarmOverlay.classList.remove('active');
   void alarmOverlay.offsetWidth;
   alarmOverlay.classList.add('active');
+  alarmOverlay.addEventListener('animationend', () => alarmOverlay.classList.remove('active'), {once:true});
   // 3. Screen shake
   escWrap.classList.remove('shaking');
   void escWrap.offsetWidth;
@@ -722,6 +832,7 @@ tbBtnOk.addEventListener('click', () => {
   tarjetablanca.texto = val;
   tbEscrita.style.display = 'block';
   cerrarTextbox();
+  lightNextBulb(); // bombilla 2
   typeWrite('> Código impreso. Espero que no te hayas equivocado de tecla, porque borrar aquí es un poco complicado...');
 });
 tbInputField.addEventListener('keydown', e => { if(e.key==='Enter') tbBtnOk.click(); if(e.key==='Escape') cerrarTextbox(); });
@@ -744,6 +855,7 @@ function handleClick(alias) {
         tbEl.style.display = 'block';
         posicionarEnObjeto('obj_tarjetasMesa');
         tarjetablanca.ubicacion = 'obj_tarjetasMesa';
+        lightNextBulb(); // bombilla 1
       } else {
         typeWrite('> Más tarjetas, como la que ya tienes. Antes de andar cogiendo otra, ¿por qué no usas la que ya has tomado? No seas ansias.');
       }
@@ -767,25 +879,7 @@ function handleClick(alias) {
       break;
 
     case 'obj_lectorTarjetas':
-      if (tarjetablanca.texto === '' || tarjetablanca.sello === false) {
-        triggerError(
-          '> LECTURA ERRÓNEA: Tarjeta no válida.',
-          '> Empieza de nuevo y la próxima vez asegúrate de presentar una tarjeta con el código correcto Y debidamente sellada. No aceptamos trabajos a medias.'
-        );
-        setTimeout(() => resetTarjeta(), 2200);
-      } else {
-        const codigo = normalizarTexto(tarjetablanca.texto);
-        if (codigo === 'ENIGMA') {
-          typeWrite('> ¡¡LO HAS LOGRADO!! Quién lo habría dicho... parece que al final sí que sirves para algo. La puerta se abre por fin, ya puedes escapar antes de que se arrepientan.');
-          // TODO: marcar día como completado
-        } else {
-          triggerError(
-            '> LECTURA ERRÓNEA: Código incorrecto.',
-            '> El código de salida no es válido. ¿Seguro que sabes leer? Revisa bien ese Post-it, anda.'
-          );
-          setTimeout(() => resetTarjeta(), 2200);
-        }
-      }
+      typeWrite('> El lector brilla con impaciencia. ¿Tienes alguna tarjeta a mano? Si es que sí, tráela y le echamos un vistazo.');
       break;
 
     case 'obj_puerta':
@@ -872,6 +966,7 @@ function handleDrop(alias) {
       tarjetablanca.sello = true;
       tbSello.style.display = 'block';
       posicionarEnObjeto('obj_selloGoma');
+      lightNextBulb(); // bombilla 3
       if (tarjetablanca.texto !== '') {
         typeWrite('> ¡PUM! Vale, con el código y el sello ya parece un documento oficial de verdad. Ahora prueba suerte en el lector, a ver si hay alguien al otro lado.');
       } else {
@@ -882,8 +977,29 @@ function handleDrop(alias) {
     case 'obj_lectorTarjetas':
       tarjetablanca.ubicacion = 'obj_lectorTarjetas';
       posicionarEnObjeto('obj_lectorTarjetas');
-      // Delegar en el click handler que ya tiene toda la lógica
-      handleClick('obj_lectorTarjetas');
+      if (tarjetablanca.texto === '' || tarjetablanca.sello === false) {
+        bulbsErrorAndReset();
+        triggerError(
+          '> LECTURA ERRÓNEA: Tarjeta no válida.',
+          '> Empieza de nuevo y la próxima vez asegúrate de presentar una tarjeta con el código correcto Y debidamente sellada. No aceptamos trabajos a medias.'
+        );
+        setTimeout(() => resetTarjeta(), 2200);
+      } else {
+        const codigo = normalizarTexto(tarjetablanca.texto);
+        if (codigo === 'ENIGMA') {
+          lightNextBulb();    // bombilla 4
+          bulbsTriumph();
+          typeWrite('> ¡¡LO HAS LOGRADO!! Quién lo habría dicho... parece que al final sí que sirves para algo. La puerta se abre por fin, ya puedes escapar antes de que se arrepientan.');
+          // TODO: marcar día como completado
+        } else {
+          bulbsErrorAndReset();
+          triggerError(
+            '> LECTURA ERRÓNEA: Código incorrecto.',
+            '> El código de salida no es válido. ¿Seguro que sabes leer? Revisa bien ese Post-it, anda.'
+          );
+          setTimeout(() => resetTarjeta(), 2200);
+        }
+      }
       break;
 
     default:
@@ -917,8 +1033,9 @@ document.addEventListener('mouseup', e => {
   drag = null;
   tbEl.style.cursor = 'grab';
   tbEl.style.zIndex = 30;
-  const a = getAlias(e.clientX, e.clientY, escImg);
-  if (a) handleDrop(a);
+  const activeImg = lbOpen ? lightboxImg : escImg;
+  const a = getAlias(e.clientX, e.clientY, activeImg);
+  if (a) { blockHoverBriefly(); handleDrop(a); }
 });
 
 // Drag & drop — touch
@@ -940,8 +1057,9 @@ document.addEventListener('touchend', e => {
   drag = null;
   tbEl.style.zIndex = 30;
   const t = e.changedTouches[0];
-  const a = getAlias(t.clientX, t.clientY, escImg);
-  if (a) handleDrop(a);
+  const activeImg = lbOpen ? lightboxImg : escImg;
+  const a = getAlias(t.clientX, t.clientY, activeImg);
+  if (a) { blockHoverBriefly(); handleDrop(a); }
 });
 </script>
 </body>
