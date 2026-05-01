@@ -35,8 +35,8 @@
     .card-label{position:absolute;bottom:.4rem;left:50%;transform:translateX(-50%);font-family:'Playfair Display',serif;font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(201,168,76,.3);}
 
     /* Oscilación: A hacia la derecha, B hacia la izquierda (efecto espejo) */
-    @keyframes swayR{0%,100%{transform:rotate(0deg);}50%{transform:rotate(2.5deg);}}
-    @keyframes swayL{0%,100%{transform:rotate(0deg);}50%{transform:rotate(-2.5deg);}}
+    @keyframes swayR{0%{transform:rotate(0deg);}50%{transform:rotate(15deg);}100%{transform:rotate(-15deg);}}
+    @keyframes swayL{0%{transform:rotate(0deg);}50%{transform:rotate(-15deg);}100%{transform:rotate(15deg);}}
     .logo-card.card-a.playing img{animation:swayR 3s cubic-bezier(.45,.05,.55,.95) infinite;}
     .logo-card.card-b.playing img{animation:swayL 3s cubic-bezier(.45,.05,.55,.95) infinite;}
 
