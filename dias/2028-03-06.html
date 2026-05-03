@@ -33,6 +33,7 @@
     .logo-card.err{border-color:#E05A6A!important;background:rgba(224,90,106,.07)!important;}
     .logo-card img{max-width:100%;max-height:100%;object-fit:contain;pointer-events:none;display:block;transform-origin:center bottom;}
     .card-label{position:absolute;bottom:.4rem;left:50%;transform:translateX(-50%);font-family:'Playfair Display',serif;font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(201,168,76,.3);}
+    .brand-name{font-family:'Cormorant Garamond',serif;font-size:1rem;font-style:italic;color:rgba(250,246,238,.45);letter-spacing:.05em;text-align:center;min-height:1.4em;}
 
     /* Oscilación: A hacia la derecha, B hacia la izquierda (efecto espejo) */
     @keyframes swayR{0%{transform:rotate(0deg);}50%{transform:rotate(10deg);}100%{transform:rotate(-10deg);}}
@@ -138,6 +139,8 @@
           <span class="card-label">B</span>
         </div>
       </div>
+
+      <p class="brand-name" id="brand-name"></p>
 
       <!-- Bolitas de progreso (12 logos) -->
       <div class="prog-row" id="prog-row"></div>
@@ -277,20 +280,26 @@ doneBtn.addEventListener('click', () => {
 updateDone();
 
 // ── Datos del juego ───────────────────────────────────────────
-const LOGOS = [
-  { name:'Apple',           correct:'A' },
-  { name:'BMW',             correct:'A' },
-  { name:'Chanel',          correct:'B' },
-  { name:'DominosPizza',    correct:'B' },
-  { name:'Google',          correct:'B' },
-  { name:'Instagram',       correct:'B' },
-  { name:'JuegosOlimpicos', correct:'B' },
-  { name:'Microsoft',       correct:'A' },
-  { name:'Rolex',           correct:'A' },
-  { name:'Santander',       correct:'A' },
-  { name:'Tesla',           correct:'A' },
-  { name:'Tiktok',          correct:'A' },
+const LOGOS_BASE = [
+  { name:'Apple',           label:"Apple",           correct:'A' },
+  { name:'BMW',             label:"BMW",             correct:'A' },
+  { name:'Chanel',          label:"Chanel",          correct:'B' },
+  { name:'DominosPizza',    label:"Domino's Pizza",  correct:'B' },
+  { name:'Google',          label:"Google",          correct:'B' },
+  { name:'Instagram',       label:"Instagram",       correct:'B' },
+  { name:'JuegosOlimpicos', label:"Juegos Olímpicos",correct:'B' },
+  { name:'Microsoft',       label:"Microsoft",       correct:'A' },
+  { name:'Rolex',           label:"Rolex",           correct:'A' },
+  { name:'Santander',       label:"Santander",       correct:'A' },
+  { name:'Tesla',           label:"Tesla",           correct:'A' },
+  { name:'Tiktok',          label:"TikTok",          correct:'A' },
 ];
+function shuffle(arr) {
+  const a=[...arr];
+  for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}
+  return a;
+}
+let LOGOS = shuffle(LOGOS_BASE);
 const TOTAL = LOGOS.length;
 
 // ── Audio sintetizado ─────────────────────────────────────────
@@ -358,6 +367,7 @@ function loadStep(i) {
   const logo=LOGOS[i];
   imgA.src='../media/'+logo.name+'_A.png';
   imgB.src='../media/'+logo.name+'_B.png';
+  document.getElementById('brand-name').textContent=logo.label;
   document.querySelectorAll('.prog-dot').forEach(d=>d.classList.remove('current'));
   document.getElementById('pd-'+i).classList.add('current');
   cardA.className='logo-card card-a';
@@ -403,6 +413,7 @@ function endGame() {
 // ── Reinicio ──────────────────────────────────────────────────
 document.getElementById('btn-reiniciar').addEventListener('click',()=>{
   step=0; aciertos=0;
+  LOGOS = shuffle(LOGOS_BASE);
   gameArena.style.opacity=''; gameArena.style.pointerEvents='';
   finalWrap.classList.remove('visible');
   document.getElementById('btn-reiniciar').style.display='';
