@@ -102,22 +102,41 @@
       background:linear-gradient(225deg,#d0d0d0 50%,transparent 50%);
     }
     .tarjeta-blanca:active{cursor:grabbing;}
-    /* Marca de escritura (puntitos) */
+    /* Marca de escritura: texto ABC vertical negro bold */
     .tarjeta-blanca .tb-escrita{
       position:absolute;inset:0;pointer-events:none;
-      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='7'%3E%3Cpath d='M0 3.5 Q5 0 10 3.5 Q15 7 20 3.5 Q25 0 30 3.5 Q35 7 40 3.5' fill='none' stroke='%23000000' stroke-width='1.2'/%3E%3C/svg%3E");
-      background-size:40px 7px;background-position:0 16px;background-repeat:repeat-x;
-      opacity:0.6;clip-path:inherit;
+      display:flex;align-items:center;justify-content:center;
+      clip-path:inherit;
     }
-    /* Marca de sello (círculo verde) */
+    .tarjeta-blanca .tb-escrita::after{
+      content:'A B C';
+      writing-mode:vertical-rl;
+      text-orientation:mixed;
+      font-family:Arial,sans-serif;
+      font-weight:900;
+      font-size:13px;
+      color:#000;
+      letter-spacing:2px;
+      line-height:1;
+    }
+    /* Marca de sello: esquina inferior izquierda con check */
     .tarjeta-blanca .tb-sello{
-      position:absolute;top:50%;left:50%;
-      width:22px;height:22px;
-      transform:translate(-50%,-50%);
+      position:absolute;
+      bottom:5px;left:5px;
+      width:16px;height:16px;
+      transform:none;
       border-radius:50%;
       border:2px solid #2a9d2a;
       background:rgba(42,157,42,0.18);
       pointer-events:none;
+      display:flex;align-items:center;justify-content:center;
+    }
+    .tarjeta-blanca .tb-sello::after{
+      content:'✓';
+      font-size:9px;
+      color:#2a9d2a;
+      font-weight:900;
+      line-height:1;
     }
     /* Textbox para código */
     .tb-input-wrap{
@@ -152,9 +171,8 @@
     /* ── Icono expandir/contraer (obj_zonaIzquierda) ── */
     .expand-icon{
       position:absolute;
-      /* centrado en obj_zonaIzquierda: cx=60.13%, cy=68.26% */
-      left:calc(60.13% - 18px);
-      top:calc(68.26% - 18px);
+      left:calc(86.59% - 18px);
+      top:calc(91.76% - 18px);
       width:36px; height:36px;
       pointer-events:auto;
       cursor:pointer;
@@ -1047,7 +1065,7 @@ tbBtnOk.addEventListener('click', () => {
   const val = normalizarTexto(tbInputField.value);
   if (!val) return;
   tarjetablanca.texto = val;
-  tbEscrita.style.display = 'block';
+  tbEscrita.style.display = 'flex';
   cerrarTextbox();
   lightNextBulb(); // bombilla 2
   typeWrite(m('codigoImpreso'));
@@ -1102,6 +1120,7 @@ function handleClick(alias) {
     case 'obj_puerta':
       if (puertaAbierta) {
         markDone();
+        tbEl.style.display = 'none';
         if (lbOpen) {
           closeLightbox();
           setTimeout(() => popupStarReward.classList.add('visible'), 350);
@@ -1163,8 +1182,8 @@ function posicionarEnObjeto(alias) {
   // Coordenadas medidas del clickmap (en % de la imagen)
   const POSICIONES = {
     obj_tarjetasMesa:    { cx: 46.4, cy: 43.3 },
-    obj_maquinaEscribir: { cx: 75.0, cy: 91.6 },
-    obj_selloGoma:       { cx: 96.6, cy: 91.6 },
+    obj_maquinaEscribir: { cx: 54.18, cy: 34.75 },
+    obj_selloGoma:       { cx: 70.39, cy: 40.73 },
     obj_lectorTarjetas:  { cx: 58.3, cy: 38.0 },
   };
   const pos = POSICIONES[alias];
@@ -1191,7 +1210,7 @@ function handleDrop(alias) {
     case 'obj_selloGoma':
       tarjetablanca.ubicacion = 'obj_selloGoma';
       tarjetablanca.sello = true;
-      tbSello.style.display = 'block';
+      tbSello.style.display = 'flex';
       posicionarEnObjeto('obj_selloGoma');
       lightNextBulb(); // bombilla 3
       if (tarjetablanca.texto !== '') {
