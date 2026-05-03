@@ -102,38 +102,36 @@
       background:linear-gradient(225deg,#d0d0d0 50%,transparent 50%);
     }
     .tarjeta-blanca:active{cursor:grabbing;}
-    /* Marca de escritura: texto ABC vertical negro bold */
+    /* Marca de escritura: texto ABC vertical negro bold, letras rectas, pegado a la derecha */
     .tarjeta-blanca .tb-escrita{
-      position:absolute;inset:0;pointer-events:none;
-      display:flex;align-items:center;justify-content:center;
-      clip-path:inherit;
+      position:absolute;
+      top:6px; right:4px; bottom:6px;
+      width:14px;
+      pointer-events:none;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:1px;
+      clip-path:none;
     }
-    .tarjeta-blanca .tb-escrita::after{
-      content:'A B C';
-      writing-mode:vertical-rl;
-      text-orientation:mixed;
-      font-family:Arial,sans-serif;
-      font-weight:900;
-      font-size:13px;
-      color:#000;
-      letter-spacing:2px;
-      line-height:1;
-    }
-    /* Marca de sello: esquina inferior izquierda con check */
+    .tarjeta-blanca .tb-escrita::before{ content:'A'; font-family:Arial,sans-serif; font-weight:900; font-size:10px; color:#000; line-height:1; }
+    .tarjeta-blanca .tb-escrita::after { content:'B C'; font-family:Arial,sans-serif; font-weight:900; font-size:10px; color:#000; line-height:1; white-space:pre; }
+    /* Marca de sello: esquina inferior derecha con check */
     .tarjeta-blanca .tb-sello{
       position:absolute;
-      bottom:5px;left:5px;
-      width:16px;height:16px;
+      bottom:5px; right:4px;
+      width:14px; height:14px;
       transform:none;
       border-radius:50%;
       border:2px solid #2a9d2a;
       background:rgba(42,157,42,0.18);
       pointer-events:none;
-      display:flex;align-items:center;justify-content:center;
+      display:flex; align-items:center; justify-content:center;
     }
     .tarjeta-blanca .tb-sello::after{
       content:'✓';
-      font-size:9px;
+      font-size:8px;
       color:#2a9d2a;
       font-weight:900;
       line-height:1;
@@ -870,6 +868,12 @@ function updateExpandIcon() {
 // Inicializar en estado compacto
 updateExpandIcon();
 
+// Hover directo en el icono (independiente del clickmap)
+expandIcon.addEventListener('mouseenter', () => typeWrite('> ' + HOVER_MSG['obj_zonaIzquierda']));
+expandIcon.addEventListener('mouseleave', () => { lastAlias = null; clearConsole(); });
+expandIconLb.addEventListener('mouseenter', () => typeWrite('> ' + HOVER_MSG['obj_zonaIzquierda']));
+expandIconLb.addEventListener('mouseleave', () => { lastAlias = null; clearConsole(); });
+
 // Click en el icono del escenario normal → abrir lightbox
 expandIcon.addEventListener('click', e => {
   e.stopPropagation();
@@ -885,58 +889,29 @@ function openLightbox() {
   lbOpen = true;
   lightbox.classList.add('visible');
   document.body.style.overflow = 'hidden';
-  // Mover tarjeta al lightbox-inner para que sea visible encima del escenario ampliado
+  // Mover tarjeta al lightbox-inner; la posición se recalcula desde tbPosPct
   const lbInner = document.getElementById('lightbox-inner');
-  // Calcular posición relativa actual en escWrap y replicarla en lbInner
-  const tbLeft = parseFloat(tbEl.style.left) || 0;
-  const tbTop  = parseFloat(tbEl.style.top)  || 0;
-  const ww = escWrap.offsetWidth  || 1;
-  const wh = escWrap.offsetHeight || 1;
-  tbEl._savedParent   = tbEl.parentElement;
-  tbEl._savedLeft     = tbEl.style.left;
-  tbEl._savedTop      = tbEl.style.top;
-  tbEl._savedPosition = tbEl.style.position;
   lbInner.appendChild(tbEl);
-  // Posicionar proporcionalmente en el nuevo contenedor (se actualizará tras render)
-  requestAnimationFrame(() => {
-    const lw = lbInner.offsetWidth  || ww;
-    const lh = lbInner.offsetHeight || wh;
-    tbEl.style.left = (tbLeft / ww * lw) + 'px';
-    tbEl.style.top  = (tbTop  / wh * lh) + 'px';
-  });
+  requestAnimationFrame(() => applyTbPct());
   lightboxImg.addEventListener('mousemove', onLbMove);
   lightboxImg.addEventListener('mouseleave', onLbLeave);
   lightboxImg.addEventListener('click', onLbClick);
   updateExpandIcon();
-  // Recalcular partición de texto para el tamaño del lightbox
   if (lastRawMsg) setTimeout(() => { if(lbOpen) typeWrite(lastRawMsg); }, 50);
 }
 function closeLightbox() {
   if (!lbOpen) return;
   lbOpen = false;
   lastAlias=null; clearConsole();
-  // Devolver tarjeta al escenario original ANTES de ocultar el lightbox
-  if (tbEl._savedParent) {
-    const lbInner = document.getElementById('lightbox-inner');
-    // Leer dimensiones mientras todavía es visible
-    const lw = lbInner.offsetWidth  || 1;
-    const lh = lbInner.offsetHeight || 1;
-    const tbLeft = parseFloat(tbEl.style.left) || 0;
-    const tbTop  = parseFloat(tbEl.style.top)  || 0;
-    const ww = escWrap.offsetWidth  || lw;
-    const wh = escWrap.offsetHeight || lh;
-    tbEl._savedParent.appendChild(tbEl);
-    tbEl.style.left = (tbLeft / lw * ww) + 'px';
-    tbEl.style.top  = (tbTop  / lh * wh) + 'px';
-    tbEl._savedParent = null;
-  }
+  // Devolver tarjeta al escenario y recalcular posición desde tbPosPct
+  escWrap.appendChild(tbEl);
+  requestAnimationFrame(() => applyTbPct());
   lightbox.classList.remove('visible');
   document.body.style.overflow = '';
   lightboxImg.removeEventListener('mousemove', onLbMove);
   lightboxImg.removeEventListener('mouseleave', onLbLeave);
   lightboxImg.removeEventListener('click', onLbClick);
   updateExpandIcon();
-  // Recalcular partición de texto para el tamaño normal
   if (lastRawMsg) setTimeout(() => { if(!lbOpen) typeWrite(lastRawMsg); }, 50);
 }
 function onLbMove(e)  { onHover(getAlias(e.clientX,e.clientY,lightboxImg)); }
@@ -1120,7 +1095,6 @@ function handleClick(alias) {
     case 'obj_puerta':
       if (puertaAbierta) {
         markDone();
-        tbEl.style.display = 'none';
         if (lbOpen) {
           closeLightbox();
           setTimeout(() => popupStarReward.classList.add('visible'), 350);
@@ -1176,23 +1150,30 @@ function clampTb(left, top) {
   };
 }
 
-// Posiciones iniciales en px desde esquina sup-izq del escenario (% del wrap)
-// obj_tarjetasMesa centro: ~48% x, ~43% y — centramos la tarjeta (42x56px) sobre él
+// Posiciones en % del contenedor activo (escWrap o lightbox-inner)
+const POSICIONES = {
+  obj_tarjetasMesa:    { cx: 36.85, cy: 36.08 },
+  obj_maquinaEscribir: { cx: 54.18, cy: 34.75 },
+  obj_selloGoma:       { cx: 70.39, cy: 40.73 },
+  obj_lectorTarjetas:  { cx: 58.3,  cy: 38.0  },
+};
+// Porcentaje guardado para re-aplicar al cambiar de contenedor (normal <-> lightbox)
+let tbPosPct = null; // { cx, cy } o null
+
+function getActiveTbContainer() {
+  return lbOpen ? document.getElementById('lightbox-inner') : escWrap;
+}
+function applyTbPct() {
+  if (!tbPosPct) return;
+  const c = getActiveTbContainer();
+  tbEl.style.left = (tbPosPct.cx / 100 * c.offsetWidth  - tbEl.offsetWidth  / 2) + 'px';
+  tbEl.style.top  = (tbPosPct.cy / 100 * c.offsetHeight - tbEl.offsetHeight / 2) + 'px';
+}
 function posicionarEnObjeto(alias) {
-  // Coordenadas medidas del clickmap (en % de la imagen)
-  const POSICIONES = {
-    obj_tarjetasMesa:    { cx: 46.4, cy: 43.3 },
-    obj_maquinaEscribir: { cx: 54.18, cy: 34.75 },
-    obj_selloGoma:       { cx: 70.39, cy: 40.73 },
-    obj_lectorTarjetas:  { cx: 58.3, cy: 38.0 },
-  };
   const pos = POSICIONES[alias];
   if (!pos) return;
-  // Convertir % a px restando la mitad del tamaño de la tarjeta para centrarla
-  const ww = escWrap.offsetWidth;
-  const wh = escWrap.offsetHeight;
-  tbEl.style.left = (pos.cx/100 * ww - 21) + 'px';
-  tbEl.style.top  = (pos.cy/100 * wh - 28) + 'px';
+  tbPosPct = { cx: pos.cx, cy: pos.cy };
+  applyTbPct();
   tarjetablanca.ubicacion = alias;
 }
 
@@ -1236,6 +1217,7 @@ function handleDrop(alias) {
           typeWrite(m('exito'));
           puertaAbierta = true;
           playVictory();
+          tbEl.style.display = 'none'; // tarjeta desaparece al abrir la puerta
           // Cambiar imagen del escenario a la versión con puerta abierta
           escImg.src = '../media/ER01_EscenarioVisualOK.jpg';
           document.getElementById('lightbox-img').src = '../media/ER01_EscenarioVisualOK.jpg';
@@ -1284,6 +1266,14 @@ document.addEventListener('mouseup', e => {
   const activeImg = lbOpen ? lightboxImg : escImg;
   const a = getAlias(e.clientX, e.clientY, activeImg);
   if (a) { blockHoverBriefly(); handleDrop(a); }
+  else {
+    // Drag libre: actualizar tbPosPct con la posición actual
+    const c = getActiveTbContainer();
+    tbPosPct = {
+      cx: (tbEl.offsetLeft + tbEl.offsetWidth  / 2) / (c.offsetWidth  || 1) * 100,
+      cy: (tbEl.offsetTop  + tbEl.offsetHeight / 2) / (c.offsetHeight || 1) * 100,
+    };
+  }
 });
 
 // Drag & drop — touch
@@ -1308,6 +1298,13 @@ document.addEventListener('touchend', e => {
   const activeImg = lbOpen ? lightboxImg : escImg;
   const a = getAlias(t.clientX, t.clientY, activeImg);
   if (a) { blockHoverBriefly(); handleDrop(a); }
+  else {
+    const c = getActiveTbContainer();
+    tbPosPct = {
+      cx: (tbEl.offsetLeft + tbEl.offsetWidth  / 2) / (c.offsetWidth  || 1) * 100,
+      cy: (tbEl.offsetTop  + tbEl.offsetHeight / 2) / (c.offsetHeight || 1) * 100,
+    };
+  }
 });
 </script>
 </body>
