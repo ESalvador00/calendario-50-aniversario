@@ -12,8 +12,8 @@
     html,body{height:100%;}
     body{background-color:var(--dark);color:var(--cream);font-family:'Cormorant Garamond',serif;min-height:100vh;display:flex;flex-direction:column;overflow-x:hidden;}
     body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 25% 15%,rgba(201,168,76,.10) 0%,transparent 55%),radial-gradient(ellipse at 75% 85%,rgba(124,54,38,.10) 0%,transparent 55%);pointer-events:none;z-index:0;}
-    .wrap{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:2rem 1.5rem 3rem;flex:1;display:flex;flex-direction:column;}
-    .day-hero{text-align:center;position:relative;padding-bottom:1rem;}
+    .wrap{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:1.2rem 1.5rem 2rem;flex:1;display:flex;flex-direction:column;}
+    .day-hero{text-align:center;position:relative;padding-bottom:.6rem;}
     .ornament-line-h{display:flex;align-items:center;justify-content:center;gap:1rem;margin-bottom:1.2rem;}
     .o-line{height:1px;width:60px;background:linear-gradient(to right,transparent,var(--gold));}
     .o-line.r{background:linear-gradient(to left,transparent,var(--gold));}
@@ -35,7 +35,7 @@
     .timer-bar-outer{flex:1;height:6px;background:rgba(201,168,76,.12);border-radius:3px;overflow:hidden;}
     .timer-bar-inner{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--gold-dark),var(--gold),var(--gold-light));transition:width .5s linear,background .5s;}
     .timer-bar-inner.urgent{background:linear-gradient(90deg,#8B1414,#e05a6a,#ff9090);}
-    .rosco-wrap{position:relative;width:min(52vw,52vh,360px);height:min(52vw,52vh,360px);flex-shrink:0;}
+    .rosco-wrap{position:relative;width:min(56vw,calc(100vh - 340px),420px);height:min(56vw,calc(100vh - 340px),420px);flex-shrink:0;}
     .rosco-svg{width:100%;height:100%;}
     .pregunta-wrap{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:23%;}
     .pregunta-txt{font-family:'Cormorant Garamond',serif;font-size:clamp(.6rem,.85vw + .35rem,.95rem);font-style:italic;color:rgba(250,246,238,.75);text-align:center;line-height:1.4;}
@@ -68,22 +68,27 @@
     .popup-btn:hover{background:rgba(201,168,76,.1);border-color:var(--gold);}
     .popup-btn.secondary{color:rgba(250,246,238,.4);border-color:rgba(250,246,238,.15);}
     @media(max-width:600px){
-      .wrap{padding:1rem .8rem 1.5rem;}
-      .rosco-wrap{width:min(82vw,300px);height:min(82vw,300px);}
-      .content-area{padding:.7rem .5rem;gap:.6rem;}
-      h1{font-size:clamp(2rem,11vw,3.5rem);}
+      .wrap{padding:.8rem .8rem 1.2rem;}
+      .rosco-wrap{width:min(86vw,calc(100vh - 320px),300px);height:min(86vw,calc(100vh - 320px),300px);}
+      .content-area{padding:.7rem .5rem;gap:.5rem;}
+      h1{font-size:clamp(1.8rem,10vw,3rem);}
+      .month-label{font-size:clamp(.9rem,3.5vw,1.4rem);}
+      .ornament-line-h{margin-bottom:.6rem;}
       .input-row{flex-wrap:wrap;}
       .respuesta-input{min-width:0;width:100%;order:1;}
       .btn-pasa{order:2;flex:1;}
       .btn-contesta{order:3;flex:1;}
     }
     @media(max-height:680px) and (orientation:landscape){
-      .wrap{padding:.5rem 1rem .8rem;}
-      h1{font-size:1.8rem;}
-      .month-label,.day-of-week,.ornament-line-h{display:none;}
-      .rosco-wrap{width:min(40vh,280px);height:min(40vh,280px);}
-      .content-area{gap:.45rem;padding:.5rem;}
-      .day-nav{padding-top:.6rem;}
+      .wrap{padding:.4rem 1rem .6rem;}
+      h1{font-size:1.6rem;}
+      .month-label{font-size:.9rem;margin-bottom:.1rem;}
+      .day-of-week{font-size:.65rem;margin-bottom:.2rem;}
+      .ornament-line-h{margin-bottom:.4rem;}
+      .rosco-wrap{width:min(44vh,calc(100vh - 180px),320px);height:min(44vh,calc(100vh - 180px),320px);}
+      .content-area{gap:.35rem;padding:.4rem;}
+      .day-nav{padding-top:.5rem;}
+      .back-link{margin-top:.6rem;}
     }
   </style>
 </head>
@@ -117,9 +122,9 @@
       </div>
     </div>
     <div class="score-row">
-      <span class="score-ok"   id="score-ok">&#10003; 0</span>
-      <span class="score-err"  id="score-err">&#10007; 0</span>
-      <span class="score-skip" id="score-skip">&#8635; 0</span>
+      <span class="score-ok"   id="score-ok">&#x2713; 0</span>
+      <span class="score-err"  id="score-err">&#x2717; 0</span>
+      <span class="score-skip" id="score-skip">&#x21BB; 12</span>
     </div>
     <div class="input-row">
       <button class="btn-pasa"     id="btn-pasa">Pasapalabra</button>
@@ -342,9 +347,9 @@ function mostrarPregunta(){
 function updateScore(){
   let ok=0,err=0,pend=0;
   LETRAS_ACTIVAS.forEach(l=>{const s=estado[l];if(s==='ok')ok++;else if(s==='err')err++;else if(s==='pending')pend++;});
-  document.getElementById('score-ok').textContent='&#10003; '+ok;
-  document.getElementById('score-err').textContent='&#10007; '+err;
-  document.getElementById('score-skip').textContent='&#8635; '+pend;
+  document.getElementById('score-ok').innerHTML='&#x2713; '+ok;
+  document.getElementById('score-err').innerHTML='&#x2717; '+err;
+  document.getElementById('score-skip').innerHTML='&#x21BB; '+pend;
 }
 
 function updateTimerUI(){
