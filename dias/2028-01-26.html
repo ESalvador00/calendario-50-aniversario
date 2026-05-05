@@ -425,9 +425,9 @@ function contestar(){
   const letra=LETRAS_ACTIVAS[orden[posicion]];
   const resp=normalize(document.getElementById('respuesta-input').value);
   if(!resp){document.getElementById('respuesta-input').focus();return;}
-  const correct=normalize(PREGUNTAS_MAP[letra].respuesta);
-  estado[letra]=(resp===correct)?'ok':'err';
-  if(resp===correct) soundCorrect(); else soundWrong();
+  const correctas=[].concat(PREGUNTAS_MAP[letra].respuesta).map(normalize);
+  estado[letra]=correctas.includes(resp)?'ok':'err';
+  if(correctas.includes(resp)) soundCorrect(); else soundWrong();
   dibujarRosco();updateScore();
   const quedan=LETRAS_ACTIVAS.some(l=>estado[l]==='pending');
   if(!quedan){setTimeout(()=>finJuego('completo'),450);return;}
