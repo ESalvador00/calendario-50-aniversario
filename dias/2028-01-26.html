@@ -14,13 +14,13 @@
     body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 25% 15%,rgba(201,168,76,.10) 0%,transparent 55%),radial-gradient(ellipse at 75% 85%,rgba(124,54,38,.10) 0%,transparent 55%);pointer-events:none;z-index:0;}
     .wrap{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:1.2rem 1.5rem 2rem;flex:1;display:flex;flex-direction:column;}
     .day-hero{text-align:center;position:relative;padding-bottom:.6rem;}
-    .ornament-line-h{display:flex;align-items:center;justify-content:center;gap:1rem;margin-bottom:1.2rem;}
-    .o-line{height:1px;width:60px;background:linear-gradient(to right,transparent,var(--gold));}
+    .ornament-line-h{display:flex;align-items:center;justify-content:center;gap:1rem;margin-bottom:.8rem;}
+    .o-line{height:1px;width:50px;background:linear-gradient(to right,transparent,var(--gold));}
     .o-line.r{background:linear-gradient(to left,transparent,var(--gold));}
     .o-dot{width:5px;height:5px;background:var(--gold);border-radius:50%;}
-    .day-of-week{font-size:.8rem;letter-spacing:.4em;text-transform:uppercase;color:rgba(201,168,76,.5);margin-bottom:.6rem;}
-    h1{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,7vw,5rem);font-weight:900;line-height:1;background:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 50%,var(--gold-dark) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.3rem;}
-    .month-label{font-family:'Playfair Display',serif;font-size:clamp(1.1rem,2.8vw,1.9rem);font-weight:400;font-style:italic;color:rgba(250,246,238,.45);}
+    .day-of-week{font-size:.85rem;letter-spacing:.4em;text-transform:uppercase;color:rgba(201,168,76,.5);margin-bottom:1rem;}
+    h1{font-family:'Playfair Display',serif;font-size:clamp(3rem,9vw,7rem);font-weight:900;line-height:1;background:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 50%,var(--gold-dark) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.5rem;}
+    .month-label{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3.5vw,2.4rem);font-weight:400;font-style:italic;color:rgba(250,246,238,.45);margin-bottom:.5rem;}
     .action-btns{position:absolute;top:0;right:0;display:flex;flex-direction:column;align-items:center;gap:.2rem;}
     .icon-btn{background:none;border:none;cursor:pointer;font-size:2rem;line-height:1;transition:color .2s,transform .2s;padding:.2rem;}
     .icon-btn:hover{transform:scale(1.2);}
@@ -28,14 +28,14 @@
     .fav-btn.active{color:#e05a6a;}
     .done-btn{color:var(--gold);opacity:.6;}
     .done-btn.active{color:var(--gold);opacity:1;}
-    .content-area{width:100%;border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:1.2rem 1rem;background:rgba(255,255,255,.02);display:flex;flex-direction:column;align-items:center;gap:.9rem;flex:1;}
+    .content-area{width:100%;border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:1.2rem 1rem;background:rgba(255,255,255,.02);display:flex;flex-direction:column;align-items:center;gap:.9rem;min-height:min(calc(100vh - 280px),700px);}
     .timer-row{display:flex;align-items:center;gap:.8rem;width:100%;max-width:420px;}
     .timer-display{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:var(--gold-light);min-width:2.5ch;text-align:center;line-height:1;}
     .timer-display.urgent{color:#e05a6a;}
     .timer-bar-outer{flex:1;height:6px;background:rgba(201,168,76,.12);border-radius:3px;overflow:hidden;}
     .timer-bar-inner{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--gold-dark),var(--gold),var(--gold-light));transition:width .5s linear,background .5s;}
     .timer-bar-inner.urgent{background:linear-gradient(90deg,#8B1414,#e05a6a,#ff9090);}
-    .rosco-wrap{position:relative;width:min(56vw,calc(100vh - 340px),420px);height:min(56vw,calc(100vh - 340px),420px);flex-shrink:0;}
+    .rosco-wrap{position:relative;width:min(60vw,calc(100vh - 300px),480px);height:min(60vw,calc(100vh - 300px),480px);flex-shrink:0;}
     .rosco-svg{width:100%;height:100%;}
     .pregunta-wrap{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:23%;}
     .pregunta-txt{font-family:'Cormorant Garamond',serif;font-size:clamp(.6rem,.85vw + .35rem,.95rem);font-style:italic;color:rgba(250,246,238,.75);text-align:center;line-height:1.4;}
@@ -69,11 +69,11 @@
     .popup-btn.secondary{color:rgba(250,246,238,.4);border-color:rgba(250,246,238,.15);}
     @media(max-width:600px){
       .wrap{padding:.8rem .8rem 1.2rem;}
-      .rosco-wrap{width:min(86vw,calc(100vh - 320px),300px);height:min(86vw,calc(100vh - 320px),300px);}
-      .content-area{padding:.7rem .5rem;gap:.5rem;}
-      h1{font-size:clamp(1.8rem,10vw,3rem);}
-      .month-label{font-size:clamp(.9rem,3.5vw,1.4rem);}
-      .ornament-line-h{margin-bottom:.6rem;}
+      .rosco-wrap{width:min(88vw,calc(100vh - 300px),340px);height:min(88vw,calc(100vh - 300px),340px);}
+      .content-area{padding:.7rem .5rem;gap:.5rem;min-height:min(calc(100vh - 260px),600px);}
+      h1{font-size:clamp(2rem,10vw,3.5rem);}
+      .month-label{font-size:clamp(1rem,3.5vw,1.6rem);margin-bottom:.2rem;}
+      .ornament-line-h{margin-bottom:.5rem;}
       .input-row{flex-wrap:wrap;}
       .respuesta-input{min-width:0;width:100%;order:1;}
       .btn-pasa{order:2;flex:1;}
@@ -84,11 +84,11 @@
       h1{font-size:1.6rem;}
       .month-label{font-size:.9rem;margin-bottom:.1rem;}
       .day-of-week{font-size:.65rem;margin-bottom:.2rem;}
-      .ornament-line-h{margin-bottom:.4rem;}
-      .rosco-wrap{width:min(44vh,calc(100vh - 180px),320px);height:min(44vh,calc(100vh - 180px),320px);}
-      .content-area{gap:.35rem;padding:.4rem;}
+      .ornament-line-h{margin-bottom:.3rem;}
+      .rosco-wrap{width:min(50vh,calc(100vh - 160px),360px);height:min(50vh,calc(100vh - 160px),360px);}
+      .content-area{gap:.3rem;padding:.5rem;min-height:min(calc(100vh - 160px),500px);}
       .day-nav{padding-top:.5rem;}
-      .back-link{margin-top:.6rem;}
+      .back-link{margin-top:.5rem;}
     }
   </style>
 </head>
@@ -231,6 +231,26 @@ function markDone(){ localStorage.setItem(DONE_KEY,'1'); updateDone(); }
 function updateDone(){ const on=localStorage.getItem(DONE_KEY)==='1'; doneBtn.innerHTML=on?'&#9733;':'&#9734;'; doneBtn.classList.toggle('active',on); }
 doneBtn.addEventListener('click',()=>{ const on=localStorage.getItem(DONE_KEY)==='1'; if(on) popupStarReward.classList.add('visible'); else if(isPreview) markDone(); else popupStarBlocked.classList.add('visible'); });
 updateDone();
+
+// ── Audio sintetizado ─────────────────────────────────────────
+let _ctx = null;
+function getCtx() {
+  if (!_ctx) _ctx = new (window.AudioContext || window.webkitAudioContext)();
+  if (_ctx.state === 'suspended') _ctx.resume();
+  return _ctx;
+}
+function tone(freq, type, t0, dur, vol) {
+  const ctx = getCtx();
+  const osc = ctx.createOscillator(), g = ctx.createGain();
+  osc.type = type; osc.frequency.setValueAtTime(freq, t0);
+  g.gain.setValueAtTime(vol || .08, t0);
+  g.gain.exponentialRampToValueAtTime(.0001, t0 + dur);
+  osc.connect(g); g.connect(ctx.destination);
+  osc.start(t0); osc.stop(t0 + dur);
+}
+function soundCorrect() { const t=getCtx().currentTime; tone(523.25,'triangle',t,.25); tone(659.25,'triangle',t+.1,.25); tone(783.99,'triangle',t+.2,.25); tone(1046.5,'triangle',t+.3,.45); }
+function soundWrong()   { const t=getCtx().currentTime; tone(250,'sawtooth',t,.35,.06); tone(220,'sawtooth',t+.15,.35,.06); tone(196,'sawtooth',t+.3,.5,.06); }
+function soundPasa()    { const t=getCtx().currentTime; tone(440,'sine',t,.08,.05); tone(400,'sine',t+.09,.12,.04); }
 
 // Normalización
 function normalize(s){
@@ -396,6 +416,7 @@ function siguienteLetraPendiente(){
 
 document.getElementById('btn-pasa').addEventListener('click',()=>{
   if(!juegoActivo)return;
+  soundPasa();
   siguienteLetraPendiente();
 });
 
@@ -406,6 +427,7 @@ function contestar(){
   if(!resp){document.getElementById('respuesta-input').focus();return;}
   const correct=normalize(PREGUNTAS_MAP[letra].respuesta);
   estado[letra]=(resp===correct)?'ok':'err';
+  if(resp===correct) soundCorrect(); else soundWrong();
   dibujarRosco();updateScore();
   const quedan=LETRAS_ACTIVAS.some(l=>estado[l]==='pending');
   if(!quedan){setTimeout(()=>finJuego('completo'),450);return;}
