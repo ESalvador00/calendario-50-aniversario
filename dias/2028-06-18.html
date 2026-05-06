@@ -343,6 +343,11 @@ function getIndGlobal() {
   return '' + indTemperatura + indPresion + indRadiacion;
 }
 
+// Conteo de interruptores activos (se recalcula en cada toggle)
+function getLineasActivas() {
+  return [sw01,sw02,sw03,sw04,sw05,sw06,sw07,sw08,sw09,sw10,sw11,sw12].filter(Boolean).length;
+}
+
 // ── Actualizar imagen de interruptor ─────────────────────────
 function updateSwImg(n, isOn) {
   const padded = String(n).padStart(2,'0');
@@ -417,14 +422,74 @@ const MSG = {
                   '> TEMPERATURA: {val}C. Critico: >85C.',
                   '> TEMPERATURA: {val}C',
                   '> TEMP: {val}C'],
+  tempMal:       ['> Temperatura fuera de rango. Esto sigue lejos de ser estable.',
+                  '> Temperatura incorrecta. El sistema sigue inestable.',
+                  '> Temperatura incorrecta. Aun inestable.',
+                  '> Temperatura incorrecta.'],
+  tempBienSistMal: ['> Temperatura en nivel optimo. Lastima que el resto del sistema no acompane.',
+                    '> Temperatura correcta. El sistema sigue inestable.',
+                    '> Temperatura correcta. Sistema inestable.',
+                    '> Temperatura correcta.'],
+  tempBienSistBien:['> Temperatura estable. Todos los sistemas responden correctamente. Puedes intentar el reinicio.',
+                    '> Temperatura estable. Sistema listo para reinicio.',
+                    '> Temperatura estable. Sistema listo.',
+                    '> Temperatura estable.'],
   presion:       ['> PRESION: {val} bar. Nivel critico: >100 bar. Desactiva interruptores de presion.',
                   '> PRESION: {val} bar. Critico: >100 bar.',
                   '> PRESION: {val} bar',
                   '> PRES: {val} bar'],
+  presionMal:    ['> Presion inestable. Nada critico aun... pero no pinta bien.',
+                  '> Presion incorrecta. El sistema no esta estable.',
+                  '> Presion incorrecta. Sistema inestable.',
+                  '> Presion incorrecta.'],
+  presionBienSistMal: ['> Presion dentro de valores correctos. El resto del sistema no parece tan fino.',
+                       '> Presion correcta. El sistema sigue inestable.',
+                       '> Presion correcta. Sistema inestable.',
+                       '> Presion correcta.'],
+  presionBienSistBien:['> Presion estabilizada. Todos los parametros en rango. Puedes proceder al reinicio.',
+                       '> Presion estable. Sistema listo para reinicio.',
+                       '> Presion estable. Sistema listo.',
+                       '> Presion estable.'],
   radiacion:     ['> RADIACION: {val} mSv. Umbral de alerta: >10 mSv. Desactiva los sistemas de carga.',
                   '> RADIACION: {val} mSv. Alerta: >10 mSv.',
                   '> RADIACION: {val} mSv',
                   '> RAD: {val} mSv'],
+  radMal:        ['> Radiacion elevada. No es el mejor momento para quedarse aqui.',
+                  '> Radiacion incorrecta. El sistema sigue inestable.',
+                  '> Radiacion incorrecta. Sistema inestable.',
+                  '> Radiacion incorrecta.'],
+  radBienSistMal:['> Radiacion bajo control. Si el resto acompanara, esto ya estaria resuelto.',
+                  '> Radiacion correcta. El sistema sigue inestable.',
+                  '> Radiacion correcta. Sistema inestable.',
+                  '> Radiacion correcta.'],
+  radBienSistBien:['> Radiacion estabilizada. Todos los sistemas en rango. Puedes intentar el reinicio.',
+                   '> Radiacion estable. Sistema listo para reinicio.',
+                   '> Radiacion estable. Sistema listo.',
+                   '> Radiacion estable.'],
+  swActivado:    ['> Interruptor activado. A ver si esto mejora algo... o lo empeora.',
+                  '> Interruptor activado. Veremos que cambia.',
+                  '> Interruptor activado. Cambios en curso.',
+                  '> Interruptor activado.'],
+  swDesactivado: ['> Interruptor desactivado. Puede que acabes de arreglar algo... o no.',
+                  '> Interruptor desactivado. Veremos si ayuda.',
+                  '> Interruptor desactivado. Cambios en curso.',
+                  '> Interruptor desactivado.'],
+  lectorSobrecarga:['> Sobrecarga en el circuito. Demasiadas lineas activas. Deja solo la imprescindible, no es tan dificil.',
+                    '> Sobrecarga detectada. Demasiadas lineas activas. Deja solo una.',
+                    '> Sobrecarga. Demasiadas lineas activas. Deja solo una.',
+                    '> Sobrecarga. Deja una linea.'],
+  lectorSinEnergia:['> Sin suministro electrico. El lector no recibe energia. Asi no vas a ninguna parte.',
+                    '> Sin energia. El lector no funciona.',
+                    '> Sin energia. Lector inactivo.',
+                    '> Sin energia.'],
+  lectorLineaMal:['> Energia detectada, pero la linea no responde al lector. Vas cerca, pero no es esa.',
+                  '> Energia presente, pero linea incorrecta.',
+                  '> Energia incorrecta.',
+                  '> Linea incorrecta.'],
+  lectorOK:      ['> Energia suficiente. Lector biometrico operativo. Por fin algo funciona como deberia.',
+                  '> Energia suficiente. Lector operativo.',
+                  '> Energia correcta. Lector activo.',
+                  '> Lector operativo.'],
   lector:        ['> LECTOR BIOMETRICO — Acceso restringido. Se requiere autorizacion para continuar.',
                   '> LECTOR BIOMETRICO — Acceso restringido.',
                   '> LECTOR BIOMETRICO — Restringido.',
@@ -734,17 +799,47 @@ function handleClick(alias) {
       }
       break;
     case 'objTemperatura':
-      typeWrite(m('temperatura', {val: indTemperatura}));
+      if (indTemperatura !== 53) {
+        typeWrite(m('tempMal'));
+      } else if (getIndGlobal() !== '53705') {
+        typeWrite(m('tempBienSistMal'));
+      } else {
+        typeWrite(m('tempBienSistBien'));
+      }
       break;
     case 'objPresion':
-      typeWrite(m('presion', {val: indPresion}));
+      if (indPresion !== 70) {
+        typeWrite(m('presionMal'));
+      } else if (getIndGlobal() !== '53705') {
+        typeWrite(m('presionBienSistMal'));
+      } else {
+        typeWrite(m('presionBienSistBien'));
+      }
       break;
     case 'objRadiacion':
-      typeWrite(m('radiacion', {val: indRadiacion}));
+      if (indRadiacion !== 5) {
+        typeWrite(m('radMal'));
+      } else if (getIndGlobal() !== '53705') {
+        typeWrite(m('radBienSistMal'));
+      } else {
+        typeWrite(m('radBienSistBien'));
+      }
       break;
-    case 'objLector':
-      typeWrite(m('lector'));
+    case 'objLector': {
+      const lineas = getLineasActivas();
+      if (lineas > 1) {
+        typeWrite(m('lectorSobrecarga'));
+      } else if (lineas === 0) {
+        typeWrite(m('lectorSinEnergia'));
+      } else if (!sw12) {
+        typeWrite(m('lectorLineaMal'));
+      } else {
+        typeWrite(m('lectorOK'));
+        swVitrinaAbierto = true;
+        // TO-DO: Pulsar lector biometrico y abrir vitrina manual seguridad
+      }
       break;
+    }
     case 'objLibreta':
       typeWrite(m('libreta'));
       setTimeout(() => showImgOverlay('../media/ER02_Libreta.jpg'), 300);
@@ -785,7 +880,8 @@ function toggleSwitch(n) {
   setSwState(n, newState);
   updateSwImg(n, newState);
   playClick();
-  typeWrite(newState ? m('swOn',{n}) : m('swOff',{n}));
+  typeWrite(newState ? m('swActivado') : m('swDesactivado'));
+  // TO-DO: Actualizar indicadores y mostrar por monitor
   console.log('[SW' + String(n).padStart(2,'0') + '] → ' + (newState ? 'ON' : 'OFF'));
 }
 </script>
