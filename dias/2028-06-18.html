@@ -332,12 +332,16 @@ updateDone();
 
 // ── Variables de estado globales ──────────────────────────────
 let swVitrinaAbierto = false;
-let indTemperatura   = 90;
-let indPresion       = 112;
-let indRadiacion     = 12;
+let indTemperatura   = 104;
+let indPresion       = 116;
+let indRadiacion     = 17;
 let sw01=true, sw02=true, sw03=true, sw04=true, sw05=true, sw06=true;
 let sw07=true, sw08=true, sw09=true, sw10=true, sw11=true, sw12=true;
 let sistemaReseteado = false;
+// Concatenación de los tres indicadores (se recalcula cada vez que cambian)
+function getIndGlobal() {
+  return '' + indTemperatura + indPresion + indRadiacion;
+}
 
 // ── Actualizar imagen de interruptor ─────────────────────────
 function updateSwImg(n, isOn) {
@@ -401,14 +405,14 @@ function getCtx() {
 
 // Mensajes [pcMax, pcNorm, mobHoriz, mobVert]
 const MSG = {
-  manual:        ['> MANUAL DE SEGURIDAD NUCLEAR. La vitrina esta cerrada. Debes encontrar como abrirla primero.',
-                  '> MANUAL DE SEGURIDAD. La vitrina esta cerrada. Busca como abrirla.',
-                  '> MANUAL DE SEGURIDAD. La vitrina esta cerrada.',
-                  '> Abre la vitrina primero.'],
-  manualVer:     ['> Consultando manual de seguridad nuclear...',
-                  '> Consultando manual de seguridad...',
-                  '> Consultando manual...',
-                  '> Abriendo manual...'],
+  manualBloqueado: ['> Protegido tras cierre de seguridad. Usa el lector biometrico para abrir la vitrina.',
+                    '> Cierre activo. Manual inaccesible. Usa el lector biometrico para abrirlo.',
+                    '> Manual bloqueado por seguridad. Activa el lector biometrico.',
+                    '> Bloqueado. Usa lector biometrico.'],
+  manualAbierto:   ['> Manual operativo accesible. Lee todo con atencion. Aqui nada esta puesto por casualidad.',
+                    '> Manual disponible. Lee bien. Cada detalle importa.',
+                    '> Manual abierto. No pases nada por alto.',
+                    '> Manual abierto. Lee con atencion.'],
   temperatura:   ['> TEMPERATURA: {val}C. Nivel critico: >85C. Desactiva interruptores de carga termica.',
                   '> TEMPERATURA: {val}C. Critico: >85C.',
                   '> TEMPERATURA: {val}C',
@@ -429,14 +433,18 @@ const MSG = {
                   '> REGISTRO PERSONAL. Contiene anotaciones del turno.',
                   '> REGISTRO PERSONAL del operario.',
                   '> Registro del operario.'],
-  secundarios:   ['> SISTEMAS SECUNDARIOS de refrigeracion. Controla subsistemas auxiliares.',
-                  '> SISTEMAS SECUNDARIOS de refrigeracion.',
-                  '> SISTEMAS SECUNDARIOS',
-                  '> Subsistemas auxiliares.'],
-  reset:         ['> PANEL DE AUTORIZACION DE RESET. Introduce el codigo correcto para iniciar el reinicio.',
-                  '> PANEL DE AUTORIZACION. Introduce el codigo de reset.',
-                  '> PANEL DE AUTORIZACION.',
-                  '> Introduce el codigo.'],
+  secundarios:   ['> Indicadores secundarios. Mucho ruido, poca utilidad. Si te apetece experimentar sin sentido, adelante.',
+                  '> Indicadores secundarios. Mucho ruido. Puedes probar suerte... pero no esperes resultados.',
+                  '> Indicadores secundarios. Mucho ruido. No parece que ayuden demasiado.',
+                  '> Mucho ruido. Poca utilidad.'],
+  resetBloqueado:['> Sistema inestable. El panel de autorizacion esta bloqueado. Estabiliza el sistema antes de intentar nada inteligente.',
+                  '> Sistema inestable. Panel bloqueado. Estabiliza primero, luego hablamos de codigos.',
+                  '> Sistema inestable. Panel bloqueado. Primero estabiliza el sistema.',
+                  '> Inestable. Panel bloqueado.'],
+  resetEstable:  ['> Sistema estable. Introduce el codigo para reiniciar el sistema. No lo estropees ahora.',
+                  '> Sistema estable. Introduce el codigo para reiniciar. Intenta no fallar.',
+                  '> Sistema estable. Introducir codigo para reiniciar.',
+                  '> Sistema estable. Introducir codigo.'],
   swOn:          ['> INTERRUPTOR {n} — ON. Sistema activo. Desactivalo para reducir la carga del reactor.',
                   '> INTERRUPTOR {n} ON. Desactivalo para reducir carga.',
                   '> INTERRUPTOR {n} ON → desactivar.',
@@ -718,7 +726,12 @@ function handleClick(alias) {
       lbOpen ? closeLightbox() : openLightbox();
       break;
     case 'objManual':
-      typeWrite(m('manual'));
+      if (!swVitrinaAbierto) {
+        typeWrite(m('manualBloqueado'));
+      } else {
+        typeWrite(m('manualAbierto'));
+        setTimeout(() => showImgOverlay('../media/ER02_ManualSeguridad.webp'), 300);
+      }
       break;
     case 'objTemperatura':
       typeWrite(m('temperatura', {val: indTemperatura}));
@@ -740,7 +753,12 @@ function handleClick(alias) {
       typeWrite(m('secundarios'));
       break;
     case 'objReset':
-      typeWrite(m('reset'));
+      if (getIndGlobal() !== '53705') {
+        typeWrite(m('resetBloqueado'));
+      } else {
+        typeWrite(m('resetEstable'));
+        // TO-DO: Introducir Codigo Reset y validar
+      }
       break;
     case 'objProgreso':
       typeWrite(m('progreso'));
