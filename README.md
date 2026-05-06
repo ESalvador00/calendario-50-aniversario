@@ -187,6 +187,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-06-15 | Adivina quién soy | TESLA | Gerard_20160205.png | Gerard | PDTE |
 | 2028-06-16 | Adivina las películas | Flashdance, El Señor de los Anillos, Batman, Up, Cinema Paradiso | Flashdance, El_Senor_de_los_Anillos, Batman, Up, Cinema_Paradiso (mp3 y jpg) | N/A | PDTE |
 | 2028-07-10 | Adivina el logo correcto | 12 logos icónicos | Logos (Adobe, Chrome, Ebay, FedEx, Gillette, Mastercard, NASA, Paypal, PlayStation, Starbucks, Twitter, BurgerKing) | N/A | PDTE |
+| 2028-06-18 | Domingo  | Sala de Control Nuclear | Escape Room — 3 fases: conseguir manual, estabilizar sistemas, resetear con código secreto | 12 interruptores ON/OFF, monitores de temperatura/presión/radiación, lector biométrico, consola CRT | ER02_EscenarioVisual.jpg, ER02_EscenarioClickmap.jpg, ER02_Interruptor_ON.png, ER02_Interruptor_OFF.png, ER02_Manual.jpg, ER02_Libreta.jpg |
 | 2028-06-19 | Rosco de pasapalabra | N/A | N/A | N/A | PDTE |
 | 2028-07-11 | Timeline histórico doble | A:01-06 / B:01-06 | Timeline02_01A..06A.png + Timeline02_01B..06B.png | N/A | PDTE |
 | 2028-07-12 | Adivina quién soy | POE | David_20231209.png | David | PDTE |
