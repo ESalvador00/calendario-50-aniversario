@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>18 de Junio — 50 Aniversario</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:wght@300;400;500&family=Share+Tech+Mono&display=swap" rel="stylesheet">
   <style>
     :root{--gold:#C9A84C;--gold-light:#E8C97A;--gold-dark:#8B6914;--cream:#FAF6EE;--dark:#1A1410;}
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
     body{background-color:var(--dark);color:var(--cream);font-family:'Cormorant Garamond',serif;min-height:100vh;display:flex;flex-direction:column;}
     body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 25% 15%,rgba(201,168,76,.10) 0%,transparent 55%),radial-gradient(ellipse at 75% 85%,rgba(124,54,38,.10) 0%,transparent 55%);pointer-events:none;z-index:0;}
-    .wrap{position:relative;z-index:1;max-width:800px;margin:0 auto;padding:3rem 2rem 4rem;flex:1;display:flex;flex-direction:column;}
-    .day-hero{text-align:center;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 0 2rem;position:relative;}
+    .wrap{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:3rem 2rem 4rem;flex:1;display:flex;flex-direction:column;}
+    .day-hero{text-align:center;flex:1;display:flex;flex-direction:column;align-items:center;padding:3rem 0 2rem;position:relative;}
     .ornament-line-h{display:flex;align-items:center;justify-content:center;gap:1rem;margin-bottom:2rem;}
     .o-line{height:1px;width:60px;background:linear-gradient(to right,transparent,var(--gold));}
     .o-line.r{background:linear-gradient(to left,transparent,var(--gold));}
@@ -20,25 +20,88 @@
     .day-of-week{font-size:.85rem;letter-spacing:.4em;text-transform:uppercase;color:rgba(201,168,76,.5);margin-bottom:1rem;}
     h1{font-family:'Playfair Display',serif;font-size:clamp(3rem,9vw,7rem);font-weight:900;line-height:1;background:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 50%,var(--gold-dark) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.5rem;}
     .month-label{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3.5vw,2.4rem);font-weight:400;font-style:italic;color:rgba(250,246,238,.45);margin-bottom:2.5rem;}
-    .content-area{width:100%;border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:2.5rem;min-height:220px;background:rgba(255,255,255,.02);color:rgba(250,246,238,.4);font-size:1rem;font-style:italic;text-align:center;display:flex;align-items:center;justify-content:center;}
-    .day-nav{display:flex;justify-content:space-between;align-items:center;padding-top:2.5rem;border-top:1px solid rgba(201,168,76,.1);margin-top:2.5rem;}
-    .nav-btn{font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(201,168,76,.5);text-decoration:none;padding:.6rem 1.2rem;border:1px solid rgba(201,168,76,.18);border-radius:2px;transition:all .2s;}
-    .nav-btn:hover{color:var(--gold-light);border-color:rgba(201,168,76,.5);background:rgba(201,168,76,.05);}
-    .nav-btn.disabled{opacity:0;pointer-events:none;}
-    .year-badge{font-size:.7rem;letter-spacing:.3em;color:rgba(201,168,76,.25);text-transform:uppercase;}
-    .back-link{display:block;text-align:center;margin-top:2rem;color:rgba(201,168,76,.35);font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;text-decoration:none;transition:color .2s;}
-    .back-link:hover{color:var(--gold);}
-    /* Botones fav y done */
+    .content-area{width:100%;border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:2rem;background:rgba(255,255,255,.02);display:flex;flex-direction:column;align-items:center;gap:0;}
+    .escenario-wrap{width:100%;position:relative;border:1px solid rgba(201,168,76,.12);border-radius:3px;line-height:0;}
+    .escenario-img{width:100%;height:auto;display:block;user-select:none;-webkit-user-drag:none;cursor:pointer;}
+    @keyframes blink-cursor{0%,100%{opacity:1;}50%{opacity:0;}}
+    @keyframes crt-flicker{0%,89%,91%,96%,100%{opacity:1;}90%{opacity:.82;}97%{opacity:.91;}}
+    .crt-overlay{position:absolute;left:3.0%;width:79.4%;top:85.7%;height:11.1%;background:transparent;border:none;display:flex;align-items:flex-start;padding:1% 2% 0;overflow:hidden;pointer-events:none;z-index:20;animation:crt-flicker 7s infinite;}
+    .crt-text{position:relative;z-index:2;display:block;width:100%;font-family:'Share Tech Mono',monospace;font-size:clamp(.8rem,1.2vw,1rem);line-height:1.35;color:#33FF33;letter-spacing:.05em;white-space:pre-wrap;word-break:break-word;overflow:visible;text-align:left;text-shadow:0 0 2px #33FF33,0 0 7px rgba(51,255,51,.75),0 0 16px rgba(51,255,51,.35);}
+    .crt-cursor{display:inline-block;width:.55em;height:.85em;background:#33FF33;margin-left:1px;vertical-align:text-bottom;animation:blink-cursor .7s step-end infinite;box-shadow:0 0 5px #33FF33,0 0 10px rgba(51,255,51,.5);}
+    .lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.96);z-index:200;align-items:center;justify-content:center;}
+    .lightbox.visible{display:flex;}
+    .lightbox-inner{position:relative;max-width:98vw;max-height:98vh;line-height:0;}
+    .lightbox-inner img{display:block;max-width:98vw;max-height:98vh;object-fit:contain;user-select:none;}
+    .lightbox-crt{position:absolute;left:3.0%;width:79.4%;top:85.7%;height:11.1%;background:transparent;border:none;display:flex;align-items:flex-start;padding:1% 2% 0;overflow:hidden;pointer-events:none;z-index:20;animation:crt-flicker 7s infinite;}
+    .lightbox-crt-text{position:relative;z-index:2;display:block;width:100%;font-family:'Share Tech Mono',monospace;font-size:clamp(.9rem,1.4vw,1.1rem);line-height:1.35;color:#33FF33;letter-spacing:.05em;white-space:pre-wrap;word-break:break-word;overflow:visible;text-align:left;text-shadow:0 0 2px #33FF33,0 0 7px rgba(51,255,51,.75),0 0 16px rgba(51,255,51,.35);}
+    .lightbox-close{position:fixed;top:1rem;right:1.5rem;background:none;border:none;color:rgba(255,255,255,.5);font-size:2rem;cursor:pointer;z-index:201;line-height:1;transition:color .2s;}
+    .lightbox-close:hover{color:white;}
+    @keyframes lb-zoom-in{from{transform:scale(.15);opacity:0;}to{transform:scale(1);opacity:1;}}
+    .lb-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:250;align-items:center;justify-content:center;cursor:pointer;}
+    .lb-overlay.visible{display:flex;}
+    .lb-inner{position:relative;max-width:90vw;max-height:90vh;line-height:0;cursor:default;}
+    .lb-inner.zooming{animation:lb-zoom-in .25s cubic-bezier(.2,.8,.3,1.1) both;}
+    .lb-inner img{display:block;max-width:90vw;max-height:90vh;object-fit:contain;user-select:none;box-shadow:0 0 60px rgba(0,0,0,.8);}
+    .lb-close{position:absolute;top:-.5rem;right:-.5rem;width:1.8rem;height:1.8rem;background:rgba(30,20,15,.9);border:1px solid rgba(201,168,76,.3);border-radius:50%;color:rgba(250,246,238,.7);font-size:.85rem;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;transition:all .2s;z-index:1;}
+    .lb-close:hover{color:var(--cream);border-color:var(--gold);}
+    .expand-icon{position:absolute;left:calc(86.90% - 18px);top:calc(91.73% - 18px);width:36px;height:36px;pointer-events:auto;cursor:pointer;z-index:28;color:#E8C97A;filter:drop-shadow(0 0 4px rgba(232,201,122,.8)) drop-shadow(0 0 10px rgba(232,201,122,.4));transition:filter .2s,transform .2s;opacity:.85;}
+    .expand-icon:hover{filter:drop-shadow(0 0 6px rgba(232,201,122,1)) drop-shadow(0 0 16px rgba(232,201,122,.7));transform:scale(1.15);opacity:1;}
+    .expand-icon svg{width:100%;height:100%;display:block;}
+    @keyframes bulb-triumph{0%,100%{filter:brightness(1.2) drop-shadow(0 0 3px #39FF14);}50%{filter:brightness(2.5) drop-shadow(0 0 10px #39FF14) drop-shadow(0 0 20px #39FF14);}}
+    @keyframes bulb-error{0%,100%{filter:brightness(1) drop-shadow(0 0 3px #FF2200);}50%{filter:brightness(2.5) drop-shadow(0 0 10px #FF2200);}}
+    .bulb-panel{position:absolute;left:89.7%;width:8.4%;top:88.0%;height:7.6%;display:flex;align-items:center;justify-content:space-evenly;pointer-events:none;z-index:25;overflow:visible;}
+    .bulb{width:clamp(6px,1.4vw,14px);height:clamp(6px,1.4vw,14px);border-radius:50%;background:#3a0808;border:1px solid rgba(255,255,255,.08);flex-shrink:0;transition:background .3s,box-shadow .3s;}
+    .bulb.on{background:#39FF14;box-shadow:0 0 4px #39FF14,0 0 10px rgba(57,255,20,.7),0 0 18px rgba(57,255,20,.4);}
+    .bulb.triumph{background:#39FF14;box-shadow:0 0 4px #39FF14,0 0 12px rgba(57,255,20,.8);animation:bulb-triumph .4s ease-in-out infinite;}
+    .bulb.error-flash{background:#FF2200;box-shadow:0 0 4px #FF2200,0 0 10px rgba(255,34,0,.7);animation:bulb-error .2s steps(1,end) infinite;}
+    /* Interruptores */
+    .sw-img{position:absolute;width:2.5%;pointer-events:none;z-index:30;image-rendering:auto;}
+    #sw-img-01{left:calc(32.86% - 1.25%);top:calc(56.74% - 4.0%);}
+    #sw-img-02{left:calc(36.46% - 1.25%);top:calc(56.64% - 4.0%);}
+    #sw-img-03{left:calc(40.03% - 1.25%);top:calc(56.69% - 4.0%);}
+    #sw-img-04{left:calc(43.59% - 1.25%);top:calc(56.64% - 4.0%);}
+    #sw-img-05{left:calc(47.19% - 1.25%);top:calc(56.64% - 4.0%);}
+    #sw-img-06{left:calc(50.68% - 1.25%);top:calc(56.74% - 4.0%);}
+    #sw-img-07{left:calc(32.84% - 1.25%);top:calc(67.07% - 4.0%);}
+    #sw-img-08{left:calc(36.43% - 1.25%);top:calc(67.07% - 4.0%);}
+    #sw-img-09{left:calc(40.00% - 1.25%);top:calc(67.07% - 4.0%);}
+    #sw-img-10{left:calc(43.59% - 1.25%);top:calc(67.02% - 4.0%);}
+    #sw-img-11{left:calc(47.19% - 1.25%);top:calc(67.02% - 4.0%);}
+    #sw-img-12{left:calc(50.73% - 1.25%);top:calc(67.02% - 4.0%);}
+    /* Interruptores en lightbox (mismo layout via clase) */
+    .sw-img-lb{position:absolute;width:2.5%;pointer-events:none;z-index:30;image-rendering:auto;}
+    #sw-img-lb-01{left:calc(32.86% - 1.25%);top:calc(56.74% - 4.0%);}
+    #sw-img-lb-02{left:calc(36.46% - 1.25%);top:calc(56.64% - 4.0%);}
+    #sw-img-lb-03{left:calc(40.03% - 1.25%);top:calc(56.69% - 4.0%);}
+    #sw-img-lb-04{left:calc(43.59% - 1.25%);top:calc(56.64% - 4.0%);}
+    #sw-img-lb-05{left:calc(47.19% - 1.25%);top:calc(56.64% - 4.0%);}
+    #sw-img-lb-06{left:calc(50.68% - 1.25%);top:calc(56.74% - 4.0%);}
+    #sw-img-lb-07{left:calc(32.84% - 1.25%);top:calc(67.07% - 4.0%);}
+    #sw-img-lb-08{left:calc(36.43% - 1.25%);top:calc(67.07% - 4.0%);}
+    #sw-img-lb-09{left:calc(40.00% - 1.25%);top:calc(67.07% - 4.0%);}
+    #sw-img-lb-10{left:calc(43.59% - 1.25%);top:calc(67.02% - 4.0%);}
+    #sw-img-lb-11{left:calc(47.19% - 1.25%);top:calc(67.02% - 4.0%);}
+    #sw-img-lb-12{left:calc(50.73% - 1.25%);top:calc(67.02% - 4.0%);}
+    @keyframes alarm-pulse{0%,100%{opacity:0;}50%{opacity:.25;}}
+    .alarm-overlay{display:none;position:absolute;inset:0;z-index:40;background:#FF0000;pointer-events:none;border-radius:3px;}
+    .alarm-overlay.active{display:block;animation:alarm-pulse 0.8s ease-in-out 3;}
+    @keyframes shake{0%,100%{transform:translate(0,0);}20%{transform:translate(-4px,2px);}40%{transform:translate(4px,-2px);}60%{transform:translate(-3px,3px);}80%{transform:translate(3px,-1px);}}
+    .escenario-wrap.shaking{animation:shake .25s ease;}
+    @keyframes crt-error-blink{0%,100%{opacity:1;}30%,70%{opacity:.2;}}
+    .crt-text.error,.lightbox-crt-text.error{color:#FF0000!important;font-weight:700;text-shadow:0 0 4px #FF0000,0 0 10px rgba(255,0,0,.6)!important;animation:crt-error-blink .15s steps(1,end) 12;}
     .action-btns{position:absolute;top:0;right:0;display:flex;flex-direction:column;align-items:center;gap:.2rem;}
     .icon-btn{background:none;border:none;cursor:pointer;font-size:2rem;line-height:1;transition:color .2s,transform .2s;padding:.2rem;}
     .icon-btn:hover{transform:scale(1.2);}
     .fav-btn{color:rgba(250,246,238,.2);}
     .fav-btn.active{color:#e05a6a;}
-    .fav-btn.active:hover{color:#ff7a88;}
     .done-btn{color:var(--gold);opacity:0.6;}
     .done-btn.active{color:var(--gold);opacity:1;}
-    .done-btn.active:hover{color:var(--gold-light);opacity:1;}
-    /* Popup */
+    .day-nav{display:flex;justify-content:space-between;align-items:center;padding-top:2.5rem;border-top:1px solid rgba(201,168,76,.1);margin-top:2.5rem;}
+    .nav-btn{font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(201,168,76,.5);text-decoration:none;padding:.6rem 1.2rem;border:1px solid rgba(201,168,76,.18);border-radius:2px;transition:all .2s;}
+    .nav-btn:hover{color:var(--gold-light);border-color:rgba(201,168,76,.5);background:rgba(201,168,76,.05);}
+    .year-badge{font-size:.7rem;letter-spacing:.3em;color:rgba(201,168,76,.25);text-transform:uppercase;}
+    .back-link{display:block;text-align:center;margin-top:2rem;color:rgba(201,168,76,.35);font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;text-decoration:none;transition:color .2s;}
+    .back-link:hover{color:var(--gold);}
     .popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:100;align-items:center;justify-content:center;}
     .popup-overlay.visible{display:flex;}
     .popup-box{background:var(--dark);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:3rem 2.5rem;max-width:420px;width:90%;text-align:center;box-shadow:0 0 60px rgba(0,0,0,.8);}
@@ -52,18 +115,18 @@
       .day-hero{padding:1rem 0 1rem;}
       h1{font-size:clamp(2rem,14vw,4rem);}
       .month-label{font-size:clamp(1rem,4vw,1.6rem);margin-bottom:1rem;}
-      .content-area{padding:1.2rem;min-height:120px;}
+      .content-area{padding:.5rem;}
       .day-nav{margin-top:1rem;padding-top:1rem;}
       .ornament-line-h{margin-bottom:1rem;}
     }
-</style>
+  </style>
 </head>
 <body>
 <div class="wrap">
   <div class="day-hero">
     <div class="action-btns">
-      <button class="icon-btn fav-btn"  id="fav-btn"  title="Añadir a favoritos">♡</button>
-      <button class="icon-btn done-btn" id="done-btn" title="Marcar como completado">☆</button>
+      <button class="icon-btn fav-btn"  id="fav-btn"  title="Añadir a favoritos">&#9825;</button>
+      <button class="icon-btn done-btn" id="done-btn" title="Marcar como completado">&#9733;</button>
     </div>
     <div class="ornament-line-h">
       <div class="o-line"></div><div class="o-dot"></div><div class="o-line r"></div>
@@ -71,79 +134,172 @@
     <p class="day-of-week">Domingo</p>
     <h1>18</h1>
     <p class="month-label">de Junio</p>
+
     <div class="content-area">
-      <p>Espacio reservado para el contenido de este día</p>
+      <div class="escenario-wrap" id="escenario-wrap">
+
+        <img src="../media/ER02_EscenarioVisual.jpg" alt="Sala de Control Nuclear"
+             id="escenario-img" class="escenario-img" draggable="false"/>
+
+        <!-- Icono expandir/contraer (objIconoVista) -->
+        <div class="expand-icon" id="expand-icon">
+          <svg id="svg-expand" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 3 3 3 3 9"></polyline><polyline points="15 3 21 3 21 9"></polyline>
+            <polyline points="9 21 3 21 3 15"></polyline><polyline points="15 21 21 21 21 15"></polyline>
+          </svg>
+          <svg id="svg-contract" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+            <polyline points="3 9 9 9 9 3"></polyline><polyline points="21 9 15 9 15 3"></polyline>
+            <polyline points="3 15 9 15 9 21"></polyline><polyline points="21 15 15 15 15 21"></polyline>
+          </svg>
+        </div>
+
+        <!-- Panel bombillas (objProgreso) -->
+        <div class="bulb-panel" id="bulb-panel">
+          <div class="bulb" id="bulb-0"></div>
+          <div class="bulb" id="bulb-1"></div>
+          <div class="bulb" id="bulb-2"></div>
+          <div class="bulb" id="bulb-3"></div>
+        </div>
+
+        <!-- Interruptores escenario normal -->
+        <img class="sw-img" id="sw-img-01" src="../media/ER02_Interruptor_ON.png" alt="" draggable="false"/>
+        <img class="sw-img" id="sw-img-02" src="../media/ER02_Interruptor_ON.png" alt="" draggable="false"/>
+        <img class="sw-img" id="sw-img-03" src="../media/ER02_Interruptor_ON.png" alt="" draggable="false"/>
+        <img class="sw-img" id="sw-img-04" src="../media/ER02_Interruptor_ON.png" alt="" draggable="false"/>
+        <img class="sw-img" id="sw-img-05" src="../media/ER02_Interruptor_ON.png" alt="" draggable="false"/>
+        <img class="sw-img" id="sw-img-06" src="../media/ER02_Interruptor_ON.png" alt="" draggable="false"/>
+        <img class="sw-img" id="sw-img-07" src="../media/ER02_Interruptor_ON.png" alt="" draggable="false"/>
+        <img class="sw-img" id="sw-img-08" src="../media/ER02_Interruptor_ON.png" alt="" draggable="false"/>
+        <img class="sw-img" id="sw-img-09" src="../media/ER02_Interruptor_ON.png" alt="" draggable="false"/>
+        <img class="sw-img" id="sw-img-10" src="../media/ER02_Interruptor_ON.png" alt="" draggable="false"/>
+        <img class="sw-img" id="sw-img-11" src="../media/ER02_Interruptor_ON.png" alt="" draggable="false"/>
+        <img class="sw-img" id="sw-img-12" src="../media/ER02_Interruptor_ON.png" alt="" draggable="false"/>
+
+        <div class="alarm-overlay" id="alarm-overlay"></div>
+
+        <div class="crt-overlay" id="crt-overlay">
+          <span class="crt-text" id="crt-text"></span>
+        </div>
+
+      </div>
     </div>
   </div>
+
   <nav class="day-nav">
     <a class="nav-btn" href="2028-06-17.html">&#8592; 17 de Junio</a>
-    <span class="year-badge">50 Aniversario · 2028</span>
+    <span class="year-badge">50 Aniversario &middot; 2028</span>
     <a class="nav-btn" id="next-btn" href="2028-06-19.html">19 de Junio &#8594;</a>
   </nav>
   <a class="back-link" href="../index.html">&#8592; Volver al Calendario</a>
 </div>
 
+<!-- Popup: día futuro -->
 <div class="popup-overlay" id="popup">
   <div class="popup-box">
-    <div class="popup-icon">🎁</div>
-    <p class="popup-title">¡Un poco de paciencia!</p>
-    <p class="popup-msg">No seas impaciente...<br>Este día aún no ha llegado.<br>Ya llegará, y será especial. 🤍</p>
+    <div class="popup-icon">&#127873;</div>
+    <p class="popup-title">&#161;Un poco de paciencia!</p>
+    <p class="popup-msg">No seas impaciente...<br>Este día aún no ha llegado.<br>Ya llegará, y será especial. &#128156;</p>
     <button class="popup-btn" onclick="window.location.href='../index.html'">Volver al calendario</button>
   </div>
 </div>
 
-<!-- Popup estrella bloqueada -->
+<!-- Popup: estrella bloqueada -->
 <div class="popup-overlay" id="popup-star-blocked">
   <div class="popup-box">
-    <div class="popup-icon">🏆</div>
-    <p class="popup-title">¡Tu recompensa te espera!</p>
-    <p class="popup-msg">Para acceder a tu recompensa primero debes resolver el desafío de hoy...<br><br>¡Tú puedes! 💪</p>
+    <div class="popup-icon">&#9762;</div>
+    <p class="popup-title">&#161;Contenci&#243;n pendiente!</p>
+    <p class="popup-msg">Primero debes estabilizar la sala de control y resetear el sistema.<br><br>&#161;El reactor te necesita! &#9889;</p>
     <button class="popup-btn" id="star-blocked-close">Volver</button>
   </div>
 </div>
 
-<!-- Popup recompensa del día -->
+<!-- Popup: recompensa -->
 <div class="popup-overlay" id="popup-star-reward">
   <div class="popup-box">
-    <div class="popup-icon">🎁</div>
-    <p class="popup-title">¡Tu recompensa!</p>
-    <p class="popup-msg" id="reward-text">✨ Aquí irá la recompensa especial de este día ✨</p>
-    <button class="popup-btn" id="star-reward-close">¡Genial!</button>
+    <div class="popup-icon">&#127873;</div>
+    <p class="popup-title">&#161;Sistema estabilizado!</p>
+    <p class="popup-msg" id="reward-text">&#10024; PDTE &#10024;</p>
+    <button class="popup-btn" id="star-reward-close">&#161;Genial!</button>
   </div>
 </div>
 
-<script>
-const PREVIEW_KEY  = 'cal_preview';
-const isPreview    = localStorage.getItem(PREVIEW_KEY) === '1';
-const today        = new Date(); today.setHours(0,0,0,0);
-const thisDate     = new Date('2028-06-18'); thisDate.setHours(0,0,0,0);
-const nextDateStr  = '2028-06-19';
-const popup        = document.getElementById('popup');
+<!-- Lightbox: escenario ampliado -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightbox-close">&#10005;</button>
+  <div class="lightbox-inner" id="lightbox-inner">
+    <img src="../media/ER02_EscenarioVisual.jpg" alt="Sala de Control Nuclear" id="lightbox-img" draggable="false"/>
+    <div class="expand-icon" id="expand-icon-lb">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="3 9 9 9 9 3"></polyline><polyline points="21 9 15 9 15 3"></polyline>
+        <polyline points="3 15 9 15 9 21"></polyline><polyline points="21 15 15 15 15 21"></polyline>
+      </svg>
+    </div>
+    <div class="bulb-panel" id="bulb-panel-lb">
+      <div class="bulb" id="bulb-lb-0"></div>
+      <div class="bulb" id="bulb-lb-1"></div>
+      <div class="bulb" id="bulb-lb-2"></div>
+      <div class="bulb" id="bulb-lb-3"></div>
+    </div>
+    <!-- Interruptores lightbox -->
+    <img class="sw-img-lb" id="sw-img-lb-01" src="../media/ER02_Interruptor_ON.png" alt="" draggable="false"/>
+    <img class="sw-img-lb" id="sw-img-lb-02" src="../media/ER02_Interruptor_ON.png" alt="" draggable="false"/>
+    <img class="sw-img-lb" id="sw-img-lb-03" src="../media/ER02_Interruptor_ON.png" alt="" draggable="false"/>
+    <img class="sw-img-lb" id="sw-img-lb-04" src="../media/ER02_Interruptor_ON.png" alt="" draggable="false"/>
+    <img class="sw-img-lb" id="sw-img-lb-05" src="../media/ER02_Interruptor_ON.png" alt="" draggable="false"/>
+    <img class="sw-img-lb" id="sw-img-lb-06" src="../media/ER02_Interruptor_ON.png" alt="" draggable="false"/>
+    <img class="sw-img-lb" id="sw-img-lb-07" src="../media/ER02_Interruptor_ON.png" alt="" draggable="false"/>
+    <img class="sw-img-lb" id="sw-img-lb-08" src="../media/ER02_Interruptor_ON.png" alt="" draggable="false"/>
+    <img class="sw-img-lb" id="sw-img-lb-09" src="../media/ER02_Interruptor_ON.png" alt="" draggable="false"/>
+    <img class="sw-img-lb" id="sw-img-lb-10" src="../media/ER02_Interruptor_ON.png" alt="" draggable="false"/>
+    <img class="sw-img-lb" id="sw-img-lb-11" src="../media/ER02_Interruptor_ON.png" alt="" draggable="false"/>
+    <img class="sw-img-lb" id="sw-img-lb-12" src="../media/ER02_Interruptor_ON.png" alt="" draggable="false"/>
+    <div class="alarm-overlay" id="alarm-overlay-lb"></div>
+    <div class="lightbox-crt" id="lightbox-crt">
+      <span class="lightbox-crt-text" id="lightbox-crt-text"></span>
+    </div>
+  </div>
+</div>
 
+<!-- Lightbox: imagen superpuesta -->
+<div class="lb-overlay" id="lb-overlay">
+  <div class="lb-inner" id="lb-inner">
+    <img id="lb-img" src="" alt=""/>
+    <button class="lb-close" id="lb-close">&#10005;</button>
+  </div>
+</div>
+
+<!-- Canvas oculto para clickmap -->
+<canvas id="clickmap-canvas" style="display:none;"></canvas>
+
+<script>
+// ── Preview / bloqueo ─────────────────────────────────────────
+const PREVIEW_KEY = 'cal_preview';
+const isPreview   = localStorage.getItem(PREVIEW_KEY) === '1';
+const today       = new Date(); today.setHours(0,0,0,0);
+const thisDate    = new Date('2028-06-18'); thisDate.setHours(0,0,0,0);
+const nextDateStr = '2028-06-19';
+const popup       = document.getElementById('popup');
 if (!isPreview && thisDate > today) {
   document.querySelector('.day-hero').style.filter = 'blur(4px)';
   document.querySelector('.day-nav').style.visibility = 'hidden';
   popup.classList.add('visible');
 }
-
 if (!isPreview && nextDateStr) {
   const nextDate = new Date(nextDateStr); nextDate.setHours(0,0,0,0);
   if (nextDate > today) {
-    const nextBtn = document.getElementById('next-btn');
-    if (nextBtn) nextBtn.addEventListener('click', e => { e.preventDefault(); popup.classList.add('visible'); });
+    const nb = document.getElementById('next-btn');
+    if (nb) nb.addEventListener('click', e => { e.preventDefault(); popup.classList.add('visible'); });
   }
 }
-
 popup.addEventListener('click', e => { if (e.target === popup) window.location.href = '../index.html'; });
 
-// ── Favourite ──────────────────────────────────────────────
+// ── Favorito ──────────────────────────────────────────────────
 const FAV_KEY = 'fav_2028-06-18';
 const favBtn  = document.getElementById('fav-btn');
 function updateFav() {
   const on = localStorage.getItem(FAV_KEY) === '1';
-  favBtn.textContent = on ? '❤' : '♡';
+  favBtn.textContent = on ? '\u2764' : '\u2661';
   favBtn.classList.toggle('active', on);
-  favBtn.title = on ? 'Quitar de favoritos' : 'Añadir a favoritos';
 }
 favBtn.addEventListener('click', () => {
   const on = localStorage.getItem(FAV_KEY) === '1';
@@ -152,48 +308,468 @@ favBtn.addEventListener('click', () => {
 });
 updateFav();
 
-// ── Done (actividad completada) ────────────────────────────
-const DONE_KEY = 'done_2028-06-18';
-const doneBtn  = document.getElementById('done-btn');
+// ── Completado ────────────────────────────────────────────────
+const DONE_KEY         = 'done_2028-06-18';
+const doneBtn          = document.getElementById('done-btn');
 const popupStarBlocked = document.getElementById('popup-star-blocked');
 const popupStarReward  = document.getElementById('popup-star-reward');
-
-document.getElementById('star-blocked-close').addEventListener('click', () => {
-  popupStarBlocked.classList.remove('visible');
-});
-popupStarBlocked.addEventListener('click', e => {
-  if (e.target === popupStarBlocked) popupStarBlocked.classList.remove('visible');
-});
-
-document.getElementById('star-reward-close').addEventListener('click', () => {
-  popupStarReward.classList.remove('visible');
-});
-popupStarReward.addEventListener('click', e => {
-  if (e.target === popupStarReward) popupStarReward.classList.remove('visible');
-});
-
+document.getElementById('star-blocked-close').addEventListener('click', () => popupStarBlocked.classList.remove('visible'));
+popupStarBlocked.addEventListener('click', e => { if (e.target === popupStarBlocked) popupStarBlocked.classList.remove('visible'); });
+document.getElementById('star-reward-close').addEventListener('click', () => popupStarReward.classList.remove('visible'));
+popupStarReward.addEventListener('click', e => { if (e.target === popupStarReward) popupStarReward.classList.remove('visible'); });
+function markDone() { localStorage.setItem(DONE_KEY, '1'); updateDone(); }
 function updateDone() {
   const on = localStorage.getItem(DONE_KEY) === '1';
-  doneBtn.textContent = on ? '★' : '☆';
+  doneBtn.textContent = on ? '\u2605' : '\u2606';
   doneBtn.classList.toggle('active', on);
-  doneBtn.title = on ? 'Ver recompensa' : 'Marcar como completado';
 }
 doneBtn.addEventListener('click', () => {
   const on = localStorage.getItem(DONE_KEY) === '1';
-  if (on) {
-    // Already done → show reward
-    popupStarReward.classList.add('visible');
-  } else {
-    // Not done → only allowed in preview mode
-    if (isPreview) {
-      localStorage.setItem(DONE_KEY, '1');
-      updateDone();
-    } else {
-      popupStarBlocked.classList.add('visible');
-    }
-  }
+  if (on) { popupStarReward.classList.add('visible'); }
+  else { if (isPreview) { markDone(); } else { popupStarBlocked.classList.add('visible'); } }
 });
 updateDone();
+
+// ── Variables de estado globales ──────────────────────────────
+let swVitrinaAbierto = false;
+let indTemperatura   = 90;
+let indPresion       = 112;
+let indRadiacion     = 12;
+let sw01=true, sw02=true, sw03=true, sw04=true, sw05=true, sw06=true;
+let sw07=true, sw08=true, sw09=true, sw10=true, sw11=true, sw12=true;
+let sistemaReseteado = false;
+
+// ── Actualizar imagen de interruptor ─────────────────────────
+function updateSwImg(n, isOn) {
+  const padded = String(n).padStart(2,'0');
+  const src = isOn ? '../media/ER02_Interruptor_ON.png' : '../media/ER02_Interruptor_OFF.png';
+  const el   = document.getElementById('sw-img-'    + padded);
+  const elLb = document.getElementById('sw-img-lb-' + padded);
+  if (el)   el.src   = src;
+  if (elLb) elLb.src = src;
+}
+
+// ── Consola CRT ───────────────────────────────────────────────
+const crtText        = document.getElementById('crt-text');
+const lightboxCrtTxt = document.getElementById('lightbox-crt-text');
+const CURSOR_HTML    = '<span class="crt-cursor"></span>';
+let twTimer = null, twTarget = '', twIdx = 0, lastRawMsg = '';
+let lbOpen = false;
+
+function setConsoles(html) {
+  crtText.innerHTML        = html;
+  lightboxCrtTxt.innerHTML = html;
+}
+function typeWrite(msg) {
+  lastRawMsg = msg;
+  const wrapped = wrapMsg(msg);
+  if (twTimer) { clearTimeout(twTimer); twTimer = null; }
+  if (!crtText.textContent) { startType(wrapped); return; }
+  let f = 0;
+  const old = crtText.textContent;
+  function flash() {
+    setConsoles(f % 2 === 0 ? '' : old + CURSOR_HTML);
+    f++;
+    if (f < 4) { twTimer = setTimeout(flash, 50); }
+    else        { setConsoles(''); startType(wrapped); }
+  }
+  flash();
+}
+window.addEventListener('load', () => {
+  setTimeout(() => typeWrite('> ALERTA CRITICA: REACTOR EN EMERGENCIA — INICIAR PROTOCOLO DE CONTENCION'), 600);
+});
+function clearConsole() {
+  if (twTimer) { clearTimeout(twTimer); twTimer = null; }
+  twTarget = ''; twIdx = 0;
+  setConsoles(CURSOR_HTML);
+}
+function startType(msg) {
+  twTarget = msg; twIdx = 0;
+  function tick() {
+    setConsoles(twTarget.slice(0, twIdx) + CURSOR_HTML);
+    if (twIdx < twTarget.length) { twIdx++; twTimer = setTimeout(tick, 25); }
+    else { twTimer = null; }
+  }
+  tick();
+}
+function getCtx() {
+  const vw = window.innerWidth;
+  if (vw < 480)  return 'mobVert';
+  if (vw < 768)  return 'mobHoriz';
+  return lbOpen ? 'pcMax' : 'pcNorm';
+}
+
+// Mensajes [pcMax, pcNorm, mobHoriz, mobVert]
+const MSG = {
+  manual:        ['> MANUAL DE SEGURIDAD NUCLEAR. La vitrina esta cerrada. Debes encontrar como abrirla primero.',
+                  '> MANUAL DE SEGURIDAD. La vitrina esta cerrada. Busca como abrirla.',
+                  '> MANUAL DE SEGURIDAD. La vitrina esta cerrada.',
+                  '> Abre la vitrina primero.'],
+  manualVer:     ['> Consultando manual de seguridad nuclear...',
+                  '> Consultando manual de seguridad...',
+                  '> Consultando manual...',
+                  '> Abriendo manual...'],
+  temperatura:   ['> TEMPERATURA: {val}C. Nivel critico: >85C. Desactiva interruptores de carga termica.',
+                  '> TEMPERATURA: {val}C. Critico: >85C.',
+                  '> TEMPERATURA: {val}C',
+                  '> TEMP: {val}C'],
+  presion:       ['> PRESION: {val} bar. Nivel critico: >100 bar. Desactiva interruptores de presion.',
+                  '> PRESION: {val} bar. Critico: >100 bar.',
+                  '> PRESION: {val} bar',
+                  '> PRES: {val} bar'],
+  radiacion:     ['> RADIACION: {val} mSv. Umbral de alerta: >10 mSv. Desactiva los sistemas de carga.',
+                  '> RADIACION: {val} mSv. Alerta: >10 mSv.',
+                  '> RADIACION: {val} mSv',
+                  '> RAD: {val} mSv'],
+  lector:        ['> LECTOR BIOMETRICO — Acceso restringido. Se requiere autorizacion para continuar.',
+                  '> LECTOR BIOMETRICO — Acceso restringido.',
+                  '> LECTOR BIOMETRICO — Restringido.',
+                  '> Acceso restringido.'],
+  libreta:       ['> REGISTRO PERSONAL del operario. Contiene anotaciones del turno anterior. Puede haber informacion util.',
+                  '> REGISTRO PERSONAL. Contiene anotaciones del turno.',
+                  '> REGISTRO PERSONAL del operario.',
+                  '> Registro del operario.'],
+  secundarios:   ['> SISTEMAS SECUNDARIOS de refrigeracion. Controla subsistemas auxiliares.',
+                  '> SISTEMAS SECUNDARIOS de refrigeracion.',
+                  '> SISTEMAS SECUNDARIOS',
+                  '> Subsistemas auxiliares.'],
+  reset:         ['> PANEL DE AUTORIZACION DE RESET. Introduce el codigo correcto para iniciar el reinicio.',
+                  '> PANEL DE AUTORIZACION. Introduce el codigo de reset.',
+                  '> PANEL DE AUTORIZACION.',
+                  '> Introduce el codigo.'],
+  swOn:          ['> INTERRUPTOR {n} — ON. Sistema activo. Desactivalo para reducir la carga del reactor.',
+                  '> INTERRUPTOR {n} ON. Desactivalo para reducir carga.',
+                  '> INTERRUPTOR {n} ON → desactivar.',
+                  '> SW{n}: ON'],
+  swOff:         ['> INTERRUPTOR {n} — OFF. Sistema desactivado.',
+                  '> INTERRUPTOR {n} OFF. Desactivado.',
+                  '> INTERRUPTOR {n} OFF.',
+                  '> SW{n}: OFF'],
+  progreso:      ['> INDICADORES DE PROGRESO del protocolo de contencion. 4 fases a completar.',
+                  '> INDICADORES DE PROGRESO. 4 fases.',
+                  '> Indicadores de progreso.',
+                  '> Progreso.'],
+};
+const CTX_IDX = { pcMax:0, pcNorm:1, mobHoriz:2, mobVert:3 };
+function m(key, vars) {
+  let txt = MSG[key][CTX_IDX[getCtx()]];
+  if (vars) Object.keys(vars).forEach(k => { txt = txt.replace('{'+k+'}', vars[k]); });
+  return txt;
+}
+
+function wrapMsg(msg) {
+  const span = lbOpen ? lightboxCrtTxt : crtText;
+  const tmp = document.createElement('span');
+  tmp.style.cssText = 'font-family:"Share Tech Mono",monospace;font-size:' +
+    getComputedStyle(span).fontSize + ';letter-spacing:.05em;visibility:hidden;position:absolute;white-space:pre;';
+  tmp.textContent = 'X';
+  document.body.appendChild(tmp);
+  const charW = tmp.getBoundingClientRect().width;
+  document.body.removeChild(tmp);
+  const containerW = span.getBoundingClientRect().width || span.parentElement.getBoundingClientRect().width;
+  const cols = charW > 0 ? Math.max(10, Math.floor(containerW / charW)) : 47;
+  const words = msg.split(' ');
+  const lines = [];
+  let cur = '';
+  for (const w of words) {
+    if ((cur + (cur ? ' ' : '') + w).length <= cols) { cur += (cur ? ' ' : '') + w; }
+    else {
+      if (cur) lines.push(cur);
+      let rem = w;
+      while (rem.length > cols) { lines.push(rem.slice(0, cols)); rem = rem.slice(cols); }
+      cur = rem;
+    }
+  }
+  if (cur) lines.push(cur);
+  return lines.join('\n');
+}
+
+// ── Audio ─────────────────────────────────────────────────────
+let _audioCtx = null;
+function getAudioCtx() {
+  if (!_audioCtx) _audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  return _audioCtx;
+}
+function playTone(freq, startTime, duration, gainVal=0.18, type='sine') {
+  const ctx=getAudioCtx(); const osc=ctx.createOscillator(); const gain=ctx.createGain();
+  osc.connect(gain); gain.connect(ctx.destination);
+  osc.type=type; osc.frequency.setValueAtTime(freq,ctx.currentTime+startTime);
+  gain.gain.setValueAtTime(0,ctx.currentTime+startTime);
+  gain.gain.linearRampToValueAtTime(gainVal,ctx.currentTime+startTime+0.01);
+  gain.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+startTime+duration);
+  osc.start(ctx.currentTime+startTime); osc.stop(ctx.currentTime+startTime+duration+0.05);
+}
+function playVictory() {
+  [261.6,293.7,329.6,392.0,523.3].forEach((f,i)=>playTone(f,i*0.13,0.22,0.20,'triangle'));
+  [523.3,659.3,783.9].forEach(f=>playTone(f,5*0.13,0.5,0.12,'triangle'));
+}
+function playError() {
+  playTone(220,0.00,0.12,0.22,'sawtooth');
+  playTone(180,0.15,0.18,0.22,'sawtooth');
+}
+function playClick() {
+  playTone(440,0,0.05,0.08,'square');
+  playTone(330,0.06,0.04,0.05,'square');
+}
+
+// ── Panel de bombillas ────────────────────────────────────────
+const BULBS    = [0,1,2,3].map(i => document.getElementById('bulb-'    + i));
+const BULBS_LB = [0,1,2,3].map(i => document.getElementById('bulb-lb-' + i));
+let bulbCount = 0;
+function allBulbs(fn) { BULBS.forEach((b,i) => fn(b, BULBS_LB[i], i)); }
+function setBulbState(idx, state) {
+  [BULBS[idx], BULBS_LB[idx]].forEach(b => {
+    b.className = 'bulb' + (state !== 'off' ? ' ' + state : '');
+  });
+}
+function lightNextBulb() { if (bulbCount >= 4) return; setBulbState(bulbCount, 'on'); bulbCount++; }
+function bulbsTriumph() { allBulbs((b,lb) => { b.className='bulb triumph'; lb.className='bulb triumph'; }); }
+function bulbsErrorAndReset() {
+  allBulbs((b,lb) => { b.className='bulb error-flash'; lb.className='bulb error-flash'; });
+  setTimeout(() => { bulbCount=0; allBulbs((b,lb)=>{ b.className='bulb'; lb.className='bulb'; }); }, 1800);
+}
+
+// ── Alarma ────────────────────────────────────────────────────
+const alarmOverlay   = document.getElementById('alarm-overlay');
+const alarmOverlayLb = document.getElementById('alarm-overlay-lb');
+const escWrap        = document.getElementById('escenario-wrap');
+function fireAlarm() {
+  [alarmOverlay, alarmOverlayLb].forEach(el => {
+    el.classList.remove('active'); void el.offsetWidth;
+    el.classList.add('active');
+    el.addEventListener('animationend', () => el.classList.remove('active'), {once:true});
+  });
+}
+function setConsoleError(on) {
+  crtText.classList.toggle('error', on);
+  lightboxCrtTxt.classList.toggle('error', on);
+}
+function triggerError(msgInicial, msgFinal) {
+  setConsoleError(true); typeWrite(msgInicial); fireAlarm(); playError();
+  escWrap.classList.remove('shaking'); void escWrap.offsetWidth;
+  escWrap.classList.add('shaking');
+  escWrap.addEventListener('animationend', () => escWrap.classList.remove('shaking'), {once:true});
+  setTimeout(() => { setConsoleError(false); if (msgFinal) typeWrite(msgFinal); }, 2000);
+}
+
+// ── Mapa de colores ───────────────────────────────────────────
+const TOL = 18;
+const COLOR_MAP = [
+  {hex:'E61919',alias:'objManual'},{hex:'E67B19',alias:'objTemperatura'},{hex:'E6AC19',alias:'objPresion'},
+  {hex:'E6DD19',alias:'objRadiacion'},{hex:'E64A19',alias:'objLector'},{hex:'E619DD',alias:'objConsola'},
+  {hex:'5B19E6',alias:'objLibreta'},{hex:'E6194A',alias:'objSecundarios'},{hex:'BD19E6',alias:'objReset'},
+  {hex:'BDE619',alias:'objSw01'},{hex:'8CE619',alias:'objSw02'},{hex:'5BE619',alias:'objSw03'},
+  {hex:'2AE619',alias:'objSw04'},{hex:'19E63A',alias:'objSw05'},{hex:'19E66B',alias:'objSw06'},
+  {hex:'19E69C',alias:'objSw07'},{hex:'19E6CD',alias:'objSw08'},{hex:'19CDE6',alias:'objSw09'},
+  {hex:'199CE6',alias:'objSw10'},{hex:'196BE6',alias:'objSw11'},{hex:'193AE6',alias:'objSw12'},
+  {hex:'E6197B',alias:'objProgreso'},{hex:'E619AC',alias:'objIconoVista'},
+];
+const HOVER_MSG = {
+  objManual:'[ MANUAL DE SEGURIDAD ]',objTemperatura:'[ MONITOR DE TEMPERATURA ]',
+  objPresion:'[ MONITOR DE PRESION ]',objRadiacion:'[ MONITOR DE RADIACION ]',
+  objLector:'[ LECTOR BIOMETRICO ]',objConsola:null,objLibreta:'[ REGISTRO PERSONAL ]',
+  objSecundarios:'[ SISTEMAS SECUNDARIOS ]',objReset:'[ PANEL DE AUTORIZACION ]',
+  objSw01:'[ INTERRUPTOR 1 ]',objSw02:'[ INTERRUPTOR 2 ]',objSw03:'[ INTERRUPTOR 3 ]',
+  objSw04:'[ INTERRUPTOR 4 ]',objSw05:'[ INTERRUPTOR 5 ]',objSw06:'[ INTERRUPTOR 6 ]',
+  objSw07:'[ INTERRUPTOR 7 ]',objSw08:'[ INTERRUPTOR 8 ]',objSw09:'[ INTERRUPTOR 9 ]',
+  objSw10:'[ INTERRUPTOR 10 ]',objSw11:'[ INTERRUPTOR 11 ]',objSw12:'[ INTERRUPTOR 12 ]',
+  objProgreso:'[ INDICADORES DE PROGRESO ]',objIconoVista:null,
+};
+function hexToRgb(h){return {r:parseInt(h.slice(0,2),16),g:parseInt(h.slice(2,4),16),b:parseInt(h.slice(4,6),16)};}
+function aliasFromPixel(r,g,b){
+  for(const e of COLOR_MAP){const c=hexToRgb(e.hex);if(Math.abs(r-c.r)<=TOL&&Math.abs(g-c.g)<=TOL&&Math.abs(b-c.b)<=TOL)return e.alias;}
+  return null;
+}
+const cmCanvas = document.getElementById('clickmap-canvas');
+const cmCtx    = cmCanvas.getContext('2d',{willReadFrequently:true});
+const cmImg    = new Image();
+cmImg.crossOrigin = 'anonymous';
+cmImg.src = '../media/ER02_EscenarioClickmap.jpg';
+let cmReady = false;
+cmImg.onload = () => { cmCanvas.width=cmImg.naturalWidth; cmCanvas.height=cmImg.naturalHeight; cmCtx.drawImage(cmImg,0,0); cmReady=true; };
+
+function getAlias(clientX, clientY, imgEl) {
+  if (!cmReady) return null;
+  const rect = imgEl.getBoundingClientRect();
+  const relX = (clientX-rect.left)/rect.width;
+  const relY = (clientY-rect.top)/rect.height;
+  if (relX<0||relX>1||relY<0||relY>1) return null;
+  const px = Math.round(relX*(cmCanvas.width-1));
+  const py = Math.round(relY*(cmCanvas.height-1));
+  const d  = cmCtx.getImageData(px,py,1,1).data;
+  return aliasFromPixel(d[0],d[1],d[2]);
+}
+
+// ── Lightbox imagen superpuesta ───────────────────────────────
+const lbOverlay = document.getElementById('lb-overlay');
+const lbImg     = document.getElementById('lb-img');
+const lbClose   = document.getElementById('lb-close');
+let lbChainCallback = null;
+function showImgOverlay(src, onClose) {
+  lbImg.src=src; lbChainCallback=onClose||null;
+  lbOverlay.classList.add('visible');
+  const inner=lbOverlay.querySelector('.lb-inner');
+  inner.classList.remove('zooming'); void inner.offsetWidth;
+  inner.classList.add('zooming');
+  document.body.style.overflow='hidden';
+}
+function hideImgOverlay(runChain) {
+  lbOverlay.classList.remove('visible');
+  document.body.style.overflow='';
+  lbImg.src='';
+  const cb=lbChainCallback; lbChainCallback=null;
+  if (runChain&&cb) setTimeout(cb, 80);
+}
+lbClose.addEventListener('click', e => { e.stopPropagation(); hideImgOverlay(false); });
+lbOverlay.addEventListener('click', e => { if (e.target===lbOverlay) hideImgOverlay(false); });
+document.getElementById('lb-img').addEventListener('click', e => { e.stopPropagation(); hideImgOverlay(true); });
+document.addEventListener('keydown', e => {
+  if (e.key==='Escape') {
+    if (lbOverlay.classList.contains('visible')) hideImgOverlay(false);
+    else closeLightbox();
+  }
+});
+
+// ── Hover / interacción ───────────────────────────────────────
+let lastAlias = null;
+const escImg  = document.getElementById('escenario-img');
+
+function onHover(alias) {
+  if (alias === lastAlias) return;
+  lastAlias = alias;
+  if (alias === 'objIconoVista') {
+    typeWrite('> ' + HOVER_MSG['objIconoVista']);
+    return;
+  }
+  if (alias && HOVER_MSG[alias]) typeWrite('> ' + HOVER_MSG[alias]);
+  else if (!alias) clearConsole();
+}
+
+escImg.addEventListener('mousemove', e => { onHover(getAlias(e.clientX,e.clientY,escImg)); });
+escImg.addEventListener('mouseleave', () => { lastAlias=null; clearConsole(); });
+escImg.addEventListener('click', e => { const a=getAlias(e.clientX,e.clientY,escImg); if(a) handleClick(a); });
+escImg.addEventListener('touchmove', e => { e.preventDefault(); const t=e.touches[0]; onHover(getAlias(t.clientX,t.clientY,escImg)); },{passive:false});
+escImg.addEventListener('touchend', () => { lastAlias=null; clearConsole(); });
+
+// ── Lightbox escenario ampliado ───────────────────────────────
+const lightbox    = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightbox-img');
+const expandIcon   = document.getElementById('expand-icon');
+const expandIconLb = document.getElementById('expand-icon-lb');
+const svgExpand    = document.getElementById('svg-expand');
+const svgContract  = document.getElementById('svg-contract');
+
+function updateExpandIcon() {
+  if (lbOpen) {
+    svgExpand.style.display='none'; svgContract.style.display='block';
+    HOVER_MSG['objIconoVista']='[ REDUCIR VISTA ]';
+  } else {
+    svgExpand.style.display='block'; svgContract.style.display='none';
+    HOVER_MSG['objIconoVista']='[ AMPLIAR VISTA ]';
+  }
+}
+updateExpandIcon();
+expandIcon.addEventListener('mouseenter',   () => typeWrite('> ' + HOVER_MSG['objIconoVista']));
+expandIcon.addEventListener('mouseleave',   () => { lastAlias=null; clearConsole(); });
+expandIconLb.addEventListener('mouseenter', () => typeWrite('> ' + HOVER_MSG['objIconoVista']));
+expandIconLb.addEventListener('mouseleave', () => { lastAlias=null; clearConsole(); });
+expandIcon.addEventListener('click',   e => { e.stopPropagation(); openLightbox(); });
+expandIconLb.addEventListener('click', e => { e.stopPropagation(); closeLightbox(); });
+
+function openLightbox() {
+  lbOpen=true;
+  lightbox.classList.add('visible');
+  document.body.style.overflow='hidden';
+  lightboxImg.addEventListener('mousemove', onLbMove);
+  lightboxImg.addEventListener('mouseleave', onLbLeave);
+  lightboxImg.addEventListener('click', onLbClick);
+  updateExpandIcon();
+  if (lastRawMsg) setTimeout(()=>{ if(lbOpen) typeWrite(lastRawMsg); }, 50);
+}
+function closeLightbox() {
+  if (!lbOpen) return;
+  lbOpen=false; lastAlias=null; clearConsole();
+  lightbox.classList.remove('visible');
+  document.body.style.overflow='';
+  lightboxImg.removeEventListener('mousemove', onLbMove);
+  lightboxImg.removeEventListener('mouseleave', onLbLeave);
+  lightboxImg.removeEventListener('click', onLbClick);
+  updateExpandIcon();
+  if (lastRawMsg) setTimeout(()=>{ if(!lbOpen) typeWrite(lastRawMsg); }, 50);
+}
+function onLbMove(e)  { onHover(getAlias(e.clientX,e.clientY,lightboxImg)); }
+function onLbLeave()  { lastAlias=null; clearConsole(); }
+function onLbClick(e) {
+  const a=getAlias(e.clientX,e.clientY,lightboxImg);
+  if (a==='objIconoVista') { closeLightbox(); return; }
+  if (a) handleClick(a);
+}
+document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+lightbox.addEventListener('click', e => { if(e.target===lightbox) closeLightbox(); });
+
+// ── Handler de clicks ─────────────────────────────────────────
+function handleClick(alias) {
+  // Interruptores
+  const swMatch = alias.match(/^objSw(\d+)$/);
+  if (swMatch) { toggleSwitch(parseInt(swMatch[1])); return; }
+
+  switch(alias) {
+    case 'objIconoVista':
+      lbOpen ? closeLightbox() : openLightbox();
+      break;
+    case 'objManual':
+      typeWrite(m('manual'));
+      break;
+    case 'objTemperatura':
+      typeWrite(m('temperatura', {val: indTemperatura}));
+      break;
+    case 'objPresion':
+      typeWrite(m('presion', {val: indPresion}));
+      break;
+    case 'objRadiacion':
+      typeWrite(m('radiacion', {val: indRadiacion}));
+      break;
+    case 'objLector':
+      typeWrite(m('lector'));
+      break;
+    case 'objLibreta':
+      typeWrite(m('libreta'));
+      setTimeout(() => showImgOverlay('../media/ER02_Libreta.jpg'), 300);
+      break;
+    case 'objSecundarios':
+      typeWrite(m('secundarios'));
+      break;
+    case 'objReset':
+      typeWrite(m('reset'));
+      break;
+    case 'objProgreso':
+      typeWrite(m('progreso'));
+      break;
+    case 'objConsola':
+      break;
+  }
+}
+
+// ── Lógica de interruptores ───────────────────────────────────
+function getSwState(n) {
+  const arr=[null,sw01,sw02,sw03,sw04,sw05,sw06,sw07,sw08,sw09,sw10,sw11,sw12];
+  return arr[n];
+}
+function setSwState(n, val) {
+  switch(n){
+    case 1:sw01=val;break;case 2:sw02=val;break;case 3:sw03=val;break;case 4:sw04=val;break;
+    case 5:sw05=val;break;case 6:sw06=val;break;case 7:sw07=val;break;case 8:sw08=val;break;
+    case 9:sw09=val;break;case 10:sw10=val;break;case 11:sw11=val;break;case 12:sw12=val;break;
+  }
+}
+function toggleSwitch(n) {
+  const newState = !getSwState(n);
+  setSwState(n, newState);
+  updateSwImg(n, newState);
+  playClick();
+  typeWrite(newState ? m('swOn',{n}) : m('swOff',{n}));
+  console.log('[SW' + String(n).padStart(2,'0') + '] → ' + (newState ? 'ON' : 'OFF'));
+}
 </script>
 </body>
 </html>
