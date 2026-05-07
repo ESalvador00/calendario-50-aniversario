@@ -110,6 +110,10 @@
     .popup-msg{font-size:1rem;font-style:italic;color:rgba(250,246,238,.6);line-height:1.7;margin-bottom:2rem;}
     .popup-btn{display:inline-block;padding:.7rem 2rem;border:1px solid rgba(201,168,76,.4);border-radius:2px;color:var(--gold);font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;background:none;transition:all .2s;}
     .popup-btn:hover{background:rgba(201,168,76,.1);border-color:var(--gold);}
+    .popup-input{width:100%;padding:.65rem 1rem;background:rgba(0,0,0,.5);border:1px solid rgba(201,168,76,.35);border-radius:2px;color:var(--gold-light);font-family:'Courier New',monospace;font-size:1.1rem;letter-spacing:.15em;text-align:center;outline:none;margin-bottom:1.5rem;box-sizing:border-box;}
+    .popup-input:focus{border-color:var(--gold);box-shadow:0 0 8px rgba(201,168,76,.2);}
+    .popup-input::placeholder{color:rgba(201,168,76,.3);letter-spacing:.1em;}
+    .popup-btns{display:flex;gap:1rem;justify-content:center;}
     @media(max-width:600px){
       .wrap{padding:1rem 1rem 2rem;}
       .day-hero{padding:1rem 0 1rem;}
@@ -486,10 +490,10 @@ const MSG = {
                   '> Energia presente, pero linea incorrecta.',
                   '> Energia incorrecta.',
                   '> Linea incorrecta.'],
-  lectorOK:      ['> Energia suficiente. Lector biometrico operativo. Por fin algo funciona como deberia.',
-                  '> Energia suficiente. Lector operativo.',
-                  '> Energia correcta. Lector activo.',
-                  '> Lector operativo.'],
+  lectorOK:      ['> LECTOR BIOMETRICO — Operativo. Acceso autorizado. ',
+                  '> LECTOR BIOMETRICO — Operativo. Acceso autorizado. ',
+                  '> LECTOR BIOMETRICO — Operativo. Acceso autorizado. ',
+                  '> Acceso autorizado. '],
   lector:        ['> LECTOR BIOMETRICO — Acceso restringido. Se requiere autorizacion para continuar.',
                   '> LECTOR BIOMETRICO — Acceso restringido.',
                   '> LECTOR BIOMETRICO — Restringido.',
@@ -510,6 +514,18 @@ const MSG = {
                   '> Sistema estable. Introduce el codigo para reiniciar. Intenta no fallar.',
                   '> Sistema estable. Introducir codigo para reiniciar.',
                   '> Sistema estable. Introducir codigo.'],
+  resetOK:       ['> Codigo aceptado. Reinicio del sistema en curso. Buen trabajo, por fin alguien competente.',
+                  '> Codigo correcto. Reiniciando sistema. Buen trabajo.',
+                  '> Codigo correcto. Sistema reiniciado.',
+                  '> Sistema reiniciado.'],
+  resetOrientacion:['> Codigo numerico valido... pero la interpretacion es incorrecta. Revisa la orientacion de los datos antes de intentarlo de nuevo.',
+                    '> Codigo valido, pero mal interpretado. Revisa la orientacion.',
+                    '> Codigo valido. Orientacion incorrecta.',
+                    '> Codigo valido. Mal orientado.'],
+  resetFail:     ['> Codigo incorrecto. El sistema sigue esperando una solucion valida. Intenta pensar un poco mas antes de probar suerte.',
+                  '> Codigo incorrecto. No es la solucion.',
+                  '> Codigo incorrecto.',
+                  '> Error de codigo.'],
   swOn:          ['> INTERRUPTOR {n} — ON. Sistema activo. Desactivalo para reducir la carga del reactor.',
                   '> INTERRUPTOR {n} ON. Desactivalo para reducir carga.',
                   '> INTERRUPTOR {n} ON → desactivar.',
@@ -714,6 +730,7 @@ function onHover(alias) {
     typeWrite('> ' + HOVER_MSG['objIconoVista']);
     return;
   }
+  if (alias === 'objLector' && swVitrinaAbierto) { clearConsole(); return; }
   if (alias && HOVER_MSG[alias]) typeWrite('> ' + HOVER_MSG[alias]);
   else if (!alias) clearConsole();
 }
@@ -826,6 +843,7 @@ function handleClick(alias) {
       }
       break;
     case 'objLector': {
+      if (swVitrinaAbierto) break;
       const lineas = getLineasActivas();
       if (lineas > 1) {
         typeWrite(m('lectorSobrecarga'));
@@ -836,13 +854,14 @@ function handleClick(alias) {
       } else {
         typeWrite(m('lectorOK'));
         swVitrinaAbierto = true;
-        // TO-DO: Pulsar lector biometrico y abrir vitrina manual seguridad
+        document.getElementById('escenario-img').src = '../media/ER02_EscenarioVisual_NoGlass.jpg';
+        document.getElementById('lightbox-img').src  = '../media/ER02_EscenarioVisual_NoGlass.jpg';
       }
       break;
     }
     case 'objLibreta':
       typeWrite(m('libreta'));
-      setTimeout(() => showImgOverlay('../media/ER02_Libreta.jpg'), 300);
+      setTimeout(() => showImgOverlay('../media/ER02_Libreta.webp'), 300);
       break;
     case 'objSecundarios':
       typeWrite(m('secundarios'));
@@ -852,7 +871,7 @@ function handleClick(alias) {
         typeWrite(m('resetBloqueado'));
       } else {
         typeWrite(m('resetEstable'));
-        // TO-DO: Introducir Codigo Reset y validar
+        setTimeout(openResetModal, 800);
       }
       break;
     case 'objProgreso':
@@ -884,6 +903,60 @@ function toggleSwitch(n) {
   // TO-DO: Actualizar indicadores y mostrar por monitor
   console.log('[SW' + String(n).padStart(2,'0') + '] → ' + (newState ? 'ON' : 'OFF'));
 }
+// ── Panel de Autorización (Reset) ─────────────────────────────
+const popupReset  = document.getElementById('popup-reset');
+const resetInput  = document.getElementById('reset-input');
+
+function normalizeInput(str) {
+  return str.trim()
+    .toUpperCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')  // quitar tildes
+    .replace(/Ñ/g, 'N')
+    .replace(/[^A-Z0-9]/g, '');                        // solo alfanumérico
+}
+
+function openResetModal() {
+  resetInput.value = '';
+  popupReset.classList.add('visible');
+  setTimeout(() => resetInput.focus(), 50);
+}
+
+function closeResetModal() {
+  popupReset.classList.remove('visible');
+}
+
+function submitResetCode() {
+  const raw = resetInput.value;
+  const val = normalizeInput(raw);
+  closeResetModal();
+  if (val === 'SOLES') {
+    typeWrite(m('resetOK'));
+    sistemaReseteado = true;
+    // TO-DO: Mensaje de exito y fin del juego
+  } else if (val === '53705') {
+    typeWrite(m('resetOrientacion'));
+  } else {
+    typeWrite(m('resetFail'));
+  }
+}
+
+document.getElementById('reset-confirm').addEventListener('click', submitResetCode);
+document.getElementById('reset-cancel').addEventListener('click', closeResetModal);
+popupReset.addEventListener('click', e => { if (e.target === popupReset) closeResetModal(); });
+resetInput.addEventListener('keydown', e => { if (e.key === 'Enter') submitResetCode(); });
 </script>
+<div class="popup-overlay" id="popup-reset">
+  <div class="popup-box">
+    <div class="popup-icon">&#9876;</div>
+    <p class="popup-title">Panel de Autorización</p>
+    <p class="popup-msg">Escribe el código secreto</p>
+    <input class="popup-input" id="reset-input" type="text"
+           autocomplete="off" spellcheck="false" placeholder="_ _ _ _ _" maxlength="20"/>
+    <div class="popup-btns">
+      <button class="popup-btn" id="reset-confirm">Confirmar</button>
+      <button class="popup-btn" id="reset-cancel">Cancelar</button>
+    </div>
+  </div>
+</div>
 </body>
 </html>
