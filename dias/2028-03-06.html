@@ -403,7 +403,7 @@ function endGame() {
     if (isPreview) { markDone(); }
     setTimeout(()=>popupStarReward.classList.add('visible'),600);
   } else {
-    document.getElementById('final-sub').textContent='Reto no superado — necesitas al menos 10 aciertos. '+(['Los logos guardan sus secretos bien. ¡Inténtalo otra vez!','Nada mal, algunos logos son muy parecidos.'][aciertos>=5?1:0]);
+    document.getElementById('final-sub').textContent='Reto no superado — necesitas al menos 8 aciertos. '+(['Los logos guardan sus secretos bien. ¡Inténtalo otra vez!','Nada mal, algunos logos son muy parecidos.'][aciertos>=5?1:0]);
     document.getElementById('btn-reiniciar').style.display='';
   }
 }
