@@ -275,7 +275,7 @@
   <div class="popup-box">
     <div class="popup-icon">&#127873;</div>
     <p class="popup-title">&#161;Sistema estabilizado!</p>
-    <p class="popup-msg" id="reward-text">&#10024; PDTE &#10024;</p>
+    <p class="popup-msg" id="reward-text">Has estabilizado el reactor y evitado la catástrofe.<br><br>¡Buen trabajo, agente! &#9889;</p>
     <button class="popup-btn" id="star-reward-close">&#161;Genial!</button>
   </div>
 </div>
@@ -1118,13 +1118,17 @@ function submitResetCode() {
   const val = normalizeInput(document.getElementById('reset-input').value);
   closeResetModal();
   if (val === 'SOLES') {
-    typeWrite(m('resetOK'));
     sistemaReseteado = true;
-    // TO-DO: Mensaje de exito y fin del juego
+    playVictory();
+    typeWrite(m('resetOK'));
+    setTimeout(() => {
+      markDone();
+      popupStarReward.classList.add('visible');
+    }, 2200);
   } else if (val === '53705') {
-    typeWrite(m('resetOrientacion'));
+    triggerError(m('resetOrientacion'), null);
   } else {
-    typeWrite(m('resetFail'));
+    triggerError(m('resetFail'), null);
   }
 }
 
@@ -1142,7 +1146,7 @@ window.addEventListener('load', () => {
     <div class="popup-icon">&#9876;</div>
     <p class="popup-title">Panel de Autorización</p>
     <p class="popup-msg">Escribe el código secreto</p>
-    <input class="popup-input" id="reset-input" type="text"
+    <input class="popup-input" id="reset-input" type="password"
            autocomplete="off" spellcheck="false" placeholder="_ _ _ _ _" maxlength="20"/>
     <div class="popup-btns">
       <button class="popup-btn" id="reset-confirm">Confirmar</button>
