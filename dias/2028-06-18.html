@@ -483,6 +483,10 @@ const MSG = {
                   '> Sistema estable. No se recomiendan mas cambios.',
                   '> Reactor estabilizado. Evita modificaciones.',
                   '> Sistema estable. No tocar.'],
+  sistemaEstabilizado: ['> Parametros estabilizados. El reinicio manual del sistema ya puede ejecutarse desde el panel de autorizacion.',
+                        '> Sistema estabilizado. Reinicio manual disponible en el panel de autorizacion.',
+                        '> Reactor estabilizado. Accede al panel de autorizacion.',
+                        '> Sistema estable. Usa el panel.'],
   manualBloqueado: ['> Protegido tras cierre de seguridad. Usa el lector biometrico para abrir la vitrina.',
                     '> Cierre activo. Manual inaccesible. Usa el lector biometrico para abrirlo.',
                     '> Manual bloqueado por seguridad. Activa el lector biometrico.',
@@ -683,8 +687,16 @@ function setBulbState(idx, state) {
 function lightNextBulb() { if (bulbCount >= 4) return; setBulbState(bulbCount, 'on'); bulbCount++; }
 function bulbsTriumph() { allBulbs((b,lb) => { b.className='bulb triumph'; lb.className='bulb triumph'; }); }
 function bulbsError() {
+  // Guarda estado actual antes del flash
+  const savedCount = bulbCount;
   allBulbs((b,lb) => { b.className='bulb error-flash'; lb.className='bulb error-flash'; });
-  setTimeout(() => { allBulbs((b,lb)=>{ b.className='bulb'; lb.className='bulb'; }); }, 1800);
+  setTimeout(() => {
+    // Restaura exactamente las bombillas que estaban encendidas
+    allBulbs((b,lb,i) => {
+      const cls = i < savedCount ? 'bulb on' : 'bulb';
+      b.className = cls; lb.className = cls;
+    });
+  }, 1800);
 }
 function bulbsErrorAndReset() {
   allBulbs((b,lb) => { b.className='bulb error-flash'; lb.className='bulb error-flash'; });
@@ -1093,9 +1105,13 @@ function toggleSwitch(n) {
   updateSwImg(n, newState);
   applySwEffect(n, newState);
   DisplayAll();
-  if (getIndGlobal() === '53705') lightNextBulb();
   playClick();
-  typeWrite(newState ? m('swActivado') : m('swDesactivado'));
+  if (getIndGlobal() === '53705') {
+    lightNextBulb();
+    typeWrite(m('sistemaEstabilizado'));
+  } else {
+    typeWrite(newState ? m('swActivado') : m('swDesactivado'));
+  }
   console.log('[SW' + String(n).padStart(2,'0') + '] → ' + (newState ? 'ON' : 'OFF') +
               ' | T:'+indTemperatura+' P:'+indPresion+' R:'+indRadiacion);
 }
