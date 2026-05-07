@@ -682,6 +682,10 @@ function setBulbState(idx, state) {
 }
 function lightNextBulb() { if (bulbCount >= 4) return; setBulbState(bulbCount, 'on'); bulbCount++; }
 function bulbsTriumph() { allBulbs((b,lb) => { b.className='bulb triumph'; lb.className='bulb triumph'; }); }
+function bulbsError() {
+  allBulbs((b,lb) => { b.className='bulb error-flash'; lb.className='bulb error-flash'; });
+  setTimeout(() => { allBulbs((b,lb)=>{ b.className='bulb'; lb.className='bulb'; }); }, 1800);
+}
 function bulbsErrorAndReset() {
   allBulbs((b,lb) => { b.className='bulb error-flash'; lb.className='bulb error-flash'; });
   setTimeout(() => { bulbCount=0; allBulbs((b,lb)=>{ b.className='bulb'; lb.className='bulb'; }); }, 1800);
@@ -703,7 +707,7 @@ function setConsoleError(on) {
   lightboxCrtTxt.classList.toggle('error', on);
 }
 function triggerError(msgInicial, msgFinal) {
-  setConsoleError(true); typeWrite(msgInicial); fireAlarm(); playError();
+  setConsoleError(true); typeWrite(msgInicial); fireAlarm(); playError(); bulbsError();
   escWrap.classList.remove('shaking'); void escWrap.offsetWidth;
   escWrap.classList.add('shaking');
   escWrap.addEventListener('animationend', () => escWrap.classList.remove('shaking'), {once:true});
@@ -1120,8 +1124,10 @@ function submitResetCode() {
   if (val === 'SOLES') {
     sistemaReseteado = true;
     playVictory();
+    bulbsTriumph();
     typeWrite(m('resetOK'));
     setTimeout(() => {
+      if (lbOpen) closeLightbox();
       markDone();
       popupStarReward.classList.add('visible');
     }, 2200);
