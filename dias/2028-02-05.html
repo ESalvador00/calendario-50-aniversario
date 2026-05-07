@@ -7,12 +7,15 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
-    :root{--gold:#C9A84C;--gold-light:#E8C97A;--gold-dark:#8B6914;--cream:#FAF6EE;--dark:#1A1410;}
+    :root{--gold:#C9A84C;--gold-light:#E8C97A;--gold-dark:#8B6914;--cream:#FAF6EE;--dark:#1A1410;
+          --frog-red:#c0392b;--frog-red-light:#e74c3c;--frog-red-dark:#96281b;
+          --frog-orange:#e67e22;--frog-orange-light:#f39c12;--frog-orange-dark:#ca6f1e;
+          --leaf:#2d6a4f;--leaf-light:#40916c;--leaf-dark:#1b4332;--lily:#52b788;}
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
     body{background-color:var(--dark);color:var(--cream);font-family:'Cormorant Garamond',serif;min-height:100vh;display:flex;flex-direction:column;}
     body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 25% 15%,rgba(201,168,76,.10) 0%,transparent 55%),radial-gradient(ellipse at 75% 85%,rgba(124,54,38,.10) 0%,transparent 55%);pointer-events:none;z-index:0;}
     .wrap{position:relative;z-index:1;max-width:800px;margin:0 auto;padding:3rem 2rem 4rem;flex:1;display:flex;flex-direction:column;}
-    .day-hero{text-align:center;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 0 2rem;position:relative;}
+    .day-hero{text-align:center;flex:1;display:flex;flex-direction:column;align-items:center;padding:3rem 0 2rem;position:relative;}
     .ornament-line-h{display:flex;align-items:center;justify-content:center;gap:1rem;margin-bottom:2rem;}
     .o-line{height:1px;width:60px;background:linear-gradient(to right,transparent,var(--gold));}
     .o-line.r{background:linear-gradient(to left,transparent,var(--gold));}
@@ -20,25 +23,180 @@
     .day-of-week{font-size:.85rem;letter-spacing:.4em;text-transform:uppercase;color:rgba(201,168,76,.5);margin-bottom:1rem;}
     h1{font-family:'Playfair Display',serif;font-size:clamp(3rem,9vw,7rem);font-weight:900;line-height:1;background:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 50%,var(--gold-dark) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.5rem;}
     .month-label{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3.5vw,2.4rem);font-weight:400;font-style:italic;color:rgba(250,246,238,.45);margin-bottom:2.5rem;}
-    .content-area{width:100%;border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:2.5rem;min-height:220px;background:rgba(255,255,255,.02);color:rgba(250,246,238,.4);font-size:1rem;font-style:italic;text-align:center;display:flex;align-items:center;justify-content:center;}
     .day-nav{display:flex;justify-content:space-between;align-items:center;padding-top:2.5rem;border-top:1px solid rgba(201,168,76,.1);margin-top:2.5rem;}
     .nav-btn{font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(201,168,76,.5);text-decoration:none;padding:.6rem 1.2rem;border:1px solid rgba(201,168,76,.18);border-radius:2px;transition:all .2s;}
     .nav-btn:hover{color:var(--gold-light);border-color:rgba(201,168,76,.5);background:rgba(201,168,76,.05);}
-    .nav-btn.disabled{opacity:0;pointer-events:none;}
     .year-badge{font-size:.7rem;letter-spacing:.3em;color:rgba(201,168,76,.25);text-transform:uppercase;}
     .back-link{display:block;text-align:center;margin-top:2rem;color:rgba(201,168,76,.35);font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;text-decoration:none;transition:color .2s;}
     .back-link:hover{color:var(--gold);}
-    /* Botones fav y done */
     .action-btns{position:absolute;top:0;right:0;display:flex;flex-direction:column;align-items:center;gap:.2rem;}
     .icon-btn{background:none;border:none;cursor:pointer;font-size:2rem;line-height:1;transition:color .2s,transform .2s;padding:.2rem;}
     .icon-btn:hover{transform:scale(1.2);}
     .fav-btn{color:rgba(250,246,238,.2);}
     .fav-btn.active{color:#e05a6a;}
-    .fav-btn.active:hover{color:#ff7a88;}
     .done-btn{color:var(--gold);opacity:0.6;}
     .done-btn.active{color:var(--gold);opacity:1;}
-    .done-btn.active:hover{color:var(--gold-light);opacity:1;}
-    /* Popup */
+
+    /* ── CONTENT AREA ────────────────────────────────────── */
+    .content-area{width:100%;padding:0;margin-bottom:1rem;}
+
+    .reto-header{text-align:center;margin-bottom:1.5rem;}
+    .reto-tipo{font-size:.7rem;letter-spacing:.35em;text-transform:uppercase;color:rgba(201,168,76,.4);margin-bottom:.4rem;}
+    .reto-title{font-family:'Playfair Display',serif;font-size:clamp(1.3rem,3vw,2rem);font-weight:700;color:var(--gold-light);margin-bottom:.6rem;}
+    .reto-desc{font-size:.95rem;color:rgba(250,246,238,.55);line-height:1.7;max-width:520px;margin:0 auto;}
+
+    /* ── GAME WRAPPER ────────────────────────────────────── */
+    .game-wrapper{width:100%;max-width:660px;margin:0 auto;padding:1rem 0;}
+
+    /* ── LEGENDS ─────────────────────────────────────────── */
+    .legend{display:flex;justify-content:space-between;align-items:center;margin-bottom:.8rem;padding:0 .5rem;}
+    .legend-item{display:flex;align-items:center;gap:.5rem;font-size:.82rem;color:rgba(250,246,238,.5);letter-spacing:.05em;}
+    .legend-dot{width:14px;height:14px;border-radius:50%;flex-shrink:0;}
+    .legend-dot.red{background:var(--frog-red);}
+    .legend-dot.orange{background:var(--frog-orange);}
+
+    /* ── LILY PAD TRACK ──────────────────────────────────── */
+    .lily-track{
+      position:relative;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:1.4rem .5rem 1.6rem;
+      background:linear-gradient(180deg,rgba(27,67,50,.6) 0%,rgba(13,43,32,.85) 100%);
+      border:1px solid rgba(64,145,108,.25);
+      border-radius:18px;
+      overflow:visible;
+    }
+    .lily-track::before{
+      content:'';position:absolute;inset:0;border-radius:18px;
+      background:repeating-linear-gradient(90deg,rgba(82,183,136,.03) 0px,rgba(82,183,136,.03) 1px,transparent 1px,transparent 30px);
+      pointer-events:none;
+    }
+
+    /* ── LILY PAD CELL ───────────────────────────────────── */
+    .cell{
+      position:relative;
+      display:flex;align-items:center;justify-content:center;
+      flex-shrink:0;
+    }
+
+    /* Hoja con forma de nenúfar (elipse torcida) */
+    .lily-pad{
+      position:relative;
+      width:70px;height:54px;
+      background:radial-gradient(ellipse at 38% 38%, var(--leaf-light) 0%, var(--leaf) 50%, var(--leaf-dark) 100%);
+      border-radius:54% 46% 52% 48% / 62% 58% 42% 38%;
+      transform:rotate(-6deg);
+      box-shadow:0 5px 14px rgba(0,0,0,.55),inset 0 1px 3px rgba(82,183,136,.25);
+      transition:transform .15s;
+    }
+    .lily-pad::before{
+      content:'';position:absolute;
+      left:50%;top:12%;width:1.5px;height:68%;
+      background:rgba(27,67,50,.65);
+      transform:translateX(-50%) rotate(3deg);
+      border-radius:2px;
+    }
+    /* Muesca de nenúfar */
+    .lily-pad::after{
+      content:'';position:absolute;
+      bottom:-3px;left:40%;
+      width:14px;height:9px;
+      background:var(--leaf-dark);
+      border-radius:0 0 50% 50%;
+    }
+    /* Ranura vacía: más oscura */
+    .cell.empty-slot .lily-pad{
+      background:radial-gradient(ellipse at 40% 40%, rgba(20,52,37,.85) 0%, rgba(10,32,22,.95) 100%);
+      box-shadow:0 3px 10px rgba(0,0,0,.7),inset 0 3px 8px rgba(0,0,0,.6);
+    }
+    .cell.empty-slot .lily-pad::after{ background:rgba(8,25,17,.9); }
+
+    /* ── CONECTOR (tallo acuático) ────────────────────────── */
+    .connector{
+      width:8px;height:5px;
+      background:linear-gradient(90deg, rgba(27,67,50,.8), rgba(64,145,108,.5));
+      border-radius:3px;
+      flex-shrink:0;
+      margin:0 -1px;
+      position:relative;
+      top:5px;
+    }
+
+    /* ── RANA ─────────────────────────────────────────────── */
+    .frog{
+      position:absolute;
+      top:50%;left:50%;
+      transform:translate(-50%,-60%);
+      width:50px;height:50px;
+      cursor:pointer;
+      transition:filter .12s;
+      user-select:none;
+      z-index:3;
+    }
+    .frog svg{ width:100%;height:100%;overflow:visible; }
+
+    .frog.clickable:hover{ filter:brightness(1.25) drop-shadow(0 0 6px currentColor); }
+    .frog.not-clickable{ opacity:.72; cursor:default; }
+
+    /* Resaltar con brillo pulsante la rana seleccionable */
+    .frog.clickable{
+      animation:glow-hint 2.2s ease-in-out infinite;
+    }
+    @keyframes glow-hint{
+      0%,100%{ filter:brightness(1); }
+      50%{ filter:brightness(1.15) drop-shadow(0 0 5px rgba(255,200,100,.5)); }
+    }
+
+    /* Animación de salto */
+    @keyframes frog-jump{
+      0%  { transform:translate(-50%,-60%) scaleY(1)   scaleX(1);   }
+      25% { transform:translate(-50%,-90%) scaleY(1.12) scaleX(.9);  }
+      55% { transform:translate(-50%,-72%) scaleY(.96) scaleX(1.04); }
+      78% { transform:translate(-50%,-63%) scaleY(1.02) scaleX(.99); }
+      100%{ transform:translate(-50%,-60%) scaleY(1)   scaleX(1);   }
+    }
+    .frog.jumping{
+      animation:frog-jump .4s cubic-bezier(.36,.07,.19,.97) forwards;
+      pointer-events:none;
+    }
+
+    /* ── MOVE COUNTER & BUTTONS ───────────────────────────── */
+    .game-controls{display:flex;align-items:center;justify-content:space-between;margin-top:1.3rem;padding:0 .2rem;}
+    .move-counter{font-size:.85rem;color:rgba(250,246,238,.45);letter-spacing:.1em;}
+    .move-num{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--gold);margin:0 .25rem;}
+    .reset-btn{
+      background:none;border:1px solid rgba(201,168,76,.3);border-radius:3px;
+      color:rgba(201,168,76,.6);font-family:'Cormorant Garamond',serif;
+      font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;
+      padding:.45rem 1.1rem;cursor:pointer;transition:all .2s;
+    }
+    .reset-btn:hover{color:var(--gold);border-color:var(--gold);background:rgba(201,168,76,.07);}
+
+    /* ── STATUS MESSAGE ───────────────────────────────────── */
+    .status-msg{
+      text-align:center;margin-top:.9rem;
+      font-family:'Playfair Display',serif;
+      font-size:1.05rem;min-height:1.5rem;
+      transition:opacity .3s;
+    }
+    .status-msg.win{ color:var(--gold-light); }
+    .status-msg.blocked{ color:#e07070; }
+
+    /* ── INSTRUCTIONS ─────────────────────────────────────── */
+    .instructions{
+      margin-top:1.2rem;
+      padding:.9rem 1.3rem;
+      border:1px solid rgba(64,145,108,.18);
+      border-radius:6px;
+      background:rgba(27,67,50,.12);
+      font-size:.82rem;
+      color:rgba(250,246,238,.42);
+      line-height:1.85;
+    }
+    .instructions strong{ color:rgba(250,246,238,.62); }
+
+    /* ── POPUP ────────────────────────────────────────────── */
     .popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:100;align-items:center;justify-content:center;}
     .popup-overlay.visible{display:flex;}
     .popup-box{background:var(--dark);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:3rem 2.5rem;max-width:420px;width:90%;text-align:center;box-shadow:0 0 60px rgba(0,0,0,.8);}
@@ -47,16 +205,20 @@
     .popup-msg{font-size:1rem;font-style:italic;color:rgba(250,246,238,.6);line-height:1.7;margin-bottom:2rem;}
     .popup-btn{display:inline-block;padding:.7rem 2rem;border:1px solid rgba(201,168,76,.4);border-radius:2px;color:var(--gold);font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;background:none;transition:all .2s;}
     .popup-btn:hover{background:rgba(201,168,76,.1);border-color:var(--gold);}
+
     @media(max-width:600px){
       .wrap{padding:1rem 1rem 2rem;}
       .day-hero{padding:1rem 0 1rem;}
       h1{font-size:clamp(2rem,14vw,4rem);}
       .month-label{font-size:clamp(1rem,4vw,1.6rem);margin-bottom:1rem;}
-      .content-area{padding:1.2rem;min-height:120px;}
       .day-nav{margin-top:1rem;padding-top:1rem;}
       .ornament-line-h{margin-bottom:1rem;}
+      .lily-pad{width:52px;height:40px;}
+      .frog{width:38px;height:38px;}
+      .connector{width:5px;}
+      .lily-track{padding:1rem .2rem 1.2rem;}
     }
-</style>
+  </style>
 </head>
 <body>
 <div class="wrap">
@@ -71,10 +233,51 @@
     <p class="day-of-week">Sábado</p>
     <h1>5</h1>
     <p class="month-label">de Febrero</p>
+
+    <!-- CONTENT AREA -->
     <div class="content-area">
-      <p>Espacio reservado para el contenido de este día</p>
+
+      <div class="reto-header">
+        <p class="reto-tipo">Minijuego</p>
+        <h2 class="reto-title">🐸 Ranas Saltadoras 🐸</h2>
+        <p class="reto-desc">Las ranas rojas quieren cruzar al otro lado, y las naranjas también.<br>¡Ayúdalas a intercambiar sus posiciones sin bloquearse el paso!</p>
+      </div>
+
+      <div class="game-wrapper">
+
+        <div class="legend">
+          <div class="legend-item">
+            <div class="legend-dot red"></div>
+            <span>Rojas avanzan →</span>
+          </div>
+          <div class="legend-item">
+            <span>← avanzan Naranjas</span>
+            <div class="legend-dot orange"></div>
+          </div>
+        </div>
+
+        <div class="lily-track" id="board"></div>
+
+        <div class="game-controls">
+          <div class="move-counter">Movimientos: <span class="move-num" id="move-count">0</span></div>
+          <button class="reset-btn" id="reset-btn">↺ Reiniciar</button>
+        </div>
+
+        <div class="status-msg" id="status-msg"></div>
+
+        <div class="instructions">
+          <strong>Cómo jugar:</strong> Haz clic en una rana para moverla al hueco.<br>
+          • Las <strong>rojas</strong> solo pueden avanzar a la derecha →<br>
+          • Las <strong>naranjas</strong> solo pueden avanzar a la izquierda ←<br>
+          • Pueden deslizarse al hueco adyacente o <strong>saltar</strong> por encima de una rana del color contrario.<br>
+          <strong>Objetivo:</strong> las naranjas en [1,2,3] y las rojas en [5,6,7].
+        </div>
+
+      </div>
     </div>
+
   </div>
+
   <nav class="day-nav">
     <a class="nav-btn" href="2028-02-04.html">&#8592; 4 de Febrero</a>
     <span class="year-badge">50 Aniversario · 2028</span>
@@ -83,6 +286,7 @@
   <a class="back-link" href="../index.html">&#8592; Volver al Calendario</a>
 </div>
 
+<!-- Popup día futuro -->
 <div class="popup-overlay" id="popup">
   <div class="popup-box">
     <div class="popup-icon">🎁</div>
@@ -102,7 +306,7 @@
   </div>
 </div>
 
-<!-- Popup recompensa del día -->
+<!-- Popup recompensa -->
 <div class="popup-overlay" id="popup-star-reward">
   <div class="popup-box">
     <div class="popup-icon">🎁</div>
@@ -112,88 +316,259 @@
   </div>
 </div>
 
+<!-- Popup victoria -->
+<div class="popup-overlay" id="popup-win">
+  <div class="popup-box">
+    <div class="popup-icon">🎉</div>
+    <p class="popup-title">¡Lo conseguiste!</p>
+    <p class="popup-msg">¡Las ranas han cruzado! Completado en <strong id="win-moves">0</strong> movimientos.</p>
+    <button class="popup-btn" id="win-close">¡Genial!</button>
+  </div>
+</div>
+
+<!-- Popup bloqueado -->
+<div class="popup-overlay" id="popup-blocked">
+  <div class="popup-box">
+    <div class="popup-icon">🔒</div>
+    <p class="popup-title">¡Sin salida!</p>
+    <p class="popup-msg">Las ranas se han bloqueado mutuamente.<br>¡Inténtalo de nuevo!</p>
+    <button class="popup-btn" id="blocked-reset">Reiniciar</button>
+  </div>
+</div>
+
 <script>
-const PREVIEW_KEY  = 'cal_preview';
-const isPreview    = localStorage.getItem(PREVIEW_KEY) === '1';
-const today        = new Date(); today.setHours(0,0,0,0);
-const thisDate     = new Date('2028-02-05'); thisDate.setHours(0,0,0,0);
-const nextDateStr  = '2028-02-06';
-const popup        = document.getElementById('popup');
+// ── Preview & bloqueo ──────────────────────────────────────
+const PREVIEW_KEY = 'cal_preview';
+const isPreview   = localStorage.getItem(PREVIEW_KEY) === '1';
+const today       = new Date(); today.setHours(0,0,0,0);
+const thisDate    = new Date('2028-02-05'); thisDate.setHours(0,0,0,0);
+const nextDateStr = '2028-02-06';
+const popup       = document.getElementById('popup');
 
 if (!isPreview && thisDate > today) {
   document.querySelector('.day-hero').style.filter = 'blur(4px)';
   document.querySelector('.day-nav').style.visibility = 'hidden';
   popup.classList.add('visible');
 }
-
 if (!isPreview && nextDateStr) {
-  const nextDate = new Date(nextDateStr); nextDate.setHours(0,0,0,0);
-  if (nextDate > today) {
-    const nextBtn = document.getElementById('next-btn');
-    if (nextBtn) nextBtn.addEventListener('click', e => { e.preventDefault(); popup.classList.add('visible'); });
+  const nd = new Date(nextDateStr); nd.setHours(0,0,0,0);
+  if (nd > today) {
+    document.getElementById('next-btn').addEventListener('click', e => {
+      e.preventDefault(); popup.classList.add('visible');
+    });
   }
 }
-
 popup.addEventListener('click', e => { if (e.target === popup) window.location.href = '../index.html'; });
 
-// ── Favourite ──────────────────────────────────────────────
-const FAV_KEY = 'fav_2028-02-05';
-const favBtn  = document.getElementById('fav-btn');
-function updateFav() {
-  const on = localStorage.getItem(FAV_KEY) === '1';
-  favBtn.textContent = on ? '❤' : '♡';
-  favBtn.classList.toggle('active', on);
-  favBtn.title = on ? 'Quitar de favoritos' : 'Añadir a favoritos';
-}
-favBtn.addEventListener('click', () => {
-  const on = localStorage.getItem(FAV_KEY) === '1';
-  on ? localStorage.removeItem(FAV_KEY) : localStorage.setItem(FAV_KEY, '1');
-  updateFav();
-});
-updateFav();
-
-// ── Done (actividad completada) ────────────────────────────
+// ── Fav & Done ─────────────────────────────────────────────
+const FAV_KEY  = 'fav_2028-02-05';
 const DONE_KEY = 'done_2028-02-05';
+const favBtn   = document.getElementById('fav-btn');
 const doneBtn  = document.getElementById('done-btn');
 const popupStarBlocked = document.getElementById('popup-star-blocked');
 const popupStarReward  = document.getElementById('popup-star-reward');
 
-document.getElementById('star-blocked-close').addEventListener('click', () => {
-  popupStarBlocked.classList.remove('visible');
+function updateFav() {
+  const on = localStorage.getItem(FAV_KEY) === '1';
+  favBtn.textContent = on ? '❤' : '♡';
+  favBtn.classList.toggle('active', on);
+}
+favBtn.addEventListener('click', () => {
+  const on = localStorage.getItem(FAV_KEY) === '1';
+  on ? localStorage.removeItem(FAV_KEY) : localStorage.setItem(FAV_KEY,'1');
+  updateFav();
 });
-popupStarBlocked.addEventListener('click', e => {
-  if (e.target === popupStarBlocked) popupStarBlocked.classList.remove('visible');
-});
+updateFav();
 
-document.getElementById('star-reward-close').addEventListener('click', () => {
-  popupStarReward.classList.remove('visible');
-});
-popupStarReward.addEventListener('click', e => {
-  if (e.target === popupStarReward) popupStarReward.classList.remove('visible');
-});
+document.getElementById('star-blocked-close').addEventListener('click', () => popupStarBlocked.classList.remove('visible'));
+popupStarBlocked.addEventListener('click', e => { if (e.target === popupStarBlocked) popupStarBlocked.classList.remove('visible'); });
+document.getElementById('star-reward-close').addEventListener('click', () => popupStarReward.classList.remove('visible'));
+popupStarReward.addEventListener('click', e => { if (e.target === popupStarReward) popupStarReward.classList.remove('visible'); });
 
 function updateDone() {
   const on = localStorage.getItem(DONE_KEY) === '1';
   doneBtn.textContent = on ? '★' : '☆';
   doneBtn.classList.toggle('active', on);
-  doneBtn.title = on ? 'Ver recompensa' : 'Marcar como completado';
 }
 doneBtn.addEventListener('click', () => {
   const on = localStorage.getItem(DONE_KEY) === '1';
-  if (on) {
-    // Already done → show reward
-    popupStarReward.classList.add('visible');
-  } else {
-    // Not done → only allowed in preview mode
-    if (isPreview) {
-      localStorage.setItem(DONE_KEY, '1');
-      updateDone();
-    } else {
-      popupStarBlocked.classList.add('visible');
-    }
-  }
+  if (on) { popupStarReward.classList.add('visible'); }
+  else if (isPreview) { localStorage.setItem(DONE_KEY,'1'); updateDone(); }
+  else { popupStarBlocked.classList.add('visible'); }
 });
 updateDone();
+
+// ══════════════════════════════════════════════════════════
+//  JUEGO — RANAS SALTADORAS
+// ══════════════════════════════════════════════════════════
+
+// 'R'=roja (→), 'O'=naranja (←), null=vacío
+const INITIAL  = ['R','R','R', null, 'O','O','O'];
+let board      = [...INITIAL];
+let moves      = 0;
+let gameOver   = false;
+let animating  = false;
+
+const boardEl     = document.getElementById('board');
+const moveCountEl = document.getElementById('move-count');
+const statusEl    = document.getElementById('status-msg');
+const popupWin    = document.getElementById('popup-win');
+const popupBlock  = document.getElementById('popup-blocked');
+
+document.getElementById('win-close').addEventListener('click',     () => popupWin.classList.remove('visible'));
+document.getElementById('blocked-reset').addEventListener('click', () => { popupBlock.classList.remove('visible'); resetGame(); });
+document.getElementById('reset-btn').addEventListener('click',     resetGame);
+
+// ── SVG ranas ─────────────────────────────────────────────
+function frogSVG(color) {
+  const isRed = color === 'R';
+  const body  = isRed ? '#e74c3c' : '#f39c12';
+  const belly = isRed ? '#c0392b' : '#e67e22';
+  const dark  = isRed ? '#96281b' : '#ca6f1e';
+  const arrow = isRed ? '→' : '←';
+  const arrowX= isRed ? '31' : '4';
+  return `<svg viewBox="0 0 46 46" xmlns="http://www.w3.org/2000/svg" overflow="visible">
+    <ellipse cx="31" cy="11" rx="7.5" ry="7" fill="${belly}"/>
+    <ellipse cx="15" cy="11" rx="7.5" ry="7" fill="${belly}"/>
+    <ellipse cx="31" cy="11" rx="4.5" ry="4.5" fill="#0d0605"/>
+    <ellipse cx="15" cy="11" rx="4.5" ry="4.5" fill="#0d0605"/>
+    <ellipse cx="32.5" cy="9.5" rx="1.5" ry="1.5" fill="rgba(255,255,255,.85)"/>
+    <ellipse cx="16.5" cy="9.5" rx="1.5" ry="1.5" fill="rgba(255,255,255,.85)"/>
+    <ellipse cx="23" cy="30" rx="17" ry="14" fill="${body}"/>
+    <ellipse cx="23" cy="28" rx="13.5" ry="11" fill="${belly}"/>
+    <ellipse cx="7"  cy="40" rx="7" ry="4" fill="${dark}" transform="rotate(-22,7,40)"/>
+    <ellipse cx="39" cy="40" rx="7" ry="4" fill="${dark}" transform="rotate(22,39,40)"/>
+    <ellipse cx="9"  cy="32" rx="5" ry="3" fill="${belly}" transform="rotate(-28,9,32)"/>
+    <ellipse cx="37" cy="32" rx="5" ry="3" fill="${belly}" transform="rotate(28,37,32)"/>
+    <path d="M16 36 Q23 42 30 36" stroke="${dark}" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <text x="${arrowX}" y="23" font-size="10" fill="rgba(255,240,220,.65)" font-family="sans-serif" font-weight="bold">${arrow}</text>
+  </svg>`;
+}
+
+// ── Lógica de movimientos ──────────────────────────────────
+function getValidMoves(b) {
+  const emptyIdx = b.indexOf(null);
+  const valid = [];
+  for (let i = 0; i < b.length; i++) {
+    if (!b[i]) continue;
+    const dir  = b[i] === 'R' ? 1 : -1;
+    const dist = emptyIdx - i;
+    if (dist === dir) { valid.push(i); continue; }
+    if (dist === 2 * dir) {
+      const other = b[i] === 'R' ? 'O' : 'R';
+      if (b[i + dir] === other) valid.push(i);
+    }
+  }
+  return valid;
+}
+
+function checkWin(b) {
+  return b[0]==='O' && b[1]==='O' && b[2]==='O' && b[4]==='R' && b[5]==='R' && b[6]==='R';
+}
+
+// ── Render ─────────────────────────────────────────────────
+function renderBoard() {
+  boardEl.innerHTML = '';
+  const validMoves = gameOver ? [] : getValidMoves(board);
+  // Contar índice de ranas para encontrar el elemento DOM correcto
+  let frogDomIdx = 0;
+
+  for (let i = 0; i < board.length; i++) {
+    if (i > 0) {
+      const conn = document.createElement('div');
+      conn.className = 'connector';
+      boardEl.appendChild(conn);
+    }
+
+    const cell = document.createElement('div');
+    cell.className = 'cell' + (board[i] === null ? ' empty-slot' : '');
+
+    const pad = document.createElement('div');
+    pad.className = 'lily-pad';
+    cell.appendChild(pad);
+
+    if (board[i]) {
+      const isClickable = !animating && !gameOver && validMoves.includes(i);
+      const frog = document.createElement('div');
+      frog.className = 'frog ' + (isClickable ? 'clickable' : 'not-clickable');
+      frog.innerHTML = frogSVG(board[i]);
+      frog.dataset.idx = i;
+      if (isClickable) {
+        frog.title = 'Clic para mover';
+        frog.addEventListener('click', () => handleClick(i));
+      }
+      cell.appendChild(frog);
+    }
+
+    boardEl.appendChild(cell);
+  }
+  moveCountEl.textContent = moves;
+}
+
+// ── Click & movimiento ─────────────────────────────────────
+function handleClick(idx) {
+  if (animating || gameOver) return;
+  if (!getValidMoves(board).includes(idx)) return;
+
+  // Encontrar el elemento frog de este índice
+  const frogEl = boardEl.querySelector(`.frog[data-idx="${idx}"]`);
+  animating = true;
+
+  if (frogEl) {
+    frogEl.classList.remove('clickable','not-clickable');
+    frogEl.classList.add('jumping');
+    frogEl.addEventListener('animationend', () => doMove(idx), { once: true });
+  } else {
+    doMove(idx);
+  }
+}
+
+function doMove(fromIdx) {
+  const emptyIdx = board.indexOf(null);
+  board[emptyIdx] = board[fromIdx];
+  board[fromIdx]  = null;
+  moves++;
+  animating = false;
+
+  if (checkWin(board)) {
+    gameOver = true;
+    renderBoard();
+    statusEl.textContent = '🎉 ¡Las ranas han cruzado!';
+    statusEl.className   = 'status-msg win';
+    document.getElementById('win-moves').textContent = moves;
+    setTimeout(() => popupWin.classList.add('visible'), 500);
+    // Marcar completado al ganar
+    localStorage.setItem(DONE_KEY, '1');
+    updateDone();
+    return;
+  }
+
+  const next = getValidMoves(board);
+  if (next.length === 0) {
+    gameOver = true;
+    renderBoard();
+    statusEl.textContent = '🔒 ¡Bloqueadas! Reinicia e inténtalo de nuevo.';
+    statusEl.className   = 'status-msg blocked';
+    setTimeout(() => popupBlock.classList.add('visible'), 400);
+    return;
+  }
+
+  statusEl.textContent = '';
+  statusEl.className   = 'status-msg';
+  renderBoard();
+}
+
+function resetGame() {
+  board     = [...INITIAL];
+  moves     = 0;
+  gameOver  = false;
+  animating = false;
+  statusEl.textContent = '';
+  statusEl.className   = 'status-msg';
+  renderBoard();
+}
+
+renderBoard();
 </script>
 </body>
 </html>
