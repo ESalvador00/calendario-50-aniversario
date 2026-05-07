@@ -147,7 +147,7 @@
     .year-badge{font-size:.7rem;letter-spacing:.3em;color:rgba(201,168,76,.25);text-transform:uppercase;}
     .back-link{display:block;text-align:center;margin-top:2rem;color:rgba(201,168,76,.35);font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;text-decoration:none;transition:color .2s;}
     .back-link:hover{color:var(--gold);}
-    .popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:100;align-items:center;justify-content:center;}
+    .popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:300;align-items:center;justify-content:center;}
     .popup-overlay.visible{display:flex;}
     .popup-box{background:var(--dark);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:3rem 2.5rem;max-width:420px;width:90%;text-align:center;box-shadow:0 0 60px rgba(0,0,0,.8);}
     .popup-icon{font-size:3rem;margin-bottom:1rem;}
@@ -450,7 +450,7 @@ function typeWrite(msg) {
 }
 window.addEventListener('load', () => {
   DisplayAll();
-  setTimeout(() => typeWrite('> ALERTA CRITICA: REACTOR EN EMERGENCIA — INICIAR PROTOCOLO DE CONTENCION'), 600);
+  setTimeout(() => triggerError(m('alertaInicio'), null), 600);
 });
 function clearConsole() {
   if (twTimer) { clearTimeout(twTimer); twTimer = null; }
@@ -475,6 +475,14 @@ function getCtx() {
 
 // Mensajes [pcMax, pcNorm, mobHoriz, mobVert]
 const MSG = {
+  alertaInicio:  ['> ALERTA CRITICA. EMERGENCIA EN REACTOR. REINICIO URGENTE DEL SISTEMA. TODAS LAS UNIDADES DEBEN ESTABILIZARSE DE INMEDIATO.',
+                  '> ALERTA CRITICA. REACTOR EN EMERGENCIA. REINICIO URGENTE DEL SISTEMA REQUERIDO.',
+                  '> ALERTA CRITICA. REACTOR INESTABLE. REINICIO URGENTE.',
+                  '> EMERGENCIA. REINICIO URGENTE.'],
+  swEstable:     ['> Sistema estable. Modificar la configuracion actual podria reactivar la emergencia.',
+                  '> Sistema estable. No se recomiendan mas cambios.',
+                  '> Reactor estabilizado. Evita modificaciones.',
+                  '> Sistema estable. No tocar.'],
   manualBloqueado: ['> Protegido tras cierre de seguridad. Usa el lector biometrico para abrir la vitrina.',
                     '> Cierre activo. Manual inaccesible. Usa el lector biometrico para abrirlo.',
                     '> Manual bloqueado por seguridad. Activa el lector biometrico.',
@@ -755,8 +763,25 @@ const lbOverlay = document.getElementById('lb-overlay');
 const lbImg     = document.getElementById('lb-img');
 const lbClose   = document.getElementById('lb-close');
 let lbChainCallback = null;
+
+// Zoom state
+let lbZoom = 1, lbPanX = 0, lbPanY = 0;
+let lbDragging = false, lbDragStartX = 0, lbDragStartY = 0, lbDragPanX = 0, lbDragPanY = 0;
+let lbPinchDist = null;
+
+function lbApplyTransform() {
+  lbImg.style.transform = `scale(${lbZoom}) translate(${lbPanX/lbZoom}px, ${lbPanY/lbZoom}px)`;
+  lbImg.style.cursor = lbZoom > 1 ? 'grab' : 'zoom-in';
+}
+function lbResetZoom() {
+  lbZoom = 1; lbPanX = 0; lbPanY = 0;
+  lbImg.style.transform = '';
+  lbImg.style.cursor = '';
+}
+
 function showImgOverlay(src, onClose) {
   lbImg.src=src; lbChainCallback=onClose||null;
+  lbResetZoom();
   lbOverlay.classList.add('visible');
   const inner=lbOverlay.querySelector('.lb-inner');
   inner.classList.remove('zooming'); void inner.offsetWidth;
@@ -765,14 +790,70 @@ function showImgOverlay(src, onClose) {
 }
 function hideImgOverlay(runChain) {
   lbOverlay.classList.remove('visible');
+  lbResetZoom();
   document.body.style.overflow='';
   lbImg.src='';
   const cb=lbChainCallback; lbChainCallback=null;
   if (runChain&&cb) setTimeout(cb, 80);
 }
+
+// Wheel zoom
+lbImg.addEventListener('wheel', e => {
+  e.preventDefault();
+  const delta = e.deltaY < 0 ? 1.15 : 0.87;
+  lbZoom = Math.min(5, Math.max(1, lbZoom * delta));
+  if (lbZoom === 1) { lbPanX = 0; lbPanY = 0; }
+  lbApplyTransform();
+}, {passive: false});
+
+// Drag to pan (mouse)
+lbImg.addEventListener('mousedown', e => {
+  if (lbZoom <= 1) return;
+  e.preventDefault();
+  lbDragging = true; lbDragStartX = e.clientX; lbDragStartY = e.clientY;
+  lbDragPanX = lbPanX; lbDragPanY = lbPanY;
+  lbImg.style.cursor = 'grabbing';
+});
+window.addEventListener('mousemove', e => {
+  if (!lbDragging) return;
+  lbPanX = lbDragPanX + (e.clientX - lbDragStartX);
+  lbPanY = lbDragPanY + (e.clientY - lbDragStartY);
+  lbApplyTransform();
+});
+window.addEventListener('mouseup', () => {
+  if (!lbDragging) return;
+  lbDragging = false;
+  lbImg.style.cursor = lbZoom > 1 ? 'grab' : '';
+});
+
+// Pinch zoom (touch)
+lbImg.addEventListener('touchstart', e => {
+  if (e.touches.length === 2) {
+    lbPinchDist = Math.hypot(
+      e.touches[0].clientX - e.touches[1].clientX,
+      e.touches[0].clientY - e.touches[1].clientY);
+  }
+}, {passive: true});
+lbImg.addEventListener('touchmove', e => {
+  if (e.touches.length === 2 && lbPinchDist !== null) {
+    e.preventDefault();
+    const dist = Math.hypot(
+      e.touches[0].clientX - e.touches[1].clientX,
+      e.touches[0].clientY - e.touches[1].clientY);
+    lbZoom = Math.min(5, Math.max(1, lbZoom * (dist / lbPinchDist)));
+    lbPinchDist = dist;
+    if (lbZoom === 1) { lbPanX = 0; lbPanY = 0; }
+    lbApplyTransform();
+  }
+}, {passive: false});
+lbImg.addEventListener('touchend', () => { lbPinchDist = null; });
+
 lbClose.addEventListener('click', e => { e.stopPropagation(); hideImgOverlay(false); });
 lbOverlay.addEventListener('click', e => { if (e.target===lbOverlay) hideImgOverlay(false); });
-document.getElementById('lb-img').addEventListener('click', e => { e.stopPropagation(); hideImgOverlay(true); });
+document.getElementById('lb-img').addEventListener('click', e => {
+  if (lbZoom > 1) { e.stopPropagation(); return; } // no cerrar si hay zoom
+  e.stopPropagation(); hideImgOverlay(true);
+});
 document.addEventListener('keydown', e => {
   if (e.key==='Escape') {
     if (lbOverlay.classList.contains('visible')) hideImgOverlay(false);
@@ -998,6 +1079,10 @@ function DisplayRadi() {
 function DisplayAll() { DisplayTemp(); DisplayPres(); DisplayRadi(); }
 
 function toggleSwitch(n) {
+  if (getIndGlobal() === '53705') {
+    typeWrite(m('swEstable'));
+    return;
+  }
   const newState = !getSwState(n);
   setSwState(n, newState);
   updateSwImg(n, newState);
@@ -1009,30 +1094,28 @@ function toggleSwitch(n) {
               ' | T:'+indTemperatura+' P:'+indPresion+' R:'+indRadiacion);
 }
 // ── Panel de Autorización (Reset) ─────────────────────────────
-const popupReset  = document.getElementById('popup-reset');
-const resetInput  = document.getElementById('reset-input');
-
 function normalizeInput(str) {
   return str.trim()
     .toUpperCase()
-    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')  // quitar tildes
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
     .replace(/Ñ/g, 'N')
-    .replace(/[^A-Z0-9]/g, '');                        // solo alfanumérico
+    .replace(/[^A-Z0-9]/g, '');
 }
 
 function openResetModal() {
-  resetInput.value = '';
-  popupReset.classList.add('visible');
-  setTimeout(() => resetInput.focus(), 50);
+  const el = document.getElementById('popup-reset');
+  const inp = document.getElementById('reset-input');
+  inp.value = '';
+  el.classList.add('visible');
+  setTimeout(() => inp.focus(), 50);
 }
 
 function closeResetModal() {
-  popupReset.classList.remove('visible');
+  document.getElementById('popup-reset').classList.remove('visible');
 }
 
 function submitResetCode() {
-  const raw = resetInput.value;
-  const val = normalizeInput(raw);
+  const val = normalizeInput(document.getElementById('reset-input').value);
   closeResetModal();
   if (val === 'SOLES') {
     typeWrite(m('resetOK'));
@@ -1045,10 +1128,14 @@ function submitResetCode() {
   }
 }
 
-document.getElementById('reset-confirm').addEventListener('click', submitResetCode);
-document.getElementById('reset-cancel').addEventListener('click', closeResetModal);
-popupReset.addEventListener('click', e => { if (e.target === popupReset) closeResetModal(); });
-resetInput.addEventListener('keydown', e => { if (e.key === 'Enter') submitResetCode(); });
+window.addEventListener('load', () => {
+  const popupReset = document.getElementById('popup-reset');
+  const resetInput = document.getElementById('reset-input');
+  document.getElementById('reset-confirm').addEventListener('click', submitResetCode);
+  document.getElementById('reset-cancel').addEventListener('click', closeResetModal);
+  popupReset.addEventListener('click', e => { if (e.target === popupReset) closeResetModal(); });
+  resetInput.addEventListener('keydown', e => { if (e.key === 'Enter') submitResetCode(); });
+}, {once: true});
 </script>
 <div class="popup-overlay" id="popup-reset">
   <div class="popup-box">
