@@ -54,6 +54,51 @@
     .bulb.on{background:#39FF14;box-shadow:0 0 4px #39FF14,0 0 10px rgba(57,255,20,.7),0 0 18px rgba(57,255,20,.4);}
     .bulb.triumph{background:#39FF14;box-shadow:0 0 4px #39FF14,0 0 12px rgba(57,255,20,.8);animation:bulb-triumph .4s ease-in-out infinite;}
     .bulb.error-flash{background:#FF2200;box-shadow:0 0 4px #FF2200,0 0 10px rgba(255,34,0,.7);animation:bulb-error .2s steps(1,end) infinite;}
+    /* ── Displays 7 segmentos ──────────────────────────────────── */
+    @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+    @keyframes seg-flicker {
+      0%,100%{opacity:1} 92%{opacity:1} 93%{opacity:.82} 94%{opacity:1} 97%{opacity:.9} 98%{opacity:1}
+    }
+    @keyframes seg-glow-red {
+      0%,100%{text-shadow:0 0 4px #c00,0 0 10px #a00,0 0 22px #800;}
+      50%{text-shadow:0 0 6px #e00,0 0 16px #b00,0 0 30px #900;}
+    }
+    @keyframes seg-glow-green {
+      0%,100%{text-shadow:0 0 4px #0c0,0 0 10px #090,0 0 22px #060;}
+      50%{text-shadow:0 0 6px #0e0,0 0 16px #0b0,0 0 30px #080;}
+    }
+    .seg-display {
+      position:absolute;
+      transform:translate(-50%,-50%);
+      font-family:'Share Tech Mono',monospace;
+      font-size:clamp(10px,1.6vw,22px);
+      font-weight:400;
+      letter-spacing:.12em;
+      pointer-events:none;
+      z-index:50;
+      user-select:none;
+      animation:seg-flicker 4s steps(1,end) infinite;
+    }
+    .seg-display.seg-red {
+      color:#ff2a00;
+      animation:seg-flicker 4s steps(1,end) infinite, seg-glow-red 2.4s ease-in-out infinite;
+    }
+    .seg-display.seg-green {
+      color:#00e600;
+      animation:seg-flicker 4s steps(1,end) infinite, seg-glow-green 2.4s ease-in-out infinite;
+    }
+    .seg-ghost {
+      position:absolute;
+      transform:translate(-50%,-50%);
+      font-family:'Share Tech Mono',monospace;
+      font-size:clamp(10px,1.6vw,22px);
+      letter-spacing:.12em;
+      pointer-events:none;
+      z-index:49;
+      user-select:none;
+      opacity:.13;
+      color:#888;
+    }
     /* Interruptores */
     .sw-img{position:absolute;width:2.5%;pointer-events:none;z-index:30;image-rendering:auto;}
     #sw-img-01{left:calc(32.86% - 1.25%);top:calc(56.74% - 4.0%);}
@@ -145,6 +190,14 @@
         <img src="../media/ER02_EscenarioVisual.jpg" alt="Sala de Control Nuclear"
              id="escenario-img" class="escenario-img" draggable="false"/>
 
+        <!-- Displays 7 segmentos (escenario) -->
+        <div class="seg-ghost" id="seg-ghost-temp" style="left:34.51%;top:38.46%;">888</div>
+        <div class="seg-display seg-red" id="seg-temp" style="left:34.51%;top:38.46%;"></div>
+        <div class="seg-ghost" id="seg-ghost-pres" style="left:48.21%;top:38.66%;">888</div>
+        <div class="seg-display seg-red" id="seg-pres" style="left:48.21%;top:38.66%;"></div>
+        <div class="seg-ghost" id="seg-ghost-radi" style="left:61.57%;top:38.66%;">888</div>
+        <div class="seg-display seg-red" id="seg-radi" style="left:61.57%;top:38.66%;"></div>
+
         <!-- Icono expandir/contraer (objIconoVista) -->
         <div class="expand-icon" id="expand-icon">
           <svg id="svg-expand" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -232,6 +285,13 @@
   <button class="lightbox-close" id="lightbox-close">&#10005;</button>
   <div class="lightbox-inner" id="lightbox-inner">
     <img src="../media/ER02_EscenarioVisual.jpg" alt="Sala de Control Nuclear" id="lightbox-img" draggable="false"/>
+    <!-- Displays 7 segmentos (lightbox) -->
+    <div class="seg-ghost" id="lb-seg-ghost-temp" style="left:34.51%;top:38.46%;">888</div>
+    <div class="seg-display seg-red" id="lb-seg-temp" style="left:34.51%;top:38.46%;"></div>
+    <div class="seg-ghost" id="lb-seg-ghost-pres" style="left:48.21%;top:38.66%;">888</div>
+    <div class="seg-display seg-red" id="lb-seg-pres" style="left:48.21%;top:38.66%;"></div>
+    <div class="seg-ghost" id="lb-seg-ghost-radi" style="left:61.57%;top:38.66%;">888</div>
+    <div class="seg-display seg-red" id="lb-seg-radi" style="left:61.57%;top:38.66%;"></div>
     <div class="expand-icon" id="expand-icon-lb">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
         <polyline points="3 9 9 9 9 3"></polyline><polyline points="21 9 15 9 15 3"></polyline>
@@ -389,6 +449,7 @@ function typeWrite(msg) {
   flash();
 }
 window.addEventListener('load', () => {
+  DisplayAll();
   setTimeout(() => typeWrite('> ALERTA CRITICA: REACTOR EN EMERGENCIA — INICIAR PROTOCOLO DE CONTENCION'), 600);
 });
 function clearConsole() {
@@ -894,14 +955,58 @@ function setSwState(n, val) {
     case 9:sw09=val;break;case 10:sw10=val;break;case 11:sw11=val;break;case 12:sw12=val;break;
   }
 }
+// ── Efectos de cada interruptor en indicadores ────────────────
+const SW_EFFECTS = {
+  1:[1,2,1], 2:[16,20,2], 3:[2,4,1],  4:[18,22,2],
+  5:[4,1,2], 6:[17,21,2], 7:[8,3,1],  8:[3,8,1],
+  9:[6,5,2], 10:[12,7,1], 11:[5,10,2], 12:[10,6,1]
+};
+
+function applySwEffect(n, isOn) {
+  const [dT, dP, dR] = SW_EFFECTS[n];
+  const sign = isOn ? 1 : -1;
+  indTemperatura += sign * dT;
+  indPresion     += sign * dP;
+  indRadiacion   += sign * dR;
+}
+
+// ── Display 7 segmentos ───────────────────────────────────────
+function _setDisplay(idMain, idLb, idGhost, idGhostLb, val, okVal) {
+  const txt    = String(val);
+  const ghost  = String(okVal).replace(/\d/g, '8');
+  const isOk   = val === okVal;
+  const cls    = isOk ? 'seg-display seg-green' : 'seg-display seg-red';
+  [idMain, idLb].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) { el.textContent = txt; el.className = cls; }
+  });
+  [idGhost, idGhostLb].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = ghost;
+  });
+}
+
+function DisplayTemp() {
+  _setDisplay('seg-temp','lb-seg-temp','seg-ghost-temp','lb-seg-ghost-temp', indTemperatura, 53);
+}
+function DisplayPres() {
+  _setDisplay('seg-pres','lb-seg-pres','seg-ghost-pres','lb-seg-ghost-pres', indPresion, 70);
+}
+function DisplayRadi() {
+  _setDisplay('seg-radi','lb-seg-radi','seg-ghost-radi','lb-seg-ghost-radi', indRadiacion, 5);
+}
+function DisplayAll() { DisplayTemp(); DisplayPres(); DisplayRadi(); }
+
 function toggleSwitch(n) {
   const newState = !getSwState(n);
   setSwState(n, newState);
   updateSwImg(n, newState);
+  applySwEffect(n, newState);
+  DisplayAll();
   playClick();
   typeWrite(newState ? m('swActivado') : m('swDesactivado'));
-  // TO-DO: Actualizar indicadores y mostrar por monitor
-  console.log('[SW' + String(n).padStart(2,'0') + '] → ' + (newState ? 'ON' : 'OFF'));
+  console.log('[SW' + String(n).padStart(2,'0') + '] → ' + (newState ? 'ON' : 'OFF') +
+              ' | T:'+indTemperatura+' P:'+indPresion+' R:'+indRadiacion);
 }
 // ── Panel de Autorización (Reset) ─────────────────────────────
 const popupReset  = document.getElementById('popup-reset');
