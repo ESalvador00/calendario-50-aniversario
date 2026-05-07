@@ -374,7 +374,7 @@ function endGame() {
   gameArena.style.opacity='.2'; gameArena.style.pointerEvents='none';
   finalWrap.classList.add('visible');
   document.getElementById('final-score').textContent=aciertos+' / '+TOTAL;
-  if (aciertos>=10) {
+  if (aciertos>=8) {
     document.getElementById('final-sub').textContent='¡Reto superado! '+(['Los logos guardan sus secretos bien.','Nada mal, algunos logos son muy parecidos.','¡Muy bien! Tienes buen ojo para los detalles.','¡Perfecto! Ojo de águila absoluto.'][aciertos===TOTAL?3:aciertos>=11?2:1]);
     document.getElementById('btn-reiniciar').style.display='none';
     if (isPreview) { markDone(); }
