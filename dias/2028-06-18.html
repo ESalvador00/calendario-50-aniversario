@@ -1000,6 +1000,7 @@ function handleClick(alias) {
       } else {
         typeWrite(m('lectorOK'));
         swVitrinaAbierto = true;
+        lightNextBulb();
         document.getElementById('escenario-img').src = '../media/ER02_EscenarioVisual_NoGlass.jpg';
         document.getElementById('lightbox-img').src  = '../media/ER02_EscenarioVisual_NoGlass.jpg';
       }
@@ -1092,6 +1093,7 @@ function toggleSwitch(n) {
   updateSwImg(n, newState);
   applySwEffect(n, newState);
   DisplayAll();
+  if (getIndGlobal() === '53705') lightNextBulb();
   playClick();
   typeWrite(newState ? m('swActivado') : m('swDesactivado'));
   console.log('[SW' + String(n).padStart(2,'0') + '] → ' + (newState ? 'ON' : 'OFF') +
@@ -1121,8 +1123,10 @@ function closeResetModal() {
 function submitResetCode() {
   const val = normalizeInput(document.getElementById('reset-input').value);
   closeResetModal();
+  lightNextBulb(); // bombilla 3: intento de código (sea correcto o no)
   if (val === 'SOLES') {
     sistemaReseteado = true;
+    lightNextBulb(); // bombilla 4: código correcto
     playVictory();
     bulbsTriumph();
     typeWrite(m('resetOK'));
