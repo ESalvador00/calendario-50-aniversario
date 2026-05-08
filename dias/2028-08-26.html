@@ -7,12 +7,19 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
-    :root{--gold:#C9A84C;--gold-light:#E8C97A;--gold-dark:#8B6914;--cream:#FAF6EE;--dark:#1A1410;}
+    :root{
+      --gold:#C9A84C;--gold-light:#E8C97A;--gold-dark:#8B6914;
+      --cream:#FAF6EE;--dark:#1A1410;
+      --water:#3A8FC4;--water-light:#5AAED8;--water-glow:rgba(58,143,196,.35);
+      --water-win:#4CAF77;--water-win-glow:rgba(76,175,119,.4);
+      --jar-border:rgba(201,168,76,.30);--jar-bg:rgba(255,255,255,.03);
+    }
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
     body{background-color:var(--dark);color:var(--cream);font-family:'Cormorant Garamond',serif;min-height:100vh;display:flex;flex-direction:column;}
-    body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 25% 15%,rgba(201,168,76,.10) 0%,transparent 55%),radial-gradient(ellipse at 75% 85%,rgba(124,54,38,.10) 0%,transparent 55%);pointer-events:none;z-index:0;}
+    body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 25% 15%,rgba(201,168,76,.10) 0%,transparent 55%),radial-gradient(ellipse at 75% 85%,rgba(58,143,196,.08) 0%,transparent 55%);pointer-events:none;z-index:0;}
+
     .wrap{position:relative;z-index:1;max-width:800px;margin:0 auto;padding:3rem 2rem 4rem;flex:1;display:flex;flex-direction:column;}
-    .day-hero{text-align:center;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 0 2rem;position:relative;}
+    .day-hero{text-align:center;flex:1;display:flex;flex-direction:column;align-items:center;padding:3rem 0 2rem;position:relative;}
     .ornament-line-h{display:flex;align-items:center;justify-content:center;gap:1rem;margin-bottom:2rem;}
     .o-line{height:1px;width:60px;background:linear-gradient(to right,transparent,var(--gold));}
     .o-line.r{background:linear-gradient(to left,transparent,var(--gold));}
@@ -20,43 +27,104 @@
     .day-of-week{font-size:.85rem;letter-spacing:.4em;text-transform:uppercase;color:rgba(201,168,76,.5);margin-bottom:1rem;}
     h1{font-family:'Playfair Display',serif;font-size:clamp(3rem,9vw,7rem);font-weight:900;line-height:1;background:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 50%,var(--gold-dark) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.5rem;}
     .month-label{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3.5vw,2.4rem);font-weight:400;font-style:italic;color:rgba(250,246,238,.45);margin-bottom:2.5rem;}
-    .content-area{width:100%;border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:2.5rem;min-height:220px;background:rgba(255,255,255,.02);color:rgba(250,246,238,.4);font-size:1rem;font-style:italic;text-align:center;display:flex;align-items:center;justify-content:center;}
+
+    /* ══ GAME WRAPPER ══════════════════════════════════════════ */
+    .game-wrap{width:100%;border:1px solid rgba(201,168,76,.22);border-radius:6px;background:rgba(255,255,255,.02);overflow:hidden;}
+
+    .game-header{padding:1.1rem 1.5rem;border-bottom:1px solid rgba(201,168,76,.12);text-align:center;}
+    .game-title{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:var(--gold-light);letter-spacing:.05em;}
+    .game-subtitle{font-size:.82rem;color:rgba(250,246,238,.4);margin-top:.25rem;font-style:italic;}
+
+    /* ── INFO BAR ─────────────────────────────────────────────── */
+    .info-bar{display:flex;justify-content:center;align-items:center;gap:2.5rem;padding:.65rem 1.5rem;border-bottom:1px solid rgba(201,168,76,.08);background:rgba(0,0,0,.1);}
+    .info-pill{display:flex;flex-direction:column;align-items:center;gap:.1rem;}
+    .info-label{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(201,168,76,.4);}
+    .info-value{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:var(--gold-light);}
+
+    /* ══ JARRAS SECTION ════════════════════════════════════════ */
+    .jugs-section{padding:1.8rem 1rem 1rem;display:flex;justify-content:center;align-items:flex-end;gap:clamp(.5rem,3vw,2rem);}
+
+    .jug-col{display:flex;flex-direction:column;align-items:center;gap:.6rem;flex:1;max-width:140px;}
+    .jug-name{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--gold-light);letter-spacing:.08em;}
+    .jug-cap-label{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(201,168,76,.4);}
+
+    /* La jarra visual */
+    .jug-body{position:relative;width:clamp(64px,14vw,88px);border:2px solid var(--jar-border);border-radius:4px 4px 8px 8px;overflow:hidden;background:var(--jar-bg);transition:border-color .3s;}
+    .jug-body.win{border-color:var(--water-win);box-shadow:0 0 18px var(--water-win-glow);}
+
+    /* Tick marks para la escala */
+    .jug-ticks{position:absolute;inset:0;pointer-events:none;z-index:3;}
+    .tick{position:absolute;right:0;height:1px;background:rgba(201,168,76,.15);width:30%;}
+    .tick-label{position:absolute;right:calc(30% + 3px);font-size:.42rem;color:rgba(201,168,76,.35);transform:translateY(-50%);white-space:nowrap;}
+
+    /* Nivel de agua */
+    .jug-water{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,var(--water) 0%,var(--water-light) 100%);transition:height .55s cubic-bezier(.4,0,.2,1);z-index:1;}
+    .jug-water::after{content:'';position:absolute;top:0;left:0;right:0;height:5px;background:rgba(255,255,255,.18);border-radius:2px;animation:wave-top 2s ease-in-out infinite;}
+    @keyframes wave-top{0%,100%{transform:scaleX(1);}50%{transform:scaleX(.92);}}
+    .jug-water.win-water{background:linear-gradient(to top,var(--water-win) 0%,#6fd9a0 100%);}
+    .jug-water.pouring{animation:pour-flash .45s ease-out;}
+    @keyframes pour-flash{0%{filter:brightness(1.4);}100%{filter:brightness(1);}}
+
+    /* Cantidad encima del nivel */
+    .jug-amount{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:4;pointer-events:none;}
+    .jug-amount-text{font-family:'Playfair Display',serif;font-size:clamp(.85rem,2.5vw,1.1rem);font-weight:700;color:rgba(255,255,255,.95);text-shadow:0 1px 4px rgba(0,0,0,.6);}
+    .jug-amount-text.dark{color:rgba(201,168,76,.7);text-shadow:none;}
+
+    /* ══ BOTONES TRASVASE ══════════════════════════════════════ */
+    .pour-grid{padding:.8rem 1rem 1rem;display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;}
+    .pour-btn{background:rgba(58,143,196,.1);border:1px solid rgba(58,143,196,.3);border-radius:3px;color:rgba(190,225,245,.7);font-family:'Cormorant Garamond',serif;font-size:.78rem;letter-spacing:.12em;padding:.45rem .4rem;cursor:pointer;transition:all .2s;text-align:center;line-height:1.3;}
+    .pour-btn:hover:not(:disabled){background:rgba(58,143,196,.25);border-color:rgba(90,174,216,.6);color:#c0e8ff;box-shadow:0 0 10px rgba(58,143,196,.2);}
+    .pour-btn:disabled{opacity:.22;cursor:default;}
+    .pour-btn .arrow{font-size:.9rem;display:block;}
+
+    /* ── CONTROLS ROW ──────────────────────────────────────────── */
+    .controls{padding:.7rem 1.5rem 1.1rem;display:flex;align-items:center;justify-content:center;gap:1rem;border-top:1px solid rgba(201,168,76,.08);flex-wrap:wrap;}
+    .hint-text{font-size:.8rem;font-style:italic;color:rgba(250,246,238,.35);text-align:center;flex:1 1 100%;}
+    .hint-text.success{color:#7fca8a;}
+    .reset-link{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(201,168,76,.28);cursor:pointer;border:none;background:none;padding:.25rem;transition:color .2s;font-family:'Cormorant Garamond',serif;}
+    .reset-link:hover{color:var(--gold);}
+
+    /* ── NAV ─────────────────────────────────────────────────── */
     .day-nav{display:flex;justify-content:space-between;align-items:center;padding-top:2.5rem;border-top:1px solid rgba(201,168,76,.1);margin-top:2.5rem;}
     .nav-btn{font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(201,168,76,.5);text-decoration:none;padding:.6rem 1.2rem;border:1px solid rgba(201,168,76,.18);border-radius:2px;transition:all .2s;}
     .nav-btn:hover{color:var(--gold-light);border-color:rgba(201,168,76,.5);background:rgba(201,168,76,.05);}
-    .nav-btn.disabled{opacity:0;pointer-events:none;}
     .year-badge{font-size:.7rem;letter-spacing:.3em;color:rgba(201,168,76,.25);text-transform:uppercase;}
     .back-link{display:block;text-align:center;margin-top:2rem;color:rgba(201,168,76,.35);font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;text-decoration:none;transition:color .2s;}
     .back-link:hover{color:var(--gold);}
-    /* Botones fav y done */
+
+    /* ── FAV / DONE ─────────────────────────────────────────── */
     .action-btns{position:absolute;top:0;right:0;display:flex;flex-direction:column;align-items:center;gap:.2rem;}
     .icon-btn{background:none;border:none;cursor:pointer;font-size:2rem;line-height:1;transition:color .2s,transform .2s;padding:.2rem;}
     .icon-btn:hover{transform:scale(1.2);}
     .fav-btn{color:rgba(250,246,238,.2);}
     .fav-btn.active{color:#e05a6a;}
-    .fav-btn.active:hover{color:#ff7a88;}
-    .done-btn{color:var(--gold);opacity:0.6;}
+    .done-btn{color:var(--gold);opacity:.6;}
     .done-btn.active{color:var(--gold);opacity:1;}
-    .done-btn.active:hover{color:var(--gold-light);opacity:1;}
-    /* Popup */
-    .popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:100;align-items:center;justify-content:center;}
+
+    /* ── POPUPS ─────────────────────────────────────────────── */
+    .popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.78);z-index:100;align-items:center;justify-content:center;}
     .popup-overlay.visible{display:flex;}
-    .popup-box{background:var(--dark);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:3rem 2.5rem;max-width:420px;width:90%;text-align:center;box-shadow:0 0 60px rgba(0,0,0,.8);}
-    .popup-icon{font-size:3rem;margin-bottom:1rem;}
-    .popup-title{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--gold-light);margin-bottom:1rem;}
-    .popup-msg{font-size:1rem;font-style:italic;color:rgba(250,246,238,.6);line-height:1.7;margin-bottom:2rem;}
-    .popup-btn{display:inline-block;padding:.7rem 2rem;border:1px solid rgba(201,168,76,.4);border-radius:2px;color:var(--gold);font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;background:none;transition:all .2s;}
+    .popup-box{background:var(--dark);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:2.5rem 2rem;max-width:420px;width:90%;text-align:center;box-shadow:0 0 60px rgba(0,0,0,.9);}
+    .popup-icon{font-size:3rem;margin-bottom:.8rem;}
+    .popup-title{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:var(--gold-light);margin-bottom:.8rem;}
+    .popup-msg{font-size:.95rem;font-style:italic;color:rgba(250,246,238,.6);line-height:1.7;margin-bottom:1.8rem;}
+    .popup-btns{display:flex;gap:.7rem;justify-content:center;flex-wrap:wrap;}
+    .popup-btn{display:inline-block;padding:.65rem 1.8rem;border:1px solid rgba(201,168,76,.4);border-radius:2px;color:var(--gold);font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;background:none;transition:all .2s;font-family:'Cormorant Garamond',serif;}
     .popup-btn:hover{background:rgba(201,168,76,.1);border-color:var(--gold);}
+
     @media(max-width:600px){
       .wrap{padding:1rem 1rem 2rem;}
       .day-hero{padding:1rem 0 1rem;}
       h1{font-size:clamp(2rem,14vw,4rem);}
       .month-label{font-size:clamp(1rem,4vw,1.6rem);margin-bottom:1rem;}
-      .content-area{padding:1.2rem;min-height:120px;}
       .day-nav{margin-top:1rem;padding-top:1rem;}
       .ornament-line-h{margin-bottom:1rem;}
+      .pour-grid{grid-template-columns:repeat(3,1fr);gap:.35rem;}
+      .pour-btn{font-size:.7rem;padding:.4rem .3rem;}
+      .jugs-section{gap:.4rem;}
+      .info-bar{gap:1.2rem;}
     }
-</style>
+  </style>
 </head>
 <body>
 <div class="wrap">
@@ -71,10 +139,54 @@
     <p class="day-of-week">Sábado</p>
     <h1>26</h1>
     <p class="month-label">de Agosto</p>
-    <div class="content-area">
-      <p>Espacio reservado para el contenido de este día</p>
+
+    <!-- ══════════════════ MINIJUEGO ══════════════════ -->
+    <div class="game-wrap">
+
+      <div class="game-header">
+        <div class="game-title">Las Jarras de Agua</div>
+        <div class="game-subtitle">Consigue exactamente 4 litros en cualquiera de las jarras</div>
+      </div>
+
+      <div class="info-bar">
+        <div class="info-pill">
+          <span class="info-label">Jarra A</span>
+          <span class="info-value" id="info-a">8 / 8 L</span>
+        </div>
+        <div class="info-pill">
+          <span class="info-label">Jarra B</span>
+          <span class="info-value" id="info-b">0 / 5 L</span>
+        </div>
+        <div class="info-pill">
+          <span class="info-label">Jarra C</span>
+          <span class="info-value" id="info-c">0 / 3 L</span>
+        </div>
+        <div class="info-pill">
+          <span class="info-label">Movimientos</span>
+          <span class="info-value" id="info-moves">0</span>
+        </div>
+      </div>
+
+      <!-- JARRAS -->
+      <div class="jugs-section" id="jugs-section">
+        <!-- Generadas por JS -->
+      </div>
+
+      <!-- BOTONES DE TRASVASE 3×2 grid -->
+      <div class="pour-grid" id="pour-grid">
+        <!-- Generados por JS -->
+      </div>
+
+      <div class="controls">
+        <div class="hint-text" id="hint-text">Trasvasa agua entre las jarras para medir exactamente 4 litros</div>
+        <button class="reset-link" id="reset-link">↺ Reiniciar</button>
+      </div>
+
     </div>
+    <!-- ══════════════════ FIN MINIJUEGO ══════════════════ -->
+
   </div>
+
   <nav class="day-nav">
     <a class="nav-btn" href="2028-08-25.html">&#8592; 25 de Agosto</a>
     <span class="year-badge">50 Aniversario · 2028</span>
@@ -83,6 +195,7 @@
   <a class="back-link" href="../index.html">&#8592; Volver al Calendario</a>
 </div>
 
+<!-- Popup futuro -->
 <div class="popup-overlay" id="popup">
   <div class="popup-box">
     <div class="popup-icon">🎁</div>
@@ -102,7 +215,7 @@
   </div>
 </div>
 
-<!-- Popup recompensa del día -->
+<!-- Popup recompensa -->
 <div class="popup-overlay" id="popup-star-reward">
   <div class="popup-box">
     <div class="popup-icon">🎁</div>
@@ -112,20 +225,34 @@
   </div>
 </div>
 
+<!-- Popup victoria -->
+<div class="popup-overlay" id="popup-win">
+  <div class="popup-box">
+    <div class="popup-icon">💧</div>
+    <p class="popup-title">¡Lo has conseguido!</p>
+    <p class="popup-msg" id="win-msg">Has medido exactamente 4 litros. ¡Un verdadero maestro de la lógica! 🧠✨</p>
+    <div class="popup-btns">
+      <button class="popup-btn" id="win-reward-btn">Ver recompensa ★</button>
+    </div>
+  </div>
+</div>
+
 <script>
-const PREVIEW_KEY  = 'cal_preview';
-const isPreview    = localStorage.getItem(PREVIEW_KEY) === '1';
-const today        = new Date(); today.setHours(0,0,0,0);
-const thisDate     = new Date('2028-08-26'); thisDate.setHours(0,0,0,0);
-const nextDateStr  = '2028-08-27';
-const popup        = document.getElementById('popup');
+// ══════════════════════════════════════════════
+//  PREVIEW & DATE GUARD
+// ══════════════════════════════════════════════
+const PREVIEW_KEY = 'cal_preview';
+const isPreview   = localStorage.getItem(PREVIEW_KEY) === '1';
+const today       = new Date(); today.setHours(0,0,0,0);
+const thisDate    = new Date('2028-08-26'); thisDate.setHours(0,0,0,0);
+const nextDateStr = '2028-08-27';
+const popup       = document.getElementById('popup');
 
 if (!isPreview && thisDate > today) {
   document.querySelector('.day-hero').style.filter = 'blur(4px)';
   document.querySelector('.day-nav').style.visibility = 'hidden';
   popup.classList.add('visible');
 }
-
 if (!isPreview && nextDateStr) {
   const nextDate = new Date(nextDateStr); nextDate.setHours(0,0,0,0);
   if (nextDate > today) {
@@ -133,10 +260,11 @@ if (!isPreview && nextDateStr) {
     if (nextBtn) nextBtn.addEventListener('click', e => { e.preventDefault(); popup.classList.add('visible'); });
   }
 }
-
 popup.addEventListener('click', e => { if (e.target === popup) window.location.href = '../index.html'; });
 
-// ── Favourite ──────────────────────────────────────────────
+// ══════════════════════════════════════════════
+//  FAV
+// ══════════════════════════════════════════════
 const FAV_KEY = 'fav_2028-08-26';
 const favBtn  = document.getElementById('fav-btn');
 function updateFav() {
@@ -152,25 +280,23 @@ favBtn.addEventListener('click', () => {
 });
 updateFav();
 
-// ── Done (actividad completada) ────────────────────────────
-const DONE_KEY = 'done_2028-08-26';
-const doneBtn  = document.getElementById('done-btn');
+// ══════════════════════════════════════════════
+//  DONE / REWARD
+// ══════════════════════════════════════════════
+const DONE_KEY         = 'done_2028-08-26';
+const doneBtn          = document.getElementById('done-btn');
 const popupStarBlocked = document.getElementById('popup-star-blocked');
 const popupStarReward  = document.getElementById('popup-star-reward');
+const popupWin         = document.getElementById('popup-win');
 
-document.getElementById('star-blocked-close').addEventListener('click', () => {
-  popupStarBlocked.classList.remove('visible');
-});
-popupStarBlocked.addEventListener('click', e => {
-  if (e.target === popupStarBlocked) popupStarBlocked.classList.remove('visible');
-});
+document.getElementById('star-blocked-close').addEventListener('click', () => popupStarBlocked.classList.remove('visible'));
+popupStarBlocked.addEventListener('click', e => { if (e.target === popupStarBlocked) popupStarBlocked.classList.remove('visible'); });
+document.getElementById('star-reward-close').addEventListener('click', () => popupStarReward.classList.remove('visible'));
+popupStarReward.addEventListener('click', e => { if (e.target === popupStarReward) popupStarReward.classList.remove('visible'); });
+popupWin.addEventListener('click', e => { if (e.target === popupWin) popupWin.classList.remove('visible'); });
 
-document.getElementById('star-reward-close').addEventListener('click', () => {
-  popupStarReward.classList.remove('visible');
-});
-popupStarReward.addEventListener('click', e => {
-  if (e.target === popupStarReward) popupStarReward.classList.remove('visible');
-});
+function markDone() { localStorage.setItem(DONE_KEY,'1'); updateDone(); }
+function showReward() { popupStarReward.classList.add('visible'); }
 
 function updateDone() {
   const on = localStorage.getItem(DONE_KEY) === '1';
@@ -180,20 +306,256 @@ function updateDone() {
 }
 doneBtn.addEventListener('click', () => {
   const on = localStorage.getItem(DONE_KEY) === '1';
-  if (on) {
-    // Already done → show reward
-    popupStarReward.classList.add('visible');
-  } else {
-    // Not done → only allowed in preview mode
-    if (isPreview) {
-      localStorage.setItem(DONE_KEY, '1');
-      updateDone();
-    } else {
-      popupStarBlocked.classList.add('visible');
-    }
-  }
+  if (on) { showReward(); }
+  else if (isPreview) { markDone(); }
+  else { popupStarBlocked.classList.add('visible'); }
 });
 updateDone();
+
+document.getElementById('win-reward-btn').addEventListener('click', () => {
+  popupWin.classList.remove('visible');
+  showReward();
+});
+
+// ══════════════════════════════════════════════
+//  GAME CONFIG
+// ══════════════════════════════════════════════
+const JUGS_CONFIG = [
+  { id:'A', cap:8, init:8, label:'Jarra A' },
+  { id:'B', cap:5, init:0, label:'Jarra B' },
+  { id:'C', cap:3, init:0, label:'Jarra C' },
+];
+const TARGET = 4;
+
+// All ordered pairs (from, to) where from ≠ to
+const POUR_PAIRS = [];
+for (let i = 0; i < JUGS_CONFIG.length; i++) {
+  for (let j = 0; j < JUGS_CONFIG.length; j++) {
+    if (i !== j) POUR_PAIRS.push([JUGS_CONFIG[i].id, JUGS_CONFIG[j].id]);
+  }
+}
+
+// ── State
+let state = {};
+let locked = false;
+
+function initState() {
+  state = {
+    jugs  : Object.fromEntries(JUGS_CONFIG.map(j => [j.id, j.init])),
+    moves : 0,
+    won   : false,
+  };
+}
+
+// ══════════════════════════════════════════════
+//  BUILD DOM (once)
+// ══════════════════════════════════════════════
+function buildDOM() {
+  // ── Jarras
+  const section = document.getElementById('jugs-section');
+  section.innerHTML = '';
+
+  JUGS_CONFIG.forEach(jug => {
+    const col = document.createElement('div');
+    col.className = 'jug-col';
+
+    // Label arriba
+    const nameEl = document.createElement('div');
+    nameEl.className = 'jug-name';
+    nameEl.textContent = jug.id;
+    col.appendChild(nameEl);
+
+    // Cuerpo de la jarra
+    const body = document.createElement('div');
+    body.className = 'jug-body';
+    body.id = 'jug-body-' + jug.id;
+
+    // Altura proporcional a capacidad (base 8L = 150px)
+    const BASE_H = 150;
+    const jugH   = Math.round((jug.cap / 8) * BASE_H);
+    body.style.height = jugH + 'px';
+
+    // Ticks de escala
+    const ticksEl = document.createElement('div');
+    ticksEl.className = 'jug-ticks';
+    for (let l = 1; l < jug.cap; l++) {
+      const pct  = (l / jug.cap) * 100;
+      const tick = document.createElement('div');
+      tick.className = 'tick';
+      tick.style.bottom = pct + '%';
+      const lbl  = document.createElement('div');
+      lbl.className = 'tick-label';
+      lbl.style.bottom = pct + '%';
+      lbl.textContent = l;
+      ticksEl.appendChild(tick);
+      ticksEl.appendChild(lbl);
+    }
+    body.appendChild(ticksEl);
+
+    // Agua
+    const water = document.createElement('div');
+    water.className = 'jug-water';
+    water.id = 'jug-water-' + jug.id;
+    body.appendChild(water);
+
+    // Cantidad
+    const amtDiv  = document.createElement('div');
+    amtDiv.className = 'jug-amount';
+    const amtText = document.createElement('span');
+    amtText.className = 'jug-amount-text';
+    amtText.id = 'jug-amt-' + jug.id;
+    amtDiv.appendChild(amtText);
+    body.appendChild(amtDiv);
+
+    col.appendChild(body);
+
+    // Capacidad debajo
+    const capLbl = document.createElement('div');
+    capLbl.className = 'jug-cap-label';
+    capLbl.textContent = 'cap. ' + jug.cap + ' L';
+    col.appendChild(capLbl);
+
+    section.appendChild(col);
+  });
+
+  // ── Botones trasvase
+  const grid = document.getElementById('pour-grid');
+  grid.innerHTML = '';
+
+  POUR_PAIRS.forEach(([from, to]) => {
+    const btn = document.createElement('button');
+    btn.className = 'pour-btn';
+    btn.id = `pour-${from}-${to}`;
+    btn.innerHTML = `<span class="arrow">${from} → ${to}</span>`;
+    btn.addEventListener('click', () => pour(from, to));
+    grid.appendChild(btn);
+  });
+}
+
+// ══════════════════════════════════════════════
+//  RENDER
+// ══════════════════════════════════════════════
+function render() {
+  JUGS_CONFIG.forEach(jug => {
+    const cur  = state.jugs[jug.id];
+    const pct  = (cur / jug.cap) * 100;
+    const isWin = cur === TARGET;
+
+    const body  = document.getElementById('jug-body-' + jug.id);
+    const water = document.getElementById('jug-water-' + jug.id);
+    const amt   = document.getElementById('jug-amt-' + jug.id);
+    const info  = document.getElementById('info-' + jug.id.toLowerCase());
+
+    // Water level
+    water.style.height = pct + '%';
+    water.classList.toggle('win-water', isWin);
+    body.classList.toggle('win', isWin);
+
+    // Amount text — dark if water level is very low
+    amt.textContent = cur + ' / ' + jug.cap + ' L';
+    amt.className = 'jug-amount-text' + (pct < 30 ? ' dark' : '');
+
+    // Info bar
+    info.textContent = cur + ' / ' + jug.cap + ' L';
+  });
+
+  // Moves
+  document.getElementById('info-moves').textContent = state.moves;
+
+  // Pour buttons
+  POUR_PAIRS.forEach(([from, to]) => {
+    const btn = document.getElementById(`pour-${from}-${to}`);
+    const cfgFrom = JUGS_CONFIG.find(j => j.id === from);
+    const cfgTo   = JUGS_CONFIG.find(j => j.id === to);
+    const canPour = !locked && !state.won
+                  && state.jugs[from] > 0
+                  && state.jugs[to] < cfgTo.cap;
+    btn.disabled = !canPour;
+  });
+
+  // Hint
+  const hint = document.getElementById('hint-text');
+  if (state.won) {
+    hint.textContent = '🎉 ¡Exactamente 4 litros! Has resuelto el puzzle.';
+    hint.className = 'hint-text success';
+  } else {
+    hint.textContent = 'Trasvasa agua entre las jarras para medir exactamente 4 litros';
+    hint.className = 'hint-text';
+  }
+}
+
+// ══════════════════════════════════════════════
+//  POUR
+// ══════════════════════════════════════════════
+function pour(fromId, toId) {
+  if (locked || state.won) return;
+  const cfgTo  = JUGS_CONFIG.find(j => j.id === toId);
+  const curFrom = state.jugs[fromId];
+  const curTo   = state.jugs[toId];
+  const space   = cfgTo.cap - curTo;
+  const amount  = Math.min(curFrom, space);
+
+  if (amount === 0) return;   // nothing to pour
+
+  locked = true;
+
+  state.jugs[fromId] -= amount;
+  state.jugs[toId]   += amount;
+  state.moves++;
+
+  // Animate poured jugs
+  const waterFrom = document.getElementById('jug-water-' + fromId);
+  const waterTo   = document.getElementById('jug-water-' + toId);
+  waterFrom.classList.add('pouring');
+  waterTo.classList.add('pouring');
+
+  render();
+
+  setTimeout(() => {
+    waterFrom.classList.remove('pouring');
+    waterTo.classList.remove('pouring');
+    locked = false;
+    checkVictory();
+  }, 560);
+}
+
+// ══════════════════════════════════════════════
+//  CHECK VICTORY
+// ══════════════════════════════════════════════
+function checkVictory() {
+  const winner = JUGS_CONFIG.find(j => state.jugs[j.id] === TARGET);
+  if (!winner) return;
+  state.won = true;
+  render();
+
+  const jName = winner.label;
+  document.getElementById('win-msg').innerHTML =
+    `Has conseguido medir exactamente <strong>${TARGET} litros</strong> en la ${jName}.<br>¡Un verdadero maestro de la lógica! 🧠✨`;
+  markDone();
+  setTimeout(() => popupWin.classList.add('visible'), 500);
+}
+
+// ══════════════════════════════════════════════
+//  RESET
+// ══════════════════════════════════════════════
+function resetGame() {
+  locked = false;
+  popupWin.classList.remove('visible');
+  initState();
+  render();
+}
+
+// ══════════════════════════════════════════════
+//  EVENTS
+// ══════════════════════════════════════════════
+document.getElementById('reset-link').addEventListener('click', resetGame);
+
+// ══════════════════════════════════════════════
+//  INIT
+// ══════════════════════════════════════════════
+initState();
+buildDOM();
+render();
 </script>
 </body>
 </html>

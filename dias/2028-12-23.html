@@ -7,12 +7,21 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
-    :root{--gold:#C9A84C;--gold-light:#E8C97A;--gold-dark:#8B6914;--cream:#FAF6EE;--dark:#1A1410;}
+    :root{
+      --gold:#C9A84C;--gold-light:#E8C97A;--gold-dark:#8B6914;
+      --cream:#FAF6EE;--dark:#1A1410;
+      --pole:#6A5030;--pole-light:#8A7050;--base:#4A3820;
+    }
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
     body{background-color:var(--dark);color:var(--cream);font-family:'Cormorant Garamond',serif;min-height:100vh;display:flex;flex-direction:column;}
-    body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 25% 15%,rgba(201,168,76,.10) 0%,transparent 55%),radial-gradient(ellipse at 75% 85%,rgba(124,54,38,.10) 0%,transparent 55%);pointer-events:none;z-index:0;}
+    body::before{content:'';position:fixed;inset:0;
+      background:radial-gradient(ellipse at 20% 15%,rgba(201,168,76,.09) 0%,transparent 50%),
+                 radial-gradient(ellipse at 80% 85%,rgba(124,54,38,.10) 0%,transparent 50%),
+                 radial-gradient(ellipse at 50% 50%,rgba(80,40,10,.05) 0%,transparent 70%);
+      pointer-events:none;z-index:0;}
+
     .wrap{position:relative;z-index:1;max-width:800px;margin:0 auto;padding:3rem 2rem 4rem;flex:1;display:flex;flex-direction:column;}
-    .day-hero{text-align:center;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 0 2rem;position:relative;}
+    .day-hero{text-align:center;flex:1;display:flex;flex-direction:column;align-items:center;padding:3rem 0 2rem;position:relative;}
     .ornament-line-h{display:flex;align-items:center;justify-content:center;gap:1rem;margin-bottom:2rem;}
     .o-line{height:1px;width:60px;background:linear-gradient(to right,transparent,var(--gold));}
     .o-line.r{background:linear-gradient(to left,transparent,var(--gold));}
@@ -20,43 +29,114 @@
     .day-of-week{font-size:.85rem;letter-spacing:.4em;text-transform:uppercase;color:rgba(201,168,76,.5);margin-bottom:1rem;}
     h1{font-family:'Playfair Display',serif;font-size:clamp(3rem,9vw,7rem);font-weight:900;line-height:1;background:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 50%,var(--gold-dark) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.5rem;}
     .month-label{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3.5vw,2.4rem);font-weight:400;font-style:italic;color:rgba(250,246,238,.45);margin-bottom:2.5rem;}
-    .content-area{width:100%;border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:2.5rem;min-height:220px;background:rgba(255,255,255,.02);color:rgba(250,246,238,.4);font-size:1rem;font-style:italic;text-align:center;display:flex;align-items:center;justify-content:center;}
+
+    /* ══ GAME WRAPPER ══════════════════════════════════════════ */
+    .game-wrap{width:100%;border:1px solid rgba(201,168,76,.22);border-radius:6px;background:rgba(8,4,2,.5);overflow:hidden;}
+
+    .game-header{padding:1.1rem 1.5rem;border-bottom:1px solid rgba(201,168,76,.12);text-align:center;background:rgba(0,0,0,.2);}
+    .game-title{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:var(--gold-light);letter-spacing:.06em;}
+    .game-subtitle{font-size:.82rem;color:rgba(250,246,238,.38);margin-top:.25rem;font-style:italic;}
+
+    /* ── INFO BAR ─────────────────────────────────────────────── */
+    .info-bar{display:flex;justify-content:center;align-items:center;gap:2.5rem;padding:.6rem 1.5rem;border-bottom:1px solid rgba(201,168,76,.08);background:rgba(0,0,0,.15);}
+    .info-pill{display:flex;flex-direction:column;align-items:center;gap:.1rem;}
+    .info-label{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(201,168,76,.4);}
+    .info-value{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:var(--gold-light);}
+    .info-value.optimal{color:#7fca8a;}
+
+    /* ══ HANOI SCENE ══════════════════════════════════════════ */
+    .hanoi-scene{padding:1.4rem 1rem 0;display:flex;flex-direction:column;align-items:center;user-select:none;}
+
+    /* Zona de postes */
+    .posts-row{display:flex;justify-content:space-around;align-items:flex-end;width:100%;position:relative;}
+
+    /* Cada poste-columna */
+    .post-col{display:flex;flex-direction:column;align-items:center;cursor:pointer;flex:1;position:relative;padding-bottom:0;}
+
+    .post-col.active .post-pole{background:linear-gradient(to right,var(--gold-dark),var(--gold),var(--gold-dark));box-shadow:0 0 12px rgba(201,168,76,.5);}
+    .post-col.active .post-label{color:var(--gold);}
+    .post-col.invalid{animation:shake .3s ease-in-out;}
+    @keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-5px);}75%{transform:translateX(5px);}50%{transform:translateX(-3px);}62%{transform:translateX(3px);}}
+
+    /* Área de discos — crece hacia arriba */
+    .disks-area{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;width:100%;position:relative;z-index:2;}
+
+    /* Slot vacío (altura fija para mantener el poste centrado visualmente) */
+    .disk-slot{height:24px;display:flex;align-items:center;justify-content:center;width:100%;}
+
+    /* Disco */
+    .disk{height:20px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:700;letter-spacing:.05em;color:rgba(0,0,0,.55);transition:transform .15s,box-shadow .15s;position:relative;cursor:grab;}
+    .disk.top{cursor:pointer;}
+    .disk.top:hover{transform:translateY(-3px);box-shadow:0 6px 18px rgba(0,0,0,.5);}
+    .disk.selected{transform:translateY(-8px) scale(1.04);box-shadow:0 10px 28px rgba(201,168,76,.6),0 0 0 2px rgba(201,168,76,.7);}
+    .disk.animating{transition:transform .4s cubic-bezier(.34,1.56,.64,1),box-shadow .4s;pointer-events:none;}
+    .disk.win-pulse{animation:win-glow 1s ease-in-out infinite;}
+    @keyframes win-glow{0%,100%{filter:brightness(1);}50%{filter:brightness(1.3) saturate(1.2);}}
+
+    /* Poste vertical */
+    .post-pole{width:8px;height:var(--pole-h,160px);background:linear-gradient(to right,var(--base),var(--pole-light),var(--base));border-radius:4px;position:relative;z-index:1;transition:background .25s,box-shadow .25s;margin-top:-2px;}
+
+    /* Base horizontal */
+    .posts-base{width:100%;height:12px;background:linear-gradient(to bottom,var(--pole-light),var(--base));border-radius:6px;margin-bottom:0;box-shadow:0 4px 16px rgba(0,0,0,.5);}
+
+    /* Etiqueta */
+    .post-label{font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(201,168,76,.38);margin-top:.55rem;margin-bottom:.8rem;transition:color .2s;}
+
+    /* ── DRAG HINT ──────────────────────────────────────────── */
+    .drag-hint{font-size:.72rem;font-style:italic;color:rgba(250,246,238,.28);text-align:center;padding:.4rem 1rem .1rem;min-height:1.3em;}
+    .drag-hint.error{color:#e08060;animation:fade-out 2s ease forwards;}
+    @keyframes fade-out{0%{opacity:1;}70%{opacity:1;}100%{opacity:0;}}
+    .drag-hint.success{color:#7fca8a;}
+
+    /* ── CONTROLS ──────────────────────────────────────────── */
+    .controls{padding:.6rem 1.5rem .9rem;display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap;border-top:1px solid rgba(201,168,76,.06);}
+    .reset-link{font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(201,168,76,.25);cursor:pointer;border:none;background:none;padding:.2rem;transition:color .2s;font-family:'Cormorant Garamond',serif;}
+    .reset-link:hover{color:var(--gold);}
+    .disk-count-btns{display:flex;align-items:center;gap:.4rem;}
+    .dc-btn{background:none;border:1px solid rgba(201,168,76,.2);border-radius:3px;color:rgba(201,168,76,.45);font-size:.75rem;padding:.2rem .55rem;cursor:pointer;transition:all .2s;font-family:'Cormorant Garamond',serif;}
+    .dc-btn:hover{border-color:rgba(201,168,76,.5);color:var(--gold);}
+    .dc-lbl{font-size:.65rem;letter-spacing:.12em;color:rgba(201,168,76,.3);text-transform:uppercase;}
+
+    /* ── NAV ─────────────────────────────────────────────────── */
     .day-nav{display:flex;justify-content:space-between;align-items:center;padding-top:2.5rem;border-top:1px solid rgba(201,168,76,.1);margin-top:2.5rem;}
     .nav-btn{font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(201,168,76,.5);text-decoration:none;padding:.6rem 1.2rem;border:1px solid rgba(201,168,76,.18);border-radius:2px;transition:all .2s;}
     .nav-btn:hover{color:var(--gold-light);border-color:rgba(201,168,76,.5);background:rgba(201,168,76,.05);}
-    .nav-btn.disabled{opacity:0;pointer-events:none;}
     .year-badge{font-size:.7rem;letter-spacing:.3em;color:rgba(201,168,76,.25);text-transform:uppercase;}
     .back-link{display:block;text-align:center;margin-top:2rem;color:rgba(201,168,76,.35);font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;text-decoration:none;transition:color .2s;}
     .back-link:hover{color:var(--gold);}
-    /* Botones fav y done */
+
+    /* ── FAV / DONE ─────────────────────────────────────────── */
     .action-btns{position:absolute;top:0;right:0;display:flex;flex-direction:column;align-items:center;gap:.2rem;}
     .icon-btn{background:none;border:none;cursor:pointer;font-size:2rem;line-height:1;transition:color .2s,transform .2s;padding:.2rem;}
     .icon-btn:hover{transform:scale(1.2);}
     .fav-btn{color:rgba(250,246,238,.2);}
     .fav-btn.active{color:#e05a6a;}
-    .fav-btn.active:hover{color:#ff7a88;}
-    .done-btn{color:var(--gold);opacity:0.6;}
+    .done-btn{color:var(--gold);opacity:.6;}
     .done-btn.active{color:var(--gold);opacity:1;}
-    .done-btn.active:hover{color:var(--gold-light);opacity:1;}
-    /* Popup */
-    .popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:100;align-items:center;justify-content:center;}
+
+    /* ── POPUPS ─────────────────────────────────────────────── */
+    .popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:100;align-items:center;justify-content:center;}
     .popup-overlay.visible{display:flex;}
-    .popup-box{background:var(--dark);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:3rem 2.5rem;max-width:420px;width:90%;text-align:center;box-shadow:0 0 60px rgba(0,0,0,.8);}
-    .popup-icon{font-size:3rem;margin-bottom:1rem;}
-    .popup-title{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--gold-light);margin-bottom:1rem;}
-    .popup-msg{font-size:1rem;font-style:italic;color:rgba(250,246,238,.6);line-height:1.7;margin-bottom:2rem;}
-    .popup-btn{display:inline-block;padding:.7rem 2rem;border:1px solid rgba(201,168,76,.4);border-radius:2px;color:var(--gold);font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;background:none;transition:all .2s;}
+    .popup-box{background:var(--dark);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:2.5rem 2rem;max-width:420px;width:90%;text-align:center;box-shadow:0 0 60px rgba(0,0,0,.9);}
+    .popup-icon{font-size:3rem;margin-bottom:.8rem;}
+    .popup-title{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:var(--gold-light);margin-bottom:.8rem;}
+    .popup-msg{font-size:.95rem;font-style:italic;color:rgba(250,246,238,.6);line-height:1.7;margin-bottom:1.8rem;}
+    .popup-btns{display:flex;gap:.7rem;justify-content:center;flex-wrap:wrap;}
+    .popup-btn{display:inline-block;padding:.65rem 1.8rem;border:1px solid rgba(201,168,76,.4);border-radius:2px;color:var(--gold);font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;background:none;transition:all .2s;font-family:'Cormorant Garamond',serif;}
     .popup-btn:hover{background:rgba(201,168,76,.1);border-color:var(--gold);}
+
     @media(max-width:600px){
       .wrap{padding:1rem 1rem 2rem;}
       .day-hero{padding:1rem 0 1rem;}
       h1{font-size:clamp(2rem,14vw,4rem);}
       .month-label{font-size:clamp(1rem,4vw,1.6rem);margin-bottom:1rem;}
-      .content-area{padding:1.2rem;min-height:120px;}
       .day-nav{margin-top:1rem;padding-top:1rem;}
       .ornament-line-h{margin-bottom:1rem;}
+      .info-bar{gap:1.2rem;}
+      .disk{height:17px;border-radius:8px;}
+      .disk-slot{height:20px;}
     }
-</style>
+  </style>
 </head>
 <body>
 <div class="wrap">
@@ -71,10 +151,51 @@
     <p class="day-of-week">Sábado</p>
     <h1>23</h1>
     <p class="month-label">de Diciembre</p>
-    <div class="content-area">
-      <p>Espacio reservado para el contenido de este día</p>
+
+    <!-- ══════════════════ MINIJUEGO ══════════════════ -->
+    <div class="game-wrap">
+
+      <div class="game-header">
+        <div class="game-title">La Torre de Hanoi</div>
+        <div class="game-subtitle">Mueve todos los discos al Poste 3 respetando las reglas</div>
+      </div>
+
+      <div class="info-bar">
+        <div class="info-pill">
+          <span class="info-label">Movimientos</span>
+          <span class="info-value" id="info-moves">0</span>
+        </div>
+        <div class="info-pill">
+          <span class="info-label">Mínimo posible</span>
+          <span class="info-value" id="info-optimal">—</span>
+        </div>
+        <div class="info-pill">
+          <span class="info-label">Discos</span>
+          <span class="info-value" id="info-disks">5</span>
+        </div>
+      </div>
+
+      <div class="hanoi-scene" id="hanoi-scene">
+        <!-- Generado por JS -->
+      </div>
+
+      <div class="drag-hint" id="drag-hint">Haz clic en un poste para seleccionar el disco superior, luego en el destino</div>
+
+      <div class="controls">
+        <div class="disk-count-btns">
+          <span class="dc-lbl">Discos:</span>
+          <button class="dc-btn" id="btn-minus">−</button>
+          <span class="info-value" id="dc-display" style="min-width:1.2rem;text-align:center;font-size:1rem;">5</span>
+          <button class="dc-btn" id="btn-plus">+</button>
+        </div>
+        <button class="reset-link" id="reset-link">↺ Reiniciar</button>
+      </div>
+
     </div>
+    <!-- ══════════════════ FIN MINIJUEGO ══════════════════ -->
+
   </div>
+
   <nav class="day-nav">
     <a class="nav-btn" href="2028-12-22.html">&#8592; 22 de Diciembre</a>
     <span class="year-badge">50 Aniversario · 2028</span>
@@ -83,6 +204,7 @@
   <a class="back-link" href="../index.html">&#8592; Volver al Calendario</a>
 </div>
 
+<!-- Popup futuro -->
 <div class="popup-overlay" id="popup">
   <div class="popup-box">
     <div class="popup-icon">🎁</div>
@@ -102,7 +224,7 @@
   </div>
 </div>
 
-<!-- Popup recompensa del día -->
+<!-- Popup recompensa -->
 <div class="popup-overlay" id="popup-star-reward">
   <div class="popup-box">
     <div class="popup-icon">🎁</div>
@@ -112,31 +234,46 @@
   </div>
 </div>
 
+<!-- Popup victoria -->
+<div class="popup-overlay" id="popup-win">
+  <div class="popup-box">
+    <div class="popup-icon">🗼</div>
+    <p class="popup-title">¡Torre completada!</p>
+    <p class="popup-msg" id="win-msg">Has resuelto la Torre de Hanoi. ¡Mente privilegiada! 🧠✨</p>
+    <div class="popup-btns">
+      <button class="popup-btn" id="win-reward-btn">Ver recompensa ★</button>
+    </div>
+  </div>
+</div>
+
 <script>
-const PREVIEW_KEY  = 'cal_preview';
-const isPreview    = localStorage.getItem(PREVIEW_KEY) === '1';
-const today        = new Date(); today.setHours(0,0,0,0);
-const thisDate     = new Date('2028-12-23'); thisDate.setHours(0,0,0,0);
-const nextDateStr  = '2028-12-24';
-const popup        = document.getElementById('popup');
+// ══════════════════════════════════════════════
+//  PREVIEW & DATE GUARD
+// ══════════════════════════════════════════════
+const PREVIEW_KEY = 'cal_preview';
+const isPreview   = localStorage.getItem(PREVIEW_KEY) === '1';
+const today       = new Date(); today.setHours(0,0,0,0);
+const thisDate    = new Date('2028-12-23'); thisDate.setHours(0,0,0,0);
+const nextDateStr = '2028-12-24';
+const popup       = document.getElementById('popup');
 
 if (!isPreview && thisDate > today) {
   document.querySelector('.day-hero').style.filter = 'blur(4px)';
   document.querySelector('.day-nav').style.visibility = 'hidden';
   popup.classList.add('visible');
 }
-
 if (!isPreview && nextDateStr) {
   const nextDate = new Date(nextDateStr); nextDate.setHours(0,0,0,0);
   if (nextDate > today) {
-    const nextBtn = document.getElementById('next-btn');
-    if (nextBtn) nextBtn.addEventListener('click', e => { e.preventDefault(); popup.classList.add('visible'); });
+    const nb = document.getElementById('next-btn');
+    if (nb) nb.addEventListener('click', e => { e.preventDefault(); popup.classList.add('visible'); });
   }
 }
-
 popup.addEventListener('click', e => { if (e.target === popup) window.location.href = '../index.html'; });
 
-// ── Favourite ──────────────────────────────────────────────
+// ══════════════════════════════════════════════
+//  FAV
+// ══════════════════════════════════════════════
 const FAV_KEY = 'fav_2028-12-23';
 const favBtn  = document.getElementById('fav-btn');
 function updateFav() {
@@ -152,25 +289,23 @@ favBtn.addEventListener('click', () => {
 });
 updateFav();
 
-// ── Done (actividad completada) ────────────────────────────
-const DONE_KEY = 'done_2028-12-23';
-const doneBtn  = document.getElementById('done-btn');
+// ══════════════════════════════════════════════
+//  DONE / REWARD
+// ══════════════════════════════════════════════
+const DONE_KEY         = 'done_2028-12-23';
+const doneBtn          = document.getElementById('done-btn');
 const popupStarBlocked = document.getElementById('popup-star-blocked');
 const popupStarReward  = document.getElementById('popup-star-reward');
+const popupWin         = document.getElementById('popup-win');
 
-document.getElementById('star-blocked-close').addEventListener('click', () => {
-  popupStarBlocked.classList.remove('visible');
-});
-popupStarBlocked.addEventListener('click', e => {
-  if (e.target === popupStarBlocked) popupStarBlocked.classList.remove('visible');
-});
+document.getElementById('star-blocked-close').addEventListener('click', () => popupStarBlocked.classList.remove('visible'));
+popupStarBlocked.addEventListener('click', e => { if (e.target === popupStarBlocked) popupStarBlocked.classList.remove('visible'); });
+document.getElementById('star-reward-close').addEventListener('click', () => popupStarReward.classList.remove('visible'));
+popupStarReward.addEventListener('click', e => { if (e.target === popupStarReward) popupStarReward.classList.remove('visible'); });
+popupWin.addEventListener('click', e => { if (e.target === popupWin) popupWin.classList.remove('visible'); });
 
-document.getElementById('star-reward-close').addEventListener('click', () => {
-  popupStarReward.classList.remove('visible');
-});
-popupStarReward.addEventListener('click', e => {
-  if (e.target === popupStarReward) popupStarReward.classList.remove('visible');
-});
+function markDone() { localStorage.setItem(DONE_KEY, '1'); updateDone(); }
+function showReward() { popupStarReward.classList.add('visible'); }
 
 function updateDone() {
   const on = localStorage.getItem(DONE_KEY) === '1';
@@ -180,20 +315,312 @@ function updateDone() {
 }
 doneBtn.addEventListener('click', () => {
   const on = localStorage.getItem(DONE_KEY) === '1';
-  if (on) {
-    // Already done → show reward
-    popupStarReward.classList.add('visible');
-  } else {
-    // Not done → only allowed in preview mode
-    if (isPreview) {
-      localStorage.setItem(DONE_KEY, '1');
-      updateDone();
-    } else {
-      popupStarBlocked.classList.add('visible');
-    }
-  }
+  if (on) showReward();
+  else if (isPreview) markDone();
+  else popupStarBlocked.classList.add('visible');
 });
 updateDone();
+
+document.getElementById('win-reward-btn').addEventListener('click', () => {
+  popupWin.classList.remove('visible');
+  showReward();
+});
+
+// ══════════════════════════════════════════════
+//  DISK COLOUR PALETTE  (5+ distinct colours)
+// ══════════════════════════════════════════════
+const DISK_COLORS = [
+  // [bg-gradient-start, bg-gradient-end, border]
+  ['#B03030','#E05050','#c04040'],  // 1 rojo
+  ['#C07010','#F0A030','#d08020'],  // 2 naranja
+  ['#8B8000','#C8B800','#a0a000'],  // 3 amarillo
+  ['#207040','#40B060','#309050'],  // 4 verde
+  ['#204090','#4060D0','#3050B0'],  // 5 azul
+  ['#701880','#A030C0','#8020A0'],  // 6 violeta
+  ['#A01850','#D04080','#C02060'],  // 7 rosa
+  ['#306070','#50A0B8','#4080A0'],  // 8 turquesa
+];
+
+// ══════════════════════════════════════════════
+//  GAME CONFIG & STATE
+// ══════════════════════════════════════════════
+const NUM_POSTS = 3;
+let N_DISKS     = 5;   // configurable
+let state       = {};
+let locked      = false;
+let hintTimer   = null;
+
+function initState() {
+  // posts[i] = array of disk sizes (bottom → top), size = 1..N_DISKS (N_DISKS is largest)
+  state = {
+    posts    : [
+      Array.from({length: N_DISKS}, (_, i) => N_DISKS - i), // [N, N-1, …, 1]
+      [],
+      [],
+    ],
+    selected : null,   // index of selected post (0,1,2) or null
+    moves    : 0,
+    won      : false,
+  };
+}
+
+// ══════════════════════════════════════════════
+//  RENDER
+// ══════════════════════════════════════════════
+function render() {
+  const scene = document.getElementById('hanoi-scene');
+  scene.innerHTML = '';
+
+  // Dynamic pole height based on N_DISKS
+  const DISK_H   = 22;  // px per disk slot
+  const POLE_H   = N_DISKS * DISK_H + 20;
+  const BASE_MAX_W = 90; // % of post width for largest disk
+
+  // Posts row
+  const row = document.createElement('div');
+  row.className = 'posts-row';
+
+  for (let p = 0; p < NUM_POSTS; p++) {
+    const col = document.createElement('div');
+    col.className = 'post-col';
+    if (state.selected === p) col.classList.add('active');
+    col.dataset.post = p;
+    col.addEventListener('click', () => selectPost(p));
+
+    // Drag-over target
+    col.addEventListener('dragover', e => { e.preventDefault(); col.classList.add('active'); });
+    col.addEventListener('dragleave', () => { if (state.selected !== p) col.classList.remove('active'); });
+    col.addEventListener('drop', e => {
+      e.preventDefault();
+      col.classList.remove('active');
+      const from = parseInt(e.dataTransfer.getData('fromPost'));
+      if (!isNaN(from) && from !== p) attemptMove(from, p);
+    });
+
+    // Disks area (rendered bottom-up via flex column-reverse trick)
+    const disksArea = document.createElement('div');
+    disksArea.className = 'disks-area';
+    disksArea.style.height = POLE_H + 'px';
+
+    // Fill slots: bottom first = index 0
+    const stack = state.posts[p];
+    // We render from top of stack down to fill area bottom
+    // Use absolute positioning via flex-end
+    // Actually: flex column, justify flex-end, last element = bottom
+    // So we reverse and render top-down (last in DOM = bottom visually with flex-end)
+    // Simpler: create N_DISKS slots, fill from bottom
+    for (let slot = 0; slot < N_DISKS; slot++) {
+      const diskIdx = stack[slot]; // undefined if empty
+      const slotEl  = document.createElement('div');
+      slotEl.className = 'disk-slot';
+
+      if (diskIdx !== undefined) {
+        const diskEl = document.createElement('div');
+        diskEl.className = 'disk';
+
+        // Width proportional to size (diskIdx / N_DISKS)
+        const minW = 28, maxW = 92; // % of col
+        const w = minW + ((diskIdx - 1) / (N_DISKS - 1 || 1)) * (maxW - minW);
+        diskEl.style.width = w + '%';
+
+        // Colour from palette
+        const ci = (diskIdx - 1) % DISK_COLORS.length;
+        const [c1, c2, cb] = DISK_COLORS[ci];
+        diskEl.style.background = `linear-gradient(to bottom, ${c2}, ${c1})`;
+        diskEl.style.border = `2px solid ${cb}`;
+        diskEl.style.boxShadow = `0 3px 10px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.15)`;
+
+        // Is it the top disk of this post?
+        const isTop = slot === stack.length - 1;
+        if (isTop) {
+          diskEl.classList.add('top');
+          if (state.selected === p) diskEl.classList.add('selected');
+          if (state.won) diskEl.classList.add('win-pulse');
+
+          // Drag support
+          diskEl.draggable = !locked && !state.won;
+          diskEl.addEventListener('dragstart', e => {
+            if (locked || state.won) { e.preventDefault(); return; }
+            e.dataTransfer.setData('fromPost', p);
+            state.selected = p;
+            render();
+          });
+        }
+
+        slotEl.appendChild(diskEl);
+      }
+
+      disksArea.appendChild(slotEl);
+    }
+    col.appendChild(disksArea);
+
+    // Pole
+    const pole = document.createElement('div');
+    pole.className = 'post-pole';
+    pole.style.setProperty('--pole-h', POLE_H + 'px');
+    col.appendChild(pole);
+
+    // Label
+    const lbl = document.createElement('div');
+    lbl.className = 'post-label';
+    lbl.textContent = 'Poste ' + (p + 1);
+    col.appendChild(lbl);
+
+    row.appendChild(col);
+  }
+
+  scene.appendChild(row);
+
+  // Base
+  const base = document.createElement('div');
+  base.className = 'posts-base';
+  scene.appendChild(base);
+
+  // Info bar
+  const optimal = (1 << N_DISKS) - 1; // 2^n - 1
+  document.getElementById('info-moves').textContent = state.moves;
+  document.getElementById('info-optimal').textContent = optimal;
+  const optEl = document.getElementById('info-optimal');
+  optEl.className = 'info-value' + (state.moves > 0 && state.moves <= optimal ? ' optimal' : '');
+  document.getElementById('info-disks').textContent = N_DISKS;
+  document.getElementById('dc-display').textContent = N_DISKS;
+}
+
+// ══════════════════════════════════════════════
+//  SELECT POST (click handler)
+// ══════════════════════════════════════════════
+function selectPost(p) {
+  if (locked || state.won) return;
+
+  if (state.selected === null) {
+    // First click — pick a source
+    if (state.posts[p].length === 0) {
+      showHint('Este poste está vacío', true);
+      return;
+    }
+    state.selected = p;
+    render();
+  } else if (state.selected === p) {
+    // Deselect
+    state.selected = null;
+    render();
+  } else {
+    // Second click — attempt move
+    attemptMove(state.selected, p);
+  }
+}
+
+// ══════════════════════════════════════════════
+//  IS VALID MOVE
+// ══════════════════════════════════════════════
+function isValidMove(from, to) {
+  if (state.posts[from].length === 0) return false;
+  const topFrom = state.posts[from][state.posts[from].length - 1];
+  const topTo   = state.posts[to].length === 0 ? Infinity : state.posts[to][state.posts[to].length - 1];
+  return topFrom < topTo;
+}
+
+// ══════════════════════════════════════════════
+//  ATTEMPT MOVE
+// ══════════════════════════════════════════════
+function attemptMove(from, to) {
+  if (locked || state.won) return;
+
+  if (!isValidMove(from, to)) {
+    // Invalid — shake the destination post and show error
+    showHint('Movimiento inválido: no puedes colocar un disco grande sobre uno pequeño', true);
+    const col = document.querySelector(`.post-col[data-post="${to}"]`);
+    if (col) { col.classList.add('invalid'); setTimeout(() => col.classList.remove('invalid'), 350); }
+    state.selected = null;
+    render();
+    return;
+  }
+
+  moveDisk(from, to);
+}
+
+// ══════════════════════════════════════════════
+//  MOVE DISK
+// ══════════════════════════════════════════════
+function moveDisk(from, to) {
+  locked = true;
+  const disk = state.posts[from].pop();
+  state.posts[to].push(disk);
+  state.moves++;
+  state.selected = null;
+  render();
+
+  setTimeout(() => {
+    locked = false;
+    checkVictory();
+  }, 180);
+}
+
+// ══════════════════════════════════════════════
+//  CHECK VICTORY
+// ══════════════════════════════════════════════
+function checkVictory() {
+  // All N_DISKS on post 3 (index 2), ordered correctly
+  if (state.posts[2].length !== N_DISKS) return;
+  state.won = true;
+  render();
+
+  const optimal  = (1 << N_DISKS) - 1;
+  const extra    = state.moves - optimal;
+  const extraTxt = extra === 0
+    ? '¡Con el mínimo posible de movimientos! Perfección absoluta. 🌟'
+    : `Lo has logrado en ${state.moves} movimientos (el mínimo teórico es ${optimal}).`;
+
+  document.getElementById('win-msg').innerHTML =
+    `Has resuelto la Torre de Hanoi con <strong>${N_DISKS} discos</strong>.<br>${extraTxt}<br><br>¡Mente privilegiada! 🧠✨`;
+
+  markDone();
+  setTimeout(() => popupWin.classList.add('visible'), 600);
+}
+
+// ══════════════════════════════════════════════
+//  RESET
+// ══════════════════════════════════════════════
+function resetGame() {
+  locked = false;
+  popupWin.classList.remove('visible');
+  initState();
+  render();
+  showHint('Haz clic en un poste para seleccionar el disco superior, luego en el destino', false);
+}
+
+// ══════════════════════════════════════════════
+//  HINT
+// ══════════════════════════════════════════════
+function showHint(msg, isError) {
+  const el = document.getElementById('drag-hint');
+  clearTimeout(hintTimer);
+  el.textContent = msg;
+  el.className   = 'drag-hint' + (isError ? ' error' : '');
+  if (isError) {
+    hintTimer = setTimeout(() => {
+      el.textContent = 'Haz clic en un poste para seleccionar el disco superior, luego en el destino';
+      el.className   = 'drag-hint';
+    }, 2200);
+  }
+}
+
+// ══════════════════════════════════════════════
+//  DISK COUNT CONTROLS
+// ══════════════════════════════════════════════
+document.getElementById('btn-minus').addEventListener('click', () => {
+  if (N_DISKS > 3) { N_DISKS--; resetGame(); }
+});
+document.getElementById('btn-plus').addEventListener('click', () => {
+  if (N_DISKS < 8) { N_DISKS++; resetGame(); }
+});
+document.getElementById('reset-link').addEventListener('click', resetGame);
+
+// ══════════════════════════════════════════════
+//  INIT
+// ══════════════════════════════════════════════
+initState();
+render();
 </script>
 </body>
 </html>

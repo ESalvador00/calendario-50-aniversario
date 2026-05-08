@@ -7,12 +7,24 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
-    :root{--gold:#C9A84C;--gold-light:#E8C97A;--gold-dark:#8B6914;--cream:#FAF6EE;--dark:#1A1410;}
+    :root{
+      --gold:#C9A84C;--gold-light:#E8C97A;--gold-dark:#8B6914;
+      --cream:#FAF6EE;--dark:#1A1410;
+      --fuel:#D4820A;--fuel-light:#F0A030;--fuel-mid:#C07010;--fuel-glow:rgba(212,130,10,.4);
+      --fuel-win:#E8C040;--fuel-win-glow:rgba(232,192,64,.45);
+      --tank-border:rgba(201,168,76,.28);--tank-bg:rgba(30,20,10,.6);
+      --metal:#5A4A38;--metal-light:#7A6A52;
+    }
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
     body{background-color:var(--dark);color:var(--cream);font-family:'Cormorant Garamond',serif;min-height:100vh;display:flex;flex-direction:column;}
-    body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 25% 15%,rgba(201,168,76,.10) 0%,transparent 55%),radial-gradient(ellipse at 75% 85%,rgba(124,54,38,.10) 0%,transparent 55%);pointer-events:none;z-index:0;}
+    body::before{content:'';position:fixed;inset:0;
+      background:radial-gradient(ellipse at 20% 20%,rgba(212,130,10,.07) 0%,transparent 50%),
+                 radial-gradient(ellipse at 80% 80%,rgba(124,54,38,.10) 0%,transparent 50%),
+                 repeating-linear-gradient(90deg,transparent,transparent 60px,rgba(201,168,76,.012) 60px,rgba(201,168,76,.012) 61px);
+      pointer-events:none;z-index:0;}
+
     .wrap{position:relative;z-index:1;max-width:800px;margin:0 auto;padding:3rem 2rem 4rem;flex:1;display:flex;flex-direction:column;}
-    .day-hero{text-align:center;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 0 2rem;position:relative;}
+    .day-hero{text-align:center;flex:1;display:flex;flex-direction:column;align-items:center;padding:3rem 0 2rem;position:relative;}
     .ornament-line-h{display:flex;align-items:center;justify-content:center;gap:1rem;margin-bottom:2rem;}
     .o-line{height:1px;width:60px;background:linear-gradient(to right,transparent,var(--gold));}
     .o-line.r{background:linear-gradient(to left,transparent,var(--gold));}
@@ -20,43 +32,123 @@
     .day-of-week{font-size:.85rem;letter-spacing:.4em;text-transform:uppercase;color:rgba(201,168,76,.5);margin-bottom:1rem;}
     h1{font-family:'Playfair Display',serif;font-size:clamp(3rem,9vw,7rem);font-weight:900;line-height:1;background:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 50%,var(--gold-dark) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.5rem;}
     .month-label{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3.5vw,2.4rem);font-weight:400;font-style:italic;color:rgba(250,246,238,.45);margin-bottom:2.5rem;}
-    .content-area{width:100%;border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:2.5rem;min-height:220px;background:rgba(255,255,255,.02);color:rgba(250,246,238,.4);font-size:1rem;font-style:italic;text-align:center;display:flex;align-items:center;justify-content:center;}
+
+    /* ══ GAME WRAPPER ══════════════════════════════════════════ */
+    .game-wrap{width:100%;border:1px solid rgba(201,168,76,.22);border-radius:6px;background:rgba(10,6,2,.4);overflow:hidden;}
+
+    .game-header{padding:1.1rem 1.5rem;border-bottom:1px solid rgba(201,168,76,.12);text-align:center;background:rgba(0,0,0,.2);}
+    .game-title{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:var(--gold-light);letter-spacing:.06em;}
+    .game-subtitle{font-size:.82rem;color:rgba(250,246,238,.38);margin-top:.25rem;font-style:italic;}
+
+    /* ── INFO BAR ──────────────────────────────────────────── */
+    .info-bar{display:flex;justify-content:center;align-items:center;gap:2rem;padding:.6rem 1.5rem;border-bottom:1px solid rgba(201,168,76,.08);background:rgba(0,0,0,.15);}
+    .info-pill{display:flex;flex-direction:column;align-items:center;gap:.1rem;}
+    .info-label{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(212,130,10,.55);}
+    .info-value{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:var(--fuel-light);}
+    .info-value.win{color:var(--fuel-win);text-shadow:0 0 8px var(--fuel-win-glow);}
+
+    /* ══ TANQUES SECTION ═══════════════════════════════════════ */
+    .tanks-section{padding:1.6rem 1rem .8rem;display:flex;justify-content:center;align-items:flex-end;gap:clamp(.6rem,3vw,2.2rem);}
+
+    .tank-col{display:flex;flex-direction:column;align-items:center;gap:.5rem;flex:1;max-width:150px;}
+
+    /* Etiqueta + icono */
+    .tank-header{display:flex;flex-direction:column;align-items:center;gap:.25rem;}
+    .tank-icon{font-size:1.3rem;line-height:1;filter:drop-shadow(0 0 4px rgba(212,130,10,.4));}
+    .tank-name{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;color:var(--gold-light);letter-spacing:.1em;}
+
+    /* Cuerpo del tanque — forma industrial */
+    .tank-body{position:relative;width:clamp(68px,15vw,94px);border:2px solid var(--tank-border);border-radius:6px 6px 4px 4px;overflow:hidden;background:var(--tank-bg);transition:border-color .35s,box-shadow .35s;}
+
+    /* Costuras industriales */
+    .tank-body::before{content:'';position:absolute;top:0;left:0;right:0;height:100%;background:repeating-linear-gradient(180deg,transparent,transparent 19px,rgba(201,168,76,.05) 19px,rgba(201,168,76,.05) 20px);pointer-events:none;z-index:3;}
+    /* Reflejo lateral */
+    .tank-body::after{content:'';position:absolute;top:0;left:5px;width:6px;height:100%;background:linear-gradient(to bottom,rgba(255,255,255,.06),rgba(255,255,255,.02));pointer-events:none;z-index:3;}
+
+    .tank-body.win{border-color:var(--fuel-win);box-shadow:0 0 20px var(--fuel-win-glow),inset 0 0 20px rgba(232,192,64,.07);}
+
+    /* Ticks de escala */
+    .tank-ticks{position:absolute;inset:0;pointer-events:none;z-index:4;}
+    .tick{position:absolute;right:0;height:1px;background:rgba(201,168,76,.18);width:28%;}
+    .tick-lbl{position:absolute;right:calc(28% + 3px);font-size:.4rem;color:rgba(201,168,76,.4);transform:translateY(-50%);line-height:1;white-space:nowrap;}
+
+    /* Nivel de combustible */
+    .tank-fuel{position:absolute;bottom:0;left:0;right:0;transition:height .6s cubic-bezier(.25,.8,.25,1);z-index:1;}
+    /* Gradiente naranja-ámbar para combustible */
+    .tank-fuel{background:linear-gradient(to top,var(--fuel-mid) 0%,var(--fuel) 50%,var(--fuel-light) 100%);}
+    /* Brillo superior animado */
+    .tank-fuel::after{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:rgba(255,200,80,.25);animation:fuel-shimmer 3s ease-in-out infinite;}
+    @keyframes fuel-shimmer{0%,100%{opacity:.5;transform:scaleX(1);}50%{opacity:1;transform:scaleX(.88);}}
+    /* Burbuja de flujo */
+    .tank-fuel.pouring{animation:fuel-pour .55s ease-out;}
+    @keyframes fuel-pour{0%{filter:brightness(1.5) saturate(1.3);}100%{filter:brightness(1) saturate(1);}}
+    .tank-fuel.win-fuel{background:linear-gradient(to top,#c8a010 0%,var(--fuel-win) 60%,#fff0a0 100%);}
+
+    /* Cantidad superpuesta */
+    .tank-amount{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:5;pointer-events:none;}
+    .tank-amt-text{font-family:'Playfair Display',serif;font-size:clamp(.8rem,2.2vw,1rem);font-weight:700;color:rgba(255,255,255,.92);text-shadow:0 1px 5px rgba(0,0,0,.7);}
+    .tank-amt-text.dark{color:rgba(212,130,10,.65);text-shadow:none;}
+
+    /* Etiqueta capacidad */
+    .tank-cap-lbl{font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(212,130,10,.4);}
+
+    /* ══ BOTONES TRASVASE ══════════════════════════════════════ */
+    .pour-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.45rem;padding:.7rem 1rem .9rem;border-top:1px solid rgba(201,168,76,.08);}
+
+    .pour-btn{display:flex;flex-direction:column;align-items:center;gap:.15rem;background:rgba(212,130,10,.08);border:1px solid rgba(212,130,10,.28);border-radius:4px;color:rgba(240,160,48,.7);font-family:'Cormorant Garamond',serif;font-size:.72rem;letter-spacing:.1em;padding:.5rem .3rem;cursor:pointer;transition:all .2s;line-height:1.2;}
+    .pour-btn .p-arrow{font-size:1rem;display:block;line-height:1;}
+    .pour-btn .p-label{font-size:.6rem;letter-spacing:.08em;opacity:.7;}
+    .pour-btn:hover:not(:disabled){background:rgba(212,130,10,.22);border-color:rgba(240,160,48,.55);color:#f0c070;box-shadow:0 0 10px rgba(212,130,10,.2);}
+    .pour-btn:disabled{opacity:.2;cursor:default;}
+
+    /* ── HINT + RESET ─────────────────────────────────────────── */
+    .controls{padding:.65rem 1.5rem 1rem;display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap;border-top:1px solid rgba(201,168,76,.06);}
+    .hint-text{font-size:.78rem;font-style:italic;color:rgba(250,246,238,.32);text-align:center;flex:1 1 100%;}
+    .hint-text.success{color:#e8c040;}
+    .reset-link{font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(201,168,76,.25);cursor:pointer;border:none;background:none;padding:.2rem;transition:color .2s;font-family:'Cormorant Garamond',serif;}
+    .reset-link:hover{color:var(--gold);}
+
+    /* ── NAV ─────────────────────────────────────────────────── */
     .day-nav{display:flex;justify-content:space-between;align-items:center;padding-top:2.5rem;border-top:1px solid rgba(201,168,76,.1);margin-top:2.5rem;}
     .nav-btn{font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(201,168,76,.5);text-decoration:none;padding:.6rem 1.2rem;border:1px solid rgba(201,168,76,.18);border-radius:2px;transition:all .2s;}
     .nav-btn:hover{color:var(--gold-light);border-color:rgba(201,168,76,.5);background:rgba(201,168,76,.05);}
-    .nav-btn.disabled{opacity:0;pointer-events:none;}
     .year-badge{font-size:.7rem;letter-spacing:.3em;color:rgba(201,168,76,.25);text-transform:uppercase;}
     .back-link{display:block;text-align:center;margin-top:2rem;color:rgba(201,168,76,.35);font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;text-decoration:none;transition:color .2s;}
     .back-link:hover{color:var(--gold);}
-    /* Botones fav y done */
+
+    /* ── FAV / DONE ─────────────────────────────────────────── */
     .action-btns{position:absolute;top:0;right:0;display:flex;flex-direction:column;align-items:center;gap:.2rem;}
     .icon-btn{background:none;border:none;cursor:pointer;font-size:2rem;line-height:1;transition:color .2s,transform .2s;padding:.2rem;}
     .icon-btn:hover{transform:scale(1.2);}
     .fav-btn{color:rgba(250,246,238,.2);}
     .fav-btn.active{color:#e05a6a;}
-    .fav-btn.active:hover{color:#ff7a88;}
-    .done-btn{color:var(--gold);opacity:0.6;}
+    .done-btn{color:var(--gold);opacity:.6;}
     .done-btn.active{color:var(--gold);opacity:1;}
-    .done-btn.active:hover{color:var(--gold-light);opacity:1;}
-    /* Popup */
-    .popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:100;align-items:center;justify-content:center;}
+
+    /* ── POPUPS ─────────────────────────────────────────────── */
+    .popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:100;align-items:center;justify-content:center;}
     .popup-overlay.visible{display:flex;}
-    .popup-box{background:var(--dark);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:3rem 2.5rem;max-width:420px;width:90%;text-align:center;box-shadow:0 0 60px rgba(0,0,0,.8);}
-    .popup-icon{font-size:3rem;margin-bottom:1rem;}
-    .popup-title{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--gold-light);margin-bottom:1rem;}
-    .popup-msg{font-size:1rem;font-style:italic;color:rgba(250,246,238,.6);line-height:1.7;margin-bottom:2rem;}
-    .popup-btn{display:inline-block;padding:.7rem 2rem;border:1px solid rgba(201,168,76,.4);border-radius:2px;color:var(--gold);font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;background:none;transition:all .2s;}
+    .popup-box{background:var(--dark);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:2.5rem 2rem;max-width:420px;width:90%;text-align:center;box-shadow:0 0 60px rgba(0,0,0,.9);}
+    .popup-icon{font-size:3rem;margin-bottom:.8rem;}
+    .popup-title{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:var(--gold-light);margin-bottom:.8rem;}
+    .popup-msg{font-size:.95rem;font-style:italic;color:rgba(250,246,238,.6);line-height:1.7;margin-bottom:1.8rem;}
+    .popup-btns{display:flex;gap:.7rem;justify-content:center;flex-wrap:wrap;}
+    .popup-btn{display:inline-block;padding:.65rem 1.8rem;border:1px solid rgba(201,168,76,.4);border-radius:2px;color:var(--gold);font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;background:none;transition:all .2s;font-family:'Cormorant Garamond',serif;}
     .popup-btn:hover{background:rgba(201,168,76,.1);border-color:var(--gold);}
+
     @media(max-width:600px){
       .wrap{padding:1rem 1rem 2rem;}
       .day-hero{padding:1rem 0 1rem;}
       h1{font-size:clamp(2rem,14vw,4rem);}
       .month-label{font-size:clamp(1rem,4vw,1.6rem);margin-bottom:1rem;}
-      .content-area{padding:1.2rem;min-height:120px;}
       .day-nav{margin-top:1rem;padding-top:1rem;}
       .ornament-line-h{margin-bottom:1rem;}
+      .pour-grid{gap:.3rem;}
+      .pour-btn{font-size:.65rem;padding:.4rem .25rem;}
+      .tanks-section{gap:.5rem;}
+      .info-bar{gap:1rem;}
     }
-</style>
+  </style>
 </head>
 <body>
 <div class="wrap">
@@ -71,10 +163,48 @@
     <p class="day-of-week">Sábado</p>
     <h1>28</h1>
     <p class="month-label">de Octubre</p>
-    <div class="content-area">
-      <p>Espacio reservado para el contenido de este día</p>
+
+    <!-- ══════════════════ MINIJUEGO ══════════════════ -->
+    <div class="game-wrap">
+
+      <div class="game-header">
+        <div class="game-title">Reparto de Combustible</div>
+        <div class="game-subtitle">Divide los 10 litros en dos partes exactas de 5 L cada una</div>
+      </div>
+
+      <div class="info-bar">
+        <div class="info-pill">
+          <span class="info-label">Tanque A</span>
+          <span class="info-value" id="info-A">10 / 10 L</span>
+        </div>
+        <div class="info-pill">
+          <span class="info-label">Recipiente B</span>
+          <span class="info-value" id="info-B">0 / 7 L</span>
+        </div>
+        <div class="info-pill">
+          <span class="info-label">Recipiente C</span>
+          <span class="info-value" id="info-C">0 / 3 L</span>
+        </div>
+        <div class="info-pill">
+          <span class="info-label">Movimientos</span>
+          <span class="info-value" id="info-moves">0</span>
+        </div>
+      </div>
+
+      <div class="tanks-section" id="tanks-section"></div>
+
+      <div class="pour-grid" id="pour-grid"></div>
+
+      <div class="controls">
+        <div class="hint-text" id="hint-text">Trasvasa combustible para conseguir exactamente 5 L en dos recipientes</div>
+        <button class="reset-link" id="reset-link">↺ Reiniciar</button>
+      </div>
+
     </div>
+    <!-- ══════════════════ FIN MINIJUEGO ══════════════════ -->
+
   </div>
+
   <nav class="day-nav">
     <a class="nav-btn" href="2028-10-27.html">&#8592; 27 de Octubre</a>
     <span class="year-badge">50 Aniversario · 2028</span>
@@ -83,6 +213,7 @@
   <a class="back-link" href="../index.html">&#8592; Volver al Calendario</a>
 </div>
 
+<!-- Popup futuro -->
 <div class="popup-overlay" id="popup">
   <div class="popup-box">
     <div class="popup-icon">🎁</div>
@@ -102,7 +233,7 @@
   </div>
 </div>
 
-<!-- Popup recompensa del día -->
+<!-- Popup recompensa -->
 <div class="popup-overlay" id="popup-star-reward">
   <div class="popup-box">
     <div class="popup-icon">🎁</div>
@@ -112,20 +243,34 @@
   </div>
 </div>
 
+<!-- Popup victoria -->
+<div class="popup-overlay" id="popup-win">
+  <div class="popup-box">
+    <div class="popup-icon">⛽</div>
+    <p class="popup-title">¡Repartido a la perfección!</p>
+    <p class="popup-msg" id="win-msg">Has dividido correctamente el combustible en dos partes de 5 L. ¡Ingenio puro! 🔥✨</p>
+    <div class="popup-btns">
+      <button class="popup-btn" id="win-reward-btn">Ver recompensa ★</button>
+    </div>
+  </div>
+</div>
+
 <script>
-const PREVIEW_KEY  = 'cal_preview';
-const isPreview    = localStorage.getItem(PREVIEW_KEY) === '1';
-const today        = new Date(); today.setHours(0,0,0,0);
-const thisDate     = new Date('2028-10-28'); thisDate.setHours(0,0,0,0);
-const nextDateStr  = '2028-10-29';
-const popup        = document.getElementById('popup');
+// ══════════════════════════════════════════════
+//  PREVIEW & DATE GUARD
+// ══════════════════════════════════════════════
+const PREVIEW_KEY = 'cal_preview';
+const isPreview   = localStorage.getItem(PREVIEW_KEY) === '1';
+const today       = new Date(); today.setHours(0,0,0,0);
+const thisDate    = new Date('2028-10-28'); thisDate.setHours(0,0,0,0);
+const nextDateStr = '2028-10-29';
+const popup       = document.getElementById('popup');
 
 if (!isPreview && thisDate > today) {
   document.querySelector('.day-hero').style.filter = 'blur(4px)';
   document.querySelector('.day-nav').style.visibility = 'hidden';
   popup.classList.add('visible');
 }
-
 if (!isPreview && nextDateStr) {
   const nextDate = new Date(nextDateStr); nextDate.setHours(0,0,0,0);
   if (nextDate > today) {
@@ -133,10 +278,11 @@ if (!isPreview && nextDateStr) {
     if (nextBtn) nextBtn.addEventListener('click', e => { e.preventDefault(); popup.classList.add('visible'); });
   }
 }
-
 popup.addEventListener('click', e => { if (e.target === popup) window.location.href = '../index.html'; });
 
-// ── Favourite ──────────────────────────────────────────────
+// ══════════════════════════════════════════════
+//  FAV
+// ══════════════════════════════════════════════
 const FAV_KEY = 'fav_2028-10-28';
 const favBtn  = document.getElementById('fav-btn');
 function updateFav() {
@@ -152,25 +298,23 @@ favBtn.addEventListener('click', () => {
 });
 updateFav();
 
-// ── Done (actividad completada) ────────────────────────────
-const DONE_KEY = 'done_2028-10-28';
-const doneBtn  = document.getElementById('done-btn');
+// ══════════════════════════════════════════════
+//  DONE / REWARD
+// ══════════════════════════════════════════════
+const DONE_KEY         = 'done_2028-10-28';
+const doneBtn          = document.getElementById('done-btn');
 const popupStarBlocked = document.getElementById('popup-star-blocked');
 const popupStarReward  = document.getElementById('popup-star-reward');
+const popupWin         = document.getElementById('popup-win');
 
-document.getElementById('star-blocked-close').addEventListener('click', () => {
-  popupStarBlocked.classList.remove('visible');
-});
-popupStarBlocked.addEventListener('click', e => {
-  if (e.target === popupStarBlocked) popupStarBlocked.classList.remove('visible');
-});
+document.getElementById('star-blocked-close').addEventListener('click', () => popupStarBlocked.classList.remove('visible'));
+popupStarBlocked.addEventListener('click', e => { if (e.target === popupStarBlocked) popupStarBlocked.classList.remove('visible'); });
+document.getElementById('star-reward-close').addEventListener('click', () => popupStarReward.classList.remove('visible'));
+popupStarReward.addEventListener('click', e => { if (e.target === popupStarReward) popupStarReward.classList.remove('visible'); });
+popupWin.addEventListener('click', e => { if (e.target === popupWin) popupWin.classList.remove('visible'); });
 
-document.getElementById('star-reward-close').addEventListener('click', () => {
-  popupStarReward.classList.remove('visible');
-});
-popupStarReward.addEventListener('click', e => {
-  if (e.target === popupStarReward) popupStarReward.classList.remove('visible');
-});
+function markDone() { localStorage.setItem(DONE_KEY, '1'); updateDone(); }
+function showReward() { popupStarReward.classList.add('visible'); }
 
 function updateDone() {
   const on = localStorage.getItem(DONE_KEY) === '1';
@@ -180,20 +324,241 @@ function updateDone() {
 }
 doneBtn.addEventListener('click', () => {
   const on = localStorage.getItem(DONE_KEY) === '1';
-  if (on) {
-    // Already done → show reward
-    popupStarReward.classList.add('visible');
-  } else {
-    // Not done → only allowed in preview mode
-    if (isPreview) {
-      localStorage.setItem(DONE_KEY, '1');
-      updateDone();
-    } else {
-      popupStarBlocked.classList.add('visible');
-    }
-  }
+  if (on) { showReward(); }
+  else if (isPreview) { markDone(); }
+  else { popupStarBlocked.classList.add('visible'); }
 });
 updateDone();
+
+document.getElementById('win-reward-btn').addEventListener('click', () => {
+  popupWin.classList.remove('visible');
+  showReward();
+});
+
+// ══════════════════════════════════════════════
+//  GAME CONFIG
+// ══════════════════════════════════════════════
+const TANKS_CFG = [
+  { id:'A', cap:10, init:10, label:'Tanque A',      icon:'🛢' },
+  { id:'B', cap:7,  init:0,  label:'Recipiente B',  icon:'🪣' },
+  { id:'C', cap:3,  init:0,  label:'Recipiente C',  icon:'🧴' },
+];
+const TARGET = 5;  // need exactly two tanks with 5 L
+
+// All directed pairs
+const POUR_PAIRS = [];
+for (let i = 0; i < TANKS_CFG.length; i++)
+  for (let j = 0; j < TANKS_CFG.length; j++)
+    if (i !== j) POUR_PAIRS.push([TANKS_CFG[i].id, TANKS_CFG[j].id]);
+
+let state = {};
+let locked = false;
+
+function initState() {
+  state = {
+    tanks : Object.fromEntries(TANKS_CFG.map(t => [t.id, t.init])),
+    moves : 0,
+    won   : false,
+  };
+}
+
+// ══════════════════════════════════════════════
+//  BUILD DOM  (once)
+// ══════════════════════════════════════════════
+function buildDOM() {
+  // ── Tanques
+  const section = document.getElementById('tanks-section');
+  section.innerHTML = '';
+  const BASE_H = 160; // height for cap=10
+
+  TANKS_CFG.forEach(t => {
+    const col = document.createElement('div');
+    col.className = 'tank-col';
+
+    // Header (icon + name)
+    const hdr = document.createElement('div');
+    hdr.className = 'tank-header';
+    const ico  = document.createElement('div'); ico.className = 'tank-icon'; ico.textContent = t.icon;
+    const nm   = document.createElement('div'); nm.className  = 'tank-name'; nm.textContent  = t.id;
+    hdr.appendChild(ico); hdr.appendChild(nm);
+    col.appendChild(hdr);
+
+    // Body
+    const body = document.createElement('div');
+    body.className = 'tank-body';
+    body.id = 'tank-body-' + t.id;
+    const h = Math.round((t.cap / 10) * BASE_H);
+    body.style.height = h + 'px';
+
+    // Ticks
+    const ticksEl = document.createElement('div');
+    ticksEl.className = 'tank-ticks';
+    for (let l = 1; l < t.cap; l++) {
+      const pct = (l / t.cap) * 100;
+      const tick = document.createElement('div');
+      tick.className = 'tick';
+      tick.style.bottom = pct + '%';
+      const lbl = document.createElement('div');
+      lbl.className = 'tick-lbl';
+      lbl.style.bottom = pct + '%';
+      lbl.textContent = l;
+      ticksEl.appendChild(tick);
+      ticksEl.appendChild(lbl);
+    }
+    body.appendChild(ticksEl);
+
+    // Fuel level
+    const fuel = document.createElement('div');
+    fuel.className = 'tank-fuel';
+    fuel.id = 'tank-fuel-' + t.id;
+    body.appendChild(fuel);
+
+    // Amount overlay
+    const amtDiv  = document.createElement('div'); amtDiv.className = 'tank-amount';
+    const amtText = document.createElement('span');
+    amtText.className = 'tank-amt-text';
+    amtText.id = 'tank-amt-' + t.id;
+    amtDiv.appendChild(amtText);
+    body.appendChild(amtDiv);
+
+    col.appendChild(body);
+
+    // Cap label
+    const capLbl = document.createElement('div');
+    capLbl.className = 'tank-cap-lbl';
+    capLbl.textContent = 'cap. ' + t.cap + ' L';
+    col.appendChild(capLbl);
+
+    section.appendChild(col);
+  });
+
+  // ── Pour buttons
+  const grid = document.getElementById('pour-grid');
+  grid.innerHTML = '';
+  POUR_PAIRS.forEach(([from, to]) => {
+    const btn = document.createElement('button');
+    btn.className = 'pour-btn';
+    btn.id = `pour-${from}-${to}`;
+    btn.innerHTML = `<span class="p-arrow">${from} → ${to}</span>`;
+    btn.addEventListener('click', () => pour(from, to));
+    grid.appendChild(btn);
+  });
+}
+
+// ══════════════════════════════════════════════
+//  RENDER
+// ══════════════════════════════════════════════
+function render() {
+  TANKS_CFG.forEach(t => {
+    const cur   = state.tanks[t.id];
+    const pct   = (cur / t.cap) * 100;
+    const isWin = cur === TARGET;
+
+    const body  = document.getElementById('tank-body-' + t.id);
+    const fuel  = document.getElementById('tank-fuel-' + t.id);
+    const amt   = document.getElementById('tank-amt-'  + t.id);
+    const info  = document.getElementById('info-' + t.id);
+
+    fuel.style.height = pct + '%';
+    fuel.classList.toggle('win-fuel', isWin);
+    body.classList.toggle('win', isWin);
+
+    amt.textContent  = cur + ' / ' + t.cap + ' L';
+    amt.className    = 'tank-amt-text' + (pct < 28 ? ' dark' : '');
+
+    info.textContent = cur + ' / ' + t.cap + ' L';
+    info.className   = 'info-value' + (isWin ? ' win' : '');
+  });
+
+  document.getElementById('info-moves').textContent = state.moves;
+
+  // Pour buttons
+  POUR_PAIRS.forEach(([from, to]) => {
+    const cfgTo = TANKS_CFG.find(t => t.id === to);
+    const canPour = !locked && !state.won
+                  && state.tanks[from] > 0
+                  && state.tanks[to] < cfgTo.cap;
+    document.getElementById(`pour-${from}-${to}`).disabled = !canPour;
+  });
+
+  // Hint
+  const hint = document.getElementById('hint-text');
+  if (state.won) {
+    hint.textContent = '🏆 ¡5 L + 5 L! Combustible perfectamente dividido.';
+    hint.className = 'hint-text success';
+  } else {
+    hint.textContent = 'Trasvasa combustible para conseguir exactamente 5 L en dos recipientes';
+    hint.className = 'hint-text';
+  }
+}
+
+// ══════════════════════════════════════════════
+//  POUR
+// ══════════════════════════════════════════════
+function pour(fromId, toId) {
+  if (locked || state.won) return;
+  const cfgTo  = TANKS_CFG.find(t => t.id === toId);
+  const space  = cfgTo.cap - state.tanks[toId];
+  const amount = Math.min(state.tanks[fromId], space);
+  if (amount === 0) return;
+
+  locked = true;
+  state.tanks[fromId] -= amount;
+  state.tanks[toId]   += amount;
+  state.moves++;
+
+  // Flash animation on affected tanks
+  ['tank-fuel-' + fromId, 'tank-fuel-' + toId].forEach(id => {
+    const el = document.getElementById(id);
+    el.classList.add('pouring');
+  });
+
+  render();
+
+  setTimeout(() => {
+    ['tank-fuel-' + fromId, 'tank-fuel-' + toId].forEach(id => {
+      document.getElementById(id).classList.remove('pouring');
+    });
+    locked = false;
+    checkVictory();
+  }, 620);
+}
+
+// ══════════════════════════════════════════════
+//  CHECK VICTORY  — need exactly two tanks with 5 L
+// ══════════════════════════════════════════════
+function checkVictory() {
+  const fives = TANKS_CFG.filter(t => state.tanks[t.id] === TARGET);
+  if (fives.length < 2) return;
+
+  state.won = true;
+  render();
+
+  const names = fives.map(t => t.label).join(' y ');
+  document.getElementById('win-msg').innerHTML =
+    `Has conseguido <strong>5 L exactos</strong> en ${names}.<br>¡Combustible perfectamente repartido! 🔥✨`;
+  markDone();
+  setTimeout(() => popupWin.classList.add('visible'), 500);
+}
+
+// ══════════════════════════════════════════════
+//  RESET
+// ══════════════════════════════════════════════
+function resetGame() {
+  locked = false;
+  popupWin.classList.remove('visible');
+  initState();
+  render();
+}
+
+// ══════════════════════════════════════════════
+//  EVENTS + INIT
+// ══════════════════════════════════════════════
+document.getElementById('reset-link').addEventListener('click', resetGame);
+
+initState();
+buildDOM();
+render();
 </script>
 </body>
 </html>
