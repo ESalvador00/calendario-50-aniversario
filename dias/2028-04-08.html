@@ -51,6 +51,7 @@
 
     /* ── BOAT ─────────────────────────────────────────────── */
     .boat{position:absolute;bottom:18%;font-size:2rem;line-height:1;display:flex;flex-direction:column;align-items:center;gap:0;transition:left .8s cubic-bezier(.65,0,.35,1);z-index:5;user-select:none;}
+    /* boat is inside .river — left=0 means left edge of river, always visible */
     .boat-emoji{font-size:1.6rem;line-height:1;}
     .boat-passengers{display:flex;gap:2px;font-size:1rem;min-height:1.1rem;justify-content:center;}
 
@@ -70,11 +71,14 @@
     .cross-btn:hover:not(:disabled){background:linear-gradient(135deg,rgba(201,168,76,.35),rgba(201,168,76,.2));border-color:var(--gold);box-shadow:0 0 15px rgba(201,168,76,.2);}
     .cross-btn:disabled{opacity:.35;cursor:default;}
 
-    .selection-hint{font-size:.8rem;font-style:italic;color:rgba(250,246,238,.35);text-align:center;}
-    .move-count{font-size:.75rem;letter-spacing:.2em;color:rgba(201,168,76,.4);text-transform:uppercase;}
+    .selection-hint{font-size:.95rem;font-style:italic;font-weight:500;color:var(--gold-light);text-align:center;min-height:1.4em;letter-spacing:.02em;}
+    .selection-hint.neutral{color:rgba(250,246,238,.45);font-weight:300;font-size:.82rem;}
 
+    .controls-row{display:flex;gap:.8rem;align-items:center;justify-content:center;}
     .reset-link{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(201,168,76,.3);cursor:pointer;border:none;background:none;padding:.3rem;transition:color .2s;font-family:'Cormorant Garamond',serif;}
     .reset-link:hover{color:var(--gold);}
+    .help-link{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(201,168,76,.3);cursor:pointer;border:none;background:none;padding:.3rem;transition:color .2s;font-family:'Cormorant Garamond',serif;}
+    .help-link:hover{color:var(--gold-light);}
 
     /* ── STATUS BAR ─────────────────────────────────────────── */
     .status-bar{padding:.5rem 1.5rem;background:rgba(0,0,0,.15);border-top:1px solid rgba(201,168,76,.08);font-size:.75rem;letter-spacing:.12em;text-align:center;color:rgba(250,246,238,.3);text-transform:uppercase;min-height:2rem;display:flex;align-items:center;justify-content:center;}
@@ -174,10 +178,13 @@
 
       <!-- CONTROLES -->
       <div class="controls">
-        <div class="selection-hint" id="hint">Selecciona un elemento para llevar en el bote, o cruza solo</div>
+        <div class="selection-hint neutral" id="hint">Selecciona un elemento para llevar, o cruza solo</div>
         <button class="cross-btn" id="cross-btn">Cruzar el Río →</button>
-        <div class="move-count" id="move-count">Movimientos: 0</div>
-        <button class="reset-link" id="reset-link">↺ Reiniciar</button>
+        <div class="controls-row">
+          <button class="reset-link" id="reset-link">↺ Reiniciar</button>
+          <span style="color:rgba(201,168,76,.2);font-size:.7rem;">·</span>
+          <button class="help-link" id="help-link">? Ayuda</button>
+        </div>
       </div>
       <div class="status-bar" id="status-bar">🎯 Lleva al Lobo, la Cabra y la Col a la Orilla B</div>
     </div>
@@ -245,6 +252,28 @@
       <button class="popup-btn" id="fail-retry">↺ Reintentar</button>
       <button class="popup-btn secondary" onclick="window.location.href='../index.html'">Volver al calendario</button>
     </div>
+  </div>
+</div>
+
+<!-- Popup ayuda / cómo jugar -->
+<div class="popup-overlay" id="popup-help">
+  <div class="popup-box">
+    <div class="popup-icon">🚣</div>
+    <p class="popup-title">Cómo jugar</p>
+    <p class="popup-msg" style="text-align:left;font-style:normal;font-size:.92rem;line-height:1.9;">
+      <strong style="color:var(--gold-light);">Objetivo</strong><br>
+      Lleva al 🐺 Lobo, la 🐐 Cabra y la 🥬 Col desde la Orilla A hasta la Orilla B.<br><br>
+      <strong style="color:var(--gold-light);">Reglas</strong><br>
+      · El bote solo lleva al barquero más <em>un</em> pasajero a la vez.<br>
+      · El 🐺 Lobo se come a la 🐐 Cabra si se quedan solos.<br>
+      · La 🐐 Cabra se come la 🥬 Col si se quedan solos.<br>
+      · El barquero los protege mientras está en la misma orilla.<br><br>
+      <strong style="color:var(--gold-light);">Cómo moverse</strong><br>
+      · Haz clic en un 🐺🐐🥬 para seleccionarlo (se resaltará).<br>
+      · Pulsa <em>"Cruzar el Río"</em> para mover el bote con el pasajero.<br>
+      · También puedes cruzar solo, sin pasajero.
+    </p>
+    <button class="popup-btn" id="help-close">¡Entendido!</button>
   </div>
 </div>
 
@@ -404,18 +433,16 @@ function checkVictory(entities) {
 
 // ── Render ─────────────────────────────────────
 function render() {
-  // Boat position
+  // Boat position — boat lives inside .river, so left=0 = river left edge
   const boatEl = document.getElementById('boat');
-  const scene  = document.getElementById('scene');
-  const shoreW = scene.offsetWidth * 0.30;
-  const riverW = scene.offsetWidth * 0.40;
+  const river  = document.querySelector('.river');
+  const BOAT_W = 44; // approximate boat width px
 
   if (state.boatSide === 'A') {
-    // left edge of river
-    boatEl.style.left = (shoreW + 4) + 'px';
+    boatEl.style.left = '4px';          // hug left (Orilla A side)
   } else {
-    // right edge of river
-    boatEl.style.left = (shoreW + riverW - 44) + 'px';
+    const riverW = river.offsetWidth;
+    boatEl.style.left = (riverW - BOAT_W - 4) + 'px'; // hug right (Orilla B side)
   }
 
   // Boat passengers
@@ -431,19 +458,21 @@ function render() {
   renderShore('B');
 
   // Hint & button
-  const hintEl  = document.getElementById('hint');
+  const hintEl   = document.getElementById('hint');
   const crossBtn = document.getElementById('cross-btn');
-  const moveEl  = document.getElementById('move-count');
 
   if (state.selected) {
     const ent = ENTITIES.find(e => e.id === state.selected);
     hintEl.textContent = `Llevarás a: ${ent.emoji} ${ent.label}`;
+    hintEl.className = 'selection-hint';
   } else {
     hintEl.textContent = 'Selecciona un elemento para llevar, o cruza solo';
+    hintEl.className = 'selection-hint neutral';
   }
 
+  // Cross button label changes by side
+  crossBtn.textContent = state.boatSide === 'A' ? 'Cruzar el Río →' : '← Cruzar el Río';
   crossBtn.disabled = locked || state.gameOver;
-  moveEl.textContent = `Movimientos: ${state.moves}`;
 }
 
 function renderShore(side) {
@@ -556,6 +585,12 @@ document.getElementById('popup-fail').addEventListener('click', e => {
 popupWin.addEventListener('click', e => {
   if (e.target === popupWin) popupWin.classList.remove('visible');
 });
+
+// ── Help popup
+const popupHelp = document.getElementById('popup-help');
+document.getElementById('help-link').addEventListener('click', () => popupHelp.classList.add('visible'));
+document.getElementById('help-close').addEventListener('click', () => popupHelp.classList.remove('visible'));
+popupHelp.addEventListener('click', e => { if (e.target === popupHelp) popupHelp.classList.remove('visible'); });
 
 // ── Controls
 document.getElementById('cross-btn').addEventListener('click', moveBoat);
