@@ -92,8 +92,9 @@
     /* Etiqueta capacidad */
     .tank-cap-lbl{font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(212,130,10,.4);}
 
-    /* ══ BOTONES TRASVASE ══════════════════════════════════════ */
-    .pour-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.45rem;padding:.7rem 1rem .9rem;border-top:1px solid rgba(201,168,76,.08);}
+    /* ══ BOTONES TRASVASE — una columna por tanque, alineada debajo ══ */
+    .pour-grid{display:flex;justify-content:center;align-items:flex-start;gap:clamp(.6rem,3vw,2.2rem);padding:.5rem 1rem .9rem;border-top:1px solid rgba(201,168,76,.08);}
+    .pour-col{display:flex;flex-direction:column;gap:.35rem;flex:1;max-width:150px;align-items:center;}
 
     .pour-btn{display:flex;flex-direction:column;align-items:center;gap:.15rem;background:rgba(212,130,10,.08);border:1px solid rgba(212,130,10,.28);border-radius:4px;color:rgba(240,160,48,.7);font-family:'Cormorant Garamond',serif;font-size:.72rem;letter-spacing:.1em;padding:.5rem .3rem;cursor:pointer;transition:all .2s;line-height:1.2;}
     .pour-btn .p-arrow{font-size:1rem;display:block;line-height:1;}
@@ -128,7 +129,7 @@
     /* ── POPUPS ─────────────────────────────────────────────── */
     .popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:100;align-items:center;justify-content:center;}
     .popup-overlay.visible{display:flex;}
-    .popup-box{background:var(--dark);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:2.5rem 2rem;max-width:420px;width:90%;text-align:center;box-shadow:0 0 60px rgba(0,0,0,.9);}
+    .popup-box{background:var(--dark);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:1.8rem 1.8rem 1.5rem;max-width:420px;width:90%;text-align:center;box-shadow:0 0 60px rgba(0,0,0,.9);max-height:90vh;overflow-y:auto;}
     .popup-icon{font-size:3rem;margin-bottom:.8rem;}
     .popup-title{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:var(--gold-light);margin-bottom:.8rem;}
     .popup-msg{font-size:.95rem;font-style:italic;color:rgba(250,246,238,.6);line-height:1.7;margin-bottom:1.8rem;}
@@ -143,8 +144,8 @@
       .month-label{font-size:clamp(1rem,4vw,1.6rem);margin-bottom:1rem;}
       .day-nav{margin-top:1rem;padding-top:1rem;}
       .ornament-line-h{margin-bottom:1rem;}
-      .pour-grid{gap:.3rem;}
-      .pour-btn{font-size:.65rem;padding:.4rem .25rem;}
+      .pour-grid{gap:.4rem;}
+      .pour-col{gap:.25rem;}
       .tanks-section{gap:.5rem;}
       .info-bar{gap:1rem;}
     }
@@ -264,20 +265,19 @@
   <div class="popup-box">
     <div class="popup-icon">⛽</div>
     <p class="popup-title">Cómo jugar</p>
-    <p class="popup-msg" style="text-align:left;font-style:normal;font-size:.92rem;line-height:1.9;">
+    <p class="popup-msg" style="text-align:left;font-style:normal;font-size:.88rem;line-height:1.75;margin-bottom:1.2rem;">
       <strong style="color:var(--gold-light);">Objetivo</strong><br>
-      Divide los <strong>10 litros</strong> de combustible en dos partes exactas de <strong>5 L</strong> cada una.<br><br>
-      <strong style="color:var(--gold-light);">Recipientes disponibles</strong><br>
-      · Tanque A: 10 L (comienza lleno)<br>
-      · Recipiente B: 7 L (comienza vacío)<br>
-      · Recipiente C: 3 L (comienza vacío)<br><br>
+      Divide los <strong>10 L</strong> en dos partes exactas de <strong>5 L</strong>.<br><br>
+      <strong style="color:var(--gold-light);">Recipientes</strong><br>
+      · Tanque A: 10 L (lleno) · Recip. B: 7 L · Recip. C: 3 L<br><br>
       <strong style="color:var(--gold-light);">Reglas</strong><br>
-      · Cada trasvase vierte el máximo posible: hasta que el origen se vacía o el destino se llena.<br>
-      · No se pueden medir cantidades parciales manualmente.<br>
-      · Nunca se puede superar la capacidad máxima de un recipiente.<br><br>
-      <strong style="color:var(--gold-light);">Cómo moverse</strong><br>
-      · Pulsa el botón "A → B" para verter de A en B, etc.<br>
-      · Los botones se desactivan si el trasvase no es posible.
+      · Cada trasvase vierte el máximo posible (origen vacío o destino lleno).<br>
+      · No se permiten medidas parciales manuales.<br><br>
+      <strong style="color:var(--gold-light);">Botones</strong><br>
+      Cada columna de botones corresponde a su recipiente:<br>
+      · <em>A → B</em> / <em>A → C</em> — vierte desde A<br>
+      · <em>B → C</em> / <em>A ← B</em> — vierte desde B<br>
+      · <em>A ← C</em> / <em>B ← C</em> — vierte desde C
     </p>
     <button class="popup-btn" id="help-close">¡Entendido!</button>
   </div>
@@ -460,16 +460,35 @@ function buildDOM() {
     section.appendChild(col);
   });
 
-  // ── Pour buttons
+  // ── Pour buttons — one column per tank, aligned below each tank
+  // Layout:
+  //   Col A: A→B (top),  A→C (bottom)
+  //   Col B: B→C (top),  B→A (bottom)   [B→A displayed as "A←B"]
+  //   Col C: C→A (top),  C→B (bottom)   [C→A displayed as "A←C", C→B as "B←C"]
+  const TANK_BUTTONS = [
+    [ ['A','B', 'A → B'], ['A','C', 'A → C'] ],
+    [ ['B','C', 'B → C'], ['B','A', 'A ← B'] ],
+    [ ['C','A', 'A ← C'], ['C','B', 'B ← C'] ],
+  ];
+
   const grid = document.getElementById('pour-grid');
   grid.innerHTML = '';
-  POUR_PAIRS.forEach(([from, to]) => {
-    const btn = document.createElement('button');
-    btn.className = 'pour-btn';
-    btn.id = `pour-${from}-${to}`;
-    btn.innerHTML = `<span class="p-arrow">${from} → ${to}</span>`;
-    btn.addEventListener('click', () => pour(from, to));
-    grid.appendChild(btn);
+
+  TANK_BUTTONS.forEach(colDef => {
+    const col = document.createElement('div');
+    col.className = 'pour-col';
+
+    colDef.forEach(([from, to, label]) => {
+      const btn = document.createElement('button');
+      btn.className = 'pour-btn';
+      btn.id = `pour-${from}-${to}`;
+      btn.innerHTML = `<span class="p-arrow">${label}</span>`;
+      btn.style.width = '100%';
+      btn.addEventListener('click', () => pour(from, to));
+      col.appendChild(btn);
+    });
+
+    grid.appendChild(col);
   });
 }
 
