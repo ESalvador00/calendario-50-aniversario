@@ -7,62 +7,138 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
-    :root{--gold:#C9A84C;--gold-light:#E8C97A;--gold-dark:#8B6914;--cream:#FAF6EE;--dark:#1A1410;}
+    :root{
+      --gold:#C9A84C;--gold-light:#E8C97A;--gold-dark:#8B6914;--cream:#FAF6EE;--dark:#1A1410;
+      --c0:#E74C3C;--c1:#3498DB;--c2:#2ECC71;--c3:#F1C40F;
+      --c4:#9B59B6;--c5:#E67E22;--c6:#1ABC9C;--c7:#EC407A;
+    }
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-    body{background-color:var(--dark);color:var(--cream);font-family:'Cormorant Garamond',serif;min-height:100vh;display:flex;flex-direction:column;}
+    body{background:var(--dark);color:var(--cream);font-family:'Cormorant Garamond',serif;min-height:100vh;display:flex;flex-direction:column;}
     body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 25% 15%,rgba(201,168,76,.10) 0%,transparent 55%),radial-gradient(ellipse at 75% 85%,rgba(124,54,38,.10) 0%,transparent 55%);pointer-events:none;z-index:0;}
+
     .wrap{position:relative;z-index:1;max-width:800px;margin:0 auto;padding:3rem 2rem 4rem;flex:1;display:flex;flex-direction:column;}
-    .day-hero{text-align:center;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 0 2rem;position:relative;}
+    .day-hero{text-align:center;flex:1;display:flex;flex-direction:column;align-items:center;padding:3rem 0 2rem;position:relative;}
     .ornament-line-h{display:flex;align-items:center;justify-content:center;gap:1rem;margin-bottom:2rem;}
     .o-line{height:1px;width:60px;background:linear-gradient(to right,transparent,var(--gold));}
     .o-line.r{background:linear-gradient(to left,transparent,var(--gold));}
     .o-dot{width:5px;height:5px;background:var(--gold);border-radius:50%;}
     .day-of-week{font-size:.85rem;letter-spacing:.4em;text-transform:uppercase;color:rgba(201,168,76,.5);margin-bottom:1rem;}
     h1{font-family:'Playfair Display',serif;font-size:clamp(3rem,9vw,7rem);font-weight:900;line-height:1;background:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 50%,var(--gold-dark) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.5rem;}
-    .month-label{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3.5vw,2.4rem);font-weight:400;font-style:italic;color:rgba(250,246,238,.45);margin-bottom:2.5rem;}
-    .content-area{width:100%;border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:2.5rem;min-height:220px;background:rgba(255,255,255,.02);color:rgba(250,246,238,.4);font-size:1rem;font-style:italic;text-align:center;display:flex;align-items:center;justify-content:center;}
-    .day-nav{display:flex;justify-content:space-between;align-items:center;padding-top:2.5rem;border-top:1px solid rgba(201,168,76,.1);margin-top:2.5rem;}
-    .nav-btn{font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(201,168,76,.5);text-decoration:none;padding:.6rem 1.2rem;border:1px solid rgba(201,168,76,.18);border-radius:2px;transition:all .2s;}
-    .nav-btn:hover{color:var(--gold-light);border-color:rgba(201,168,76,.5);background:rgba(201,168,76,.05);}
-    .nav-btn.disabled{opacity:0;pointer-events:none;}
-    .year-badge{font-size:.7rem;letter-spacing:.3em;color:rgba(201,168,76,.25);text-transform:uppercase;}
-    .back-link{display:block;text-align:center;margin-top:2rem;color:rgba(201,168,76,.35);font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;text-decoration:none;transition:color .2s;}
-    .back-link:hover{color:var(--gold);}
-    /* Botones fav y done */
+    .month-label{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3.5vw,2.4rem);font-weight:400;font-style:italic;color:rgba(250,246,238,.45);margin-bottom:2rem;}
+
     .action-btns{position:absolute;top:0;right:0;display:flex;flex-direction:column;align-items:center;gap:.2rem;}
     .icon-btn{background:none;border:none;cursor:pointer;font-size:2rem;line-height:1;transition:color .2s,transform .2s;padding:.2rem;}
     .icon-btn:hover{transform:scale(1.2);}
     .fav-btn{color:rgba(250,246,238,.2);}
     .fav-btn.active{color:#e05a6a;}
-    .fav-btn.active:hover{color:#ff7a88;}
-    .done-btn{color:var(--gold);opacity:0.6;}
+    .done-btn{color:var(--gold);opacity:.6;}
     .done-btn.active{color:var(--gold);opacity:1;}
-    .done-btn.active:hover{color:var(--gold-light);opacity:1;}
-    /* Popup */
-    .popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:100;align-items:center;justify-content:center;}
+
+    /* ── CONTENT AREA ─────────────────────────────────────── */
+    .content-area{width:100%;border:1px solid rgba(201,168,76,.15);border-radius:6px;padding:1.6rem 1.4rem 1.4rem;background:rgba(255,255,255,.02);}
+
+    .reto-title{font-family:'Playfair Display',serif;font-size:clamp(1.2rem,2.5vw,1.7rem);font-weight:700;color:var(--gold-light);text-align:center;margin-bottom:.35rem;}
+    .reto-desc{font-size:.88rem;color:rgba(250,246,238,.45);text-align:center;margin-bottom:1.2rem;line-height:1.5;}
+
+    /* ── CONFIG BAR ───────────────────────────────────────── */
+    .config-bar{display:flex;align-items:center;justify-content:center;gap:1.2rem;flex-wrap:wrap;margin-bottom:1.2rem;padding:.7rem 1rem;background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.1);border-radius:4px;font-size:.78rem;color:rgba(250,246,238,.5);letter-spacing:.05em;}
+    .config-bar label{display:flex;align-items:center;gap:.4rem;cursor:pointer;user-select:none;}
+    .config-bar input[type=checkbox]{accent-color:var(--gold);width:13px;height:13px;cursor:pointer;}
+    .config-bar select{background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.2);color:var(--cream);font-family:'Cormorant Garamond',serif;font-size:.78rem;padding:.2rem .5rem;border-radius:3px;cursor:pointer;outline:none;}
+    .config-bar select option{background:#2a1a12;}
+
+    /* ── GAME LAYOUT ──────────────────────────────────────── */
+    .game-layout{display:flex;gap:1rem;align-items:flex-start;justify-content:center;}
+
+    /* ── BOARD ────────────────────────────────────────────── */
+    .board{display:flex;flex-direction:column;gap:4px;flex-shrink:0;}
+    .board-row{display:flex;align-items:center;gap:5px;padding:5px 7px;border-radius:5px;border:1px solid transparent;transition:border-color .3s,background .3s;}
+    .board-row.active{border-color:rgba(201,168,76,.45);background:rgba(201,168,76,.05);}
+    .board-row.locked{opacity:.9;}
+    .board-row.shake{animation:shake .35s ease;}
+    @keyframes shake{0%,100%{transform:translateX(0);}20%{transform:translateX(-6px);}40%{transform:translateX(6px);}60%{transform:translateX(-4px);}80%{transform:translateX(4px);}}
+
+    .row-num{font-size:.65rem;color:rgba(201,168,76,.3);width:14px;text-align:right;flex-shrink:0;font-family:'Playfair Display',serif;}
+    .row-pegs{display:flex;gap:5px;}
+    .peg{width:32px;height:32px;border-radius:50%;border:2px solid rgba(255,255,255,.12);cursor:pointer;transition:transform .18s,box-shadow .18s,border-color .18s;position:relative;flex-shrink:0;}
+    .peg.empty{background:rgba(255,255,255,.06);cursor:pointer;}
+    .peg.filled{cursor:pointer;}
+    .peg.filled:hover{transform:scale(1.1);box-shadow:0 0 10px rgba(255,255,255,.25);}
+    .peg.locked{cursor:default;pointer-events:none;}
+    @keyframes pop-in{0%{transform:scale(0);opacity:0;}70%{transform:scale(1.15);}100%{transform:scale(1);opacity:1;}}
+    .peg.pop{animation:pop-in .22s ease forwards;}
+
+    /* ── FEEDBACK DOTS ────────────────────────────────────── */
+    .feedback{display:grid;grid-template-columns:repeat(2,10px);grid-template-rows:repeat(2,10px);gap:3px;margin-left:4px;flex-shrink:0;align-self:center;}
+    .fdot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.08);}
+    .fdot.black{background:#eee;box-shadow:0 0 4px rgba(255,255,255,.4);}
+    .fdot.white{background:transparent;border:2px solid rgba(220,220,220,.7);}
+
+    /* ── COLOR PALETTE ────────────────────────────────────── */
+    .palette-wrap{display:flex;flex-direction:column;align-items:center;gap:.7rem;padding-top:.3rem;}
+    .palette{display:flex;flex-direction:column;gap:6px;}
+    .palette-peg{width:34px;height:34px;border-radius:50%;cursor:pointer;border:3px solid transparent;transition:transform .15s,box-shadow .15s,border-color .15s;flex-shrink:0;}
+    .palette-peg:hover{transform:scale(1.12);box-shadow:0 0 12px rgba(255,255,255,.3);}
+    .palette-peg.selected{border-color:#fff;box-shadow:0 0 12px rgba(255,255,255,.5);transform:scale(1.12);}
+    .palette-label{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(201,168,76,.35);text-align:center;}
+
+    /* ── CONTROLS ─────────────────────────────────────────── */
+    .game-controls{display:flex;align-items:center;justify-content:space-between;margin-top:1rem;flex-wrap:wrap;gap:.5rem;}
+    .attempt-info{font-size:.8rem;color:rgba(250,246,238,.4);letter-spacing:.08em;}
+    .attempt-num{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--gold);}
+    .ctrl-btns{display:flex;gap:.45rem;}
+    .game-btn{background:none;border:1px solid rgba(201,168,76,.3);border-radius:3px;color:rgba(201,168,76,.6);font-family:'Cormorant Garamond',serif;font-size:.76rem;letter-spacing:.18em;text-transform:uppercase;padding:.42rem 1rem;cursor:pointer;transition:all .2s;}
+    .game-btn:hover{color:var(--gold);border-color:var(--gold);background:rgba(201,168,76,.07);}
+    .game-btn.primary{border-color:rgba(201,168,76,.5);color:var(--gold);background:rgba(201,168,76,.08);}
+    .game-btn.primary:hover{background:rgba(201,168,76,.18);}
+    .game-btn:disabled{opacity:.35;cursor:default;pointer-events:none;}
+
+    /* ── SECRET REVEAL ────────────────────────────────────── */
+    .secret-reveal{display:none;align-items:center;justify-content:center;gap:.5rem;margin-top:.9rem;padding:.6rem;background:rgba(224,90,106,.06);border:1px solid rgba(224,90,106,.2);border-radius:4px;}
+    .secret-reveal.visible{display:flex;}
+    .secret-label{font-size:.72rem;color:rgba(224,90,106,.7);letter-spacing:.15em;text-transform:uppercase;margin-right:.3rem;}
+    .secret-peg{width:26px;height:26px;border-radius:50%;border:2px solid rgba(255,255,255,.15);flex-shrink:0;}
+
+    /* ── NAV ──────────────────────────────────────────────── */
+    .day-nav{display:flex;justify-content:space-between;align-items:center;padding-top:2.5rem;border-top:1px solid rgba(201,168,76,.1);margin-top:2.5rem;}
+    .nav-btn{font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(201,168,76,.5);text-decoration:none;padding:.6rem 1.2rem;border:1px solid rgba(201,168,76,.18);border-radius:2px;transition:all .2s;}
+    .nav-btn:hover{color:var(--gold-light);border-color:rgba(201,168,76,.5);background:rgba(201,168,76,.05);}
+    .year-badge{font-size:.7rem;letter-spacing:.3em;color:rgba(201,168,76,.25);text-transform:uppercase;}
+    .back-link{display:block;text-align:center;margin-top:2rem;color:rgba(201,168,76,.35);font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;text-decoration:none;transition:color .2s;}
+    .back-link:hover{color:var(--gold);}
+
+    /* ── POPUPS ───────────────────────────────────────────── */
+    .popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.78);z-index:100;align-items:center;justify-content:center;}
     .popup-overlay.visible{display:flex;}
-    .popup-box{background:var(--dark);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:3rem 2.5rem;max-width:420px;width:90%;text-align:center;box-shadow:0 0 60px rgba(0,0,0,.8);}
-    .popup-icon{font-size:3rem;margin-bottom:1rem;}
-    .popup-title{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--gold-light);margin-bottom:1rem;}
-    .popup-msg{font-size:1rem;font-style:italic;color:rgba(250,246,238,.6);line-height:1.7;margin-bottom:2rem;}
-    .popup-btn{display:inline-block;padding:.7rem 2rem;border:1px solid rgba(201,168,76,.4);border-radius:2px;color:var(--gold);font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;background:none;transition:all .2s;}
+    .popup-box{background:var(--dark);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:2rem 2rem 1.5rem;max-width:420px;width:90%;text-align:center;box-shadow:0 0 60px rgba(0,0,0,.8);display:flex;flex-direction:column;max-height:90vh;}
+    .popup-box .popup-msg{overflow-y:auto;flex:1;margin-bottom:1.2rem;}
+    .popup-icon{font-size:2.8rem;margin-bottom:.8rem;flex-shrink:0;}
+    .popup-title{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:var(--gold-light);margin-bottom:.8rem;flex-shrink:0;}
+    .popup-msg{font-size:.95rem;font-style:italic;color:rgba(250,246,238,.6);line-height:1.7;}
+    .popup-btn{display:inline-block;padding:.65rem 1.8rem;border:1px solid rgba(201,168,76,.4);border-radius:2px;color:var(--gold);font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;background:none;transition:all .2s;flex-shrink:0;margin-top:.3rem;}
     .popup-btn:hover{background:rgba(201,168,76,.1);border-color:var(--gold);}
+
     @media(max-width:600px){
       .wrap{padding:1rem 1rem 2rem;}
       .day-hero{padding:1rem 0 1rem;}
       h1{font-size:clamp(2rem,14vw,4rem);}
       .month-label{font-size:clamp(1rem,4vw,1.6rem);margin-bottom:1rem;}
-      .content-area{padding:1.2rem;min-height:120px;}
-      .day-nav{margin-top:1rem;padding-top:1rem;}
       .ornament-line-h{margin-bottom:1rem;}
+      .content-area{padding:1rem .8rem;}
+      .peg{width:26px;height:26px;}
+      .palette-peg{width:28px;height:28px;}
+      .feedback{grid-template-columns:repeat(2,8px);grid-template-rows:repeat(2,8px);gap:2px;}
+      .fdot{width:8px;height:8px;}
+      .day-nav{margin-top:1rem;padding-top:1rem;}
+      .config-bar{gap:.8rem;}
     }
-</style>
+  </style>
 </head>
 <body>
 <div class="wrap">
   <div class="day-hero">
     <div class="action-btns">
-      <button class="icon-btn fav-btn"  id="fav-btn"  title="Añadir a favoritos">♡</button>
+      <button class="icon-btn fav-btn" id="fav-btn" title="Añadir a favoritos">♡</button>
       <button class="icon-btn done-btn" id="done-btn" title="Marcar como completado">☆</button>
     </div>
     <div class="ornament-line-h">
@@ -71,10 +147,58 @@
     <p class="day-of-week">Sábado</p>
     <h1>22</h1>
     <p class="month-label">de Enero</p>
+
+    <!-- CONTENT AREA -->
     <div class="content-area">
-      <p>Espacio reservado para el contenido de este día</p>
-    </div>
-  </div>
+      <h2 class="reto-title">🔐 Mastermind</h2>
+      <p class="reto-desc">Descifra la combinación secreta de 4 colores en 10 intentos.</p>
+
+      <!-- Config -->
+      <div class="config-bar" id="config-bar">
+        <label title="Si está marcado, un mismo color puede aparecer más de una vez">
+          <input type="checkbox" id="cfg-repeat" checked>
+          Colores repetidos
+        </label>
+        <label>
+          Colores en paleta:
+          <select id="cfg-colors">
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6" selected>6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+          </select>
+        </label>
+        <button class="game-btn" id="apply-cfg-btn">Aplicar</button>
+      </div>
+
+      <!-- Game layout -->
+      <div class="game-layout">
+        <div class="board" id="board"></div>
+        <div class="palette-wrap">
+          <div class="palette" id="palette"></div>
+          <span class="palette-label">Colores</span>
+        </div>
+      </div>
+
+      <!-- Secret reveal (derrota) -->
+      <div class="secret-reveal" id="secret-reveal">
+        <span class="secret-label">Código</span>
+      </div>
+
+      <!-- Controls -->
+      <div class="game-controls">
+        <div class="attempt-info">Intento <span class="attempt-num" id="attempt-num">1</span> / 10</div>
+        <div class="ctrl-btns">
+          <button class="game-btn" id="help-btn">? Ayuda</button>
+          <button class="game-btn" id="reset-btn">↺ Reiniciar</button>
+          <button class="game-btn primary" id="validate-btn">Validar ✓</button>
+        </div>
+      </div>
+
+    </div><!-- /content-area -->
+  </div><!-- /day-hero -->
+
   <nav class="day-nav">
     <a class="nav-btn" href="2028-01-21.html">&#8592; 21 de Enero</a>
     <span class="year-badge">50 Aniversario · 2028</span>
@@ -83,6 +207,7 @@
   <a class="back-link" href="../index.html">&#8592; Volver al Calendario</a>
 </div>
 
+<!-- Popup: día futuro -->
 <div class="popup-overlay" id="popup">
   <div class="popup-box">
     <div class="popup-icon">🎁</div>
@@ -92,7 +217,7 @@
   </div>
 </div>
 
-<!-- Popup estrella bloqueada -->
+<!-- Popup: estrella bloqueada -->
 <div class="popup-overlay" id="popup-star-blocked">
   <div class="popup-box">
     <div class="popup-icon">🏆</div>
@@ -102,98 +227,366 @@
   </div>
 </div>
 
-<!-- Popup recompensa del día -->
+<!-- Popup: recompensa -->
 <div class="popup-overlay" id="popup-star-reward">
   <div class="popup-box">
     <div class="popup-icon">🎁</div>
     <p class="popup-title">¡Tu recompensa!</p>
-    <p class="popup-msg" id="reward-text">✨ Aquí irá la recompensa especial de este día ✨</p>
+    <p class="popup-msg">PDTE</p>
     <button class="popup-btn" id="star-reward-close">¡Genial!</button>
   </div>
 </div>
 
+<!-- Popup: victoria -->
+<div class="popup-overlay" id="popup-win">
+  <div class="popup-box">
+    <div class="popup-icon">🎉</div>
+    <p class="popup-title">¡Has descifrado el código!</p>
+    <p class="popup-msg" id="win-msg"></p>
+    <button class="popup-btn" id="win-close">¡Genial!</button>
+  </div>
+</div>
+
+<!-- Popup: derrota -->
+<div class="popup-overlay" id="popup-lose">
+  <div class="popup-box">
+    <div class="popup-icon">🔒</div>
+    <p class="popup-title">¡Código no descifrado!</p>
+    <p class="popup-msg" id="lose-msg">Has agotado los 10 intentos.<br>El código correcto está revelado abajo.</p>
+    <button class="popup-btn" id="lose-retry">↺ Reintentar</button>
+  </div>
+</div>
+
+<!-- Popup: ayuda -->
+<div class="popup-overlay" id="popup-help">
+  <div class="popup-box">
+    <div class="popup-icon">🔐</div>
+    <p class="popup-title">Cómo jugar</p>
+    <p class="popup-msg" style="text-align:left;font-style:normal;font-size:.9rem;line-height:1.75;">
+      <strong style="color:var(--gold-light)">Objetivo:</strong> descifra la combinación secreta de 4 colores en 10 intentos.<br><br>
+      <strong style="color:var(--gold-light)">Cómo jugar:</strong><br>
+      1. Selecciona un color de la paleta (derecha).<br>
+      2. Haz clic en los huecos de la fila activa para rellenarlos.<br>
+      3. Pulsa <em>Validar</em> cuando los 4 huecos estén llenos.<br><br>
+      <strong style="color:var(--gold-light)">Pistas tras validar:</strong><br>
+      • <strong style="color:#eee">● Negro</strong> — color correcto en posición correcta.<br>
+      • <strong style="color:rgba(220,220,220,.7)">○ Blanco</strong> — color correcto en posición incorrecta.<br>
+      Los puntos no indican qué ficha concreta corresponde a cada pista.<br><br>
+      <strong style="color:var(--gold-light)">Configuración:</strong><br>
+      • Puedes activar o desactivar los <em>colores repetidos</em>.<br>
+      • Puedes elegir entre 4 y 8 colores en la paleta.<br>
+      Pulsa <em>Aplicar</em> para reiniciar con la nueva configuración.<br><br>
+      <strong style="color:var(--gold-light)">Victoria:</strong> 4 puntos negros = ¡código descifrado!
+    </p>
+    <button class="popup-btn" id="help-close">¡Entendido!</button>
+  </div>
+</div>
+
 <script>
-const PREVIEW_KEY  = 'cal_preview';
-const isPreview    = localStorage.getItem(PREVIEW_KEY) === '1';
-const today        = new Date(); today.setHours(0,0,0,0);
-const thisDate     = new Date('2028-01-22'); thisDate.setHours(0,0,0,0);
-const nextDateStr  = '2028-01-23';
-const popup        = document.getElementById('popup');
+// ── Preview / bloqueo ─────────────────────────────────────────
+const PREVIEW_KEY = 'cal_preview';
+const isPreview   = localStorage.getItem(PREVIEW_KEY) === '1';
+const today       = new Date(); today.setHours(0,0,0,0);
+const thisDate    = new Date('2028-01-22'); thisDate.setHours(0,0,0,0);
+const nextDateStr = '2028-01-23';
+const popup       = document.getElementById('popup');
 
 if (!isPreview && thisDate > today) {
   document.querySelector('.day-hero').style.filter = 'blur(4px)';
   document.querySelector('.day-nav').style.visibility = 'hidden';
   popup.classList.add('visible');
 }
-
 if (!isPreview && nextDateStr) {
-  const nextDate = new Date(nextDateStr); nextDate.setHours(0,0,0,0);
-  if (nextDate > today) {
-    const nextBtn = document.getElementById('next-btn');
-    if (nextBtn) nextBtn.addEventListener('click', e => { e.preventDefault(); popup.classList.add('visible'); });
+  const nd = new Date(nextDateStr); nd.setHours(0,0,0,0);
+  if (nd > today) {
+    document.getElementById('next-btn').addEventListener('click', e => { e.preventDefault(); popup.classList.add('visible'); });
   }
 }
-
 popup.addEventListener('click', e => { if (e.target === popup) window.location.href = '../index.html'; });
 
-// ── Favourite ──────────────────────────────────────────────
-const FAV_KEY = 'fav_2028-01-22';
-const favBtn  = document.getElementById('fav-btn');
+// ── Fav & Done ─────────────────────────────────────────────────
+const FAV_KEY  = 'fav_2028-01-22';
+const DONE_KEY = 'done_2028-01-22';
+const favBtn   = document.getElementById('fav-btn');
+const doneBtn  = document.getElementById('done-btn');
+const pStarBlocked = document.getElementById('popup-star-blocked');
+const pStarReward  = document.getElementById('popup-star-reward');
+
 function updateFav() {
   const on = localStorage.getItem(FAV_KEY) === '1';
   favBtn.textContent = on ? '❤' : '♡';
   favBtn.classList.toggle('active', on);
-  favBtn.title = on ? 'Quitar de favoritos' : 'Añadir a favoritos';
 }
 favBtn.addEventListener('click', () => {
-  const on = localStorage.getItem(FAV_KEY) === '1';
-  on ? localStorage.removeItem(FAV_KEY) : localStorage.setItem(FAV_KEY, '1');
+  localStorage.getItem(FAV_KEY) === '1' ? localStorage.removeItem(FAV_KEY) : localStorage.setItem(FAV_KEY,'1');
   updateFav();
 });
 updateFav();
 
-// ── Done (actividad completada) ────────────────────────────
-const DONE_KEY = 'done_2028-01-22';
-const doneBtn  = document.getElementById('done-btn');
-const popupStarBlocked = document.getElementById('popup-star-blocked');
-const popupStarReward  = document.getElementById('popup-star-reward');
-
-document.getElementById('star-blocked-close').addEventListener('click', () => {
-  popupStarBlocked.classList.remove('visible');
-});
-popupStarBlocked.addEventListener('click', e => {
-  if (e.target === popupStarBlocked) popupStarBlocked.classList.remove('visible');
-});
-
-document.getElementById('star-reward-close').addEventListener('click', () => {
-  popupStarReward.classList.remove('visible');
-});
-popupStarReward.addEventListener('click', e => {
-  if (e.target === popupStarReward) popupStarReward.classList.remove('visible');
-});
-
+function markDone() { localStorage.setItem(DONE_KEY,'1'); updateDone(); }
 function updateDone() {
   const on = localStorage.getItem(DONE_KEY) === '1';
   doneBtn.textContent = on ? '★' : '☆';
   doneBtn.classList.toggle('active', on);
-  doneBtn.title = on ? 'Ver recompensa' : 'Marcar como completado';
 }
 doneBtn.addEventListener('click', () => {
   const on = localStorage.getItem(DONE_KEY) === '1';
-  if (on) {
-    // Already done → show reward
-    popupStarReward.classList.add('visible');
-  } else {
-    // Not done → only allowed in preview mode
-    if (isPreview) {
-      localStorage.setItem(DONE_KEY, '1');
-      updateDone();
-    } else {
-      popupStarBlocked.classList.add('visible');
-    }
-  }
+  if (on)             pStarReward.classList.add('visible');
+  else if (isPreview) markDone();
+  else                pStarBlocked.classList.add('visible');
 });
 updateDone();
+
+document.getElementById('star-blocked-close').addEventListener('click', () => pStarBlocked.classList.remove('visible'));
+pStarBlocked.addEventListener('click', e => { if (e.target === pStarBlocked) pStarBlocked.classList.remove('visible'); });
+document.getElementById('star-reward-close').addEventListener('click', () => pStarReward.classList.remove('visible'));
+pStarReward.addEventListener('click', e => { if (e.target === pStarReward) pStarReward.classList.remove('visible'); });
+
+// ── Popup victoria encadena recompensa ────────────────────────
+document.getElementById('win-close').addEventListener('click', () => {
+  document.getElementById('popup-win').classList.remove('visible');
+  setTimeout(() => pStarReward.classList.add('visible'), 300);
+});
+
+// ── Popups ayuda / derrota ────────────────────────────────────
+document.getElementById('help-btn').addEventListener('click',  () => document.getElementById('popup-help').classList.add('visible'));
+document.getElementById('help-close').addEventListener('click',() => document.getElementById('popup-help').classList.remove('visible'));
+document.getElementById('popup-help').addEventListener('click', e => { if (e.target === document.getElementById('popup-help')) document.getElementById('popup-help').classList.remove('visible'); });
+document.getElementById('lose-retry').addEventListener('click',() => { document.getElementById('popup-lose').classList.remove('visible'); resetGame(); });
+
+// ══════════════════════════════════════════════════════════════
+//  MASTERMIND
+// ══════════════════════════════════════════════════════════════
+
+const ALL_COLORS = [
+  { id:0, css:'var(--c0)', label:'Rojo'    },
+  { id:1, css:'var(--c1)', label:'Azul'    },
+  { id:2, css:'var(--c2)', label:'Verde'   },
+  { id:3, css:'var(--c3)', label:'Amarillo'},
+  { id:4, css:'var(--c4)', label:'Morado'  },
+  { id:5, css:'var(--c5)', label:'Naranja' },
+  { id:6, css:'var(--c6)', label:'Turquesa'},
+  { id:7, css:'var(--c7)', label:'Rosa'    },
+];
+
+const MAX_ATTEMPTS = 10;
+const CODE_LENGTH  = 4;
+
+// Config state
+let cfgRepeat    = true;
+let cfgNumColors = 6;
+let palette      = [];        // subset of ALL_COLORS
+
+// Game state
+let secretCode   = [];
+let board        = [];        // array of rows: {guess:[null,null,null,null], locked:false, feedback:{black,white}}
+let currentRow   = 0;
+let selectedColor= null;
+let gameEnded    = false;
+
+// ── Config ────────────────────────────────────────────────────
+document.getElementById('apply-cfg-btn').addEventListener('click', () => {
+  cfgRepeat    = document.getElementById('cfg-repeat').checked;
+  cfgNumColors = parseInt(document.getElementById('cfg-colors').value);
+  resetGame();
+});
+
+// ── Core functions ────────────────────────────────────────────
+function generateSecretCode() {
+  const code = [];
+  const available = palette.map(c => c.id);
+  for (let i = 0; i < CODE_LENGTH; i++) {
+    if (cfgRepeat) {
+      code.push(available[Math.floor(Math.random() * available.length)]);
+    } else {
+      const remaining = available.filter(c => !code.includes(c));
+      code.push(remaining[Math.floor(Math.random() * remaining.length)]);
+    }
+  }
+  return code;
+}
+
+function generateFeedback(guess, secret) {
+  let black = 0, white = 0;
+  const sLeft = [], gLeft = [];
+  for (let i = 0; i < CODE_LENGTH; i++) {
+    if (guess[i] === secret[i]) { black++; }
+    else { sLeft.push(secret[i]); gLeft.push(guess[i]); }
+  }
+  for (const g of gLeft) {
+    const idx = sLeft.indexOf(g);
+    if (idx !== -1) { white++; sLeft.splice(idx,1); }
+  }
+  return { black, white };
+}
+
+function checkVictory(feedback) { return feedback.black === CODE_LENGTH; }
+
+function setColor(rowIdx, pegIdx) {
+  if (gameEnded || board[rowIdx].locked || selectedColor === null) return;
+  board[rowIdx].guess[pegIdx] = selectedColor;
+  renderBoard();
+}
+
+function validateGuess() {
+  if (gameEnded) return;
+  const row = board[currentRow];
+  if (row.guess.some(c => c === null)) {
+    // Shake la fila activa
+    const rowEl = document.querySelectorAll('.board-row')[currentRow];
+    rowEl.classList.add('shake');
+    rowEl.addEventListener('animationend', () => rowEl.classList.remove('shake'), { once: true });
+    return;
+  }
+  const fb = generateFeedback(row.guess, secretCode);
+  row.feedback = fb;
+  row.locked   = true;
+
+  document.getElementById('attempt-num').textContent = Math.min(currentRow + 2, MAX_ATTEMPTS);
+
+  if (checkVictory(fb)) {
+    gameEnded = true;
+    renderBoard();
+    markDone();
+    const msgs = [
+      '¡Increíble! Lo has descifrado a la primera. Eres un genio.',
+      '¡Fantástico! Solo necesitaste 2 intentos.',
+      '¡Muy bien! Descifrado en 3 intentos.',
+      '¡Bien hecho! 4 intentos, buen trabajo.',
+      '¡Conseguido! 5 intentos, nada mal.',
+    ];
+    const attempts = currentRow + 1;
+    document.getElementById('win-msg').innerHTML =
+      `Descifrado en <strong style="color:var(--gold-light)">${attempts}</strong> intento${attempts>1?'s':''}.<br>${attempts <= msgs.length ? msgs[attempts-1].split('!')[1]||'' : '¡Bien jugado!'}`;
+    setTimeout(() => document.getElementById('popup-win').classList.add('visible'), 500);
+    return;
+  }
+
+  currentRow++;
+  if (currentRow >= MAX_ATTEMPTS) {
+    gameEnded = true;
+    renderBoard();
+    showSecretReveal();
+    setTimeout(() => document.getElementById('popup-lose').classList.add('visible'), 600);
+    return;
+  }
+
+  renderBoard();
+}
+
+function showSecretReveal() {
+  const el = document.getElementById('secret-reveal');
+  el.innerHTML = '<span class="secret-label">Código</span>';
+  secretCode.forEach(id => {
+    const c = ALL_COLORS.find(x => x.id === id);
+    const dot = document.createElement('div');
+    dot.className = 'secret-peg';
+    dot.style.background = c.css;
+    el.appendChild(dot);
+  });
+  el.classList.add('visible');
+}
+
+// ── Render ────────────────────────────────────────────────────
+function renderBoard() {
+  const boardEl = document.getElementById('board');
+  boardEl.innerHTML = '';
+
+  for (let r = 0; r < MAX_ATTEMPTS; r++) {
+    const row = board[r];
+    const rowEl = document.createElement('div');
+    rowEl.className = 'board-row' +
+      (r === currentRow && !gameEnded ? ' active' : '') +
+      (row.locked ? ' locked' : '');
+
+    // Row number (10 down to 1)
+    const numEl = document.createElement('div');
+    numEl.className = 'row-num';
+    numEl.textContent = MAX_ATTEMPTS - r;
+    rowEl.appendChild(numEl);
+
+    // Pegs
+    const pegsEl = document.createElement('div');
+    pegsEl.className = 'row-pegs';
+    for (let p = 0; p < CODE_LENGTH; p++) {
+      const pegEl = document.createElement('div');
+      const colorId = row.guess[p];
+      const color   = colorId !== null ? ALL_COLORS.find(c => c.id === colorId) : null;
+      pegEl.className = 'peg' +
+        (colorId !== null ? ' filled' : ' empty') +
+        (row.locked ? ' locked' : '');
+      if (color) pegEl.style.background = color.css;
+      if (!row.locked && r === currentRow) {
+        pegEl.addEventListener('click', () => setColor(r, p));
+      }
+      pegsEl.appendChild(pegEl);
+    }
+    rowEl.appendChild(pegsEl);
+
+    // Feedback
+    const fbEl = document.createElement('div');
+    fbEl.className = 'feedback';
+    const dots = [];
+    if (row.feedback) {
+      for (let i = 0; i < row.feedback.black; i++) dots.push('black');
+      for (let i = 0; i < row.feedback.white; i++) dots.push('white');
+    }
+    for (let i = 0; i < 4; i++) {
+      const dot = document.createElement('div');
+      dot.className = 'fdot' + (dots[i] ? ' ' + dots[i] : '');
+      fbEl.appendChild(dot);
+    }
+    rowEl.appendChild(fbEl);
+
+    boardEl.appendChild(rowEl);
+  }
+}
+
+function renderPalette() {
+  const palEl = document.getElementById('palette');
+  palEl.innerHTML = '';
+  palette.forEach(c => {
+    const p = document.createElement('div');
+    p.className = 'palette-peg' + (selectedColor === c.id ? ' selected' : '');
+    p.style.background = c.css;
+    p.title = c.label;
+    p.addEventListener('click', () => {
+      selectedColor = (selectedColor === c.id) ? null : c.id;
+      renderPalette();
+    });
+    palEl.appendChild(p);
+  });
+}
+
+function resetGame() {
+  palette      = ALL_COLORS.slice(0, cfgNumColors);
+  // Si no hay repetidos y paleta < CODE_LENGTH, forzar mínimo 4
+  if (!cfgRepeat && palette.length < CODE_LENGTH) palette = ALL_COLORS.slice(0, CODE_LENGTH);
+
+  secretCode   = generateSecretCode();
+  board        = Array.from({ length: MAX_ATTEMPTS }, () => ({
+    guess:    Array(CODE_LENGTH).fill(null),
+    locked:   false,
+    feedback: null,
+  }));
+  currentRow   = 0;
+  selectedColor= null;
+  gameEnded    = false;
+
+  document.getElementById('attempt-num').textContent = '1';
+  document.getElementById('secret-reveal').classList.remove('visible');
+  document.getElementById('secret-reveal').innerHTML = '';
+
+  renderBoard();
+  renderPalette();
+}
+
+// ── Botones ───────────────────────────────────────────────────
+document.getElementById('validate-btn').addEventListener('click', validateGuess);
+document.getElementById('reset-btn').addEventListener('click',    resetGame);
+
+// ── Arrancar ──────────────────────────────────────────────────
+resetGame();
 </script>
 </body>
 </html>
