@@ -70,8 +70,9 @@
     .jug-amount-text{font-family:'Playfair Display',serif;font-size:clamp(.85rem,2.5vw,1.1rem);font-weight:700;color:rgba(255,255,255,.95);text-shadow:0 1px 4px rgba(0,0,0,.6);}
     .jug-amount-text.dark{color:rgba(201,168,76,.7);text-shadow:none;}
 
-    /* ══ BOTONES TRASVASE ══════════════════════════════════════ */
-    .pour-grid{padding:.8rem 1rem 1rem;display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;}
+    /* ══ BOTONES TRASVASE — una columna por jarra ══ */
+    .pour-grid{padding:.5rem 1rem .9rem;display:flex;justify-content:center;align-items:flex-start;gap:clamp(.5rem,3vw,2rem);border-top:1px solid rgba(58,143,196,.08);}
+    .pour-col{display:flex;flex-direction:column;gap:.35rem;flex:1;max-width:140px;align-items:center;}
     .pour-btn{background:rgba(58,143,196,.1);border:1px solid rgba(58,143,196,.3);border-radius:3px;color:rgba(190,225,245,.7);font-family:'Cormorant Garamond',serif;font-size:.78rem;letter-spacing:.12em;padding:.45rem .4rem;cursor:pointer;transition:all .2s;text-align:center;line-height:1.3;}
     .pour-btn:hover:not(:disabled){background:rgba(58,143,196,.25);border-color:rgba(90,174,216,.6);color:#c0e8ff;box-shadow:0 0 10px rgba(58,143,196,.2);}
     .pour-btn:disabled{opacity:.22;cursor:default;}
@@ -104,7 +105,7 @@
     /* ── POPUPS ─────────────────────────────────────────────── */
     .popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.78);z-index:100;align-items:center;justify-content:center;}
     .popup-overlay.visible{display:flex;}
-    .popup-box{background:var(--dark);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:2.5rem 2rem;max-width:420px;width:90%;text-align:center;box-shadow:0 0 60px rgba(0,0,0,.9);}
+    .popup-box{background:var(--dark);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:1.8rem 1.8rem 1.5rem;max-width:420px;width:90%;text-align:center;box-shadow:0 0 60px rgba(0,0,0,.9);max-height:90vh;overflow-y:auto;}
     .popup-icon{font-size:3rem;margin-bottom:.8rem;}
     .popup-title{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:var(--gold-light);margin-bottom:.8rem;}
     .popup-msg{font-size:.95rem;font-style:italic;color:rgba(250,246,238,.6);line-height:1.7;margin-bottom:1.8rem;}
@@ -119,7 +120,8 @@
       .month-label{font-size:clamp(1rem,4vw,1.6rem);margin-bottom:1rem;}
       .day-nav{margin-top:1rem;padding-top:1rem;}
       .ornament-line-h{margin-bottom:1rem;}
-      .pour-grid{grid-template-columns:repeat(3,1fr);gap:.35rem;}
+      .pour-grid{gap:.4rem;}
+      .pour-col{gap:.25rem;}
       .pour-btn{font-size:.7rem;padding:.4rem .3rem;}
       .jugs-section{gap:.4rem;}
       .info-bar{gap:1.2rem;}
@@ -151,15 +153,15 @@
       <div class="info-bar">
         <div class="info-pill">
           <span class="info-label">Jarra A</span>
-          <span class="info-value" id="info-a">8 / 8 L</span>
+          <span class="info-value" id="info-A">8 / 8 L</span>
         </div>
         <div class="info-pill">
           <span class="info-label">Jarra B</span>
-          <span class="info-value" id="info-b">0 / 5 L</span>
+          <span class="info-value" id="info-B">0 / 5 L</span>
         </div>
         <div class="info-pill">
           <span class="info-label">Jarra C</span>
-          <span class="info-value" id="info-c">0 / 3 L</span>
+          <span class="info-value" id="info-C">0 / 3 L</span>
         </div>
         <div class="info-pill">
           <span class="info-label">Movimientos</span>
@@ -246,20 +248,19 @@
   <div class="popup-box">
     <div class="popup-icon">💧</div>
     <p class="popup-title">Cómo jugar</p>
-    <p class="popup-msg" style="text-align:left;font-style:normal;font-size:.92rem;line-height:1.9;">
+    <p class="popup-msg" style="text-align:left;font-style:normal;font-size:.88rem;line-height:1.7;margin-bottom:1.2rem;">
       <strong style="color:var(--gold-light);">Objetivo</strong><br>
-      Consigue exactamente <strong>4 litros</strong> en cualquiera de las jarras.<br><br>
-      <strong style="color:var(--gold-light);">Jarras disponibles</strong><br>
-      · Jarra A: 8 L (comienza llena)<br>
-      · Jarra B: 5 L (comienza vacía)<br>
-      · Jarra C: 3 L (comienza vacía)<br><br>
+      Consigue exactamente <strong>4 litros</strong> en cualquier jarra.<br><br>
+      <strong style="color:var(--gold-light);">Jarras</strong><br>
+      · A: 8 L (llena) · B: 5 L · C: 3 L<br><br>
       <strong style="color:var(--gold-light);">Reglas</strong><br>
-      · Cada trasvase vierte el máximo posible: hasta que la jarra origen se vacía o la destino se llena.<br>
-      · No se pueden medir cantidades parciales manuales.<br>
-      · Una jarra nunca puede superar su capacidad.<br><br>
-      <strong style="color:var(--gold-light);">Cómo moverse</strong><br>
-      · Pulsa el botón "A → B" para verter de A en B, etc.<br>
-      · Los botones se desactivan si el trasvase no es posible.
+      · Cada trasvase vierte el máximo posible (origen vacío o destino lleno).<br>
+      · No hay medidas parciales manuales.<br><br>
+      <strong style="color:var(--gold-light);">Botones</strong><br>
+      Cada columna corresponde a su jarra:<br>
+      · <em>A → B</em> / <em>A → C</em> — vierte desde A<br>
+      · <em>B → C</em> / <em>A ← B</em> — vierte desde B<br>
+      · <em>A ← C</em> / <em>B ← C</em> — vierte desde C
     </p>
     <button class="popup-btn" id="help-close">¡Entendido!</button>
   </div>
@@ -446,17 +447,34 @@ function buildDOM() {
     section.appendChild(col);
   });
 
-  // ── Botones trasvase
+  // ── Botones trasvase — una columna por jarra, alineada debajo de cada una
+  // Col A: A→B (arriba),  A→C (abajo)
+  // Col B: B→C (arriba),  A←B (abajo)
+  // Col C: A←C (arriba),  B←C (abajo)
+  const JUG_BUTTONS = [
+    [ ['A','B', 'A → B'], ['A','C', 'A → C'] ],
+    [ ['B','C', 'B → C'], ['B','A', 'A ← B'] ],
+    [ ['C','A', 'A ← C'], ['C','B', 'B ← C'] ],
+  ];
+
   const grid = document.getElementById('pour-grid');
   grid.innerHTML = '';
 
-  POUR_PAIRS.forEach(([from, to]) => {
-    const btn = document.createElement('button');
-    btn.className = 'pour-btn';
-    btn.id = `pour-${from}-${to}`;
-    btn.innerHTML = `<span class="arrow">${from} → ${to}</span>`;
-    btn.addEventListener('click', () => pour(from, to));
-    grid.appendChild(btn);
+  JUG_BUTTONS.forEach(colDef => {
+    const col = document.createElement('div');
+    col.className = 'pour-col';
+
+    colDef.forEach(([from, to, label]) => {
+      const btn = document.createElement('button');
+      btn.className = 'pour-btn';
+      btn.id = `pour-${from}-${to}`;
+      btn.style.width = '100%';
+      btn.innerHTML = `<span class="arrow">${label}</span>`;
+      btn.addEventListener('click', () => pour(from, to));
+      col.appendChild(btn);
+    });
+
+    grid.appendChild(col);
   });
 }
 
