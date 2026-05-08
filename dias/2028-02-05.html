@@ -194,7 +194,8 @@
     /* ── POPUP ────────────────────────────────────────────── */
     .popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:100;align-items:center;justify-content:center;}
     .popup-overlay.visible{display:flex;}
-    .popup-box{background:var(--dark);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:3rem 2.5rem;max-width:420px;width:90%;text-align:center;box-shadow:0 0 60px rgba(0,0,0,.8);}
+    .popup-box{background:var(--dark);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:2rem 2rem 1.5rem;max-width:420px;width:90%;text-align:center;box-shadow:0 0 60px rgba(0,0,0,.8);display:flex;flex-direction:column;max-height:90vh;}
+    .popup-box .popup-msg{overflow-y:auto;flex:1;margin-bottom:1.2rem;}
     .popup-icon{font-size:3rem;margin-bottom:1rem;}
     .popup-title{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--gold-light);margin-bottom:1rem;}
     .popup-msg{font-size:1rem;font-style:italic;color:rgba(250,246,238,.6);line-height:1.7;margin-bottom:2rem;}
@@ -310,14 +311,14 @@
   <div class="popup-box">
     <div class="popup-icon">🐸</div>
     <p class="popup-title">Cómo jugar</p>
-    <p class="popup-msg" style="text-align:left;font-style:normal;font-size:.95rem;line-height:1.9;">
+    <p class="popup-msg" style="text-align:left;font-style:normal;font-size:.92rem;line-height:1.7;">
       Haz clic en una rana para moverla al hueco.<br><br>
-      • Las <strong style="color:var(--gold-light)">rojas</strong> solo avanzan a la derecha →<br>
-      • Las <strong style="color:var(--gold-light)">naranjas</strong> solo avanzan a la izquierda ←<br><br>
-      • Se pueden <strong style="color:var(--gold-light)">deslizar</strong> al hueco adyacente.<br>
-      • Pueden <strong style="color:var(--gold-light)">saltar</strong> sobre una rana del color contrario.<br><br>
-      <strong style="color:var(--gold-light)">Objetivo:</strong> intercambia completamente los dos grupos.<br><br>
-      Las ranas que <strong style="color:#74c69d">brillan en verde</strong> son las que pueden moverse ahora.
+      • <strong style="color:var(--gold-light)">Rojas</strong> → solo avanzan a la derecha<br>
+      • <strong style="color:var(--gold-light)">Naranjas</strong> ← solo avanzan a la izquierda<br><br>
+      • <strong style="color:var(--gold-light)">Deslizarse</strong> al hueco adyacente<br>
+      • <strong style="color:var(--gold-light)">Saltar</strong> sobre una rana del color contrario<br><br>
+      <strong style="color:var(--gold-light)">Objetivo:</strong> intercambiar los dos grupos.<br>
+      Las ranas que <strong style="color:#74c69d">brillan</strong> son las que pueden moverse.
     </p>
     <button class="popup-btn" id="help-close">¡Entendido!</button>
   </div>
