@@ -117,7 +117,7 @@
     /* ── POPUPS ─────────────────────────────────────────────── */
     .popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:100;align-items:center;justify-content:center;}
     .popup-overlay.visible{display:flex;}
-    .popup-box{background:var(--dark);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:2.5rem 2rem;max-width:420px;width:90%;text-align:center;box-shadow:0 0 60px rgba(0,0,0,.9);}
+    .popup-box{background:var(--dark);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:1.8rem 1.8rem 1.5rem;max-width:420px;width:90%;text-align:center;box-shadow:0 0 60px rgba(0,0,0,.9);max-height:90vh;overflow-y:auto;}
     .popup-icon{font-size:3rem;margin-bottom:.8rem;}
     .popup-title{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:var(--gold-light);margin-bottom:.8rem;}
     .popup-msg{font-size:.95rem;font-style:italic;color:rgba(250,246,238,.6);line-height:1.7;margin-bottom:1.8rem;}
@@ -253,20 +253,19 @@
   <div class="popup-box">
     <div class="popup-icon">🗼</div>
     <p class="popup-title">Cómo jugar</p>
-    <p class="popup-msg" style="text-align:left;font-style:normal;font-size:.92rem;line-height:1.9;">
+    <p class="popup-msg" style="text-align:left;font-style:normal;font-size:.88rem;line-height:1.7;margin-bottom:1.2rem;">
       <strong style="color:var(--gold-light);">Objetivo</strong><br>
-      Mueve todos los discos desde el Poste 1 hasta el Poste 2 o el Poste 3.<br><br>
+      Mueve todos los discos al Poste 2 o al Poste 3.<br><br>
       <strong style="color:var(--gold-light);">Reglas</strong><br>
       · Solo puedes mover el disco de <em>arriba</em> de cada poste.<br>
-      · Un disco grande nunca puede ir encima de uno pequeño.<br>
-      · Solo un disco a la vez.<br><br>
+      · Un disco grande nunca puede ir encima de uno pequeño.<br><br>
       <strong style="color:var(--gold-light);">Cómo mover</strong><br>
-      · <em>Clic:</em> haz clic en el poste origen (se resalta), luego en el destino.<br>
-      · <em>Drag &amp; drop:</em> arrastra el disco superior de un poste al otro.<br>
-      · Haz clic en el mismo poste para cancelar la selección.<br><br>
+      · <em>Clic:</em> poste origen → poste destino.<br>
+      · <em>Drag &amp; drop:</em> arrastra el disco al poste destino.<br>
+      · Clic en el mismo poste cancela la selección.<br><br>
       <strong style="color:var(--gold-light);">Consejo</strong><br>
-      · El mínimo teórico de movimientos es 2ⁿ − 1 (con 5 discos = 31 movimientos).<br>
-      · Usa los botones − / + para cambiar la dificultad (3 a 8 discos).
+      · Mínimo teórico: 2ⁿ − 1 movimientos.<br>
+      · Usa − / + para cambiar la dificultad (3–8 discos).
     </p>
     <button class="popup-btn" id="help-close">¡Entendido!</button>
   </div>
@@ -455,9 +454,9 @@ function render() {
 
     const stack = state.posts[p]; // bottom → top (index 0 = largest = bottom)
 
-    // Build N_DISKS slots. slot 0 = BOTTOM (first child = top of flex-col-end = bottom visually).
-    // We iterate from slot 0 (bottom) to N_DISKS-1 (top) — flex-end stacks them from bottom up.
-    for (let slot = 0; slot < N_DISKS; slot++) {
+    // With flex-direction:column + justify-content:flex-end, the LAST child sits at the bottom.
+    // So we render slots from N_DISKS-1 (top) down to 0 (bottom) — slot 0 = largest = last child = bottom visually.
+    for (let slot = N_DISKS - 1; slot >= 0; slot--) {
       const diskSize = stack[slot]; // size value, or undefined if empty slot
       const slotEl   = document.createElement('div');
       slotEl.className = 'disk-slot';
@@ -482,7 +481,7 @@ function render() {
         diskEl.style.position   = 'relative';
         diskEl.style.cursor     = 'default';
 
-        // Is it the TOP disk (last in array = highest slot)?
+        // TOP disk = last element in stack array = stack.length - 1
         const isTop = (slot === stack.length - 1);
         if (isTop) {
           diskEl.classList.add('top');
@@ -496,10 +495,9 @@ function render() {
             e.dataTransfer.effectAllowed = 'move';
             e.dataTransfer.setData('fromPost', p);
             state.selected = p;
-            setTimeout(() => render(), 0); // re-render after dragstart
+            setTimeout(() => render(), 0);
           });
           diskEl.addEventListener('dragend', () => {
-            // If drop didn't land on a valid target, clear selection
             if (state.selected === p) { state.selected = null; render(); }
           });
         }
