@@ -38,15 +38,14 @@
     .done-btn.active{color:var(--gold);opacity:1;}
 
     /* ── CONTENT AREA ────────────────────────────────────── */
-    .content-area{width:100%;padding:0;margin-bottom:1rem;}
+    .content-area{width:100%;padding:1.8rem 1.5rem 1.5rem;margin-bottom:1rem;border:1px solid rgba(201,168,76,.15);border-radius:6px;background:rgba(255,255,255,.02);}
 
     .reto-header{text-align:center;margin-bottom:1.5rem;}
-    .reto-tipo{font-size:.7rem;letter-spacing:.35em;text-transform:uppercase;color:rgba(201,168,76,.4);margin-bottom:.4rem;}
     .reto-title{font-family:'Playfair Display',serif;font-size:clamp(1.3rem,3vw,2rem);font-weight:700;color:var(--gold-light);margin-bottom:.6rem;}
     .reto-desc{font-size:.95rem;color:rgba(250,246,238,.55);line-height:1.7;max-width:520px;margin:0 auto;}
 
     /* ── GAME WRAPPER ────────────────────────────────────── */
-    .game-wrapper{width:100%;max-width:660px;margin:0 auto;padding:1rem 0;}
+    .game-wrapper{width:100%;max-width:660px;margin:0 auto;padding:.5rem 0 0;}
 
     /* ── LEGENDS ─────────────────────────────────────────── */
     .legend{display:flex;justify-content:space-between;align-items:center;margin-bottom:.8rem;padding:0 .5rem;}
@@ -141,11 +140,11 @@
 
     /* Resaltar con brillo pulsante la rana seleccionable */
     .frog.clickable{
-      animation:glow-hint 2.2s ease-in-out infinite;
+      animation:glow-hint 1.6s ease-in-out infinite;
     }
     @keyframes glow-hint{
-      0%,100%{ filter:brightness(1); }
-      50%{ filter:brightness(1.15) drop-shadow(0 0 5px rgba(255,200,100,.5)); }
+      0%,100%{ filter:brightness(1.1) saturate(1.2); }
+      50%{ filter:brightness(1.5) saturate(1.6) drop-shadow(0 0 8px rgba(120,255,160,.7)); }
     }
 
     /* Animación de salto */
@@ -164,7 +163,7 @@
     /* ── MOVE COUNTER & BUTTONS ───────────────────────────── */
     .game-controls{display:flex;align-items:center;justify-content:space-between;margin-top:1.3rem;padding:0 .2rem;}
     .move-counter{font-size:.85rem;color:rgba(250,246,238,.45);letter-spacing:.1em;}
-    .move-num{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--gold);margin:0 .25rem;}
+    .ctrl-btns{display:flex;gap:.5rem;}
     .reset-btn{
       background:none;border:1px solid rgba(201,168,76,.3);border-radius:3px;
       color:rgba(201,168,76,.6);font-family:'Cormorant Garamond',serif;
@@ -172,6 +171,15 @@
       padding:.45rem 1.1rem;cursor:pointer;transition:all .2s;
     }
     .reset-btn:hover{color:var(--gold);border-color:var(--gold);background:rgba(201,168,76,.07);}
+
+    /* ── Hoja destacada (rana con movimiento válido) ──────── */
+    .cell.active-pad .lily-pad{
+      background:radial-gradient(ellipse at 38% 38%, #74c69d 0%, #52b788 45%, #2d9e6a 100%);
+      box-shadow:0 5px 16px rgba(0,0,0,.5), 0 0 14px rgba(82,183,136,.55), inset 0 1px 3px rgba(180,255,220,.3);
+    }
+    .cell.active-pad .lily-pad::after{ background:#1a7a4a; }
+
+    .move-num{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--gold);margin:0 .25rem;}
 
     /* ── STATUS MESSAGE ───────────────────────────────────── */
     .status-msg{
@@ -182,19 +190,6 @@
     }
     .status-msg.win{ color:var(--gold-light); }
     .status-msg.blocked{ color:#e07070; }
-
-    /* ── INSTRUCTIONS ─────────────────────────────────────── */
-    .instructions{
-      margin-top:1.2rem;
-      padding:.9rem 1.3rem;
-      border:1px solid rgba(64,145,108,.18);
-      border-radius:6px;
-      background:rgba(27,67,50,.12);
-      font-size:.82rem;
-      color:rgba(250,246,238,.42);
-      line-height:1.85;
-    }
-    .instructions strong{ color:rgba(250,246,238,.62); }
 
     /* ── POPUP ────────────────────────────────────────────── */
     .popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:100;align-items:center;justify-content:center;}
@@ -238,7 +233,6 @@
     <div class="content-area">
 
       <div class="reto-header">
-        <p class="reto-tipo">Minijuego</p>
         <h2 class="reto-title">🐸 Ranas Saltadoras 🐸</h2>
         <p class="reto-desc">Las ranas rojas quieren cruzar al otro lado, y las naranjas también.<br>¡Ayúdalas a intercambiar sus posiciones sin bloquearse el paso!</p>
       </div>
@@ -260,18 +254,13 @@
 
         <div class="game-controls">
           <div class="move-counter">Movimientos: <span class="move-num" id="move-count">0</span></div>
-          <button class="reset-btn" id="reset-btn">↺ Reiniciar</button>
+          <div class="ctrl-btns">
+            <button class="reset-btn" id="help-btn">? Ayuda</button>
+            <button class="reset-btn" id="reset-btn">↺ Reiniciar</button>
+          </div>
         </div>
 
         <div class="status-msg" id="status-msg"></div>
-
-        <div class="instructions">
-          <strong>Cómo jugar:</strong> Haz clic en una rana para moverla al hueco.<br>
-          • Las <strong>rojas</strong> solo pueden avanzar a la derecha →<br>
-          • Las <strong>naranjas</strong> solo pueden avanzar a la izquierda ←<br>
-          • Pueden deslizarse al hueco adyacente o <strong>saltar</strong> por encima de una rana del color contrario.<br>
-          <strong>Objetivo:</strong> las naranjas en [1,2,3] y las rojas en [5,6,7].
-        </div>
 
       </div>
     </div>
@@ -313,6 +302,24 @@
     <p class="popup-title">¡Tu recompensa!</p>
     <p class="popup-msg" id="reward-text">✨ Aquí irá la recompensa especial de este día ✨</p>
     <button class="popup-btn" id="star-reward-close">¡Genial!</button>
+  </div>
+</div>
+
+<!-- Popup ayuda -->
+<div class="popup-overlay" id="popup-help">
+  <div class="popup-box">
+    <div class="popup-icon">🐸</div>
+    <p class="popup-title">Cómo jugar</p>
+    <p class="popup-msg" style="text-align:left;font-style:normal;font-size:.95rem;line-height:1.9;">
+      Haz clic en una rana para moverla al hueco.<br><br>
+      • Las <strong style="color:var(--gold-light)">rojas</strong> solo avanzan a la derecha →<br>
+      • Las <strong style="color:var(--gold-light)">naranjas</strong> solo avanzan a la izquierda ←<br><br>
+      • Se pueden <strong style="color:var(--gold-light)">deslizar</strong> al hueco adyacente.<br>
+      • Pueden <strong style="color:var(--gold-light)">saltar</strong> sobre una rana del color contrario.<br><br>
+      <strong style="color:var(--gold-light)">Objetivo:</strong> intercambia completamente los dos grupos.<br><br>
+      Las ranas que <strong style="color:#74c69d">brillan en verde</strong> son las que pueden moverse ahora.
+    </p>
+    <button class="popup-btn" id="help-close">¡Entendido!</button>
   </div>
 </div>
 
@@ -415,9 +422,15 @@ const statusEl    = document.getElementById('status-msg');
 const popupWin    = document.getElementById('popup-win');
 const popupBlock  = document.getElementById('popup-blocked');
 
-document.getElementById('win-close').addEventListener('click',     () => popupWin.classList.remove('visible'));
+document.getElementById('win-close').addEventListener('click', () => {
+  popupWin.classList.remove('visible');
+  setTimeout(() => popupStarReward.classList.add('visible'), 300);
+});
 document.getElementById('blocked-reset').addEventListener('click', () => { popupBlock.classList.remove('visible'); resetGame(); });
 document.getElementById('reset-btn').addEventListener('click',     resetGame);
+document.getElementById('help-btn').addEventListener('click',      () => document.getElementById('popup-help').classList.add('visible'));
+document.getElementById('help-close').addEventListener('click',    () => document.getElementById('popup-help').classList.remove('visible'));
+document.getElementById('popup-help').addEventListener('click',    e => { if (e.target === document.getElementById('popup-help')) document.getElementById('popup-help').classList.remove('visible'); });
 
 // ── SVG ranas ─────────────────────────────────────────────
 function frogSVG(color) {
@@ -481,7 +494,8 @@ function renderBoard() {
     }
 
     const cell = document.createElement('div');
-    cell.className = 'cell' + (board[i] === null ? ' empty-slot' : '');
+    const isActivePad = board[i] !== null && !animating && !gameOver && validMoves.includes(i);
+    cell.className = 'cell' + (board[i] === null ? ' empty-slot' : '') + (isActivePad ? ' active-pad' : '');
 
     const pad = document.createElement('div');
     pad.className = 'lily-pad';
@@ -536,10 +550,10 @@ function doMove(fromIdx) {
     statusEl.textContent = '🎉 ¡Las ranas han cruzado!';
     statusEl.className   = 'status-msg win';
     document.getElementById('win-moves').textContent = moves;
-    setTimeout(() => popupWin.classList.add('visible'), 500);
     // Marcar completado al ganar
     localStorage.setItem(DONE_KEY, '1');
     updateDone();
+    setTimeout(() => popupWin.classList.add('visible'), 500);
     return;
   }
 
