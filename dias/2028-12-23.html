@@ -157,7 +157,7 @@
 
       <div class="game-header">
         <div class="game-title">La Torre de Hanoi</div>
-        <div class="game-subtitle">Mueve todos los discos al Poste 3 respetando las reglas</div>
+        <div class="game-subtitle">Mueve todos los discos al Poste 2 o al Poste 3 respetando las reglas</div>
       </div>
 
       <div class="info-bar">
@@ -189,6 +189,8 @@
           <button class="dc-btn" id="btn-plus">+</button>
         </div>
         <button class="reset-link" id="reset-link">↺ Reiniciar</button>
+        <span style="color:rgba(201,168,76,.2);font-size:.7rem;">·</span>
+        <button class="reset-link" id="help-link">? Ayuda</button>
       </div>
 
     </div>
@@ -243,6 +245,30 @@
     <div class="popup-btns">
       <button class="popup-btn" id="win-reward-btn">Ver recompensa ★</button>
     </div>
+  </div>
+</div>
+
+<!-- Popup ayuda -->
+<div class="popup-overlay" id="popup-help">
+  <div class="popup-box">
+    <div class="popup-icon">🗼</div>
+    <p class="popup-title">Cómo jugar</p>
+    <p class="popup-msg" style="text-align:left;font-style:normal;font-size:.92rem;line-height:1.9;">
+      <strong style="color:var(--gold-light);">Objetivo</strong><br>
+      Mueve todos los discos desde el Poste 1 hasta el Poste 2 o el Poste 3.<br><br>
+      <strong style="color:var(--gold-light);">Reglas</strong><br>
+      · Solo puedes mover el disco de <em>arriba</em> de cada poste.<br>
+      · Un disco grande nunca puede ir encima de uno pequeño.<br>
+      · Solo un disco a la vez.<br><br>
+      <strong style="color:var(--gold-light);">Cómo mover</strong><br>
+      · <em>Clic:</em> haz clic en el poste origen (se resalta), luego en el destino.<br>
+      · <em>Drag &amp; drop:</em> arrastra el disco superior de un poste al otro.<br>
+      · Haz clic en el mismo poste para cancelar la selección.<br><br>
+      <strong style="color:var(--gold-light);">Consejo</strong><br>
+      · El mínimo teórico de movimientos es 2ⁿ − 1 (con 5 discos = 31 movimientos).<br>
+      · Usa los botones − / + para cambiar la dificultad (3 a 8 discos).
+    </p>
+    <button class="popup-btn" id="help-close">¡Entendido!</button>
   </div>
 </div>
 
@@ -371,23 +397,24 @@ function render() {
   const scene = document.getElementById('hanoi-scene');
   scene.innerHTML = '';
 
-  // Dynamic pole height based on N_DISKS
-  const DISK_H   = 22;  // px per disk slot
-  const POLE_H   = N_DISKS * DISK_H + 20;
-  const BASE_MAX_W = 90; // % of post width for largest disk
+  const DISK_H  = 22;   // px per disk slot
+  const OFFSET  = 18;   // px the pole sticks above the top disk
+  const POLE_H  = N_DISKS * DISK_H + OFFSET; // total pole height
+  const AREA_H  = POLE_H; // disks area same height so pole fills exactly
 
-  // Posts row
   const row = document.createElement('div');
   row.className = 'posts-row';
 
   for (let p = 0; p < NUM_POSTS; p++) {
+    // ── Wrapper: position:relative so pole can be absolute behind disks
     const col = document.createElement('div');
     col.className = 'post-col';
     if (state.selected === p) col.classList.add('active');
     col.dataset.post = p;
+    col.style.position = 'relative';
     col.addEventListener('click', () => selectPost(p));
 
-    // Drag-over target
+    // Drop zone events
     col.addEventListener('dragover', e => { e.preventDefault(); col.classList.add('active'); });
     col.addEventListener('dragleave', () => { if (state.selected !== p) col.classList.remove('active'); });
     col.addEventListener('drop', e => {
@@ -397,70 +424,94 @@ function render() {
       if (!isNaN(from) && from !== p) attemptMove(from, p);
     });
 
-    // Disks area (rendered bottom-up via flex column-reverse trick)
+    // ── Poste — absolute, behind disks (z-index:1), centered, full height
+    const pole = document.createElement('div');
+    pole.className = 'post-pole';
+    pole.style.cssText = `
+      position:absolute;
+      bottom:0;
+      left:50%;
+      transform:translateX(-50%);
+      width:8px;
+      height:${POLE_H}px;
+      z-index:1;
+      border-radius:4px 4px 2px 2px;
+    `;
+    col.appendChild(pole);
+
+    // ── Discos area — z-index:2 so discos appear IN FRONT of the pole
     const disksArea = document.createElement('div');
     disksArea.className = 'disks-area';
-    disksArea.style.height = POLE_H + 'px';
+    disksArea.style.cssText = `
+      position:relative;
+      z-index:2;
+      width:100%;
+      height:${AREA_H}px;
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-end;
+      align-items:center;
+    `;
 
-    // Fill slots: bottom first = index 0
-    const stack = state.posts[p];
-    // We render from top of stack down to fill area bottom
-    // Use absolute positioning via flex-end
-    // Actually: flex column, justify flex-end, last element = bottom
-    // So we reverse and render top-down (last in DOM = bottom visually with flex-end)
-    // Simpler: create N_DISKS slots, fill from bottom
+    const stack = state.posts[p]; // bottom → top (index 0 = largest = bottom)
+
+    // Build N_DISKS slots. slot 0 = BOTTOM (first child = top of flex-col-end = bottom visually).
+    // We iterate from slot 0 (bottom) to N_DISKS-1 (top) — flex-end stacks them from bottom up.
     for (let slot = 0; slot < N_DISKS; slot++) {
-      const diskIdx = stack[slot]; // undefined if empty
-      const slotEl  = document.createElement('div');
+      const diskSize = stack[slot]; // size value, or undefined if empty slot
+      const slotEl   = document.createElement('div');
       slotEl.className = 'disk-slot';
+      slotEl.style.cssText = `height:${DISK_H}px;display:flex;align-items:center;justify-content:center;width:100%;flex-shrink:0;`;
 
-      if (diskIdx !== undefined) {
+      if (diskSize !== undefined) {
         const diskEl = document.createElement('div');
         diskEl.className = 'disk';
 
-        // Width proportional to size (diskIdx / N_DISKS)
-        const minW = 28, maxW = 92; // % of col
-        const w = minW + ((diskIdx - 1) / (N_DISKS - 1 || 1)) * (maxW - minW);
+        // Width: largest disk (N_DISKS) = 92%, smallest (1) = 28%
+        const minW = 28, maxW = 92;
+        const w = minW + ((diskSize - 1) / (N_DISKS - 1 || 1)) * (maxW - minW);
         diskEl.style.width = w + '%';
 
-        // Colour from palette
-        const ci = (diskIdx - 1) % DISK_COLORS.length;
+        const ci = (diskSize - 1) % DISK_COLORS.length;
         const [c1, c2, cb] = DISK_COLORS[ci];
         diskEl.style.background = `linear-gradient(to bottom, ${c2}, ${c1})`;
-        diskEl.style.border = `2px solid ${cb}`;
-        diskEl.style.boxShadow = `0 3px 10px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.15)`;
+        diskEl.style.border     = `2px solid ${cb}`;
+        diskEl.style.boxShadow  = `0 3px 10px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.15)`;
+        diskEl.style.height     = '18px';
+        diskEl.style.borderRadius = '9px';
+        diskEl.style.position   = 'relative';
+        diskEl.style.cursor     = 'default';
 
-        // Is it the top disk of this post?
-        const isTop = slot === stack.length - 1;
+        // Is it the TOP disk (last in array = highest slot)?
+        const isTop = (slot === stack.length - 1);
         if (isTop) {
           diskEl.classList.add('top');
           if (state.selected === p) diskEl.classList.add('selected');
           if (state.won) diskEl.classList.add('win-pulse');
 
-          // Drag support
-          diskEl.draggable = !locked && !state.won;
+          diskEl.style.cursor = locked || state.won ? 'default' : 'grab';
+          diskEl.draggable    = !locked && !state.won;
           diskEl.addEventListener('dragstart', e => {
             if (locked || state.won) { e.preventDefault(); return; }
+            e.dataTransfer.effectAllowed = 'move';
             e.dataTransfer.setData('fromPost', p);
             state.selected = p;
-            render();
+            setTimeout(() => render(), 0); // re-render after dragstart
+          });
+          diskEl.addEventListener('dragend', () => {
+            // If drop didn't land on a valid target, clear selection
+            if (state.selected === p) { state.selected = null; render(); }
           });
         }
 
         slotEl.appendChild(diskEl);
       }
-
       disksArea.appendChild(slotEl);
     }
+
     col.appendChild(disksArea);
 
-    // Pole
-    const pole = document.createElement('div');
-    pole.className = 'post-pole';
-    pole.style.setProperty('--pole-h', POLE_H + 'px');
-    col.appendChild(pole);
-
-    // Label
+    // Label below
     const lbl = document.createElement('div');
     lbl.className = 'post-label';
     lbl.textContent = 'Poste ' + (p + 1);
@@ -477,13 +528,13 @@ function render() {
   scene.appendChild(base);
 
   // Info bar
-  const optimal = (1 << N_DISKS) - 1; // 2^n - 1
-  document.getElementById('info-moves').textContent = state.moves;
+  const optimal = (1 << N_DISKS) - 1;
+  document.getElementById('info-moves').textContent   = state.moves;
   document.getElementById('info-optimal').textContent = optimal;
+  document.getElementById('info-disks').textContent   = N_DISKS;
+  document.getElementById('dc-display').textContent   = N_DISKS;
   const optEl = document.getElementById('info-optimal');
   optEl.className = 'info-value' + (state.moves > 0 && state.moves <= optimal ? ' optimal' : '');
-  document.getElementById('info-disks').textContent = N_DISKS;
-  document.getElementById('dc-display').textContent = N_DISKS;
 }
 
 // ══════════════════════════════════════════════
@@ -557,11 +608,12 @@ function moveDisk(from, to) {
 }
 
 // ══════════════════════════════════════════════
-//  CHECK VICTORY
+//  CHECK VICTORY  — all disks on post 2 or post 3
 // ══════════════════════════════════════════════
 function checkVictory() {
-  // All N_DISKS on post 3 (index 2), ordered correctly
-  if (state.posts[2].length !== N_DISKS) return;
+  // Win if post 2 (idx 1) or post 3 (idx 2) has all N_DISKS
+  const winPost = [1, 2].find(i => state.posts[i].length === N_DISKS);
+  if (winPost === undefined) return;
   state.won = true;
   render();
 
@@ -572,7 +624,7 @@ function checkVictory() {
     : `Lo has logrado en ${state.moves} movimientos (el mínimo teórico es ${optimal}).`;
 
   document.getElementById('win-msg').innerHTML =
-    `Has resuelto la Torre de Hanoi con <strong>${N_DISKS} discos</strong>.<br>${extraTxt}<br><br>¡Mente privilegiada! 🧠✨`;
+    `Has resuelto la Torre de Hanoi con <strong>${N_DISKS} discos</strong> en el Poste ${winPost + 1}.<br>${extraTxt}<br><br>¡Mente privilegiada! 🧠✨`;
 
   markDone();
   setTimeout(() => popupWin.classList.add('visible'), 600);
@@ -615,6 +667,11 @@ document.getElementById('btn-plus').addEventListener('click', () => {
   if (N_DISKS < 8) { N_DISKS++; resetGame(); }
 });
 document.getElementById('reset-link').addEventListener('click', resetGame);
+
+const popupHelp = document.getElementById('popup-help');
+document.getElementById('help-link').addEventListener('click', () => popupHelp.classList.add('visible'));
+document.getElementById('help-close').addEventListener('click', () => popupHelp.classList.remove('visible'));
+popupHelp.addEventListener('click', e => { if (e.target === popupHelp) popupHelp.classList.remove('visible'); });
 
 // ══════════════════════════════════════════════
 //  INIT
