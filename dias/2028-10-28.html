@@ -197,7 +197,11 @@
 
       <div class="controls">
         <div class="hint-text" id="hint-text">Trasvasa combustible para conseguir exactamente 5 L en dos recipientes</div>
-        <button class="reset-link" id="reset-link">↺ Reiniciar</button>
+        <div style="display:flex;gap:.8rem;align-items:center;">
+          <button class="reset-link" id="reset-link">↺ Reiniciar</button>
+          <span style="color:rgba(201,168,76,.2);font-size:.7rem;">·</span>
+          <button class="reset-link" id="help-link">? Ayuda</button>
+        </div>
       </div>
 
     </div>
@@ -252,6 +256,30 @@
     <div class="popup-btns">
       <button class="popup-btn" id="win-reward-btn">Ver recompensa ★</button>
     </div>
+  </div>
+</div>
+
+<!-- Popup ayuda -->
+<div class="popup-overlay" id="popup-help">
+  <div class="popup-box">
+    <div class="popup-icon">⛽</div>
+    <p class="popup-title">Cómo jugar</p>
+    <p class="popup-msg" style="text-align:left;font-style:normal;font-size:.92rem;line-height:1.9;">
+      <strong style="color:var(--gold-light);">Objetivo</strong><br>
+      Divide los <strong>10 litros</strong> de combustible en dos partes exactas de <strong>5 L</strong> cada una.<br><br>
+      <strong style="color:var(--gold-light);">Recipientes disponibles</strong><br>
+      · Tanque A: 10 L (comienza lleno)<br>
+      · Recipiente B: 7 L (comienza vacío)<br>
+      · Recipiente C: 3 L (comienza vacío)<br><br>
+      <strong style="color:var(--gold-light);">Reglas</strong><br>
+      · Cada trasvase vierte el máximo posible: hasta que el origen se vacía o el destino se llena.<br>
+      · No se pueden medir cantidades parciales manualmente.<br>
+      · Nunca se puede superar la capacidad máxima de un recipiente.<br><br>
+      <strong style="color:var(--gold-light);">Cómo moverse</strong><br>
+      · Pulsa el botón "A → B" para verter de A en B, etc.<br>
+      · Los botones se desactivan si el trasvase no es posible.
+    </p>
+    <button class="popup-btn" id="help-close">¡Entendido!</button>
   </div>
 </div>
 
@@ -507,21 +535,13 @@ function pour(fromId, toId) {
   state.tanks[toId]   += amount;
   state.moves++;
 
-  // Flash animation on affected tanks
-  ['tank-fuel-' + fromId, 'tank-fuel-' + toId].forEach(id => {
-    const el = document.getElementById(id);
-    el.classList.add('pouring');
-  });
-
   render();
 
   setTimeout(() => {
-    ['tank-fuel-' + fromId, 'tank-fuel-' + toId].forEach(id => {
-      document.getElementById(id).classList.remove('pouring');
-    });
     locked = false;
     checkVictory();
-  }, 620);
+    render();
+  }, 640);
 }
 
 // ══════════════════════════════════════════════
@@ -555,6 +575,10 @@ function resetGame() {
 //  EVENTS + INIT
 // ══════════════════════════════════════════════
 document.getElementById('reset-link').addEventListener('click', resetGame);
+const popupHelp1028 = document.getElementById('popup-help');
+document.getElementById('help-link').addEventListener('click', () => popupHelp1028.classList.add('visible'));
+document.getElementById('help-close').addEventListener('click', () => popupHelp1028.classList.remove('visible'));
+popupHelp1028.addEventListener('click', e => { if (e.target === popupHelp1028) popupHelp1028.classList.remove('visible'); });
 
 initState();
 buildDOM();
