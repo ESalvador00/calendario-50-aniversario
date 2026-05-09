@@ -7,12 +7,22 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
-    :root{--gold:#C9A84C;--gold-light:#E8C97A;--gold-dark:#8B6914;--cream:#FAF6EE;--dark:#1A1410;}
+    :root{
+      --gold:#C9A84C;--gold-light:#E8C97A;--gold-dark:#8B6914;
+      --cream:#FAF6EE;--dark:#1A1410;
+      --up-off:#0a2e0a;    --up-on:#22ff44;    --up-glow:rgba(34,255,68,.7);
+      --right-off:#2e1a00; --right-on:#ff9900;  --right-glow:rgba(255,153,0,.7);
+      --down-off:#2e0000;  --down-on:#ff3333;   --down-glow:rgba(255,51,51,.7);
+      --left-off:#0a0a2e;  --left-on:#4499ff;   --left-glow:rgba(68,153,255,.7);
+    }
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
     body{background-color:var(--dark);color:var(--cream);font-family:'Cormorant Garamond',serif;min-height:100vh;display:flex;flex-direction:column;}
-    body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 25% 15%,rgba(201,168,76,.10) 0%,transparent 55%),radial-gradient(ellipse at 75% 85%,rgba(124,54,38,.10) 0%,transparent 55%);pointer-events:none;z-index:0;}
+    body::before{content:'';position:fixed;inset:0;
+      background:radial-gradient(ellipse at 25% 15%,rgba(201,168,76,.10) 0%,transparent 55%),
+                 radial-gradient(ellipse at 75% 85%,rgba(124,54,38,.10) 0%,transparent 55%);
+      pointer-events:none;z-index:0;}
     .wrap{position:relative;z-index:1;max-width:800px;margin:0 auto;padding:3rem 2rem 4rem;flex:1;display:flex;flex-direction:column;}
-    .day-hero{text-align:center;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 0 2rem;position:relative;}
+    .day-hero{text-align:center;flex:1;display:flex;flex-direction:column;align-items:center;padding:3rem 0 2rem;position:relative;}
     .ornament-line-h{display:flex;align-items:center;justify-content:center;gap:1rem;margin-bottom:2rem;}
     .o-line{height:1px;width:60px;background:linear-gradient(to right,transparent,var(--gold));}
     .o-line.r{background:linear-gradient(to left,transparent,var(--gold));}
@@ -20,130 +30,279 @@
     .day-of-week{font-size:.85rem;letter-spacing:.4em;text-transform:uppercase;color:rgba(201,168,76,.5);margin-bottom:1rem;}
     h1{font-family:'Playfair Display',serif;font-size:clamp(3rem,9vw,7rem);font-weight:900;line-height:1;background:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 50%,var(--gold-dark) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.5rem;}
     .month-label{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3.5vw,2.4rem);font-weight:400;font-style:italic;color:rgba(250,246,238,.45);margin-bottom:2.5rem;}
-    .content-area{width:100%;border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:2.5rem;min-height:220px;background:rgba(255,255,255,.02);color:rgba(250,246,238,.4);font-size:1rem;font-style:italic;text-align:center;display:flex;align-items:center;justify-content:center;}
+    .game-wrap{width:100%;border:1px solid rgba(201,168,76,.22);border-radius:6px;background:rgba(5,2,0,.55);overflow:hidden;}
+    .game-header{padding:1.1rem 1.5rem;border-bottom:1px solid rgba(201,168,76,.12);text-align:center;background:rgba(0,0,0,.25);}
+    .game-title{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:var(--gold-light);letter-spacing:.06em;}
+    .game-subtitle{font-size:.82rem;color:rgba(250,246,238,.38);margin-top:.25rem;font-style:italic;}
+    .status-bar{display:flex;justify-content:center;align-items:center;gap:2.5rem;padding:.75rem 1.5rem;border-bottom:1px solid rgba(201,168,76,.08);background:rgba(0,0,0,.15);flex-wrap:wrap;}
+    .stat-pill{display:flex;flex-direction:column;align-items:center;gap:.1rem;}
+    .stat-label{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(201,168,76,.45);}
+    .stat-value{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:var(--gold-light);}
+    .stat-value.record{color:#66ffaa;text-shadow:0 0 8px rgba(102,255,170,.4);}
+    .turn-display{padding:.6rem 1rem;text-align:center;font-size:.78rem;letter-spacing:.25em;text-transform:uppercase;transition:all .3s;min-height:2.2rem;}
+    .turn-display.system{color:#ff9900;text-shadow:0 0 12px rgba(255,153,0,.5);}
+    .turn-display.player{color:#22ff44;text-shadow:0 0 12px rgba(34,255,68,.5);}
+    .turn-display.idle{color:rgba(201,168,76,.4);}
+    .timer-wrap{height:3px;background:rgba(255,255,255,.07);position:relative;overflow:hidden;}
+    .timer-fill{height:100%;background:linear-gradient(to right,#22ff44,#ff9900);width:100%;}
+    .timer-fill.danger{background:linear-gradient(to right,#ff3333,#ff6600);}
+    .simon-arena{padding:2.2rem 1rem 1.8rem;display:flex;align-items:center;justify-content:center;}
+    .simon-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr 1fr;
+      grid-template-rows:1fr 1fr 1fr;
+      gap:clamp(6px,2vw,14px);
+      width:clamp(220px,60vw,340px);
+      height:clamp(220px,60vw,340px);
+    }
+    .simon-btn{
+      border:none;cursor:pointer;border-radius:50%;
+      display:flex;align-items:center;justify-content:center;
+      font-size:clamp(1.6rem,5vw,2.4rem);
+      transition:transform .08s,box-shadow .08s,filter .08s,background .08s;
+      position:relative;outline:none;
+      -webkit-tap-highlight-color:transparent;
+      user-select:none;
+    }
+    .simon-btn::after{
+      content:'';position:absolute;inset:0;border-radius:50%;
+      background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.18),transparent 60%);
+      pointer-events:none;
+    }
+    .simon-btn:disabled{cursor:default;}
+    .btn-up    {background:var(--up-off);    grid-column:2;grid-row:1;border:2px solid rgba(34,255,68,.2);}
+    .btn-right {background:var(--right-off); grid-column:3;grid-row:2;border:2px solid rgba(255,153,0,.2);}
+    .btn-down  {background:var(--down-off);  grid-column:2;grid-row:3;border:2px solid rgba(255,51,51,.2);}
+    .btn-left  {background:var(--left-off);  grid-column:1;grid-row:2;border:2px solid rgba(68,153,255,.2);}
+    .simon-center{
+      grid-column:2;grid-row:2;
+      display:flex;align-items:center;justify-content:center;
+      font-family:'Playfair Display',serif;font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;
+      color:rgba(201,168,76,.3);border-radius:50%;
+      border:1px solid rgba(201,168,76,.12);background:rgba(201,168,76,.04);user-select:none;
+    }
+    .btn-up.lit    {background:var(--up-on);    box-shadow:0 0 22px 8px var(--up-glow),   inset 0 0 12px rgba(255,255,255,.15);border-color:rgba(34,255,68,.8); transform:scale(.94);}
+    .btn-right.lit {background:var(--right-on); box-shadow:0 0 22px 8px var(--right-glow),inset 0 0 12px rgba(255,255,255,.15);border-color:rgba(255,153,0,.8);transform:scale(.94);}
+    .btn-down.lit  {background:var(--down-on);  box-shadow:0 0 22px 8px var(--down-glow), inset 0 0 12px rgba(255,255,255,.15);border-color:rgba(255,51,51,.8); transform:scale(.94);}
+    .btn-left.lit  {background:var(--left-on);  box-shadow:0 0 22px 8px var(--left-glow), inset 0 0 12px rgba(255,255,255,.15);border-color:rgba(68,153,255,.8);transform:scale(.94);}
+    @keyframes error-flash{
+      0%{filter:brightness(3) saturate(0);}
+      30%{filter:brightness(1) saturate(0);}
+      60%{filter:brightness(3) saturate(0);}
+      100%{filter:brightness(1) saturate(1);}
+    }
+    .btn-error{animation:error-flash .5s ease-out;}
+    .controls{padding:.65rem 1.5rem 1rem;display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap;border-top:1px solid rgba(201,168,76,.06);}
+    .reset-link{
+      font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;
+      color:rgba(201,168,76,.55);cursor:pointer;
+      border:1px solid rgba(201,168,76,.3);background:none;
+      padding:.3rem .9rem;border-radius:2px;
+      transition:all .2s;font-family:'Cormorant Garamond',serif;
+    }
+    .reset-link:hover{color:var(--gold);border-color:var(--gold);background:rgba(201,168,76,.06);}
     .day-nav{display:flex;justify-content:space-between;align-items:center;padding-top:2.5rem;border-top:1px solid rgba(201,168,76,.1);margin-top:2.5rem;}
     .nav-btn{font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(201,168,76,.5);text-decoration:none;padding:.6rem 1.2rem;border:1px solid rgba(201,168,76,.18);border-radius:2px;transition:all .2s;}
     .nav-btn:hover{color:var(--gold-light);border-color:rgba(201,168,76,.5);background:rgba(201,168,76,.05);}
-    .nav-btn.disabled{opacity:0;pointer-events:none;}
     .year-badge{font-size:.7rem;letter-spacing:.3em;color:rgba(201,168,76,.25);text-transform:uppercase;}
     .back-link{display:block;text-align:center;margin-top:2rem;color:rgba(201,168,76,.35);font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;text-decoration:none;transition:color .2s;}
     .back-link:hover{color:var(--gold);}
-    /* Botones fav y done */
     .action-btns{position:absolute;top:0;right:0;display:flex;flex-direction:column;align-items:center;gap:.2rem;}
     .icon-btn{background:none;border:none;cursor:pointer;font-size:2rem;line-height:1;transition:color .2s,transform .2s;padding:.2rem;}
     .icon-btn:hover{transform:scale(1.2);}
     .fav-btn{color:rgba(250,246,238,.2);}
     .fav-btn.active{color:#e05a6a;}
-    .fav-btn.active:hover{color:#ff7a88;}
-    .done-btn{color:var(--gold);opacity:0.6;}
+    .done-btn{color:var(--gold);opacity:.6;}
     .done-btn.active{color:var(--gold);opacity:1;}
-    .done-btn.active:hover{color:var(--gold-light);opacity:1;}
-    /* Popup */
-    .popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:100;align-items:center;justify-content:center;}
+    .popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:100;align-items:center;justify-content:center;}
     .popup-overlay.visible{display:flex;}
-    .popup-box{background:var(--dark);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:3rem 2.5rem;max-width:420px;width:90%;text-align:center;box-shadow:0 0 60px rgba(0,0,0,.8);}
-    .popup-icon{font-size:3rem;margin-bottom:1rem;}
-    .popup-title{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--gold-light);margin-bottom:1rem;}
-    .popup-msg{font-size:1rem;font-style:italic;color:rgba(250,246,238,.6);line-height:1.7;margin-bottom:2rem;}
-    .popup-btn{display:inline-block;padding:.7rem 2rem;border:1px solid rgba(201,168,76,.4);border-radius:2px;color:var(--gold);font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;background:none;transition:all .2s;}
+    .popup-box{background:var(--dark);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:1.8rem 1.8rem 1.5rem;max-width:440px;width:90%;text-align:center;box-shadow:0 0 60px rgba(0,0,0,.9);max-height:90vh;overflow-y:auto;}
+    .popup-icon{font-size:3rem;margin-bottom:.8rem;}
+    .popup-title{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:var(--gold-light);margin-bottom:.8rem;}
+    .popup-msg{font-size:.95rem;font-style:italic;color:rgba(250,246,238,.6);line-height:1.7;margin-bottom:1.8rem;}
+    .popup-btns{display:flex;gap:.7rem;justify-content:center;flex-wrap:wrap;}
+    .popup-btn{display:inline-block;padding:.65rem 1.8rem;border:1px solid rgba(201,168,76,.4);border-radius:2px;color:var(--gold);font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;background:none;transition:all .2s;font-family:'Cormorant Garamond',serif;}
     .popup-btn:hover{background:rgba(201,168,76,.1);border-color:var(--gold);}
+    .popup-btn.primary{background:rgba(201,168,76,.12);border-color:var(--gold);}
+    .new-record{color:#66ffaa;text-shadow:0 0 10px rgba(102,255,170,.5);font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;display:block;margin-bottom:.6rem;}
     @media(max-width:600px){
       .wrap{padding:1rem 1rem 2rem;}
       .day-hero{padding:1rem 0 1rem;}
       h1{font-size:clamp(2rem,14vw,4rem);}
       .month-label{font-size:clamp(1rem,4vw,1.6rem);margin-bottom:1rem;}
-      .content-area{padding:1.2rem;min-height:120px;}
       .day-nav{margin-top:1rem;padding-top:1rem;}
       .ornament-line-h{margin-bottom:1rem;}
+      .status-bar{gap:1.2rem;}
+      .simon-arena{padding:1.4rem .5rem 1.2rem;}
     }
-</style>
+  </style>
 </head>
 <body>
 <div class="wrap">
   <div class="day-hero">
     <div class="action-btns">
-      <button class="icon-btn fav-btn"  id="fav-btn"  title="Añadir a favoritos">♡</button>
-      <button class="icon-btn done-btn" id="done-btn" title="Marcar como completado">☆</button>
+      <button class="icon-btn fav-btn"  id="fav-btn"  title="Añadir a favoritos">&#9825;</button>
+      <button class="icon-btn done-btn" id="done-btn" title="Marcar como completado">&#9734;</button>
     </div>
     <div class="ornament-line-h">
       <div class="o-line"></div><div class="o-dot"></div><div class="o-line r"></div>
     </div>
-    <p class="day-of-week">Sábado</p>
+    <p class="day-of-week">S&#225;bado</p>
     <h1>4</h1>
     <p class="month-label">de Marzo</p>
-    <div class="content-area">
-      <p>Espacio reservado para el contenido de este día</p>
+
+    <!-- MINIJUEGO -->
+    <div class="game-wrap">
+      <div class="game-header">
+        <div class="game-title">Sim&#243;n Dice</div>
+        <div class="game-subtitle">Memoriza y repite la secuencia de colores</div>
+      </div>
+
+      <div class="status-bar">
+        <div class="stat-pill">
+          <span class="stat-label">Puntuaci&#243;n</span>
+          <span class="stat-value" id="stat-score">0</span>
+        </div>
+        <div class="stat-pill">
+          <span class="stat-label">R&#233;cord</span>
+          <span class="stat-value record" id="stat-record">0</span>
+        </div>
+        <div class="stat-pill">
+          <span class="stat-label">Nivel</span>
+          <span class="stat-value" id="stat-level">&#8212;</span>
+        </div>
+      </div>
+
+      <div class="turn-display idle" id="turn-display">&#8212; Cargando&#8230; &#8212;</div>
+      <div class="timer-wrap"><div class="timer-fill" id="timer-fill"></div></div>
+
+      <div class="simon-arena">
+        <div class="simon-grid">
+          <button class="simon-btn btn-up"    id="btn-up"    data-dir="up"    title="Arriba"    disabled>&#9650;</button>
+          <button class="simon-btn btn-right" id="btn-right" data-dir="right" title="Derecha"   disabled>&#9654;</button>
+          <button class="simon-btn btn-down"  id="btn-down"  data-dir="down"  title="Abajo"     disabled>&#9660;</button>
+          <button class="simon-btn btn-left"  id="btn-left"  data-dir="left"  title="Izquierda" disabled>&#9664;</button>
+          <div class="simon-center">Simon</div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button class="reset-link" id="reset-btn">&#8635; Reiniciar</button>
+        <button class="reset-link" id="help-btn">? Ayuda</button>
+      </div>
     </div>
+    <!-- FIN MINIJUEGO -->
+
   </div>
+
   <nav class="day-nav">
     <a class="nav-btn" href="2028-03-03.html">&#8592; 3 de Marzo</a>
-    <span class="year-badge">50 Aniversario · 2028</span>
+    <span class="year-badge">50 Aniversario &middot; 2028</span>
     <a class="nav-btn" id="next-btn" href="2028-03-05.html">5 de Marzo &#8594;</a>
   </nav>
   <a class="back-link" href="../index.html">&#8592; Volver al Calendario</a>
 </div>
 
+<!-- Popup: dia futuro -->
 <div class="popup-overlay" id="popup">
   <div class="popup-box">
-    <div class="popup-icon">🎁</div>
-    <p class="popup-title">¡Un poco de paciencia!</p>
-    <p class="popup-msg">No seas impaciente...<br>Este día aún no ha llegado.<br>Ya llegará, y será especial. 🤍</p>
+    <div class="popup-icon">&#127873;</div>
+    <p class="popup-title">&#161;Un poco de paciencia!</p>
+    <p class="popup-msg">No seas impaciente&#8230;<br>Este d&#237;a a&#250;n no ha llegado.<br>Ya llegar&#225;, y ser&#225; especial. &#129372;</p>
     <button class="popup-btn" onclick="window.location.href='../index.html'">Volver al calendario</button>
   </div>
 </div>
 
-<!-- Popup estrella bloqueada -->
+<!-- Popup: estrella bloqueada -->
 <div class="popup-overlay" id="popup-star-blocked">
   <div class="popup-box">
-    <div class="popup-icon">🏆</div>
-    <p class="popup-title">¡Tu recompensa te espera!</p>
-    <p class="popup-msg">Para acceder a tu recompensa primero debes resolver el desafío de hoy...<br><br>¡Tú puedes! 💪</p>
+    <div class="popup-icon">&#127942;</div>
+    <p class="popup-title">&#161;Tu recompensa te espera!</p>
+    <p class="popup-msg">Para acceder a tu recompensa primero debes resolver el desaf&#237;o de hoy&#8230;<br><br>&#161;T&#250; puedes! &#128170;</p>
     <button class="popup-btn" id="star-blocked-close">Volver</button>
   </div>
 </div>
 
-<!-- Popup recompensa del día -->
+<!-- Popup: recompensa -->
 <div class="popup-overlay" id="popup-star-reward">
   <div class="popup-box">
-    <div class="popup-icon">🎁</div>
-    <p class="popup-title">¡Tu recompensa!</p>
-    <p class="popup-msg" id="reward-text">✨ Aquí irá la recompensa especial de este día ✨</p>
-    <button class="popup-btn" id="star-reward-close">¡Genial!</button>
+    <div class="popup-icon">&#127873;</div>
+    <p class="popup-title">&#161;Tu recompensa!</p>
+    <p class="popup-msg" id="reward-text">&#10024; Aqu&#237; ir&#225; la recompensa especial de este d&#237;a &#10024;</p>
+    <button class="popup-btn" id="star-reward-close">&#161;Genial!</button>
+  </div>
+</div>
+
+<!-- Popup: fin de partida -->
+<div class="popup-overlay" id="popup-fail">
+  <div class="popup-box">
+    <div class="popup-icon">&#9889;</div>
+    <p class="popup-title" id="fail-title">&#161;Secuencia incorrecta!</p>
+    <p class="popup-msg" id="fail-msg"></p>
+    <div class="popup-btns">
+      <button class="popup-btn primary" id="fail-retry">&#8635; Jugar otra vez</button>
+      <button class="popup-btn" onclick="window.location.href='../index.html'">Volver al calendario</button>
+    </div>
+  </div>
+</div>
+
+<!-- Popup: ayuda -->
+<div class="popup-overlay" id="popup-help">
+  <div class="popup-box">
+    <div class="popup-icon">&#127918;</div>
+    <p class="popup-title">C&#243;mo jugar</p>
+    <p class="popup-msg" style="text-align:left;font-style:normal;font-size:.88rem;line-height:1.8;margin-bottom:1.2rem;">
+      <strong style="color:var(--gold-light);">Objetivo</strong><br>
+      Memoriza y repite la secuencia creciente de colores que muestra el sistema. La partida nunca termina en &#171;derrota&#187;: siempre ver&#225;s tu puntuaci&#243;n y el r&#233;cord hist&#243;rico.<br><br>
+      <strong style="color:var(--gold-light);">Turno del Sistema</strong><br>
+      El sistema ilumina los botones uno a uno en orden. Obs&#233;rvalo con atenci&#243;n. Durante esta fase no puedes interactuar.<br><br>
+      <strong style="color:var(--gold-light);">Tu Turno</strong><br>
+      Repite la secuencia exactamente en el mismo orden pulsando los botones de colores. Tienes unos segundos por pulsaci&#243;n; la barra superior muestra el tiempo restante.<br><br>
+      <strong style="color:var(--gold-light);">Progresi&#243;n</strong><br>
+      &middot; Cada ronda completada suma 1 punto y a&#241;ade un color m&#225;s.<br>
+      &middot; A partir del nivel&nbsp;5 la velocidad aumenta ligeramente.<br>
+      &middot; El r&#233;cord se guarda autom&#225;ticamente entre partidas.<br><br>
+      <strong style="color:var(--gold-light);">Controles</strong><br>
+      &middot; Clic&nbsp;/ Tap en los botones de colores.<br>
+      &middot; Teclas de cursor: &#8593;&nbsp;Arriba &middot; &#8594;&nbsp;Derecha &middot; &#8595;&nbsp;Abajo &middot; &#8592;&nbsp;Izquierda.<br><br>
+      <strong style="color:var(--gold-light);">Fin de Partida</strong><br>
+      La partida termina si pulsas el color incorrecto o el temporizador se agota. Se mostrar&#225; tu puntuaci&#243;n y el r&#233;cord actual.
+    </p>
+    <button class="popup-btn" id="help-close">&#161;Entendido!</button>
   </div>
 </div>
 
 <script>
-const PREVIEW_KEY  = 'cal_preview';
-const isPreview    = localStorage.getItem(PREVIEW_KEY) === '1';
-const today        = new Date(); today.setHours(0,0,0,0);
-const thisDate     = new Date('2028-03-04'); thisDate.setHours(0,0,0,0);
-const nextDateStr  = '2028-03-05';
-const popup        = document.getElementById('popup');
+// PREVIEW & DATE GUARD
+const PREVIEW_KEY = 'cal_preview';
+const isPreview   = localStorage.getItem(PREVIEW_KEY) === '1';
+const today       = new Date(); today.setHours(0,0,0,0);
+const thisDate    = new Date('2028-03-04'); thisDate.setHours(0,0,0,0);
+const nextDateStr = '2028-03-05';
+const popup       = document.getElementById('popup');
 
 if (!isPreview && thisDate > today) {
   document.querySelector('.day-hero').style.filter = 'blur(4px)';
   document.querySelector('.day-nav').style.visibility = 'hidden';
   popup.classList.add('visible');
 }
-
 if (!isPreview && nextDateStr) {
-  const nextDate = new Date(nextDateStr); nextDate.setHours(0,0,0,0);
-  if (nextDate > today) {
-    const nextBtn = document.getElementById('next-btn');
-    if (nextBtn) nextBtn.addEventListener('click', e => { e.preventDefault(); popup.classList.add('visible'); });
+  const nd = new Date(nextDateStr); nd.setHours(0,0,0,0);
+  if (nd > today) {
+    const nb = document.getElementById('next-btn');
+    if (nb) nb.addEventListener('click', e => { e.preventDefault(); popup.classList.add('visible'); });
   }
 }
-
 popup.addEventListener('click', e => { if (e.target === popup) window.location.href = '../index.html'; });
 
-// ── Favourite ──────────────────────────────────────────────
+// FAV
 const FAV_KEY = 'fav_2028-03-04';
 const favBtn  = document.getElementById('fav-btn');
 function updateFav() {
   const on = localStorage.getItem(FAV_KEY) === '1';
-  favBtn.textContent = on ? '❤' : '♡';
+  favBtn.textContent = on ? '\u2764' : '\u2661';
   favBtn.classList.toggle('active', on);
-  favBtn.title = on ? 'Quitar de favoritos' : 'Añadir a favoritos';
+  favBtn.title = on ? 'Quitar de favoritos' : 'A\u00f1adir a favoritos';
 }
 favBtn.addEventListener('click', () => {
   const on = localStorage.getItem(FAV_KEY) === '1';
@@ -152,48 +311,285 @@ favBtn.addEventListener('click', () => {
 });
 updateFav();
 
-// ── Done (actividad completada) ────────────────────────────
+// DONE / REWARD
 const DONE_KEY = 'done_2028-03-04';
 const doneBtn  = document.getElementById('done-btn');
 const popupStarBlocked = document.getElementById('popup-star-blocked');
 const popupStarReward  = document.getElementById('popup-star-reward');
-
-document.getElementById('star-blocked-close').addEventListener('click', () => {
-  popupStarBlocked.classList.remove('visible');
-});
-popupStarBlocked.addEventListener('click', e => {
-  if (e.target === popupStarBlocked) popupStarBlocked.classList.remove('visible');
-});
-
-document.getElementById('star-reward-close').addEventListener('click', () => {
-  popupStarReward.classList.remove('visible');
-});
-popupStarReward.addEventListener('click', e => {
-  if (e.target === popupStarReward) popupStarReward.classList.remove('visible');
-});
-
+document.getElementById('star-blocked-close').addEventListener('click', () => popupStarBlocked.classList.remove('visible'));
+popupStarBlocked.addEventListener('click', e => { if (e.target === popupStarBlocked) popupStarBlocked.classList.remove('visible'); });
+document.getElementById('star-reward-close').addEventListener('click', () => popupStarReward.classList.remove('visible'));
+popupStarReward.addEventListener('click', e => { if (e.target === popupStarReward) popupStarReward.classList.remove('visible'); });
+function markDone() { localStorage.setItem(DONE_KEY,'1'); updateDone(); }
+function showReward() { popupStarReward.classList.add('visible'); }
 function updateDone() {
   const on = localStorage.getItem(DONE_KEY) === '1';
-  doneBtn.textContent = on ? '★' : '☆';
+  doneBtn.textContent = on ? '\u2605' : '\u2606';
   doneBtn.classList.toggle('active', on);
   doneBtn.title = on ? 'Ver recompensa' : 'Marcar como completado';
 }
 doneBtn.addEventListener('click', () => {
   const on = localStorage.getItem(DONE_KEY) === '1';
-  if (on) {
-    // Already done → show reward
-    popupStarReward.classList.add('visible');
-  } else {
-    // Not done → only allowed in preview mode
-    if (isPreview) {
-      localStorage.setItem(DONE_KEY, '1');
-      updateDone();
-    } else {
-      popupStarBlocked.classList.add('visible');
-    }
-  }
+  if (on) showReward();
+  else if (isPreview) markDone();
+  else popupStarBlocked.classList.add('visible');
 });
 updateDone();
+
+// ════════════════════════════════════════
+//  SIMON SAYS — GAME ENGINE
+// ════════════════════════════════════════
+const DIRS          = ['up','right','down','left'];
+const HIGHSCORE_KEY = 'simon_highscore';
+const TIMEOUT_BASE  = 4500;
+const TIMEOUT_MIN   = 2000;
+const FLASH_ON      = 420;
+const FLASH_OFF     = 180;
+
+let audioCtx = null;
+function getAudioCtx() {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  return audioCtx;
+}
+const TONES = { up:523.25, right:659.25, down:392.0, left:293.66 };
+
+function playTone(freq, duration, type, volume) {
+  duration = duration || 0.35; type = type || 'sine'; volume = volume || 0.55;
+  try {
+    var ctx  = getAudioCtx();
+    var osc  = ctx.createOscillator();
+    var gain = ctx.createGain();
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.type = type;
+    osc.frequency.setValueAtTime(freq, ctx.currentTime);
+    gain.gain.setValueAtTime(volume, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+    osc.start(ctx.currentTime);
+    osc.stop(ctx.currentTime + duration);
+  } catch(e) {}
+}
+function playError() { playTone(110, 0.5, 'sawtooth', 0.4); }
+function playNewRecord() {
+  [523,659,784,1047].forEach(function(f,i){ setTimeout(function(){ playTone(f,0.2,'sine',0.5); }, i*130); });
+}
+
+var sequence    = [];
+var playerIdx   = 0;
+var score       = 0;
+var phase       = 'idle';
+var timerHandle = null;
+var timerStart  = null;
+var timerDur    = TIMEOUT_BASE;
+var animFrame   = null;
+
+function getBtn(dir) { return document.getElementById('btn-' + dir); }
+
+function setTurnDisplay(text, cls) {
+  var el = document.getElementById('turn-display');
+  el.textContent = text;
+  el.className = 'turn-display ' + cls;
+}
+
+function updateScoreDisplay() {
+  document.getElementById('stat-score').textContent  = score;
+  document.getElementById('stat-record').textContent = getHighScore();
+  document.getElementById('stat-level').textContent  = sequence.length > 0 ? sequence.length : '\u2014';
+}
+
+function getHighScore() { return parseInt(localStorage.getItem(HIGHSCORE_KEY) || '0', 10); }
+function saveHighScore(s) {
+  var cur = getHighScore();
+  if (s > cur) { localStorage.setItem(HIGHSCORE_KEY, String(s)); return true; }
+  return false;
+}
+
+function setButtonsDisabled(disabled) {
+  DIRS.forEach(function(d){ getBtn(d).disabled = disabled; });
+}
+
+function flashButton(dir, onMs, offMs) {
+  return new Promise(function(resolve) {
+    var btn = getBtn(dir);
+    btn.classList.add('lit');
+    playTone(TONES[dir], onMs / 1000 * 0.9);
+    setTimeout(function() {
+      btn.classList.remove('lit');
+      setTimeout(resolve, offMs);
+    }, onMs);
+  });
+}
+
+function startTimerBar(duration) {
+  clearTimerBar();
+  timerDur   = duration;
+  timerStart = performance.now();
+  var fill = document.getElementById('timer-fill');
+  fill.style.width = '100%';
+  fill.classList.remove('danger');
+  function tick(now) {
+    var pct = Math.max(0, 1 - (now - timerStart) / timerDur);
+    fill.style.width = (pct * 100) + '%';
+    if (pct < 0.3) fill.classList.add('danger');
+    else fill.classList.remove('danger');
+    if (pct > 0) animFrame = requestAnimationFrame(tick);
+  }
+  animFrame = requestAnimationFrame(tick);
+}
+
+function clearTimerBar() {
+  if (animFrame) { cancelAnimationFrame(animFrame); animFrame = null; }
+  var fill = document.getElementById('timer-fill');
+  fill.style.width = '100%';
+  fill.classList.remove('danger');
+}
+
+function stopPlayerTimer() {
+  if (timerHandle) { clearTimeout(timerHandle); timerHandle = null; }
+  clearTimerBar();
+}
+
+function startPlayerTimer() {
+  stopPlayerTimer();
+  var speedMult = Math.max(1.0 - 0.04 * Math.max(0, sequence.length - 5), 0.4);
+  var dur = Math.max(TIMEOUT_MIN, TIMEOUT_BASE * speedMult);
+  startTimerBar(dur);
+  timerHandle = setTimeout(function() {
+    if (phase === 'player') endGame('tiempo');
+  }, dur);
+}
+
+// ─── GAME FUNCTIONS ─────────────────────────────────────
+function startGame() {
+  score = 0; sequence = []; playerIdx = 0; phase = 'idle';
+  clearTimerBar();
+  closePopupFail();
+  updateScoreDisplay();
+  nextRound();
+}
+
+function nextRound() {
+  sequence.push(DIRS[Math.floor(Math.random() * DIRS.length)]);
+  updateScoreDisplay();
+  setTimeout(function(){ playSequence(); }, 600);
+}
+
+function playSequence() {
+  phase = 'system';
+  setButtonsDisabled(true);
+  setTurnDisplay('Turno: Sistema', 'system');
+  clearTimerBar();
+
+  var speedMult = Math.max(1.0 - 0.04 * Math.max(0, sequence.length - 5), 0.4);
+  var onMs  = Math.max(Math.round(FLASH_ON  * speedMult), 160);
+  var offMs = Math.max(Math.round(FLASH_OFF * speedMult), 80);
+
+  var chain = Promise.resolve();
+  sequence.forEach(function(dir) {
+    chain = chain.then(function(){ return flashButton(dir, onMs, offMs); });
+  });
+  chain.then(function() {
+    playerIdx = 0;
+    phase = 'player';
+    setTurnDisplay('Turno: T\u00fa', 'player');
+    setButtonsDisabled(false);
+    startPlayerTimer();
+  });
+}
+
+function handlePlayerInput(dir) {
+  if (phase !== 'player') return;
+  stopPlayerTimer();
+  var btn = getBtn(dir);
+  btn.classList.add('lit');
+  playTone(TONES[dir], 0.25);
+  setTimeout(function(){ btn.classList.remove('lit'); }, 220);
+  checkInput(dir);
+}
+
+function checkInput(dir) {
+  if (dir !== sequence[playerIdx]) { endGame('error'); return; }
+  playerIdx++;
+  if (playerIdx === sequence.length) {
+    score++;
+    updateScoreDisplay();
+    phase = 'idle';
+    setTurnDisplay('\u00a1Correcto! \u2713', 'system');
+    setButtonsDisabled(true);
+    setTimeout(function(){ nextRound(); }, 900);
+  } else {
+    startPlayerTimer();
+  }
+}
+
+function endGame(reason) {
+  phase = 'idle';
+  stopPlayerTimer();
+  setButtonsDisabled(true);
+  clearTimerBar();
+  DIRS.forEach(function(d) {
+    var b = getBtn(d);
+    b.classList.remove('lit');
+    b.classList.add('btn-error');
+    setTimeout(function(){ b.classList.remove('btn-error'); }, 550);
+  });
+  playError();
+  var isRecord = saveHighScore(score);
+  var rec = getHighScore();
+  updateScoreDisplay();
+  var title = reason === 'tiempo' ? '\u00a1Se acab\u00f3 el tiempo!' : '\u00a1Secuencia incorrecta!';
+  var recLine = (isRecord && score > 0) ? '<span class="new-record">\ud83c\udfc6 \u00a1Nuevo r\u00e9cord!</span>' : '';
+  document.getElementById('fail-title').textContent = title;
+  document.getElementById('fail-msg').innerHTML =
+    recLine + 'Tu puntuaci\u00f3n: <strong>' + score + '</strong><br>R\u00e9cord: <strong>' + rec + '</strong>';
+  setTurnDisplay('\u2014 Fin de partida \u2014', 'idle');
+  if (isRecord && score > 0) playNewRecord();
+  setTimeout(function(){ document.getElementById('popup-fail').classList.add('visible'); }, 500);
+}
+
+function resetGame() {
+  stopPlayerTimer(); phase = 'idle'; sequence = []; score = 0; playerIdx = 0;
+  setButtonsDisabled(true); clearTimerBar();
+  setTurnDisplay('\u2014 Reiniciando\u2026 \u2014', 'idle');
+  updateScoreDisplay(); closePopupFail();
+}
+
+function closePopupFail() { document.getElementById('popup-fail').classList.remove('visible'); }
+
+// ─── EVENTS ─────────────────────────────────────────────
+DIRS.forEach(function(dir) {
+  getBtn(dir).addEventListener('click', function(){ handlePlayerInput(dir); });
+  getBtn(dir).addEventListener('touchstart', function(e){
+    e.preventDefault(); handlePlayerInput(dir);
+  }, { passive: false });
+});
+
+document.addEventListener('keydown', function(e) {
+  if (phase !== 'player') {
+    if ((e.key === 'Enter' || e.key === ' ') && phase === 'idle') { e.preventDefault(); startGame(); }
+    return;
+  }
+  var map = { ArrowUp:'up', ArrowRight:'right', ArrowDown:'down', ArrowLeft:'left' };
+  var dir = map[e.key];
+  if (dir) { e.preventDefault(); handlePlayerInput(dir); }
+});
+
+document.getElementById('reset-btn').addEventListener('click', function(){
+  resetGame(); setTimeout(function(){ startGame(); }, 350);
+});
+document.getElementById('fail-retry').addEventListener('click', function(){
+  closePopupFail(); setTimeout(function(){ startGame(); }, 350);
+});
+document.getElementById('popup-fail').addEventListener('click', function(e){
+  if (e.target === document.getElementById('popup-fail')) closePopupFail();
+});
+var popupHelpEl = document.getElementById('popup-help');
+document.getElementById('help-btn').addEventListener('click', function(){ popupHelpEl.classList.add('visible'); });
+document.getElementById('help-close').addEventListener('click', function(){ popupHelpEl.classList.remove('visible'); });
+popupHelpEl.addEventListener('click', function(e){ if (e.target === popupHelpEl) popupHelpEl.classList.remove('visible'); });
+
+// INIT
+updateScoreDisplay();
+setTimeout(function(){ startGame(); }, 800);
 </script>
 </body>
 </html>

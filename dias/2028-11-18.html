@@ -12,7 +12,7 @@
     body{background-color:var(--dark);color:var(--cream);font-family:'Cormorant Garamond',serif;min-height:100vh;display:flex;flex-direction:column;}
     body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 25% 15%,rgba(201,168,76,.10) 0%,transparent 55%),radial-gradient(ellipse at 75% 85%,rgba(124,54,38,.10) 0%,transparent 55%);pointer-events:none;z-index:0;}
     .wrap{position:relative;z-index:1;max-width:800px;margin:0 auto;padding:3rem 2rem 4rem;flex:1;display:flex;flex-direction:column;}
-    .day-hero{text-align:center;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 0 2rem;position:relative;}
+    .day-hero{text-align:center;flex:1;display:flex;flex-direction:column;align-items:center;padding:3rem 0 2rem;position:relative;}
     .ornament-line-h{display:flex;align-items:center;justify-content:center;gap:1rem;margin-bottom:2rem;}
     .o-line{height:1px;width:60px;background:linear-gradient(to right,transparent,var(--gold));}
     .o-line.r{background:linear-gradient(to left,transparent,var(--gold));}
@@ -20,15 +20,47 @@
     .day-of-week{font-size:.85rem;letter-spacing:.4em;text-transform:uppercase;color:rgba(201,168,76,.5);margin-bottom:1rem;}
     h1{font-family:'Playfair Display',serif;font-size:clamp(3rem,9vw,7rem);font-weight:900;line-height:1;background:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 50%,var(--gold-dark) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.5rem;}
     .month-label{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3.5vw,2.4rem);font-weight:400;font-style:italic;color:rgba(250,246,238,.45);margin-bottom:2.5rem;}
-    .content-area{width:100%;border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:2.5rem;min-height:220px;background:rgba(255,255,255,.02);color:rgba(250,246,238,.4);font-size:1rem;font-style:italic;text-align:center;display:flex;align-items:center;justify-content:center;}
+    .game-wrap{width:100%;border:1px solid rgba(201,168,76,.25);border-radius:6px;background:rgba(255,255,255,.02);overflow:hidden;}
+    .game-header{padding:1.2rem 1.5rem;border-bottom:1px solid rgba(201,168,76,.15);text-align:center;}
+    .game-title{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:700;color:var(--gold-light);letter-spacing:.05em;}
+    .game-subtitle{font-size:.85rem;color:rgba(250,246,238,.45);margin-top:.3rem;font-style:italic;}
+    .board-area{padding:2rem 1.5rem 1.5rem;display:flex;flex-direction:column;align-items:center;gap:1.5rem;}
+    .coin-row{display:flex;align-items:center;justify-content:center;gap:6px;padding:.5rem 0;}
+    .coin-cell{width:62px;height:62px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-direction:column;cursor:pointer;position:relative;transition:transform .15s ease,box-shadow .15s ease,border-color .15s ease;user-select:none;flex-shrink:0;}
+    .coin-cell.cara{background:radial-gradient(circle at 35% 35%,#f5d98a 0%,var(--gold) 45%,var(--gold-dark) 100%);border:2px solid rgba(201,168,76,.6);box-shadow:0 4px 12px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.25);color:#3a2600;}
+    .coin-cell.cara .coin-symbol{font-size:1.35rem;line-height:1;}
+    .coin-cell.cara .coin-text{font-size:.48rem;letter-spacing:.15em;text-transform:uppercase;font-weight:700;margin-top:1px;opacity:.7;}
+    .coin-cell.cruz{background:radial-gradient(circle at 35% 35%,#aaa 0%,#6b7280 45%,#374151 100%);border:2px solid rgba(150,160,175,.4);box-shadow:0 4px 12px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.15);color:#e2e8f0;}
+    .coin-cell.cruz .coin-symbol{font-size:1.35rem;line-height:1;}
+    .coin-cell.cruz .coin-text{font-size:.48rem;letter-spacing:.15em;text-transform:uppercase;font-weight:700;margin-top:1px;opacity:.65;}
+    .coin-cell.empty{background:transparent;border:2px dashed rgba(201,168,76,.2);cursor:default;box-shadow:none;}
+    .coin-cell.valid-move{border-color:rgba(201,168,76,.75);box-shadow:0 0 14px rgba(201,168,76,.35),0 4px 12px rgba(0,0,0,.4);animation:pulse-valid 1.4s ease-in-out infinite;}
+    @keyframes pulse-valid{0%,100%{box-shadow:0 0 8px rgba(201,168,76,.25),0 4px 12px rgba(0,0,0,.4);}50%{box-shadow:0 0 20px rgba(201,168,76,.55),0 4px 12px rgba(0,0,0,.4);}}
+    .coin-cell.selected{transform:translateY(-6px) scale(1.08);box-shadow:0 10px 24px rgba(201,168,76,.5),0 4px 12px rgba(0,0,0,.4);border-color:var(--gold-light);z-index:2;}
+    @keyframes shake{0%,100%{transform:translateX(0);}20%{transform:translateX(-6px);}40%{transform:translateX(6px);}60%{transform:translateX(-5px);}80%{transform:translateX(5px);}}
+    .coin-cell.invalid-shake{animation:shake .35s ease;}
+    .objective-row{display:flex;align-items:center;gap:6px;}
+    .obj-coin{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;flex-shrink:0;}
+    .obj-coin.cara{background:radial-gradient(circle at 35% 35%,#f5d98a,var(--gold));color:#3a2600;border:1px solid rgba(201,168,76,.5);}
+    .obj-coin.cruz{background:radial-gradient(circle at 35% 35%,#aaa,#374151);color:#e2e8f0;border:1px solid rgba(150,160,175,.3);}
+    .obj-coin.empty{background:transparent;border:1px dashed rgba(201,168,76,.2);color:rgba(201,168,76,.4);}
+    .obj-label{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(250,246,238,.3);margin-right:.3rem;}
+    .moves-counter{font-size:.8rem;letter-spacing:.18em;color:rgba(250,246,238,.3);font-style:italic;}
+    .moves-counter span{color:var(--gold-light);font-style:normal;font-weight:500;}
+    .game-hint{font-size:.92rem;font-style:italic;color:var(--gold-light);min-height:1.5em;letter-spacing:.02em;text-align:center;}
+    .game-hint.neutral{color:rgba(250,246,238,.38);font-size:.82rem;font-style:normal;}
+    .game-hint.error{color:#f87171;}
+    .controls{padding:1rem 1.5rem 1.2rem;display:flex;flex-direction:column;align-items:center;gap:.8rem;border-top:1px solid rgba(201,168,76,.1);}
+    .controls-row{display:flex;gap:.8rem;align-items:center;justify-content:center;}
+    .game-btn{background:none;border:1px solid rgba(201,168,76,.35);border-radius:3px;color:rgba(201,168,76,.65);font-family:'Cormorant Garamond',serif;font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;padding:.45rem 1.1rem;cursor:pointer;transition:all .2s;}
+    .game-btn:hover{color:var(--gold);border-color:var(--gold);background:rgba(201,168,76,.07);}
+    .status-bar{padding:.5rem 1.5rem;background:rgba(0,0,0,.15);border-top:1px solid rgba(201,168,76,.08);font-size:.75rem;letter-spacing:.12em;text-align:center;color:rgba(250,246,238,.3);text-transform:uppercase;min-height:2rem;display:flex;align-items:center;justify-content:center;}
     .day-nav{display:flex;justify-content:space-between;align-items:center;padding-top:2.5rem;border-top:1px solid rgba(201,168,76,.1);margin-top:2.5rem;}
     .nav-btn{font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(201,168,76,.5);text-decoration:none;padding:.6rem 1.2rem;border:1px solid rgba(201,168,76,.18);border-radius:2px;transition:all .2s;}
     .nav-btn:hover{color:var(--gold-light);border-color:rgba(201,168,76,.5);background:rgba(201,168,76,.05);}
-    .nav-btn.disabled{opacity:0;pointer-events:none;}
     .year-badge{font-size:.7rem;letter-spacing:.3em;color:rgba(201,168,76,.25);text-transform:uppercase;}
     .back-link{display:block;text-align:center;margin-top:2rem;color:rgba(201,168,76,.35);font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;text-decoration:none;transition:color .2s;}
     .back-link:hover{color:var(--gold);}
-    /* Botones fav y done */
     .action-btns{position:absolute;top:0;right:0;display:flex;flex-direction:column;align-items:center;gap:.2rem;}
     .icon-btn{background:none;border:none;cursor:pointer;font-size:2rem;line-height:1;transition:color .2s,transform .2s;padding:.2rem;}
     .icon-btn:hover{transform:scale(1.2);}
@@ -37,26 +69,35 @@
     .fav-btn.active:hover{color:#ff7a88;}
     .done-btn{color:var(--gold);opacity:0.6;}
     .done-btn.active{color:var(--gold);opacity:1;}
-    .done-btn.active:hover{color:var(--gold-light);opacity:1;}
-    /* Popup */
     .popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:100;align-items:center;justify-content:center;}
     .popup-overlay.visible{display:flex;}
     .popup-box{background:var(--dark);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:3rem 2.5rem;max-width:420px;width:90%;text-align:center;box-shadow:0 0 60px rgba(0,0,0,.8);}
     .popup-icon{font-size:3rem;margin-bottom:1rem;}
     .popup-title{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--gold-light);margin-bottom:1rem;}
     .popup-msg{font-size:1rem;font-style:italic;color:rgba(250,246,238,.6);line-height:1.7;margin-bottom:2rem;}
-    .popup-btn{display:inline-block;padding:.7rem 2rem;border:1px solid rgba(201,168,76,.4);border-radius:2px;color:var(--gold);font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;background:none;transition:all .2s;}
+    .popup-btns{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap;}
+    .popup-btn{display:inline-block;padding:.7rem 2rem;border:1px solid rgba(201,168,76,.4);border-radius:2px;color:var(--gold);font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;background:none;transition:all .2s;font-family:'Cormorant Garamond',serif;}
     .popup-btn:hover{background:rgba(201,168,76,.1);border-color:var(--gold);}
+    .popup-btn.secondary{border-color:rgba(250,246,238,.15);color:rgba(250,246,238,.4);}
+    .popup-btn.secondary:hover{border-color:rgba(250,246,238,.35);color:rgba(250,246,238,.7);background:rgba(255,255,255,.03);}
+    .popup-help-body{text-align:left;font-style:normal;font-size:.9rem;line-height:1.85;overflow-y:auto;max-height:55vh;padding-right:.5rem;margin-bottom:1.5rem;color:rgba(250,246,238,.65);}
+    .popup-help-body::-webkit-scrollbar{width:4px;}
+    .popup-help-body::-webkit-scrollbar-track{background:rgba(255,255,255,.04);}
+    .popup-help-body::-webkit-scrollbar-thumb{background:rgba(201,168,76,.3);border-radius:2px;}
     @media(max-width:600px){
       .wrap{padding:1rem 1rem 2rem;}
       .day-hero{padding:1rem 0 1rem;}
       h1{font-size:clamp(2rem,14vw,4rem);}
       .month-label{font-size:clamp(1rem,4vw,1.6rem);margin-bottom:1rem;}
-      .content-area{padding:1.2rem;min-height:120px;}
+      .coin-cell{width:44px;height:44px;}
+      .coin-cell .coin-symbol{font-size:1rem;}
+      .coin-cell .coin-text{display:none;}
+      .coin-row{gap:4px;}
+      .board-area{padding:1.2rem 1rem 1rem;}
       .day-nav{margin-top:1rem;padding-top:1rem;}
       .ornament-line-h{margin-bottom:1rem;}
     }
-</style>
+  </style>
 </head>
 <body>
 <div class="wrap">
@@ -71,10 +112,44 @@
     <p class="day-of-week">Sábado</p>
     <h1>18</h1>
     <p class="month-label">de Noviembre</p>
-    <div class="content-area">
-      <p>Espacio reservado para el contenido de este día</p>
+
+    <!-- ═══════════════ MINIJUEGO ═══════════════ -->
+    <div class="game-wrap">
+      <div class="game-header">
+        <div class="game-title">Las Monedas Invertidas</div>
+        <div class="game-subtitle">Intercambia la posición de todas las monedas</div>
+      </div>
+
+      <div class="board-area">
+        <!-- Objetivo visual -->
+        <div style="display:flex;align-items:center;gap:.8rem;flex-wrap:wrap;justify-content:center;">
+          <span class="obj-label">Objetivo:</span>
+          <div class="objective-row" id="objective-row"></div>
+        </div>
+
+        <!-- Tablero -->
+        <div class="coin-row" id="coin-row" role="group" aria-label="Tablero de monedas"></div>
+
+        <!-- Contador -->
+        <div class="moves-counter">Movimientos: <span id="move-count">0</span></div>
+
+        <!-- Pista -->
+        <div class="game-hint neutral" id="game-hint">Pulsa una moneda válida para moverla</div>
+      </div>
+
+      <div class="controls">
+        <div class="controls-row">
+          <button class="game-btn" id="reset-btn">↺ Reiniciar</button>
+          <button class="game-btn" id="help-btn">? Ayuda</button>
+        </div>
+      </div>
+
+      <div class="status-bar" id="status-bar">🎯 Lleva todas las Cruces a la izquierda y las Caras a la derecha</div>
     </div>
+    <!-- ═══════════════ FIN MINIJUEGO ═══════════════ -->
+
   </div>
+
   <nav class="day-nav">
     <a class="nav-btn" href="2028-11-17.html">&#8592; 17 de Noviembre</a>
     <span class="year-badge">50 Aniversario · 2028</span>
@@ -83,6 +158,7 @@
   <a class="back-link" href="../index.html">&#8592; Volver al Calendario</a>
 </div>
 
+<!-- Popup futuro -->
 <div class="popup-overlay" id="popup">
   <div class="popup-box">
     <div class="popup-icon">🎁</div>
@@ -102,7 +178,7 @@
   </div>
 </div>
 
-<!-- Popup recompensa del día -->
+<!-- Popup recompensa -->
 <div class="popup-overlay" id="popup-star-reward">
   <div class="popup-box">
     <div class="popup-icon">🎁</div>
@@ -112,20 +188,88 @@
   </div>
 </div>
 
+<!-- Popup victoria -->
+<div class="popup-overlay" id="popup-win">
+  <div class="popup-box">
+    <div class="popup-icon">🎉</div>
+    <p class="popup-title">¡Lo has conseguido!</p>
+    <p class="popup-msg" id="win-msg">Has invertido correctamente las monedas.<br><br>¡Brillante! 🧠✨</p>
+    <div class="popup-btns">
+      <button class="popup-btn" id="win-reward-btn">Ver recompensa ★</button>
+    </div>
+  </div>
+</div>
+
+<!-- Popup bloqueo -->
+<div class="popup-overlay" id="popup-blocked">
+  <div class="popup-box">
+    <div class="popup-icon">🔒</div>
+    <p class="popup-title">¡Patrón bloqueado!</p>
+    <p class="popup-msg">El patrón ha quedado bloqueado.<br>No quedan movimientos válidos para completar el puzzle.</p>
+    <div class="popup-btns">
+      <button class="popup-btn" id="blocked-retry">↺ Reintentar</button>
+      <button class="popup-btn secondary" onclick="window.location.href='../index.html'">Volver al índice</button>
+    </div>
+  </div>
+</div>
+
+<!-- Popup ayuda -->
+<div class="popup-overlay" id="popup-help">
+  <div class="popup-box" style="max-width:480px;">
+    <div class="popup-icon">🪙</div>
+    <p class="popup-title">Cómo jugar</p>
+    <div class="popup-help-body">
+      <strong style="color:var(--gold-light);">Objetivo</strong><br>
+      Invertir por completo la disposición de las monedas. El estado inicial es<br>
+      <em>Cara · Cara · Cara · _ · Cruz · Cruz · Cruz</em><br>
+      y debes llegar a<br>
+      <em>Cruz · Cruz · Cruz · _ · Cara · Cara · Cara</em><br><br>
+
+      <strong style="color:var(--gold-light);">Las monedas</strong><br>
+      · 🟡 <strong style="color:var(--gold-light);">Cara</strong> — moneda dorada con corona 👑. Empieza a la izquierda.<br>
+      · ⚫ <strong>Cruz</strong> — moneda plateada con símbolo ✦. Empieza a la derecha.<br>
+      · El hueco punteado es el espacio vacío por donde se deslizan.<br><br>
+
+      <strong style="color:var(--gold-light);">Cómo mover</strong><br>
+      Haz clic sobre una moneda que tenga movimiento válido (parpadea en dorado). Si el movimiento es legal, se moverá automáticamente al espacio vacío.<br><br>
+
+      <strong style="color:var(--gold-light);">Reglas de movimiento</strong><br>
+      Una moneda puede moverse si:<br><br>
+      · <strong>Movimiento simple:</strong> el espacio vacío está justo al lado.<br>
+      &nbsp;&nbsp;Ej: 🟡 _ &nbsp;→&nbsp; _ 🟡<br><br>
+      · <strong>Salto:</strong> hay una moneda del tipo <em>contrario</em> junto a ella, y tras esa moneda está el espacio vacío. Salta por encima.<br>
+      &nbsp;&nbsp;Ej: 🟡 ⚫ _ &nbsp;→&nbsp; _ ⚫ 🟡<br><br>
+
+      <strong style="color:var(--gold-light);">Prohibido</strong><br>
+      · Saltar sobre una moneda del mismo tipo.<br>
+      · Saltar sobre más de una moneda a la vez.<br><br>
+
+      <strong style="color:var(--gold-light);">Bloqueo</strong><br>
+      Si ya no quedan movimientos válidos antes de completar el objetivo, el puzzle queda bloqueado. Podrás reiniciar y volver a intentarlo.<br><br>
+
+      <strong style="color:var(--gold-light);">Consejo</strong><br>
+      Alterna los movimientos: una Cara, una Cruz, dos Caras, dos Cruces… ¡hay un patrón!
+    </div>
+    <button class="popup-btn" id="help-close">¡Entendido!</button>
+  </div>
+</div>
+
 <script>
-const PREVIEW_KEY  = 'cal_preview';
-const isPreview    = localStorage.getItem(PREVIEW_KEY) === '1';
-const today        = new Date(); today.setHours(0,0,0,0);
-const thisDate     = new Date('2028-11-18'); thisDate.setHours(0,0,0,0);
-const nextDateStr  = '2028-11-19';
-const popup        = document.getElementById('popup');
+// ═══════════════════════════════════════════════
+//  PREVIEW & DATE GUARD
+// ═══════════════════════════════════════════════
+const PREVIEW_KEY = 'cal_preview';
+const isPreview   = localStorage.getItem(PREVIEW_KEY) === '1';
+const today       = new Date(); today.setHours(0,0,0,0);
+const thisDate    = new Date('2028-11-18'); thisDate.setHours(0,0,0,0);
+const nextDateStr = '2028-11-19';
+const popup       = document.getElementById('popup');
 
 if (!isPreview && thisDate > today) {
   document.querySelector('.day-hero').style.filter = 'blur(4px)';
   document.querySelector('.day-nav').style.visibility = 'hidden';
   popup.classList.add('visible');
 }
-
 if (!isPreview && nextDateStr) {
   const nextDate = new Date(nextDateStr); nextDate.setHours(0,0,0,0);
   if (nextDate > today) {
@@ -133,10 +277,11 @@ if (!isPreview && nextDateStr) {
     if (nextBtn) nextBtn.addEventListener('click', e => { e.preventDefault(); popup.classList.add('visible'); });
   }
 }
-
 popup.addEventListener('click', e => { if (e.target === popup) window.location.href = '../index.html'; });
 
-// ── Favourite ──────────────────────────────────────────────
+// ═══════════════════════════════════════════════
+//  FAVOURITE
+// ═══════════════════════════════════════════════
 const FAV_KEY = 'fav_2028-11-18';
 const favBtn  = document.getElementById('fav-btn');
 function updateFav() {
@@ -152,26 +297,22 @@ favBtn.addEventListener('click', () => {
 });
 updateFav();
 
-// ── Done (actividad completada) ────────────────────────────
-const DONE_KEY = 'done_2028-11-18';
-const doneBtn  = document.getElementById('done-btn');
+// ═══════════════════════════════════════════════
+//  DONE / REWARD
+// ═══════════════════════════════════════════════
+const DONE_KEY         = 'done_2028-11-18';
+const doneBtn          = document.getElementById('done-btn');
 const popupStarBlocked = document.getElementById('popup-star-blocked');
 const popupStarReward  = document.getElementById('popup-star-reward');
+const popupWin         = document.getElementById('popup-win');
 
-document.getElementById('star-blocked-close').addEventListener('click', () => {
-  popupStarBlocked.classList.remove('visible');
-});
-popupStarBlocked.addEventListener('click', e => {
-  if (e.target === popupStarBlocked) popupStarBlocked.classList.remove('visible');
-});
+document.getElementById('star-blocked-close').addEventListener('click', () => popupStarBlocked.classList.remove('visible'));
+popupStarBlocked.addEventListener('click', e => { if (e.target === popupStarBlocked) popupStarBlocked.classList.remove('visible'); });
+document.getElementById('star-reward-close').addEventListener('click', () => popupStarReward.classList.remove('visible'));
+popupStarReward.addEventListener('click', e => { if (e.target === popupStarReward) popupStarReward.classList.remove('visible'); });
 
-document.getElementById('star-reward-close').addEventListener('click', () => {
-  popupStarReward.classList.remove('visible');
-});
-popupStarReward.addEventListener('click', e => {
-  if (e.target === popupStarReward) popupStarReward.classList.remove('visible');
-});
-
+function markDone() { localStorage.setItem(DONE_KEY, '1'); updateDone(); }
+function showReward() { popupStarReward.classList.add('visible'); }
 function updateDone() {
   const on = localStorage.getItem(DONE_KEY) === '1';
   doneBtn.textContent = on ? '★' : '☆';
@@ -180,20 +321,222 @@ function updateDone() {
 }
 doneBtn.addEventListener('click', () => {
   const on = localStorage.getItem(DONE_KEY) === '1';
-  if (on) {
-    // Already done → show reward
-    popupStarReward.classList.add('visible');
-  } else {
-    // Not done → only allowed in preview mode
-    if (isPreview) {
-      localStorage.setItem(DONE_KEY, '1');
-      updateDone();
-    } else {
-      popupStarBlocked.classList.add('visible');
-    }
-  }
+  if (on) { showReward(); }
+  else if (isPreview) { markDone(); }
+  else { popupStarBlocked.classList.add('visible'); }
 });
 updateDone();
+
+document.getElementById('win-reward-btn').addEventListener('click', () => {
+  popupWin.classList.remove('visible');
+  showReward();
+});
+
+// ═══════════════════════════════════════════════
+//  GAME — LAS MONEDAS INVERTIDAS
+// ═══════════════════════════════════════════════
+const CARA  = 'C';
+const CRUZ  = 'X';
+const EMPTY = '_';
+
+const INITIAL = [CARA, CARA, CARA, EMPTY, CRUZ, CRUZ, CRUZ];
+const GOAL    = [CRUZ, CRUZ, CRUZ, EMPTY, CARA, CARA, CARA];
+
+let board    = [];
+let moves    = 0;
+let selected = -1;
+let locked   = false;
+let gameOver = false;
+
+// ── getValidMoves ──────────────────────────────────────────
+function getValidMoves() {
+  const ei = board.indexOf(EMPTY);
+  const valid = [];
+  for (let i = 0; i < board.length; i++) {
+    if (board[i] === EMPTY) continue;
+    const diff = ei - i;
+    if (Math.abs(diff) === 1) {
+      valid.push(i);
+    } else if (Math.abs(diff) === 2) {
+      const mid = board[i + diff / 2];
+      if (mid !== EMPTY && mid !== board[i]) valid.push(i);
+    }
+  }
+  return valid;
+}
+
+// ── canMove ────────────────────────────────────────────────
+function canMove(from) {
+  return getValidMoves().includes(from);
+}
+
+// ── moveCoin ───────────────────────────────────────────────
+function moveCoin(from) {
+  if (locked || gameOver) return;
+  const ei = board.indexOf(EMPTY);
+  locked = true;
+  selected = -1;
+  board[ei] = board[from];
+  board[from] = EMPTY;
+  moves++;
+  renderBoard();
+  document.getElementById('move-count').textContent = moves;
+
+  setTimeout(() => {
+    locked = false;
+    if (checkVictory()) {
+      gameOver = true;
+      document.getElementById('status-bar').textContent = '🎉 ¡Puzzle completado!';
+      document.getElementById('game-hint').textContent  = '¡Enhorabuena!';
+      document.getElementById('game-hint').className    = 'game-hint';
+      document.getElementById('win-msg').innerHTML =
+        'Has invertido correctamente las monedas en <strong>' + moves + '</strong> movimiento' + (moves !== 1 ? 's' : '') + '.<br><br>¡Brillante! 🧠✨';
+      markDone();
+      setTimeout(() => popupWin.classList.add('visible'), 400);
+      return;
+    }
+    if (checkBlockedState()) {
+      gameOver = true;
+      document.getElementById('status-bar').textContent = '🔒 Patrón bloqueado';
+      renderBoard();
+      setTimeout(() => document.getElementById('popup-blocked').classList.add('visible'), 500);
+      return;
+    }
+    document.getElementById('status-bar').textContent = '🪙 Movimiento ' + moves + ' — sigue adelante';
+    renderBoard();
+  }, 60);
+}
+
+// ── checkVictory ───────────────────────────────────────────
+function checkVictory() {
+  return board.every((v, i) => v === GOAL[i]);
+}
+
+// ── checkBlockedState ──────────────────────────────────────
+function checkBlockedState() {
+  return getValidMoves().length === 0;
+}
+
+// ── renderBoard ────────────────────────────────────────────
+function renderBoard() {
+  const row = document.getElementById('coin-row');
+  const valid = (locked || gameOver) ? [] : getValidMoves();
+  row.innerHTML = '';
+
+  board.forEach((type, idx) => {
+    const cell = document.createElement('div');
+    cell.className = 'coin-cell';
+
+    if (type === EMPTY) {
+      cell.classList.add('empty');
+      cell.setAttribute('aria-label', 'Espacio vacío');
+    } else if (type === CARA) {
+      cell.classList.add('cara');
+      cell.innerHTML = '<span class="coin-symbol">👑</span><span class="coin-text">Cara</span>';
+      cell.setAttribute('aria-label', 'Moneda Cara');
+    } else {
+      cell.classList.add('cruz');
+      cell.innerHTML = '<span class="coin-symbol">✦</span><span class="coin-text">Cruz</span>';
+      cell.setAttribute('aria-label', 'Moneda Cruz');
+    }
+
+    if (type !== EMPTY) {
+      if (idx === selected) cell.classList.add('selected');
+      else if (valid.includes(idx)) cell.classList.add('valid-move');
+
+      if (!locked && !gameOver) {
+        cell.addEventListener('click', () => handleClick(idx));
+      }
+    }
+    row.appendChild(cell);
+  });
+}
+
+// ── handleClick ────────────────────────────────────────────
+function handleClick(idx) {
+  if (locked || gameOver || board[idx] === EMPTY) return;
+
+  if (!canMove(idx)) {
+    // Shake + error hint
+    const cells = document.getElementById('coin-row').children;
+    cells[idx].classList.remove('invalid-shake');
+    void cells[idx].offsetWidth;
+    cells[idx].classList.add('invalid-shake');
+    setTimeout(() => cells[idx].classList.remove('invalid-shake'), 380);
+    const h = document.getElementById('game-hint');
+    h.className = 'game-hint error';
+    h.textContent = 'Esta moneda no tiene movimientos válidos';
+    setTimeout(() => { h.className = 'game-hint neutral'; h.textContent = 'Pulsa una moneda válida para moverla'; }, 1600);
+    return;
+  }
+
+  // Deseleccionar si ya estaba seleccionada
+  if (selected === idx) {
+    selected = -1;
+    document.getElementById('game-hint').className = 'game-hint neutral';
+    document.getElementById('game-hint').textContent = 'Pulsa una moneda válida para moverla';
+    renderBoard();
+    return;
+  }
+
+  // Seleccionar y mover tras pequeño delay visual
+  selected = idx;
+  const label = board[idx] === CARA ? 'Cara' : 'Cruz';
+  document.getElementById('game-hint').className = 'game-hint';
+  document.getElementById('game-hint').textContent = 'Moviendo ' + label + '…';
+  renderBoard();
+  setTimeout(() => moveCoin(idx), 180);
+}
+
+// ── resetGame ──────────────────────────────────────────────
+function resetGame() {
+  board    = [...INITIAL];
+  moves    = 0;
+  selected = -1;
+  locked   = false;
+  gameOver = false;
+  document.getElementById('move-count').textContent    = '0';
+  document.getElementById('game-hint').className       = 'game-hint neutral';
+  document.getElementById('game-hint').textContent     = 'Pulsa una moneda válida para moverla';
+  document.getElementById('status-bar').textContent    = '🎯 Lleva todas las Cruces a la izquierda y las Caras a la derecha';
+  document.getElementById('popup-blocked').classList.remove('visible');
+  document.getElementById('popup-win').classList.remove('visible');
+  renderBoard();
+}
+
+// ── renderObjective ────────────────────────────────────────
+function renderObjective() {
+  const row = document.getElementById('objective-row');
+  GOAL.forEach(type => {
+    const d = document.createElement('div');
+    d.className = 'obj-coin';
+    if (type === CARA)      { d.classList.add('cara'); d.textContent = 'C'; }
+    else if (type === CRUZ) { d.classList.add('cruz'); d.textContent = 'X'; }
+    else                    { d.classList.add('empty'); d.textContent = '·'; }
+    row.appendChild(d);
+  });
+}
+
+// ── Popup ayuda ────────────────────────────────────────────
+const popupHelp = document.getElementById('popup-help');
+document.getElementById('help-btn').addEventListener('click', () => popupHelp.classList.add('visible'));
+document.getElementById('help-close').addEventListener('click', () => popupHelp.classList.remove('visible'));
+popupHelp.addEventListener('click', e => { if (e.target === popupHelp) popupHelp.classList.remove('visible'); });
+
+// ── Popup bloqueo ──────────────────────────────────────────
+const popupBlockedEl = document.getElementById('popup-blocked');
+document.getElementById('blocked-retry').addEventListener('click', () => { popupBlockedEl.classList.remove('visible'); resetGame(); });
+popupBlockedEl.addEventListener('click', e => { if (e.target === popupBlockedEl) popupBlockedEl.classList.remove('visible'); });
+
+// ── Popup victoria ─────────────────────────────────────────
+popupWin.addEventListener('click', e => { if (e.target === popupWin) popupWin.classList.remove('visible'); });
+
+// ── Reset btn ──────────────────────────────────────────────
+document.getElementById('reset-btn').addEventListener('click', resetGame);
+
+// ── Init ───────────────────────────────────────────────────
+renderObjective();
+resetGame();
 </script>
 </body>
 </html>
