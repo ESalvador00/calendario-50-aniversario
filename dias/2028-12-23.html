@@ -47,8 +47,8 @@
     /* ══ HANOI SCENE ══════════════════════════════════════════ */
     .hanoi-scene{padding:1.4rem 1rem 0;display:flex;flex-direction:column;align-items:center;user-select:none;}
 
-    /* Zona de postes */
-    .posts-row{display:flex;justify-content:space-around;align-items:flex-end;width:100%;position:relative;}
+    /* Zona de postes — alineamos por arriba para que labels queden en la cima */
+    .posts-row{display:flex;justify-content:space-around;align-items:flex-start;width:100%;position:relative;}
 
     /* Cada poste-columna */
     .post-col{display:flex;flex-direction:column;align-items:center;cursor:pointer;flex:1;position:relative;padding-bottom:0;}
@@ -58,29 +58,26 @@
     .post-col.invalid{animation:shake .3s ease-in-out;}
     @keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-5px);}75%{transform:translateX(5px);}50%{transform:translateX(-3px);}62%{transform:translateX(3px);}}
 
-    /* Área de discos — crece hacia arriba */
-    .disks-area{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;width:100%;position:relative;z-index:2;}
+    /* Etiqueta — ahora va ARRIBA de la torre */
+    .post-label{font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(201,168,76,.38);margin-bottom:.3rem;transition:color .2s;}
 
-    /* Slot vacío (altura fija para mantener el poste centrado visualmente) */
-    .disk-slot{height:24px;display:flex;align-items:center;justify-content:center;width:100%;}
+    /* Área de discos */
+    .disks-area{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;width:100%;position:relative;z-index:2;}
+    .disk-slot{height:22px;display:flex;align-items:center;justify-content:center;width:100%;}
 
     /* Disco */
-    .disk{height:20px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:700;letter-spacing:.05em;color:rgba(0,0,0,.55);transition:transform .15s,box-shadow .15s;position:relative;cursor:grab;}
+    .disk{height:18px;border-radius:9px;display:flex;align-items:center;justify-content:center;transition:transform .15s,box-shadow .15s;position:relative;cursor:grab;}
     .disk.top{cursor:pointer;}
     .disk.top:hover{transform:translateY(-3px);box-shadow:0 6px 18px rgba(0,0,0,.5);}
     .disk.selected{transform:translateY(-8px) scale(1.04);box-shadow:0 10px 28px rgba(201,168,76,.6),0 0 0 2px rgba(201,168,76,.7);}
-    .disk.animating{transition:transform .4s cubic-bezier(.34,1.56,.64,1),box-shadow .4s;pointer-events:none;}
     .disk.win-pulse{animation:win-glow 1s ease-in-out infinite;}
     @keyframes win-glow{0%,100%{filter:brightness(1);}50%{filter:brightness(1.3) saturate(1.2);}}
 
     /* Poste vertical */
-    .post-pole{width:8px;height:var(--pole-h,160px);background:linear-gradient(to right,var(--base),var(--pole-light),var(--base));border-radius:4px;position:relative;z-index:1;transition:background .25s,box-shadow .25s;margin-top:-2px;}
+    .post-pole{width:8px;background:linear-gradient(to right,var(--base),var(--pole-light),var(--base));border-radius:4px 4px 2px 2px;transition:background .25s,box-shadow .25s;}
 
     /* Base horizontal */
-    .posts-base{width:100%;height:12px;background:linear-gradient(to bottom,var(--pole-light),var(--base));border-radius:6px;margin-bottom:0;box-shadow:0 4px 16px rgba(0,0,0,.5);}
-
-    /* Etiqueta */
-    .post-label{font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(201,168,76,.38);margin-top:.55rem;margin-bottom:.8rem;transition:color .2s;}
+    .posts-base{width:100%;height:12px;background:linear-gradient(to bottom,var(--pole-light),var(--base));border-radius:6px;box-shadow:0 4px 16px rgba(0,0,0,.5);}
 
     /* ── DRAG HINT ──────────────────────────────────────────── */
     .drag-hint{font-size:.72rem;font-style:italic;color:rgba(250,246,238,.28);text-align:center;padding:.4rem 1rem .1rem;min-height:1.3em;}
@@ -405,7 +402,6 @@ function render() {
   row.className = 'posts-row';
 
   for (let p = 0; p < NUM_POSTS; p++) {
-    // ── Wrapper: position:relative so pole can be absolute behind disks
     const col = document.createElement('div');
     col.className = 'post-col';
     if (state.selected === p) col.classList.add('active');
@@ -413,7 +409,6 @@ function render() {
     col.style.position = 'relative';
     col.addEventListener('click', () => selectPost(p));
 
-    // Drop zone events
     col.addEventListener('dragover', e => { e.preventDefault(); col.classList.add('active'); });
     col.addEventListener('dragleave', () => { if (state.selected !== p) col.classList.remove('active'); });
     col.addEventListener('drop', e => {
@@ -423,7 +418,18 @@ function render() {
       if (!isNaN(from) && from !== p) attemptMove(from, p);
     });
 
-    // ── Poste — absolute, behind disks (z-index:1), centered, full height
+    // ── Label ARRIBA — encima del poste y los discos
+    const lbl = document.createElement('div');
+    lbl.className = 'post-label';
+    lbl.textContent = 'Poste ' + (p + 1);
+    lbl.style.cssText = 'margin-bottom:.35rem;margin-top:0;';
+    col.appendChild(lbl);
+
+    // ── Wrapper para poste + discos (position:relative para que el poste sea absoluto)
+    const towerWrap = document.createElement('div');
+    towerWrap.style.cssText = `position:relative;width:100%;height:${POLE_H}px;`;
+
+    // ── Poste — absolute, behind disks (z-index:1)
     const pole = document.createElement('div');
     pole.className = 'post-pole';
     pole.style.cssText = `
@@ -436,28 +442,28 @@ function render() {
       z-index:1;
       border-radius:4px 4px 2px 2px;
     `;
-    col.appendChild(pole);
+    towerWrap.appendChild(pole);
 
-    // ── Discos area — z-index:2 so discos appear IN FRONT of the pole
+    // ── Discos area — ocupa toda la altura del wrapper, discos pegados al fondo
     const disksArea = document.createElement('div');
     disksArea.className = 'disks-area';
     disksArea.style.cssText = `
-      position:relative;
-      z-index:2;
-      width:100%;
+      position:absolute;
+      bottom:0;
+      left:0;
+      right:0;
       height:${AREA_H}px;
+      z-index:2;
       display:flex;
       flex-direction:column;
       justify-content:flex-end;
       align-items:center;
     `;
 
-    const stack = state.posts[p]; // bottom → top (index 0 = largest = bottom)
+    const stack = state.posts[p];
 
-    // With flex-direction:column + justify-content:flex-end, the LAST child sits at the bottom.
-    // So we render slots from N_DISKS-1 (top) down to 0 (bottom) — slot 0 = largest = last child = bottom visually.
     for (let slot = N_DISKS - 1; slot >= 0; slot--) {
-      const diskSize = stack[slot]; // size value, or undefined if empty slot
+      const diskSize = stack[slot];
       const slotEl   = document.createElement('div');
       slotEl.className = 'disk-slot';
       slotEl.style.cssText = `height:${DISK_H}px;display:flex;align-items:center;justify-content:center;width:100%;flex-shrink:0;`;
@@ -466,22 +472,20 @@ function render() {
         const diskEl = document.createElement('div');
         diskEl.className = 'disk';
 
-        // Width: largest disk (N_DISKS) = 92%, smallest (1) = 28%
         const minW = 28, maxW = 92;
         const w = minW + ((diskSize - 1) / (N_DISKS - 1 || 1)) * (maxW - minW);
         diskEl.style.width = w + '%';
 
         const ci = (diskSize - 1) % DISK_COLORS.length;
         const [c1, c2, cb] = DISK_COLORS[ci];
-        diskEl.style.background = `linear-gradient(to bottom, ${c2}, ${c1})`;
-        diskEl.style.border     = `2px solid ${cb}`;
-        diskEl.style.boxShadow  = `0 3px 10px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.15)`;
-        diskEl.style.height     = '18px';
+        diskEl.style.background   = `linear-gradient(to bottom, ${c2}, ${c1})`;
+        diskEl.style.border       = `2px solid ${cb}`;
+        diskEl.style.boxShadow    = `0 3px 10px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.15)`;
+        diskEl.style.height       = '18px';
         diskEl.style.borderRadius = '9px';
-        diskEl.style.position   = 'relative';
-        diskEl.style.cursor     = 'default';
+        diskEl.style.position     = 'relative';
+        diskEl.style.cursor       = 'default';
 
-        // TOP disk = last element in stack array = stack.length - 1
         const isTop = (slot === stack.length - 1);
         if (isTop) {
           diskEl.classList.add('top');
@@ -507,13 +511,8 @@ function render() {
       disksArea.appendChild(slotEl);
     }
 
-    col.appendChild(disksArea);
-
-    // Label below
-    const lbl = document.createElement('div');
-    lbl.className = 'post-label';
-    lbl.textContent = 'Poste ' + (p + 1);
-    col.appendChild(lbl);
+    towerWrap.appendChild(disksArea);
+    col.appendChild(towerWrap);
 
     row.appendChild(col);
   }
