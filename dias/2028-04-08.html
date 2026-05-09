@@ -509,30 +509,37 @@ function moveBoat() {
   if (locked || state.gameOver) return;
 
   const passenger = state.selected || null;
-
-  // Move boat and passenger to other side
   const destination = state.boatSide === 'A' ? 'B' : 'A';
 
-  // Animate: lock inputs, show passenger on boat, move
+  // FASE 1: bloquear interacción, quitar entidad de orilla origen,
+  // colocar pasajero sobre el bote e iniciar la animación CSS del bote.
   locked = true;
-  state.boatOnMove = true;
+  state.boatOnMove   = true;
   state.boatPassenger = passenger;
-  state.boatSide = destination;
+  state.selected     = null;
   state.moves++;
 
-  // Actually move entity
+  // Quitamos la entidad de la orilla origen ANTES de render()
+  // para que desaparezca de la orilla mientras el bote cruza.
+  // La entidad NO se asigna a la orilla destino todavía.
   if (passenger) {
-    state.entities[passenger] = destination;
+    state.entities[passenger] = 'BOAT'; // estado transitorio: en el bote
   }
-  state.selected = null;
 
+  // Movemos el bote al destino → dispara la transition CSS (850ms)
+  state.boatSide = destination;
   render();
 
-  // After animation completes, validate
+  // FASE 2: al terminar la animación, depositar la entidad en la orilla destino
   setTimeout(() => {
-    locked = false;
-    state.boatOnMove = false;
+    state.boatOnMove    = false;
     state.boatPassenger = null;
+
+    if (passenger) {
+      state.entities[passenger] = destination;
+    }
+
+    locked = false;
 
     const status = document.getElementById('status-bar');
 
@@ -562,7 +569,7 @@ function moveBoat() {
     // Update hint
     status.textContent = `🚣 Movimiento ${state.moves} — Bote en Orilla ${state.boatSide}`;
     render();
-  }, 850); // match CSS transition
+  }, 850); // match CSS transition duration
 }
 
 // ── Reset ──────────────────────────────────────
