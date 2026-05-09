@@ -39,8 +39,13 @@
     .reto-title{font-family:'Playfair Display',serif;font-size:clamp(1.2rem,2.5vw,1.7rem);font-weight:700;color:var(--gold-light);text-align:center;margin-bottom:.35rem;}
     .reto-desc{font-size:.88rem;color:rgba(250,246,238,.45);text-align:center;margin-bottom:1.2rem;line-height:1.5;}
 
-    /* ── GAME LAYOUT: tablero izq + paleta+validar dcha ──── */
-    .game-layout{display:flex;gap:1rem;align-items:flex-start;justify-content:center;}
+    /* ── PALETTE AREA (arriba del tablero) ───────────────── */
+    .palette-area{display:flex;flex-direction:column;align-items:center;gap:.4rem;margin-bottom:.9rem;}
+    .palette{display:flex;flex-direction:row;gap:7px;justify-content:center;flex-wrap:wrap;}
+    .palette-label{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(201,168,76,.35);text-align:center;}
+
+    /* ── GAME LAYOUT: solo el tablero centrado ────────────── */
+    .game-layout{display:flex;gap:0;align-items:flex-start;justify-content:center;}
 
     /* ── BOARD ────────────────────────────────────────────── */
     .board{display:flex;flex-direction:column;gap:4px;flex-shrink:0;}
@@ -49,6 +54,7 @@
     .board-row{display:flex;align-items:center;gap:5px;padding:5px 7px;border-radius:5px;border:1px solid transparent;transition:border-color .3s,background .3s;}
     .board-row.active{border-color:rgba(201,168,76,.45);background:rgba(201,168,76,.05);}
     .board-row.locked{opacity:.9;}
+    .board-row.history{opacity:.5;}
     .board-row.shake{animation:shake .35s ease;}
     @keyframes shake{0%,100%{transform:translateX(0);}20%{transform:translateX(-6px);}40%{transform:translateX(6px);}60%{transform:translateX(-4px);}80%{transform:translateX(4px);}}
     @keyframes slide-down{from{transform:translateY(-8px);opacity:.6;}to{transform:translateY(0);opacity:1;}}
@@ -69,14 +75,13 @@
     .fdot.black{background:#eee;box-shadow:0 0 4px rgba(255,255,255,.4);}
     .fdot.white{background:transparent;border:2px solid rgba(220,220,220,.7);}
 
-    /* ── PANEL DCHO: paleta + validar ─────────────────────── */
-    .right-panel{display:flex;flex-direction:column;align-items:center;gap:.6rem;padding-top:.2rem;flex-shrink:0;}
-    .palette{display:flex;flex-direction:column;gap:6px;}
+    /* ── PALETTE PEGS ─────────────────────────────────────── */
     .palette-peg{width:34px;height:34px;border-radius:50%;cursor:pointer;border:3px solid transparent;transition:transform .15s,box-shadow .15s,border-color .15s;flex-shrink:0;}
     .palette-peg:hover{transform:scale(1.12);box-shadow:0 0 12px rgba(255,255,255,.3);}
     .palette-peg.selected{border-color:#fff;box-shadow:0 0 12px rgba(255,255,255,.5);transform:scale(1.12);}
-    .palette-label{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(201,168,76,.35);text-align:center;}
-    .validate-btn{margin-top:.4rem;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.45);border-radius:3px;color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;padding:.5rem .7rem;cursor:pointer;transition:all .2s;width:100%;}
+
+    /* ── BOTÓN VALIDAR inline a la derecha de la fila activa */
+    .validate-btn{background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.45);border-radius:3px;color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;padding:.45rem .7rem;cursor:pointer;transition:all .2s;white-space:nowrap;flex-shrink:0;margin-left:6px;}
     .validate-btn:hover{background:rgba(201,168,76,.2);border-color:var(--gold);}
     .validate-btn:disabled{opacity:.35;cursor:default;pointer-events:none;}
 
@@ -135,6 +140,7 @@
       .palette-peg{width:28px;height:28px;}
       .feedback{grid-template-columns:repeat(2,8px);grid-template-rows:repeat(2,8px);gap:2px;}
       .fdot{width:8px;height:8px;}
+      .validate-btn{font-size:.65rem;padding:.4rem .5rem;letter-spacing:.1em;}
       .day-nav{margin-top:1rem;padding-top:1rem;}
       .config-bar{gap:.6rem;}
     }
@@ -160,16 +166,15 @@
       <h2 class="reto-title">🔐 Mastermind</h2>
       <p class="reto-desc">Descifra la combinación secreta de 4 colores en 10 intentos.</p>
 
-      <!-- Game layout: tablero + panel dcho (paleta + validar) -->
+      <!-- Paleta de colores ARRIBA del tablero -->
+      <div class="palette-area">
+        <span class="palette-label">Colores</span>
+        <div class="palette" id="palette"></div>
+      </div>
+
+      <!-- Tablero centrado (el botón Validar se inyecta inline en la fila activa por JS) -->
       <div class="game-layout">
         <div class="board" id="board"></div>
-
-        <!-- Panel derecho: paleta de colores + botón Validar -->
-        <div class="right-panel">
-          <span class="palette-label">Colores</span>
-          <div class="palette" id="palette"></div>
-          <button class="validate-btn" id="validate-btn">Validar ✓</button>
-        </div>
       </div>
 
       <!-- Secret reveal (derrota) -->
@@ -545,9 +550,9 @@ function renderBoard(animateActive = false) {
 function buildRow(guess, feedback, isActive, animate, rowLabel) {
   const rowEl = document.createElement('div');
   rowEl.className = 'board-row' +
-    (isActive ? ' active' : '') +
-    (feedback ? ' locked' : '') +
-    (animate  ? ' slide-in' : '');
+    (isActive  ? ' active'   : '') +
+    (feedback  ? ' locked history' : '') +
+    (animate   ? ' slide-in' : '');
 
   // Número de intento
   const numEl = document.createElement('div');
@@ -594,6 +599,16 @@ function buildRow(guess, feedback, isActive, animate, rowLabel) {
     fbEl.appendChild(dot);
   }
   rowEl.appendChild(fbEl);
+
+  // Botón Validar inline — solo en la fila activa
+  if (isActive) {
+    const vBtn = document.createElement('button');
+    vBtn.id = 'validate-btn-inline';
+    vBtn.className = 'validate-btn';
+    vBtn.textContent = 'Validar ✓';
+    vBtn.addEventListener('click', validateGuess);
+    rowEl.appendChild(vBtn);
+  }
 
   return rowEl;
 }
@@ -655,8 +670,8 @@ function resetGame() {
 }
 
 // ── Botones ───────────────────────────────────────────────────
-document.getElementById('validate-btn').addEventListener('click', validateGuess);
-document.getElementById('reset-btn').addEventListener('click',    resetGame);
+// validate-btn se inyecta dinámicamente en la fila activa (buildRow)
+document.getElementById('reset-btn').addEventListener('click', resetGame);
 
 // ── Arrancar ──────────────────────────────────────────────────
 resetGame();
