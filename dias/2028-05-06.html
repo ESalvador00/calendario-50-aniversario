@@ -7,56 +7,159 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
-    :root{--gold:#C9A84C;--gold-light:#E8C97A;--gold-dark:#8B6914;--cream:#FAF6EE;--dark:#1A1410;}
+    :root{
+      --gold:#C9A84C;--gold-light:#E8C97A;--gold-dark:#8B6914;
+      --cream:#FAF6EE;--dark:#1A1410;
+      --sand-top:#D4A853;--sand-bot:#B8892F;--sand-glow:rgba(212,168,83,.35);
+      --glass:rgba(201,168,76,.12);--glass-border:rgba(201,168,76,.28);
+    }
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
     body{background-color:var(--dark);color:var(--cream);font-family:'Cormorant Garamond',serif;min-height:100vh;display:flex;flex-direction:column;}
-    body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 25% 15%,rgba(201,168,76,.10) 0%,transparent 55%),radial-gradient(ellipse at 75% 85%,rgba(124,54,38,.10) 0%,transparent 55%);pointer-events:none;z-index:0;}
+    body::before{content:'';position:fixed;inset:0;
+      background:radial-gradient(ellipse at 25% 15%,rgba(201,168,76,.10) 0%,transparent 55%),
+                 radial-gradient(ellipse at 75% 85%,rgba(124,54,38,.10) 0%,transparent 55%);
+      pointer-events:none;z-index:0;}
+
     .wrap{position:relative;z-index:1;max-width:800px;margin:0 auto;padding:3rem 2rem 4rem;flex:1;display:flex;flex-direction:column;}
-    .day-hero{text-align:center;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 0 2rem;position:relative;}
+    .day-hero{text-align:center;flex:1;display:flex;flex-direction:column;align-items:center;padding:3rem 0 2rem;position:relative;}
     .ornament-line-h{display:flex;align-items:center;justify-content:center;gap:1rem;margin-bottom:2rem;}
     .o-line{height:1px;width:60px;background:linear-gradient(to right,transparent,var(--gold));}
     .o-line.r{background:linear-gradient(to left,transparent,var(--gold));}
     .o-dot{width:5px;height:5px;background:var(--gold);border-radius:50%;}
     .day-of-week{font-size:.85rem;letter-spacing:.4em;text-transform:uppercase;color:rgba(201,168,76,.5);margin-bottom:1rem;}
-    h1{font-family:'Playfair Display',serif;font-size:clamp(3rem,9vw,7rem);font-weight:900;line-height:1;background:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 50%,var(--gold-dark) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.5rem;}
+    h1{font-family:'Playfair Display',serif;font-size:clamp(3rem,9vw,7rem);font-weight:900;line-height:1;
+       background:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 50%,var(--gold-dark) 100%);
+       -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.5rem;}
     .month-label{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3.5vw,2.4rem);font-weight:400;font-style:italic;color:rgba(250,246,238,.45);margin-bottom:2.5rem;}
-    .content-area{width:100%;border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:2.5rem;min-height:220px;background:rgba(255,255,255,.02);color:rgba(250,246,238,.4);font-size:1rem;font-style:italic;text-align:center;display:flex;align-items:center;justify-content:center;}
-    .day-nav{display:flex;justify-content:space-between;align-items:center;padding-top:2.5rem;border-top:1px solid rgba(201,168,76,.1);margin-top:2.5rem;}
-    .nav-btn{font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(201,168,76,.5);text-decoration:none;padding:.6rem 1.2rem;border:1px solid rgba(201,168,76,.18);border-radius:2px;transition:all .2s;}
-    .nav-btn:hover{color:var(--gold-light);border-color:rgba(201,168,76,.5);background:rgba(201,168,76,.05);}
-    .nav-btn.disabled{opacity:0;pointer-events:none;}
-    .year-badge{font-size:.7rem;letter-spacing:.3em;color:rgba(201,168,76,.25);text-transform:uppercase;}
-    .back-link{display:block;text-align:center;margin-top:2rem;color:rgba(201,168,76,.35);font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;text-decoration:none;transition:color .2s;}
-    .back-link:hover{color:var(--gold);}
-    /* Botones fav y done */
+
+    /* ── FAV / DONE ───────────────────────────────────────── */
     .action-btns{position:absolute;top:0;right:0;display:flex;flex-direction:column;align-items:center;gap:.2rem;}
     .icon-btn{background:none;border:none;cursor:pointer;font-size:2rem;line-height:1;transition:color .2s,transform .2s;padding:.2rem;}
     .icon-btn:hover{transform:scale(1.2);}
     .fav-btn{color:rgba(250,246,238,.2);}
     .fav-btn.active{color:#e05a6a;}
-    .fav-btn.active:hover{color:#ff7a88;}
-    .done-btn{color:var(--gold);opacity:0.6;}
+    .done-btn{color:var(--gold);opacity:.6;}
     .done-btn.active{color:var(--gold);opacity:1;}
-    .done-btn.active:hover{color:var(--gold-light);opacity:1;}
-    /* Popup */
-    .popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:100;align-items:center;justify-content:center;}
+
+    /* ══ GAME WRAPPER ══════════════════════════════════════ */
+    .game-wrap{width:100%;border:1px solid rgba(201,168,76,.22);border-radius:6px;background:rgba(10,6,2,.35);overflow:hidden;}
+
+    .game-header{padding:1.1rem 1.5rem;border-bottom:1px solid rgba(201,168,76,.12);text-align:center;background:rgba(0,0,0,.2);}
+    .game-title{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:var(--gold-light);letter-spacing:.06em;}
+    .game-subtitle{font-size:.82rem;color:rgba(250,246,238,.38);margin-top:.25rem;font-style:italic;}
+
+    /* ── OBJETIVO + CRONÓMETRO ────────────────────────────── */
+    .status-bar{display:flex;justify-content:center;align-items:center;gap:2.5rem;padding:.75rem 1.5rem;border-bottom:1px solid rgba(201,168,76,.08);background:rgba(0,0,0,.15);flex-wrap:wrap;}
+    .stat-pill{display:flex;flex-direction:column;align-items:center;gap:.05rem;}
+    .stat-label{font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(201,168,76,.4);}
+    .stat-value{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--gold-light);line-height:1.1;letter-spacing:.05em;}
+    .stat-value.global{font-size:2.2rem;}
+    .stat-value.target{color:rgba(250,246,238,.55);font-size:1.3rem;}
+    .stat-value.danger{color:#e05a6a;}
+    .stat-value.exact{color:#6ee89a;text-shadow:0 0 10px rgba(110,232,154,.4);}
+
+    /* ── HOURGLASSES SECTION ──────────────────────────────── */
+    .hourglasses{display:flex;justify-content:center;align-items:flex-end;gap:clamp(1.5rem,6vw,4rem);padding:1.8rem 1rem 1rem;}
+
+    .hg-col{display:flex;flex-direction:column;align-items:center;gap:.7rem;}
+    .hg-name{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--gold-light);letter-spacing:.08em;}
+
+    /* SVG hourglass container */
+    .hg-svg-wrap{position:relative;width:80px;height:160px;flex-shrink:0;}
+    .hg-svg-wrap svg{width:100%;height:100%;}
+
+    /* Time remaining label */
+    .hg-time{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--gold);letter-spacing:.04em;min-width:4ch;text-align:center;}
+    .hg-time.empty{color:rgba(250,246,238,.25);}
+
+    /* State badge */
+    .hg-state{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(250,246,238,.3);min-height:1em;}
+    .hg-state.running{color:rgba(110,232,154,.7);}
+    .hg-state.empty{color:rgba(224,90,106,.5);}
+
+    /* Flip button */
+    .flip-btn{background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.3);border-radius:3px;
+      color:rgba(201,168,76,.7);font-family:'Cormorant Garamond',serif;font-size:.75rem;
+      letter-spacing:.18em;text-transform:uppercase;padding:.45rem 1.1rem;cursor:pointer;
+      transition:all .2s;}
+    .flip-btn:hover:not(:disabled){background:rgba(201,168,76,.18);border-color:var(--gold);color:var(--gold);box-shadow:0 0 10px rgba(201,168,76,.15);}
+    .flip-btn:disabled{opacity:.25;cursor:default;}
+
+    /* Flip animation */
+    @keyframes hg-flip{
+      0%  {transform:rotate(0deg) scale(1);}
+      40% {transform:rotate(90deg) scale(.88);}
+      60% {transform:rotate(180deg) scale(.88);}
+      100%{transform:rotate(180deg) scale(1);}
+    }
+    .hg-svg-wrap.flipping{animation:hg-flip .45s cubic-bezier(.4,0,.2,1) forwards;}
+
+    /* Particle burst on empty */
+    @keyframes burst{0%{transform:scale(0);opacity:1;}100%{transform:scale(2.5);opacity:0;}}
+    .hg-burst{position:absolute;inset:0;border-radius:50%;pointer-events:none;display:none;}
+    .hg-burst.active{display:block;animation:burst .5s ease-out forwards;}
+
+    /* ── CONTROLS ─────────────────────────────────────────── */
+    .game-controls{padding:.9rem 1.5rem 1.1rem;display:flex;flex-direction:column;align-items:center;gap:.8rem;border-top:1px solid rgba(201,168,76,.08);}
+
+    .start-btn{background:linear-gradient(135deg,rgba(201,168,76,.22),rgba(201,168,76,.1));
+      border:1px solid rgba(201,168,76,.5);border-radius:3px;color:var(--gold-light);
+      font-family:'Cormorant Garamond',serif;font-size:1rem;letter-spacing:.22em;
+      text-transform:uppercase;padding:.65rem 2.2rem;cursor:pointer;transition:all .2s;}
+    .start-btn:hover{background:linear-gradient(135deg,rgba(201,168,76,.35),rgba(201,168,76,.18));border-color:var(--gold);box-shadow:0 0 16px rgba(201,168,76,.2);}
+    .start-btn.running{background:rgba(224,90,106,.1);border-color:rgba(224,90,106,.4);color:rgba(224,90,106,.85);}
+    .start-btn.running:hover{background:rgba(224,90,106,.18);border-color:rgba(224,90,106,.7);}
+
+    .ctrl-row{display:flex;gap:.7rem;align-items:center;}
+    .game-btn{background:none;border:1px solid rgba(201,168,76,.3);border-radius:3px;
+      color:rgba(201,168,76,.6);font-family:'Cormorant Garamond',serif;font-size:.72rem;
+      letter-spacing:.18em;text-transform:uppercase;padding:.42rem 1rem;cursor:pointer;transition:all .2s;}
+    .game-btn:hover{color:var(--gold);border-color:var(--gold);background:rgba(201,168,76,.07);}
+
+    /* ── STATUS TEXT ─────────────────────────────────────── */
+    .hint-text{font-size:.82rem;font-style:italic;color:rgba(250,246,238,.32);text-align:center;min-height:1.2em;}
+    .hint-text.ok{color:rgba(110,232,154,.75);}
+    .hint-text.bad{color:rgba(224,90,106,.75);}
+
+    /* ── NAV ─────────────────────────────────────────────── */
+    .day-nav{display:flex;justify-content:space-between;align-items:center;padding-top:2.5rem;border-top:1px solid rgba(201,168,76,.1);margin-top:2.5rem;}
+    .nav-btn{font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(201,168,76,.5);text-decoration:none;padding:.6rem 1.2rem;border:1px solid rgba(201,168,76,.18);border-radius:2px;transition:all .2s;}
+    .nav-btn:hover{color:var(--gold-light);border-color:rgba(201,168,76,.5);background:rgba(201,168,76,.05);}
+    .year-badge{font-size:.7rem;letter-spacing:.3em;color:rgba(201,168,76,.25);text-transform:uppercase;}
+    .back-link{display:block;text-align:center;margin-top:2rem;color:rgba(201,168,76,.35);font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;text-decoration:none;transition:color .2s;}
+    .back-link:hover{color:var(--gold);}
+
+    /* ── POPUPS ──────────────────────────────────────────── */
+    .popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:100;align-items:center;justify-content:center;}
     .popup-overlay.visible{display:flex;}
-    .popup-box{background:var(--dark);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:3rem 2.5rem;max-width:420px;width:90%;text-align:center;box-shadow:0 0 60px rgba(0,0,0,.8);}
-    .popup-icon{font-size:3rem;margin-bottom:1rem;}
-    .popup-title{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--gold-light);margin-bottom:1rem;}
-    .popup-msg{font-size:1rem;font-style:italic;color:rgba(250,246,238,.6);line-height:1.7;margin-bottom:2rem;}
-    .popup-btn{display:inline-block;padding:.7rem 2rem;border:1px solid rgba(201,168,76,.4);border-radius:2px;color:var(--gold);font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;background:none;transition:all .2s;}
+    .popup-box{background:var(--dark);border:1px solid rgba(201,168,76,.35);border-radius:6px;
+      padding:2rem 2rem 1.5rem;max-width:440px;width:90%;text-align:center;
+      box-shadow:0 0 60px rgba(0,0,0,.9);display:flex;flex-direction:column;max-height:90vh;}
+    .popup-icon{font-size:3rem;margin-bottom:.8rem;flex-shrink:0;}
+    .popup-title{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:var(--gold-light);margin-bottom:.8rem;flex-shrink:0;}
+    .popup-msg{font-size:.95rem;font-style:italic;color:rgba(250,246,238,.6);line-height:1.7;margin-bottom:1.5rem;flex-shrink:0;}
+    .popup-msg.scroll{overflow-y:auto;max-height:55vh;flex:1;}
+    .popup-btns{display:flex;gap:.7rem;justify-content:center;flex-wrap:wrap;flex-shrink:0;}
+    .popup-btn{display:inline-block;padding:.65rem 1.8rem;border:1px solid rgba(201,168,76,.4);border-radius:2px;
+      color:var(--gold);font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;
+      cursor:pointer;background:none;transition:all .2s;font-family:'Cormorant Garamond',serif;}
     .popup-btn:hover{background:rgba(201,168,76,.1);border-color:var(--gold);}
+    .popup-btn.secondary{border-color:rgba(250,246,238,.15);color:rgba(250,246,238,.4);}
+    .popup-btn.secondary:hover{border-color:rgba(250,246,238,.35);color:rgba(250,246,238,.7);background:rgba(255,255,255,.03);}
+
     @media(max-width:600px){
       .wrap{padding:1rem 1rem 2rem;}
       .day-hero{padding:1rem 0 1rem;}
       h1{font-size:clamp(2rem,14vw,4rem);}
       .month-label{font-size:clamp(1rem,4vw,1.6rem);margin-bottom:1rem;}
-      .content-area{padding:1.2rem;min-height:120px;}
-      .day-nav{margin-top:1rem;padding-top:1rem;}
       .ornament-line-h{margin-bottom:1rem;}
+      .day-nav{margin-top:1rem;padding-top:1rem;}
+      .hourglasses{gap:1.2rem;padding:1.2rem .5rem .8rem;}
+      .hg-svg-wrap{width:64px;height:128px;}
+      .status-bar{gap:1.2rem;}
+      .stat-value.global{font-size:1.8rem;}
     }
-</style>
+  </style>
 </head>
 <body>
 <div class="wrap">
@@ -71,10 +174,47 @@
     <p class="day-of-week">Sábado</p>
     <h1>6</h1>
     <p class="month-label">de Mayo</p>
-    <div class="content-area">
-      <p>Espacio reservado para el contenido de este día</p>
+
+    <!-- ══════════════════ MINIJUEGO ══════════════════ -->
+    <div class="game-wrap">
+
+      <div class="game-header">
+        <div class="game-title">⏳ Relojes de Arena</div>
+        <div class="game-subtitle">Mide el tiempo exacto usando los dos relojes</div>
+      </div>
+
+      <div class="status-bar">
+        <div class="stat-pill">
+          <span class="stat-label">Objetivo</span>
+          <span class="stat-value target" id="stat-target">9:00</span>
+        </div>
+        <div class="stat-pill">
+          <span class="stat-label">Tiempo transcurrido</span>
+          <span class="stat-value global" id="stat-global">0:00</span>
+        </div>
+        <div class="stat-pill">
+          <span class="stat-label">Margen</span>
+          <span class="stat-value target">± 1 s</span>
+        </div>
+      </div>
+
+      <!-- Los relojes se generan por JS -->
+      <div class="hourglasses" id="hourglasses"></div>
+
+      <div class="game-controls">
+        <button class="start-btn" id="start-btn">▶ Iniciar</button>
+        <div class="hint-text" id="hint-text">Inicia el cronómetro, gira los relojes y mide exactamente 9 minutos</div>
+        <div class="ctrl-row">
+          <button class="game-btn" id="reset-btn">↺ Reiniciar</button>
+          <button class="game-btn" id="help-btn">? Ayuda</button>
+        </div>
+      </div>
+
     </div>
+    <!-- ══════════════════ FIN MINIJUEGO ══════════════════ -->
+
   </div>
+
   <nav class="day-nav">
     <a class="nav-btn" href="2028-05-05.html">&#8592; 5 de Mayo</a>
     <span class="year-badge">50 Aniversario · 2028</span>
@@ -83,6 +223,7 @@
   <a class="back-link" href="../index.html">&#8592; Volver al Calendario</a>
 </div>
 
+<!-- Popup: día futuro -->
 <div class="popup-overlay" id="popup">
   <div class="popup-box">
     <div class="popup-icon">🎁</div>
@@ -92,7 +233,7 @@
   </div>
 </div>
 
-<!-- Popup estrella bloqueada -->
+<!-- Popup: estrella bloqueada -->
 <div class="popup-overlay" id="popup-star-blocked">
   <div class="popup-box">
     <div class="popup-icon">🏆</div>
@@ -102,41 +243,99 @@
   </div>
 </div>
 
-<!-- Popup recompensa del día -->
+<!-- Popup: recompensa -->
 <div class="popup-overlay" id="popup-star-reward">
   <div class="popup-box">
     <div class="popup-icon">🎁</div>
     <p class="popup-title">¡Tu recompensa!</p>
-    <p class="popup-msg" id="reward-text">✨ Aquí irá la recompensa especial de este día ✨</p>
+    <p class="popup-msg">✨ Aquí irá la recompensa especial de este día ✨</p>
     <button class="popup-btn" id="star-reward-close">¡Genial!</button>
   </div>
 </div>
 
+<!-- Popup: victoria -->
+<div class="popup-overlay" id="popup-win">
+  <div class="popup-box">
+    <div class="popup-icon">⏳</div>
+    <p class="popup-title">¡Tiempo perfecto!</p>
+    <p class="popup-msg" id="win-msg">Has medido el tiempo correctamente.</p>
+    <div class="popup-btns">
+      <button class="popup-btn" id="win-reward-btn">Ver recompensa ★</button>
+    </div>
+  </div>
+</div>
+
+<!-- Popup: fracaso -->
+<div class="popup-overlay" id="popup-fail">
+  <div class="popup-box">
+    <div class="popup-icon">⌛</div>
+    <p class="popup-title">Tiempo incorrecto</p>
+    <p class="popup-msg" id="fail-msg">El tiempo no coincide con el objetivo.</p>
+    <div class="popup-btns">
+      <button class="popup-btn" id="fail-retry">↺ Reintentar</button>
+      <button class="popup-btn secondary" onclick="window.location.href='../index.html'">Volver al calendario</button>
+    </div>
+  </div>
+</div>
+
+<!-- Popup: ayuda -->
+<div class="popup-overlay" id="popup-help">
+  <div class="popup-box">
+    <div class="popup-icon">⏳</div>
+    <p class="popup-title">Cómo jugar</p>
+    <p class="popup-msg scroll" style="text-align:left;font-style:normal;font-size:.88rem;line-height:1.8;">
+      <strong style="color:var(--gold-light)">Objetivo</strong><br>
+      Medir exactamente <strong>9 minutos</strong> usando un reloj de 4 minutos y otro de 7 minutos.<br><br>
+      <strong style="color:var(--gold-light)">Cómo funciona</strong><br>
+      · Pulsa <em>▶ Iniciar</em> para arrancar el cronómetro global.<br>
+      · Usa el botón <em>⇅ Girar</em> de cada reloj cuando quieras invertirlo.<br>
+      · Al girar un reloj lleno empieza a vaciarse. Al girar uno vacío vuelve a estar lleno y empieza a vaciarse.<br>
+      · Al girar uno a medias, su arena restante se invierte (ej.: si quedan 2 min de 7 → pasan a ser 5).<br>
+      · Un reloj que llega a 0 se para solo — gíralo para reutilizarlo.<br><br>
+      <strong style="color:var(--gold-light)">Condición de victoria</strong><br>
+      Pulsa <em>⏸ Pausar</em> cuando el cronómetro global marque exactamente <strong>9:00</strong> (margen ±1 s).<br><br>
+      <strong style="color:var(--gold-light)">Condición de derrota</strong><br>
+      · Parar en un tiempo incorrecto.<br>
+      · Superar los 9 minutos sin pausar — el sistema se detiene automáticamente y se muestra el error.<br><br>
+      <strong style="color:var(--gold-light)">Pista — una posible solución</strong><br>
+      1. Gira ambos relojes a la vez.<br>
+      2. Cuando el de 4 min se vacíe (t=4), gíralo.<br>
+      3. Cuando el de 7 min se vacíe (t=7), gira el de 4 (le quedaban 1 min).<br>
+      4. Cuando el de 4 min se vacíe de nuevo (t=8), gira el de 7 (le queda 1 min invertido = 1 min).<br>
+      5. Cuando el de 7 min se vacíe (t=9), ¡pausa! 🎉
+    </p>
+    <button class="popup-btn" id="help-close" style="margin-top:.8rem;">¡Entendido!</button>
+  </div>
+</div>
+
 <script>
-const PREVIEW_KEY  = 'cal_preview';
-const isPreview    = localStorage.getItem(PREVIEW_KEY) === '1';
-const today        = new Date(); today.setHours(0,0,0,0);
-const thisDate     = new Date('2028-05-06'); thisDate.setHours(0,0,0,0);
-const nextDateStr  = '2028-05-07';
-const popup        = document.getElementById('popup');
+// ══════════════════════════════════════════════════════════════
+//  PREVIEW & DATE GUARD
+// ══════════════════════════════════════════════════════════════
+const PREVIEW_KEY = 'cal_preview';
+const isPreview   = localStorage.getItem(PREVIEW_KEY) === '1';
+const today       = new Date(); today.setHours(0,0,0,0);
+const thisDate    = new Date('2028-05-06'); thisDate.setHours(0,0,0,0);
+const nextDateStr = '2028-05-07';
+const popup       = document.getElementById('popup');
 
 if (!isPreview && thisDate > today) {
   document.querySelector('.day-hero').style.filter = 'blur(4px)';
   document.querySelector('.day-nav').style.visibility = 'hidden';
   popup.classList.add('visible');
 }
-
 if (!isPreview && nextDateStr) {
-  const nextDate = new Date(nextDateStr); nextDate.setHours(0,0,0,0);
-  if (nextDate > today) {
-    const nextBtn = document.getElementById('next-btn');
-    if (nextBtn) nextBtn.addEventListener('click', e => { e.preventDefault(); popup.classList.add('visible'); });
+  const nd = new Date(nextDateStr); nd.setHours(0,0,0,0);
+  if (nd > today) {
+    const nb = document.getElementById('next-btn');
+    if (nb) nb.addEventListener('click', e => { e.preventDefault(); popup.classList.add('visible'); });
   }
 }
-
 popup.addEventListener('click', e => { if (e.target === popup) window.location.href = '../index.html'; });
 
-// ── Favourite ──────────────────────────────────────────────
+// ══════════════════════════════════════════════════════════════
+//  FAV
+// ══════════════════════════════════════════════════════════════
 const FAV_KEY = 'fav_2028-05-06';
 const favBtn  = document.getElementById('fav-btn');
 function updateFav() {
@@ -152,25 +351,23 @@ favBtn.addEventListener('click', () => {
 });
 updateFav();
 
-// ── Done (actividad completada) ────────────────────────────
-const DONE_KEY = 'done_2028-05-06';
-const doneBtn  = document.getElementById('done-btn');
+// ══════════════════════════════════════════════════════════════
+//  DONE / REWARD
+// ══════════════════════════════════════════════════════════════
+const DONE_KEY         = 'done_2028-05-06';
+const doneBtn          = document.getElementById('done-btn');
 const popupStarBlocked = document.getElementById('popup-star-blocked');
 const popupStarReward  = document.getElementById('popup-star-reward');
+const popupWin         = document.getElementById('popup-win');
 
-document.getElementById('star-blocked-close').addEventListener('click', () => {
-  popupStarBlocked.classList.remove('visible');
-});
-popupStarBlocked.addEventListener('click', e => {
-  if (e.target === popupStarBlocked) popupStarBlocked.classList.remove('visible');
-});
+document.getElementById('star-blocked-close').addEventListener('click', () => popupStarBlocked.classList.remove('visible'));
+popupStarBlocked.addEventListener('click', e => { if (e.target === popupStarBlocked) popupStarBlocked.classList.remove('visible'); });
+document.getElementById('star-reward-close').addEventListener('click', () => popupStarReward.classList.remove('visible'));
+popupStarReward.addEventListener('click', e => { if (e.target === popupStarReward) popupStarReward.classList.remove('visible'); });
+popupWin.addEventListener('click', e => { if (e.target === popupWin) popupWin.classList.remove('visible'); });
 
-document.getElementById('star-reward-close').addEventListener('click', () => {
-  popupStarReward.classList.remove('visible');
-});
-popupStarReward.addEventListener('click', e => {
-  if (e.target === popupStarReward) popupStarReward.classList.remove('visible');
-});
+function markDone() { localStorage.setItem(DONE_KEY, '1'); updateDone(); }
+function showReward() { popupStarReward.classList.add('visible'); }
 
 function updateDone() {
   const on = localStorage.getItem(DONE_KEY) === '1';
@@ -180,20 +377,438 @@ function updateDone() {
 }
 doneBtn.addEventListener('click', () => {
   const on = localStorage.getItem(DONE_KEY) === '1';
-  if (on) {
-    // Already done → show reward
-    popupStarReward.classList.add('visible');
-  } else {
-    // Not done → only allowed in preview mode
-    if (isPreview) {
-      localStorage.setItem(DONE_KEY, '1');
-      updateDone();
-    } else {
-      popupStarBlocked.classList.add('visible');
-    }
-  }
+  if (on)             showReward();
+  else if (isPreview) markDone();
+  else                popupStarBlocked.classList.add('visible');
 });
 updateDone();
+
+document.getElementById('win-reward-btn').addEventListener('click', () => {
+  popupWin.classList.remove('visible');
+  showReward();
+});
+
+// ══════════════════════════════════════════════════════════════
+//  GAME CONFIG
+// ══════════════════════════════════════════════════════════════
+const TARGET_S  = 9 * 60;       // 9 minutos en segundos
+const MARGIN_S  = 1;             // ±1 segundo de margen
+const OVERFLOW_S = TARGET_S + 10; // derrota automática si se pasa
+
+const HG_CFG = [
+  { id: 'hg4', label: '4 min', totalS: 4 * 60, color: '#E8C97A', colorDim: '#8B6914' },
+  { id: 'hg7', label: '7 min', totalS: 7 * 60, color: '#82b4ff', colorDim: '#2a4a80' },
+];
+
+// ── Estado ─────────────────────────────────────────────────
+let globalS   = 0;      // segundos totales transcurridos
+let running   = false;
+let gameOver  = false;
+let rafId     = null;
+let lastTs    = null;
+
+// Cada reloj: { id, totalS, remainS, active, flipping }
+let hourglasses = [];
+
+function initState() {
+  globalS  = 0;
+  running  = false;
+  gameOver = false;
+  if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+  lastTs = null;
+  hourglasses = HG_CFG.map(cfg => ({
+    id:       cfg.id,
+    totalS:   cfg.totalS,
+    remainS:  cfg.totalS,  // lleno al inicio
+    active:   false,       // no corriendo
+    flipping: false,
+  }));
+}
+
+// ══════════════════════════════════════════════════════════════
+//  BUILD DOM
+// ══════════════════════════════════════════════════════════════
+function buildDOM() {
+  const container = document.getElementById('hourglasses');
+  container.innerHTML = '';
+
+  HG_CFG.forEach(cfg => {
+    const col = document.createElement('div');
+    col.className = 'hg-col';
+
+    // Nombre
+    const nm = document.createElement('div');
+    nm.className = 'hg-name';
+    nm.textContent = cfg.label;
+    col.appendChild(nm);
+
+    // SVG wrap
+    const wrap = document.createElement('div');
+    wrap.className = 'hg-svg-wrap';
+    wrap.id = 'wrap-' + cfg.id;
+
+    // Burst overlay
+    const burst = document.createElement('div');
+    burst.className = 'hg-burst';
+    burst.id = 'burst-' + cfg.id;
+    burst.style.background = `radial-gradient(circle, ${cfg.color}88 0%, transparent 70%)`;
+    wrap.appendChild(burst);
+
+    // SVG placeholder — se actualiza en render()
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('viewBox', '0 0 80 160');
+    svg.id = 'svg-' + cfg.id;
+    wrap.appendChild(svg);
+    col.appendChild(wrap);
+
+    // Tiempo restante
+    const timeEl = document.createElement('div');
+    timeEl.className = 'hg-time';
+    timeEl.id = 'time-' + cfg.id;
+    col.appendChild(timeEl);
+
+    // Estado
+    const stateEl = document.createElement('div');
+    stateEl.className = 'hg-state';
+    stateEl.id = 'state-' + cfg.id;
+    col.appendChild(stateEl);
+
+    // Botón girar
+    const btn = document.createElement('button');
+    btn.className = 'flip-btn';
+    btn.id = 'flip-' + cfg.id;
+    btn.textContent = '⇅ Girar';
+    btn.addEventListener('click', () => flipHourglass(cfg.id));
+    col.appendChild(btn);
+
+    container.appendChild(col);
+  });
+}
+
+// ══════════════════════════════════════════════════════════════
+//  SVG RENDER — reloj de arena procedural
+// ══════════════════════════════════════════════════════════════
+function drawHourglass(hg) {
+  const cfg  = HG_CFG.find(c => c.id === hg.id);
+  const svg  = document.getElementById('svg-' + hg.id);
+  const W = 80, H = 160;
+  const pct  = hg.remainS / hg.totalS;  // 1 = lleno, 0 = vacío
+
+  // Geometría del vaso: dos trapecios que se tocan en el centro
+  const cx   = W / 2;
+  const topY = 8, botY = H - 8, midY = H / 2;
+  const wTop = 34, wWaist = 5;
+
+  // Trapecio superior: vértice arriba ancho, vértice abajo estrecho
+  // Trapecio inferior: vértice arriba estrecho, vértice abajo ancho
+  const glassTopPath =
+    `M ${cx - wTop} ${topY} L ${cx + wTop} ${topY} L ${cx + wWaist} ${midY} L ${cx - wWaist} ${midY} Z`;
+  const glassBotPath =
+    `M ${cx - wWaist} ${midY} L ${cx + wWaist} ${midY} L ${cx + wTop} ${botY} L ${cx - wTop} ${botY} Z`;
+
+  // Arena superior: ocupa la parte inferior del trapecio superior
+  // (cuando lleno → todo el trapecio; cuando vacío → nada)
+  const sandTopPct  = Math.max(0, Math.min(1, pct));
+  // Altura del trapecio superior = midY - topY
+  const topH = midY - topY;
+  const sandTopH = sandTopPct * topH;
+  // La arena superior es un trapecio cuya base inferior está en midY y su parte superior en midY - sandTopH
+  // Las anchuras interpoladas en cada Y:
+  const interpW = (y) => wWaist + (wTop - wWaist) * (midY - y) / topH;
+  const sandTopY0 = midY - sandTopH;
+  const sandTopW0 = interpW(sandTopY0);
+  const sandTopPath = sandTopH < 0.5 ? '' :
+    `M ${cx - sandTopW0} ${sandTopY0} L ${cx + sandTopW0} ${sandTopY0} L ${cx + wWaist} ${midY} L ${cx - wWaist} ${midY} Z`;
+
+  // Arena inferior: ocupa la parte inferior del trapecio inferior
+  const sandBotPct  = Math.max(0, Math.min(1, 1 - pct));
+  const botH = botY - midY;
+  const sandBotH = sandBotPct * botH;
+  const interpWBot = (y) => wWaist + (wTop - wWaist) * (y - midY) / botH;
+  const sandBotY1 = botY - sandBotH + sandBotH; // = botY always bottom edge
+  const sandBotYtop = botY - sandBotH;
+  const sandBotW = interpWBot(sandBotYtop);
+  const sandBotPath = sandBotH < 0.5 ? '' :
+    `M ${cx - wWaist} ${midY + (botH - sandBotH)} L ${cx + wWaist} ${midY + (botH - sandBotH)} L ${cx + sandBotW} ${botY} L ${cx - sandBotW} ${botY} Z`;
+
+  // Wait — simpler: bottom sand fills from botY upward
+  const sandBotYStart = botY - sandBotH;
+  const sandBotWStart = interpWBot(sandBotYStart);
+  const sandBotPathFix = sandBotH < 0.5 ? '' :
+    `M ${cx - sandBotWStart} ${sandBotYStart} L ${cx + sandBotWStart} ${sandBotYStart} L ${cx + wTop} ${botY} L ${cx - wTop} ${botY} Z`;
+
+  // Hilo de arena cayendo (solo si hay arena arriba y reloj activo)
+  const streamPath = (hg.active && pct > 0.005)
+    ? `M ${cx} ${midY} L ${cx} ${midY + 18}` : '';
+
+  const isFinished = hg.remainS <= 0;
+  const glassColor = isFinished ? 'rgba(201,168,76,.12)' : 'rgba(201,168,76,.18)';
+  const sandColor  = isFinished ? cfg.colorDim : cfg.color;
+  const sandColor2 = isFinished ? cfg.colorDim + '99' : cfg.color + 'cc';
+
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  svg.innerHTML = `
+    <!-- Marco exterior -->
+    <rect x="${cx-wTop-2}" y="${topY-4}" width="${(wTop+2)*2}" height="8" rx="3" fill="${glassColor}" stroke="rgba(201,168,76,.3)" stroke-width="1"/>
+    <rect x="${cx-wTop-2}" y="${botY-4}" width="${(wTop+2)*2}" height="8" rx="3" fill="${glassColor}" stroke="rgba(201,168,76,.3)" stroke-width="1"/>
+    <!-- Vidrio superior -->
+    <path d="${glassTopPath}" fill="rgba(201,168,76,.04)" stroke="rgba(201,168,76,.25)" stroke-width="1.2" stroke-linejoin="round"/>
+    <!-- Vidrio inferior -->
+    <path d="${glassBotPath}" fill="rgba(201,168,76,.04)" stroke="rgba(201,168,76,.25)" stroke-width="1.2" stroke-linejoin="round"/>
+    <!-- Arena superior -->
+    ${sandTopPath ? `<path d="${sandTopPath}" fill="${sandColor}" opacity=".85"/>` : ''}
+    <!-- Arena inferior -->
+    ${sandBotPathFix ? `<path d="${sandBotPathFix}" fill="${sandColor2}" opacity=".9"/>` : ''}
+    <!-- Hilo de arena -->
+    ${streamPath ? `<line x1="${cx}" y1="${midY}" x2="${cx}" y2="${midY+16}" stroke="${sandColor}" stroke-width="1.5" opacity=".7">
+      <animate attributeName="opacity" values=".4;.9;.4" dur="1.2s" repeatCount="indefinite"/>
+    </line>` : ''}
+    <!-- Brillo lateral -->
+    <line x1="${cx-wTop+4}" y1="${topY+6}" x2="${cx-wWaist+2}" y2="${midY-4}" stroke="rgba(255,255,255,.08)" stroke-width="2" stroke-linecap="round"/>
+  `;
+}
+
+// ══════════════════════════════════════════════════════════════
+//  RENDER GLOBAL
+// ══════════════════════════════════════════════════════════════
+function fmtTime(s) {
+  const m = Math.floor(Math.abs(s) / 60);
+  const sec = Math.floor(Math.abs(s) % 60);
+  return `${m}:${String(sec).padStart(2,'0')}`;
+}
+
+function render() {
+  // Cronómetro global
+  const globalEl = document.getElementById('stat-global');
+  globalEl.textContent = fmtTime(globalS);
+  const diff = Math.abs(globalS - TARGET_S);
+  if (globalS === 0) {
+    globalEl.className = 'stat-value global';
+  } else if (diff <= MARGIN_S) {
+    globalEl.className = 'stat-value global exact';
+  } else if (globalS > TARGET_S) {
+    globalEl.className = 'stat-value global danger';
+  } else {
+    globalEl.className = 'stat-value global';
+  }
+
+  // Relojes
+  hourglasses.forEach(hg => {
+    const cfg = HG_CFG.find(c => c.id === hg.id);
+    drawHourglass(hg);
+
+    const timeEl  = document.getElementById('time-' + hg.id);
+    const stateEl = document.getElementById('state-' + hg.id);
+    const flipBtn = document.getElementById('flip-' + hg.id);
+
+    timeEl.textContent = fmtTime(hg.remainS);
+    timeEl.className = 'hg-time' + (hg.remainS <= 0 ? ' empty' : '');
+
+    if (hg.remainS <= 0) {
+      stateEl.textContent = 'vacío';
+      stateEl.className = 'hg-state empty';
+    } else if (hg.active) {
+      stateEl.textContent = 'corriendo';
+      stateEl.className = 'hg-state running';
+    } else {
+      stateEl.textContent = hg.remainS === hg.totalS ? 'lleno' : 'pausado';
+      stateEl.className = 'hg-state';
+    }
+
+    flipBtn.disabled = gameOver;
+  });
+
+  // Botón start/pause
+  const startBtn = document.getElementById('start-btn');
+  if (gameOver) {
+    startBtn.textContent = '▶ Iniciar';
+    startBtn.className = 'start-btn';
+    startBtn.disabled = true;
+  } else if (running) {
+    startBtn.textContent = '⏸ Pausar';
+    startBtn.className = 'start-btn running';
+    startBtn.disabled = false;
+  } else {
+    startBtn.textContent = globalS === 0 ? '▶ Iniciar' : '▶ Reanudar';
+    startBtn.className = 'start-btn';
+    startBtn.disabled = false;
+  }
+}
+
+// ══════════════════════════════════════════════════════════════
+//  TIMER LOOP (requestAnimationFrame)
+// ══════════════════════════════════════════════════════════════
+function tick(ts) {
+  if (!running) return;
+  if (lastTs === null) lastTs = ts;
+
+  const dtS = (ts - lastTs) / 1000;
+  lastTs = ts;
+
+  globalS += dtS;
+
+  // Actualizar relojes activos
+  hourglasses.forEach(hg => {
+    if (!hg.active) return;
+    hg.remainS -= dtS;
+    if (hg.remainS <= 0) {
+      hg.remainS = 0;
+      hg.active  = false;
+      onHourglassEmpty(hg.id);
+    }
+  });
+
+  render();
+
+  // Auto-derrota si se supera el límite
+  if (globalS >= OVERFLOW_S) {
+    pauseTimer();
+    triggerFail();
+    return;
+  }
+
+  rafId = requestAnimationFrame(tick);
+}
+
+function startTimer() {
+  if (running || gameOver) return;
+  running = true;
+  lastTs  = null;
+  rafId   = requestAnimationFrame(tick);
+  updateHint('Cronómetro en marcha — gira los relojes para empezar a contar');
+  render();
+}
+
+function pauseTimer() {
+  if (!running) return;
+  running = false;
+  if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+  lastTs = null;
+  render();
+}
+
+function updateTimers() { /* integrado en tick() */ }
+
+// ══════════════════════════════════════════════════════════════
+//  FLIP HOURGLASS
+// ══════════════════════════════════════════════════════════════
+function flipHourglass(id) {
+  if (gameOver) return;
+  const hg  = hourglasses.find(h => h.id === id);
+  if (!hg) return;
+
+  // Animación visual
+  const wrap = document.getElementById('wrap-' + id);
+  wrap.classList.remove('flipping');
+  void wrap.offsetWidth; // reflow para reiniciar animación
+  wrap.classList.add('flipping');
+  setTimeout(() => wrap.classList.remove('flipping'), 460);
+
+  if (hg.remainS <= 0) {
+    // Estaba vacío → rellenar y activar
+    hg.remainS = hg.totalS;
+    hg.active  = true;
+  } else {
+    // Invertir tiempo restante
+    hg.remainS = hg.totalS - hg.remainS;
+    hg.active  = true; // arranca si no lo estaba
+  }
+
+  render();
+}
+
+function onHourglassEmpty(id) {
+  // Efecto burst
+  const burst = document.getElementById('burst-' + id);
+  burst.classList.remove('active');
+  void burst.offsetWidth;
+  burst.classList.add('active');
+  setTimeout(() => burst.classList.remove('active'), 520);
+
+  updateHint('⚠ Reloj vacío — gíralo para reutilizarlo');
+}
+
+// ══════════════════════════════════════════════════════════════
+//  CHECK VICTORY / FAIL
+// ══════════════════════════════════════════════════════════════
+function checkVictory() {
+  const diff = Math.abs(globalS - TARGET_S);
+  return diff <= MARGIN_S;
+}
+
+function triggerWin() {
+  gameOver = true;
+  markDone();
+  document.getElementById('win-msg').innerHTML =
+    `Has medido exactamente <strong style="color:var(--gold-light)">${fmtTime(globalS)}</strong>.<br>¡Precisión de relojero! ⏳✨`;
+  updateHint('', 'ok');
+  render();
+  setTimeout(() => popupWin.classList.add('visible'), 500);
+}
+
+function triggerFail() {
+  gameOver = true;
+  const diff = globalS - TARGET_S;
+  const sign = diff > 0 ? '+' : '';
+  document.getElementById('fail-msg').innerHTML =
+    `Detuviste el tiempo en <strong>${fmtTime(globalS)}</strong>.<br>` +
+    `El objetivo era <strong>${fmtTime(TARGET_S)}</strong> (${sign}${diff.toFixed(1)} s de diferencia).<br><br>¡Inténtalo de nuevo!`;
+  updateHint('', 'bad');
+  render();
+  setTimeout(() => document.getElementById('popup-fail').classList.add('visible'), 350);
+}
+
+// ══════════════════════════════════════════════════════════════
+//  RESET
+// ══════════════════════════════════════════════════════════════
+function resetGame() {
+  if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+  document.getElementById('popup-fail').classList.remove('visible');
+  popupWin.classList.remove('visible');
+  initState();
+  updateHint('Inicia el cronómetro, gira los relojes y mide exactamente 9 minutos');
+  render();
+}
+
+function updateHint(msg, cls = '') {
+  const el = document.getElementById('hint-text');
+  el.textContent = msg;
+  el.className = 'hint-text' + (cls ? ' ' + cls : '');
+}
+
+// ══════════════════════════════════════════════════════════════
+//  EVENTS
+// ══════════════════════════════════════════════════════════════
+document.getElementById('start-btn').addEventListener('click', () => {
+  if (gameOver) return;
+  if (running) {
+    pauseTimer();
+    // Evaluar resultado
+    if (checkVictory()) triggerWin();
+    else                triggerFail();
+  } else {
+    startTimer();
+  }
+});
+
+document.getElementById('reset-btn').addEventListener('click', resetGame);
+document.getElementById('fail-retry').addEventListener('click', () => {
+  document.getElementById('popup-fail').classList.remove('visible');
+  resetGame();
+});
+
+const popupHelp = document.getElementById('popup-help');
+document.getElementById('help-btn').addEventListener('click',   () => popupHelp.classList.add('visible'));
+document.getElementById('help-close').addEventListener('click', () => popupHelp.classList.remove('visible'));
+popupHelp.addEventListener('click', e => { if (e.target === popupHelp) popupHelp.classList.remove('visible'); });
+
+// ══════════════════════════════════════════════════════════════
+//  INIT
+// ══════════════════════════════════════════════════════════════
+initState();
+buildDOM();
+updateHint('Inicia el cronómetro, gira los relojes y mide exactamente 9 minutos');
+render();
 </script>
 </body>
 </html>
