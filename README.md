@@ -219,6 +219,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-08-30 | Cultura: iniciales de famosos | MALLORCA | Lugar10_01.jpg .. Lugar10_08.jpg | Ajenos | PDTE |
 | 2028-09-03 | Palabras Intraducibles - Finlandés | SISU | Nieves_20160102.jpg | Nieves | PDTE |
 | 2028-09-04 | Adivina el logo correcto | 10 logos icónicos | Logos.png | N/A | PDTE |
+| 2028-09-09 | Minijuego (El Cruce del Puente) | N/A | N/A | N/A | PDTE |
 | 2028-09-12 | Adivina quién soy | MARY SHELLEY | Cristina_20130713.png | Cristina | PDTE |
 | 2028-09-18 | Cultura: iniciales de famosos, especial música | BORNEO | Lugar04_01.jpg .. Lugar04_06.jpg | Ajenos | PDTE |
 | 2028-09-20 | Sigue la letra | Ella (Viceversa) | Ella.mp3 | N/A | PDTE |
@@ -237,6 +238,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-11-10 | Adivina las películas | Armageddon, Fama, Los Increíbles, La historia interminable, Los Goonies | Armageddon, Fama, Los_Increibles, La_historia_interminable, Los_Goonies (mp3 y jpg) | N/A | PDTE |
 | 2028-11-13 | Sigue la letra | Voy a pasármelo bien (Hombres G) | Voy_a_pasarmelo_bien.mp3 | N/A | PDTE |
 | 2028-11-14 | Adivina quién soy | ELEVEN | Ari_20220701.png | Ariadna | PDTE |
+| 2028-11-18 | Minijuego (Las Monedas Invertidas) | N/A | N/A | N/A | PDTE |
 | 2028-11-19 | Palabras Intraducibles - Yiddish | NAKHES | Alex_20250622.jpg | Alexandra | PDTE |
 | 2028-11-20 | Rosco de pasapalabra | N/A | N/A | N/A | PDTE |
 | 2028-11-21 | Cultura: iniciales de famosos | MALTA | Lugar12_01.jpg .. Lugar12_05.jpg | Ajenos | PDTE |
