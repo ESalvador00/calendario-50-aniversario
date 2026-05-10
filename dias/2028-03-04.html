@@ -51,14 +51,14 @@
       display:grid;
       grid-template-columns:1fr 1fr 1fr;
       grid-template-rows:1fr 1fr 1fr;
-      gap:clamp(6px,2vw,14px);
-      width:clamp(220px,60vw,340px);
-      height:clamp(220px,60vw,340px);
+      gap:clamp(4px,1.2vw,8px);
+      width:clamp(180px,50vw,270px);
+      height:clamp(180px,50vw,270px);
     }
     .simon-btn{
       border:none;cursor:pointer;border-radius:50%;
       display:flex;align-items:center;justify-content:center;
-      font-size:clamp(1.6rem,5vw,2.4rem);
+      font-size:clamp(1.2rem,3.5vw,1.8rem);
       transition:transform .08s,box-shadow .08s,filter .08s,background .08s;
       position:relative;outline:none;
       -webkit-tap-highlight-color:transparent;
@@ -74,13 +74,6 @@
     .btn-right {background:var(--right-off); grid-column:3;grid-row:2;border:2px solid rgba(255,153,0,.2);}
     .btn-down  {background:var(--down-off);  grid-column:2;grid-row:3;border:2px solid rgba(255,51,51,.2);}
     .btn-left  {background:var(--left-off);  grid-column:1;grid-row:2;border:2px solid rgba(68,153,255,.2);}
-    .simon-center{
-      grid-column:2;grid-row:2;
-      display:flex;align-items:center;justify-content:center;
-      font-family:'Playfair Display',serif;font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;
-      color:rgba(201,168,76,.3);border-radius:50%;
-      border:1px solid rgba(201,168,76,.12);background:rgba(201,168,76,.04);user-select:none;
-    }
     .btn-up.lit    {background:var(--up-on);    box-shadow:0 0 22px 8px var(--up-glow),   inset 0 0 12px rgba(255,255,255,.15);border-color:rgba(34,255,68,.8); transform:scale(.94);}
     .btn-right.lit {background:var(--right-on); box-shadow:0 0 22px 8px var(--right-glow),inset 0 0 12px rgba(255,255,255,.15);border-color:rgba(255,153,0,.8);transform:scale(.94);}
     .btn-down.lit  {background:var(--down-on);  box-shadow:0 0 22px 8px var(--down-glow), inset 0 0 12px rgba(255,255,255,.15);border-color:rgba(255,51,51,.8); transform:scale(.94);}
@@ -182,11 +175,11 @@
           <button class="simon-btn btn-right" id="btn-right" data-dir="right" title="Derecha"   disabled>&#9654;</button>
           <button class="simon-btn btn-down"  id="btn-down"  data-dir="down"  title="Abajo"     disabled>&#9660;</button>
           <button class="simon-btn btn-left"  id="btn-left"  data-dir="left"  title="Izquierda" disabled>&#9664;</button>
-          <div class="simon-center">Simon</div>
         </div>
       </div>
 
       <div class="controls">
+        <button class="reset-link" id="pause-btn">&#9654; Iniciar</button>
         <button class="reset-link" id="reset-btn">&#8635; Reiniciar</button>
         <button class="reset-link" id="help-btn">? Ayuda</button>
       </div>
@@ -339,19 +332,19 @@ updateDone();
 // ════════════════════════════════════════
 //  SIMON SAYS — GAME ENGINE
 // ════════════════════════════════════════
-const DIRS          = ['up','right','down','left'];
-const HIGHSCORE_KEY = 'simon_highscore';
-const TIMEOUT_BASE  = 4500;
-const TIMEOUT_MIN   = 2000;
-const FLASH_ON      = 420;
-const FLASH_OFF     = 180;
+var DIRS          = ['up','right','down','left'];
+var HIGHSCORE_KEY = 'simon_highscore';
+var TIMEOUT_BASE  = 4500;
+var TIMEOUT_MIN   = 2000;
+var FLASH_ON      = 420;
+var FLASH_OFF     = 180;
 
-let audioCtx = null;
+var audioCtx = null;
 function getAudioCtx() {
   if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
   return audioCtx;
 }
-const TONES = { up:523.25, right:659.25, down:392.0, left:293.66 };
+var TONES = { up:523.25, right:659.25, down:392.0, left:293.66 };
 
 function playTone(freq, duration, type, volume) {
   duration = duration || 0.35; type = type || 'sine'; volume = volume || 0.55;
@@ -373,14 +366,16 @@ function playNewRecord() {
   [523,659,784,1047].forEach(function(f,i){ setTimeout(function(){ playTone(f,0.2,'sine',0.5); }, i*130); });
 }
 
-var sequence    = [];
-var playerIdx   = 0;
-var score       = 0;
-var phase       = 'idle';
-var timerHandle = null;
-var timerStart  = null;
-var timerDur    = TIMEOUT_BASE;
-var animFrame   = null;
+var sequence       = [];
+var playerIdx      = 0;
+var score          = 0;
+var phase          = 'idle';   // 'idle' | 'system' | 'player'
+var paused         = true;     // arranca pausado
+var timerHandle    = null;
+var timerStart     = null;
+var timerDur       = TIMEOUT_BASE;
+var animFrame      = null;
+var timerRemaining = 0;        // ms restantes al pausar en turno jugador
 
 function getBtn(dir) { return document.getElementById('btn-' + dir); }
 
@@ -394,6 +389,15 @@ function updateScoreDisplay() {
   document.getElementById('stat-score').textContent  = score;
   document.getElementById('stat-record').textContent = getHighScore();
   document.getElementById('stat-level').textContent  = sequence.length > 0 ? sequence.length : '\u2014';
+}
+
+function updatePauseBtn() {
+  var btn = document.getElementById('pause-btn');
+  if (paused) {
+    btn.innerHTML = '&#9654; ' + (sequence.length === 0 ? 'Iniciar' : 'Reanudar');
+  } else {
+    btn.innerHTML = '&#9646;&#9646; Pausar';
+  }
 }
 
 function getHighScore() { return parseInt(localStorage.getItem(HIGHSCORE_KEY) || '0', 10); }
@@ -448,32 +452,63 @@ function stopPlayerTimer() {
   clearTimerBar();
 }
 
-function startPlayerTimer() {
+function startPlayerTimer(remaining) {
   stopPlayerTimer();
   var speedMult = Math.max(1.0 - 0.04 * Math.max(0, sequence.length - 5), 0.4);
-  var dur = Math.max(TIMEOUT_MIN, TIMEOUT_BASE * speedMult);
+  var dur = (remaining !== undefined && remaining > 0) ? remaining : Math.max(TIMEOUT_MIN, TIMEOUT_BASE * speedMult);
   startTimerBar(dur);
   timerHandle = setTimeout(function() {
-    if (phase === 'player') endGame('tiempo');
+    if (phase === 'player' && !paused) endGame('tiempo');
   }, dur);
+}
+
+// ── PAUSA / REANUDAR ────────────────────────────────────
+function togglePause() {
+  if (phase === 'system') return; // no interrumpir secuencia sistema
+  if (paused) {
+    paused = false;
+    updatePauseBtn();
+    if (sequence.length === 0) {
+      startGame();
+    } else if (phase === 'player') {
+      setTurnDisplay('Turno: T\u00fa', 'player');
+      setButtonsDisabled(false);
+      startPlayerTimer(timerRemaining > 0 ? timerRemaining : undefined);
+      timerRemaining = 0;
+    } else if (phase === 'idle') {
+      nextRound();
+    }
+  } else {
+    if (phase === 'player') {
+      timerRemaining = Math.max(0, timerDur - (performance.now() - timerStart));
+      stopPlayerTimer();
+      setButtonsDisabled(true);
+    }
+    paused = true;
+    updatePauseBtn();
+    setTurnDisplay('\u23f8 Pausa', 'idle');
+  }
 }
 
 // ─── GAME FUNCTIONS ─────────────────────────────────────
 function startGame() {
   score = 0; sequence = []; playerIdx = 0; phase = 'idle';
+  timerRemaining = 0;
   clearTimerBar();
   closePopupFail();
   updateScoreDisplay();
-  nextRound();
+  if (!paused) nextRound();
 }
 
 function nextRound() {
+  if (paused) return;
   sequence.push(DIRS[Math.floor(Math.random() * DIRS.length)]);
   updateScoreDisplay();
-  setTimeout(function(){ playSequence(); }, 600);
+  setTimeout(function(){ if (!paused) playSequence(); }, 600);
 }
 
 function playSequence() {
+  if (paused) return;
   phase = 'system';
   setButtonsDisabled(true);
   setTurnDisplay('Turno: Sistema', 'system');
@@ -488,8 +523,10 @@ function playSequence() {
     chain = chain.then(function(){ return flashButton(dir, onMs, offMs); });
   });
   chain.then(function() {
+    if (paused) return;
     playerIdx = 0;
     phase = 'player';
+    timerRemaining = 0;
     setTurnDisplay('Turno: T\u00fa', 'player');
     setButtonsDisabled(false);
     startPlayerTimer();
@@ -497,7 +534,7 @@ function playSequence() {
 }
 
 function handlePlayerInput(dir) {
-  if (phase !== 'player') return;
+  if (phase !== 'player' || paused) return;
   stopPlayerTimer();
   var btn = getBtn(dir);
   btn.classList.add('lit');
@@ -523,9 +560,11 @@ function checkInput(dir) {
 
 function endGame(reason) {
   phase = 'idle';
+  paused = true;
   stopPlayerTimer();
   setButtonsDisabled(true);
   clearTimerBar();
+  updatePauseBtn();
   DIRS.forEach(function(d) {
     var b = getBtn(d);
     b.classList.remove('lit');
@@ -536,21 +575,30 @@ function endGame(reason) {
   var isRecord = saveHighScore(score);
   var rec = getHighScore();
   updateScoreDisplay();
+  setTurnDisplay('\u2014 Fin de partida \u2014', 'idle');
+
+  // Nuevo récord -> marcar completado + recompensa
+  if (isRecord && score > 0) {
+    playNewRecord();
+    markDone();
+    setTimeout(function(){ showReward(); }, 700);
+    return;
+  }
+
   var title = reason === 'tiempo' ? '\u00a1Se acab\u00f3 el tiempo!' : '\u00a1Secuencia incorrecta!';
-  var recLine = (isRecord && score > 0) ? '<span class="new-record">\ud83c\udfc6 \u00a1Nuevo r\u00e9cord!</span>' : '';
   document.getElementById('fail-title').textContent = title;
   document.getElementById('fail-msg').innerHTML =
-    recLine + 'Tu puntuaci\u00f3n: <strong>' + score + '</strong><br>R\u00e9cord: <strong>' + rec + '</strong>';
-  setTurnDisplay('\u2014 Fin de partida \u2014', 'idle');
-  if (isRecord && score > 0) playNewRecord();
+    'Tu puntuaci\u00f3n: <strong>' + score + '</strong><br>R\u00e9cord: <strong>' + rec + '</strong>';
   setTimeout(function(){ document.getElementById('popup-fail').classList.add('visible'); }, 500);
 }
 
 function resetGame() {
-  stopPlayerTimer(); phase = 'idle'; sequence = []; score = 0; playerIdx = 0;
+  stopPlayerTimer();
+  paused = true; phase = 'idle';
+  sequence = []; score = 0; playerIdx = 0; timerRemaining = 0;
   setButtonsDisabled(true); clearTimerBar();
-  setTurnDisplay('\u2014 Reiniciando\u2026 \u2014', 'idle');
-  updateScoreDisplay(); closePopupFail();
+  setTurnDisplay('\u2014 Pulsa Iniciar para comenzar \u2014', 'idle');
+  updateScoreDisplay(); updatePauseBtn(); closePopupFail();
 }
 
 function closePopupFail() { document.getElementById('popup-fail').classList.remove('visible'); }
@@ -564,20 +612,18 @@ DIRS.forEach(function(dir) {
 });
 
 document.addEventListener('keydown', function(e) {
-  if (phase !== 'player') {
-    if ((e.key === 'Enter' || e.key === ' ') && phase === 'idle') { e.preventDefault(); startGame(); }
-    return;
-  }
+  if (e.key === ' ') { e.preventDefault(); togglePause(); return; }
+  if (phase !== 'player' || paused) return;
   var map = { ArrowUp:'up', ArrowRight:'right', ArrowDown:'down', ArrowLeft:'left' };
   var dir = map[e.key];
   if (dir) { e.preventDefault(); handlePlayerInput(dir); }
 });
 
-document.getElementById('reset-btn').addEventListener('click', function(){
-  resetGame(); setTimeout(function(){ startGame(); }, 350);
-});
+document.getElementById('pause-btn').addEventListener('click', function(){ togglePause(); });
+
+document.getElementById('reset-btn').addEventListener('click', function(){ resetGame(); });
 document.getElementById('fail-retry').addEventListener('click', function(){
-  closePopupFail(); setTimeout(function(){ startGame(); }, 350);
+  closePopupFail(); resetGame();
 });
 document.getElementById('popup-fail').addEventListener('click', function(e){
   if (e.target === document.getElementById('popup-fail')) closePopupFail();
@@ -587,9 +633,10 @@ document.getElementById('help-btn').addEventListener('click', function(){ popupH
 document.getElementById('help-close').addEventListener('click', function(){ popupHelpEl.classList.remove('visible'); });
 popupHelpEl.addEventListener('click', function(e){ if (e.target === popupHelpEl) popupHelpEl.classList.remove('visible'); });
 
-// INIT
+// INIT — arranca pausado
 updateScoreDisplay();
-setTimeout(function(){ startGame(); }, 800);
+updatePauseBtn();
+setTurnDisplay('\u2014 Pulsa Iniciar para comenzar \u2014', 'idle');
 </script>
 </body>
 </html>
