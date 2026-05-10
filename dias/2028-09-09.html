@@ -3,16 +3,26 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>9 de Septiembre — 50 Aniversario</title>
+  <title>9 de Septiembre &#8212; 50 Aniversario</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
-    :root{--gold:#C9A84C;--gold-light:#E8C97A;--gold-dark:#8B6914;--cream:#FAF6EE;--dark:#1A1410;}
+    :root{
+      --gold:#C9A84C;--gold-light:#E8C97A;--gold-dark:#8B6914;
+      --cream:#FAF6EE;--dark:#1A1410;
+      --bridge:#6B5030;--bridge-light:#8B6D45;
+      --abyss:#0D0A06;--abyss2:#1A1208;
+      --lantern:#FFD060;--lantern-glow:rgba(255,208,96,.55);
+      --time-ok:#E8C97A;--time-warn:#FF9900;--time-dead:#FF4444;
+    }
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
     body{background-color:var(--dark);color:var(--cream);font-family:'Cormorant Garamond',serif;min-height:100vh;display:flex;flex-direction:column;}
-    body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 25% 15%,rgba(201,168,76,.10) 0%,transparent 55%),radial-gradient(ellipse at 75% 85%,rgba(124,54,38,.10) 0%,transparent 55%);pointer-events:none;z-index:0;}
+    body::before{content:'';position:fixed;inset:0;
+      background:radial-gradient(ellipse at 25% 15%,rgba(201,168,76,.10) 0%,transparent 55%),
+                 radial-gradient(ellipse at 75% 85%,rgba(124,54,38,.10) 0%,transparent 55%);
+      pointer-events:none;z-index:0;}
     .wrap{position:relative;z-index:1;max-width:800px;margin:0 auto;padding:3rem 2rem 4rem;flex:1;display:flex;flex-direction:column;}
-    .day-hero{text-align:center;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 0 2rem;position:relative;}
+    .day-hero{text-align:center;flex:1;display:flex;flex-direction:column;align-items:center;padding:3rem 0 2rem;position:relative;}
     .ornament-line-h{display:flex;align-items:center;justify-content:center;gap:1rem;margin-bottom:2rem;}
     .o-line{height:1px;width:60px;background:linear-gradient(to right,transparent,var(--gold));}
     .o-line.r{background:linear-gradient(to left,transparent,var(--gold));}
@@ -20,180 +30,725 @@
     .day-of-week{font-size:.85rem;letter-spacing:.4em;text-transform:uppercase;color:rgba(201,168,76,.5);margin-bottom:1rem;}
     h1{font-family:'Playfair Display',serif;font-size:clamp(3rem,9vw,7rem);font-weight:900;line-height:1;background:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 50%,var(--gold-dark) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.5rem;}
     .month-label{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3.5vw,2.4rem);font-weight:400;font-style:italic;color:rgba(250,246,238,.45);margin-bottom:2.5rem;}
-    .content-area{width:100%;border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:2.5rem;min-height:220px;background:rgba(255,255,255,.02);color:rgba(250,246,238,.4);font-size:1rem;font-style:italic;text-align:center;display:flex;align-items:center;justify-content:center;}
+
+    /* ══ GAME ══════════════════════════════════════════════ */
+    .game-wrap{width:100%;border:1px solid rgba(201,168,76,.25);border-radius:6px;background:rgba(5,2,0,.55);overflow:hidden;}
+    .game-header{padding:1.2rem 1.5rem;border-bottom:1px solid rgba(201,168,76,.15);text-align:center;}
+    .game-title{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:700;color:var(--gold-light);letter-spacing:.05em;}
+    .game-subtitle{font-size:.85rem;color:rgba(250,246,238,.45);margin-top:.3rem;font-style:italic;}
+
+    /* ── TIMER ─────────────────────────────────────────── */
+    .timer-row{display:flex;align-items:center;justify-content:center;gap:1.5rem;padding:.8rem 1.5rem;border-bottom:1px solid rgba(201,168,76,.08);background:rgba(0,0,0,.2);}
+    .timer-block{display:flex;flex-direction:column;align-items:center;gap:.1rem;}
+    .timer-label{font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(201,168,76,.4);}
+    .timer-val{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;line-height:1;color:var(--time-ok);transition:color .3s,text-shadow .3s;}
+    .timer-val.warn{color:var(--time-warn);text-shadow:0 0 12px rgba(255,153,0,.4);}
+    .timer-val.dead{color:var(--time-dead);text-shadow:0 0 14px rgba(255,68,68,.5);}
+    .timer-sep{font-size:.7rem;letter-spacing:.18em;color:rgba(201,168,76,.25);text-transform:uppercase;}
+    .timer-target{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;line-height:1;color:rgba(201,168,76,.22);}
+
+    /* ── SCENE ─────────────────────────────────────────── */
+    .scene{position:relative;width:100%;height:230px;display:flex;overflow:hidden;background:linear-gradient(to bottom,#0D0A06 0%,#1A1208 40%,#221510 100%);}
+
+    /* Stars background */
+    .scene::before{
+      content:'&#9733; &#9679; &#9733; &#9679; &#9679; &#9733; &#9679;';
+      position:absolute;top:4px;left:0;right:0;
+      font-size:.45rem;letter-spacing:1.8rem;
+      color:rgba(255,255,220,.12);pointer-events:none;z-index:0;
+    }
+
+    /* Abismo central */
+    .abyss{position:absolute;top:0;bottom:0;left:50%;transform:translateX(-50%);width:34%;background:linear-gradient(to bottom,#060402 0%,#000 60%);z-index:1;overflow:hidden;}
+    /* Niebla del abismo */
+    .abyss::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(180deg,rgba(30,10,0,.0) 0px,rgba(30,10,0,.0) 18px,rgba(60,20,0,.07) 18px,rgba(60,20,0,.07) 19px);pointer-events:none;}
+
+    /* Orillas */
+    .shore{position:absolute;top:0;bottom:0;width:33%;z-index:2;display:flex;flex-direction:column;justify-content:flex-end;background:linear-gradient(to bottom,#1A1208 0%,#2A1E0E 60%,#3A2810 100%);}
+    .shore-left{left:0;border-right:2px solid rgba(201,168,76,.15);}
+    .shore-right{right:0;border-left:2px solid rgba(201,168,76,.15);}
+    .shore-label{font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.25);text-align:center;padding:.35rem 0;background:rgba(0,0,0,.18);border-top:1px solid rgba(255,255,255,.06);}
+    .persons-area{flex:1;display:flex;flex-wrap:wrap;align-content:flex-end;justify-content:center;gap:3px;padding:6px 4px 28px;}
+
+    /* Puente */
+    .bridge{position:absolute;top:50%;transform:translateY(-50%);left:50%;margin-left:-17%;width:34%;z-index:3;}
+    .bridge-plank{height:12px;background:linear-gradient(to bottom,var(--bridge-light),var(--bridge));border-top:1px solid rgba(201,168,76,.2);border-bottom:1px solid rgba(0,0,0,.4);}
+    .bridge-rail-top,.bridge-rail-bot{height:3px;background:linear-gradient(to right,rgba(201,168,76,.15),rgba(201,168,76,.35),rgba(201,168,76,.15));border-radius:1px;}
+    .bridge-rail-top{margin-bottom:1px;}
+    .bridge-rail-bot{margin-top:1px;}
+    .bridge-posts{display:flex;justify-content:space-between;padding:0 6px;}
+    .bridge-post{width:3px;height:18px;background:linear-gradient(to bottom,rgba(201,168,76,.4),rgba(139,109,69,.4));border-radius:1px;}
+
+    /* Personas */
+    .person{
+      display:flex;flex-direction:column;align-items:center;
+      cursor:pointer;border-radius:5px;padding:3px 5px;
+      border:2px solid transparent;transition:all .18s;
+      background:rgba(0,0,0,.3);user-select:none;
+      -webkit-tap-highlight-color:transparent;
+    }
+    .person:hover{background:rgba(201,168,76,.12);border-color:rgba(201,168,76,.35);}
+    .person.selected{background:rgba(201,168,76,.22);border-color:var(--gold);box-shadow:0 0 10px rgba(201,168,76,.35);}
+    .person.disabled{opacity:.3;cursor:default;pointer-events:none;}
+    .person-icon{font-size:1.4rem;line-height:1;}
+    .person-time{font-size:.55rem;letter-spacing:.08em;color:rgba(255,255,255,.5);margin-top:1px;}
+
+    /* Linterna sobre el puente */
+    .lantern-wrap{position:absolute;top:50%;transform:translateY(-130%);width:100%;display:flex;justify-content:center;pointer-events:none;transition:opacity .3s;}
+    .lantern{font-size:1.5rem;filter:drop-shadow(0 0 8px var(--lantern)) drop-shadow(0 0 14px var(--lantern-glow));animation:lantern-flicker 2.8s ease-in-out infinite;}
+    @keyframes lantern-flicker{0%,100%{filter:drop-shadow(0 0 8px var(--lantern)) drop-shadow(0 0 14px var(--lantern-glow));}50%{filter:drop-shadow(0 0 14px var(--lantern)) drop-shadow(0 0 22px rgba(255,208,96,.7));}}
+
+    /* Personas cruzando el puente (animación) */
+    .crossing-area{
+      position:absolute;top:50%;transform:translateY(-50%);
+      left:50%;margin-left:-17%;width:34%;
+      z-index:4;display:flex;justify-content:center;align-items:center;gap:4px;
+      pointer-events:none;
+    }
+    .crossing-person{font-size:1.2rem;opacity:0;transition:opacity .25s;}
+    .crossing-person.show{opacity:1;}
+
+    /* Flash de tiempo sumado */
+    .time-flash{
+      position:absolute;top:8px;left:50%;transform:translateX(-50%);
+      font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;
+      color:var(--gold-light);text-shadow:0 0 10px rgba(201,168,76,.6);
+      opacity:0;pointer-events:none;z-index:10;white-space:nowrap;
+      transition:opacity .15s,transform .15s;
+    }
+    .time-flash.show{opacity:1;transform:translateX(-50%) translateY(-6px);}
+
+    /* ── HISTORIAL ──────────────────────────────────────── */
+    .history-area{max-height:80px;overflow-y:auto;border-top:1px solid rgba(201,168,76,.06);padding:.4rem 1rem;display:flex;flex-direction:column;gap:.2rem;background:rgba(0,0,0,.12);}
+    .history-item{font-size:.7rem;color:rgba(250,246,238,.3);letter-spacing:.08em;}
+    .history-item:last-child{color:rgba(201,168,76,.55);}
+
+    /* ── CONTROLES ──────────────────────────────────────── */
+    .controls{padding:.9rem 1.5rem;display:flex;flex-direction:column;align-items:center;gap:.75rem;border-top:1px solid rgba(201,168,76,.1);}
+    .selection-info{font-size:.88rem;font-style:italic;font-weight:500;color:var(--gold-light);text-align:center;min-height:1.3em;letter-spacing:.02em;}
+    .selection-info.neutral{color:rgba(250,246,238,.38);font-weight:300;font-size:.8rem;}
+    .cross-btn{
+      background:linear-gradient(135deg,rgba(201,168,76,.18),rgba(201,168,76,.08));
+      border:1px solid rgba(201,168,76,.45);border-radius:3px;
+      color:var(--gold-light);font-family:'Cormorant Garamond',serif;
+      font-size:1rem;letter-spacing:.2em;text-transform:uppercase;
+      padding:.65rem 2.2rem;cursor:pointer;transition:all .2s;
+    }
+    .cross-btn:hover:not(:disabled){background:linear-gradient(135deg,rgba(201,168,76,.32),rgba(201,168,76,.18));border-color:var(--gold);box-shadow:0 0 14px rgba(201,168,76,.2);}
+    .cross-btn:disabled{opacity:.3;cursor:default;}
+    .controls-row{display:flex;gap:.8rem;align-items:center;justify-content:center;}
+    .game-btn{
+      font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;
+      color:rgba(201,168,76,.55);cursor:pointer;
+      border:1px solid rgba(201,168,76,.3);background:none;
+      padding:.3rem .9rem;border-radius:2px;
+      transition:all .2s;font-family:'Cormorant Garamond',serif;
+    }
+    .game-btn:hover{color:var(--gold);border-color:var(--gold);background:rgba(201,168,76,.06);}
+
+    /* ── NAV ─────────────────────────────────────────────── */
     .day-nav{display:flex;justify-content:space-between;align-items:center;padding-top:2.5rem;border-top:1px solid rgba(201,168,76,.1);margin-top:2.5rem;}
     .nav-btn{font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(201,168,76,.5);text-decoration:none;padding:.6rem 1.2rem;border:1px solid rgba(201,168,76,.18);border-radius:2px;transition:all .2s;}
     .nav-btn:hover{color:var(--gold-light);border-color:rgba(201,168,76,.5);background:rgba(201,168,76,.05);}
-    .nav-btn.disabled{opacity:0;pointer-events:none;}
     .year-badge{font-size:.7rem;letter-spacing:.3em;color:rgba(201,168,76,.25);text-transform:uppercase;}
     .back-link{display:block;text-align:center;margin-top:2rem;color:rgba(201,168,76,.35);font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;text-decoration:none;transition:color .2s;}
     .back-link:hover{color:var(--gold);}
-    /* Botones fav y done */
+
+    /* ── FAV / DONE ─────────────────────────────────────── */
     .action-btns{position:absolute;top:0;right:0;display:flex;flex-direction:column;align-items:center;gap:.2rem;}
     .icon-btn{background:none;border:none;cursor:pointer;font-size:2rem;line-height:1;transition:color .2s,transform .2s;padding:.2rem;}
     .icon-btn:hover{transform:scale(1.2);}
     .fav-btn{color:rgba(250,246,238,.2);}
     .fav-btn.active{color:#e05a6a;}
-    .fav-btn.active:hover{color:#ff7a88;}
-    .done-btn{color:var(--gold);opacity:0.6;}
+    .done-btn{color:var(--gold);opacity:.6;}
     .done-btn.active{color:var(--gold);opacity:1;}
-    .done-btn.active:hover{color:var(--gold-light);opacity:1;}
-    /* Popup */
-    .popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:100;align-items:center;justify-content:center;}
+
+    /* ── POPUPS ─────────────────────────────────────────── */
+    .popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.80);z-index:100;align-items:center;justify-content:center;}
     .popup-overlay.visible{display:flex;}
-    .popup-box{background:var(--dark);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:3rem 2.5rem;max-width:420px;width:90%;text-align:center;box-shadow:0 0 60px rgba(0,0,0,.8);}
-    .popup-icon{font-size:3rem;margin-bottom:1rem;}
-    .popup-title{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--gold-light);margin-bottom:1rem;}
-    .popup-msg{font-size:1rem;font-style:italic;color:rgba(250,246,238,.6);line-height:1.7;margin-bottom:2rem;}
-    .popup-btn{display:inline-block;padding:.7rem 2rem;border:1px solid rgba(201,168,76,.4);border-radius:2px;color:var(--gold);font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;background:none;transition:all .2s;}
+    .popup-box{background:var(--dark);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:1.8rem 1.8rem 1.5rem;max-width:430px;width:90%;text-align:center;box-shadow:0 0 60px rgba(0,0,0,.9);max-height:90vh;overflow-y:auto;}
+    .popup-icon{font-size:3rem;margin-bottom:.8rem;}
+    .popup-title{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:var(--gold-light);margin-bottom:.8rem;}
+    .popup-msg{font-size:.95rem;font-style:italic;color:rgba(250,246,238,.6);line-height:1.7;margin-bottom:1.8rem;}
+    .popup-btns{display:flex;gap:.7rem;justify-content:center;flex-wrap:wrap;}
+    .popup-btn{display:inline-block;padding:.65rem 1.8rem;border:1px solid rgba(201,168,76,.4);border-radius:2px;color:var(--gold);font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;background:none;transition:all .2s;font-family:'Cormorant Garamond',serif;}
     .popup-btn:hover{background:rgba(201,168,76,.1);border-color:var(--gold);}
+    .popup-btn.secondary{border-color:rgba(250,246,238,.15);color:rgba(250,246,238,.4);}
+    .popup-btn.secondary:hover{border-color:rgba(250,246,238,.35);color:rgba(250,246,238,.7);background:rgba(255,255,255,.03);}
+
     @media(max-width:600px){
       .wrap{padding:1rem 1rem 2rem;}
       .day-hero{padding:1rem 0 1rem;}
       h1{font-size:clamp(2rem,14vw,4rem);}
       .month-label{font-size:clamp(1rem,4vw,1.6rem);margin-bottom:1rem;}
-      .content-area{padding:1.2rem;min-height:120px;}
       .day-nav{margin-top:1rem;padding-top:1rem;}
       .ornament-line-h{margin-bottom:1rem;}
+      .scene{height:200px;}
+      .person-icon{font-size:1.2rem;}
+      .timer-val,.timer-target{font-size:1.5rem;}
     }
-</style>
+  </style>
 </head>
 <body>
 <div class="wrap">
   <div class="day-hero">
     <div class="action-btns">
-      <button class="icon-btn fav-btn"  id="fav-btn"  title="Añadir a favoritos">♡</button>
-      <button class="icon-btn done-btn" id="done-btn" title="Marcar como completado">☆</button>
+      <button class="icon-btn fav-btn"  id="fav-btn"  title="A&#241;adir a favoritos">&#9825;</button>
+      <button class="icon-btn done-btn" id="done-btn" title="Marcar como completado">&#9734;</button>
     </div>
     <div class="ornament-line-h">
       <div class="o-line"></div><div class="o-dot"></div><div class="o-line r"></div>
     </div>
-    <p class="day-of-week">Sábado</p>
+    <p class="day-of-week">Domingo</p>
     <h1>9</h1>
     <p class="month-label">de Septiembre</p>
-    <div class="content-area">
-      <p>Espacio reservado para el contenido de este día</p>
+
+    <!-- ══════════════════ MINIJUEGO ══════════════════ -->
+    <div class="game-wrap">
+      <div class="game-header">
+        <div class="game-title">El Cruce del Puente</div>
+        <div class="game-subtitle">Consigue que los 4 crucen en exactamente 17 minutos</div>
+      </div>
+
+      <!-- TIMER -->
+      <div class="timer-row">
+        <div class="timer-block">
+          <span class="timer-label">Tiempo usado</span>
+          <span class="timer-val" id="timer-val">0</span>
+        </div>
+        <div class="timer-sep">de</div>
+        <div class="timer-block">
+          <span class="timer-label">Objetivo</span>
+          <span class="timer-target">17</span>
+        </div>
+        <div class="timer-sep">min</div>
+      </div>
+
+      <!-- ESCENA -->
+      <div class="scene" id="scene">
+        <!-- Orilla izquierda -->
+        <div class="shore shore-left" id="shore-left-el">
+          <div class="persons-area" id="persons-left"></div>
+          <div class="shore-label">Orilla A</div>
+        </div>
+
+        <!-- Abismo -->
+        <div class="abyss"></div>
+
+        <!-- Puente -->
+        <div class="bridge" id="bridge-el">
+          <div class="bridge-rail-top"></div>
+          <div class="bridge-posts" id="bridge-posts-top"></div>
+          <div class="bridge-plank"></div>
+          <div class="bridge-posts" id="bridge-posts-bot"></div>
+          <div class="bridge-rail-bot"></div>
+          <!-- Linterna -->
+          <div class="lantern-wrap" id="lantern-wrap">
+            <span class="lantern" id="lantern">&#128294;</span>
+          </div>
+        </div>
+
+        <!-- Personas cruzando (animación) -->
+        <div class="crossing-area" id="crossing-area"></div>
+
+        <!-- Flash de tiempo -->
+        <div class="time-flash" id="time-flash"></div>
+
+        <!-- Orilla derecha -->
+        <div class="shore shore-right" id="shore-right-el">
+          <div class="persons-area" id="persons-right"></div>
+          <div class="shore-label">Orilla B</div>
+        </div>
+      </div>
+
+      <!-- HISTORIAL -->
+      <div class="history-area" id="history-area"></div>
+
+      <!-- CONTROLES -->
+      <div class="controls">
+        <div class="selection-info neutral" id="sel-info">Selecciona 1 o 2 personas de la orilla con la linterna</div>
+        <button class="cross-btn" id="cross-btn" disabled>Cruzar el Puente &#8594;</button>
+        <div class="controls-row">
+          <button class="game-btn" id="reset-btn">&#8635; Reiniciar</button>
+          <button class="game-btn" id="help-btn">? Ayuda</button>
+        </div>
+      </div>
     </div>
+    <!-- ══════════════════ FIN MINIJUEGO ══════════════════ -->
+
   </div>
+
   <nav class="day-nav">
     <a class="nav-btn" href="2028-09-08.html">&#8592; 8 de Septiembre</a>
-    <span class="year-badge">50 Aniversario · 2028</span>
+    <span class="year-badge">50 Aniversario &middot; 2028</span>
     <a class="nav-btn" id="next-btn" href="2028-09-10.html">10 de Septiembre &#8594;</a>
   </nav>
   <a class="back-link" href="../index.html">&#8592; Volver al Calendario</a>
 </div>
 
+<!-- Popup: dia futuro -->
 <div class="popup-overlay" id="popup">
   <div class="popup-box">
-    <div class="popup-icon">🎁</div>
-    <p class="popup-title">¡Un poco de paciencia!</p>
-    <p class="popup-msg">No seas impaciente...<br>Este día aún no ha llegado.<br>Ya llegará, y será especial. 🤍</p>
+    <div class="popup-icon">&#127873;</div>
+    <p class="popup-title">&#161;Un poco de paciencia!</p>
+    <p class="popup-msg">No seas impaciente&#8230;<br>Este d&#237;a a&#250;n no ha llegado.<br>Ya llegar&#225;, y ser&#225; especial. &#129372;</p>
     <button class="popup-btn" onclick="window.location.href='../index.html'">Volver al calendario</button>
   </div>
 </div>
 
-<!-- Popup estrella bloqueada -->
+<!-- Popup: estrella bloqueada -->
 <div class="popup-overlay" id="popup-star-blocked">
   <div class="popup-box">
-    <div class="popup-icon">🏆</div>
-    <p class="popup-title">¡Tu recompensa te espera!</p>
-    <p class="popup-msg">Para acceder a tu recompensa primero debes resolver el desafío de hoy...<br><br>¡Tú puedes! 💪</p>
+    <div class="popup-icon">&#127942;</div>
+    <p class="popup-title">&#161;Tu recompensa te espera!</p>
+    <p class="popup-msg">Para acceder a tu recompensa primero debes resolver el desaf&#237;o de hoy&#8230;<br><br>&#161;T&#250; puedes! &#128170;</p>
     <button class="popup-btn" id="star-blocked-close">Volver</button>
   </div>
 </div>
 
-<!-- Popup recompensa del día -->
+<!-- Popup: recompensa -->
 <div class="popup-overlay" id="popup-star-reward">
   <div class="popup-box">
-    <div class="popup-icon">🎁</div>
-    <p class="popup-title">¡Tu recompensa!</p>
-    <p class="popup-msg" id="reward-text">✨ Aquí irá la recompensa especial de este día ✨</p>
-    <button class="popup-btn" id="star-reward-close">¡Genial!</button>
+    <div class="popup-icon">&#127873;</div>
+    <p class="popup-title">&#161;Tu recompensa!</p>
+    <p class="popup-msg" id="reward-text">&#10024; Aqu&#237; ir&#225; la recompensa especial de este d&#237;a &#10024;</p>
+    <button class="popup-btn" id="star-reward-close">&#161;Genial!</button>
+  </div>
+</div>
+
+<!-- Popup: victoria -->
+<div class="popup-overlay" id="popup-win">
+  <div class="popup-box">
+    <div class="popup-icon">&#127881;</div>
+    <p class="popup-title">&#161;Lo has conseguido!</p>
+    <p class="popup-msg" id="win-msg">Todos han cruzado en exactamente 17 minutos.</p>
+    <div class="popup-btns">
+      <button class="popup-btn" id="win-reward-btn">Ver recompensa &#9733;</button>
+    </div>
+  </div>
+</div>
+
+<!-- Popup: fracaso -->
+<div class="popup-overlay" id="popup-fail">
+  <div class="popup-box">
+    <div class="popup-icon">&#128553;</div>
+    <p class="popup-title" id="fail-title">&#161;Tiempo incorrecto!</p>
+    <p class="popup-msg" id="fail-msg">Has superado los 17 minutos.</p>
+    <div class="popup-btns">
+      <button class="popup-btn" id="fail-retry">&#8635; Reintentar</button>
+      <button class="popup-btn secondary" onclick="window.location.href='../index.html'">Volver al calendario</button>
+    </div>
+  </div>
+</div>
+
+<!-- Popup: ayuda -->
+<div class="popup-overlay" id="popup-help">
+  <div class="popup-box">
+    <div class="popup-icon">&#128294;</div>
+    <p class="popup-title">C&#243;mo jugar</p>
+    <p class="popup-msg" style="text-align:left;font-style:normal;font-size:.88rem;line-height:1.8;margin-bottom:1.2rem;">
+      <strong style="color:var(--gold-light);">Objetivo</strong><br>
+      Consigue que las 4 personas crucen de la Orilla&#160;A a la Orilla&#160;B en <strong>exactamente 17 minutos</strong>. Si cruzas todos pero tardas m&#225;s (o menos), se considera fracaso.<br><br>
+      <strong style="color:var(--gold-light);">Personas y tiempos</strong><br>
+      &#128119;&#8205;&#9794; 1 min &nbsp;&#183;&nbsp; &#128119;&#8205;&#9792; 2 min &nbsp;&#183;&nbsp; &#128116; 5 min &nbsp;&#183;&nbsp; &#128113; 10 min<br><br>
+      <strong style="color:var(--gold-light);">Reglas</strong><br>
+      &#183; Solo pueden cruzar 1 o 2 personas a la vez.<br>
+      &#183; Siempre debe acompa&#241;arles la linterna &#128294;.<br>
+      &#183; Si cruzan dos, el tiempo consumido es el de la m&#225;s lenta.<br>
+      &#183; Alguien debe volver con la linterna mientras queden personas en la Orilla&#160;A.<br>
+      &#183; No se puede cruzar si el tiempo ya ha llegado a 17.<br><br>
+      <strong style="color:var(--gold-light);">C&#243;mo moverse</strong><br>
+      1. Haz clic en 1 o 2 personas de la orilla donde est&#225; la linterna para seleccionarlas.<br>
+      2. Pulsa <em>&#171;Cruzar el Puente&#187;</em>.<br>
+      3. Las personas seleccionadas (y la linterna) pasan al otro lado.<br>
+      4. Repite hasta que todos est&#233;n en la Orilla&#160;B.<br><br>
+      <strong style="color:var(--gold-light);">Pista</strong><br>
+      La soluci&#243;n &#243;ptima existe. Piensa qui&#233;n debe volver con la linterna cada vez.
+    </p>
+    <button class="popup-btn" id="help-close">&#161;Entendido!</button>
   </div>
 </div>
 
 <script>
-const PREVIEW_KEY  = 'cal_preview';
-const isPreview    = localStorage.getItem(PREVIEW_KEY) === '1';
-const today        = new Date(); today.setHours(0,0,0,0);
-const thisDate     = new Date('2028-09-09'); thisDate.setHours(0,0,0,0);
-const nextDateStr  = '2028-09-10';
-const popup        = document.getElementById('popup');
+// ════════════════════════════════════════════════════════
+//  PREVIEW & DATE GUARD
+// ════════════════════════════════════════════════════════
+var PREVIEW_KEY = 'cal_preview';
+var isPreview   = localStorage.getItem(PREVIEW_KEY) === '1';
+var today       = new Date(); today.setHours(0,0,0,0);
+var thisDate    = new Date('2028-09-09'); thisDate.setHours(0,0,0,0);
+var nextDateStr = '2028-09-10';
+var popup       = document.getElementById('popup');
 
 if (!isPreview && thisDate > today) {
   document.querySelector('.day-hero').style.filter = 'blur(4px)';
   document.querySelector('.day-nav').style.visibility = 'hidden';
   popup.classList.add('visible');
 }
-
 if (!isPreview && nextDateStr) {
-  const nextDate = new Date(nextDateStr); nextDate.setHours(0,0,0,0);
-  if (nextDate > today) {
-    const nextBtn = document.getElementById('next-btn');
-    if (nextBtn) nextBtn.addEventListener('click', e => { e.preventDefault(); popup.classList.add('visible'); });
+  var nd = new Date(nextDateStr); nd.setHours(0,0,0,0);
+  if (nd > today) {
+    var nb = document.getElementById('next-btn');
+    if (nb) nb.addEventListener('click', function(e){ e.preventDefault(); popup.classList.add('visible'); });
   }
 }
+popup.addEventListener('click', function(e){ if (e.target === popup) window.location.href = '../index.html'; });
 
-popup.addEventListener('click', e => { if (e.target === popup) window.location.href = '../index.html'; });
-
-// ── Favourite ──────────────────────────────────────────────
-const FAV_KEY = 'fav_2028-09-09';
-const favBtn  = document.getElementById('fav-btn');
-function updateFav() {
-  const on = localStorage.getItem(FAV_KEY) === '1';
-  favBtn.textContent = on ? '❤' : '♡';
+// ════════════════════════════════════════════════════════
+//  FAV
+// ════════════════════════════════════════════════════════
+var FAV_KEY = 'fav_2028-09-09';
+var favBtn  = document.getElementById('fav-btn');
+function updateFav(){
+  var on = localStorage.getItem(FAV_KEY) === '1';
+  favBtn.textContent = on ? '\u2764' : '\u2661';
   favBtn.classList.toggle('active', on);
-  favBtn.title = on ? 'Quitar de favoritos' : 'Añadir a favoritos';
+  favBtn.title = on ? 'Quitar de favoritos' : 'A\u00f1adir a favoritos';
 }
-favBtn.addEventListener('click', () => {
-  const on = localStorage.getItem(FAV_KEY) === '1';
-  on ? localStorage.removeItem(FAV_KEY) : localStorage.setItem(FAV_KEY, '1');
+favBtn.addEventListener('click', function(){
+  var on = localStorage.getItem(FAV_KEY) === '1';
+  on ? localStorage.removeItem(FAV_KEY) : localStorage.setItem(FAV_KEY,'1');
   updateFav();
 });
 updateFav();
 
-// ── Done (actividad completada) ────────────────────────────
-const DONE_KEY = 'done_2028-09-09';
-const doneBtn  = document.getElementById('done-btn');
-const popupStarBlocked = document.getElementById('popup-star-blocked');
-const popupStarReward  = document.getElementById('popup-star-reward');
+// ════════════════════════════════════════════════════════
+//  DONE / REWARD
+// ════════════════════════════════════════════════════════
+var DONE_KEY        = 'done_2028-09-09';
+var doneBtn         = document.getElementById('done-btn');
+var pStarBlocked    = document.getElementById('popup-star-blocked');
+var pStarReward     = document.getElementById('popup-star-reward');
+var pWin            = document.getElementById('popup-win');
 
-document.getElementById('star-blocked-close').addEventListener('click', () => {
-  popupStarBlocked.classList.remove('visible');
-});
-popupStarBlocked.addEventListener('click', e => {
-  if (e.target === popupStarBlocked) popupStarBlocked.classList.remove('visible');
-});
+document.getElementById('star-blocked-close').addEventListener('click', function(){ pStarBlocked.classList.remove('visible'); });
+pStarBlocked.addEventListener('click', function(e){ if(e.target===pStarBlocked) pStarBlocked.classList.remove('visible'); });
+document.getElementById('star-reward-close').addEventListener('click', function(){ pStarReward.classList.remove('visible'); });
+pStarReward.addEventListener('click', function(e){ if(e.target===pStarReward) pStarReward.classList.remove('visible'); });
 
-document.getElementById('star-reward-close').addEventListener('click', () => {
-  popupStarReward.classList.remove('visible');
-});
-popupStarReward.addEventListener('click', e => {
-  if (e.target === popupStarReward) popupStarReward.classList.remove('visible');
-});
-
-function updateDone() {
-  const on = localStorage.getItem(DONE_KEY) === '1';
-  doneBtn.textContent = on ? '★' : '☆';
+function markDone(){ localStorage.setItem(DONE_KEY,'1'); updateDone(); }
+function showReward(){ pStarReward.classList.add('visible'); }
+function updateDone(){
+  var on = localStorage.getItem(DONE_KEY) === '1';
+  doneBtn.textContent = on ? '\u2605' : '\u2606';
   doneBtn.classList.toggle('active', on);
   doneBtn.title = on ? 'Ver recompensa' : 'Marcar como completado';
 }
-doneBtn.addEventListener('click', () => {
-  const on = localStorage.getItem(DONE_KEY) === '1';
-  if (on) {
-    // Already done → show reward
-    popupStarReward.classList.add('visible');
-  } else {
-    // Not done → only allowed in preview mode
-    if (isPreview) {
-      localStorage.setItem(DONE_KEY, '1');
-      updateDone();
-    } else {
-      popupStarBlocked.classList.add('visible');
-    }
-  }
+doneBtn.addEventListener('click', function(){
+  var on = localStorage.getItem(DONE_KEY) === '1';
+  if (on) showReward();
+  else if (isPreview) markDone();
+  else pStarBlocked.classList.add('visible');
 });
 updateDone();
+document.getElementById('win-reward-btn').addEventListener('click', function(){
+  pWin.classList.remove('visible'); showReward();
+});
+
+// ════════════════════════════════════════════════════════
+//  GAME CONFIG
+// ════════════════════════════════════════════════════════
+var PERSONS = [
+  { id:'p1',  emoji:'\uD83D\uDC68\u200D\u2642\uFE0F', label:'1 min',  time:1  },
+  { id:'p2',  emoji:'\uD83D\uDC68\u200D\u2640\uFE0F', label:'2 min',  time:2  },
+  { id:'p5',  emoji:'\uD83D\uDC74',                   label:'5 min',  time:5  },
+  { id:'p10', emoji:'\uD83D\uDC71',                   label:'10 min', time:10 },
+];
+var TARGET_TIME = 17;
+var CROSS_ANIM_MS = 900;
+
+// ════════════════════════════════════════════════════════
+//  STATE
+// ════════════════════════════════════════════════════════
+var state = {};
+
+function initState(){
+  state = {
+    positions:  { p1:'left', p2:'left', p5:'left', p10:'left' },
+    lanternSide:'left',
+    selected:   [],
+    totalTime:  0,
+    history:    [],
+    locked:     false,
+    gameOver:   false,
+  };
+}
+
+// ════════════════════════════════════════════════════════
+//  LOGIC
+// ════════════════════════════════════════════════════════
+function calculateCrossingTime(ids){
+  var max = 0;
+  ids.forEach(function(id){
+    var p = PERSONS.find(function(p){ return p.id === id; });
+    if (p.time > max) max = p.time;
+  });
+  return max;
+}
+
+function selectPerson(id){
+  if (state.locked || state.gameOver) return;
+  var p = PERSONS.find(function(p){ return p.id === id; });
+  if (!p) return;
+  // Solo seleccionables los de la orilla con linterna
+  if (state.positions[id] !== state.lanternSide) return;
+
+  var idx = state.selected.indexOf(id);
+  if (idx >= 0) {
+    state.selected.splice(idx, 1);
+  } else {
+    if (state.selected.length >= 2) return; // max 2
+    state.selected.push(id);
+  }
+  render();
+}
+
+function crossBridge(){
+  if (state.locked || state.gameOver) return;
+  if (state.selected.length === 0) return;
+
+  var dest   = state.lanternSide === 'left' ? 'right' : 'left';
+  var cost   = calculateCrossingTime(state.selected);
+  var newTime = state.totalTime + cost;
+
+  // Bloquear
+  state.locked = true;
+
+  // Mostrar animación de cruce
+  showCrossingAnimation(state.selected.slice(), function(){
+
+    // Mover personas
+    state.selected.forEach(function(id){
+      state.positions[id] = dest;
+    });
+    state.lanternSide = dest;
+    state.totalTime   = newTime;
+
+    // Registrar en historial
+    var dir   = dest === 'right' ? '\u2192' : '\u2190';
+    var names = state.selected.map(function(id){
+      return PERSONS.find(function(p){ return p.id === id; }).label;
+    }).join(' + ');
+    state.history.push(dir + ' ' + names + '  (+'+ cost +' min, total: '+ newTime +' min)');
+
+    state.selected = [];
+    state.locked   = false;
+
+    // Mostrar flash de tiempo
+    showTimeFlash('+' + cost + ' min');
+
+    // Checks
+    var allRight = PERSONS.every(function(p){ return state.positions[p.id] === 'right'; });
+
+    if (allRight) {
+      checkVictory();
+    } else if (newTime >= TARGET_TIME) {
+      // Tiempo agotado sin terminar
+      state.gameOver = true;
+      render();
+      setTimeout(function(){
+        showFail('tiempo', newTime);
+      }, 400);
+    } else {
+      render();
+    }
+  });
+}
+
+function checkVictory(){
+  state.gameOver = true;
+  render();
+  if (state.totalTime === TARGET_TIME) {
+    markDone();
+    document.getElementById('win-msg').innerHTML =
+      'Todos han cruzado en <strong>exactamente 17 minutos</strong>.<br><br>&#161;Ingenio puro! &#129504;&#10024;';
+    setTimeout(function(){ pWin.classList.add('visible'); }, 500);
+  } else {
+    // Cruzaron todos pero tiempo != 17
+    showFail('tiempo-incorrecto', state.totalTime);
+  }
+}
+
+function showFail(reason, time){
+  var title, msg;
+  if (reason === 'tiempo') {
+    title = '&#161;Tiempo superado!';
+    msg   = 'Has usado <strong>' + time + ' minutos</strong> y a&#250;n no han cruzado todos.<br>El objetivo es exactamente 17 minutos.<br><br>&#161;Vuelve a intentarlo!';
+  } else {
+    title = '&#161;Tiempo incorrecto!';
+    msg   = 'Todos han cruzado, pero en <strong>' + time + ' minutos</strong>.<br>El objetivo es exactamente <strong>17 minutos</strong>.<br><br>Hay una soluci&#243;n exacta. &#161;Piensa bien los regresos!';
+  }
+  document.getElementById('fail-title').innerHTML = title;
+  document.getElementById('fail-msg').innerHTML   = msg;
+  document.getElementById('popup-fail').classList.add('visible');
+}
+
+// ════════════════════════════════════════════════════════
+//  ANIMATIONS
+// ════════════════════════════════════════════════════════
+function showCrossingAnimation(ids, cb){
+  var area = document.getElementById('crossing-area');
+  area.innerHTML = '';
+  ids.forEach(function(id){
+    var p  = PERSONS.find(function(p){ return p.id === id; });
+    var sp = document.createElement('span');
+    sp.className = 'crossing-person';
+    sp.textContent = p.emoji;
+    area.appendChild(sp);
+  });
+  // fade in
+  requestAnimationFrame(function(){
+    Array.from(area.children).forEach(function(c){ c.classList.add('show'); });
+  });
+  setTimeout(function(){
+    Array.from(area.children).forEach(function(c){ c.classList.remove('show'); });
+    setTimeout(function(){
+      area.innerHTML = '';
+      if (cb) cb();
+    }, 250);
+  }, CROSS_ANIM_MS);
+}
+
+function showTimeFlash(text){
+  var el = document.getElementById('time-flash');
+  el.textContent = text;
+  el.classList.add('show');
+  setTimeout(function(){
+    el.classList.remove('show');
+  }, 900);
+}
+
+// ════════════════════════════════════════════════════════
+//  RENDER
+// ════════════════════════════════════════════════════════
+function render(){
+  // Timer
+  var tv  = document.getElementById('timer-val');
+  tv.textContent = state.totalTime;
+  tv.className = 'timer-val';
+  if (state.totalTime >= TARGET_TIME)       tv.classList.add('dead');
+  else if (state.totalTime >= TARGET_TIME - 4) tv.classList.add('warn');
+
+  // Linterna: mueve el wrap al lado correcto mediante transform
+  var lw = document.getElementById('lantern-wrap');
+  if (state.lanternSide === 'left') {
+    lw.style.justifyContent = 'flex-start';
+    lw.style.paddingLeft    = '4px';
+    lw.style.paddingRight   = '0';
+  } else {
+    lw.style.justifyContent = 'flex-end';
+    lw.style.paddingLeft    = '0';
+    lw.style.paddingRight   = '4px';
+  }
+
+  // Orillas
+  renderShore('left');
+  renderShore('right');
+
+  // Info selección
+  var selInfo   = document.getElementById('sel-info');
+  var crossBtn  = document.getElementById('cross-btn');
+
+  if (state.selected.length === 0) {
+    selInfo.textContent = 'Selecciona 1 o 2 personas de la orilla con la linterna';
+    selInfo.className   = 'selection-info neutral';
+    crossBtn.disabled   = true;
+  } else {
+    var cost = calculateCrossingTime(state.selected);
+    var names = state.selected.map(function(id){
+      return PERSONS.find(function(p){ return p.id === id; }).label;
+    }).join(' + ');
+    selInfo.textContent = 'Cruzar\u00e1n: ' + names + ' \u2014 coste: ' + cost + ' min';
+    selInfo.className   = 'selection-info';
+    crossBtn.disabled   = state.locked || state.gameOver;
+  }
+
+  // Dir botón
+  crossBtn.textContent = state.lanternSide === 'left'
+    ? 'Cruzar el Puente \u2192'
+    : '\u2190 Cruzar el Puente';
+
+  // Historial
+  renderHistory();
+}
+
+function renderShore(side){
+  var el = document.getElementById('persons-' + side);
+  el.innerHTML = '';
+  PERSONS.forEach(function(p){
+    if (state.positions[p.id] !== side) return;
+    var div = document.createElement('div');
+    div.className = 'person';
+    if (state.selected.indexOf(p.id) >= 0) div.classList.add('selected');
+    // Deshabilitado si no es la orilla con linterna, o si el juego terminó o está bloqueado
+    if (side !== state.lanternSide || state.locked || state.gameOver) div.classList.add('disabled');
+    // Deshabilitado si ya hay 2 seleccionados y este no está seleccionado
+    if (state.selected.length >= 2 && state.selected.indexOf(p.id) < 0) div.classList.add('disabled');
+    div.innerHTML = '<span class="person-icon">' + p.emoji + '</span><span class="person-time">' + p.label + '</span>';
+    div.addEventListener('click', function(){ selectPerson(p.id); });
+    div.addEventListener('touchstart', function(e){ e.preventDefault(); selectPerson(p.id); }, { passive:false });
+    el.appendChild(div);
+  });
+}
+
+function renderHistory(){
+  var el = document.getElementById('history-area');
+  el.innerHTML = '';
+  state.history.forEach(function(line){
+    var d = document.createElement('div');
+    d.className = 'history-item';
+    d.textContent = line;
+    el.appendChild(d);
+  });
+  el.scrollTop = el.scrollHeight;
+}
+
+// ════════════════════════════════════════════════════════
+//  RESET
+// ════════════════════════════════════════════════════════
+function resetGame(){
+  initState();
+  document.getElementById('popup-fail').classList.remove('visible');
+  pWin.classList.remove('visible');
+  document.getElementById('crossing-area').innerHTML = '';
+  document.getElementById('time-flash').classList.remove('show');
+  render();
+}
+
+// ════════════════════════════════════════════════════════
+//  EVENTS
+// ════════════════════════════════════════════════════════
+document.getElementById('cross-btn').addEventListener('click', crossBridge);
+document.getElementById('reset-btn').addEventListener('click', resetGame);
+
+var pFailEl = document.getElementById('popup-fail');
+document.getElementById('fail-retry').addEventListener('click', function(){
+  pFailEl.classList.remove('visible'); resetGame();
+});
+pFailEl.addEventListener('click', function(e){ if(e.target===pFailEl) pFailEl.classList.remove('visible'); });
+pWin.addEventListener('click', function(e){ if(e.target===pWin) pWin.classList.remove('visible'); });
+
+var pHelpEl = document.getElementById('popup-help');
+document.getElementById('help-btn').addEventListener('click',  function(){ pHelpEl.classList.add('visible'); });
+document.getElementById('help-close').addEventListener('click', function(){ pHelpEl.classList.remove('visible'); });
+pHelpEl.addEventListener('click', function(e){ if(e.target===pHelpEl) pHelpEl.classList.remove('visible'); });
+
+// Añadir posts al puente (decoración)
+(function(){
+  var postsTop = document.getElementById('bridge-posts-top');
+  var postsBot = document.getElementById('bridge-posts-bot');
+  for (var i = 0; i < 5; i++){
+    var pt = document.createElement('div'); pt.className = 'bridge-post';
+    var pb = document.createElement('div'); pb.className = 'bridge-post';
+    postsTop.appendChild(pt); postsBot.appendChild(pb);
+  }
+})();
+
+// ════════════════════════════════════════════════════════
+//  INIT
+// ════════════════════════════════════════════════════════
+initState();
+render();
 </script>
 </body>
 </html>
