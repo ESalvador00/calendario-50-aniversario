@@ -229,12 +229,11 @@
 <!-- Popup: fin de partida -->
 <div class="popup-overlay" id="popup-fail">
   <div class="popup-box">
-    <div class="popup-icon">&#9889;</div>
+    <div class="popup-icon" id="fail-icon">&#9889;</div>
     <p class="popup-title" id="fail-title">&#161;Secuencia incorrecta!</p>
     <p class="popup-msg" id="fail-msg"></p>
     <div class="popup-btns">
-      <button class="popup-btn primary" id="fail-retry">&#8635; Jugar otra vez</button>
-      <button class="popup-btn" onclick="window.location.href='../index.html'">Volver al calendario</button>
+      <button class="popup-btn primary" id="fail-reward-btn">Ver recompensa &#9733;</button>
     </div>
   </div>
 </div>
@@ -577,18 +576,21 @@ function endGame(reason) {
   updateScoreDisplay();
   setTurnDisplay('\u2014 Fin de partida \u2014', 'idle');
 
-  // Nuevo récord -> marcar completado + recompensa
   if (isRecord && score > 0) {
     playNewRecord();
     markDone();
-    setTimeout(function(){ showReward(); }, 700);
-    return;
+    document.getElementById('fail-icon').textContent = '\uD83C\uDFC6';
+    document.getElementById('fail-title').textContent = '\u00a1Nuevo r\u00e9cord!';
+    document.getElementById('fail-msg').innerHTML =
+      '<span class="new-record">\uD83C\uDFC6 \u00a1Has batido el r\u00e9cord!</span>' +
+      'Puntuaci\u00f3n: <strong>' + score + '</strong><br>R\u00e9cord anterior: <strong>' + rec + '</strong>';
+  } else {
+    var title = reason === 'tiempo' ? '\u00a1Se acab\u00f3 el tiempo!' : '\u00a1Secuencia incorrecta!';
+    document.getElementById('fail-icon').textContent = '\u26a1';
+    document.getElementById('fail-title').textContent = title;
+    document.getElementById('fail-msg').innerHTML =
+      'Tu puntuaci\u00f3n: <strong>' + score + '</strong><br>R\u00e9cord: <strong>' + rec + '</strong>';
   }
-
-  var title = reason === 'tiempo' ? '\u00a1Se acab\u00f3 el tiempo!' : '\u00a1Secuencia incorrecta!';
-  document.getElementById('fail-title').textContent = title;
-  document.getElementById('fail-msg').innerHTML =
-    'Tu puntuaci\u00f3n: <strong>' + score + '</strong><br>R\u00e9cord: <strong>' + rec + '</strong>';
   setTimeout(function(){ document.getElementById('popup-fail').classList.add('visible'); }, 500);
 }
 
@@ -622,8 +624,10 @@ document.addEventListener('keydown', function(e) {
 document.getElementById('pause-btn').addEventListener('click', function(){ togglePause(); });
 
 document.getElementById('reset-btn').addEventListener('click', function(){ resetGame(); });
-document.getElementById('fail-retry').addEventListener('click', function(){
-  closePopupFail(); resetGame();
+document.getElementById('fail-reward-btn').addEventListener('click', function(){
+  closePopupFail();
+  resetGame();
+  if (localStorage.getItem(DONE_KEY) === '1') showReward();
 });
 document.getElementById('popup-fail').addEventListener('click', function(e){
   if (e.target === document.getElementById('popup-fail')) closePopupFail();
