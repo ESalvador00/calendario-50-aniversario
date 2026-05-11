@@ -27,14 +27,14 @@
     .month-label{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3.5vw,2.4rem);font-weight:400;font-style:italic;color:rgba(250,246,238,.45);margin-bottom:2.5rem;}
 
     /* ══ GAME WRAPPER ══════════════════════════════════════════ */
-    .game-wrap{width:100%;border:1px solid rgba(201,168,76,.22);border-radius:6px;background:rgba(255,255,255,.02);overflow:hidden;}
+    .game-wrap{width:100%;border:1px solid rgba(201,168,76,.22);border-radius:6px;background:rgba(255,255,255,.02);overflow:visible;}
 
-    .game-header{padding:1.1rem 1.5rem;border-bottom:1px solid rgba(201,168,76,.12);text-align:center;}
+    .game-header{padding:1.1rem 1.5rem;border-bottom:1px solid rgba(201,168,76,.12);text-align:center;border-radius:6px 6px 0 0;}
     .game-title{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:var(--gold-light);letter-spacing:.05em;}
     .game-subtitle{font-size:.82rem;color:rgba(250,246,238,.4);margin-top:.25rem;font-style:italic;}
 
-    /* ── STATUS BAR ──────────────────────────────────────────── */
-    .info-bar{display:flex;justify-content:center;align-items:center;gap:2rem;padding:.7rem 1.5rem;border-bottom:1px solid rgba(201,168,76,.08);background:rgba(0,0,0,.12);}
+    /* ── INFO BAR ──────────────────────────────────────────── */
+    .info-bar{display:flex;justify-content:center;align-items:center;gap:2rem;padding:.7rem 1.5rem;border-bottom:1px solid rgba(201,168,76,.08);background:rgba(0,0,0,.12);position:relative;z-index:5;}
     .info-pill{display:flex;flex-direction:column;align-items:center;gap:.1rem;}
     .info-label{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(201,168,76,.4);}
     .info-value{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:var(--gold-light);}
@@ -42,47 +42,68 @@
     .info-value.ok{color:#7fca8a;}
 
     /* ── BALANZA ─────────────────────────────────────────────── */
-    .scale-section{padding:1.5rem 1rem 1rem;display:flex;flex-direction:column;align-items:center;gap:0;}
+    /* La sección tiene overflow visible para que la balanza no tape la info-bar */
+    .scale-section{padding:1.5rem 1rem 1rem;display:flex;flex-direction:column;align-items:center;background:rgba(0,0,0,.04);border-bottom:1px solid rgba(201,168,76,.06);}
 
-    .scale-container{position:relative;width:100%;max-width:420px;height:160px;}
+    /* Contenedor: fijo a 200px, todo dentro */
+    .scale-container{position:relative;width:100%;max-width:440px;height:200px;overflow:visible;}
 
-    /* Poste central */
-    .scale-pole{position:absolute;left:50%;transform:translateX(-50%);bottom:0;width:6px;height:110px;background:linear-gradient(to right,var(--scale-base),var(--scale-metal),var(--scale-base));border-radius:3px;}
+    /* ── Platos: posición absoluta independiente del brazo ─── */
+    /* Cada plato se anima verticalmente con translateY */
+    .pans-row{
+      position:absolute;
+      bottom:18px;left:0;right:0;
+      display:flex;justify-content:space-between;align-items:flex-end;
+      padding:0 6px;
+      pointer-events:none; /* el propio plato maneja eventos */
+    }
+    .pan{
+      width:42%;min-height:50px;
+      border:2px solid var(--pan-border);
+      border-radius:50px 50px 14px 14px;
+      background:var(--pan-bg);
+      display:flex;flex-wrap:wrap;align-content:center;justify-content:center;gap:3px;padding:6px 4px;
+      cursor:pointer;
+      transition:border-color .2s,background .2s,transform .55s cubic-bezier(.34,1.1,.64,1);
+      position:relative;
+      pointer-events:all;
+    }
+    .pan:hover{border-color:rgba(201,168,76,.6);background:rgba(201,168,76,.18);}
+    .pan.drag-over{border-color:var(--gold);background:rgba(201,168,76,.28);box-shadow:0 0 12px rgba(201,168,76,.3);}
+
+    /* Plato que pesa MENOS sube, el que pesa MÁS baja */
+    .pan.heavier{transform:translateY(20px);}
+    .pan.lighter{transform:translateY(-20px);}
+
+    .pan-label{position:absolute;bottom:-22px;left:50%;transform:translateX(-50%);font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(201,168,76,.35);white-space:nowrap;}
+
+    /* Monedas dentro del plato */
+    .pan .coin{width:22px;height:22px;font-size:.6rem;border-width:1.5px;}
+
+    /* ── Poste y brazo (decorativos, no se inclinan) ─────── */
+    .scale-pole{position:absolute;left:50%;transform:translateX(-50%);bottom:0;width:6px;height:120px;background:linear-gradient(to right,var(--scale-base),var(--scale-metal),var(--scale-base));border-radius:3px;z-index:1;}
     .scale-pole::before{content:'';position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:14px;height:14px;background:var(--scale-metal-light);border-radius:50%;box-shadow:0 0 6px rgba(201,168,76,.3);}
-    /* Base */
-    .scale-base-el{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:80px;height:10px;background:linear-gradient(to bottom,var(--scale-metal),var(--scale-base));border-radius:4px;}
+    .scale-base-el{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:80px;height:10px;background:linear-gradient(to bottom,var(--scale-metal),var(--scale-base));border-radius:4px;z-index:1;}
 
-    /* Brazo giratorio */
-    .scale-arm{position:absolute;top:8px;left:50%;transform:translateX(-50%) rotate(0deg);transform-origin:center center;width:90%;height:5px;background:linear-gradient(to right,var(--scale-base),var(--scale-metal-light),var(--scale-base));border-radius:3px;transition:transform .7s cubic-bezier(.34,1.56,.64,1);}
-    .scale-arm.tilt-left{ transform:translateX(-50%) rotate(-14deg);}
-    .scale-arm.tilt-right{transform:translateX(-50%) rotate(14deg);}
-
-    /* Hilos */
+    /* Brazo horizontal (estático) */
+    .scale-arm{position:absolute;top:12px;left:50%;transform:translateX(-50%);width:90%;height:5px;background:linear-gradient(to right,var(--scale-base),var(--scale-metal-light),var(--scale-base));border-radius:3px;z-index:0;}
+    /* Hilos colgantes */
     .scale-arm::before,.scale-arm::after{content:'';position:absolute;top:5px;width:2px;height:55px;background:linear-gradient(to bottom,var(--scale-metal),rgba(201,168,76,.3));border-radius:1px;}
     .scale-arm::before{left:6px;}
     .scale-arm::after{right:6px;}
 
-    /* Platos */
-    .pans-row{position:absolute;bottom:14px;left:0;right:0;display:flex;justify-content:space-between;align-items:flex-end;padding:0 8px;}
-    .pan{width:42%;min-height:44px;border:2px solid var(--pan-border);border-radius:50px 50px 12px 12px;background:var(--pan-bg);display:flex;flex-wrap:wrap;align-content:center;justify-content:center;gap:3px;padding:5px 4px;cursor:pointer;transition:border-color .2s,background .2s;position:relative;}
-    .pan:hover{border-color:rgba(201,168,76,.6);background:rgba(201,168,76,.18);}
-    .pan.drag-over{border-color:var(--gold);background:rgba(201,168,76,.28);box-shadow:0 0 12px rgba(201,168,76,.3);}
-    .pan-label{position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(201,168,76,.35);white-space:nowrap;}
-
-    /* Monedas en platos */
-    .pan .coin{width:22px;height:22px;font-size:.65rem;}
-
     /* ── MONEDAS ─────────────────────────────────────────────── */
-    .coins-section{padding:.5rem 1.2rem 1rem;}
+    .coins-section{padding:.6rem 1.2rem 1rem;}
     .coins-label{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(201,168,76,.35);margin-bottom:.6rem;text-align:center;}
-    .coins-pool{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;min-height:48px;}
+    .coins-pool{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;min-height:52px;}
 
-    .coin{width:44px;height:44px;border-radius:50%;border:2px solid rgba(201,168,76,.35);background:radial-gradient(circle at 35% 35%,rgba(232,200,100,.25),rgba(139,105,20,.15));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:.85rem;font-weight:700;color:var(--gold-light);cursor:pointer;transition:all .18s;user-select:none;position:relative;flex-shrink:0;}
+    .coin{width:44px;height:44px;border-radius:50%;border:2px solid rgba(201,168,76,.35);background:radial-gradient(circle at 35% 35%,rgba(232,200,100,.25),rgba(139,105,20,.15));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:.85rem;font-weight:700;color:var(--gold-light);cursor:grab;transition:all .18s;user-select:none;position:relative;flex-shrink:0;}
     .coin:hover{border-color:var(--gold);background:radial-gradient(circle at 35% 35%,rgba(232,200,100,.4),rgba(139,105,20,.25));transform:scale(1.08);}
     .coin.selected{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,168,76,.35),0 0 14px rgba(201,168,76,.4);background:radial-gradient(circle at 35% 35%,rgba(232,200,100,.45),rgba(139,105,20,.3));transform:scale(1.1);}
     .coin.suspected{border-color:#e0906a;box-shadow:0 0 0 3px rgba(224,144,106,.3),0 0 14px rgba(224,144,106,.3);}
-    .coin.in-pan{width:22px;height:22px;font-size:.6rem;border-width:1.5px;}
+    .coin.in-pan{width:22px;height:22px;font-size:.6rem;border-width:1.5px;cursor:default;}
     .coin.revealed-fake{border-color:#e05a6a;box-shadow:0 0 0 3px rgba(224,90,106,.35),0 0 16px rgba(224,90,106,.4);animation:pulse-fake .8s ease-in-out 3;}
+    .coin.dragging{opacity:.4;cursor:grabbing;}
     @keyframes pulse-fake{0%,100%{box-shadow:0 0 0 3px rgba(224,90,106,.35),0 0 10px rgba(224,90,106,.3);}50%{box-shadow:0 0 0 5px rgba(224,90,106,.55),0 0 22px rgba(224,90,106,.6);}}
 
     /* ── CONTROLS ─────────────────────────────────────────────── */
@@ -100,8 +121,9 @@
     .hint-text{font-size:.8rem;font-style:italic;color:rgba(250,246,238,.35);text-align:center;min-height:1.2em;}
     .hint-text.error{color:#e08060;}
     .hint-text.success{color:#7fca8a;}
-    .reset-link{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(201,168,76,.28);cursor:pointer;border:none;background:none;padding:.25rem;transition:color .2s;font-family:'Cormorant Garamond',serif;}
-    .reset-link:hover{color:var(--gold);}
+    /* Botones reiniciar y ayuda — borde dorado */
+    .reset-link{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(201,168,76,.55);cursor:pointer;border:1px solid rgba(201,168,76,.3);background:none;padding:.3rem .9rem;border-radius:2px;transition:all .2s;font-family:'Cormorant Garamond',serif;}
+    .reset-link:hover{color:var(--gold);border-color:var(--gold);background:rgba(201,168,76,.06);}
 
     /* ── NAV ─────────────────────────────────────────────────── */
     .day-nav{display:flex;justify-content:space-between;align-items:center;padding-top:2.5rem;border-top:1px solid rgba(201,168,76,.1);margin-top:2.5rem;}
@@ -123,7 +145,7 @@
     /* ── POPUPS ──────────────────────────────────────────────── */
     .popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.78);z-index:100;align-items:center;justify-content:center;}
     .popup-overlay.visible{display:flex;}
-    .popup-box{background:var(--dark);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:2.5rem 2rem;max-width:420px;width:90%;text-align:center;box-shadow:0 0 60px rgba(0,0,0,.9);}
+    .popup-box{background:var(--dark);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:2.5rem 2rem;max-width:440px;width:90%;text-align:center;box-shadow:0 0 60px rgba(0,0,0,.9);max-height:90vh;overflow-y:auto;}
     .popup-icon{font-size:3rem;margin-bottom:.8rem;}
     .popup-title{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:var(--gold-light);margin-bottom:.8rem;}
     .popup-msg{font-size:.95rem;font-style:italic;color:rgba(250,246,238,.6);line-height:1.7;margin-bottom:1.8rem;}
@@ -140,7 +162,7 @@
       .month-label{font-size:clamp(1rem,4vw,1.6rem);margin-bottom:1rem;}
       .day-nav{margin-top:1rem;padding-top:1rem;}
       .ornament-line-h{margin-bottom:1rem;}
-      .scale-container{height:140px;}
+      .scale-container{height:180px;}
       .coin{width:36px;height:36px;font-size:.75rem;}
       .info-bar{gap:1rem;}
     }
@@ -150,13 +172,13 @@
 <div class="wrap">
   <div class="day-hero">
     <div class="action-btns">
-      <button class="icon-btn fav-btn"  id="fav-btn"  title="Añadir a favoritos">♡</button>
-      <button class="icon-btn done-btn" id="done-btn" title="Marcar como completado">☆</button>
+      <button class="icon-btn fav-btn"  id="fav-btn"  title="A&#241;adir a favoritos">&#9825;</button>
+      <button class="icon-btn done-btn" id="done-btn" title="Marcar como completado">&#9734;</button>
     </div>
     <div class="ornament-line-h">
       <div class="o-line"></div><div class="o-dot"></div><div class="o-line r"></div>
     </div>
-    <p class="day-of-week">Sábado</p>
+    <p class="day-of-week">S&#225;bado</p>
     <h1>3</h1>
     <p class="month-label">de Junio</p>
 
@@ -165,7 +187,7 @@
 
       <div class="game-header">
         <div class="game-title">La Balanza Falsa</div>
-        <div class="game-subtitle">Encuentra la moneda que pesa menos — solo tienes 2 pesajes</div>
+        <div class="game-subtitle">Encuentra la moneda que pesa menos &#8212; solo tienes 2 pesajes</div>
       </div>
 
       <!-- INFO BAR -->
@@ -176,7 +198,7 @@
         </div>
         <div class="info-pill">
           <span class="info-label">Sospechosa</span>
-          <span class="info-value" id="suspect-label">—</span>
+          <span class="info-value" id="suspect-label">&#8212;</span>
         </div>
         <div class="info-pill">
           <span class="info-label">Plato Izq.</span>
@@ -191,16 +213,18 @@
       <!-- BALANZA -->
       <div class="scale-section">
         <div class="scale-container">
-          <div class="scale-arm" id="scale-arm">
-            <div class="pans-row">
-              <div class="pan" id="pan-left"  data-side="left">
-                <span class="pan-label">Izquierdo</span>
-              </div>
-              <div class="pan" id="pan-right" data-side="right">
-                <span class="pan-label">Derecho</span>
-              </div>
+          <!-- Brazo estático -->
+          <div class="scale-arm"></div>
+          <!-- Platos independientes (se mueven verticalmente) -->
+          <div class="pans-row">
+            <div class="pan" id="pan-left" data-side="left">
+              <span class="pan-label">Izquierdo</span>
+            </div>
+            <div class="pan" id="pan-right" data-side="right">
+              <span class="pan-label">Derecho</span>
             </div>
           </div>
+          <!-- Poste y base (encima para cubrir hilos) -->
           <div class="scale-pole"></div>
           <div class="scale-base-el"></div>
         </div>
@@ -208,20 +232,21 @@
 
       <!-- MONEDAS DISPONIBLES -->
       <div class="coins-section">
-        <div class="coins-label">Monedas disponibles — haz clic para seleccionar, luego ponlas en un plato</div>
+        <div class="coins-label">Monedas disponibles &#8212; arrastra o haz clic para seleccionar, luego coloca en un plato</div>
         <div class="coins-pool" id="coins-pool"></div>
       </div>
 
       <!-- CONTROLES -->
       <div class="controls">
-        <div class="hint-text" id="hint-text">Selecciona monedas y colócalas en los platos para pesar</div>
+        <div class="hint-text" id="hint-text">Selecciona monedas y col&#243;calas en los platos para pesar</div>
         <div class="controls-row">
-          <button class="weigh-btn" id="weigh-btn">⚖ Pesar</button>
-          <button class="confirm-btn" id="confirm-btn" disabled>✓ Confirmar moneda</button>
+          <button class="weigh-btn" id="weigh-btn">&#9878; Pesar</button>
+          <button class="confirm-btn" id="confirm-btn" disabled>&#10003; Confirmar moneda</button>
         </div>
         <div class="controls-row">
           <button class="clear-btn" id="clear-btn">Vaciar platos</button>
-          <button class="reset-link" id="reset-link">↺ Reiniciar</button>
+          <button class="reset-link" id="reset-link">&#8635; Reiniciar</button>
+          <button class="reset-link" id="help-btn">? Ayuda</button>
         </div>
       </div>
 
@@ -232,7 +257,7 @@
 
   <nav class="day-nav">
     <a class="nav-btn" href="2028-06-02.html">&#8592; 2 de Junio</a>
-    <span class="year-badge">50 Aniversario · 2028</span>
+    <span class="year-badge">50 Aniversario &middot; 2028</span>
     <a class="nav-btn" id="next-btn" href="2028-06-04.html">4 de Junio &#8594;</a>
   </nav>
   <a class="back-link" href="../index.html">&#8592; Volver al Calendario</a>
@@ -241,9 +266,9 @@
 <!-- Popup futuro -->
 <div class="popup-overlay" id="popup">
   <div class="popup-box">
-    <div class="popup-icon">🎁</div>
-    <p class="popup-title">¡Un poco de paciencia!</p>
-    <p class="popup-msg">No seas impaciente...<br>Este día aún no ha llegado.<br>Ya llegará, y será especial. 🤍</p>
+    <div class="popup-icon">&#127873;</div>
+    <p class="popup-title">&#161;Un poco de paciencia!</p>
+    <p class="popup-msg">No seas impaciente&#8230;<br>Este d&#237;a a&#250;n no ha llegado.<br>Ya llegar&#225;, y ser&#225; especial. &#129372;</p>
     <button class="popup-btn" onclick="window.location.href='../index.html'">Volver al calendario</button>
   </div>
 </div>
@@ -251,9 +276,9 @@
 <!-- Popup estrella bloqueada -->
 <div class="popup-overlay" id="popup-star-blocked">
   <div class="popup-box">
-    <div class="popup-icon">🏆</div>
-    <p class="popup-title">¡Tu recompensa te espera!</p>
-    <p class="popup-msg">Para acceder a tu recompensa primero debes resolver el desafío de hoy...<br><br>¡Tú puedes! 💪</p>
+    <div class="popup-icon">&#127942;</div>
+    <p class="popup-title">&#161;Tu recompensa te espera!</p>
+    <p class="popup-msg">Para acceder a tu recompensa primero debes resolver el desaf&#237;o de hoy&#8230;<br><br>&#161;T&#250; puedes! &#128170;</p>
     <button class="popup-btn" id="star-blocked-close">Volver</button>
   </div>
 </div>
@@ -261,21 +286,21 @@
 <!-- Popup recompensa -->
 <div class="popup-overlay" id="popup-star-reward">
   <div class="popup-box">
-    <div class="popup-icon">🎁</div>
-    <p class="popup-title">¡Tu recompensa!</p>
-    <p class="popup-msg" id="reward-text">✨ Aquí irá la recompensa especial de este día ✨</p>
-    <button class="popup-btn" id="star-reward-close">¡Genial!</button>
+    <div class="popup-icon">&#127873;</div>
+    <p class="popup-title">&#161;Tu recompensa!</p>
+    <p class="popup-msg" id="reward-text">&#10024; Aqu&#237; ir&#225; la recompensa especial de este d&#237;a &#10024;</p>
+    <button class="popup-btn" id="star-reward-close">&#161;Genial!</button>
   </div>
 </div>
 
 <!-- Popup victoria -->
 <div class="popup-overlay" id="popup-win">
   <div class="popup-box">
-    <div class="popup-icon">🏅</div>
-    <p class="popup-title">¡Lo has encontrado!</p>
-    <p class="popup-msg" id="win-msg">Has identificado la moneda falsa. ¡Eres un detective de primera! 🔍✨</p>
+    <div class="popup-icon">&#127885;</div>
+    <p class="popup-title">&#161;Lo has encontrado!</p>
+    <p class="popup-msg" id="win-msg">Has identificado la moneda falsa. &#161;Eres un detective de primera! &#128269;&#10024;</p>
     <div class="popup-btns">
-      <button class="popup-btn" id="win-reward-btn">Ver recompensa ★</button>
+      <button class="popup-btn" id="win-reward-btn">Ver recompensa &#9733;</button>
     </div>
   </div>
 </div>
@@ -283,13 +308,38 @@
 <!-- Popup fracaso -->
 <div class="popup-overlay" id="popup-fail">
   <div class="popup-box">
-    <div class="popup-icon">⚖️</div>
-    <p class="popup-title">Esa no era...</p>
-    <p class="popup-msg" id="fail-msg">Esa no era la moneda falsa.<br>¡La balanza no miente!</p>
+    <div class="popup-icon">&#9878;&#65039;</div>
+    <p class="popup-title">Esa no era&#8230;</p>
+    <p class="popup-msg" id="fail-msg">Esa no era la moneda falsa.<br>&#161;La balanza no miente!</p>
     <div class="popup-btns">
-      <button class="popup-btn" id="fail-retry">↺ Reintentar</button>
+      <button class="popup-btn" id="fail-retry">&#8635; Reintentar</button>
       <button class="popup-btn sec" onclick="window.location.href='../index.html'">Volver al calendario</button>
     </div>
+  </div>
+</div>
+
+<!-- Popup ayuda -->
+<div class="popup-overlay" id="popup-help">
+  <div class="popup-box">
+    <div class="popup-icon">&#9878;</div>
+    <p class="popup-title">C&#243;mo jugar</p>
+    <p class="popup-msg" style="text-align:left;font-style:normal;font-size:.88rem;line-height:1.8;margin-bottom:1.2rem;">
+      <strong style="color:var(--gold-light);">Objetivo</strong><br>
+      Tienes 8 monedas aparentemente id&#233;nticas. Una de ellas es falsa y pesa ligeramente <em>menos</em> que las dem&#225;s. Debes identificarla usando la balanza con un m&#225;ximo de <strong>2 pesajes</strong>.<br><br>
+      <strong style="color:var(--gold-light);">C&#243;mo mover monedas</strong><br>
+      &#183; <em>Arrastra</em> una moneda del grupo y su&#233;ltala sobre el plato donde quieras colocarla.<br>
+      &#183; O haz <em>clic</em> en una moneda para seleccionarla (se ilumina) y luego haz clic en el plato deseado.<br>
+      &#183; Para devolver una moneda al grupo, haz clic en ella dentro del plato.<br><br>
+      <strong style="color:var(--gold-light);">Pesar</strong><br>
+      Los dos platos deben tener el mismo n&#250;mero de monedas. Pulsa <em>&#171;&#9878; Pesar&#187;</em> y observa qu&#233; plato baja (m&#225;s pesado) y cu&#225;l sube (m&#225;s ligero).<br>
+      &#183; Si los platos quedan al mismo nivel: la moneda falsa est&#225; entre las que <strong>no</strong> pesaste.<br>
+      &#183; Si un plato sube: la falsa est&#225; en ese plato (pesa menos).<br><br>
+      <strong style="color:var(--gold-light);">Confirmar la respuesta</strong><br>
+      Cuando creas saber cu&#225;l es la moneda falsa, haz clic en ella en el grupo (quedar&#225; marcada en naranja) y pulsa <em>&#171;&#10003; Confirmar moneda&#187;</em>.<br><br>
+      <strong style="color:var(--gold-light);">Pista estrat&#233;gica</strong><br>
+      Con 2 pesajes puedes identificar la falsa entre 9 monedas. El truco: divide en grupos de 3 en el primer pesaje.
+    </p>
+    <button class="popup-btn" id="help-close">&#161;Entendido!</button>
   </div>
 </div>
 
@@ -297,12 +347,12 @@
 // ══════════════════════════════════════════════
 //  PREVIEW & DATE GUARD
 // ══════════════════════════════════════════════
-const PREVIEW_KEY = 'cal_preview';
-const isPreview   = localStorage.getItem(PREVIEW_KEY) === '1';
-const today       = new Date(); today.setHours(0,0,0,0);
-const thisDate    = new Date('2028-06-03'); thisDate.setHours(0,0,0,0);
-const nextDateStr = '2028-06-04';
-const popup       = document.getElementById('popup');
+var PREVIEW_KEY = 'cal_preview';
+var isPreview   = localStorage.getItem(PREVIEW_KEY) === '1';
+var today       = new Date(); today.setHours(0,0,0,0);
+var thisDate    = new Date('2028-06-03'); thisDate.setHours(0,0,0,0);
+var nextDateStr = '2028-06-04';
+var popup       = document.getElementById('popup');
 
 if (!isPreview && thisDate > today) {
   document.querySelector('.day-hero').style.filter = 'blur(4px)';
@@ -310,27 +360,27 @@ if (!isPreview && thisDate > today) {
   popup.classList.add('visible');
 }
 if (!isPreview && nextDateStr) {
-  const nextDate = new Date(nextDateStr); nextDate.setHours(0,0,0,0);
+  var nextDate = new Date(nextDateStr); nextDate.setHours(0,0,0,0);
   if (nextDate > today) {
-    const nextBtn = document.getElementById('next-btn');
-    if (nextBtn) nextBtn.addEventListener('click', e => { e.preventDefault(); popup.classList.add('visible'); });
+    var nextBtn = document.getElementById('next-btn');
+    if (nextBtn) nextBtn.addEventListener('click', function(e){ e.preventDefault(); popup.classList.add('visible'); });
   }
 }
-popup.addEventListener('click', e => { if (e.target === popup) window.location.href = '../index.html'; });
+popup.addEventListener('click', function(e){ if (e.target === popup) window.location.href = '../index.html'; });
 
 // ══════════════════════════════════════════════
 //  FAV
 // ══════════════════════════════════════════════
-const FAV_KEY = 'fav_2028-06-03';
-const favBtn  = document.getElementById('fav-btn');
+var FAV_KEY = 'fav_2028-06-03';
+var favBtn  = document.getElementById('fav-btn');
 function updateFav() {
-  const on = localStorage.getItem(FAV_KEY) === '1';
-  favBtn.textContent = on ? '❤' : '♡';
+  var on = localStorage.getItem(FAV_KEY) === '1';
+  favBtn.textContent = on ? '\u2764' : '\u2661';
   favBtn.classList.toggle('active', on);
-  favBtn.title = on ? 'Quitar de favoritos' : 'Añadir a favoritos';
+  favBtn.title = on ? 'Quitar de favoritos' : 'A\u00f1adir a favoritos';
 }
-favBtn.addEventListener('click', () => {
-  const on = localStorage.getItem(FAV_KEY) === '1';
+favBtn.addEventListener('click', function() {
+  var on = localStorage.getItem(FAV_KEY) === '1';
   on ? localStorage.removeItem(FAV_KEY) : localStorage.setItem(FAV_KEY, '1');
   updateFav();
 });
@@ -339,65 +389,65 @@ updateFav();
 // ══════════════════════════════════════════════
 //  DONE / REWARD
 // ══════════════════════════════════════════════
-const DONE_KEY         = 'done_2028-06-03';
-const doneBtn          = document.getElementById('done-btn');
-const popupStarBlocked = document.getElementById('popup-star-blocked');
-const popupStarReward  = document.getElementById('popup-star-reward');
-const popupWin         = document.getElementById('popup-win');
-const popupFail        = document.getElementById('popup-fail');
+var DONE_KEY         = 'done_2028-06-03';
+var doneBtn          = document.getElementById('done-btn');
+var popupStarBlocked = document.getElementById('popup-star-blocked');
+var popupStarReward  = document.getElementById('popup-star-reward');
+var popupWin         = document.getElementById('popup-win');
+var popupFail        = document.getElementById('popup-fail');
 
-document.getElementById('star-blocked-close').addEventListener('click', () => popupStarBlocked.classList.remove('visible'));
-popupStarBlocked.addEventListener('click', e => { if (e.target === popupStarBlocked) popupStarBlocked.classList.remove('visible'); });
-document.getElementById('star-reward-close').addEventListener('click', () => popupStarReward.classList.remove('visible'));
-popupStarReward.addEventListener('click', e => { if (e.target === popupStarReward) popupStarReward.classList.remove('visible'); });
-popupWin.addEventListener('click',  e => { if (e.target === popupWin)  popupWin.classList.remove('visible'); });
-popupFail.addEventListener('click', e => { if (e.target === popupFail) popupFail.classList.remove('visible'); });
+document.getElementById('star-blocked-close').addEventListener('click', function(){ popupStarBlocked.classList.remove('visible'); });
+popupStarBlocked.addEventListener('click', function(e){ if (e.target===popupStarBlocked) popupStarBlocked.classList.remove('visible'); });
+document.getElementById('star-reward-close').addEventListener('click', function(){ popupStarReward.classList.remove('visible'); });
+popupStarReward.addEventListener('click', function(e){ if (e.target===popupStarReward) popupStarReward.classList.remove('visible'); });
+popupWin.addEventListener('click',  function(e){ if (e.target===popupWin)  popupWin.classList.remove('visible'); });
+popupFail.addEventListener('click', function(e){ if (e.target===popupFail) popupFail.classList.remove('visible'); });
 
-function markDone() {
-  localStorage.setItem(DONE_KEY, '1');
-  updateDone();
-}
-function showReward() { popupStarReward.classList.add('visible'); }
+function markDone(){ localStorage.setItem(DONE_KEY,'1'); updateDone(); }
+function showReward(){ popupStarReward.classList.add('visible'); }
 
-function updateDone() {
-  const on = localStorage.getItem(DONE_KEY) === '1';
-  doneBtn.textContent = on ? '★' : '☆';
+function updateDone(){
+  var on = localStorage.getItem(DONE_KEY) === '1';
+  doneBtn.textContent = on ? '\u2605' : '\u2606';
   doneBtn.classList.toggle('active', on);
   doneBtn.title = on ? 'Ver recompensa' : 'Marcar como completado';
 }
-doneBtn.addEventListener('click', () => {
-  const on = localStorage.getItem(DONE_KEY) === '1';
-  if (on) { showReward(); }
-  else if (isPreview) { markDone(); }
-  else { popupStarBlocked.classList.add('visible'); }
+doneBtn.addEventListener('click', function(){
+  var on = localStorage.getItem(DONE_KEY) === '1';
+  if (on) showReward();
+  else if (isPreview) markDone();
+  else popupStarBlocked.classList.add('visible');
 });
 updateDone();
 
-document.getElementById('win-reward-btn').addEventListener('click', () => {
-  popupWin.classList.remove('visible');
-  showReward();
+document.getElementById('win-reward-btn').addEventListener('click', function(){
+  popupWin.classList.remove('visible'); showReward();
 });
+
+// ── Ayuda ─────────────────────────────────────
+var popupHelp = document.getElementById('popup-help');
+document.getElementById('help-btn').addEventListener('click', function(){ popupHelp.classList.add('visible'); });
+document.getElementById('help-close').addEventListener('click', function(){ popupHelp.classList.remove('visible'); });
+popupHelp.addEventListener('click', function(e){ if (e.target===popupHelp) popupHelp.classList.remove('visible'); });
 
 // ══════════════════════════════════════════════
 //  GAME STATE
 // ══════════════════════════════════════════════
-const TOTAL_COINS = 8;
-// Roman-numeral-style labels I–VIII
-const LABELS = ['I','II','III','IV','V','VI','VII','VIII'];
+var TOTAL_COINS = 8;
+var LABELS = ['I','II','III','IV','V','VI','VII','VIII'];
 
-let state = {};
-let locked = false;   // blocks clicks during animation
+var state  = {};
+var locked = false;
 
-function initState() {
+function initState(){
   state = {
-    fakeIndex  : Math.floor(Math.random() * TOTAL_COINS), // 0-7
+    fakeIndex  : Math.floor(Math.random() * TOTAL_COINS),
     weighsLeft : 2,
-    panLeft    : [],   // coin indices
-    panRight   : [],   // coin indices
-    pool       : Array.from({length: TOTAL_COINS}, (_, i) => i), // indices in pool
-    selected   : null, // index of coin selected in pool (to add to pan)
-    suspected  : null, // index of coin player suspects
-    tilt       : 'balanced', // 'balanced' | 'left' | 'right'
+    panLeft    : [],
+    panRight   : [],
+    pool       : Array.from({length: TOTAL_COINS}, function(_,i){ return i; }),
+    selected   : null,
+    suspected  : null,
     gameOver   : false,
     weighsDone : 0,
   };
@@ -406,301 +456,293 @@ function initState() {
 // ══════════════════════════════════════════════
 //  RENDER
 // ══════════════════════════════════════════════
-function render() {
-  const arm     = document.getElementById('scale-arm');
-  const poolEl  = document.getElementById('coins-pool');
-  const panL    = document.getElementById('pan-left');
-  const panR    = document.getElementById('pan-right');
-  const wLeft   = document.getElementById('weighs-left');
-  const susEl   = document.getElementById('suspect-label');
-  const leftCnt = document.getElementById('left-count');
-  const rightCnt= document.getElementById('right-count');
-  const hintEl  = document.getElementById('hint-text');
-  const weighBtn= document.getElementById('weigh-btn');
-  const confBtn = document.getElementById('confirm-btn');
-  const clearBtn= document.getElementById('clear-btn');
+function render(){
+  var poolEl   = document.getElementById('coins-pool');
+  var panL     = document.getElementById('pan-left');
+  var panR     = document.getElementById('pan-right');
+  var wLeft    = document.getElementById('weighs-left');
+  var susEl    = document.getElementById('suspect-label');
+  var leftCnt  = document.getElementById('left-count');
+  var rightCnt = document.getElementById('right-count');
+  var hintEl   = document.getElementById('hint-text');
+  var weighBtn = document.getElementById('weigh-btn');
+  var confBtn  = document.getElementById('confirm-btn');
+  var clearBtn = document.getElementById('clear-btn');
 
-  // Tilt arm
-  arm.classList.remove('tilt-left','tilt-right');
-  if (state.tilt === 'left')  arm.classList.add('tilt-left');
-  if (state.tilt === 'right') arm.classList.add('tilt-right');
-
-  // Counts
+  // Counts / info
   wLeft.textContent    = state.weighsLeft;
-  wLeft.className      = 'info-value' + (state.weighsLeft === 1 ? ' warn' : state.weighsLeft === 0 ? ' warn' : '');
+  wLeft.className      = 'info-value' + (state.weighsLeft <= 1 ? ' warn' : '');
   leftCnt.textContent  = state.panLeft.length;
   rightCnt.textContent = state.panRight.length;
-  susEl.textContent    = state.suspected !== null ? LABELS[state.suspected] : '—';
+  susEl.textContent    = state.suspected !== null ? LABELS[state.suspected] : '\u2014';
 
-  // Pool coins
+  // Pool
   poolEl.innerHTML = '';
-  state.pool.forEach(idx => {
-    const div = buildCoin(idx, 'pool');
-    poolEl.appendChild(div);
+  state.pool.forEach(function(idx){
+    poolEl.appendChild(buildCoin(idx, 'pool'));
   });
 
-  // Pan left coins
-  // Keep label, rebuild coins before it
-  const panLLabel = panL.querySelector('.pan-label');
+  // Pan left
+  var panLLabel = panL.querySelector('.pan-label');
   panL.innerHTML = '';
-  state.panLeft.forEach(idx => {
-    panL.appendChild(buildCoin(idx, 'pan-left'));
-  });
+  state.panLeft.forEach(function(idx){ panL.appendChild(buildCoin(idx,'pan-left')); });
   panL.appendChild(panLLabel);
 
-  // Pan right coins
-  const panRLabel = panR.querySelector('.pan-label');
+  // Pan right
+  var panRLabel = panR.querySelector('.pan-label');
   panR.innerHTML = '';
-  state.panRight.forEach(idx => {
-    panR.appendChild(buildCoin(idx, 'pan-right'));
-  });
+  state.panRight.forEach(function(idx){ panR.appendChild(buildCoin(idx,'pan-right')); });
   panR.appendChild(panRLabel);
 
   // Buttons
-  const noWeighs  = state.weighsLeft === 0;
-  const isOver    = state.gameOver;
-  weighBtn.disabled  = locked || noWeighs || isOver;
-  clearBtn.disabled  = locked || isOver || (state.panLeft.length === 0 && state.panRight.length === 0);
-  confBtn.disabled   = locked || isOver || state.suspected === null;
+  var noWeighs = state.weighsLeft === 0;
+  var isOver   = state.gameOver;
+  weighBtn.disabled = locked || noWeighs || isOver;
+  clearBtn.disabled = locked || isOver || (state.panLeft.length===0 && state.panRight.length===0);
+  confBtn.disabled  = locked || isOver || state.suspected === null;
 
   // Hint
-  if (!isOver) {
-    if (noWeighs && state.suspected === null) {
-      hintEl.textContent = 'Pesajes agotados — selecciona la moneda sospechosa y confírmala';
-      hintEl.className = 'hint-text error';
-    } else if (state.selected !== null) {
-      hintEl.textContent = `Moneda ${LABELS[state.selected]} seleccionada — haz clic en un plato para añadirla`;
-      hintEl.className = 'hint-text';
+  if (!isOver){
+    if (noWeighs && state.suspected === null){
+      hintEl.textContent = 'Pesajes agotados \u2014 selecciona la moneda sospechosa y conf\u00edrmala';
+      hintEl.className   = 'hint-text error';
+    } else if (state.selected !== null){
+      hintEl.textContent = 'Moneda ' + LABELS[state.selected] + ' seleccionada \u2014 haz clic en un plato para a\u00f1adirla';
+      hintEl.className   = 'hint-text';
     } else {
       hintEl.textContent = state.weighsDone === 0
-        ? 'Selecciona monedas del grupo y colócalas en los platos'
+        ? 'Selecciona monedas del grupo y col\u00f3calas en los platos'
         : 'Analiza el resultado y realiza el siguiente pesaje';
       hintEl.className = 'hint-text';
     }
   }
 }
 
-function buildCoin(idx, location) {
-  const div = document.createElement('div');
+function buildCoin(idx, location){
+  var div = document.createElement('div');
   div.className = 'coin';
   if (location === 'pan-left' || location === 'pan-right') div.classList.add('in-pan');
-  if (location === 'pool') {
-    if (state.selected === idx)  div.classList.add('selected');
+  if (location === 'pool'){
+    if (state.selected  === idx) div.classList.add('selected');
     if (state.suspected === idx) div.classList.add('suspected');
   }
   div.textContent = LABELS[idx];
   div.dataset.idx = idx;
   div.dataset.loc = location;
 
-  div.addEventListener('click', () => handleCoinClick(idx, location));
+  div.addEventListener('click', function(){ handleCoinClick(idx, location); });
 
-  // Drag support (desktop)
-  if (location === 'pool') {
+  // Drag desde pool
+  if (location === 'pool'){
     div.draggable = true;
-    div.addEventListener('dragstart', e => {
-      if (locked || state.gameOver) { e.preventDefault(); return; }
-      e.dataTransfer.setData('coinIdx', idx);
+    div.addEventListener('dragstart', function(e){
+      if (locked || state.gameOver){ e.preventDefault(); return; }
+      e.dataTransfer.setData('coinIdx', String(idx));
+      e.dataTransfer.effectAllowed = 'move';
+      div.classList.add('dragging');
       state.selected = idx;
-      render();
+      // Render asíncrono para que el ghost sea visible
+      setTimeout(function(){ render(); }, 0);
+    });
+    div.addEventListener('dragend', function(){
+      div.classList.remove('dragging');
     });
   }
-
   return div;
 }
 
 // ══════════════════════════════════════════════
-//  COIN CLICK HANDLER
+//  COIN CLICK
 // ══════════════════════════════════════════════
-function handleCoinClick(idx, location) {
+function handleCoinClick(idx, location){
   if (locked || state.gameOver) return;
-
-  if (location === 'pool') {
-    // Toggle selection / suspect
-    if (state.weighsLeft === 0) {
-      // In final phase: clicking pool coin marks it as suspected
+  if (location === 'pool'){
+    if (state.weighsLeft === 0){
       state.suspected = (state.suspected === idx) ? null : idx;
       state.selected  = null;
     } else {
-      // Normal: select to put in pan
       state.selected = (state.selected === idx) ? null : idx;
     }
-  } else if (location === 'pan-left') {
-    // Return coin to pool
-    state.panLeft = state.panLeft.filter(i => i !== idx);
-    state.pool.push(idx);
-    state.pool.sort((a,b) => a-b);
-  } else if (location === 'pan-right') {
-    state.panRight = state.panRight.filter(i => i !== idx);
-    state.pool.push(idx);
-    state.pool.sort((a,b) => a-b);
+  } else if (location === 'pan-left'){
+    state.panLeft = state.panLeft.filter(function(i){ return i !== idx; });
+    state.pool.push(idx); state.pool.sort(function(a,b){ return a-b; });
+  } else if (location === 'pan-right'){
+    state.panRight = state.panRight.filter(function(i){ return i !== idx; });
+    state.pool.push(idx); state.pool.sort(function(a,b){ return a-b; });
   }
   render();
 }
 
-// Pan click: add selected coin from pool
-function handlePanClick(side) {
+function handlePanClick(side){
   if (locked || state.gameOver) return;
   if (state.weighsLeft === 0) return;
   if (state.selected === null) return;
-
-  const idx = state.selected;
-  // Move from pool to pan
-  state.pool = state.pool.filter(i => i !== idx);
-  if (side === 'left') {
-    state.panLeft.push(idx);
-  } else {
-    state.panRight.push(idx);
-  }
+  var idx = state.selected;
+  state.pool = state.pool.filter(function(i){ return i !== idx; });
+  if (side === 'left') state.panLeft.push(idx);
+  else state.panRight.push(idx);
   state.selected = null;
   render();
 }
 
-// Drag & drop pan targets
-function setupPanListeners() {
-  ['pan-left','pan-right'].forEach(id => {
-    const el   = document.getElementById(id);
-    const side = id === 'pan-left' ? 'left' : 'right';
+// ══════════════════════════════════════════════
+//  PAN LISTENERS (drag & drop + click)
+// ══════════════════════════════════════════════
+function setupPanListeners(){
+  ['pan-left','pan-right'].forEach(function(id){
+    var el   = document.getElementById(id);
+    var side = id === 'pan-left' ? 'left' : 'right';
 
-    el.addEventListener('dragover', e => { e.preventDefault(); el.classList.add('drag-over'); });
-    el.addEventListener('dragleave', () => el.classList.remove('drag-over'));
-    el.addEventListener('drop', e => {
+    el.addEventListener('dragover', function(e){
+      if (locked || state.gameOver || state.weighsLeft === 0) return;
+      e.preventDefault();
+      el.classList.add('drag-over');
+    });
+    el.addEventListener('dragleave', function(){ el.classList.remove('drag-over'); });
+    el.addEventListener('drop', function(e){
       e.preventDefault();
       el.classList.remove('drag-over');
-      const idx = parseInt(e.dataTransfer.getData('coinIdx'));
+      if (locked || state.gameOver || state.weighsLeft === 0) return;
+      var idx = parseInt(e.dataTransfer.getData('coinIdx'));
       if (isNaN(idx)) return;
-      state.pool = state.pool.filter(i => i !== idx);
-      if (side === 'left') { state.panLeft.push(idx); }
-      else { state.panRight.push(idx); }
+      state.pool = state.pool.filter(function(i){ return i !== idx; });
+      if (side === 'left') state.panLeft.push(idx);
+      else state.panRight.push(idx);
       state.selected = null;
       render();
     });
-    el.addEventListener('click', () => handlePanClick(side));
+    el.addEventListener('click', function(e){
+      // No disparar si el clic fue sobre una moneda dentro del plato
+      if (e.target !== el && e.target.closest && e.target.closest('.coin')) return;
+      handlePanClick(side);
+    });
   });
 }
 
 // ══════════════════════════════════════════════
-//  VALIDATE WEIGHING
+//  WEIGH — animación vertical de platos
 // ══════════════════════════════════════════════
-function validateWeighing() {
-  const hint = document.getElementById('hint-text');
-  if (state.panLeft.length === 0 && state.panRight.length === 0) {
-    hint.textContent = 'Añade monedas a los platos antes de pesar';
-    hint.className = 'hint-text error';
-    return false;
+function validateWeighing(){
+  var hint = document.getElementById('hint-text');
+  if (state.panLeft.length === 0 && state.panRight.length === 0){
+    hint.textContent = 'A\u00f1ade monedas a los platos antes de pesar';
+    hint.className = 'hint-text error'; return false;
   }
-  if (state.panLeft.length !== state.panRight.length) {
-    hint.textContent = `Los platos deben tener el mismo número de monedas (Izq: ${state.panLeft.length}, Der: ${state.panRight.length})`;
-    hint.className = 'hint-text error';
-    // Shake the scale arm briefly
-    const arm = document.getElementById('scale-arm');
-    arm.style.transition = 'none';
-    arm.style.transform  = 'translateX(-50%) rotate(3deg)';
-    setTimeout(() => {
-      arm.style.transition = '';
-      arm.style.transform  = '';
-      setTimeout(() => render(), 50);
-    }, 180);
-    return false;
+  if (state.panLeft.length !== state.panRight.length){
+    hint.textContent = 'Los platos deben tener el mismo n\u00famero de monedas (Izq: ' + state.panLeft.length + ', Der: ' + state.panRight.length + ')';
+    hint.className = 'hint-text error'; return false;
   }
   return true;
 }
 
-// ══════════════════════════════════════════════
-//  WEIGH COINS
-// ══════════════════════════════════════════════
-function weighCoins() {
+function weighCoins(){
   if (locked || state.gameOver) return;
   if (!validateWeighing()) return;
 
   locked = true;
   document.getElementById('weigh-btn').disabled = true;
 
-  // Calculate weights: fake coin weighs 0.9, real = 1
-  function weight(arr) {
-    return arr.reduce((sum, idx) => sum + (idx === state.fakeIndex ? 0.9 : 1), 0);
+  function weight(arr){
+    return arr.reduce(function(sum, idx){ return sum + (idx === state.fakeIndex ? 0.9 : 1); }, 0);
   }
-  const wL = weight(state.panLeft);
-  const wR = weight(state.panRight);
+  var wL = weight(state.panLeft);
+  var wR = weight(state.panRight);
 
-  // Reset tilt briefly to balanced for animation
-  state.tilt = 'balanced';
-  render();
+  var panLEl = document.getElementById('pan-left');
+  var panREl = document.getElementById('pan-right');
 
-  setTimeout(() => {
-    if (wL < wR)      state.tilt = 'left';
-    else if (wR < wL) state.tilt = 'right';
-    else              state.tilt = 'balanced';
+  // Paso 1: limpiar clases previas, esperar transición a neutro
+  panLEl.classList.remove('heavier','lighter');
+  panREl.classList.remove('heavier','lighter');
 
+  setTimeout(function(){
+    // Paso 2: aplicar resultado visual
+    if (wL < wR){
+      // izquierdo más ligero → sube; derecho más pesado → baja
+      panLEl.classList.add('lighter');
+      panREl.classList.add('heavier');
+    } else if (wR < wL){
+      panLEl.classList.add('heavier');
+      panREl.classList.add('lighter');
+    }
+    // Si equilibrio, no se mueven
+
+    // Paso 3: actualizar contadores y resultado
     state.weighsLeft--;
     state.weighsDone++;
 
-    // Return coins to pool after weighing
-    const allWeighed = [...state.panLeft, ...state.panRight];
-    state.panLeft  = [];
-    state.panRight = [];
-    state.pool = [...new Set([...state.pool, ...allWeighed])].sort((a,b) => a-b);
-
-    render();
-    locked = false;
-
-    // Update hint with result
-    const hint = document.getElementById('hint-text');
-    if (state.tilt === 'balanced') {
-      hint.textContent = '⚖ Equilibrio — la moneda falsa está entre las que no pesaste';
+    var hint = document.getElementById('hint-text');
+    if (wL === wR){
+      hint.textContent = '\u2696 Equilibrio \u2014 la moneda falsa est\u00e1 entre las que no pesaste';
       hint.className = 'hint-text success';
     } else {
-      const lighter = state.tilt === 'left' ? 'Izquierdo' : 'Derecho';
-      hint.textContent = `↘ El plato ${lighter} es más ligero — la moneda falsa está en ese lado`;
+      var lighterSide = wL < wR ? 'Izquierdo' : 'Derecho';
+      hint.textContent = '\u2191 El plato ' + lighterSide + ' es m\u00e1s ligero \u2014 la moneda falsa est\u00e1 en ese lado';
       hint.className = 'hint-text';
     }
-  }, 750);
+
+    // Actualizar contadores info-bar
+    document.getElementById('weighs-left').textContent = state.weighsLeft;
+    document.getElementById('weighs-left').className   = 'info-value' + (state.weighsLeft <= 1 ? ' warn' : '');
+
+    // Paso 4: tras mostrar resultado con monedas visibles, devolverlas al pool
+    setTimeout(function(){
+      panLEl.classList.remove('heavier','lighter');
+      panREl.classList.remove('heavier','lighter');
+
+      // Devolver monedas al pool
+      var allWeighed = state.panLeft.concat(state.panRight);
+      state.panLeft  = [];
+      state.panRight = [];
+      state.pool = Array.from(new Set(state.pool.concat(allWeighed))).sort(function(a,b){ return a-b; });
+
+      locked = false;
+      render();
+    }, 1200); // tiempo que las monedas permanecen visibles en la balanza
+
+  }, 80); // pequeño delay para que la transición neutral sea visible antes de inclinar
 }
 
 // ══════════════════════════════════════════════
 //  CHECK GUESS
 // ══════════════════════════════════════════════
-function checkGuess() {
+function checkGuess(){
   if (locked || state.gameOver) return;
   if (state.suspected === null) return;
-
   state.gameOver = true;
 
-  if (state.suspected === state.fakeIndex) {
-    // Victory
-    markDone();
-    render();
+  if (state.suspected === state.fakeIndex){
+    markDone(); render();
     document.getElementById('win-msg').innerHTML =
-      `Has identificado la moneda falsa: <strong>${LABELS[state.fakeIndex]}</strong><br>¡Eres un detective de primera! 🔍✨`;
-    setTimeout(() => popupWin.classList.add('visible'), 400);
+      'Has identificado la moneda falsa: <strong>' + LABELS[state.fakeIndex] + '</strong><br>\u00a1Eres un detective de primera! \uD83D\uDD0D\u2728';
+    setTimeout(function(){ popupWin.classList.add('visible'); }, 400);
   } else {
-    // Failure — reveal fake
     render();
-    // Highlight real fake coin in pool after a moment
-    setTimeout(() => {
-      document.querySelectorAll('.coin').forEach(el => {
-        if (parseInt(el.dataset.idx) === state.fakeIndex) {
-          el.classList.add('revealed-fake');
-        }
+    setTimeout(function(){
+      document.querySelectorAll('.coin').forEach(function(el){
+        if (parseInt(el.dataset.idx) === state.fakeIndex) el.classList.add('revealed-fake');
       });
     }, 200);
     document.getElementById('fail-msg').innerHTML =
-      `Esa no era la moneda falsa.<br>La falsa era la moneda <strong>${LABELS[state.fakeIndex]}</strong>.<br>¡La balanza no miente!`;
-    setTimeout(() => popupFail.classList.add('visible'), 600);
+      'Esa no era la moneda falsa.<br>La falsa era la moneda <strong>' + LABELS[state.fakeIndex] + '</strong>.<br>\u00a1La balanza no miente!';
+    setTimeout(function(){ popupFail.classList.add('visible'); }, 600);
   }
 }
 
 // ══════════════════════════════════════════════
 //  RESET
 // ══════════════════════════════════════════════
-function resetGame() {
+function resetGame(){
   locked = false;
-  const arm = document.getElementById('scale-arm');
-  arm.classList.remove('tilt-left','tilt-right');
+  var panLEl = document.getElementById('pan-left');
+  var panREl = document.getElementById('pan-right');
+  panLEl.classList.remove('heavier','lighter');
+  panREl.classList.remove('heavier','lighter');
   initState();
   popupFail.classList.remove('visible');
   popupWin.classList.remove('visible');
-  const hint = document.getElementById('hint-text');
-  hint.textContent = 'Selecciona monedas y colócalas en los platos para pesar';
+  var hint = document.getElementById('hint-text');
+  hint.textContent = 'Selecciona monedas y col\u00f3calas en los platos para pesar';
   hint.className = 'hint-text';
   render();
 }
@@ -710,12 +752,15 @@ function resetGame() {
 // ══════════════════════════════════════════════
 document.getElementById('weigh-btn').addEventListener('click', weighCoins);
 document.getElementById('confirm-btn').addEventListener('click', checkGuess);
-document.getElementById('clear-btn').addEventListener('click', () => {
+document.getElementById('clear-btn').addEventListener('click', function(){
   if (locked || state.gameOver) return;
-  const all = [...state.panLeft, ...state.panRight];
+  var panLEl = document.getElementById('pan-left');
+  var panREl = document.getElementById('pan-right');
+  panLEl.classList.remove('heavier','lighter');
+  panREl.classList.remove('heavier','lighter');
+  var all = state.panLeft.concat(state.panRight);
   state.panLeft = []; state.panRight = [];
-  state.pool = [...new Set([...state.pool, ...all])].sort((a,b)=>a-b);
-  state.tilt = 'balanced';
+  state.pool = Array.from(new Set(state.pool.concat(all))).sort(function(a,b){ return a-b; });
   render();
 });
 document.getElementById('reset-link').addEventListener('click', resetGame);
