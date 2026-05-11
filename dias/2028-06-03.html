@@ -52,7 +52,7 @@
     /* Cada plato se anima verticalmente con translateY */
     .pans-row{
       position:absolute;
-      bottom:18px;left:0;right:0;
+      bottom:52px;left:0;right:0;
       display:flex;justify-content:space-between;align-items:flex-end;
       padding:0 6px;
       pointer-events:none; /* el propio plato maneja eventos */
@@ -85,12 +85,9 @@
     .scale-pole::before{content:'';position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:14px;height:14px;background:var(--scale-metal-light);border-radius:50%;box-shadow:0 0 6px rgba(201,168,76,.3);}
     .scale-base-el{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:80px;height:10px;background:linear-gradient(to bottom,var(--scale-metal),var(--scale-base));border-radius:4px;z-index:1;}
 
-    /* Brazo horizontal (estático) */
-    .scale-arm{position:absolute;top:12px;left:50%;transform:translateX(-50%);width:90%;height:5px;background:linear-gradient(to right,var(--scale-base),var(--scale-metal-light),var(--scale-base));border-radius:3px;z-index:0;}
-    /* Hilos colgantes */
-    .scale-arm::before,.scale-arm::after{content:'';position:absolute;top:5px;width:2px;height:55px;background:linear-gradient(to bottom,var(--scale-metal),rgba(201,168,76,.3));border-radius:1px;}
-    .scale-arm::before{left:6px;}
-    .scale-arm::after{right:6px;}
+    /* Brazo horizontal eliminado — los platos se unen con SVG inline */
+    /* SVG que une los platos */
+    .scale-bar-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:visible;}
 
     /* ── MONEDAS ─────────────────────────────────────────────── */
     .coins-section{padding:.6rem 1.2rem 1rem;}
@@ -213,8 +210,18 @@
       <!-- BALANZA -->
       <div class="scale-section">
         <div class="scale-container">
-          <!-- Brazo estático -->
-          <div class="scale-arm"></div>
+          <!-- Línea SVG que une los dos platos -->
+          <svg class="scale-bar-svg" id="scale-bar-svg" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <line id="scale-bar-line" x1="0" y1="0" x2="0" y2="0"
+              stroke="url(#barGrad)" stroke-width="4" stroke-linecap="round"/>
+            <defs>
+              <linearGradient id="barGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%"   stop-color="#5A4A34"/>
+                <stop offset="50%"  stop-color="#A89060"/>
+                <stop offset="100%" stop-color="#5A4A34"/>
+              </linearGradient>
+            </defs>
+          </svg>
           <!-- Platos independientes (se mueven verticalmente) -->
           <div class="pans-row">
             <div class="pan" id="pan-left" data-side="left">
@@ -431,6 +438,32 @@ document.getElementById('help-close').addEventListener('click', function(){ popu
 popupHelp.addEventListener('click', function(e){ if (e.target===popupHelp) popupHelp.classList.remove('visible'); });
 
 // ══════════════════════════════════════════════
+//  LÍNEA SVG QUE UNE LOS DOS PLATOS
+// ══════════════════════════════════════════════
+function updateBarLine(){
+  var svg  = document.getElementById('scale-bar-svg');
+  var line = document.getElementById('scale-bar-line');
+  var panL = document.getElementById('pan-left');
+  var panR = document.getElementById('pan-right');
+  if (!svg || !line || !panL || !panR) return;
+
+  var svgRect  = svg.getBoundingClientRect();
+  var rectL    = panL.getBoundingClientRect();
+  var rectR    = panR.getBoundingClientRect();
+
+  // Punto central superior de cada plato
+  var x1 = rectL.left + rectL.width / 2 - svgRect.left;
+  var y1 = rectL.top  + 4               - svgRect.top;
+  var x2 = rectR.left + rectR.width / 2 - svgRect.left;
+  var y2 = rectR.top  + 4               - svgRect.top;
+
+  line.setAttribute('x1', x1.toFixed(1));
+  line.setAttribute('y1', y1.toFixed(1));
+  line.setAttribute('x2', x2.toFixed(1));
+  line.setAttribute('y2', y2.toFixed(1));
+}
+
+// ══════════════════════════════════════════════
 //  GAME STATE
 // ══════════════════════════════════════════════
 var TOTAL_COINS = 8;
@@ -516,6 +549,8 @@ function render(){
       hintEl.className = 'hint-text';
     }
   }
+  // Actualizar línea SVG tras el render del DOM
+  requestAnimationFrame(updateBarLine);
 }
 
 function buildCoin(idx, location){
@@ -666,6 +701,8 @@ function weighCoins(){
       panREl.classList.add('lighter');
     }
     // Si equilibrio, no se mueven
+    // Redibujar línea una vez completada la transición CSS (550ms)
+    setTimeout(updateBarLine, 560);
 
     // Paso 3: actualizar contadores y resultado
     state.weighsLeft--;
@@ -772,6 +809,7 @@ document.getElementById('fail-retry').addEventListener('click', resetGame);
 initState();
 setupPanListeners();
 render();
+window.addEventListener('resize', updateBarLine);
 </script>
 </body>
 </html>
