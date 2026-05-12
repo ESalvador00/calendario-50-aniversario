@@ -52,7 +52,7 @@
     /* Cada plato se anima verticalmente con translateY */
     .pans-row{
       position:absolute;
-      bottom:80px;left:0;right:0;
+      bottom:110px;left:0;right:0;
       display:flex;justify-content:space-between;align-items:flex-end;
       padding:0 6px;
       pointer-events:none; /* el propio plato maneja eventos */
@@ -83,8 +83,6 @@
     .scale-pole{position:absolute;left:50%;transform:translateX(-50%);bottom:0;width:6px;height:120px;background:linear-gradient(to right,var(--scale-base),var(--scale-metal),var(--scale-base));border-radius:3px;z-index:1;}
     .scale-pole::before{content:'';position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:14px;height:14px;background:var(--scale-metal-light);border-radius:50%;box-shadow:0 0 6px rgba(201,168,76,.3);}
     .scale-base-el{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:80px;height:10px;background:linear-gradient(to bottom,var(--scale-metal),var(--scale-base));border-radius:4px;z-index:1;}
-
-    /* Brazo horizontal eliminado — los platos se unen con SVG inline */
 
     /* ── MONEDAS ─────────────────────────────────────────────── */
     .coins-section{padding:.6rem 1.2rem 1rem;}
@@ -195,11 +193,11 @@
           <span class="info-value" id="suspect-label">&#8212;</span>
         </div>
         <div class="info-pill">
-          <span class="info-label">Plato Izq.</span>
+          <span class="info-label">Plato A</span>
           <span class="info-value" id="left-count">0</span>
         </div>
         <div class="info-pill">
-          <span class="info-label">Plato Der.</span>
+          <span class="info-label">Plato B</span>
           <span class="info-value" id="right-count">0</span>
         </div>
       </div>
@@ -501,7 +499,6 @@ function render(){
       hintEl.className = 'hint-text';
     }
   }
-  // Actualizar línea SVG tras el render del DOM
 }
 
 function buildCoin(idx, location){
@@ -662,7 +659,7 @@ function weighCoins(){
       hint.textContent = '\u2696 Equilibrio \u2014 la moneda falsa est\u00e1 entre las que no pesaste';
       hint.className = 'hint-text success';
     } else {
-      var lighterSide = wL < wR ? 'izquierdo' : 'derecho';
+      var lighterSide = wL < wR ? 'A' : 'B';
       hint.textContent = '\u2191 El plato ' + lighterSide + ' es m\u00e1s ligero \u2014 la moneda falsa est\u00e1 en ese lado';
       hint.className = 'hint-text';
     }

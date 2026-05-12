@@ -350,10 +350,12 @@
       · El par movido debe quedar <strong>tocando</strong> al menos una moneda del grupo principal.<br><br>
 
       <strong style="color:var(--gold-light);">Cómo interactuar</strong><br>
-      1. Haz clic en cualquiera de las dos monedas de un par seleccionable (parpadean).<br>
-      2. Se resaltarán las posiciones de destino válidas.<br>
-      3. Haz clic en la posición de destino para ejecutar el movimiento.<br>
-      4. Haz clic de nuevo en el par para deseleccionarlo.<br><br>
+      Hay dos formas de seleccionar un par:<br><br>
+      · <strong>Clic doble:</strong> clica una moneda (queda resaltada) y luego clica la moneda adyacente. Si forman un par válido, queda seleccionado.<br>
+      · <strong>Clic en el hueco entre dos monedas:</strong> si hay un hueco vacío entre dos monedas adyacentes, clicarlo confirma el par directamente.<br><br>
+      Una vez seleccionado el par (ambas monedas elevadas):<br>
+      · Los destinos válidos parpadean en dorado — clícalos para mover.<br>
+      · Clic en cualquiera de las dos monedas del par → deselecciona.<br><br>
 
       <strong style="color:var(--gold-light);">Pista — solución óptima en 3 movimientos</strong><br>
       Las monedas están numeradas 1–5 de izquierda a derecha y los huecos son H1–H4.<br>
@@ -462,7 +464,8 @@ const COINS_INIT = ['X','O','X','O','X']; // en posiciones 0-4
 
 let board    = [];
 let moves    = 0;
-let selPair  = null;   // {i, j} índices del par seleccionado (i < j, adyacentes)
+let selPair  = null;   // {i, j} índices del par confirmado
+let firstCoin = -1;    // primera moneda clicada en fase 1 (-1 = ninguna)
 let locked   = false;
 let gameOver = false;
 
@@ -470,10 +473,11 @@ let gameOver = false;
 function resetGame() {
   board    = Array(N_SLOTS).fill(null);
   COINS_INIT.forEach((c, k) => { board[k] = c; });
-  moves    = 0;
-  selPair  = null;
-  locked   = false;
-  gameOver = false;
+  moves     = 0;
+  selPair   = null;
+  firstCoin = -1;
+  locked    = false;
+  gameOver  = false;
   document.getElementById('move-count').textContent = '0';
   setHint('Selecciona un par de monedas adyacentes', 'neutral');
   document.getElementById('status-bar').textContent = '🎯 Agrupa las monedas del mismo tipo — todas juntas, sin huecos';
@@ -539,8 +543,8 @@ function getValidPairs() {
 // Para un par en (pi, pj), devuelve array de posiciones de inicio de destino (d, d+1 vacíos)
 // tal que tras mover el par a (d, d+1):
 //   1. (d, d+1) estaban ambos vacíos
-//   2. Las monedas restantes + el par en destino forman una línea continua
-//   3. El par en destino toca al menos una moneda del resto
+//   2. El par en destino toca al menos una moneda del resto
+// Los huecos temporales en la fila están permitidos.
 function getValidDestinations(pi, pj) {
   const dests = [];
   for (let d = 0; d < N_SLOTS - 1; d++) {
@@ -552,9 +556,6 @@ function getValidDestinations(pi, pj) {
     sim[pi] = null; sim[pj] = null;
     sim[d]  = board[pi]; sim[d+1] = board[pj];
 
-    // ¿Continuo?
-    if (!isContinuous(sim)) continue;
-
     // ¿El par toca al menos una moneda del resto?
     const touches = (d > 0 && sim[d-1] !== null) || (d+1 < N_SLOTS-1 && sim[d+2] !== null);
     if (!touches) continue;
@@ -564,35 +565,114 @@ function getValidDestinations(pi, pj) {
   return dests;
 }
 
-// ── selectPair ─────────────────────────────────────────────
-function selectPair(i) {
+
+
+// ── firstCoin & selectPair (sistema de dos fases) ──────────
+
+function tryConfirmPair(a, b) {
+  // a < b, ambas monedas, intentar confirmar como par
+  if (b !== a + 1) {
+    // No adyacentes → nueva primera moneda
+    firstCoin = b;
+    setHint('Ahora clica la moneda adyacente para formar el par', '');
+    renderBoard();
+    return;
+  }
+  const valid = getValidPairs();
+  const found = valid.find(p => p.i === a && p.j === b);
+  if (found) {
+    selPair   = found;
+    firstCoin = -1;
+    const lA = board[found.i] === 'X' ? 'Dorada' : 'Plateada';
+    const lB = board[found.j] === 'X' ? 'Dorada' : 'Plateada';
+    setHint('Par: ' + lA + ' + ' + lB + ' · Elige posición de destino', '');
+  } else {
+    shakeSlot(a); shakeSlot(b);
+    firstCoin = -1;
+    setHint('Ese par no tiene destinos disponibles', 'error');
+    setTimeout(() => setHint('Selecciona un par de monedas adyacentes', 'neutral'), 1500);
+  }
+  renderBoard();
+}
+
+function selectPair(idx) {
   if (locked || gameOver) return;
 
-  // Si ya hay un par seleccionado y clicamos en él → deseleccionar
-  if (selPair && (i === selPair.i || i === selPair.j)) {
-    selPair = null;
+  // Deseleccionar par activo si se clica sobre él
+  if (selPair && (idx === selPair.i || idx === selPair.j)) {
+    selPair   = null;
+    firstCoin = -1;
     setHint('Selecciona un par de monedas adyacentes', 'neutral');
     renderBoard();
     return;
   }
+  // Tenía par activo pero clic en otra moneda → reiniciar selección
+  if (selPair) { selPair = null; }
 
-  // Buscar si el slot i pertenece a un par válido
-  const valid = getValidPairs();
-  const found = valid.find(p => p.i === i || p.j === i);
+  if (firstCoin === -1) {
+    // Fase 1: guardar primera moneda
+    firstCoin = idx;
+    setHint('Ahora clica la moneda adyacente (o el hueco entre ambas)', '');
+    renderBoard();
+  } else if (firstCoin === idx) {
+    // Clic doble en la misma → cancelar
+    firstCoin = -1;
+    setHint('Selecciona un par de monedas adyacentes', 'neutral');
+    renderBoard();
+  } else {
+    // Fase 2: tenemos las dos monedas
+    const a = Math.min(firstCoin, idx);
+    const b = Math.max(firstCoin, idx);
+    tryConfirmPair(a, b);
+  }
+}
 
-  if (!found) {
-    // No hay par válido aquí → shake
-    shakeSlot(i);
-    setHint('Este par no tiene movimiento válido', 'error');
-    setTimeout(() => setHint('Selecciona un par de monedas adyacentes', 'neutral'), 1500);
+// Clic en hueco vacío entre dos monedas adyacentes → selección directa del par
+function selectPairViaGap(idx) {
+  if (locked || gameOver) return;
+  // Si hay par activo, redirigir al handler de destino
+  if (selPair) {
+    const d = selPair.destinations.includes(idx)     ? idx :
+              selPair.destinations.includes(idx - 1) ? idx - 1 : -1;
+    if (d !== -1) { movePair(d); return; }
+    // Hueco no es destino válido: cancelar selección
+    selPair   = null;
+    firstCoin = -1;
+    setHint('Selecciona un par de monedas adyacentes', 'neutral');
+    renderBoard();
     return;
   }
-
-  selPair = found;
-  const typeA = board[found.i] === 'X' ? 'Dorada' : 'Plateada';
-  const typeB = board[found.j] === 'X' ? 'Dorada' : 'Plateada';
-  setHint(`Par seleccionado: ${typeA} + ${typeB} · Elige destino`, '');
-  renderBoard();
+  // Sin par activo: comprobar si el hueco está flanqueado por dos monedas adyacentes
+  // (es decir, idx-1 e idx+1 son monedas — "par con hueco central" visual).
+  // En Tait los pares son SIEMPRE adyacentes, así que usamos el hueco para
+  // completar la fase 2 si hay firstCoin a uno de los lados.
+  if (firstCoin !== -1) {
+    // El usuario había pulsado una moneda y ahora el hueco
+    // → interpretar como que quiere el par (firstCoin, otra moneda al otro lado)
+    // Solo tiene sentido si firstCoin es adyacente al hueco
+    if (Math.abs(firstCoin - idx) === 1) {
+      // firstCoin está justo al lado del hueco; la "otra moneda" estaría en idx+1 o idx-1
+      // pero eso no forma par adyacente. Cancelar fase 1 y no hacer nada más.
+      firstCoin = -1;
+      setHint('Selecciona un par de monedas adyacentes', 'neutral');
+      renderBoard();
+      return;
+    }
+    firstCoin = -1;
+    renderBoard();
+    return;
+  }
+  // Hueco flanqueado: moneda a la izquierda (idx-1) y a la derecha (idx+1)
+  const left  = idx - 1 >= 0        && board[idx-1] !== null;
+  const right = idx + 1 < N_SLOTS   && board[idx+1] !== null;
+  if (left && right) {
+    // El hueco está entre dos monedas → selección directa del par más cercano
+    // Preferir el par que sea adyacente al hueco y tenga destinos
+    // En realidad no son adyacentes entre sí (hay hueco); esto ocurre TRAS mover,
+    // cuando quedan huecos internos. No hay par adyacente aquí → ignorar silenciosamente.
+    setHint('Selecciona un par de monedas adyacentes', 'neutral');
+    return;
+  }
 }
 
 // ── movePair ───────────────────────────────────────────────
@@ -600,8 +680,8 @@ function movePair(destStart) {
   if (!selPair || locked || gameOver) return;
   const { i, j } = selPair;
 
-  locked = true;
-  board[destStart]   = board[i];
+  locked    = true;
+  firstCoin = -1;
   board[destStart+1] = board[j];
   board[i] = null;
   board[j] = null;
@@ -644,13 +724,20 @@ function renderBoard() {
   const track = document.getElementById('track');
   track.innerHTML = '';
 
-  const validPairs = (locked || gameOver) ? [] : getValidPairs();
+  const validPairs    = (locked || gameOver) ? [] : getValidPairs();
   const pairableSlots = new Set();
   validPairs.forEach(p => { pairableSlots.add(p.i); pairableSlots.add(p.j); });
 
-  // Destinos válidos del par seleccionado
+  // Destinos del par ya confirmado
   const validDests = new Set();
   if (selPair) selPair.destinations.forEach(d => { validDests.add(d); validDests.add(d+1); });
+
+  // Par en curso de selección (fase 1 activa): adyacentes a firstCoin
+  const firstCoinNeighbours = new Set();
+  if (!selPair && firstCoin !== -1) {
+    if (firstCoin - 1 >= 0      && board[firstCoin-1] !== null) firstCoinNeighbours.add(firstCoin-1);
+    if (firstCoin + 1 < N_SLOTS && board[firstCoin+1] !== null) firstCoinNeighbours.add(firstCoin+1);
+  }
 
   for (let idx = 0; idx < N_SLOTS; idx++) {
     const val = board[idx];
@@ -659,37 +746,53 @@ function renderBoard() {
     slot.dataset.idx = idx;
 
     if (val === null) {
-      // Slot vacío
+      // ── Slot vacío ─────────────────────────────────────
       slot.classList.add('empty');
 
-      if (!locked && !gameOver && validDests.has(idx)) {
-        slot.classList.add('drop-target');
-        // Click en destino: necesitamos saber qué inicio corresponde
-        slot.addEventListener('click', () => {
-          if (!selPair) return;
-          // El inicio del par destino puede ser idx o idx-1
-          // Solo uno de ellos está en selPair.destinations
-          const d = selPair.destinations.includes(idx) ? idx :
-                    selPair.destinations.includes(idx - 1) ? idx - 1 : -1;
-          if (d !== -1) movePair(d);
-        });
+      if (!locked && !gameOver) {
+        if (validDests.has(idx)) {
+          // Destino válido del par confirmado
+          slot.classList.add('drop-target');
+          slot.addEventListener('click', () => {
+            const cap = idx; // capturar idx
+            const d = selPair && selPair.destinations.includes(cap)     ? cap :
+                      selPair && selPair.destinations.includes(cap - 1) ? cap - 1 : -1;
+            if (d !== -1) movePair(d);
+          });
+        } else {
+          // Hueco sin ser destino: conectar a selectPairViaGap
+          // (también sirve para cancelar selección en curso)
+          slot.addEventListener('click', () => selectPairViaGap(idx));
+        }
       }
     } else {
-      // Slot con moneda
+      // ── Slot con moneda ────────────────────────────────
       slot.classList.add(val);
-      slot.innerHTML = `<span class="coin-symbol">${val === 'X' ? '👑' : '✦'}</span><span class="coin-text">${val === 'X' ? 'Dorada' : 'Plateada'}</span>`;
+      slot.innerHTML = '<span class="coin-symbol">' + (val === 'X' ? '👑' : '✦') + '</span>'
+                     + '<span class="coin-text">'   + (val === 'X' ? 'Dorada' : 'Plateada') + '</span>';
 
       const inSelPair = selPair && (idx === selPair.i || idx === selPair.j);
+      const isFirst   = !selPair && idx === firstCoin;
+      const isNeighbour = firstCoinNeighbours.has(idx);
+
       if (inSelPair) {
         slot.classList.add('selected-pair');
-      } else if (!locked && !gameOver && pairableSlots.has(idx)) {
+      } else if (isFirst) {
+        // Primera moneda seleccionada (fase 1): highlight especial (elevada, dorada)
+        slot.classList.add('selected-pair');
+      } else if (isNeighbour) {
+        // Moneda adyacente a firstCoin que formaría par válido → pulso invitation
+        const valid = getValidPairs();
+        if (valid.find(p => (p.i === Math.min(firstCoin,idx) && p.j === Math.max(firstCoin,idx)))) {
+          slot.classList.add('pair-available');
+        }
+      } else if (!locked && !gameOver && pairableSlots.has(idx) && firstCoin === -1 && !selPair) {
+        // Sin selección activa: resaltar pares disponibles
         slot.classList.add('pair-available');
       }
 
       if (!locked && !gameOver) {
-        slot.addEventListener('click', () => {
-          if (val !== null) selectPair(idx);
-        });
+        slot.addEventListener('click', () => selectPair(idx));
       }
     }
 
