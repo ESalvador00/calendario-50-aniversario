@@ -108,6 +108,88 @@
     @keyframes alarm-pulse{0%,100%{opacity:0;}50%{opacity:.25;}}
     .alarm-overlay{display:none;position:absolute;inset:0;z-index:40;background:#FF0000;pointer-events:none;border-radius:3px;}
     .alarm-overlay.active{display:block;animation:alarm-pulse 0.8s ease-in-out 3;}
+
+    /* ── Sirena de emergencia ──────────────────────────────────── */
+    @keyframes siren-rotate{
+      0%   { transform:rotate(0deg); }
+      100% { transform:rotate(360deg); }
+    }
+    .siren-overlay{
+      display:none;
+      position:absolute;
+      inset:0;
+      z-index:45;
+      border-radius:3px;
+      pointer-events:none;
+      overflow:hidden;
+    }
+    .siren-overlay.active{ display:block; }
+    .siren-beam{
+      position:absolute;
+      /* El haz arranca desde el centro y se extiende */
+      top:50%; left:50%;
+      width:200%;
+      height:200%;
+      transform-origin:0% 0%;
+      background:conic-gradient(
+        from 0deg,
+        rgba(255,0,0,0)       0deg,
+        rgba(255,0,0,0)       60deg,
+        rgba(255,40,0,0.18)   90deg,
+        rgba(255,0,0,0.28)   120deg,
+        rgba(255,60,0,0.15)  150deg,
+        rgba(255,0,0,0)      180deg,
+        rgba(255,0,0,0)      360deg
+      );
+      animation: siren-rotate 1.4s linear infinite;
+      mix-blend-mode: screen;
+    }
+    .siren-overlay.active::after{
+      content:'';
+      position:absolute;
+      inset:0;
+      background:rgba(255,0,0,0.07);
+      animation: siren-ambient 0.7s ease-in-out infinite alternate;
+    }
+    @keyframes siren-ambient{
+      from{ opacity:0; }
+      to  { opacity:1; }
+    }
+
+    /* ── Monitor de presión — OK LED ─────────────────────────── */
+    .pres-ok-led{
+      position:absolute;
+      /* Ajustar estas coordenadas al monitor de presión en la imagen */
+      left:42.5%;
+      top:26.5%;
+      transform:translate(-50%,-50%);
+      pointer-events:none;
+      z-index:55;
+      display:none;
+      line-height:1;
+    }
+    .pres-ok-led.visible{ display:block; }
+    .pres-ok-led svg{
+      filter:
+        drop-shadow(0 0 3px #00ff88)
+        drop-shadow(0 0 8px #00ff88)
+        drop-shadow(0 0 18px rgba(0,255,136,.7));
+      animation: led-pulse 1.2s ease-in-out infinite;
+    }
+    @keyframes led-pulse{
+      0%,100%{
+        filter:
+          drop-shadow(0 0 3px #00ff88)
+          drop-shadow(0 0 8px #00ff88)
+          drop-shadow(0 0 18px rgba(0,255,136,.6));
+      }
+      50%{
+        filter:
+          drop-shadow(0 0 6px #00ff88)
+          drop-shadow(0 0 18px #00ff88)
+          drop-shadow(0 0 36px rgba(0,255,136,.9));
+      }
+    }
     @keyframes shake{0%,100%{transform:translate(0,0);}20%{transform:translate(-4px,2px);}40%{transform:translate(4px,-2px);}60%{transform:translate(-3px,3px);}80%{transform:translate(3px,-1px);}}
     .escenario-wrap.shaking{animation:shake .25s ease;}
     @keyframes crt-error-blink{0%,100%{opacity:1;}30%,70%{opacity:.2;}}
@@ -209,6 +291,56 @@
 
         <div class="alarm-overlay" id="alarm-overlay"></div>
 
+        <!-- Sirena de emergencia -->
+        <div class="siren-overlay" id="siren-overlay">
+          <div class="siren-beam"></div>
+        </div>
+
+        <!-- OK LED en monitor de presión (se muestra al completar el reto) -->
+        <div class="pres-ok-led" id="pres-ok-led">
+          <!-- SVG "OK" con puntos neón led -->
+          <svg width="72" height="36" viewBox="0 0 72 36" xmlns="http://www.w3.org/2000/svg">
+            <!-- Letra O con puntos led -->
+            <!-- Arco superior O -->
+            <circle cx="6"  cy="6"  r="2.2" fill="#00ff88"/>
+            <circle cx="11" cy="3"  r="2.2" fill="#00ff88"/>
+            <circle cx="17" cy="2"  r="2.2" fill="#00ff88"/>
+            <circle cx="23" cy="3"  r="2.2" fill="#00ff88"/>
+            <circle cx="28" cy="6"  r="2.2" fill="#00ff88"/>
+            <!-- Lado derecho O -->
+            <circle cx="30" cy="12" r="2.2" fill="#00ff88"/>
+            <circle cx="30" cy="18" r="2.2" fill="#00ff88"/>
+            <circle cx="30" cy="24" r="2.2" fill="#00ff88"/>
+            <!-- Arco inferior O -->
+            <circle cx="28" cy="30" r="2.2" fill="#00ff88"/>
+            <circle cx="23" cy="33" r="2.2" fill="#00ff88"/>
+            <circle cx="17" cy="34" r="2.2" fill="#00ff88"/>
+            <circle cx="11" cy="33" r="2.2" fill="#00ff88"/>
+            <circle cx="6"  cy="30" r="2.2" fill="#00ff88"/>
+            <!-- Lado izquierdo O -->
+            <circle cx="4"  cy="24" r="2.2" fill="#00ff88"/>
+            <circle cx="4"  cy="18" r="2.2" fill="#00ff88"/>
+            <circle cx="4"  cy="12" r="2.2" fill="#00ff88"/>
+
+            <!-- Letra K (offset x=40) -->
+            <!-- Palo vertical K -->
+            <circle cx="40" cy="2"  r="2.2" fill="#00ff88"/>
+            <circle cx="40" cy="8"  r="2.2" fill="#00ff88"/>
+            <circle cx="40" cy="14" r="2.2" fill="#00ff88"/>
+            <circle cx="40" cy="20" r="2.2" fill="#00ff88"/>
+            <circle cx="40" cy="26" r="2.2" fill="#00ff88"/>
+            <circle cx="40" cy="32" r="2.2" fill="#00ff88"/>
+            <!-- Diagonal superior K -->
+            <circle cx="45" cy="14" r="2.2" fill="#00ff88"/>
+            <circle cx="50" cy="8"  r="2.2" fill="#00ff88"/>
+            <circle cx="55" cy="2"  r="2.2" fill="#00ff88"/>
+            <!-- Diagonal inferior K -->
+            <circle cx="45" cy="20" r="2.2" fill="#00ff88"/>
+            <circle cx="50" cy="26" r="2.2" fill="#00ff88"/>
+            <circle cx="55" cy="32" r="2.2" fill="#00ff88"/>
+          </svg>
+        </div>
+
         <div class="crt-overlay" id="crt-overlay">
           <span class="crt-text" id="crt-text"></span>
         </div>
@@ -290,6 +422,43 @@
     <img class="sw-img-lb" id="sw-img-lb-11" src="../media/ER02_Interruptor_ON.png" alt="" draggable="false"/>
     <img class="sw-img-lb" id="sw-img-lb-12" src="../media/ER02_Interruptor_ON.png" alt="" draggable="false"/>
     <div class="alarm-overlay" id="alarm-overlay-lb"></div>
+    <!-- Sirena lightbox -->
+    <div class="siren-overlay" id="siren-overlay-lb">
+      <div class="siren-beam"></div>
+    </div>
+    <!-- OK LED lightbox -->
+    <div class="pres-ok-led" id="pres-ok-led-lb">
+      <svg width="72" height="36" viewBox="0 0 72 36" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="6"  cy="6"  r="2.2" fill="#00ff88"/>
+        <circle cx="11" cy="3"  r="2.2" fill="#00ff88"/>
+        <circle cx="17" cy="2"  r="2.2" fill="#00ff88"/>
+        <circle cx="23" cy="3"  r="2.2" fill="#00ff88"/>
+        <circle cx="28" cy="6"  r="2.2" fill="#00ff88"/>
+        <circle cx="30" cy="12" r="2.2" fill="#00ff88"/>
+        <circle cx="30" cy="18" r="2.2" fill="#00ff88"/>
+        <circle cx="30" cy="24" r="2.2" fill="#00ff88"/>
+        <circle cx="28" cy="30" r="2.2" fill="#00ff88"/>
+        <circle cx="23" cy="33" r="2.2" fill="#00ff88"/>
+        <circle cx="17" cy="34" r="2.2" fill="#00ff88"/>
+        <circle cx="11" cy="33" r="2.2" fill="#00ff88"/>
+        <circle cx="6"  cy="30" r="2.2" fill="#00ff88"/>
+        <circle cx="4"  cy="24" r="2.2" fill="#00ff88"/>
+        <circle cx="4"  cy="18" r="2.2" fill="#00ff88"/>
+        <circle cx="4"  cy="12" r="2.2" fill="#00ff88"/>
+        <circle cx="40" cy="2"  r="2.2" fill="#00ff88"/>
+        <circle cx="40" cy="8"  r="2.2" fill="#00ff88"/>
+        <circle cx="40" cy="14" r="2.2" fill="#00ff88"/>
+        <circle cx="40" cy="20" r="2.2" fill="#00ff88"/>
+        <circle cx="40" cy="26" r="2.2" fill="#00ff88"/>
+        <circle cx="40" cy="32" r="2.2" fill="#00ff88"/>
+        <circle cx="45" cy="14" r="2.2" fill="#00ff88"/>
+        <circle cx="50" cy="8"  r="2.2" fill="#00ff88"/>
+        <circle cx="55" cy="2"  r="2.2" fill="#00ff88"/>
+        <circle cx="45" cy="20" r="2.2" fill="#00ff88"/>
+        <circle cx="50" cy="26" r="2.2" fill="#00ff88"/>
+        <circle cx="55" cy="32" r="2.2" fill="#00ff88"/>
+      </svg>
+    </div>
     <div class="lightbox-crt" id="lightbox-crt">
       <span class="lightbox-crt-text" id="lightbox-crt-text"></span>
     </div>
@@ -422,7 +591,10 @@ function typeWrite(msg) {
 }
 window.addEventListener('load', () => {
   DisplayAll();
-  setTimeout(() => triggerError(m('alertaInicio'), null), 600);
+  setTimeout(() => {
+    triggerError(m('alertaInicio'), null);
+    startSiren();
+  }, 600);
 });
 function clearConsole() {
   if (twTimer) { clearTimeout(twTimer); twTimer = null; }
@@ -621,6 +793,76 @@ function playError() {
 function playClick() {
   playTone(440,0,0.05,0.08,'square');
   playTone(330,0.06,0.04,0.05,'square');
+}
+
+// ── Sirena de emergencia (audio + luces) ─────────────────────
+let sirenIntervalId  = null;   // setInterval que dispara cada ciclo
+let sirenAudioNodes  = [];     // nodos activos del ciclo actual
+let sirenActive      = false;
+
+function playSirenCycle() {
+  // Onda sinusoidal que oscila rápido entre frecuencia baja y alta
+  try {
+    const ctx  = getAudioCtx();
+    const osc  = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.type = 'sine';
+    const t  = ctx.currentTime;
+    const dur = 1.6;   // segundos de un ciclo de sirena
+    // Oscila 880 Hz → 440 Hz → 880 Hz varias veces dentro del ciclo
+    osc.frequency.setValueAtTime(880, t);
+    osc.frequency.linearRampToValueAtTime(440, t + dur * 0.5);
+    osc.frequency.linearRampToValueAtTime(880, t + dur);
+    gain.gain.setValueAtTime(0, t);
+    gain.gain.linearRampToValueAtTime(0.14, t + 0.04);
+    gain.gain.setValueAtTime(0.14, t + dur - 0.05);
+    gain.gain.linearRampToValueAtTime(0, t + dur);
+    osc.start(t);
+    osc.stop(t + dur + 0.05);
+    sirenAudioNodes.push(osc);
+    // Limpiar referencia cuando termina
+    osc.onended = () => {
+      sirenAudioNodes = sirenAudioNodes.filter(n => n !== osc);
+    };
+  } catch(e) { /* AudioContext bloqueado hasta interacción del usuario */ }
+}
+
+function startSiren() {
+  if (sirenActive) return;
+  sirenActive = true;
+  // Activa overlays visuales
+  const so   = document.getElementById('siren-overlay');
+  const soLb = document.getElementById('siren-overlay-lb');
+  if (so)   so.classList.add('active');
+  if (soLb) soLb.classList.add('active');
+  // Primer ciclo inmediato
+  playSirenCycle();
+  // Repite cada ~2 s (ciclo audio 1.6 s + 0.4 s pausa)
+  sirenIntervalId = setInterval(playSirenCycle, 2000);
+}
+
+function stopSiren() {
+  if (!sirenActive) return;
+  sirenActive = false;
+  clearInterval(sirenIntervalId);
+  sirenIntervalId = null;
+  // Para todos los nodos de audio en vuelo
+  sirenAudioNodes.forEach(n => { try { n.stop(); } catch(e){} });
+  sirenAudioNodes = [];
+  // Oculta overlays visuales
+  const so   = document.getElementById('siren-overlay');
+  const soLb = document.getElementById('siren-overlay-lb');
+  if (so)   so.classList.remove('active');
+  if (soLb) soLb.classList.remove('active');
+}
+
+function showOKLed() {
+  const led   = document.getElementById('pres-ok-led');
+  const ledLb = document.getElementById('pres-ok-led-lb');
+  if (led)   led.classList.add('visible');
+  if (ledLb) ledLb.classList.add('visible');
 }
 
 // ── Panel de bombillas ────────────────────────────────────────
@@ -1160,8 +1402,18 @@ function submitResetCode() {
   if (val === 'SOLES') {
     sistemaReseteado = true;
     lightNextBulb(); // bombilla 4: código correcto
-    playVictory();
+    // 1. Parar sirena
+    stopSiren();
+    // 2. Cambiar imagen escenario a versión verde
+    const escImg   = document.getElementById('escenario-img');
+    const lbImg    = document.getElementById('lightbox-img');
+    if (escImg) escImg.src = '../media/ER02_EscenarioVisual_NoGlass_Green.jpg';
+    if (lbImg)  lbImg.src  = '../media/ER02_EscenarioVisual_NoGlass_Green.jpg';
+    // 3. Mostrar OK LED en monitor de presión
+    showOKLed();
+    // 4. Efectos de victoria y mensaje
     bulbsTriumph();
+    playVictory();
     typeWrite(m('resetOK'));
     setTimeout(() => {
       if (lbOpen) closeLightbox();
