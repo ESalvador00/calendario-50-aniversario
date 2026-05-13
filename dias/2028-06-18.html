@@ -865,7 +865,7 @@ let sirenIntervalId  = null;   // setInterval que dispara cada ciclo
 let sirenAudioNodes  = [];     // nodos activos del ciclo actual
 let sirenActive      = false;
 
-function playSirenCycle() {
+// function playSirenCycle() {
 
   try {
 
@@ -952,7 +952,7 @@ function startSiren() {
   // Primer ciclo inmediato
   playSirenCycle();
   // Repite cada ~2 s (ciclo audio 1.6 s + 0.4 s pausa)
-  sirenIntervalId = setInterval(playSirenCycle, 1700);
+  // sirenIntervalId = setInterval(playSirenCycle, 1700);
 }
 
 function stopSiren() {
