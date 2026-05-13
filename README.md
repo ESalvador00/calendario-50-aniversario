@@ -270,10 +270,10 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 
 ## ✅ TO-DO — Temas pendientes
 
-| # | Día / Ámbito | Descripción | Estado |
-|---|-------------|-------------|--------|
-| 1 | 2028-06-03 — Minijuego (La Balanza Falsa) | Pendiente de validar que el juego funciona correctamente | 🔲 Pdte validar |
-| 2 | Logos icónicos (×9 días) | Rellenar contenido de: 2028-01-17, 2028-02-01, 2028-04-10, 2028-06-05, 2028-08-07, 2028-09-04, 2028-10-09, 2028-11-06, 2028-12-20 | 🔲 Pdte |
-| 3 | Pasapalabra (×12 meses) | Completar los restos de letras para los 12 meses del calendario | 🔲 Pdte |
-| 4 | Escape Rooms + Retos de observación | Añadir música ambiental de fondo en los días tipo Escape Room y en los retos de agudeza visual | 🔲 Pdte |
-| 5 | Escape Rooms | Al completar el Escape Room, volver al índice/calendario en lugar de quedarse en la página | 🔲 Pdte |
+|  Día / Ámbito | Descripción | Estado |
+|--------------|-------------|--------|
+|  Logos icónicos (×9 días) | Rellenar contenido de: 2028-01-17, 2028-02-01, 2028-04-10, 2028-06-05, 2028-08-07, 2028-09-04, 2028-10-09, 2028-11-06, 2028-12-20 | 🔲 Pdte |
+|  Pasapalabra (×12 meses) | Completar los restos de letras para los 12 meses del calendario | 🔲 Pdte |
+|  Escape Rooms + Retos de observación | Añadir música ambiental de fondo en los días tipo Escape Room y en los retos de agudeza visual | 🔲 Pdte |
+|  Escape Rooms | Al completar el Escape Room, volver al índice/calendario en lugar de quedarse en la página | 🔲 Pdte |
+|  Escape Rooms | Frase inicial ER del archivador  | 🔲 Pdte |
