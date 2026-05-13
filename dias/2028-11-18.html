@@ -288,9 +288,9 @@
     <p class="popup-title">C&#243;mo jugar</p>
     <div class="popup-help-body">
       <strong style="color:var(--gold-light);">El reto del Tri&#225;ngulo</strong><br>
-      Un puzzle cl&#225;sico de l&#243;gica espacial. El tri&#225;ngulo empieza con el v&#233;rtice apuntando hacia la <strong style="color:var(--gold-light);">derecha</strong>. Tu misi&#243;n: dejarlo apuntando hacia la <strong style="color:var(--gold-light);">izquierda</strong>, moviendo exactamente <strong style="color:var(--gold-light);">3 monedas</strong>.<br><br>
+      Un puzzle cl&#225;sico de l&#243;gica. El tri&#225;ngulo empieza apuntando hacia la <strong style="color:var(--gold-light);">derecha</strong>. Tu misi&#243;n: girarlo para que apunte hacia la <strong style="color:var(--gold-light);">izquierda</strong>, moviendo exactamente <strong style="color:var(--gold-light);">3 monedas</strong>.<br><br>
 
-      <strong style="color:var(--gold-light);">Estado inicial &#9654;</strong>
+      <strong style="color:var(--gold-light);">Estado inicial &#9654; &rarr; Estado final &#9664;</strong>
       <div class="help-tri-wrap">
         <div class="help-tri">
           <div class="ht-row"><div class="he"></div><div class="he"></div><div class="he"></div><div class="hc"></div></div>
@@ -301,31 +301,30 @@
         </div>
         <div style="display:flex;align-items:center;font-size:1.4rem;color:rgba(201,168,76,.4);">&#8594;</div>
         <div class="help-tri">
-          <div class="ht-row"><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div></div>
-          <div class="ht-row"><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="he"></div></div>
-          <div class="ht-row"><div class="hc"></div><div class="hc"></div><div class="he"></div><div class="he"></div></div>
           <div class="ht-row"><div class="hc"></div><div class="he"></div><div class="he"></div><div class="he"></div></div>
+          <div class="ht-row"><div class="hc"></div><div class="hc"></div><div class="he"></div><div class="he"></div></div>
+          <div class="ht-row"><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="he"></div></div>
+          <div class="ht-row"><div class="he"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div></div>
           <div class="help-tri-lbl">Final &#9664;</div>
         </div>
       </div>
 
       <strong style="color:var(--gold-light);">Reglas</strong><br>
       &#183; Solo puedes realizar <strong style="color:var(--gold-light);">exactamente 3 movimientos</strong>.<br>
-      &#183; Cada movimiento traslada <strong>una moneda</strong> a cualquier posici&#243;n vac&#237;a de la rejilla.<br>
-      &#183; Solo puedes colocar una moneda en una casilla que est&#233; <strong style="color:var(--gold-light);">adyacente</strong> (incluidas diagonales) a otra moneda ya colocada.<br>
-      &#183; Las monedas <strong>no pueden superponerse</strong>.<br><br>
+      &#183; Puedes mover cualquier moneda que tenga al menos un <strong>lado libre</strong> (no encerrada completamente).<br>
+      &#183; Solo puedes colocar la moneda en una casilla vac&#237;a que <strong style="color:var(--gold-light);">toque por un lado</strong> a otra moneda ya colocada.<br>
+      &#183; Las casillas destino v&#225;lidas <strong>parpadean en dorado</strong> al seleccionar una moneda.<br><br>
 
       <strong style="color:var(--gold-light);">C&#243;mo interactuar</strong><br>
-      &#183; <strong>Seleccionar:</strong> haz clic en cualquier moneda. Quedar&#225; resaltada y elevada.<br>
-      &#183; <strong>Mover:</strong> con una moneda seleccionada, haz clic en una posici&#243;n vac&#237;a v&#225;lida (parpadea en dorado) para colocarla.<br>
-      &#183; <strong>Deseleccionar:</strong> vuelve a clicar la moneda seleccionada, o elige directamente otra moneda.<br><br>
+      &#183; <strong>Seleccionar:</strong> haz clic en cualquier moneda. Quedar&#225; elevada y se iluminar&#225;n los destinos posibles.<br>
+      &#183; <strong>Mover:</strong> haz clic en una casilla que parpadee en dorado.<br>
+      &#183; <strong>Cancelar:</strong> vuelve a clicar la misma moneda, o elige directamente otra.<br><br>
 
       <strong style="color:var(--gold-light);">Condici&#243;n de victoria</strong><br>
-      Tras los 3 movimientos las 10 monedas deben formar exactamente el tri&#225;ngulo girado &#9664;. Si no lo consigues, puedes reintentar.<br><br>
+      Tras los 3 movimientos las 10 monedas deben formar el tri&#225;ngulo girado &#9664;.<br><br>
 
       <strong style="color:var(--gold-light);">Pista</strong><br>
-      Hay <strong>3 monedas</strong> que sobran del tri&#225;ngulo inicial y <strong>3 huecos nuevos</strong> que el tri&#225;ngulo final necesita.<br>
-      Piensa en las <em>esquinas</em> del tri&#225;ngulo&#8230;
+      Solo 3 monedas est&#225;n en posiciones que no comparte el tri&#225;ngulo final. Esas son las que debes mover. Piensa en el <em>v&#233;rtice</em> y en las <em>esquinas</em>&#8230;
     </div>
     <button class="popup-btn" id="help-close">&#161;Entendido!</button>
   </div>
@@ -414,86 +413,68 @@ popupWin.addEventListener('click', e => { if (e.target === popupWin) popupWin.cl
 //  GAME — EL TRIÁNGULO GIRADO
 // ═══════════════════════════════════════════════
 //
-//  REJILLA: cuadrícula ortogonal de 5 filas × 7 columnas.
-//  id = fila * 7 + col  (solo se instancian los 13 slots activos)
+//  Cuadrícula completa 5 filas × 7 cols. id = fila*7 + col.
+//  Solo se instancian los 13 slots necesarios (unión de ambos triángulos
+//  más los intermedios necesarios para los movimientos).
 //
-//  Triángulo INICIAL (apunta a la derecha →):
-//  F0: col6               → ....*  (id  6)
-//  F1: col5,col6          → ...**  (id 12, 13)
-//  F2: col4,col5,col6     → ..*** (id 18, 19, 20)
-//  F3: col3,col4,col5,col6→ .**** (id 24, 25, 26, 27)
+//  INICIAL (→):         FINAL (←):
+//  F0: . . . . . . .    F0: . . . . . . .
+//  F1: . . . * . . .    F1: . * . . . . .
+//  F2: . . * * . . .    F2: . * * . . . .
+//  F3: . * * * . . .    F3: . * * * . . .
+//  F4: * * * * . . .    F4: . * * * * . .
 //
-//  Triángulo FINAL (apunta a la izquierda ←):
-//  F0: col0,col1,col2,col3→ ****. (id  0,  1,  2,  3)
-//  F1: col0,col1,col2     → ***.. (id  7,  8,  9)
-//  F2: col0,col1          → **... (id 14, 15)
-//  F3: col0               → *.... (id 21)
+//  SOLUCIÓN:
+//   Paso1: F1C3(10) → F2C1(15)  [adyacente a F2C2(16) ✓]
+//   Paso2: F2C3(17) → F1C1( 8)  [adyacente a F2C2(16) ✓]
+//   Paso3: F4C0(28) → F4C4(32)  [adyacente a F4C3(31) ✓]
 //
-//  Todos los slots activos (unión de ambos estados):
-//  F0: col0(0),col1(1),col2(2),col3(3),               col6(6)
-//  F1: col0(7),col1(8),col2(9),         col5(12),col6(13)
-//  F2: col0(14),col1(15),       col4(18),col5(19),col6(20)
-//  F3: col0(21),        col3(24),col4(25),col5(26),col6(27)
-//
-//  ESTADO INICIAL : {6,12,13,18,19,20,24,25,26,27}
-//  ESTADO FINAL   : {0,1,2,3,7,8,9,14,15,21}
-//
-//  SOLUCIÓN (3 movimientos):
-//    6  → 3   (vértice → esquina sup base final)
-//    24 → 21  (esquina inf base → vértice final inf)
-//    27 → 0   (esquina sup base → esquina sup final)
-//
-// ── Geometría ortogonal ──────────────────────────────────────
+// ── Geometría ────────────────────────────────────────────────
 
+// id = fila*7 + col. Solo los 13 slots que se usan en el puzzle.
 const RAW_SLOTS = [
-  // Fila 0
-  { id:  0, col: 0, row: 0 },
-  { id:  1, col: 1, row: 0 },
-  { id:  2, col: 2, row: 0 },
-  { id:  3, col: 3, row: 0 },
-  { id:  6, col: 6, row: 0 },
-  // Fila 1
-  { id:  7, col: 0, row: 1 },
-  { id:  8, col: 1, row: 1 },
-  { id:  9, col: 2, row: 1 },
-  { id: 12, col: 5, row: 1 },
-  { id: 13, col: 6, row: 1 },
-  // Fila 2
-  { id: 14, col: 0, row: 2 },
-  { id: 15, col: 1, row: 2 },
-  { id: 18, col: 4, row: 2 },
-  { id: 19, col: 5, row: 2 },
-  { id: 20, col: 6, row: 2 },
-  // Fila 3
-  { id: 21, col: 0, row: 3 },
+  { id:  8, col: 1, row: 1 },  // destino paso2
+  { id: 10, col: 3, row: 1 },  // vértice inicial (a mover paso1)
+  { id: 15, col: 1, row: 2 },  // destino paso1
+  { id: 16, col: 2, row: 2 },
+  { id: 17, col: 3, row: 2 },  // a mover paso2
+  { id: 22, col: 1, row: 3 },
+  { id: 23, col: 2, row: 3 },
   { id: 24, col: 3, row: 3 },
-  { id: 25, col: 4, row: 3 },
-  { id: 26, col: 5, row: 3 },
-  { id: 27, col: 6, row: 3 },
+  { id: 28, col: 0, row: 4 },  // esquina inf-izq (a mover paso3)
+  { id: 29, col: 1, row: 4 },
+  { id: 30, col: 2, row: 4 },
+  { id: 31, col: 3, row: 4 },
+  { id: 32, col: 4, row: 4 },  // destino paso3
 ];
 
 const GRID = RAW_SLOTS.map(s => ({ id: s.id, xr: s.col, yr: s.row }));
 
-// Mapa rápido "row_col" → id
+// Mapa "row_col" → id (para calcular vecindad dentro de la rejilla completa 5×7)
 const slotMap = {};
 RAW_SLOTS.forEach(s => { slotMap[s.row + '_' + s.col] = s.id; });
 
-// Vecinos (ortogonales + diagonales) de un slot dentro de la rejilla
+// Vecinos ortogonales (arriba/abajo/izq/der) — la regla del puzzle es tocar por lado
 function getNeighborIds(slotId) {
   const s = RAW_SLOTS.find(x => x.id === slotId);
   if (!s) return [];
   const neighbors = [];
-  for (let dr = -1; dr <= 1; dr++) {
-    for (let dc = -1; dc <= 1; dc++) {
-      if (dr === 0 && dc === 0) continue;
-      const key = (s.row + dr) + '_' + (s.col + dc);
-      if (slotMap[key] !== undefined) neighbors.push(slotMap[key]);
-    }
+  const dirs = [[-1,0],[1,0],[0,-1],[0,1]];  // ortogonales: N,S,O,E
+  for (const [dr, dc] of dirs) {
+    const key = (s.row + dr) + '_' + (s.col + dc);
+    if (slotMap[key] !== undefined) neighbors.push(slotMap[key]);
   }
   return neighbors;
 }
 
-// Destino válido: vacío y adyacente a al menos una moneda (sin contar la que se mueve)
+// Una moneda es MOVIBLE si tiene al menos un vecino ortogonal vacío en la rejilla
+// (es decir, no está completamente encerrada por otras monedas)
+function isMovable(coinId) {
+  return getNeighborIds(coinId).some(nId => !coins.has(nId));
+}
+
+// Destino válido: slot vacío que toca ortogonalmente al menos una moneda
+// (sin contar la moneda que se mueve)
 function isValidDest(fromId, toId) {
   if (coins.has(toId)) return false;
   const coinsWithoutFrom = new Set(coins);
@@ -504,9 +485,11 @@ function isValidDest(fromId, toId) {
 // Dimensiones del tablero según el viewport
 function getStepSize() {
   const boardAreaW = Math.min(document.getElementById('tri-board').parentElement.offsetWidth - 40, 420);
-  const maxXr = Math.max(...GRID.map(s => s.xr));
-  const step  = Math.floor(boardAreaW / (maxXr + 1));
-  return Math.max(Math.min(step, 54), 32);
+  // La rejilla va de col0 a col4 (5 columnas usadas, pero id llega a col4)
+  // Usamos el máximo col real para calcular el step
+  const maxCol = Math.max(...RAW_SLOTS.map(s => s.col));
+  const step = Math.floor(boardAreaW / (maxCol + 1));
+  return Math.max(Math.min(step, 58), 34);
 }
 
 function slotPx(slot, step) {
@@ -520,8 +503,8 @@ function boardSizePx(step) {
 }
 
 // ── Estado ───────────────────────────────────────────────────
-const INIT_COINS  = new Set([6, 12, 13, 18, 19, 20, 24, 25, 26, 27]);
-const FINAL_COINS = new Set([0,  1,  2,  3,  7,  8,  9, 14, 15, 21]);
+const INIT_COINS  = new Set([10, 16, 17, 22, 23, 24, 28, 29, 30, 31]);
+const FINAL_COINS = new Set([ 8, 15, 16, 22, 23, 24, 29, 30, 31, 32]);
 const MAX_MOVES = 3;
 
 let coins     = new Set(INIT_COINS);
@@ -548,7 +531,13 @@ function selectCoin(id) {
     return;
   }
   selected = id;
-  setHint('Ahora elige una posici\u00f3n vac\u00eda adyacente (parpadea en dorado)', '');
+  // Comprobar si hay destinos válidos
+  const hasDests = GRID.filter(s => !coins.has(s.id)).some(s => isValidDest(id, s.id));
+  if (!hasDests) {
+    setHint('Esta moneda no tiene movimientos disponibles', 'error');
+  } else {
+    setHint('Elige una casilla que parpadee en dorado', '');
+  }
   renderBoard();
 }
 
@@ -623,19 +612,6 @@ function moveCoin(fromId, toId) {
   }, 360);
 }
 
-// ── snapToGrid ───────────────────────────────────────────────
-function snapToGrid(pxX, pxY) {
-  const step = getStepSize();
-  let best = null, bestDist = Infinity;
-  GRID.forEach(s => {
-    const { cx, cy } = slotPx(s, step);
-    const d = Math.hypot(pxX - cx, pxY - cy);
-    if (d < bestDist) { bestDist = d; best = s.id; }
-  });
-  const COIN_SIZE = step * 0.93;
-  return bestDist < COIN_SIZE * 0.55 ? best : null;
-}
-
 // ── renderBoard ──────────────────────────────────────────────
 function renderBoard(ghostId = -1) {
   const boardEl = document.getElementById('tri-board');
@@ -646,9 +622,6 @@ function renderBoard(ghostId = -1) {
   const { w, h } = boardSizePx(step);
   boardEl.style.width  = w + 'px';
   boardEl.style.height = h + 'px';
-
-  const isDropTarget = id =>
-    !locked && !gameOver && selected !== -1 && !coins.has(id) && isValidDest(selected, id);
 
   GRID.forEach(s => {
     const { cx, cy } = slotPx(s, step);
@@ -675,7 +648,8 @@ function renderBoard(ghostId = -1) {
         el.addEventListener('click', () => {
           if (selected !== -1 && selected !== s.id) {
             selected = s.id;
-            setHint('Ahora elige una posici\u00f3n vac\u00eda adyacente (parpadea en dorado)', '');
+            const hasDests = GRID.filter(x => !coins.has(x.id)).some(x => isValidDest(s.id, x.id));
+            setHint(hasDests ? 'Elige una casilla que parpadee en dorado' : 'Esta moneda no tiene movimientos disponibles', hasDests ? '' : 'error');
             renderBoard();
           } else {
             selectCoin(s.id);
@@ -684,9 +658,11 @@ function renderBoard(ghostId = -1) {
       }
 
     } else {
+      // Slot vacío
+      const isTarget = !locked && !gameOver && selected !== -1 && isValidDest(selected, s.id);
       el.classList.add('empty');
 
-      if (isDropTarget(s.id)) {
+      if (isTarget) {
         el.classList.add('drop-target');
         el.addEventListener('click', () => moveCoin(selected, s.id));
       } else if (!locked && !gameOver && selected !== -1) {
@@ -723,7 +699,6 @@ function resetGame() {
   setHint('Selecciona una moneda para moverla', 'neutral');
   renderBoard();
 }
-
 
 // ── Popup ayuda ────────────────────────────────────────────────
 const popupHelp = document.getElementById('popup-help');
