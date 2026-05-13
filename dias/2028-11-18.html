@@ -414,69 +414,82 @@ popupWin.addEventListener('click', e => { if (e.target === popupWin) popupWin.cl
 //  GAME — LA PIRÁMIDE INVERTIDA
 // ═══════════════════════════════════════════════
 //
-//  REJILLA: 13 slots en posición hex real.
-//  Slots 0-9: triángulo ▲ inicial (coordenadas en unidades de STEP)
-//  Slots 10-12: 3 posiciones externas necesarias para el triángulo ▽ final
+//  REJILLA: cuadrícula ortogonal de 5 filas × 7 columnas.
+//  Solo se usan los slots que forman los dos triángulos (inicial ▲ y final ▽).
+//  Las monedas quedan perfectamente alineadas vertical y horizontalmente.
 //
-//  Coordenadas derivadas del análisis geométrico del puzzle clásico:
-//  (usando hex_pos(r,c) = (c + r*0.5, r*SQRT3/2) con vértice en r=0)
+//  Cuadrícula (fila, col) → id:
 //
-//  slot  0: (r=0,c=0) → xr=0.000  yr=0.000  ← vértice ▲, esquina a mover
-//  slot  1: (r=1,c=0) → xr=0.500  yr=0.866
-//  slot  2: (r=1,c=1) → xr=1.500  yr=0.866
-//  slot  3: (r=2,c=0) → xr=1.000  yr=1.732
-//  slot  4: (r=2,c=1) → xr=2.000  yr=1.732
-//  slot  5: (r=2,c=2) → xr=3.000  yr=1.732
-//  slot  6: (r=3,c=0) → xr=1.500  yr=2.598  ← esquina izq base ▲, a mover
-//  slot  7: (r=3,c=1) → xr=2.500  yr=2.598
-//  slot  8: (r=3,c=2) → xr=3.500  yr=2.598
-//  slot  9: (r=3,c=3) → xr=4.500  yr=2.598  ← esquina der base ▲, a mover
-//  slot 10: extensión  → xr=4.000  yr=3.464  ← destino de slot 9
-//  slot 11: extensión  → xr=2.500  yr=0.866  ← destino de slot 0 (fila 1, entre 2 y 3)
-//  slot 12: extensión  → xr=−0.500 yr=0.866  ← destino de slot 6 (fila 1, a izq de 1)
+//  Fila 0 (yr=0):  col 3              → id 0   ← vértice ▲ (a mover)
+//  Fila 1 (yr=1):  col 2, col 4       → id 1,2
+//  Fila 2 (yr=2):  col 1, col 3, col 5→ id 3,4,5
+//  Fila 3 (yr=3):  col 0,col2,col4,col6→id 6,7,8,9  ← base ▲ (esquinas 6 y 9 a mover)
+//  Fila 4 (yr=4):  col 1, col 3, col 5→ id 10,11,12 ← destinos para ▽
 //
-//  ESTADO INICIAL: slots 0-9 con moneda
-//  ESTADO FINAL  : slots {1,2,3,4,5,7,8,10,11,12}  → triángulo ▽ perfecto
-//    Fila yr=0.866: slot12, slot1,  slot2,  slot11  (base del ▽, 4 monedas)
-//    Fila yr=1.732: slot3,  slot4,  slot5            (3 monedas)
-//    Fila yr=2.598: slot7,  slot8                    (2 monedas)
-//    Fila yr=3.464: slot10                           (vértice ▽, 1 moneda)
+//  ESTADO INICIAL: slots 0-9 con moneda  → triángulo ▲
+//  ESTADO FINAL  : slots {1,2,3,4,5,7,8,10,11,12} → triángulo ▽
+//    Fila 0: (vacía)
+//    Fila 1: slot6(col0)=vacío... wait — ver abajo
 //
-//  MOVIMIENTOS SOLUCIÓN: 0→11, 6→12, 9→10  (cualquier orden)
+//  Disposición ▽ final:
+//    Fila 1: col2(id1), col4(id2)  → se mantienen
+//    Fila 2: col1(id3), col3(id4), col5(id5) → se mantienen
+//    Fila 3: col2(id7), col4(id8) → se mantienen (ids 6 y 9 se mueven)
+//    Fila 4: col1(id10), col3(id11), col5(id12) ← destinos
+//  Base ▽ (4 monedas) en fila 0: slot 0 se mueve a slot 13(col1,fila0) y
+//    slot 6→id14(col0,fila3 ya existe)... 
 //
-// ── Geometría ──────────────────────────────────────────────────
+//  SOLUCIÓN SIMPLIFICADA con cuadrícula ortogonal:
+//  ▲ inicial (10 monedas):
+//    F0: col3(0)
+//    F1: col2(1), col4(2)
+//    F2: col1(3), col3(4), col5(5)
+//    F3: col0(6), col2(7), col4(8), col6(9)
+//  ▽ final (10 monedas):
+//    F1: col1(13), col3(1→mantiene pos? no...) 
+//
+//  Re-diseño limpio:
+//  Usamos id = fila*7 + col para los 35 slots de la cuadrícula 5×7,
+//  pero solo instanciamos los 13 slots necesarios.
+//
+//  Slots activos (fila, col, id):
+//  (0,3)=id 3   ← vértice ▲
+//  (1,2)=id 9,  (1,4)=id 11
+//  (2,1)=id 15, (2,3)=id 17, (2,5)=id 19
+//  (3,0)=id 21, (3,2)=id 23, (3,4)=id 25, (3,6)=id 27  ← base ▲
+//  (4,1)=id 29, (4,3)=id 31, (4,5)=id 33               ← extensión ▽
+//
+//  ESTADO INICIAL: {3,9,11,15,17,19,21,23,25,27}
+//  ESTADO FINAL  : {9,11,15,17,19,23,25,29,31,33}
+//  MOVIMIENTOS   : 3→31 (vértice→base▽centro), 21→29, 27→33
+//
+// ── Geometría ortogonal ────────────────────────────────────────
 
-const SQRT3_2 = 0.8660254;
-
-// Posiciones relativas en unidades de STEP (xr, yr)
-// La offset X mínima es -0.5 (slot 12), así que sumamos 0.5 a todas
+// Cada slot: { id, col, row }  → px: cx = col*step, cy = row*step
 const RAW_SLOTS = [
-  { id:  0, xr: 0.000, yr: 0.000 },
-  { id:  1, xr: 0.500, yr: 0.866 },
-  { id:  2, xr: 1.500, yr: 0.866 },
-  { id:  3, xr: 1.000, yr: 1.732 },
-  { id:  4, xr: 2.000, yr: 1.732 },
-  { id:  5, xr: 3.000, yr: 1.732 },
-  { id:  6, xr: 1.500, yr: 2.598 },
-  { id:  7, xr: 2.500, yr: 2.598 },
-  { id:  8, xr: 3.500, yr: 2.598 },
-  { id:  9, xr: 4.500, yr: 2.598 },
-  { id: 10, xr: 4.000, yr: 3.464 },
-  { id: 11, xr: 2.500, yr: 0.866 },   // equivale a (r=1,c=2) pero fuera del ▲ original
-  { id: 12, xr:-0.500, yr: 0.866 },   // a la izquierda del ▲ original
+  { id:  3, col: 3, row: 0 },  // vértice ▲ (a mover)
+  { id:  9, col: 2, row: 1 },
+  { id: 11, col: 4, row: 1 },
+  { id: 15, col: 1, row: 2 },
+  { id: 17, col: 3, row: 2 },
+  { id: 19, col: 5, row: 2 },
+  { id: 21, col: 0, row: 3 },  // esquina izq base ▲ (a mover)
+  { id: 23, col: 2, row: 3 },
+  { id: 25, col: 4, row: 3 },
+  { id: 27, col: 6, row: 3 },  // esquina der base ▲ (a mover)
+  { id: 29, col: 1, row: 4 },  // destino esquina izq
+  { id: 31, col: 3, row: 4 },  // destino vértice
+  { id: 33, col: 5, row: 4 },  // destino esquina der
 ];
 
-// Normalizar: mínimos para que todo quede ≥ 0
-const X_MIN = Math.min(...RAW_SLOTS.map(s => s.xr));
-const Y_MIN = Math.min(...RAW_SLOTS.map(s => s.yr));
-const GRID  = RAW_SLOTS.map(s => ({ id: s.id, xr: s.xr - X_MIN, yr: s.yr - Y_MIN }));
+const GRID = RAW_SLOTS.map(s => ({ id: s.id, xr: s.col, yr: s.row }));
 
 // Dimensiones del tablero según el viewport
 function getStepSize() {
-  const boardAreaW = Math.min(document.getElementById('tri-board').parentElement.offsetWidth - 40, 400);
+  const boardAreaW = Math.min(document.getElementById('tri-board').parentElement.offsetWidth - 40, 420);
   const maxXr = Math.max(...GRID.map(s => s.xr));
   const step  = Math.floor(boardAreaW / (maxXr + 1));
-  return Math.max(Math.min(step, 58), 36); // entre 36 y 58 px
+  return Math.max(Math.min(step, 54), 32); // entre 32 y 54 px
 }
 
 function slotPx(slot, step) {
@@ -496,8 +509,8 @@ function boardSizePx(step) {
 }
 
 // ── Estado ────────────────────────────────────────────────────
-const INIT_COINS = new Set([0,1,2,3,4,5,6,7,8,9]);
-const FINAL_COINS = new Set([1,2,3,4,5,7,8,10,11,12]);
+const INIT_COINS  = new Set([3,9,11,15,17,19,21,23,25,27]);
+const FINAL_COINS = new Set([9,11,15,17,19,23,25,29,31,33]);
 const MAX_MOVES = 3;
 
 let coins     = new Set(INIT_COINS);
@@ -702,6 +715,7 @@ function resetGame() {
   gameOver  = false;
   document.getElementById('move-count').textContent = MAX_MOVES;
   document.getElementById('status-bar').textContent = '\u25b3 Mueve 3 monedas para invertir la pir\u00e1mide';
+
   document.getElementById('popup-fail').classList.remove('visible');
   popupWin.classList.remove('visible');
   setHint('Selecciona una moneda para moverla', 'neutral');
