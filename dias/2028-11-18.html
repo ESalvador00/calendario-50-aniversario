@@ -20,55 +20,124 @@
     .day-of-week{font-size:.85rem;letter-spacing:.4em;text-transform:uppercase;color:rgba(201,168,76,.5);margin-bottom:1rem;}
     h1{font-family:'Playfair Display',serif;font-size:clamp(3rem,9vw,7rem);font-weight:900;line-height:1;background:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 50%,var(--gold-dark) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.5rem;}
     .month-label{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3.5vw,2.4rem);font-weight:400;font-style:italic;color:rgba(250,246,238,.45);margin-bottom:2.5rem;}
-    .game-wrap{width:100%;border:1px solid rgba(201,168,76,.25);border-radius:6px;background:rgba(255,255,255,.02);overflow:hidden;}
-    .game-header{padding:1.2rem 1.5rem;border-bottom:1px solid rgba(201,168,76,.15);text-align:center;}
-    .game-title{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:700;color:var(--gold-light);letter-spacing:.05em;}
-    .game-subtitle{font-size:.85rem;color:rgba(250,246,238,.45);margin-top:.3rem;font-style:italic;}
-    .board-area{padding:2rem 1.5rem 1.5rem;display:flex;flex-direction:column;align-items:center;gap:1.5rem;}
-    .coin-row{display:flex;align-items:center;justify-content:center;gap:6px;padding:.5rem 0;}
-    .coin-cell{width:62px;height:62px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-direction:column;cursor:pointer;position:relative;transition:transform .15s ease,box-shadow .15s ease,border-color .15s ease;user-select:none;flex-shrink:0;}
-    .coin-cell.cara{background:radial-gradient(circle at 35% 35%,#f5d98a 0%,var(--gold) 45%,var(--gold-dark) 100%);border:2px solid rgba(201,168,76,.6);box-shadow:0 4px 12px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.25);color:#3a2600;}
-    .coin-cell.cara .coin-symbol{font-size:1.35rem;line-height:1;}
-    .coin-cell.cara .coin-text{font-size:.48rem;letter-spacing:.15em;text-transform:uppercase;font-weight:700;margin-top:1px;opacity:.7;}
-    .coin-cell.cruz{background:radial-gradient(circle at 35% 35%,#aaa 0%,#6b7280 45%,#374151 100%);border:2px solid rgba(150,160,175,.4);box-shadow:0 4px 12px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.15);color:#e2e8f0;}
-    .coin-cell.cruz .coin-symbol{font-size:1.35rem;line-height:1;}
-    .coin-cell.cruz .coin-text{font-size:.48rem;letter-spacing:.15em;text-transform:uppercase;font-weight:700;margin-top:1px;opacity:.65;}
-    .coin-cell.empty{background:transparent;border:2px dashed rgba(201,168,76,.2);cursor:default;box-shadow:none;}
-    .coin-cell.valid-move{border-color:rgba(201,168,76,.75);box-shadow:0 0 14px rgba(201,168,76,.35),0 4px 12px rgba(0,0,0,.4);animation:pulse-valid 1.4s ease-in-out infinite;}
-    @keyframes pulse-valid{0%,100%{box-shadow:0 0 8px rgba(201,168,76,.25),0 4px 12px rgba(0,0,0,.4);}50%{box-shadow:0 0 20px rgba(201,168,76,.55),0 4px 12px rgba(0,0,0,.4);}}
-    .coin-cell.selected{transform:translateY(-6px) scale(1.08);box-shadow:0 10px 24px rgba(201,168,76,.5),0 4px 12px rgba(0,0,0,.4);border-color:var(--gold-light);z-index:2;}
-    @keyframes shake{0%,100%{transform:translateX(0);}20%{transform:translateX(-6px);}40%{transform:translateX(6px);}60%{transform:translateX(-5px);}80%{transform:translateX(5px);}}
-    .coin-cell.invalid-shake{animation:shake .35s ease;}
-    .objective-row{display:flex;align-items:center;gap:6px;}
-    .obj-coin{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;flex-shrink:0;}
-    .obj-coin.cara{background:radial-gradient(circle at 35% 35%,#f5d98a,var(--gold));color:#3a2600;border:1px solid rgba(201,168,76,.5);}
-    .obj-coin.cruz{background:radial-gradient(circle at 35% 35%,#aaa,#374151);color:#e2e8f0;border:1px solid rgba(150,160,175,.3);}
-    .obj-coin.empty{background:transparent;border:1px dashed rgba(201,168,76,.2);color:rgba(201,168,76,.4);}
-    .obj-label{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(250,246,238,.3);margin-right:.3rem;}
-    .moves-counter{font-size:.8rem;letter-spacing:.18em;color:rgba(250,246,238,.3);font-style:italic;}
-    .moves-counter span{color:var(--gold-light);font-style:normal;font-weight:500;}
-    .game-hint{font-size:.92rem;font-style:italic;color:var(--gold-light);min-height:1.5em;letter-spacing:.02em;text-align:center;}
-    .game-hint.neutral{color:rgba(250,246,238,.38);font-size:.82rem;font-style:normal;}
-    .game-hint.error{color:#f87171;}
-    .controls{padding:1rem 1.5rem 1.2rem;display:flex;flex-direction:column;align-items:center;gap:.8rem;border-top:1px solid rgba(201,168,76,.1);}
-    .controls-row{display:flex;gap:.8rem;align-items:center;justify-content:center;}
-    .game-btn{background:none;border:1px solid rgba(201,168,76,.35);border-radius:3px;color:rgba(201,168,76,.65);font-family:'Cormorant Garamond',serif;font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;padding:.45rem 1.1rem;cursor:pointer;transition:all .2s;}
-    .game-btn:hover{color:var(--gold);border-color:var(--gold);background:rgba(201,168,76,.07);}
-    .status-bar{padding:.5rem 1.5rem;background:rgba(0,0,0,.15);border-top:1px solid rgba(201,168,76,.08);font-size:.75rem;letter-spacing:.12em;text-align:center;color:rgba(250,246,238,.3);text-transform:uppercase;min-height:2rem;display:flex;align-items:center;justify-content:center;}
-    .day-nav{display:flex;justify-content:space-between;align-items:center;padding-top:2.5rem;border-top:1px solid rgba(201,168,76,.1);margin-top:2.5rem;}
-    .nav-btn{font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(201,168,76,.5);text-decoration:none;padding:.6rem 1.2rem;border:1px solid rgba(201,168,76,.18);border-radius:2px;transition:all .2s;}
-    .nav-btn:hover{color:var(--gold-light);border-color:rgba(201,168,76,.5);background:rgba(201,168,76,.05);}
-    .year-badge{font-size:.7rem;letter-spacing:.3em;color:rgba(201,168,76,.25);text-transform:uppercase;}
-    .back-link{display:block;text-align:center;margin-top:2rem;color:rgba(201,168,76,.35);font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;text-decoration:none;transition:color .2s;}
-    .back-link:hover{color:var(--gold);}
+
+    /* ── FAV / DONE ─────────────────────────────────────────── */
     .action-btns{position:absolute;top:0;right:0;display:flex;flex-direction:column;align-items:center;gap:.2rem;}
     .icon-btn{background:none;border:none;cursor:pointer;font-size:2rem;line-height:1;transition:color .2s,transform .2s;padding:.2rem;}
     .icon-btn:hover{transform:scale(1.2);}
     .fav-btn{color:rgba(250,246,238,.2);}
     .fav-btn.active{color:#e05a6a;}
     .fav-btn.active:hover{color:#ff7a88;}
-    .done-btn{color:var(--gold);opacity:0.6;}
+    .done-btn{color:var(--gold);opacity:.6;}
     .done-btn.active{color:var(--gold);opacity:1;}
+
+    /* ── GAME CONTAINER ─────────────────────────────────────── */
+    .game-wrap{width:100%;border:1px solid rgba(201,168,76,.25);border-radius:6px;background:rgba(255,255,255,.02);overflow:hidden;}
+    .game-header{padding:1.2rem 1.5rem;border-bottom:1px solid rgba(201,168,76,.15);text-align:center;}
+    .game-title{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:700;color:var(--gold-light);letter-spacing:.05em;}
+    .game-subtitle{font-size:.85rem;color:rgba(250,246,238,.45);margin-top:.3rem;font-style:italic;}
+
+    /* ── BOARD AREA ─────────────────────────────────────────── */
+    .board-area{padding:2rem 1.5rem 1.5rem;display:flex;flex-direction:column;align-items:center;gap:1.4rem;}
+
+    /* Contenedor del tablero triangular (posicionamiento absoluto interno) */
+    .tri-board{position:relative;margin:0 auto;cursor:default;}
+
+    /* ── SLOTS ──────────────────────────────────────────────── */
+    .slot{
+      position:absolute;
+      border-radius:50%;
+      display:flex;align-items:center;justify-content:center;flex-direction:column;
+      transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease, opacity .18s ease;
+      user-select:none;
+    }
+
+    /* Slot vacío — punto guía sutil */
+    .slot.empty{
+      background:transparent;
+      border:1.5px dashed rgba(201,168,76,.14);
+    }
+    /* Drop target: slot vacío que acepta la moneda seleccionada */
+    .slot.empty.drop-target{
+      border-color:rgba(201,168,76,.6);
+      background:rgba(201,168,76,.07);
+      cursor:pointer;
+      animation:pulse-drop 1.2s ease-in-out infinite;
+    }
+    @keyframes pulse-drop{0%,100%{box-shadow:0 0 0 0 rgba(201,168,76,.0);}50%{box-shadow:0 0 0 8px rgba(201,168,76,.18);}}
+
+    /* Slot con moneda */
+    .slot.coin{
+      background:radial-gradient(circle at 35% 35%,#f5d98a 0%,var(--gold) 45%,var(--gold-dark) 100%);
+      border:2px solid rgba(201,168,76,.6);
+      box-shadow:0 4px 12px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.25);
+      color:#3a2600;
+      cursor:pointer;
+    }
+    .coin-symbol{font-size:1.15rem;line-height:1;pointer-events:none;}
+    .coin-label{font-size:.4rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-top:1px;opacity:.65;pointer-events:none;}
+
+    /* Moneda disponible (sin seleccionar) — glow suave */
+    .slot.coin.movable{
+      animation:glow-avail 1.6s ease-in-out infinite;
+    }
+    @keyframes glow-avail{
+      0%,100%{box-shadow:0 0 6px rgba(201,168,76,.2),0 4px 12px rgba(0,0,0,.4);}
+      50%   {box-shadow:0 0 18px rgba(201,168,76,.5),0 4px 12px rgba(0,0,0,.4);}
+    }
+
+    /* Moneda seleccionada — elevada */
+    .slot.coin.selected{
+      transform:translateY(-8px) scale(1.12);
+      box-shadow:0 14px 32px rgba(201,168,76,.6),0 4px 12px rgba(0,0,0,.4)!important;
+      border-color:var(--gold-light)!important;
+      z-index:5;
+      animation:none!important;
+    }
+
+    /* Moneda en vuelo (clonada, fija en viewport) */
+    .slot.coin.flying{
+      position:fixed;
+      z-index:200;
+      pointer-events:none;
+      transition:top .32s cubic-bezier(.4,0,.2,1),left .32s cubic-bezier(.4,0,.2,1);
+      animation:none!important;
+    }
+
+    /* Shake para slot inválido */
+    @keyframes shake{0%,100%{transform:translate(-50%,-50%);}20%{transform:translate(calc(-50% - 6px),-50%);}40%{transform:translate(calc(-50% + 6px),-50%);}60%{transform:translate(calc(-50% - 5px),-50%);}80%{transform:translate(calc(-50% + 5px),-50%);}}
+    .slot.shake{animation:shake .35s ease!important;}
+
+    /* Moneda fantasma durante vuelo (queda translúcida en origen) */
+    .slot.ghost{opacity:.18;animation:none!important;}
+
+    /* Contador de movimientos */
+    .moves-counter{font-size:.82rem;letter-spacing:.18em;color:rgba(250,246,238,.3);font-style:italic;}
+    .moves-counter span{color:var(--gold-light);font-style:normal;font-weight:500;font-size:1rem;}
+
+    /* Hint */
+    .game-hint{font-size:.9rem;font-style:italic;color:var(--gold-light);min-height:1.5em;letter-spacing:.02em;text-align:center;}
+    .game-hint.neutral{color:rgba(250,246,238,.35);font-size:.82rem;font-style:normal;}
+    .game-hint.error{color:#f87171;}
+
+    /* Controles */
+    .controls{padding:1rem 1.5rem 1.2rem;display:flex;flex-direction:column;align-items:center;gap:.8rem;border-top:1px solid rgba(201,168,76,.1);}
+    .controls-row{display:flex;gap:.8rem;align-items:center;justify-content:center;}
+    .game-btn{background:none;border:1px solid rgba(201,168,76,.35);border-radius:3px;color:rgba(201,168,76,.65);font-family:'Cormorant Garamond',serif;font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;padding:.45rem 1.1rem;cursor:pointer;transition:all .2s;}
+    .game-btn:hover{color:var(--gold);border-color:var(--gold);background:rgba(201,168,76,.07);}
+
+    /* Status bar */
+    .status-bar{padding:.5rem 1.5rem;background:rgba(0,0,0,.15);border-top:1px solid rgba(201,168,76,.08);font-size:.75rem;letter-spacing:.12em;text-align:center;color:rgba(250,246,238,.3);text-transform:uppercase;min-height:2rem;display:flex;align-items:center;justify-content:center;}
+
+    /* ── NAV ────────────────────────────────────────────────── */
+    .day-nav{display:flex;justify-content:space-between;align-items:center;padding-top:2.5rem;border-top:1px solid rgba(201,168,76,.1);margin-top:2.5rem;}
+    .nav-btn{font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(201,168,76,.5);text-decoration:none;padding:.6rem 1.2rem;border:1px solid rgba(201,168,76,.18);border-radius:2px;transition:all .2s;}
+    .nav-btn:hover{color:var(--gold-light);border-color:rgba(201,168,76,.5);background:rgba(201,168,76,.05);}
+    .year-badge{font-size:.7rem;letter-spacing:.3em;color:rgba(201,168,76,.25);text-transform:uppercase;}
+    .back-link{display:block;text-align:center;margin-top:2rem;color:rgba(201,168,76,.35);font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;text-decoration:none;transition:color .2s;}
+    .back-link:hover{color:var(--gold);}
+
+    /* ── POPUPS ─────────────────────────────────────────────── */
     .popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:100;align-items:center;justify-content:center;}
     .popup-overlay.visible{display:flex;}
     .popup-box{background:var(--dark);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:3rem 2.5rem;max-width:420px;width:90%;text-align:center;box-shadow:0 0 60px rgba(0,0,0,.8);}
@@ -80,20 +149,25 @@
     .popup-btn:hover{background:rgba(201,168,76,.1);border-color:var(--gold);}
     .popup-btn.secondary{border-color:rgba(250,246,238,.15);color:rgba(250,246,238,.4);}
     .popup-btn.secondary:hover{border-color:rgba(250,246,238,.35);color:rgba(250,246,238,.7);background:rgba(255,255,255,.03);}
-    .popup-help-body{text-align:left;font-style:normal;font-size:.9rem;line-height:1.85;overflow-y:auto;max-height:55vh;padding-right:.5rem;margin-bottom:1.5rem;color:rgba(250,246,238,.65);}
+    .popup-help-body{text-align:left;font-style:normal;font-size:.9rem;line-height:1.9;overflow-y:auto;max-height:55vh;padding-right:.5rem;margin-bottom:1.5rem;color:rgba(250,246,238,.65);}
     .popup-help-body::-webkit-scrollbar{width:4px;}
     .popup-help-body::-webkit-scrollbar-track{background:rgba(255,255,255,.04);}
     .popup-help-body::-webkit-scrollbar-thumb{background:rgba(201,168,76,.3);border-radius:2px;}
+
+    /* Mini triángulos en el popup de ayuda */
+    .help-tri-wrap{display:flex;gap:2.5rem;justify-content:center;flex-wrap:wrap;margin:.6rem 0 1rem;}
+    .help-tri{display:flex;flex-direction:column;align-items:center;gap:3px;}
+    .help-tri-lbl{font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(201,168,76,.45);margin-top:.3rem;}
+    .ht-row{display:flex;gap:3px;justify-content:center;}
+    .hc{width:13px;height:13px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#f5d98a,var(--gold));border:1px solid rgba(201,168,76,.6);}
+    .he{width:13px;height:13px;border-radius:50%;border:1px dashed rgba(201,168,76,.2);}
+
     @media(max-width:600px){
       .wrap{padding:1rem 1rem 2rem;}
       .day-hero{padding:1rem 0 1rem;}
       h1{font-size:clamp(2rem,14vw,4rem);}
       .month-label{font-size:clamp(1rem,4vw,1.6rem);margin-bottom:1rem;}
-      .coin-cell{width:44px;height:44px;}
-      .coin-cell .coin-symbol{font-size:1rem;}
-      .coin-cell .coin-text{display:none;}
-      .coin-row{gap:4px;}
-      .board-area{padding:1.2rem 1rem 1rem;}
+      .board-area{padding:1.2rem .5rem 1rem;}
       .day-nav{margin-top:1rem;padding-top:1rem;}
       .ornament-line-h{margin-bottom:1rem;}
     }
@@ -103,48 +177,42 @@
 <div class="wrap">
   <div class="day-hero">
     <div class="action-btns">
-      <button class="icon-btn fav-btn"  id="fav-btn"  title="Añadir a favoritos">♡</button>
-      <button class="icon-btn done-btn" id="done-btn" title="Marcar como completado">☆</button>
+      <button class="icon-btn fav-btn"  id="fav-btn"  title="Añadir a favoritos">&#9825;</button>
+      <button class="icon-btn done-btn" id="done-btn" title="Marcar como completado">&#9734;</button>
     </div>
     <div class="ornament-line-h">
       <div class="o-line"></div><div class="o-dot"></div><div class="o-line r"></div>
     </div>
-    <p class="day-of-week">Sábado</p>
+    <p class="day-of-week">S&#225;bado</p>
     <h1>18</h1>
     <p class="month-label">de Noviembre</p>
 
     <!-- ═══════════════ MINIJUEGO ═══════════════ -->
     <div class="game-wrap">
       <div class="game-header">
-        <div class="game-title">Las Monedas Invertidas</div>
-        <div class="game-subtitle">Intercambia la posición de todas las monedas</div>
+        <div class="game-title">La Pir&#225;mide Invertida</div>
+        <div class="game-subtitle">Invierte el tri&#225;ngulo moviendo exactamente 3 monedas</div>
       </div>
 
       <div class="board-area">
-        <!-- Objetivo visual -->
-        <div style="display:flex;align-items:center;gap:.8rem;flex-wrap:wrap;justify-content:center;">
-          <span class="obj-label">Objetivo:</span>
-          <div class="objective-row" id="objective-row"></div>
-        </div>
-
-        <!-- Tablero -->
-        <div class="coin-row" id="coin-row" role="group" aria-label="Tablero de monedas"></div>
+        <!-- Tablero generado por JS -->
+        <div class="tri-board" id="tri-board"></div>
 
         <!-- Contador -->
-        <div class="moves-counter">Movimientos: <span id="move-count">0</span></div>
+        <div class="moves-counter">Movimientos restantes: <span id="move-count">3</span></div>
 
-        <!-- Pista -->
-        <div class="game-hint neutral" id="game-hint">Pulsa una moneda válida para moverla</div>
+        <!-- Hint -->
+        <div class="game-hint neutral" id="game-hint">Selecciona una moneda para moverla</div>
       </div>
 
       <div class="controls">
         <div class="controls-row">
-          <button class="game-btn" id="reset-btn">↺ Reiniciar</button>
+          <button class="game-btn" id="reset-btn">&#8635; Reiniciar</button>
           <button class="game-btn" id="help-btn">? Ayuda</button>
         </div>
       </div>
 
-      <div class="status-bar" id="status-bar">🎯 Lleva todas las Cruces a la izquierda y las Caras a la derecha</div>
+      <div class="status-bar" id="status-bar">&#9651; Mueve 3 monedas para invertir la pir&#225;mide</div>
     </div>
     <!-- ═══════════════ FIN MINIJUEGO ═══════════════ -->
 
@@ -152,7 +220,7 @@
 
   <nav class="day-nav">
     <a class="nav-btn" href="2028-11-17.html">&#8592; 17 de Noviembre</a>
-    <span class="year-badge">50 Aniversario · 2028</span>
+    <span class="year-badge">50 Aniversario &middot; 2028</span>
     <a class="nav-btn" id="next-btn" href="2028-11-19.html">19 de Noviembre &#8594;</a>
   </nav>
   <a class="back-link" href="../index.html">&#8592; Volver al Calendario</a>
@@ -161,9 +229,9 @@
 <!-- Popup futuro -->
 <div class="popup-overlay" id="popup">
   <div class="popup-box">
-    <div class="popup-icon">🎁</div>
-    <p class="popup-title">¡Un poco de paciencia!</p>
-    <p class="popup-msg">No seas impaciente...<br>Este día aún no ha llegado.<br>Ya llegará, y será especial. 🤍</p>
+    <div class="popup-icon">&#127873;</div>
+    <p class="popup-title">&#161;Un poco de paciencia!</p>
+    <p class="popup-msg">No seas impaciente...<br>Este d&#237;a a&#250;n no ha llegado.<br>Ya llegar&#225;, y ser&#225; especial. &#129300;</p>
     <button class="popup-btn" onclick="window.location.href='../index.html'">Volver al calendario</button>
   </div>
 </div>
@@ -171,9 +239,9 @@
 <!-- Popup estrella bloqueada -->
 <div class="popup-overlay" id="popup-star-blocked">
   <div class="popup-box">
-    <div class="popup-icon">🏆</div>
-    <p class="popup-title">¡Tu recompensa te espera!</p>
-    <p class="popup-msg">Para acceder a tu recompensa primero debes resolver el desafío de hoy...<br><br>¡Tú puedes! 💪</p>
+    <div class="popup-icon">&#127942;</div>
+    <p class="popup-title">&#161;Tu recompensa te espera!</p>
+    <p class="popup-msg">Para acceder a tu recompensa primero debes resolver el desaf&#237;o de hoy...<br><br>&#161;T&#250; puedes! &#128170;</p>
     <button class="popup-btn" id="star-blocked-close">Volver</button>
   </div>
 </div>
@@ -181,76 +249,85 @@
 <!-- Popup recompensa -->
 <div class="popup-overlay" id="popup-star-reward">
   <div class="popup-box">
-    <div class="popup-icon">🎁</div>
-    <p class="popup-title">¡Tu recompensa!</p>
-    <p class="popup-msg" id="reward-text">✨ Aquí irá la recompensa especial de este día ✨</p>
-    <button class="popup-btn" id="star-reward-close">¡Genial!</button>
+    <div class="popup-icon">&#127873;</div>
+    <p class="popup-title">&#161;Tu recompensa!</p>
+    <p class="popup-msg" id="reward-text">&#10024; Aqu&#237; ir&#225; la recompensa especial de este d&#237;a &#10024;</p>
+    <button class="popup-btn" id="star-reward-close">&#161;Genial!</button>
   </div>
 </div>
 
 <!-- Popup victoria -->
 <div class="popup-overlay" id="popup-win">
   <div class="popup-box">
-    <div class="popup-icon">🎉</div>
-    <p class="popup-title">¡Lo has conseguido!</p>
-    <p class="popup-msg" id="win-msg">Has invertido correctamente las monedas.<br><br>¡Brillante! 🧠✨</p>
+    <div class="popup-icon">&#127881;</div>
+    <p class="popup-title">&#161;Lo has conseguido!</p>
+    <p class="popup-msg" id="win-msg">Has invertido la pir&#225;mide en exactamente 3 movimientos.<br><br>&#161;Brillante! &#129504;&#10024;</p>
     <div class="popup-btns">
-      <button class="popup-btn" id="win-reward-btn">Ver recompensa ★</button>
+      <button class="popup-btn" id="win-reward-btn">Ver recompensa &#9733;</button>
     </div>
   </div>
 </div>
 
-<!-- Popup bloqueo -->
-<div class="popup-overlay" id="popup-blocked">
+<!-- Popup fracaso -->
+<div class="popup-overlay" id="popup-fail">
   <div class="popup-box">
-    <div class="popup-icon">🔒</div>
-    <p class="popup-title">¡Patrón bloqueado!</p>
-    <p class="popup-msg">El patrón ha quedado bloqueado.<br>No quedan movimientos válidos para completar el puzzle.</p>
+    <div class="popup-icon">&#9651;</div>
+    <p class="popup-title">La pir&#225;mide no ha sido invertida</p>
+    <p class="popup-msg">Has usado los 3 movimientos pero el tri&#225;ngulo no ha quedado invertido correctamente.<br><br>&#161;Inténtalo de nuevo!</p>
     <div class="popup-btns">
-      <button class="popup-btn" id="blocked-retry">↺ Reintentar</button>
-      <button class="popup-btn secondary" onclick="window.location.href='../index.html'">Volver al índice</button>
+      <button class="popup-btn" id="fail-retry">&#8635; Reintentar</button>
+      <button class="popup-btn secondary" onclick="window.location.href='../index.html'">Volver al &#237;ndice</button>
     </div>
   </div>
 </div>
 
 <!-- Popup ayuda -->
 <div class="popup-overlay" id="popup-help">
-  <div class="popup-box" style="max-width:480px;">
-    <div class="popup-icon">🪙</div>
-    <p class="popup-title">Cómo jugar</p>
+  <div class="popup-box" style="max-width:500px;">
+    <div class="popup-icon">&#9651;</div>
+    <p class="popup-title">C&#243;mo jugar</p>
     <div class="popup-help-body">
-      <strong style="color:var(--gold-light);">Objetivo</strong><br>
-      Invertir por completo la disposición de las monedas. El estado inicial es<br>
-      <em>Cara · Cara · Cara · _ · Cruz · Cruz · Cruz</em><br>
-      y debes llegar a<br>
-      <em>Cruz · Cruz · Cruz · _ · Cara · Cara · Cara</em><br><br>
+      <strong style="color:var(--gold-light);">El reto de la Pir&#225;mide</strong><br>
+      Un puzzle cl&#225;sico de l&#243;gica espacial. El tri&#225;ngulo empieza con el v&#233;rtice apuntando hacia <strong style="color:var(--gold-light);">arriba</strong>. Tu misi&#243;n: dejarlo apuntando hacia <strong style="color:var(--gold-light);">abajo</strong>, moviendo exactamente <strong style="color:var(--gold-light);">3 monedas</strong>.<br><br>
 
-      <strong style="color:var(--gold-light);">Las monedas</strong><br>
-      · 🟡 <strong style="color:var(--gold-light);">Cara</strong> — moneda dorada con corona 👑. Empieza a la izquierda.<br>
-      · ⚫ <strong>Cruz</strong> — moneda plateada con símbolo ✦. Empieza a la derecha.<br>
-      · El hueco punteado es el espacio vacío por donde se deslizan.<br><br>
+      <strong style="color:var(--gold-light);">Estado inicial &#9651;</strong>
+      <div class="help-tri-wrap">
+        <div class="help-tri">
+          <div class="ht-row"><div class="hc"></div></div>
+          <div class="ht-row"><div class="hc"></div><div class="hc"></div></div>
+          <div class="ht-row"><div class="hc"></div><div class="hc"></div><div class="hc"></div></div>
+          <div class="ht-row"><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div></div>
+          <div class="help-tri-lbl">Inicial</div>
+        </div>
+        <div style="display:flex;align-items:center;font-size:1.4rem;color:rgba(201,168,76,.4);">&#8594;</div>
+        <div class="help-tri">
+          <div class="ht-row"><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div></div>
+          <div class="ht-row"><div class="hc"></div><div class="hc"></div><div class="hc"></div></div>
+          <div class="ht-row"><div class="hc"></div><div class="hc"></div></div>
+          <div class="ht-row"><div class="hc"></div></div>
+          <div class="help-tri-lbl">Final &#9661;</div>
+        </div>
+      </div>
 
-      <strong style="color:var(--gold-light);">Cómo mover</strong><br>
-      Haz clic sobre una moneda que tenga movimiento válido (parpadea en dorado). Si el movimiento es legal, se moverá automáticamente al espacio vacío.<br><br>
+      <strong style="color:var(--gold-light);">Reglas</strong><br>
+      &#183; Solo puedes realizar <strong style="color:var(--gold-light);">exactamente 3 movimientos</strong>.<br>
+      &#183; Cada movimiento consiste en trasladar <strong>una moneda</strong> a cualquier posici&#243;n vac&#237;a de la rejilla.<br>
+      &#183; Las monedas solo pueden colocarse en las posiciones v&#225;lidas de la cuadr&#237;cula triangular (los puntos visibles).<br>
+      &#183; Las monedas <strong>no pueden superponerse</strong>.<br><br>
 
-      <strong style="color:var(--gold-light);">Reglas de movimiento</strong><br>
-      Una moneda puede moverse si:<br><br>
-      · <strong>Movimiento simple:</strong> el espacio vacío está justo al lado.<br>
-      &nbsp;&nbsp;Ej: 🟡 _ &nbsp;→&nbsp; _ 🟡<br><br>
-      · <strong>Salto:</strong> hay una moneda del tipo <em>contrario</em> junto a ella, y tras esa moneda está el espacio vacío. Salta por encima.<br>
-      &nbsp;&nbsp;Ej: 🟡 ⚫ _ &nbsp;→&nbsp; _ ⚫ 🟡<br><br>
+      <strong style="color:var(--gold-light);">C&#243;mo interactuar</strong><br>
+      &#183; <strong>Seleccionar:</strong> haz clic en cualquier moneda. Quedar&#225; resaltada y elevada.<br>
+      &#183; <strong>Mover:</strong> con una moneda seleccionada, haz clic en una posici&#243;n vac&#237;a de la rejilla (parpadea en dorado) para colocarla all&#237;.<br>
+      &#183; <strong>Deseleccionar:</strong> vuelve a clicar la moneda seleccionada para cancelar, o elige directamente otra moneda.<br><br>
 
-      <strong style="color:var(--gold-light);">Prohibido</strong><br>
-      · Saltar sobre una moneda del mismo tipo.<br>
-      · Saltar sobre más de una moneda a la vez.<br><br>
+      <strong style="color:var(--gold-light);">Condici&#243;n de victoria</strong><br>
+      Tras los 3 movimientos las 10 monedas deben formar exactamente el tri&#225;ngulo invertido &#9661;. Si no lo has conseguido, puedes reintentar.<br><br>
 
-      <strong style="color:var(--gold-light);">Bloqueo</strong><br>
-      Si ya no quedan movimientos válidos antes de completar el objetivo, el puzzle queda bloqueado. Podrás reiniciar y volver a intentarlo.<br><br>
-
-      <strong style="color:var(--gold-light);">Consejo</strong><br>
-      Alterna los movimientos: una Cara, una Cruz, dos Caras, dos Cruces… ¡hay un patrón!
+      <strong style="color:var(--gold-light);">Pista</strong><br>
+      Hay <strong>3 monedas que sobran</strong> en el tri&#225;ngulo inicial cuando imaginas el final invertido, y exactamente <strong>3 huecos nuevos</strong> que el tri&#225;ngulo final necesita.<br>
+      Esas 3 monedas son las que debes mover. &#191;Cu&#225;les son? Piensa en las <em>esquinas</em>&#8230;
     </div>
-    <button class="popup-btn" id="help-close">¡Entendido!</button>
+    <button class="popup-btn" id="help-close">&#161;Entendido!</button>
   </div>
 </div>
 
@@ -271,10 +348,10 @@ if (!isPreview && thisDate > today) {
   popup.classList.add('visible');
 }
 if (!isPreview && nextDateStr) {
-  const nextDate = new Date(nextDateStr); nextDate.setHours(0,0,0,0);
-  if (nextDate > today) {
-    const nextBtn = document.getElementById('next-btn');
-    if (nextBtn) nextBtn.addEventListener('click', e => { e.preventDefault(); popup.classList.add('visible'); });
+  const nd = new Date(nextDateStr); nd.setHours(0,0,0,0);
+  if (nd > today) {
+    const nb = document.getElementById('next-btn');
+    if (nb) nb.addEventListener('click', e => { e.preventDefault(); popup.classList.add('visible'); });
   }
 }
 popup.addEventListener('click', e => { if (e.target === popup) window.location.href = '../index.html'; });
@@ -286,9 +363,9 @@ const FAV_KEY = 'fav_2028-11-18';
 const favBtn  = document.getElementById('fav-btn');
 function updateFav() {
   const on = localStorage.getItem(FAV_KEY) === '1';
-  favBtn.textContent = on ? '❤' : '♡';
+  favBtn.textContent = on ? '\u2764' : '\u2661';
   favBtn.classList.toggle('active', on);
-  favBtn.title = on ? 'Quitar de favoritos' : 'Añadir a favoritos';
+  favBtn.title = on ? 'Quitar de favoritos' : 'A\u00f1adir a favoritos';
 }
 favBtn.addEventListener('click', () => {
   const on = localStorage.getItem(FAV_KEY) === '1';
@@ -315,7 +392,7 @@ function markDone() { localStorage.setItem(DONE_KEY, '1'); updateDone(); }
 function showReward() { popupStarReward.classList.add('visible'); }
 function updateDone() {
   const on = localStorage.getItem(DONE_KEY) === '1';
-  doneBtn.textContent = on ? '★' : '☆';
+  doneBtn.textContent = on ? '\u2605' : '\u2606';
   doneBtn.classList.toggle('active', on);
   doneBtn.title = on ? 'Ver recompensa' : 'Marcar como completado';
 }
@@ -331,211 +408,324 @@ document.getElementById('win-reward-btn').addEventListener('click', () => {
   popupWin.classList.remove('visible');
   showReward();
 });
-
-// ═══════════════════════════════════════════════
-//  GAME — LAS MONEDAS INVERTIDAS
-// ═══════════════════════════════════════════════
-const CARA  = 'C';
-const CRUZ  = 'X';
-const EMPTY = '_';
-
-const INITIAL = [CARA, CARA, CARA, EMPTY, CRUZ, CRUZ, CRUZ];
-const GOAL    = [CRUZ, CRUZ, CRUZ, EMPTY, CARA, CARA, CARA];
-
-let board    = [];
-let moves    = 0;
-let selected = -1;
-let locked   = false;
-let gameOver = false;
-
-// ── getValidMoves ──────────────────────────────────────────
-function getValidMoves() {
-  const ei = board.indexOf(EMPTY);
-  const valid = [];
-  for (let i = 0; i < board.length; i++) {
-    if (board[i] === EMPTY) continue;
-    const diff = ei - i;
-    if (Math.abs(diff) === 1) {
-      valid.push(i);
-    } else if (Math.abs(diff) === 2) {
-      const mid = board[i + diff / 2];
-      if (mid !== EMPTY && mid !== board[i]) valid.push(i);
-    }
-  }
-  return valid;
-}
-
-// ── canMove ────────────────────────────────────────────────
-function canMove(from) {
-  return getValidMoves().includes(from);
-}
-
-// ── moveCoin ───────────────────────────────────────────────
-function moveCoin(from) {
-  if (locked || gameOver) return;
-  const ei = board.indexOf(EMPTY);
-  locked = true;
-  selected = -1;
-  board[ei] = board[from];
-  board[from] = EMPTY;
-  moves++;
-  renderBoard();
-  document.getElementById('move-count').textContent = moves;
-
-  setTimeout(() => {
-    locked = false;
-    if (checkVictory()) {
-      gameOver = true;
-      document.getElementById('status-bar').textContent = '🎉 ¡Puzzle completado!';
-      document.getElementById('game-hint').textContent  = '¡Enhorabuena!';
-      document.getElementById('game-hint').className    = 'game-hint';
-      document.getElementById('win-msg').innerHTML =
-        'Has invertido correctamente las monedas en <strong>' + moves + '</strong> movimiento' + (moves !== 1 ? 's' : '') + '.<br><br>¡Brillante! 🧠✨';
-      markDone();
-      setTimeout(() => popupWin.classList.add('visible'), 400);
-      return;
-    }
-    if (checkBlockedState()) {
-      gameOver = true;
-      document.getElementById('status-bar').textContent = '🔒 Patrón bloqueado';
-      renderBoard();
-      setTimeout(() => document.getElementById('popup-blocked').classList.add('visible'), 500);
-      return;
-    }
-    document.getElementById('status-bar').textContent = '🪙 Movimiento ' + moves + ' — sigue adelante';
-    renderBoard();
-  }, 60);
-}
-
-// ── checkVictory ───────────────────────────────────────────
-function checkVictory() {
-  return board.every((v, i) => v === GOAL[i]);
-}
-
-// ── checkBlockedState ──────────────────────────────────────
-function checkBlockedState() {
-  return getValidMoves().length === 0;
-}
-
-// ── renderBoard ────────────────────────────────────────────
-function renderBoard() {
-  const row = document.getElementById('coin-row');
-  const valid = (locked || gameOver) ? [] : getValidMoves();
-  row.innerHTML = '';
-
-  board.forEach((type, idx) => {
-    const cell = document.createElement('div');
-    cell.className = 'coin-cell';
-
-    if (type === EMPTY) {
-      cell.classList.add('empty');
-      cell.setAttribute('aria-label', 'Espacio vacío');
-    } else if (type === CARA) {
-      cell.classList.add('cara');
-      cell.innerHTML = '<span class="coin-symbol">👑</span><span class="coin-text">Cara</span>';
-      cell.setAttribute('aria-label', 'Moneda Cara');
-    } else {
-      cell.classList.add('cruz');
-      cell.innerHTML = '<span class="coin-symbol">✦</span><span class="coin-text">Cruz</span>';
-      cell.setAttribute('aria-label', 'Moneda Cruz');
-    }
-
-    if (type !== EMPTY) {
-      if (idx === selected) cell.classList.add('selected');
-      else if (valid.includes(idx)) cell.classList.add('valid-move');
-
-      if (!locked && !gameOver) {
-        cell.addEventListener('click', () => handleClick(idx));
-      }
-    }
-    row.appendChild(cell);
-  });
-}
-
-// ── handleClick ────────────────────────────────────────────
-function handleClick(idx) {
-  if (locked || gameOver || board[idx] === EMPTY) return;
-
-  if (!canMove(idx)) {
-    // Shake + error hint
-    const cells = document.getElementById('coin-row').children;
-    cells[idx].classList.remove('invalid-shake');
-    void cells[idx].offsetWidth;
-    cells[idx].classList.add('invalid-shake');
-    setTimeout(() => cells[idx].classList.remove('invalid-shake'), 380);
-    const h = document.getElementById('game-hint');
-    h.className = 'game-hint error';
-    h.textContent = 'Esta moneda no tiene movimientos válidos';
-    setTimeout(() => { h.className = 'game-hint neutral'; h.textContent = 'Pulsa una moneda válida para moverla'; }, 1600);
-    return;
-  }
-
-  // Deseleccionar si ya estaba seleccionada
-  if (selected === idx) {
-    selected = -1;
-    document.getElementById('game-hint').className = 'game-hint neutral';
-    document.getElementById('game-hint').textContent = 'Pulsa una moneda válida para moverla';
-    renderBoard();
-    return;
-  }
-
-  // Seleccionar y mover tras pequeño delay visual
-  selected = idx;
-  const label = board[idx] === CARA ? 'Cara' : 'Cruz';
-  document.getElementById('game-hint').className = 'game-hint';
-  document.getElementById('game-hint').textContent = 'Moviendo ' + label + '…';
-  renderBoard();
-  setTimeout(() => moveCoin(idx), 180);
-}
-
-// ── resetGame ──────────────────────────────────────────────
-function resetGame() {
-  board    = [...INITIAL];
-  moves    = 0;
-  selected = -1;
-  locked   = false;
-  gameOver = false;
-  document.getElementById('move-count').textContent    = '0';
-  document.getElementById('game-hint').className       = 'game-hint neutral';
-  document.getElementById('game-hint').textContent     = 'Pulsa una moneda válida para moverla';
-  document.getElementById('status-bar').textContent    = '🎯 Lleva todas las Cruces a la izquierda y las Caras a la derecha';
-  document.getElementById('popup-blocked').classList.remove('visible');
-  document.getElementById('popup-win').classList.remove('visible');
-  renderBoard();
-}
-
-// ── renderObjective ────────────────────────────────────────
-function renderObjective() {
-  const row = document.getElementById('objective-row');
-  GOAL.forEach(type => {
-    const d = document.createElement('div');
-    d.className = 'obj-coin';
-    if (type === CARA)      { d.classList.add('cara'); d.textContent = 'C'; }
-    else if (type === CRUZ) { d.classList.add('cruz'); d.textContent = 'X'; }
-    else                    { d.classList.add('empty'); d.textContent = '·'; }
-    row.appendChild(d);
-  });
-}
-
-// ── Popup ayuda ────────────────────────────────────────────
-const popupHelp = document.getElementById('popup-help');
-document.getElementById('help-btn').addEventListener('click', () => popupHelp.classList.add('visible'));
-document.getElementById('help-close').addEventListener('click', () => popupHelp.classList.remove('visible'));
-popupHelp.addEventListener('click', e => { if (e.target === popupHelp) popupHelp.classList.remove('visible'); });
-
-// ── Popup bloqueo ──────────────────────────────────────────
-const popupBlockedEl = document.getElementById('popup-blocked');
-document.getElementById('blocked-retry').addEventListener('click', () => { popupBlockedEl.classList.remove('visible'); resetGame(); });
-popupBlockedEl.addEventListener('click', e => { if (e.target === popupBlockedEl) popupBlockedEl.classList.remove('visible'); });
-
-// ── Popup victoria ─────────────────────────────────────────
 popupWin.addEventListener('click', e => { if (e.target === popupWin) popupWin.classList.remove('visible'); });
 
-// ── Reset btn ──────────────────────────────────────────────
+// ═══════════════════════════════════════════════
+//  GAME — LA PIRÁMIDE INVERTIDA
+// ═══════════════════════════════════════════════
+//
+//  REJILLA: 13 slots en posición hex real.
+//  Slots 0-9: triángulo ▲ inicial (coordenadas en unidades de STEP)
+//  Slots 10-12: 3 posiciones externas necesarias para el triángulo ▽ final
+//
+//  Coordenadas derivadas del análisis geométrico del puzzle clásico:
+//  (usando hex_pos(r,c) = (c + r*0.5, r*SQRT3/2) con vértice en r=0)
+//
+//  slot  0: (r=0,c=0) → xr=0.000  yr=0.000  ← vértice ▲, esquina a mover
+//  slot  1: (r=1,c=0) → xr=0.500  yr=0.866
+//  slot  2: (r=1,c=1) → xr=1.500  yr=0.866
+//  slot  3: (r=2,c=0) → xr=1.000  yr=1.732
+//  slot  4: (r=2,c=1) → xr=2.000  yr=1.732
+//  slot  5: (r=2,c=2) → xr=3.000  yr=1.732
+//  slot  6: (r=3,c=0) → xr=1.500  yr=2.598  ← esquina izq base ▲, a mover
+//  slot  7: (r=3,c=1) → xr=2.500  yr=2.598
+//  slot  8: (r=3,c=2) → xr=3.500  yr=2.598
+//  slot  9: (r=3,c=3) → xr=4.500  yr=2.598  ← esquina der base ▲, a mover
+//  slot 10: extensión  → xr=4.000  yr=3.464  ← destino de slot 9
+//  slot 11: extensión  → xr=2.500  yr=0.866  ← destino de slot 0 (fila 1, entre 2 y 3)
+//  slot 12: extensión  → xr=−0.500 yr=0.866  ← destino de slot 6 (fila 1, a izq de 1)
+//
+//  ESTADO INICIAL: slots 0-9 con moneda
+//  ESTADO FINAL  : slots {1,2,3,4,5,7,8,10,11,12}  → triángulo ▽ perfecto
+//    Fila yr=0.866: slot12, slot1,  slot2,  slot11  (base del ▽, 4 monedas)
+//    Fila yr=1.732: slot3,  slot4,  slot5            (3 monedas)
+//    Fila yr=2.598: slot7,  slot8                    (2 monedas)
+//    Fila yr=3.464: slot10                           (vértice ▽, 1 moneda)
+//
+//  MOVIMIENTOS SOLUCIÓN: 0→11, 6→12, 9→10  (cualquier orden)
+//
+// ── Geometría ──────────────────────────────────────────────────
+
+const SQRT3_2 = 0.8660254;
+
+// Posiciones relativas en unidades de STEP (xr, yr)
+// La offset X mínima es -0.5 (slot 12), así que sumamos 0.5 a todas
+const RAW_SLOTS = [
+  { id:  0, xr: 0.000, yr: 0.000 },
+  { id:  1, xr: 0.500, yr: 0.866 },
+  { id:  2, xr: 1.500, yr: 0.866 },
+  { id:  3, xr: 1.000, yr: 1.732 },
+  { id:  4, xr: 2.000, yr: 1.732 },
+  { id:  5, xr: 3.000, yr: 1.732 },
+  { id:  6, xr: 1.500, yr: 2.598 },
+  { id:  7, xr: 2.500, yr: 2.598 },
+  { id:  8, xr: 3.500, yr: 2.598 },
+  { id:  9, xr: 4.500, yr: 2.598 },
+  { id: 10, xr: 4.000, yr: 3.464 },
+  { id: 11, xr: 2.500, yr: 0.866 },   // equivale a (r=1,c=2) pero fuera del ▲ original
+  { id: 12, xr:-0.500, yr: 0.866 },   // a la izquierda del ▲ original
+];
+
+// Normalizar: mínimos para que todo quede ≥ 0
+const X_MIN = Math.min(...RAW_SLOTS.map(s => s.xr));
+const Y_MIN = Math.min(...RAW_SLOTS.map(s => s.yr));
+const GRID  = RAW_SLOTS.map(s => ({ id: s.id, xr: s.xr - X_MIN, yr: s.yr - Y_MIN }));
+
+// Dimensiones del tablero según el viewport
+function getStepSize() {
+  const boardAreaW = Math.min(document.getElementById('tri-board').parentElement.offsetWidth - 40, 400);
+  const maxXr = Math.max(...GRID.map(s => s.xr));
+  const step  = Math.floor(boardAreaW / (maxXr + 1));
+  return Math.max(Math.min(step, 58), 36); // entre 36 y 58 px
+}
+
+function slotPx(slot, step) {
+  return {
+    cx: slot.xr * step,
+    cy: slot.yr * step,
+  };
+}
+
+function boardSizePx(step) {
+  const maxXr = Math.max(...GRID.map(s => s.xr));
+  const maxYr = Math.max(...GRID.map(s => s.yr));
+  return {
+    w: Math.ceil(maxXr * step + step),
+    h: Math.ceil(maxYr * step + step),
+  };
+}
+
+// ── Estado ────────────────────────────────────────────────────
+const INIT_COINS = new Set([0,1,2,3,4,5,6,7,8,9]);
+const FINAL_COINS = new Set([1,2,3,4,5,7,8,10,11,12]);
+const MAX_MOVES = 3;
+
+let coins     = new Set(INIT_COINS);
+let movesLeft = MAX_MOVES;
+let selected  = -1;   // id de slot seleccionado, -1 = ninguno
+let locked    = false;
+let gameOver  = false;
+
+// ── checkVictory ──────────────────────────────────────────────
+function checkVictory() {
+  if (coins.size !== FINAL_COINS.size) return false;
+  for (const id of FINAL_COINS) { if (!coins.has(id)) return false; }
+  return true;
+}
+
+// ── selectCoin ────────────────────────────────────────────────
+function selectCoin(id) {
+  if (locked || gameOver) return;
+  if (!coins.has(id)) return;
+
+  if (selected === id) {
+    selected = -1;
+    setHint('Selecciona una moneda para moverla', 'neutral');
+    renderBoard();
+    return;
+  }
+  selected = id;
+  setHint('Ahora elige una posici\u00f3n vac\u00eda (parpadea en dorado)', '');
+  renderBoard();
+}
+
+// ── moveCoin ──────────────────────────────────────────────────
+function moveCoin(fromId, toId) {
+  if (locked || gameOver) return;
+  if (!coins.has(fromId) || coins.has(toId)) return;
+
+  locked = true;
+  const step = getStepSize();
+  const fromSlot = GRID.find(s => s.id === fromId);
+  const toSlot   = GRID.find(s => s.id === toId);
+  const { cx: fx, cy: fy } = slotPx(fromSlot, step);
+  const { cx: tx, cy: ty } = slotPx(toSlot,   step);
+  const COIN_SIZE = step * 0.93;
+
+  // Crear moneda volante
+  const boardEl   = document.getElementById('tri-board');
+  const boardRect = boardEl.getBoundingClientRect();
+
+  const flyEl = document.createElement('div');
+  flyEl.className = 'slot coin flying';
+  flyEl.innerHTML = '<span class="coin-symbol">\u25c6</span><span class="coin-label">Moneda</span>';
+  flyEl.style.cssText = [
+    'width:'  + COIN_SIZE + 'px',
+    'height:' + COIN_SIZE + 'px',
+    'top:'    + (boardRect.top  + fy - COIN_SIZE / 2 + window.scrollY) + 'px',
+    'left:'   + (boardRect.left + fx - COIN_SIZE / 2 + window.scrollX) + 'px',
+  ].join(';');
+  document.body.appendChild(flyEl);
+
+  // Marcar slot origen como fantasma y re-renderizar
+  selected = -1;
+  renderBoard(fromId); // fromId = slot fantasma
+
+  // Lanzar animación en siguiente frame
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      flyEl.style.top  = (boardRect.top  + ty - COIN_SIZE / 2 + window.scrollY) + 'px';
+      flyEl.style.left = (boardRect.left + tx - COIN_SIZE / 2 + window.scrollX) + 'px';
+    });
+  });
+
+  setTimeout(() => {
+    flyEl.remove();
+
+    // Aplicar movimiento al estado
+    coins.delete(fromId);
+    coins.add(toId);
+    movesLeft--;
+    document.getElementById('move-count').textContent = movesLeft;
+    locked = false;
+
+    if (checkVictory()) {
+      gameOver = true;
+      setHint('\u00a1Enhorabuena! \u00a1Pir\u00e1mide invertida!', '');
+      document.getElementById('status-bar').textContent = '\u25bd \u00a1Pir\u00e1mide invertida correctamente!';
+      markDone();
+      renderBoard();
+      setTimeout(() => popupWin.classList.add('visible'), 450);
+      return;
+    }
+
+    if (movesLeft === 0) {
+      gameOver = true;
+      setHint('Movimientos agotados', 'error');
+      document.getElementById('status-bar').textContent = '\u25b3 Movimientos agotados';
+      renderBoard();
+      setTimeout(() => document.getElementById('popup-fail').classList.add('visible'), 500);
+      return;
+    }
+
+    document.getElementById('status-bar').textContent =
+      '\u25bd Movimiento realizado \u2014 ' + movesLeft + ' restante' + (movesLeft !== 1 ? 's' : '');
+    setHint('Selecciona una moneda para moverla', 'neutral');
+    renderBoard();
+  }, 360);
+}
+
+// ── snapToGrid ────────────────────────────────────────────────
+function snapToGrid(pxX, pxY) {
+  // Dado un punto en px relativos al tablero, devuelve el slot más cercano
+  const step = getStepSize();
+  let best = null, bestDist = Infinity;
+  GRID.forEach(s => {
+    const { cx, cy } = slotPx(s, step);
+    const d = Math.hypot(pxX - cx, pxY - cy);
+    if (d < bestDist) { bestDist = d; best = s.id; }
+  });
+  const COIN_SIZE = step * 0.93;
+  return bestDist < COIN_SIZE * 0.55 ? best : null;
+}
+
+// ── renderBoard ───────────────────────────────────────────────
+function renderBoard(ghostId = -1) {
+  const boardEl = document.getElementById('tri-board');
+  boardEl.innerHTML = '';
+
+  const step = getStepSize();
+  const COIN_SIZE = Math.round(step * 0.93);
+  const { w, h } = boardSizePx(step);
+  boardEl.style.width  = w + 'px';
+  boardEl.style.height = h + 'px';
+
+  const isDropTarget = id => !locked && !gameOver && selected !== -1 && !coins.has(id);
+
+  GRID.forEach(s => {
+    const { cx, cy } = slotPx(s, step);
+    const el = document.createElement('div');
+    el.className = 'slot';
+    el.style.width  = COIN_SIZE + 'px';
+    el.style.height = COIN_SIZE + 'px';
+    el.style.left   = (cx - COIN_SIZE / 2) + 'px';
+    el.style.top    = (cy - COIN_SIZE / 2) + 'px';
+
+    if (coins.has(s.id)) {
+      el.classList.add('coin');
+      el.innerHTML = '<span class="coin-symbol">\u25c6</span><span class="coin-label">Moneda</span>';
+
+      if (s.id === ghostId) {
+        el.classList.add('ghost');
+      } else if (s.id === selected) {
+        el.classList.add('selected');
+      } else if (!locked && !gameOver && selected === -1) {
+        el.classList.add('movable');
+      }
+
+      if (!locked && !gameOver) {
+        el.addEventListener('click', () => {
+          if (selected !== -1 && selected !== s.id) {
+            // Cambio directo de selección a otra moneda
+            selected = s.id;
+            setHint('Ahora elige una posici\u00f3n vac\u00eda (parpadea en dorado)', '');
+            renderBoard();
+          } else {
+            selectCoin(s.id);
+          }
+        });
+      }
+
+    } else {
+      el.classList.add('empty');
+
+      if (isDropTarget(s.id)) {
+        el.classList.add('drop-target');
+        el.addEventListener('click', () => moveCoin(selected, s.id));
+      } else if (!locked && !gameOver && selected !== -1) {
+        // Slot vacío no válido — clic cancela selección
+        el.addEventListener('click', () => {
+          selected = -1;
+          setHint('Selecciona una moneda para moverla', 'neutral');
+          renderBoard();
+        });
+      }
+    }
+
+    boardEl.appendChild(el);
+  });
+}
+
+// ── setHint ───────────────────────────────────────────────────
+function setHint(msg, cls) {
+  const el = document.getElementById('game-hint');
+  el.textContent = msg;
+  el.className = 'game-hint' + (cls ? ' ' + cls : '');
+}
+
+// ── resetGame ─────────────────────────────────────────────────
+function resetGame() {
+  coins     = new Set(INIT_COINS);
+  movesLeft = MAX_MOVES;
+  selected  = -1;
+  locked    = false;
+  gameOver  = false;
+  document.getElementById('move-count').textContent = MAX_MOVES;
+  document.getElementById('status-bar').textContent = '\u25b3 Mueve 3 monedas para invertir la pir\u00e1mide';
+  document.getElementById('popup-fail').classList.remove('visible');
+  popupWin.classList.remove('visible');
+  setHint('Selecciona una moneda para moverla', 'neutral');
+  renderBoard();
+}
+
+// ── Popup ayuda ────────────────────────────────────────────────
+const popupHelp = document.getElementById('popup-help');
+document.getElementById('help-btn').addEventListener('click',  () => popupHelp.classList.add('visible'));
+document.getElementById('help-close').addEventListener('click',() => popupHelp.classList.remove('visible'));
+popupHelp.addEventListener('click', e => { if (e.target === popupHelp) popupHelp.classList.remove('visible'); });
+
+// ── Popup fracaso ──────────────────────────────────────────────
+const popupFail = document.getElementById('popup-fail');
+document.getElementById('fail-retry').addEventListener('click', () => { popupFail.classList.remove('visible'); resetGame(); });
+popupFail.addEventListener('click', e => { if (e.target === popupFail) popupFail.classList.remove('visible'); });
+
+// ── Reset btn ──────────────────────────────────────────────────
 document.getElementById('reset-btn').addEventListener('click', resetGame);
 
-// ── Init ───────────────────────────────────────────────────
-renderObjective();
+// ── Rerender al cambiar tamaño ─────────────────────────────────
+window.addEventListener('resize', () => { if (!locked) renderBoard(); });
+
+// ── Init ───────────────────────────────────────────────────────
 resetGame();
 </script>
 </body>
