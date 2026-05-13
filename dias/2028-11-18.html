@@ -102,7 +102,19 @@
       pointer-events:none;
       transition:top .32s cubic-bezier(.4,0,.2,1),left .32s cubic-bezier(.4,0,.2,1);
       animation:none!important;
+      margin:0;
     }
+
+    /* Drop target resaltado durante arrastre */
+    .slot.empty.drag-over{
+      background:rgba(201,168,76,.22)!important;
+      border-color:var(--gold-light)!important;
+      transform:scale(1.08);
+    }
+
+    /* Cursor de arrastre */
+    .slot.coin[draggable="true"]{cursor:grab;}
+    .slot.coin[draggable="true"]:active{cursor:grabbing;}
 
     /* Shake para slot inválido */
     @keyframes shake{0%,100%{transform:translate(-50%,-50%);}20%{transform:translate(calc(-50% - 6px),-50%);}40%{transform:translate(calc(-50% + 6px),-50%);}60%{transform:translate(calc(-50% - 5px),-50%);}80%{transform:translate(calc(-50% + 5px),-50%);}}
@@ -304,7 +316,7 @@
           <div class="ht-row"><div class="hc"></div><div class="he"></div><div class="he"></div><div class="he"></div></div>
           <div class="ht-row"><div class="hc"></div><div class="hc"></div><div class="he"></div><div class="he"></div></div>
           <div class="ht-row"><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="he"></div></div>
-          <div class="ht-row"><div class="he"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div></div>
+          <div class="ht-row"><div class="hc"></div><div class="hc"></div><div class="hc"></div><div class="hc"></div></div>
           <div class="help-tri-lbl">Final &#9664;</div>
         </div>
       </div>
@@ -318,6 +330,7 @@
       <strong style="color:var(--gold-light);">C&#243;mo interactuar</strong><br>
       &#183; <strong>Seleccionar:</strong> haz clic en cualquier moneda. Quedar&#225; elevada y se iluminar&#225;n los destinos posibles.<br>
       &#183; <strong>Mover:</strong> haz clic en una casilla que parpadee en dorado.<br>
+      &#183; <strong>Arrastrar:</strong> tambi&#233;n puedes arrastrar (drag &amp; drop) una moneda directamente hasta su destino.<br>
       &#183; <strong>Cancelar:</strong> vuelve a clicar la misma moneda, o elige directamente otra.<br><br>
 
       <strong style="color:var(--gold-light);">Condici&#243;n de victoria</strong><br>
@@ -413,9 +426,8 @@ popupWin.addEventListener('click', e => { if (e.target === popupWin) popupWin.cl
 //  GAME — EL TRIÁNGULO GIRADO
 // ═══════════════════════════════════════════════
 //
-//  Cuadrícula completa 5 filas × 7 cols. id = fila*7 + col.
-//  Solo se instancian los 13 slots necesarios (unión de ambos triángulos
-//  más los intermedios necesarios para los movimientos).
+//  Cuadrícula COMPLETA 5 filas × 7 cols (menos esquinas F0C0 y F0C6).
+//  id = fila*7 + col
 //
 //  INICIAL (→):         FINAL (←):
 //  F0: . . . . . . .    F0: . . . . . . .
@@ -425,81 +437,58 @@ popupWin.addEventListener('click', e => { if (e.target === popupWin) popupWin.cl
 //  F4: * * * * . . .    F4: . * * * * . .
 //
 //  SOLUCIÓN:
-//   Paso1: F1C3(10) → F2C1(15)  [adyacente a F2C2(16) ✓]
-//   Paso2: F2C3(17) → F1C1( 8)  [adyacente a F2C2(16) ✓]
-//   Paso3: F4C0(28) → F4C4(32)  [adyacente a F4C3(31) ✓]
+//   Paso1: F1C3(10) → F2C1(15)
+//   Paso2: F2C3(17) → F1C1( 8)
+//   Paso3: F4C0(28) → F4C4(32)
 //
 // ── Geometría ────────────────────────────────────────────────
 
-// id = fila*7 + col. Solo los 13 slots que se usan en el puzzle.
-const RAW_SLOTS = [
-  { id:  8, col: 1, row: 1 },  // destino paso2
-  { id: 10, col: 3, row: 1 },  // vértice inicial (a mover paso1)
-  { id: 15, col: 1, row: 2 },  // destino paso1
-  { id: 16, col: 2, row: 2 },
-  { id: 17, col: 3, row: 2 },  // a mover paso2
-  { id: 22, col: 1, row: 3 },
-  { id: 23, col: 2, row: 3 },
-  { id: 24, col: 3, row: 3 },
-  { id: 28, col: 0, row: 4 },  // esquina inf-izq (a mover paso3)
-  { id: 29, col: 1, row: 4 },
-  { id: 30, col: 2, row: 4 },
-  { id: 31, col: 3, row: 4 },
-  { id: 32, col: 4, row: 4 },  // destino paso3
-];
+// Cuadrícula completa 5×7 menos las 2 esquinas vacías de F0
+const RAW_SLOTS = [];
+for (let row = 0; row < 5; row++) {
+  for (let col = 0; col < 7; col++) {
+    if (row === 0 && (col === 0 || col === 6)) continue; // esquinas nunca usadas
+    RAW_SLOTS.push({ id: row * 7 + col, col, row });
+  }
+}
 
 const GRID = RAW_SLOTS.map(s => ({ id: s.id, xr: s.col, yr: s.row }));
 
-// Mapa "row_col" → id (para calcular vecindad dentro de la rejilla completa 5×7)
 const slotMap = {};
 RAW_SLOTS.forEach(s => { slotMap[s.row + '_' + s.col] = s.id; });
 
-// Vecinos ortogonales (arriba/abajo/izq/der) — la regla del puzzle es tocar por lado
+// Vecinos ortogonales dentro de la rejilla
 function getNeighborIds(slotId) {
   const s = RAW_SLOTS.find(x => x.id === slotId);
   if (!s) return [];
   const neighbors = [];
-  const dirs = [[-1,0],[1,0],[0,-1],[0,1]];  // ortogonales: N,S,O,E
-  for (const [dr, dc] of dirs) {
+  for (const [dr, dc] of [[-1,0],[1,0],[0,-1],[0,1]]) {
     const key = (s.row + dr) + '_' + (s.col + dc);
     if (slotMap[key] !== undefined) neighbors.push(slotMap[key]);
   }
   return neighbors;
 }
 
-// Una moneda es MOVIBLE si tiene al menos un vecino ortogonal vacío en la rejilla
-// (es decir, no está completamente encerrada por otras monedas)
-function isMovable(coinId) {
-  return getNeighborIds(coinId).some(nId => !coins.has(nId));
-}
-
-// Destino válido: slot vacío que toca ortogonalmente al menos una moneda
-// (sin contar la moneda que se mueve)
+// Destino válido: slot vacío que toca ortogonalmente al menos una moneda (sin la que se mueve)
 function isValidDest(fromId, toId) {
   if (coins.has(toId)) return false;
-  const coinsWithoutFrom = new Set(coins);
-  coinsWithoutFrom.delete(fromId);
-  return getNeighborIds(toId).some(nId => coinsWithoutFrom.has(nId));
+  const rest = new Set(coins); rest.delete(fromId);
+  return getNeighborIds(toId).some(nId => rest.has(nId));
 }
 
-// Dimensiones del tablero según el viewport
+// Dimensiones del tablero
 function getStepSize() {
   const boardAreaW = Math.min(document.getElementById('tri-board').parentElement.offsetWidth - 40, 420);
-  // La rejilla va de col0 a col4 (5 columnas usadas, pero id llega a col4)
-  // Usamos el máximo col real para calcular el step
-  const maxCol = Math.max(...RAW_SLOTS.map(s => s.col));
-  const step = Math.floor(boardAreaW / (maxCol + 1));
-  return Math.max(Math.min(step, 58), 34);
+  const step = Math.floor(boardAreaW / 7); // 7 columnas
+  return Math.max(Math.min(step, 56), 32);
 }
 
 function slotPx(slot, step) {
-  return { cx: slot.xr * step, cy: slot.yr * step };
+  return { cx: slot.xr * step + step / 2, cy: slot.yr * step + step / 2 };
 }
 
 function boardSizePx(step) {
-  const maxXr = Math.max(...GRID.map(s => s.xr));
-  const maxYr = Math.max(...GRID.map(s => s.yr));
-  return { w: Math.ceil(maxXr * step + step), h: Math.ceil(maxYr * step + step) };
+  return { w: 7 * step, h: 5 * step };
 }
 
 // ── Estado ───────────────────────────────────────────────────
@@ -531,13 +520,8 @@ function selectCoin(id) {
     return;
   }
   selected = id;
-  // Comprobar si hay destinos válidos
-  const hasDests = GRID.filter(s => !coins.has(s.id)).some(s => isValidDest(id, s.id));
-  if (!hasDests) {
-    setHint('Esta moneda no tiene movimientos disponibles', 'error');
-  } else {
-    setHint('Elige una casilla que parpadee en dorado', '');
-  }
+  const hasDests = GRID.some(s => isValidDest(id, s.id));
+  setHint(hasDests ? 'Elige una casilla que parpadee en dorado' : 'Esta moneda no tiene movimientos disponibles', hasDests ? '' : 'error');
   renderBoard();
 }
 
@@ -552,7 +536,7 @@ function moveCoin(fromId, toId) {
   const toSlot   = GRID.find(s => s.id === toId);
   const { cx: fx, cy: fy } = slotPx(fromSlot, step);
   const { cx: tx, cy: ty } = slotPx(toSlot,   step);
-  const COIN_SIZE = step * 0.93;
+  const COIN_SIZE = Math.round(step * 0.82);
 
   const boardEl   = document.getElementById('tri-board');
   const boardRect = boardEl.getBoundingClientRect();
@@ -560,23 +544,19 @@ function moveCoin(fromId, toId) {
   const flyEl = document.createElement('div');
   flyEl.className = 'slot coin flying';
   flyEl.innerHTML = '<span class="coin-symbol">\u25c6</span><span class="coin-label">Moneda</span>';
-  flyEl.style.cssText = [
-    'width:'  + COIN_SIZE + 'px',
-    'height:' + COIN_SIZE + 'px',
-    'top:'    + (boardRect.top  + fy - COIN_SIZE / 2 + window.scrollY) + 'px',
-    'left:'   + (boardRect.left + fx - COIN_SIZE / 2 + window.scrollX) + 'px',
-  ].join(';');
+  flyEl.style.width  = COIN_SIZE + 'px';
+  flyEl.style.height = COIN_SIZE + 'px';
+  flyEl.style.top    = (boardRect.top  + fy - COIN_SIZE / 2) + 'px';
+  flyEl.style.left   = (boardRect.left + fx - COIN_SIZE / 2) + 'px';
   document.body.appendChild(flyEl);
 
   selected = -1;
   renderBoard(fromId);
 
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      flyEl.style.top  = (boardRect.top  + ty - COIN_SIZE / 2 + window.scrollY) + 'px';
-      flyEl.style.left = (boardRect.left + tx - COIN_SIZE / 2 + window.scrollX) + 'px';
-    });
-  });
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    flyEl.style.top  = (boardRect.top  + ty - COIN_SIZE / 2) + 'px';
+    flyEl.style.left = (boardRect.left + tx - COIN_SIZE / 2) + 'px';
+  }));
 
   setTimeout(() => {
     flyEl.remove();
@@ -595,7 +575,6 @@ function moveCoin(fromId, toId) {
       setTimeout(() => popupWin.classList.add('visible'), 450);
       return;
     }
-
     if (movesLeft === 0) {
       gameOver = true;
       setHint('Movimientos agotados', 'error');
@@ -604,7 +583,6 @@ function moveCoin(fromId, toId) {
       setTimeout(() => document.getElementById('popup-fail').classList.add('visible'), 500);
       return;
     }
-
     document.getElementById('status-bar').textContent =
       '\u25c4 Movimiento realizado \u2014 ' + movesLeft + ' restante' + (movesLeft !== 1 ? 's' : '');
     setHint('Selecciona una moneda para moverla', 'neutral');
@@ -617,8 +595,8 @@ function renderBoard(ghostId = -1) {
   const boardEl = document.getElementById('tri-board');
   boardEl.innerHTML = '';
 
-  const step = getStepSize();
-  const COIN_SIZE = Math.round(step * 0.93);
+  const step     = getStepSize();
+  const COIN_SIZE = Math.round(step * 0.82);
   const { w, h } = boardSizePx(step);
   boardEl.style.width  = w + 'px';
   boardEl.style.height = h + 'px';
@@ -636,35 +614,45 @@ function renderBoard(ghostId = -1) {
       el.classList.add('coin');
       el.innerHTML = '<span class="coin-symbol">\u25c6</span><span class="coin-label">Moneda</span>';
 
-      if (s.id === ghostId) {
-        el.classList.add('ghost');
-      } else if (s.id === selected) {
-        el.classList.add('selected');
-      } else if (!locked && !gameOver && selected === -1) {
-        el.classList.add('movable');
-      }
+      if (s.id === ghostId)                                     el.classList.add('ghost');
+      else if (s.id === selected)                               el.classList.add('selected');
+      else if (!locked && !gameOver && selected === -1)         el.classList.add('movable');
 
       if (!locked && !gameOver) {
         el.addEventListener('click', () => {
-          if (selected !== -1 && selected !== s.id) {
-            selected = s.id;
-            const hasDests = GRID.filter(x => !coins.has(x.id)).some(x => isValidDest(s.id, x.id));
-            setHint(hasDests ? 'Elige una casilla que parpadee en dorado' : 'Esta moneda no tiene movimientos disponibles', hasDests ? '' : 'error');
-            renderBoard();
-          } else {
-            selectCoin(s.id);
-          }
+          if (selected !== -1 && selected !== s.id) { selected = s.id; selectCoin(s.id); }
+          else selectCoin(s.id);
         });
+        // ── Drag start ──
+        el.draggable = true;
+        el.addEventListener('dragstart', e => {
+          if (locked || gameOver) { e.preventDefault(); return; }
+          selected = s.id;
+          selectCoin(s.id);
+          e.dataTransfer.effectAllowed = 'move';
+          e.dataTransfer.setData('text/plain', String(s.id));
+          setTimeout(() => el.classList.add('ghost'), 0);
+        });
+        el.addEventListener('dragend', () => el.classList.remove('ghost'));
       }
 
     } else {
-      // Slot vacío
-      const isTarget = !locked && !gameOver && selected !== -1 && isValidDest(selected, s.id);
       el.classList.add('empty');
+      const isTarget = !locked && !gameOver && selected !== -1 && isValidDest(selected, s.id);
 
       if (isTarget) {
         el.classList.add('drop-target');
         el.addEventListener('click', () => moveCoin(selected, s.id));
+        // ── Drop target ──
+        el.addEventListener('dragover', e => { e.preventDefault(); e.dataTransfer.dropEffect = 'move'; });
+        el.addEventListener('dragenter', e => { e.preventDefault(); el.classList.add('drag-over'); });
+        el.addEventListener('dragleave', () => el.classList.remove('drag-over'));
+        el.addEventListener('drop', e => {
+          e.preventDefault();
+          el.classList.remove('drag-over');
+          const fromId = parseInt(e.dataTransfer.getData('text/plain'), 10);
+          if (!isNaN(fromId)) moveCoin(fromId, s.id);
+        });
       } else if (!locked && !gameOver && selected !== -1) {
         el.addEventListener('click', () => {
           selected = -1;
