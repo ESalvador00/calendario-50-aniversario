@@ -286,7 +286,7 @@
 <!-- Popup ayuda -->
 <div class="popup-overlay" id="popup-help">
   <div class="popup-box" style="max-width:500px;">
-    <div class="popup-icon">🪙</div>
+    <div class="popup-icon">✦</div>
     <p class="popup-title">Cómo jugar</p>
     <div class="popup-help-body">
       <strong style="color:var(--gold-light);">El reto de Tait</strong><br>
@@ -682,9 +682,12 @@ function movePair(destStart) {
 
   locked    = true;
   firstCoin = -1;
-  board[destStart+1] = board[j];
+  const valI = board[i];
+  const valJ = board[j];
   board[i] = null;
   board[j] = null;
+  board[destStart]   = valI;
+  board[destStart+1] = valJ;
   moves++;
   selPair = null;
 
@@ -707,7 +710,7 @@ function movePair(destStart) {
       return;
     }
 
-    document.getElementById('status-bar').textContent = '🪙 Movimiento ' + moves + ' — sigue adelante';
+    document.getElementById('status-bar').textContent = '✦ Movimiento ' + moves + ' — sigue adelante';
     setHint('Selecciona un par de monedas adyacentes', 'neutral');
     renderBoard();
   }, 60);
