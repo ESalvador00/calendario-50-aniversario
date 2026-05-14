@@ -390,13 +390,13 @@ function movePlayer(dr, dc) {
     }
     attempts++;
     document.getElementById('attempts-count').textContent = attempts;
-    setHint('¡Muro invisible! Vuelves al inicio...', 'error');
+    setHint('¡Muro invisible! Observa el laberinto...', 'error');
     inputLocked = true;
-    setTimeout(() => {
+    flashOnError(() => {
       resetPosition();
       inputLocked = false;
       setHint('Muévete con el teclado (WASD / ↑↓←→) o toca una casilla adyacente', 'neutral');
-    }, 480);
+    });
     return;
   }
   steps++;
@@ -425,6 +425,22 @@ function checkVictory() {
     (attempts === 0 ? '¡Perfecto, a la primera! 🧠✨' : '¡Lo has conseguido! 🎊');
   markDone();
   setTimeout(() => popupWin.classList.add('visible'), 400);
+}
+
+function flashOnError(callback) {
+  // Muestra los muros 2 veces brevemente al fallar, luego ejecuta callback
+  const FLASH_ON = 180, FLASH_OFF = 120;
+  let count = 0;
+  function step() {
+    wallsVisible = true; renderGrid();
+    setTimeout(() => {
+      wallsVisible = false; renderGrid();
+      count++;
+      if (count < 2) setTimeout(step, FLASH_OFF);
+      else setTimeout(callback, FLASH_OFF);
+    }, FLASH_ON);
+  }
+  setTimeout(step, 80);
 }
 
 function resetGame() {
