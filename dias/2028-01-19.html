@@ -12,7 +12,7 @@
     body{background-color:var(--dark);color:var(--cream);font-family:'Cormorant Garamond',serif;min-height:100vh;display:flex;flex-direction:column;}
     body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 25% 15%,rgba(201,168,76,.10) 0%,transparent 55%),radial-gradient(ellipse at 75% 85%,rgba(124,54,38,.10) 0%,transparent 55%);pointer-events:none;z-index:0;}
     .wrap{position:relative;z-index:1;max-width:800px;margin:0 auto;padding:3rem 2rem 4rem;flex:1;display:flex;flex-direction:column;}
-    .day-hero{text-align:center;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 0 2rem;position:relative;}
+    .day-hero{text-align:center;flex:1;display:flex;flex-direction:column;align-items:center;padding:3rem 0 2rem;position:relative;}
     .ornament-line-h{display:flex;align-items:center;justify-content:center;gap:1rem;margin-bottom:2rem;}
     .o-line{height:1px;width:60px;background:linear-gradient(to right,transparent,var(--gold));}
     .o-line.r{background:linear-gradient(to left,transparent,var(--gold));}
@@ -20,43 +20,162 @@
     .day-of-week{font-size:.85rem;letter-spacing:.4em;text-transform:uppercase;color:rgba(201,168,76,.5);margin-bottom:1rem;}
     h1{font-family:'Playfair Display',serif;font-size:clamp(3rem,9vw,7rem);font-weight:900;line-height:1;background:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 50%,var(--gold-dark) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.5rem;}
     .month-label{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3.5vw,2.4rem);font-weight:400;font-style:italic;color:rgba(250,246,238,.45);margin-bottom:2.5rem;}
-    .content-area{width:100%;border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:2.5rem;min-height:220px;background:rgba(255,255,255,.02);color:rgba(250,246,238,.4);font-size:1rem;font-style:italic;text-align:center;display:flex;align-items:center;justify-content:center;}
-    .day-nav{display:flex;justify-content:space-between;align-items:center;padding-top:2.5rem;border-top:1px solid rgba(201,168,76,.1);margin-top:2.5rem;}
-    .nav-btn{font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(201,168,76,.5);text-decoration:none;padding:.6rem 1.2rem;border:1px solid rgba(201,168,76,.18);border-radius:2px;transition:all .2s;}
-    .nav-btn:hover{color:var(--gold-light);border-color:rgba(201,168,76,.5);background:rgba(201,168,76,.05);}
-    .nav-btn.disabled{opacity:0;pointer-events:none;}
-    .year-badge{font-size:.7rem;letter-spacing:.3em;color:rgba(201,168,76,.25);text-transform:uppercase;}
-    .back-link{display:block;text-align:center;margin-top:2rem;color:rgba(201,168,76,.35);font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;text-decoration:none;transition:color .2s;}
-    .back-link:hover{color:var(--gold);}
-    /* Botones fav y done */
+
+    /* ── FAV / DONE ──────────────────────────────────────── */
     .action-btns{position:absolute;top:0;right:0;display:flex;flex-direction:column;align-items:center;gap:.2rem;}
     .icon-btn{background:none;border:none;cursor:pointer;font-size:2rem;line-height:1;transition:color .2s,transform .2s;padding:.2rem;}
     .icon-btn:hover{transform:scale(1.2);}
     .fav-btn{color:rgba(250,246,238,.2);}
     .fav-btn.active{color:#e05a6a;}
     .fav-btn.active:hover{color:#ff7a88;}
-    .done-btn{color:var(--gold);opacity:0.6;}
+    .done-btn{color:var(--gold);opacity:.6;}
     .done-btn.active{color:var(--gold);opacity:1;}
-    .done-btn.active:hover{color:var(--gold-light);opacity:1;}
-    /* Popup */
+
+    /* ── GAME CONTAINER ──────────────────────────────────── */
+    .game-wrap{width:100%;border:1px solid rgba(201,168,76,.25);border-radius:6px;background:rgba(255,255,255,.02);overflow:hidden;}
+    .game-header{padding:1.2rem 1.5rem;border-bottom:1px solid rgba(201,168,76,.15);text-align:center;}
+    .game-title{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:700;color:var(--gold-light);letter-spacing:.05em;}
+    .game-subtitle{font-size:.85rem;color:rgba(250,246,238,.45);margin-top:.3rem;font-style:italic;}
+
+    /* ── BOARD AREA ──────────────────────────────────────── */
+    .board-area{padding:1.8rem 1.5rem 1.2rem;display:flex;flex-direction:column;align-items:center;gap:1.2rem;}
+
+    /* Cuadrícula */
+    .maze-grid{
+      display:grid;
+      grid-template-columns:repeat(6, 1fr);
+      gap:4px;
+      width:min(340px, 90vw);
+    }
+    .maze-cell{
+      aspect-ratio:1;
+      border-radius:4px;
+      display:flex;align-items:center;justify-content:center;
+      font-size:1.4rem;
+      position:relative;
+      cursor:pointer;
+      transition:background .15s, box-shadow .15s;
+      /* Fondo base idéntico para todas las celdas normales */
+      background:rgba(201,168,76,.06);
+      border:1px solid rgba(201,168,76,.12);
+      user-select:none;
+    }
+    .maze-cell:hover{
+      background:rgba(201,168,76,.13);
+    }
+    /* Celda actual (jugador) */
+    .maze-cell.player-cell{
+      background:rgba(201,168,76,.18);
+      box-shadow:0 0 10px rgba(201,168,76,.35);
+    }
+    /* Celda de inicio */
+    .maze-cell.start-cell{
+      background:rgba(100,200,120,.10);
+      border-color:rgba(100,200,120,.35);
+    }
+    /* Celda de meta */
+    .maze-cell.end-cell{
+      background:rgba(201,168,76,.14);
+      border-color:rgba(201,168,76,.5);
+    }
+    /* Muro visible (solo durante el flash inicial) */
+    .maze-cell.wall-visible{
+      background:rgba(201,168,76,.28) !important;
+      border-color:rgba(201,168,76,.6) !important;
+      box-shadow:inset 0 0 8px rgba(201,168,76,.3);
+    }
+    /* Parpadeo rojo al chocar */
+    @keyframes blink-red{
+      0%,100%{background:rgba(201,168,76,.06);}
+      25%,75%{background:rgba(220,60,60,.35);border-color:rgba(220,60,60,.6);}
+    }
+    .maze-cell.hit-wall{
+      animation:blink-red .45s ease;
+    }
+    /* Shake de fila del jugador */
+    @keyframes shake-player{
+      0%,100%{transform:translateX(0);}
+      20%{transform:translateX(-5px);}
+      40%{transform:translateX(5px);}
+      60%{transform:translateX(-4px);}
+      80%{transform:translateX(4px);}
+    }
+    .maze-cell.shake-anim{
+      animation:shake-player .35s ease;
+    }
+    /* Movimiento suave del emoji jugador */
+    .player-emoji{
+      display:inline-block;
+      transition:transform .15s ease;
+      font-size:1.3rem;
+      line-height:1;
+    }
+
+    /* Contadores */
+    .stats-row{display:flex;gap:2rem;font-size:.82rem;letter-spacing:.14em;color:rgba(250,246,238,.35);font-style:italic;}
+    .stats-row span{color:var(--gold-light);font-style:normal;font-weight:500;}
+
+    /* Hint */
+    .game-hint{font-size:.9rem;font-style:italic;color:var(--gold-light);min-height:1.6em;letter-spacing:.02em;text-align:center;}
+    .game-hint.neutral{color:rgba(250,246,238,.38);font-size:.82rem;font-style:normal;}
+    .game-hint.error{color:#f87171;}
+    .game-hint.success{color:#4ade80;}
+
+    /* Controles */
+    .controls{padding:1rem 1.5rem 1.2rem;display:flex;flex-direction:column;align-items:center;gap:.8rem;border-top:1px solid rgba(201,168,76,.1);}
+    .controls-row{display:flex;gap:.8rem;align-items:center;justify-content:center;}
+    .game-btn{background:none;border:1px solid rgba(201,168,76,.35);border-radius:3px;color:rgba(201,168,76,.65);font-family:'Cormorant Garamond',serif;font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;padding:.45rem 1.1rem;cursor:pointer;transition:all .2s;}
+    .game-btn:hover{color:var(--gold);border-color:var(--gold);background:rgba(201,168,76,.07);}
+
+    /* Leyenda */
+    .legend{display:flex;gap:1.2rem;flex-wrap:wrap;justify-content:center;font-size:.72rem;letter-spacing:.1em;color:rgba(250,246,238,.35);}
+    .legend-item{display:flex;align-items:center;gap:.4rem;}
+    .legend-dot{width:12px;height:12px;border-radius:2px;flex-shrink:0;}
+    .legend-dot.start{background:rgba(100,200,120,.25);border:1px solid rgba(100,200,120,.5);}
+    .legend-dot.end{background:rgba(201,168,76,.2);border:1px solid rgba(201,168,76,.5);}
+    .legend-dot.empty{background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.15);}
+
+    /* Status bar */
+    .status-bar{padding:.5rem 1.5rem;background:rgba(0,0,0,.15);border-top:1px solid rgba(201,168,76,.08);font-size:.75rem;letter-spacing:.12em;text-align:center;color:rgba(250,246,238,.3);text-transform:uppercase;min-height:2rem;display:flex;align-items:center;justify-content:center;}
+
+    /* ── NAV ─────────────────────────────────────────────── */
+    .day-nav{display:flex;justify-content:space-between;align-items:center;padding-top:2.5rem;border-top:1px solid rgba(201,168,76,.1);margin-top:2.5rem;}
+    .nav-btn{font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(201,168,76,.5);text-decoration:none;padding:.6rem 1.2rem;border:1px solid rgba(201,168,76,.18);border-radius:2px;transition:all .2s;}
+    .nav-btn:hover{color:var(--gold-light);border-color:rgba(201,168,76,.5);background:rgba(201,168,76,.05);}
+    .year-badge{font-size:.7rem;letter-spacing:.3em;color:rgba(201,168,76,.25);text-transform:uppercase;}
+    .back-link{display:block;text-align:center;margin-top:2rem;color:rgba(201,168,76,.35);font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;text-decoration:none;transition:color .2s;}
+    .back-link:hover{color:var(--gold);}
+
+    /* ── POPUPS ──────────────────────────────────────────── */
     .popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:100;align-items:center;justify-content:center;}
     .popup-overlay.visible{display:flex;}
     .popup-box{background:var(--dark);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:3rem 2.5rem;max-width:420px;width:90%;text-align:center;box-shadow:0 0 60px rgba(0,0,0,.8);}
     .popup-icon{font-size:3rem;margin-bottom:1rem;}
     .popup-title{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--gold-light);margin-bottom:1rem;}
     .popup-msg{font-size:1rem;font-style:italic;color:rgba(250,246,238,.6);line-height:1.7;margin-bottom:2rem;}
-    .popup-btn{display:inline-block;padding:.7rem 2rem;border:1px solid rgba(201,168,76,.4);border-radius:2px;color:var(--gold);font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;background:none;transition:all .2s;}
+    .popup-btns{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap;}
+    .popup-btn{display:inline-block;padding:.7rem 2rem;border:1px solid rgba(201,168,76,.4);border-radius:2px;color:var(--gold);font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;background:none;transition:all .2s;font-family:'Cormorant Garamond',serif;}
     .popup-btn:hover{background:rgba(201,168,76,.1);border-color:var(--gold);}
+    .popup-btn.secondary{border-color:rgba(250,246,238,.15);color:rgba(250,246,238,.4);}
+    .popup-btn.secondary:hover{border-color:rgba(250,246,238,.35);color:rgba(250,246,238,.7);background:rgba(255,255,255,.03);}
+    .popup-help-body{text-align:left;font-style:normal;font-size:.9rem;line-height:1.9;overflow-y:auto;max-height:55vh;padding-right:.5rem;margin-bottom:1.5rem;color:rgba(250,246,238,.65);}
+    .popup-help-body::-webkit-scrollbar{width:4px;}
+    .popup-help-body::-webkit-scrollbar-track{background:rgba(255,255,255,.04);}
+    .popup-help-body::-webkit-scrollbar-thumb{background:rgba(201,168,76,.3);border-radius:2px;}
+
     @media(max-width:600px){
       .wrap{padding:1rem 1rem 2rem;}
       .day-hero{padding:1rem 0 1rem;}
       h1{font-size:clamp(2rem,14vw,4rem);}
       .month-label{font-size:clamp(1rem,4vw,1.6rem);margin-bottom:1rem;}
-      .content-area{padding:1.2rem;min-height:120px;}
-      .day-nav{margin-top:1rem;padding-top:1rem;}
+      .maze-grid{width:min(300px,88vw);gap:3px;}
+      .maze-cell{font-size:1.1rem;}
+      .player-emoji{font-size:1rem;}
       .ornament-line-h{margin-bottom:1rem;}
+      .day-nav{margin-top:1rem;padding-top:1rem;}
+      .stats-row{gap:1.2rem;}
     }
-</style>
+  </style>
 </head>
 <body>
 <div class="wrap">
@@ -71,10 +190,49 @@
     <p class="day-of-week">Miércoles</p>
     <h1>19</h1>
     <p class="month-label">de Enero</p>
-    <div class="content-area">
-      <p>Espacio reservado para el contenido de este día</p>
+
+    <!-- ═══════════════ MINIJUEGO ═══════════════ -->
+    <div class="game-wrap">
+      <div class="game-header">
+        <div class="game-title">Laberinto Invisible</div>
+        <div class="game-subtitle">Encuentra el camino oculto de Inicio a Meta</div>
+      </div>
+
+      <div class="board-area">
+
+        <!-- Cuadrícula -->
+        <div class="maze-grid" id="maze-grid"></div>
+
+        <!-- Leyenda -->
+        <div class="legend">
+          <div class="legend-item"><div class="legend-dot start"></div><span>Inicio</span></div>
+          <div class="legend-item"><div class="legend-dot end"></div><span>Meta</span></div>
+          <div class="legend-item"><div class="legend-dot empty"></div><span>Libre… ¿o no?</span></div>
+        </div>
+
+        <!-- Contadores -->
+        <div class="stats-row">
+          <div>Intentos: <span id="attempts-count">0</span></div>
+          <div>Pasos: <span id="steps-count">0</span></div>
+        </div>
+
+        <!-- Hint -->
+        <div class="game-hint neutral" id="game-hint">Muévete con el teclado (WASD / ↑↓←→) o toca una casilla adyacente</div>
+      </div>
+
+      <div class="controls">
+        <div class="controls-row">
+          <button class="game-btn" id="reset-btn">↺ Reiniciar</button>
+          <button class="game-btn" id="help-btn">? Ayuda</button>
+        </div>
+      </div>
+
+      <div class="status-bar" id="status-bar">🌑 Las paredes existen… pero no las verás</div>
     </div>
+    <!-- ═══════════════ FIN MINIJUEGO ═══════════════ -->
+
   </div>
+
   <nav class="day-nav">
     <a class="nav-btn" href="2028-01-18.html">&#8592; 18 de Enero</a>
     <span class="year-badge">50 Aniversario · 2028</span>
@@ -83,6 +241,7 @@
   <a class="back-link" href="../index.html">&#8592; Volver al Calendario</a>
 </div>
 
+<!-- Popup futuro -->
 <div class="popup-overlay" id="popup">
   <div class="popup-box">
     <div class="popup-icon">🎁</div>
@@ -102,7 +261,7 @@
   </div>
 </div>
 
-<!-- Popup recompensa del día -->
+<!-- Popup recompensa -->
 <div class="popup-overlay" id="popup-star-reward">
   <div class="popup-box">
     <div class="popup-icon">🎁</div>
@@ -112,31 +271,85 @@
   </div>
 </div>
 
+<!-- Popup victoria -->
+<div class="popup-overlay" id="popup-win">
+  <div class="popup-box">
+    <div class="popup-icon">🎉</div>
+    <p class="popup-title">¡Has encontrado la salida!</p>
+    <p class="popup-msg" id="win-msg">Has encontrado la salida del laberinto.<br><br>¡Brillante! 🧠✨</p>
+    <div class="popup-btns">
+      <button class="popup-btn" id="win-reward-btn">Ver recompensa ★</button>
+    </div>
+  </div>
+</div>
+
+<!-- Popup ayuda -->
+<div class="popup-overlay" id="popup-help">
+  <div class="popup-box" style="max-width:500px;">
+    <div class="popup-icon">🌑</div>
+    <p class="popup-title">Cómo jugar</p>
+    <div class="popup-help-body">
+      <strong style="color:var(--gold-light);">El reto</strong><br>
+      Debes llevar al explorador (🔦) desde la casilla de <strong style="color:#7ec88a;">Inicio (S)</strong> hasta la casilla de <strong style="color:var(--gold-light);">Meta (F)</strong> cruzando una cuadrícula 6×6.<br><br>
+
+      <strong style="color:var(--gold-light);">El truco: las paredes son invisibles</strong><br>
+      Al inicio del juego verás el laberinto completo durante un breve instante; después las paredes desaparecen. Las celdas parecerán idénticas, pero algunas están bloqueadas. Tendrás que memorizar el camino o descubrirlo por ensayo y error.<br><br>
+
+      <strong style="color:var(--gold-light);">Qué pasa si chocas con una pared</strong><br>
+      · El explorador parpadea en rojo.<br>
+      · Vuelves automáticamente al Inicio.<br>
+      · El contador de intentos sube en 1.<br>
+      · ¡Los pasos no se resetean, así que cada intento cuenta!<br><br>
+
+      <strong style="color:var(--gold-light);">Cómo moverte</strong><br>
+      Tienes dos formas de controlar al explorador:<br><br>
+      · <strong>Teclado:</strong> usa las teclas de dirección (↑ ↓ ← →) o WASD.<br>
+      · <strong>Toque / clic:</strong> toca o haz clic en cualquier celda adyacente (arriba, abajo, izquierda o derecha) al explorador.<br><br>
+
+      <strong style="color:var(--gold-light);">Reglas</strong><br>
+      · Solo puedes moverte de una en una celda.<br>
+      · Solo movimientos ortogonales (sin diagonales).<br>
+      · No puedes salir de la cuadrícula.<br>
+      · Cada colisión te devuelve al Inicio.<br><br>
+
+      <strong style="color:var(--gold-light);">Condición de victoria</strong><br>
+      Cuando el explorador llega a la celda de Meta (F), el juego termina, el día queda completado y se abre tu recompensa.<br><br>
+
+      <strong style="color:var(--gold-light);">Consejo</strong><br>
+      Observa bien el breve destello inicial. El laberinto siempre es el mismo: si memorizas el camino correcto podrás completarlo de un solo intento. 🗺️
+    </div>
+    <button class="popup-btn" id="help-close">¡Entendido!</button>
+  </div>
+</div>
+
 <script>
-const PREVIEW_KEY  = 'cal_preview';
-const isPreview    = localStorage.getItem(PREVIEW_KEY) === '1';
-const today        = new Date(); today.setHours(0,0,0,0);
-const thisDate     = new Date('2028-01-19'); thisDate.setHours(0,0,0,0);
-const nextDateStr  = '2028-01-20';
-const popup        = document.getElementById('popup');
+// ═══════════════════════════════════════════════
+//  PREVIEW & DATE GUARD
+// ═══════════════════════════════════════════════
+const PREVIEW_KEY = 'cal_preview';
+const isPreview   = localStorage.getItem(PREVIEW_KEY) === '1';
+const today       = new Date(); today.setHours(0,0,0,0);
+const thisDate    = new Date('2028-01-19'); thisDate.setHours(0,0,0,0);
+const nextDateStr = '2028-01-20';
+const popup       = document.getElementById('popup');
 
 if (!isPreview && thisDate > today) {
   document.querySelector('.day-hero').style.filter = 'blur(4px)';
   document.querySelector('.day-nav').style.visibility = 'hidden';
   popup.classList.add('visible');
 }
-
 if (!isPreview && nextDateStr) {
-  const nextDate = new Date(nextDateStr); nextDate.setHours(0,0,0,0);
-  if (nextDate > today) {
-    const nextBtn = document.getElementById('next-btn');
-    if (nextBtn) nextBtn.addEventListener('click', e => { e.preventDefault(); popup.classList.add('visible'); });
+  const nd = new Date(nextDateStr); nd.setHours(0,0,0,0);
+  if (nd > today) {
+    const nb = document.getElementById('next-btn');
+    if (nb) nb.addEventListener('click', e => { e.preventDefault(); popup.classList.add('visible'); });
   }
 }
-
 popup.addEventListener('click', e => { if (e.target === popup) window.location.href = '../index.html'; });
 
-// ── Favourite ──────────────────────────────────────────────
+// ═══════════════════════════════════════════════
+//  FAVOURITE
+// ═══════════════════════════════════════════════
 const FAV_KEY = 'fav_2028-01-19';
 const favBtn  = document.getElementById('fav-btn');
 function updateFav() {
@@ -152,26 +365,22 @@ favBtn.addEventListener('click', () => {
 });
 updateFav();
 
-// ── Done (actividad completada) ────────────────────────────
-const DONE_KEY = 'done_2028-01-19';
-const doneBtn  = document.getElementById('done-btn');
+// ═══════════════════════════════════════════════
+//  DONE / REWARD
+// ═══════════════════════════════════════════════
+const DONE_KEY         = 'done_2028-01-19';
+const doneBtn          = document.getElementById('done-btn');
 const popupStarBlocked = document.getElementById('popup-star-blocked');
 const popupStarReward  = document.getElementById('popup-star-reward');
+const popupWin         = document.getElementById('popup-win');
 
-document.getElementById('star-blocked-close').addEventListener('click', () => {
-  popupStarBlocked.classList.remove('visible');
-});
-popupStarBlocked.addEventListener('click', e => {
-  if (e.target === popupStarBlocked) popupStarBlocked.classList.remove('visible');
-});
+document.getElementById('star-blocked-close').addEventListener('click', () => popupStarBlocked.classList.remove('visible'));
+popupStarBlocked.addEventListener('click', e => { if (e.target === popupStarBlocked) popupStarBlocked.classList.remove('visible'); });
+document.getElementById('star-reward-close').addEventListener('click', () => popupStarReward.classList.remove('visible'));
+popupStarReward.addEventListener('click', e => { if (e.target === popupStarReward) popupStarReward.classList.remove('visible'); });
 
-document.getElementById('star-reward-close').addEventListener('click', () => {
-  popupStarReward.classList.remove('visible');
-});
-popupStarReward.addEventListener('click', e => {
-  if (e.target === popupStarReward) popupStarReward.classList.remove('visible');
-});
-
+function markDone() { localStorage.setItem(DONE_KEY, '1'); updateDone(); }
+function showReward() { popupStarReward.classList.add('visible'); }
 function updateDone() {
   const on = localStorage.getItem(DONE_KEY) === '1';
   doneBtn.textContent = on ? '★' : '☆';
@@ -180,20 +389,302 @@ function updateDone() {
 }
 doneBtn.addEventListener('click', () => {
   const on = localStorage.getItem(DONE_KEY) === '1';
-  if (on) {
-    // Already done → show reward
-    popupStarReward.classList.add('visible');
-  } else {
-    // Not done → only allowed in preview mode
-    if (isPreview) {
-      localStorage.setItem(DONE_KEY, '1');
-      updateDone();
-    } else {
-      popupStarBlocked.classList.add('visible');
-    }
-  }
+  if (on) { showReward(); }
+  else if (isPreview) { markDone(); }
+  else { popupStarBlocked.classList.add('visible'); }
 });
 updateDone();
+
+document.getElementById('win-reward-btn').addEventListener('click', () => {
+  popupWin.classList.remove('visible');
+  showReward();
+});
+popupWin.addEventListener('click', e => { if (e.target === popupWin) popupWin.classList.remove('visible'); });
+
+// ═══════════════════════════════════════════════
+//  GAME — LABERINTO INVISIBLE
+// ═══════════════════════════════════════════════
+
+// ─────────────────────────────────────────────
+//  CONFIGURACIÓN DEL LABERINTO
+//  ▸ Edita esta sección para cambiar el laberinto.
+//
+//  COLS = 6, ROWS = 6  → índice (row, col) con row 0 = fila superior
+//
+//  MAZE_CONFIG.walls : conjunto de celdas bloqueadas
+//    Formato: 'row,col'  (ej. '1,2' = fila 1, col 2)
+//
+//  MAZE_CONFIG.start : celda de inicio  [row, col]
+//  MAZE_CONFIG.end   : celda de meta    [row, col]
+//
+//  Solución de este laberinto (camino mínimo):
+//    (0,0)→(1,0)→(2,0)→(2,1)→(2,2)→(3,2)→(4,2)→(4,3)→(4,4)→(5,4)→(5,5)
+// ─────────────────────────────────────────────
+const MAZE_CONFIG = {
+  rows: 6,
+  cols: 6,
+  start: [0, 0],
+  end:   [5, 5],
+  walls: new Set([
+    // Fila 0
+    '0,1','0,3','0,4',
+    // Fila 1
+    '1,1','1,2','1,3','1,4','1,5',
+    // Fila 2
+    '2,3','2,4','2,5',
+    // Fila 3
+    '3,0','3,1','3,3','3,4','3,5',
+    // Fila 4
+    '4,0','4,1','4,5',
+    // Fila 5
+    '5,0','5,1','5,2','5,3'
+  ])
+};
+// ─────────────────────────────────────────────
+
+const ROWS = MAZE_CONFIG.rows;
+const COLS = MAZE_CONFIG.cols;
+
+// Estado del juego
+let playerPos   = [...MAZE_CONFIG.start]; // [row, col]
+let attempts    = 0;
+let steps       = 0;
+let gameOver    = false;
+let inputLocked = false;
+let wallsVisible = false; // controla si se pintan los muros en renderGrid
+
+// ── isWall ─────────────────────────────────────────────────
+function isWall(r, c) {
+  return MAZE_CONFIG.walls.has(`${r},${c}`);
+}
+
+// ── isStart ────────────────────────────────────────────────
+function isStart(r, c) {
+  return r === MAZE_CONFIG.start[0] && c === MAZE_CONFIG.start[1];
+}
+
+// ── isEnd ──────────────────────────────────────────────────
+function isEnd(r, c) {
+  return r === MAZE_CONFIG.end[0] && c === MAZE_CONFIG.end[1];
+}
+
+// ── isPlayer ───────────────────────────────────────────────
+function isPlayer(r, c) {
+  return r === playerPos[0] && c === playerPos[1];
+}
+
+// ── renderGrid ─────────────────────────────────────────────
+function renderGrid() {
+  const grid = document.getElementById('maze-grid');
+  grid.innerHTML = '';
+
+  for (let r = 0; r < ROWS; r++) {
+    for (let c = 0; c < COLS; c++) {
+      const cell = document.createElement('div');
+      cell.className = 'maze-cell';
+      cell.dataset.row = r;
+      cell.dataset.col = c;
+
+      // Clases de estado
+      if (wallsVisible && isWall(r, c)) {
+        cell.classList.add('wall-visible');
+        cell.innerHTML = '<span style="font-size:.8rem;opacity:.4;">▪</span>';
+      } else if (isPlayer(r, c)) {
+        cell.classList.add('player-cell');
+        cell.innerHTML = '<span class="player-emoji">🔦</span>';
+      } else if (isStart(r, c)) {
+        cell.classList.add('start-cell');
+        cell.innerHTML = '<span style="font-size:.75rem;letter-spacing:.04em;color:rgba(100,200,120,.7);font-family:\'Playfair Display\',serif;font-weight:700;">S</span>';
+      } else if (isEnd(r, c)) {
+        cell.classList.add('end-cell');
+        cell.innerHTML = '<span style="font-size:.75rem;letter-spacing:.04em;color:rgba(201,168,76,.9);font-family:\'Playfair Display\',serif;font-weight:700;">F</span>';
+      }
+
+      // Interacción táctil / ratón
+      cell.addEventListener('click', () => handleCellClick(r, c));
+
+      grid.appendChild(cell);
+    }
+  }
+}
+
+// ── getCellEl ──────────────────────────────────────────────
+function getCellEl(r, c) {
+  return document.querySelector(`[data-row="${r}"][data-col="${c}"]`);
+}
+
+// ── handleInput ────────────────────────────────────────────
+function handleInput(dr, dc) {
+  if (gameOver || inputLocked) return;
+  movePlayer(dr, dc);
+}
+
+// ── handleCellClick ────────────────────────────────────────
+function handleCellClick(r, c) {
+  if (gameOver || inputLocked) return;
+  const dr = r - playerPos[0];
+  const dc = c - playerPos[1];
+  // Solo celdas ortogonalmente adyacentes (un paso)
+  if (Math.abs(dr) + Math.abs(dc) === 1) {
+    movePlayer(dr, dc);
+  }
+}
+
+// ── checkCollision ─────────────────────────────────────────
+function checkCollision(r, c) {
+  if (r < 0 || r >= ROWS || c < 0 || c >= COLS) return true; // fuera de cuadrícula
+  if (isWall(r, c)) return true;
+  return false;
+}
+
+// ── movePlayer ─────────────────────────────────────────────
+function movePlayer(dr, dc) {
+  const nr = playerPos[0] + dr;
+  const nc = playerPos[1] + dc;
+
+  if (checkCollision(nr, nc)) {
+    // Colisión: parpadeo rojo + shake + reset
+    const cell = getCellEl(playerPos[0], playerPos[1]);
+    if (cell) {
+      cell.classList.add('hit-wall');
+      cell.classList.add('shake-anim');
+      setTimeout(() => {
+        cell.classList.remove('hit-wall');
+        cell.classList.remove('shake-anim');
+      }, 460);
+    }
+    attempts++;
+    document.getElementById('attempts-count').textContent = attempts;
+    setHint('¡Muro invisible! Vuelves al inicio...', 'error');
+    inputLocked = true;
+    setTimeout(() => {
+      resetPosition();
+      inputLocked = false;
+      setHint('Muévete con el teclado (WASD / ↑↓←→) o toca una casilla adyacente', 'neutral');
+    }, 520);
+    return;
+  }
+
+  // Movimiento válido
+  steps++;
+  document.getElementById('steps-count').textContent = steps;
+  playerPos = [nr, nc];
+  renderGrid();
+
+  if (checkVictory()) return;
+}
+
+// ── resetPosition ──────────────────────────────────────────
+function resetPosition() {
+  playerPos = [...MAZE_CONFIG.start];
+  renderGrid();
+}
+
+// ── checkVictory ───────────────────────────────────────────
+function checkVictory() {
+  if (!isEnd(playerPos[0], playerPos[1])) return false;
+
+  gameOver = true;
+  setHint('¡Has encontrado la salida del laberinto!', 'success');
+  document.getElementById('status-bar').textContent = '🎉 ¡Laberinto completado!';
+  document.getElementById('win-msg').innerHTML =
+    'Has encontrado la salida del laberinto.<br><br>' +
+    'Intentos: <strong>' + attempts + '</strong> · Pasos: <strong>' + steps + '</strong><br><br>' +
+    (attempts === 0 ? '¡Perfecto, a la primera! 🧠✨' : '¡Lo has conseguido! 🎊');
+  markDone();
+  setTimeout(() => popupWin.classList.add('visible'), 400);
+  return true;
+}
+
+// ── resetGame ──────────────────────────────────────────────
+function resetGame() {
+  playerPos   = [...MAZE_CONFIG.start];
+  attempts    = 0;
+  steps       = 0;
+  gameOver    = false;
+  inputLocked = false;
+  wallsVisible = false;
+  document.getElementById('attempts-count').textContent = '0';
+  document.getElementById('steps-count').textContent = '0';
+  document.getElementById('popup-win').classList.remove('visible');
+  setHint('Muévete con el teclado (WASD / ↑↓←→) o toca una casilla adyacente', 'neutral');
+  document.getElementById('status-bar').textContent = '🌑 Las paredes existen… pero no las verás';
+
+  // Flash inicial: mostrar muros → ocultar
+  flashWalls();
+}
+
+// ── flashWalls ─────────────────────────────────────────────
+// Muestra los muros brevemente 3 veces, luego los oculta para siempre
+function flashWalls() {
+  inputLocked  = true;
+  wallsVisible = true;
+  renderGrid();
+  setHint('¡Memoriza el laberinto!', '');
+
+  let flashCount = 0;
+  const FLASH_ON  = 600;  // ms visible
+  const FLASH_OFF = 300;  // ms apagado
+
+  function nextFlash() {
+    flashCount++;
+    wallsVisible = false;
+    renderGrid();
+
+    if (flashCount >= 3) {
+      // Último apagado — ya no vuelven
+      setTimeout(() => {
+        inputLocked = false;
+        setHint('¡Las paredes han desaparecido! Ahora depende de tu memoria...', '');
+        setTimeout(() => setHint('Muévete con el teclado (WASD / ↑↓←→) o toca una casilla adyacente', 'neutral'), 2200);
+      }, FLASH_OFF);
+      return;
+    }
+
+    // Siguiente encendido
+    setTimeout(() => {
+      wallsVisible = true;
+      renderGrid();
+      setTimeout(nextFlash, FLASH_ON);
+    }, FLASH_OFF);
+  }
+
+  // Primer ciclo
+  setTimeout(nextFlash, FLASH_ON);
+}
+
+// ── setHint ────────────────────────────────────────────────
+function setHint(msg, cls) {
+  const el = document.getElementById('game-hint');
+  el.textContent = msg;
+  el.className = 'game-hint' + (cls ? ' ' + cls : '');
+}
+
+// ── handleInput (teclado) ──────────────────────────────────
+document.addEventListener('keydown', e => {
+  const map = {
+    'ArrowUp':    [-1,  0], 'w': [-1,  0], 'W': [-1,  0],
+    'ArrowDown':  [ 1,  0], 's': [ 1,  0], 'S': [ 1,  0],
+    'ArrowLeft':  [ 0, -1], 'a': [ 0, -1], 'A': [ 0, -1],
+    'ArrowRight': [ 0,  1], 'd': [ 0,  1], 'D': [ 0,  1]
+  };
+  if (map[e.key]) {
+    e.preventDefault();
+    handleInput(...map[e.key]);
+  }
+});
+
+// ── Popup ayuda ────────────────────────────────────────────
+const popupHelp = document.getElementById('popup-help');
+document.getElementById('help-btn').addEventListener('click', () => popupHelp.classList.add('visible'));
+document.getElementById('help-close').addEventListener('click', () => popupHelp.classList.remove('visible'));
+popupHelp.addEventListener('click', e => { if (e.target === popupHelp) popupHelp.classList.remove('visible'); });
+
+// ── Reset ──────────────────────────────────────────────────
+document.getElementById('reset-btn').addEventListener('click', resetGame);
+
+// ── Init ───────────────────────────────────────────────────
+resetGame();
 </script>
 </body>
 </html>
