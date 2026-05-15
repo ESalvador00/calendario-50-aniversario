@@ -74,9 +74,10 @@
     .lb-close:hover{color:var(--cream);border-color:var(--gold);}
 
     /* ── Icono expandir/contraer (objIconoMax) ── */
+    /* Posición sobre el color #e55718 del clickmap: esquina inf-der, primera caja pequeña */
     .expand-icon{
       position:absolute;
-      right:calc(1.5% + 0px); top:calc(88.2% - 18px);
+      right:9.0%; top:calc(88.2% - 18px);
       width:36px;height:36px;
       pointer-events:auto;cursor:pointer;z-index:28;
       color:#E8C97A;
@@ -91,9 +92,10 @@
     @keyframes bulb-error{0%,100%{filter:brightness(1) drop-shadow(0 0 3px #FF2200);}50%{filter:brightness(2.5) drop-shadow(0 0 10px #FF2200);}}
     .bulb-panel{
       position:absolute;
-      right:0.4%;width:8%;
-      top:87.8%;height:7.8%;
-      display:flex;align-items:center;justify-content:space-evenly;
+      left:0.5%;width:85%;
+      top:87.5%;height:8.5%;
+      display:flex;align-items:center;justify-content:flex-start;gap:1.2%;
+      padding-left:1.5%;
       pointer-events:none;z-index:25;overflow:visible;
     }
     .bulb{
@@ -595,36 +597,32 @@ let botellaSeleccionada = null;
 const RECETAS = {
   // combinaciones con resultado almacenable
   'amanecer→belica':    'sabio',       // amanecer + bélica = sabio
-  'equilibrio→sabio':   'corrupto',    // equilibrio + sabio = astral (pendiente de definir; usamos corrupto de placeholder — ver nota)
+  'equilibrio→sabio':   'igneo',       // equilibrio + sabio = ígneo
   'lunar→solar':        'amanecer',    // lunar + solar = amanecer
   'sabio→equilibrio':   'pura',        // sabio + equilibrio = pura
   'solar→equilibrio':   'dorado',      // solar + equilibrio = dorado
   'solar→lunar':        'vinculo',     // solar + lunar = vínculo
 };
-// NOTA: "Compuesto astral" no está en tblElementos; lo añadimos:
-tblElementos.push({ id:'astral', nombre:'Compuesto astral', simbolo:'✦', hover:'[ ✦ — COMPUESTO ASTRAL ]', color:'#4af0ff', descubierto:false });
-RECETAS['equilibrio→sabio'] = 'astral';
 
-// Elementos iguales → devuelven el mismo elemento
-// (se gestiona en calcularCombinacion)
-
-// Errores cíclicos para combinaciones sin receta
-const ERRORES_CICLO = [
-  'error_vacia','error_rota','error_explosion','error_ceniza',
-  'error_slime','error_humo','error_espuma'
+// Tabla ponderada: error_vacia y error_rota más frecuentes,
+// corrupto e inestable rarísimos
+const ERRORES_POND = [
+  ...Array(5).fill('error_vacia'),
+  ...Array(5).fill('error_rota'),
+  ...Array(2).fill('error_explosion'),
+  ...Array(2).fill('error_ceniza'),
+  ...Array(2).fill('error_slime'),
+  ...Array(2).fill('error_humo'),
+  ...Array(2).fill('error_espuma'),
+  'corrupto',
+  'inestable',
 ];
-let errorCicloIdx = 0;
 
 function calcularCombinacion(idA, idB) {
-  // Mismo elemento → devuelve ese mismo elemento
   if (idA === idB) return idA;
-  // Buscar en recetas (orden importa)
   const clave = idA + '→' + idB;
   if (RECETAS[clave]) return RECETAS[clave];
-  // Sin receta → error cíclico
-  const err = ERRORES_CICLO[errorCicloIdx % ERRORES_CICLO.length];
-  errorCicloIdx++;
-  return err;
+  return ERRORES_POND[Math.floor(Math.random() * ERRORES_POND.length)];
 }
 
 // ════════════════════════════════════════════════════════
@@ -651,7 +649,6 @@ function imgResultado(resultadoId) {
     sabio:          'ER03_Botella_sabio.webp',
     solar:          'ER03_Botella_solar.webp',
     vinculo:        'ER03_Botella_vinculo.webp',
-    astral:         'ER03_Botella_astral.webp',
   };
   return '../media/' + (MAP[resultadoId] || 'ER03_Botella_vacia.webp');
 }
@@ -680,7 +677,6 @@ function msgResultado(resultadoId) {
     sabio:           'El compuesto adopta un brillo viol\u00e1ceo lleno de energ\u00eda.\n\nObtienes [ \u2643 \u2014 COMPUESTO DEL SABIO ]',
     solar:           'La esencia dorada irradia calor y luminosidad.\n\nObtienes [ \u2609 \u2014 ESENCIA SOLAR ]',
     vinculo:         'El l\u00edquido rosado palpita suavemente como si tuviera vida propia.\n\nObtienes [ \u2665 \u2014 COMPUESTO DEL V\u00cdNCULO ]',
-    astral:          'Destellos azulados llenan el matraz formando constelaciones fugaces.\n\nObtienes [ \u2726 \u2014 COMPUESTO ASTRAL ]',
   };
   return MSG[resultadoId] || 'La reacci\u00f3n no produce ning\u00fan resultado \u00fatil.';
 }
@@ -894,25 +890,24 @@ const BOTELLA_IDX = {
 };
 
 function getHoverDinamico(alias) {
-  if (alias === 'objMatrazA') {
-    const e = contenidoMatraz[0];
-    return e ? '[ MATRAZ A — ' + e.simbolo + ' ' + e.nombre.toUpperCase() + ' ]' : '[ MATRAZ A — VACÍO ]';
+  // 8) Matraces: texto único basado en si matrazB (slot 0) tiene algo
+  if (alias === 'objMatrazA' || alias === 'objMatrazB') {
+    return contenidoMatraz[0]
+      ? '[ MATRAZ ] - Con mezcla'
+      : '[ MATRAZ ] - Vac\u00edo';
   }
-  if (alias === 'objMatrazB') {
-    const e = contenidoMatraz[1];
-    return e ? '[ MATRAZ B — ' + e.simbolo + ' ' + e.nombre.toUpperCase() + ' ]' : '[ MATRAZ B — VACÍO ]';
-  }
+  // 9) Quemador
   if (alias === 'objQuemador') {
     return swQuemador === 'ON'
-      ? '[ QUEMADOR — ENCENDIDO — CLIC PARA COMBINAR ]'
-      : '[ QUEMADOR — APAGADO — CLIC PARA ENCENDER ]';
+      ? '[ QUEMADOR ] - Encendido'
+      : '[ QUEMADOR ] - Apagado';
   }
+  // 2) Botellas: null si vacía, hover del elemento si tiene algo
   if (alias in BOTELLA_IDX) {
     const idx = BOTELLA_IDX[alias];
     const e = tblBotellas[idx];
-    if (!e) return '[ BOTELLA ' + (idx+1) + ' — VACÍA ]';
-    const sel = (botellaSeleccionada === idx) ? ' — SELECCIONADA' : '';
-    return '[ ' + e.simbolo + ' — ' + e.nombre.toUpperCase() + sel + ' ]';
+    if (!e) return null;  // 7) vacía → null → no muestra nada
+    return e.hover + (botellaSeleccionada === idx ? ' \u2014 SELECCIONADA' : '');
   }
   if (alias === 'objIconoMax') {
     return lbOpen ? '[ REDUCIR VISTA ]' : '[ AMPLIAR VISTA ]';
@@ -950,27 +945,55 @@ function getAlias(clientX, clientY, imgEl) {
 //  ACTUALIZAR VISUALES DE MATRACES
 //  contenidoMatraz[0] = 1.er seleccionado → colorea objMatrazB (bajo)
 //  contenidoMatraz[1] = 2.º seleccionado  → colorea objMatrazA (arriba)
+//  3) Transparencia 60% + tamaño adaptativo al escenario
 // ════════════════════════════════════════════════════════
+function getMatrazFontSize() {
+  // Adaptar tamaño del símbolo al ancho real del escenario
+  const vw = window.innerWidth;
+  const escW = escWrap.getBoundingClientRect().width || vw;
+  // En lightbox el escenario ocupa casi toda la pantalla
+  const refW = lbOpen ? Math.min(vw * 0.98, window.innerHeight * 0.98 * (16/9)) : escW;
+  // El símbolo ocupa aprox el 5% del ancho del escenario
+  return Math.max(10, Math.min(36, refW * 0.055)) + 'px';
+}
+
+function setMatrazSymb(symEl, elem) {
+  if (elem) {
+    // Convertir hex a rgba con 60% de opacidad
+    const r = parseInt(elem.color.slice(1,3),16);
+    const g = parseInt(elem.color.slice(3,5),16);
+    const b = parseInt(elem.color.slice(5,7),16);
+    const rgba = 'rgba('+r+','+g+','+b+',0.6)';
+    symEl.textContent = elem.simbolo;
+    symEl.style.color = rgba;
+    symEl.style.textShadow = '0 0 10px '+rgba+', 0 0 22px rgba('+r+','+g+','+b+',0.3)';
+    symEl.style.fontSize = getMatrazFontSize();
+  } else {
+    symEl.textContent = '';
+    symEl.style.color = 'transparent';
+    symEl.style.textShadow = 'none';
+    symEl.style.fontSize = '';
+  }
+}
+
 function updateMatrazVisual() {
-  const e0 = contenidoMatraz[0]; // primer elemento  → MatrazB (bajo)
-  const e1 = contenidoMatraz[1]; // segundo elemento → MatrazA (arriba)
+  const e0 = contenidoMatraz[0]; // primer elemento  → MatrazB (bajo) = symB
+  const e1 = contenidoMatraz[1]; // segundo elemento → MatrazA (alto)  = symA
 
-  // Escenario normal
-  const symA = document.getElementById('matraz-a-symb'); // arriba = e1
-  const symB = document.getElementById('matraz-b-symb'); // abajo  = e0
+  const symA = document.getElementById('matraz-a-symb');
+  const symB = document.getElementById('matraz-b-symb');
+  setMatrazSymb(symA, e1);
+  setMatrazSymb(symB, e0);
 
-  if (e1) { symA.textContent = e1.simbolo; symA.style.color = e1.color; symA.style.textShadow = '0 0 12px '+e1.color+', 0 0 24px '+e1.color; }
-  else     { symA.textContent = ''; symA.style.color = 'transparent'; symA.style.textShadow = 'none'; }
-
-  if (e0) { symB.textContent = e0.simbolo; symB.style.color = e0.color; symB.style.textShadow = '0 0 12px '+e0.color+', 0 0 24px '+e0.color; }
-  else     { symB.textContent = ''; symB.style.color = 'transparent'; symB.style.textShadow = 'none'; }
-
-  // Lightbox
+  // Lightbox: mismos valores
   const lbSymA = document.getElementById('lb-matraz-a-symb');
   const lbSymB = document.getElementById('lb-matraz-b-symb');
-  if (lbSymA) { lbSymA.textContent = symA.textContent; lbSymA.style.color = symA.style.color; lbSymA.style.textShadow = symA.style.textShadow; }
-  if (lbSymB) { lbSymB.textContent = symB.textContent; lbSymB.style.color = symB.style.color; lbSymB.style.textShadow = symB.style.textShadow; }
+  if (lbSymA) { lbSymA.textContent=symA.textContent; lbSymA.style.cssText=symA.style.cssText; }
+  if (lbSymB) { lbSymB.textContent=symB.textContent; lbSymB.style.cssText=symB.style.cssText; }
 }
+
+// Recalcular tamaño de símbolos al redimensionar
+window.addEventListener('resize', ()=>{ if(contenidoMatraz[0]||contenidoMatraz[1]) updateMatrazVisual(); });
 
 // ════════════════════════════════════════════════════════
 //  VISUAL DE BOTELLAS EN EL ESCENARIO
@@ -1129,8 +1152,9 @@ function onCierraBotella(resultadoId) {
   if (!esError(resultadoId)) {
     const elem = getElemento(resultadoId);
     if (elem) {
+      // 1) Marcar como descubierto en la tabla de elementos
       elem.descubierto = true;
-      // Buscar slot libre (índices 4-9)
+      // 7) Guardar en primer slot libre (índices 4-9)
       const hueco = tblBotellas.findIndex((b, i) => i >= 4 && b === null);
       if (hueco !== -1) {
         tblBotellas[hueco] = elem;
