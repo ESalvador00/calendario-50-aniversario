@@ -912,6 +912,9 @@ function getHoverDinamico(alias) {
   if (alias === 'objIconoMax') {
     return lbOpen ? '[ REDUCIR VISTA ]' : '[ AMPLIAR VISTA ]';
   }
+  if (alias === 'objCaja') {
+    return cajaAbierta ? '[ CAJA ] \u2014 ABIERTA' : '[ CAJA ] \u2014 SELLADA';
+  }
   return HOVER_MSG[alias] || null;
 }
 
@@ -1082,8 +1085,7 @@ function seleccionarBotella(idx) {
   typeWrite('> ' + elem.hover + ' — Seleccionada. Haz clic en el matraz para cargarla.');
 }
 
-function cargarMatraz(numMatraz) {
-  // numMatraz: 0 (primero/bajo) o 1 (segundo/alto)
+function cargarMatraz() {
   if (botellaSeleccionada === null) {
     typeWrite('> Selecciona una botella antes de cargar el matraz.');
     return;
@@ -1091,8 +1093,6 @@ function cargarMatraz(numMatraz) {
   const elem = tblBotellas[botellaSeleccionada];
   if (!elem) return;
 
-  const slot = contenidoMatraz[numMatraz] ? 1 : numMatraz; // si ya hay algo, ocupa el otro
-  // Encontrar el slot correcto según qué matraces están libres
   if (contenidoMatraz[0] === null) {
     // Primer elemento → MatrazB (bajo) → slot 0
     contenidoMatraz[0] = elem;
@@ -1108,9 +1108,14 @@ function cargarMatraz(numMatraz) {
     renderBotellaImgs();
     updateMatrazVisual();
     playBubble();
-    typeWrite('> Los componentes reaccionan entre sí.');
-    // Ambos cargados → disparar combinación automáticamente
-    setTimeout(() => ejecutarCombinacion(), 800);
+    if (swQuemador === 'ON') {
+      // Quemador activo → lanzar combinación automáticamente
+      typeWrite('> Los componentes reaccionan bajo el calor del quemador...');
+      setTimeout(() => ejecutarCombinacion(), 900);
+    } else {
+      // Quemador apagado → esperar a que el jugador lo encienda
+      typeWrite('> Los componentes están cargados. Enciende el quemador para combinarlos.');
+    }
   } else {
     typeWrite('> El matraz ya tiene dos esencias. Activa el quemador para combinarlas.');
   }
@@ -1169,6 +1174,82 @@ function onCierraBotella(resultadoId) {
   }
 
   pendienteResultado = null;
+}
+
+// ════════════════════════════════════════════════════════
+//  QUEMADOR
+// ════════════════════════════════════════════════════════
+function toggleQuemador() {
+  if (swQuemador === 'OFF') {
+    swQuemador = 'ON';
+    playBubble();
+    // ¿Ya hay dos esencias esperando?
+    if (contenidoMatraz[0] && contenidoMatraz[1]) {
+      typeWrite('> [ QUEMADOR ] — Encendido. Las esencias empiezan a reaccionar bajo el calor...');
+      setTimeout(() => ejecutarCombinacion(), 900);
+    } else if (contenidoMatraz[0]) {
+      typeWrite('> [ QUEMADOR ] — Encendido. Carga la segunda esencia en el matraz para combinar.');
+    } else {
+      typeWrite('> [ QUEMADOR ] — Encendido. Carga las esencias en los matraces y observa la reacción.');
+    }
+  } else {
+    swQuemador = 'OFF';
+    typeWrite('> [ QUEMADOR ] — Apagado.');
+  }
+}
+
+// ════════════════════════════════════════════════════════
+//  CAJA SELLADA
+// ════════════════════════════════════════════════════════
+
+// Compuesto que abre la caja (según las recetas: solar→equilibrio = dorado)
+const CLAVE_CAJA = 'dorado';
+
+// Índice en tblBotellas del último compuesto obtenido (el que se usará contra la caja)
+// Para "verter" en la caja, el jugador debe tener el compuesto dorado en tblBotellas
+// y hacer clic en la caja.
+function interaccionCaja() {
+  if (cajaAbierta) {
+    typeWrite('> [ CAJA ] — ABIERTA. La recompensa ya es tuya.');
+    return;
+  }
+
+  // Buscar el compuesto dorado entre las botellas descubiertas
+  const tieneDorado = tblBotellas.some(b => b && b.id === CLAVE_CAJA);
+
+  if (!tieneDorado) {
+    // No tiene el compuesto correcto aún
+    typeWrite('> [ CAJA ] — SELLADA. Un candado de plata bloquea la apertura. Quizás el compuesto adecuado la transformaría...');
+    return;
+  }
+
+  // Tiene el compuesto dorado → abrir la caja
+  abrirCaja();
+}
+
+function abrirCaja() {
+  cajaAbierta = true;
+
+  // Actualizar hover de la caja
+  HOVER_MSG['objCaja'] = '[ CAJA ] — ABIERTA';
+
+  // Efectos: victoria total
+  bulbsTriumph();
+  playVictory();
+
+  // Mensaje CRT dramático
+  typeWrite('> El Compuesto Dorado reacciona con el candado... ✶ ¡La caja se abre!');
+
+  // Mostrar imagen de la caja abierta con overlay
+  setTimeout(() => {
+    showImgOverlay('../media/ER03_Botella_dorado.webp', () => {
+      // Tras cerrar la imagen → marcar completado y mostrar recompensa
+      markDone();
+      setTimeout(() => {
+        popupStarReward.classList.add('visible');
+      }, 400);
+    });
+  }, 1200);
 }
 
 // ════════════════════════════════════════════════════════
@@ -1349,16 +1430,14 @@ function handleClick(alias, e) {
   }
 
   // ── Quemador ─────────────────────────────────────────
-  // (pendiente — próxima iteración)
   if (alias === 'objQuemador') {
-    typeWrite('> [ QUEMADOR ] — Pendiente de implementar.');
+    toggleQuemador();
     return;
   }
 
   // ── Caja ─────────────────────────────────────────────
-  // (pendiente — próxima iteración)
   if (alias === 'objCaja') {
-    typeWrite('> [ CAJA ] — SELLADA. No cede ante la fuerza...');
+    interaccionCaja();
     return;
   }
 }
