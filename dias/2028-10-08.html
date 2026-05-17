@@ -323,6 +323,48 @@
     .popup-btn{display:inline-block;padding:.7rem 2rem;border:1px solid rgba(201,168,76,.4);border-radius:2px;color:var(--gold);font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;background:none;transition:all .2s;}
     .popup-btn:hover{background:rgba(201,168,76,.1);border-color:var(--gold);}
 
+    /* ── Popup introductorio ── */
+    .intro-popup{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:400;align-items:center;justify-content:center;}
+    .intro-popup.visible{display:flex;}
+    .intro-box{
+      background:var(--dark);
+      border:1px solid rgba(201,168,76,.35);
+      border-radius:6px;
+      padding:3rem 2.5rem 2.5rem;
+      max-width:520px;width:92%;
+      text-align:center;
+      box-shadow:0 0 80px rgba(0,0,0,.95), inset 0 0 60px rgba(201,168,76,.03);
+      position:relative;
+    }
+    .intro-icon{font-size:2.6rem;line-height:1;margin-bottom:1.2rem;filter:drop-shadow(0 0 10px rgba(201,168,76,.6));}
+    .intro-title{
+      font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:700;
+      color:var(--gold-light);margin-bottom:1.4rem;letter-spacing:.02em;
+    }
+    .intro-body{
+      font-size:.97rem;font-style:italic;color:rgba(250,246,238,.62);
+      line-height:1.85;margin-bottom:2.2rem;text-align:left;
+    }
+    .intro-body p{margin-bottom:.9rem;}
+    .intro-body p:last-child{margin-bottom:0;}
+    .intro-btn{
+      display:inline-block;
+      padding:.75rem 2.2rem;
+      background:linear-gradient(135deg,rgba(201,168,76,.18),rgba(201,168,76,.07));
+      border:1px solid rgba(201,168,76,.5);border-radius:3px;
+      color:var(--gold-light);
+      font-family:'Share Tech Mono',monospace;
+      font-size:.78rem;letter-spacing:.22em;text-transform:uppercase;
+      cursor:pointer;transition:all .2s;
+    }
+    .intro-btn:hover{background:rgba(201,168,76,.28);border-color:var(--gold);box-shadow:0 0 16px rgba(201,168,76,.3);}
+
+    @media(max-width:600px){
+      .intro-box{padding:2rem 1.4rem 2rem;}
+      .intro-title{font-size:1.1rem;}
+      .intro-body{font-size:.88rem;}
+    }
+
     @media(max-width:600px){
       .wrap{padding:1rem 1rem 2rem;}
       .day-hero{padding:1rem 0 1rem;}
@@ -420,6 +462,21 @@
     <a class="nav-btn" id="next-btn" href="2028-10-09.html">9 de Octubre &#8594;</a>
   </nav>
   <a class="back-link" href="../index.html">&#8592; Volver al Calendario</a>
+</div>
+
+<!-- Popup: introducción al reto -->
+<div class="intro-popup" id="intro-popup">
+  <div class="intro-box">
+    <div class="intro-icon">⚗️</div>
+    <p class="intro-title">Laboratorio Alquímico</p>
+    <div class="intro-body">
+      <p>Has entrado en el antiguo laboratorio del alquimista.</p>
+      <p>Durante años, sus investigaciones sobre la transmutación permanecieron ocultas tras símbolos y fórmulas incompletas. En un lado de la sala descansa una caja sellada que, según las notas dispersas por el laboratorio, protege una Piedra Filosofal.</p>
+      <p>Solo quien comprenda las leyes de las esencias podrá abrirla.</p>
+      <p>Experimenta, interpreta las anotaciones y descubre la combinación capaz de romper el sello.</p>
+    </div>
+    <button class="intro-btn" id="intro-btn">[ COMENZAR TRANSMUTACIÓN ]</button>
+  </div>
 </div>
 
 <!-- Popup: día futuro -->
@@ -555,6 +612,23 @@ if (!isPreview && nextDateStr) {
   }
 }
 popup.addEventListener('click', e => { if (e.target === popup) window.location.href = '../index.html'; });
+
+// ════════════════════════════════════════════════════════
+//  POPUP INTRODUCTORIO
+// ════════════════════════════════════════════════════════
+const introPopup = document.getElementById('intro-popup');
+const introBtn   = document.getElementById('intro-btn');
+
+// Mostrar solo si el día no está bloqueado
+if (isPreview || thisDate <= today) {
+  introPopup.classList.add('visible');
+  document.body.style.overflow = 'hidden';
+}
+
+introBtn.addEventListener('click', () => {
+  introPopup.classList.remove('visible');
+  document.body.style.overflow = '';
+});
 
 // ════════════════════════════════════════════════════════
 //  FAVORITO
@@ -1076,16 +1150,16 @@ window.addEventListener('resize', ()=>{ if(contenidoMatraz[0]||contenidoMatraz[1
 // cx/cy = centro en %, w = ancho en %
 // Orden: objBotella01..10 → índices 0-9
 const BOTELLA_POS = [
-  { cx:33.66, cy:30.00, w:5.0 },  // idx 0 → objBotella01 (#18e6a8)
-  { cx:66.74, cy:30.00, w:5.0 },  // idx 1 → objBotella02 (#18e6e6)
-  { cx:27.76, cy:30.00, w:5.0 },  // idx 2 → objBotella03 (#18e56a)
-  { cx:72.18, cy:30.00, w:5.0 },  // idx 3 → objBotella04 (#18a8e5)
-  { cx:22.48, cy:30.00, w:5.0 },  // idx 4 → objBotella05 (#18e52e)
-  { cx:77.92, cy:30.00, w:5.0 },  // idx 5 → objBotella06 (#176be6)
-  { cx:16.43, cy:30.00, w:5.0 },  // idx 6 → objBotella07 (#42e518)
-  { cx:83.66, cy:30.00, w:5.0 },  // idx 7 → objBotella08 (#182de5)
-  { cx:10.84, cy:30.00, w:5.0 },  // idx 8 → objBotella09 (#7fe518)
-  { cx:89.25, cy:30.00, w:5.0 },  // idx 9 → objBotella10 (#4218e4)
+  { cx:33.66, cy:31.00, w:5.0 },  // idx 0 → objBotella01 (#18e6a8)
+  { cx:66.74, cy:31.00, w:5.0 },  // idx 1 → objBotella02 (#18e6e6)
+  { cx:27.76, cy:31.00, w:5.0 },  // idx 2 → objBotella03 (#18e56a)
+  { cx:72.18, cy:31.00, w:5.0 },  // idx 3 → objBotella04 (#18a8e5)
+  { cx:22.48, cy:31.00, w:5.0 },  // idx 4 → objBotella05 (#18e52e)
+  { cx:77.92, cy:31.00, w:5.0 },  // idx 5 → objBotella06 (#176be6)
+  { cx:16.43, cy:31.00, w:5.0 },  // idx 6 → objBotella07 (#42e518)
+  { cx:83.66, cy:31.00, w:5.0 },  // idx 7 → objBotella08 (#182de5)
+  { cx:10.84, cy:31.00, w:5.0 },  // idx 8 → objBotella09 (#7fe518)
+  { cx:89.25, cy:31.00, w:5.0 },  // idx 9 → objBotella10 (#4218e4)
 ];
 
 // Crear elementos img para las botellas — en escenario normal Y en lightbox
