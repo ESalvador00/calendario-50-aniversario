@@ -865,6 +865,19 @@ function setBulbState(idx, state) {
   });
 }
 function lightNextBulb() { if(bulbCount>=4)return; setBulbState(bulbCount,'on'); bulbCount++; }
+// Bombillas específicas por hito de combinación:
+//   bulb 0 → amanecer   (lunar + solar)
+//   bulb 1 → sabio      (amanecer + bélica)
+//   bulb 2 → pura       (sabio + equilibrio)
+//   bulb 3 → caja abierta (se enciende en abrirCaja)
+const BULB_FOR = { amanecer:0, sabio:1, pura:2 };
+function lightBulbForResult(id) {
+  if (id in BULB_FOR) {
+    const idx = BULB_FOR[id];
+    setBulbState(idx, 'on');
+    if (bulbCount <= idx) bulbCount = idx + 1;
+  }
+}
 function bulbsTriumph()   { allBulbs((b,lb)=>{b.className='bulb triumph';lb.className='bulb triumph';}); }
 function bulbsErrorAndReset() {
   allBulbs((b,lb)=>{b.className='bulb error-flash';lb.className='bulb error-flash';});
@@ -1063,16 +1076,16 @@ window.addEventListener('resize', ()=>{ if(contenidoMatraz[0]||contenidoMatraz[1
 // cx/cy = centro en %, w = ancho en %
 // Orden: objBotella01..10 → índices 0-9
 const BOTELLA_POS = [
-  { cx:33.66, cy:32.00, w:5.0 },  // idx 0 → objBotella01 (#18e6a8)
-  { cx:66.74, cy:32.00, w:5.0 },  // idx 1 → objBotella02 (#18e6e6)
-  { cx:27.76, cy:32.00, w:5.0 },  // idx 2 → objBotella03 (#18e56a)
-  { cx:72.18, cy:32.00, w:5.0 },  // idx 3 → objBotella04 (#18a8e5)
-  { cx:22.48, cy:32.00, w:5.0 },  // idx 4 → objBotella05 (#18e52e)
-  { cx:77.92, cy:32.00, w:5.0 },  // idx 5 → objBotella06 (#176be6)
-  { cx:16.43, cy:32.00, w:5.0 },  // idx 6 → objBotella07 (#42e518)
-  { cx:83.66, cy:32.00, w:5.0 },  // idx 7 → objBotella08 (#182de5)
-  { cx:10.84, cy:32.00, w:5.0 },  // idx 8 → objBotella09 (#7fe518)
-  { cx:89.25, cy:32.00, w:5.0 },  // idx 9 → objBotella10 (#4218e4)
+  { cx:33.66, cy:30.00, w:5.0 },  // idx 0 → objBotella01 (#18e6a8)
+  { cx:66.74, cy:30.00, w:5.0 },  // idx 1 → objBotella02 (#18e6e6)
+  { cx:27.76, cy:30.00, w:5.0 },  // idx 2 → objBotella03 (#18e56a)
+  { cx:72.18, cy:30.00, w:5.0 },  // idx 3 → objBotella04 (#18a8e5)
+  { cx:22.48, cy:30.00, w:5.0 },  // idx 4 → objBotella05 (#18e52e)
+  { cx:77.92, cy:30.00, w:5.0 },  // idx 5 → objBotella06 (#176be6)
+  { cx:16.43, cy:30.00, w:5.0 },  // idx 6 → objBotella07 (#42e518)
+  { cx:83.66, cy:30.00, w:5.0 },  // idx 7 → objBotella08 (#182de5)
+  { cx:10.84, cy:30.00, w:5.0 },  // idx 8 → objBotella09 (#7fe518)
+  { cx:89.25, cy:30.00, w:5.0 },  // idx 9 → objBotella10 (#4218e4)
 ];
 
 // Crear elementos img para las botellas — en escenario normal Y en lightbox
@@ -1226,7 +1239,7 @@ function onCierraBotella(resultadoId) {
         const hueco = tblBotellas.findIndex((b, i) => i >= 4 && b === null);
         if (hueco !== -1) {
           tblBotellas[hueco] = elem;
-          if (!esInservible(resultadoId)) lightNextBulb();
+          if (!esInservible(resultadoId)) lightBulbForResult(resultadoId);
         }
       }
     }
@@ -1324,8 +1337,7 @@ function abrirPopupCaja() {
   descubiertos.forEach(e => {
     const opt = document.createElement('option');
     opt.value = e.id;
-    // Mostrar símbolo + texto del hover (que contiene nombre formateado)
-    opt.textContent = e.simbolo + '  ' + e.hover;
+    opt.textContent = e.hover;
     cajaSelect.appendChild(opt);
   });
   cajaPopup.classList.add('visible');
@@ -1371,6 +1383,7 @@ function abrirCaja() {
 
   // Efectos inmediatos
   bulbsTriumph();
+  setBulbState(3, 'on'); bulbCount = 4;
   playVictory();
 
   // Sin imagen intermedia: marcar completado, CRT de victoria, popup recompensa
@@ -1467,11 +1480,10 @@ function hideImgOverlay(runChain) {
   if (runChain && cb) {
     setTimeout(cb, 80);
   } else if (!runChain && pendienteResultado) {
-    // Cerrado con X mientras había combinación pendiente → limpiar matraces
-    contenidoMatraz[0] = null;
-    contenidoMatraz[1] = null;
-    updateMatrazVisual();
-    pendienteResultado = null;
+    // Cerrado con X / Escape / fondo mientras había combinación pendiente
+    // → misma acción que clic en imagen: ejecutar callback
+    if (cb) setTimeout(cb, 80);
+    else { contenidoMatraz[0]=null; contenidoMatraz[1]=null; updateMatrazVisual(); pendienteResultado=null; }
   }
 }
 lbClose.addEventListener('click', e=>{ e.stopPropagation(); hideImgOverlay(false); });
@@ -1502,9 +1514,15 @@ escImg.addEventListener('touchmove', e=>{ e.preventDefault(); const t=e.touches[
 escImg.addEventListener('touchend', ()=>{ lastAlias=null; clearConsole(); });
 
 document.addEventListener('keydown', e=>{
+  if (e.key==='Escape' || e.key==='Enter') {
+    if (lbOverlay.classList.contains('visible')) {
+      // Si hay resultado de combinación pendiente, Escape/Enter = confirmar (como clic en imagen)
+      hideImgOverlay(pendienteResultado ? true : false);
+      return;
+    }
+  }
   if (e.key==='Escape') {
-    if (lbOverlay.classList.contains('visible')) hideImgOverlay();
-    else if (lightbox.classList.contains('visible')) closeLightbox();
+    if (lightbox.classList.contains('visible')) closeLightbox();
   }
 });
 
