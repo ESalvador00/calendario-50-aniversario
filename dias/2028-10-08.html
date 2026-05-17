@@ -836,13 +836,15 @@ function getAlias(clientX, clientY, imgEl) {
 //  3) Transparencia 60% + tamaño adaptativo al escenario
 // ════════════════════════════════════════════════════════
 function getMatrazFontSize() {
-  // Adaptar tamaño del símbolo al ancho real del escenario
-  const vw = window.innerWidth;
+  const vw  = window.innerWidth;
   const escW = escWrap.getBoundingClientRect().width || vw;
-  // En lightbox el escenario ocupa casi toda la pantalla
-  const refW = lbOpen ? Math.min(vw * 0.98, window.innerHeight * 0.98 * (16/9)) : escW;
-  // El símbolo ocupa aprox el 5% del ancho del escenario
-  return Math.max(10, Math.min(36, refW * 0.055)) + 'px';
+  if (lbOpen) {
+    // Lightbox: escenario ocupa casi toda la pantalla
+    const refW = Math.min(vw * 0.98, window.innerHeight * 0.98 * (16/9));
+    return Math.max(10, Math.min(36, refW * 0.055)) + 'px';
+  }
+  // Escenario normal: símbolo más pequeño para no desbordar el matraz
+  return Math.max(8, Math.min(28, escW * 0.038)) + 'px';
 }
 
 function setMatrazSymb(symEl, elem) {
@@ -861,19 +863,15 @@ function setMatrazSymb(symEl, elem) {
 }
 
 function updateMatrazVisual() {
-  const e0 = contenidoMatraz[0]; // primer elemento  → MatrazB (bajo) = symB
-  const e1 = contenidoMatraz[1]; // segundo elemento → MatrazA (alto)  = symA
+  const e0 = contenidoMatraz[0]; // primer elemento  → MatrazB (bajo)
+  const e1 = contenidoMatraz[1]; // segundo elemento → MatrazA (arriba)
 
-  const symA = document.getElementById('matraz-a-symb');
-  const symB = document.getElementById('matraz-b-symb');
-  setMatrazSymb(symA, e1);
-  setMatrazSymb(symB, e0);
-
-  // Lightbox: mismos valores
-  const lbSymA = document.getElementById('lb-matraz-a-symb');
-  const lbSymB = document.getElementById('lb-matraz-b-symb');
-  if (lbSymA) { lbSymA.textContent=symA.textContent; lbSymA.style.cssText=symA.style.cssText; }
-  if (lbSymB) { lbSymB.textContent=symB.textContent; lbSymB.style.cssText=symB.style.cssText; }
+  // Escenario normal
+  setMatrazSymb(document.getElementById('matraz-a-symb'), e1);
+  setMatrazSymb(document.getElementById('matraz-b-symb'), e0);
+  // Lightbox — mismos elementos, actualización independiente
+  setMatrazSymb(document.getElementById('lb-matraz-a-symb'), e1);
+  setMatrazSymb(document.getElementById('lb-matraz-b-symb'), e0);
 }
 
 // Recalcular tamaño de símbolos al redimensionar
@@ -889,16 +887,16 @@ window.addEventListener('resize', ()=>{ if(contenidoMatraz[0]||contenidoMatraz[1
 // cx/cy = centro en %, w = ancho en %
 // Orden: objBotella01..10 → índices 0-9
 const BOTELLA_POS = [
-  { cx:33.66, cy:31.50, w:5.0 },  // idx 0 → objBotella01 (#18e6a8)
-  { cx:66.74, cy:31.50, w:5.0 },  // idx 1 → objBotella02 (#18e6e6)
-  { cx:27.76, cy:31.50, w:5.0 },  // idx 2 → objBotella03 (#18e56a)
-  { cx:72.18, cy:31.50, w:5.0 },  // idx 3 → objBotella04 (#18a8e5)
-  { cx:22.48, cy:31.50, w:5.0 },  // idx 4 → objBotella05 (#18e52e)
-  { cx:77.92, cy:31.50, w:5.0 },  // idx 5 → objBotella06 (#176be6)
-  { cx:16.43, cy:31.50, w:5.0 },  // idx 6 → objBotella07 (#42e518)
-  { cx:83.66, cy:31.50, w:5.0 },  // idx 7 → objBotella08 (#182de5)
-  { cx:10.84, cy:31.50, w:5.0 },  // idx 8 → objBotella09 (#7fe518)
-  { cx:89.25, cy:31.50, w:5.0 },  // idx 9 → objBotella10 (#4218e4)
+  { cx:33.66, cy:21.50, w:5.0 },  // idx 0 → objBotella01 (#18e6a8)
+  { cx:66.74, cy:21.50, w:5.0 },  // idx 1 → objBotella02 (#18e6e6)
+  { cx:27.76, cy:21.50, w:5.0 },  // idx 2 → objBotella03 (#18e56a)
+  { cx:72.18, cy:21.50, w:5.0 },  // idx 3 → objBotella04 (#18a8e5)
+  { cx:22.48, cy:21.50, w:5.0 },  // idx 4 → objBotella05 (#18e52e)
+  { cx:77.92, cy:21.50, w:5.0 },  // idx 5 → objBotella06 (#176be6)
+  { cx:16.43, cy:21.50, w:5.0 },  // idx 6 → objBotella07 (#42e518)
+  { cx:83.66, cy:21.50, w:5.0 },  // idx 7 → objBotella08 (#182de5)
+  { cx:10.84, cy:21.50, w:5.0 },  // idx 8 → objBotella09 (#7fe518)
+  { cx:89.25, cy:21.50, w:5.0 },  // idx 9 → objBotella10 (#4218e4)
 ];
 
 // Crear elementos img para las botellas — en escenario normal Y en lightbox
@@ -958,7 +956,7 @@ function renderBotellaImgs() {
 function seleccionarBotella(idx) {
   const elem = tblBotellas[idx];
   if (!elem) {
-    typeWrite('> Botella vacía. No hay esencia que seleccionar.');
+    // Clic al aire sobre zona de botella vacía → sin mensaje
     return;
   }
   if (esInservible(elem.id)) {
@@ -1033,44 +1031,61 @@ function ejecutarCombinacion() {
 }
 
 function onCierraBotella(resultadoId) {
+  // Bloquear hover para que el mensaje del resultado no se tape
+  dropHoverBlock = true;
+  lastAlias = null;
+
   // 1) Limpiar matraces SIEMPRE (sea error o no)
   contenidoMatraz[0] = null;
   contenidoMatraz[1] = null;
   updateMatrazVisual();
 
-  // 2) Almacenar resultado si no es error
+  // 2) Almacenar en tblBotellas si corresponde
+  //    - Nunca si es error puro (error_*)
+  //    - Sí si es inservible (corrupto, inestable) o compuesto válido
   if (!esError(resultadoId)) {
     const elem = getElemento(resultadoId);
     if (elem) {
       elem.descubierto = true;
-      // Solo guardar en botella si no es inservible ya almacenado
+      // Guardar en primer slot libre (idx 4-9) si no está ya
       const yaEnBotella = tblBotellas.some(b => b && b.id === resultadoId);
       if (!yaEnBotella) {
         const hueco = tblBotellas.findIndex((b, i) => i >= 4 && b === null);
         if (hueco !== -1) {
           tblBotellas[hueco] = elem;
-          lightNextBulb();
+          if (!esInservible(resultadoId)) lightNextBulb();
         }
       }
     }
     renderBotellaImgs();
   }
 
-  // 3) Efectos: audio y visual — sin sobreescribir el CRT
+  // 3) Efectos audio + visual según tipo de resultado
   if (esError(resultadoId)) {
-    // Alarma + shake sin llamar typeWrite (para no machacar el mensaje)
     setConsoleError(true);
     fireAlarm();
-    escWrap.classList.remove('shaking'); void escWrap.offsetWidth; escWrap.classList.add('shaking');
+    escWrap.classList.remove('shaking');
+    void escWrap.offsetWidth;
+    escWrap.classList.add('shaking');
     escWrap.addEventListener('animationend', () => escWrap.classList.remove('shaking'), {once:true});
     playError();
     setTimeout(() => setConsoleError(false), 2200);
+  } else if (esInservible(resultadoId)) {
+    playError();
   } else {
     playDiscovery();
   }
 
-  // 4) Mensaje CRT — siempre al final para que sea lo último escrito
-  typeWrite('> ' + msgResultado(resultadoId));
+  // 4) Escribir el mensaje — llamar DESPUÉS de los efectos para ser lo último en CRT
+  //    Usamos directamente startType para no hacer el flash de borrado
+  const msg = wrapMsg('> ' + msgResultado(resultadoId));
+  lastRawMsg = '> ' + msgResultado(resultadoId);
+  if (twTimer) { clearTimeout(twTimer); twTimer = null; }
+  setConsoles('');
+  startType(msg);
+
+  // 5) Liberar el bloqueo de hover tras 3.5 s (tiempo suficiente para leer)
+  setTimeout(() => { dropHoverBlock = false; }, 3500);
 
   pendienteResultado = null;
 }
@@ -1224,7 +1239,15 @@ function hideImgOverlay(runChain) {
   document.body.style.overflow = '';
   lbImg.src = '';
   const cb = lbChainCallback; lbChainCallback = null;
-  if (runChain && cb) setTimeout(cb, 80);
+  if (runChain && cb) {
+    setTimeout(cb, 80);
+  } else if (!runChain && pendienteResultado) {
+    // Cerrado con X mientras había combinación pendiente → limpiar matraces
+    contenidoMatraz[0] = null;
+    contenidoMatraz[1] = null;
+    updateMatrazVisual();
+    pendienteResultado = null;
+  }
 }
 lbClose.addEventListener('click', e=>{ e.stopPropagation(); hideImgOverlay(false); });
 lbOverlay.addEventListener('click', e=>{ if(e.target===lbOverlay) hideImgOverlay(false); });
