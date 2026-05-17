@@ -234,6 +234,18 @@
       100%{transform:translate(var(--tx,0px),var(--ty,-28px)) scale(.2); opacity:0;}
     }
 
+    /* ── Overlay caja abierta (webp transparente, encima de botellas) ── */
+    .caja-abierta-overlay{
+      position:absolute;
+      inset:0;
+      width:100%;height:100%;
+      object-fit:contain;
+      pointer-events:none;
+      z-index:50;
+      display:none;
+    }
+    .caja-abierta-overlay.visible{ display:block; }
+
     /* ── Popup caja alquímica ── */
     .caja-popup{display:none;position:fixed;inset:0;z-index:310;background:rgba(0,0,0,.88);align-items:center;justify-content:center;}
     .caja-popup.visible{display:flex;}
@@ -444,6 +456,10 @@
           <div class="bulb" id="bulb-3"></div>
         </div>
 
+        <!-- Overlay caja abierta (webp con fondo transparente, z-index máximo) -->
+        <img class="caja-abierta-overlay" id="caja-abierta-overlay"
+             src="../media/ER03_EscenarioVisualOK.webp" alt=""/>
+
         <!-- Alarma roja -->
         <div class="alarm-overlay" id="alarm-overlay"></div>
 
@@ -570,6 +586,9 @@
       <div class="bulb" id="bulb-lb-2"></div>
       <div class="bulb" id="bulb-lb-3"></div>
     </div>
+    <!-- Overlay caja abierta en lightbox -->
+    <img class="caja-abierta-overlay" id="caja-abierta-overlay-lb"
+         src="../media/ER03_EscenarioVisualOK.webp" alt=""/>
     <div class="alarm-overlay" id="alarm-overlay-lb"></div>
     <div class="lightbox-crt" id="lightbox-crt">
       <span class="lightbox-crt-text" id="lightbox-crt-text"></span>
@@ -1460,9 +1479,9 @@ function interaccionCaja() {
 function abrirCaja() {
   cajaAbierta = true;
 
-  // Cambiar imagen del escenario (normal y lightbox)
-  document.getElementById('escenario-img').src = '../media/ER03_EscenarioVisualOK.jpg';
-  document.getElementById('lightbox-img').src  = '../media/ER03_EscenarioVisualOK.jpg';
+  // Mostrar overlay webp transparente encima de todo (botellas incluidas)
+  document.getElementById('caja-abierta-overlay').classList.add('visible');
+  document.getElementById('caja-abierta-overlay-lb').classList.add('visible');
 
   // Efectos inmediatos
   bulbsTriumph();
