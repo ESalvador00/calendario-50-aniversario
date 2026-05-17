@@ -173,11 +173,20 @@
       position:absolute;
       left:49.22%; top:42.43%;
       transform:translate(-50%,-100%);   /* centrado horizontal, anclado por la base */
-      width:36px; height:60px;
+      /* Tamaño base (escenario normal escritorio) */
+      width:20px; height:34px;
       pointer-events:none; z-index:35;
       display:none;                       /* oculta cuando OFF */
     }
     .burner-flame.active{ display:block; }
+    /* Móvil: aún más pequeño */
+    @media(max-width:600px){
+      .burner-flame{ width:13px; height:22px; }
+    }
+    /* Lightbox: tamaño completo */
+    #lightbox-inner .burner-flame{
+      width:36px; height:60px;
+    }
     .flame-wrap{ position:relative; width:100%; height:100%; }
     .flame-core{
       position:absolute; bottom:0; left:50%;
@@ -1054,16 +1063,16 @@ window.addEventListener('resize', ()=>{ if(contenidoMatraz[0]||contenidoMatraz[1
 // cx/cy = centro en %, w = ancho en %
 // Orden: objBotella01..10 → índices 0-9
 const BOTELLA_POS = [
-  { cx:33.66, cy:29.00, w:5.0 },  // idx 0 → objBotella01 (#18e6a8)
-  { cx:66.74, cy:29.00, w:5.0 },  // idx 1 → objBotella02 (#18e6e6)
-  { cx:27.76, cy:29.00, w:5.0 },  // idx 2 → objBotella03 (#18e56a)
-  { cx:72.18, cy:29.00, w:5.0 },  // idx 3 → objBotella04 (#18a8e5)
-  { cx:22.48, cy:29.00, w:5.0 },  // idx 4 → objBotella05 (#18e52e)
-  { cx:77.92, cy:29.00, w:5.0 },  // idx 5 → objBotella06 (#176be6)
-  { cx:16.43, cy:29.00, w:5.0 },  // idx 6 → objBotella07 (#42e518)
-  { cx:83.66, cy:29.00, w:5.0 },  // idx 7 → objBotella08 (#182de5)
-  { cx:10.84, cy:29.00, w:5.0 },  // idx 8 → objBotella09 (#7fe518)
-  { cx:89.25, cy:29.00, w:5.0 },  // idx 9 → objBotella10 (#4218e4)
+  { cx:33.66, cy:32.00, w:5.0 },  // idx 0 → objBotella01 (#18e6a8)
+  { cx:66.74, cy:32.00, w:5.0 },  // idx 1 → objBotella02 (#18e6e6)
+  { cx:27.76, cy:32.00, w:5.0 },  // idx 2 → objBotella03 (#18e56a)
+  { cx:72.18, cy:32.00, w:5.0 },  // idx 3 → objBotella04 (#18a8e5)
+  { cx:22.48, cy:32.00, w:5.0 },  // idx 4 → objBotella05 (#18e52e)
+  { cx:77.92, cy:32.00, w:5.0 },  // idx 5 → objBotella06 (#176be6)
+  { cx:16.43, cy:32.00, w:5.0 },  // idx 6 → objBotella07 (#42e518)
+  { cx:83.66, cy:32.00, w:5.0 },  // idx 7 → objBotella08 (#182de5)
+  { cx:10.84, cy:32.00, w:5.0 },  // idx 8 → objBotella09 (#7fe518)
+  { cx:89.25, cy:32.00, w:5.0 },  // idx 9 → objBotella10 (#4218e4)
 ];
 
 // Crear elementos img para las botellas — en escenario normal Y en lightbox
@@ -1349,11 +1358,8 @@ function interaccionCaja() {
     typeWrite('> [ CAJA ] \u2014 ABIERTA. La recompensa ya es tuya.');
     return;
   }
-  // Mostrar imagen de la caja + popup de selección en cadena
-  showImgOverlay('../media/ER03_Caja.webp', () => {
-    // Tras cerrar la imagen → abrir el popup de selección
-    setTimeout(() => abrirPopupCaja(), 120);
-  });
+  // Directo al popup de selección, sin imagen previa
+  abrirPopupCaja();
 }
 
 function abrirCaja() {
@@ -1367,24 +1373,21 @@ function abrirCaja() {
   bulbsTriumph();
   playVictory();
 
-  // Mostrar imagen caja abierta
-  showImgOverlay('../media/ER03_CajaAbierta.webp', () => {
-    // Tras cerrar la imagen → marcar completado, CRT de victoria, popup recompensa
-    markDone();
-    dropHoverBlock = true;
-    lastAlias = null;
-    setTimeout(() => {
-      if (twTimer) { clearTimeout(twTimer); twTimer = null; }
-      setConsoles('');
-      const msg = '\u265F La Esencia Pura disuelve el sello.\n\n\u2736 \u00a1La caja se abre! La recompensa es tuya.';
-      lastRawMsg = '> ' + msg;
-      startType(wrapMsg('> ' + msg));
-    }, 50);
-    setTimeout(() => {
-      dropHoverBlock = false;
-      popupStarReward.classList.add('visible');
-    }, 5000);
-  });
+  // Sin imagen intermedia: marcar completado, CRT de victoria, popup recompensa
+  markDone();
+  dropHoverBlock = true;
+  lastAlias = null;
+  setTimeout(() => {
+    if (twTimer) { clearTimeout(twTimer); twTimer = null; }
+    setConsoles('');
+    const msg = '\u265F La Esencia Pura disuelve el sello.\n\n\u2736 \u00a1La caja se abre! La recompensa es tuya.';
+    lastRawMsg = '> ' + msg;
+    startType(wrapMsg('> ' + msg));
+  }, 50);
+  setTimeout(() => {
+    dropHoverBlock = false;
+    popupStarReward.classList.add('visible');
+  }, 5000);
 }
 
 // ════════════════════════════════════════════════════════
