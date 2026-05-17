@@ -1298,10 +1298,14 @@ function onCierraBotella(resultadoId) {
   dropHoverBlock = true;
   lastAlias = null;
 
-  // 1) Limpiar matraces SIEMPRE
+  // 1) Limpiar matraces SIEMPRE + apagar quemador
   contenidoMatraz[0] = null;
   contenidoMatraz[1] = null;
   updateMatrazVisual();
+  if (swQuemador === 'ON') {
+    swQuemador = 'OFF';
+    updateBurnerFlame();
+  }
 
   // 2) Almacenar en tblBotellas si no es error puro
   if (!esError(resultadoId)) {
@@ -1310,7 +1314,12 @@ function onCierraBotella(resultadoId) {
       elem.descubierto = true;
       const yaEnBotella = tblBotellas.some(b => b && b.id === resultadoId);
       if (!yaEnBotella) {
-        const hueco = tblBotellas.findIndex((b, i) => i >= 4 && b === null);
+        // Buscar hueco libre (null) en slots 4-9
+        let hueco = tblBotellas.findIndex((b, i) => i >= 4 && b === null);
+        // Si no hay hueco y el resultado es útil, desplazar un inservible
+        if (hueco === -1 && !esInservible(resultadoId)) {
+          hueco = tblBotellas.findIndex((b, i) => i >= 4 && b && esInservible(b.id));
+        }
         if (hueco !== -1) {
           tblBotellas[hueco] = elem;
           if (!esInservible(resultadoId)) lightBulbForResult(resultadoId);
