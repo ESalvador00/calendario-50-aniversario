@@ -54,29 +54,6 @@
     .bulb.on{background:#39FF14;box-shadow:0 0 4px #39FF14,0 0 10px rgba(57,255,20,.7),0 0 18px rgba(57,255,20,.4);}
     .bulb.triumph{background:#39FF14;box-shadow:0 0 4px #39FF14,0 0 12px rgba(57,255,20,.8);animation:bulb-triumph .4s ease-in-out infinite;}
     .bulb.error-flash{background:#FF2200;box-shadow:0 0 4px #FF2200,0 0 10px rgba(255,34,0,.7);animation:bulb-error .2s steps(1,end) infinite;}
-    /* ── Displays 7 segmentos ──────────────────────────────────── */
-    @keyframes seg-flicker {
-      0%,100%{opacity:1} 92%{opacity:1} 93%{opacity:.82} 94%{opacity:1} 97%{opacity:.9} 98%{opacity:1}
-    }
-    @keyframes seg-glow-red {
-      0%,100%{filter:drop-shadow(0 0 3px #c00) drop-shadow(0 0 8px #900);}
-      50%{filter:drop-shadow(0 0 5px #e00) drop-shadow(0 0 14px #b00);}
-    }
-    @keyframes seg-glow-green {
-      0%,100%{filter:drop-shadow(0 0 3px #0c0) drop-shadow(0 0 8px #060);}
-      50%{filter:drop-shadow(0 0 5px #0e0) drop-shadow(0 0 14px #090);}
-    }
-    .seg-wrap {
-      position:absolute;
-      transform:translate(-50%,-50%);
-      pointer-events:none;
-      z-index:50;
-      user-select:none;
-      animation:seg-flicker 4s steps(1,end) infinite;
-      line-height:0;
-    }
-    .seg-wrap.seg-red  { animation:seg-flicker 4s steps(1,end) infinite, seg-glow-red  2.4s ease-in-out infinite; }
-    .seg-wrap.seg-green{ animation:seg-flicker 4s steps(1,end) infinite, seg-glow-green 2.4s ease-in-out infinite; }
     /* Interruptores */
     .sw-img{position:absolute;width:2.5%;pointer-events:none;z-index:30;image-rendering:auto;}
     #sw-img-01{left:calc(32.86% - 1.25%);top:calc(56.74% - 4.0%);}
@@ -108,88 +85,6 @@
     @keyframes alarm-pulse{0%,100%{opacity:0;}50%{opacity:.25;}}
     .alarm-overlay{display:none;position:absolute;inset:0;z-index:40;background:#FF0000;pointer-events:none;border-radius:3px;}
     .alarm-overlay.active{display:block;animation:alarm-pulse 0.8s ease-in-out 3;}
-
-    /* ── Sirena de emergencia ──────────────────────────────────── */
-    @keyframes siren-rotate{
-      0%   { transform:rotate(0deg); }
-      100% { transform:rotate(360deg); }
-    }
-    .siren-overlay{
-      display:none;
-      position:absolute;
-      inset:0;
-      z-index:45;
-      border-radius:3px;
-      pointer-events:none;
-      overflow:hidden;
-    }
-    .siren-overlay.active{ display:block; }
-    .siren-beam{
-      position:absolute;
-      /* El haz arranca desde el centro y se extiende */
-      top:50%; left:50%;
-      width:200%;
-      height:200%;
-      transform-origin:0% 0%;
-      background:conic-gradient(
-        from 0deg,
-        rgba(255,0,0,0)       0deg,
-        rgba(255,0,0,0)       60deg,
-        rgba(255,40,0,0.18)   90deg,
-        rgba(255,0,0,0.28)   120deg,
-        rgba(255,60,0,0.15)  150deg,
-        rgba(255,0,0,0)      180deg,
-        rgba(255,0,0,0)      360deg
-      );
-      animation: siren-rotate 1.4s linear infinite;
-      mix-blend-mode: screen;
-    }
-    .siren-overlay.active::after{
-      content:'';
-      position:absolute;
-      inset:0;
-      background:rgba(255,0,0,0.07);
-      animation: siren-ambient 0.7s ease-in-out infinite alternate;
-    }
-    @keyframes siren-ambient{
-      from{ opacity:0; }
-      to  { opacity:1; }
-    }
-
-    /* ── Monitor de presión — OK LED ─────────────────────────── */
-    .pres-ok-led{
-      position:absolute;
-      /* Ajustar estas coordenadas al monitor de presión en la imagen */
-      left:42.5%;
-      top:26.5%;
-      transform:translate(-50%,-50%);
-      pointer-events:none;
-      z-index:55;
-      display:none;
-      line-height:1;
-    }
-    .pres-ok-led.visible{ display:block; }
-    .pres-ok-led svg{
-      filter:
-        drop-shadow(0 0 3px #00ff88)
-        drop-shadow(0 0 8px #00ff88)
-        drop-shadow(0 0 18px rgba(0,255,136,.7));
-      animation: led-pulse 1.2s ease-in-out infinite;
-    }
-    @keyframes led-pulse{
-      0%,100%{
-        filter:
-          drop-shadow(0 0 3px #00ff88)
-          drop-shadow(0 0 8px #00ff88)
-          drop-shadow(0 0 18px rgba(0,255,136,.6));
-      }
-      50%{
-        filter:
-          drop-shadow(0 0 6px #00ff88)
-          drop-shadow(0 0 18px #00ff88)
-          drop-shadow(0 0 36px rgba(0,255,136,.9));
-      }
-    }
     @keyframes shake{0%,100%{transform:translate(0,0);}20%{transform:translate(-4px,2px);}40%{transform:translate(4px,-2px);}60%{transform:translate(-3px,3px);}80%{transform:translate(3px,-1px);}}
     .escenario-wrap.shaking{animation:shake .25s ease;}
     @keyframes crt-error-blink{0%,100%{opacity:1;}30%,70%{opacity:.2;}}
@@ -207,7 +102,7 @@
     .year-badge{font-size:.7rem;letter-spacing:.3em;color:rgba(201,168,76,.25);text-transform:uppercase;}
     .back-link{display:block;text-align:center;margin-top:2rem;color:rgba(201,168,76,.35);font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;text-decoration:none;transition:color .2s;}
     .back-link:hover{color:var(--gold);}
-    .popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:300;align-items:center;justify-content:center;}
+    .popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:100;align-items:center;justify-content:center;}
     .popup-overlay.visible{display:flex;}
     .popup-box{background:var(--dark);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:3rem 2.5rem;max-width:420px;width:90%;text-align:center;box-shadow:0 0 60px rgba(0,0,0,.8);}
     .popup-icon{font-size:3rem;margin-bottom:1rem;}
@@ -215,10 +110,6 @@
     .popup-msg{font-size:1rem;font-style:italic;color:rgba(250,246,238,.6);line-height:1.7;margin-bottom:2rem;}
     .popup-btn{display:inline-block;padding:.7rem 2rem;border:1px solid rgba(201,168,76,.4);border-radius:2px;color:var(--gold);font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;background:none;transition:all .2s;}
     .popup-btn:hover{background:rgba(201,168,76,.1);border-color:var(--gold);}
-    .popup-input{width:100%;padding:.65rem 1rem;background:rgba(0,0,0,.5);border:1px solid rgba(201,168,76,.35);border-radius:2px;color:var(--gold-light);font-family:'Courier New',monospace;font-size:1.1rem;letter-spacing:.15em;text-align:center;outline:none;margin-bottom:1.5rem;box-sizing:border-box;}
-    .popup-input:focus{border-color:var(--gold);box-shadow:0 0 8px rgba(201,168,76,.2);}
-    .popup-input::placeholder{color:rgba(201,168,76,.3);letter-spacing:.1em;}
-    .popup-btns{display:flex;gap:1rem;justify-content:center;}
     @media(max-width:600px){
       .wrap{padding:1rem 1rem 2rem;}
       .day-hero{padding:1rem 0 1rem;}
@@ -249,11 +140,6 @@
 
         <img src="../media/ER02_EscenarioVisual.jpg" alt="Sala de Control Nuclear"
              id="escenario-img" class="escenario-img" draggable="false"/>
-
-        <!-- Displays 7 segmentos (escenario) -->
-        <div class="seg-wrap seg-red" id="seg-temp" style="left:34.51%;top:38.46%;"></div>
-        <div class="seg-wrap seg-red" id="seg-pres" style="left:48.21%;top:38.66%;"></div>
-        <div class="seg-wrap seg-red" id="seg-radi" style="left:61.57%;top:38.66%;"></div>
 
         <!-- Icono expandir/contraer (objIconoVista) -->
         <div class="expand-icon" id="expand-icon">
@@ -290,56 +176,6 @@
         <img class="sw-img" id="sw-img-12" src="../media/ER02_Interruptor_ON.png" alt="" draggable="false"/>
 
         <div class="alarm-overlay" id="alarm-overlay"></div>
-
-        <!-- Sirena de emergencia -->
-        <div class="siren-overlay" id="siren-overlay">
-          <div class="siren-beam"></div>
-        </div>
-
-        <!-- OK LED en monitor de presión (se muestra al completar el reto) -->
-        <div class="pres-ok-led" id="pres-ok-led">
-          <!-- SVG "OK" con puntos neón led -->
-          <svg width="72" height="36" viewBox="0 0 72 36" xmlns="http://www.w3.org/2000/svg">
-            <!-- Letra O con puntos led -->
-            <!-- Arco superior O -->
-            <circle cx="6"  cy="6"  r="2.2" fill="#00ff88"/>
-            <circle cx="11" cy="3"  r="2.2" fill="#00ff88"/>
-            <circle cx="17" cy="2"  r="2.2" fill="#00ff88"/>
-            <circle cx="23" cy="3"  r="2.2" fill="#00ff88"/>
-            <circle cx="28" cy="6"  r="2.2" fill="#00ff88"/>
-            <!-- Lado derecho O -->
-            <circle cx="30" cy="12" r="2.2" fill="#00ff88"/>
-            <circle cx="30" cy="18" r="2.2" fill="#00ff88"/>
-            <circle cx="30" cy="24" r="2.2" fill="#00ff88"/>
-            <!-- Arco inferior O -->
-            <circle cx="28" cy="30" r="2.2" fill="#00ff88"/>
-            <circle cx="23" cy="33" r="2.2" fill="#00ff88"/>
-            <circle cx="17" cy="34" r="2.2" fill="#00ff88"/>
-            <circle cx="11" cy="33" r="2.2" fill="#00ff88"/>
-            <circle cx="6"  cy="30" r="2.2" fill="#00ff88"/>
-            <!-- Lado izquierdo O -->
-            <circle cx="4"  cy="24" r="2.2" fill="#00ff88"/>
-            <circle cx="4"  cy="18" r="2.2" fill="#00ff88"/>
-            <circle cx="4"  cy="12" r="2.2" fill="#00ff88"/>
-
-            <!-- Letra K (offset x=40) -->
-            <!-- Palo vertical K -->
-            <circle cx="40" cy="2"  r="2.2" fill="#00ff88"/>
-            <circle cx="40" cy="8"  r="2.2" fill="#00ff88"/>
-            <circle cx="40" cy="14" r="2.2" fill="#00ff88"/>
-            <circle cx="40" cy="20" r="2.2" fill="#00ff88"/>
-            <circle cx="40" cy="26" r="2.2" fill="#00ff88"/>
-            <circle cx="40" cy="32" r="2.2" fill="#00ff88"/>
-            <!-- Diagonal superior K -->
-            <circle cx="45" cy="14" r="2.2" fill="#00ff88"/>
-            <circle cx="50" cy="8"  r="2.2" fill="#00ff88"/>
-            <circle cx="55" cy="2"  r="2.2" fill="#00ff88"/>
-            <!-- Diagonal inferior K -->
-            <circle cx="45" cy="20" r="2.2" fill="#00ff88"/>
-            <circle cx="50" cy="26" r="2.2" fill="#00ff88"/>
-            <circle cx="55" cy="32" r="2.2" fill="#00ff88"/>
-          </svg>
-        </div>
 
         <div class="crt-overlay" id="crt-overlay">
           <span class="crt-text" id="crt-text"></span>
@@ -382,7 +218,7 @@
   <div class="popup-box">
     <div class="popup-icon">&#127873;</div>
     <p class="popup-title">&#161;Sistema estabilizado!</p>
-    <p class="popup-msg" id="reward-text">Has estabilizado el reactor y evitado la catástrofe.<br><br>¡Buen trabajo, agente! &#9889;</p>
+    <p class="popup-msg" id="reward-text">&#10024; PDTE &#10024;</p>
     <button class="popup-btn" id="star-reward-close">&#161;Genial!</button>
   </div>
 </div>
@@ -392,10 +228,6 @@
   <button class="lightbox-close" id="lightbox-close">&#10005;</button>
   <div class="lightbox-inner" id="lightbox-inner">
     <img src="../media/ER02_EscenarioVisual.jpg" alt="Sala de Control Nuclear" id="lightbox-img" draggable="false"/>
-    <!-- Displays 7 segmentos (lightbox) -->
-    <div class="seg-wrap seg-red" id="lb-seg-temp" style="left:34.51%;top:38.46%;"></div>
-    <div class="seg-wrap seg-red" id="lb-seg-pres" style="left:48.21%;top:38.66%;"></div>
-    <div class="seg-wrap seg-red" id="lb-seg-radi" style="left:61.57%;top:38.66%;"></div>
     <div class="expand-icon" id="expand-icon-lb">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
         <polyline points="3 9 9 9 9 3"></polyline><polyline points="21 9 15 9 15 3"></polyline>
@@ -422,43 +254,6 @@
     <img class="sw-img-lb" id="sw-img-lb-11" src="../media/ER02_Interruptor_ON.png" alt="" draggable="false"/>
     <img class="sw-img-lb" id="sw-img-lb-12" src="../media/ER02_Interruptor_ON.png" alt="" draggable="false"/>
     <div class="alarm-overlay" id="alarm-overlay-lb"></div>
-    <!-- Sirena lightbox -->
-    <div class="siren-overlay" id="siren-overlay-lb">
-      <div class="siren-beam"></div>
-    </div>
-    <!-- OK LED lightbox -->
-    <div class="pres-ok-led" id="pres-ok-led-lb">
-      <svg width="72" height="36" viewBox="0 0 72 36" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="6"  cy="6"  r="2.2" fill="#00ff88"/>
-        <circle cx="11" cy="3"  r="2.2" fill="#00ff88"/>
-        <circle cx="17" cy="2"  r="2.2" fill="#00ff88"/>
-        <circle cx="23" cy="3"  r="2.2" fill="#00ff88"/>
-        <circle cx="28" cy="6"  r="2.2" fill="#00ff88"/>
-        <circle cx="30" cy="12" r="2.2" fill="#00ff88"/>
-        <circle cx="30" cy="18" r="2.2" fill="#00ff88"/>
-        <circle cx="30" cy="24" r="2.2" fill="#00ff88"/>
-        <circle cx="28" cy="30" r="2.2" fill="#00ff88"/>
-        <circle cx="23" cy="33" r="2.2" fill="#00ff88"/>
-        <circle cx="17" cy="34" r="2.2" fill="#00ff88"/>
-        <circle cx="11" cy="33" r="2.2" fill="#00ff88"/>
-        <circle cx="6"  cy="30" r="2.2" fill="#00ff88"/>
-        <circle cx="4"  cy="24" r="2.2" fill="#00ff88"/>
-        <circle cx="4"  cy="18" r="2.2" fill="#00ff88"/>
-        <circle cx="4"  cy="12" r="2.2" fill="#00ff88"/>
-        <circle cx="40" cy="2"  r="2.2" fill="#00ff88"/>
-        <circle cx="40" cy="8"  r="2.2" fill="#00ff88"/>
-        <circle cx="40" cy="14" r="2.2" fill="#00ff88"/>
-        <circle cx="40" cy="20" r="2.2" fill="#00ff88"/>
-        <circle cx="40" cy="26" r="2.2" fill="#00ff88"/>
-        <circle cx="40" cy="32" r="2.2" fill="#00ff88"/>
-        <circle cx="45" cy="14" r="2.2" fill="#00ff88"/>
-        <circle cx="50" cy="8"  r="2.2" fill="#00ff88"/>
-        <circle cx="55" cy="2"  r="2.2" fill="#00ff88"/>
-        <circle cx="45" cy="20" r="2.2" fill="#00ff88"/>
-        <circle cx="50" cy="26" r="2.2" fill="#00ff88"/>
-        <circle cx="55" cy="32" r="2.2" fill="#00ff88"/>
-      </svg>
-    </div>
     <div class="lightbox-crt" id="lightbox-crt">
       <span class="lightbox-crt-text" id="lightbox-crt-text"></span>
     </div>
@@ -590,11 +385,7 @@ function typeWrite(msg) {
   flash();
 }
 window.addEventListener('load', () => {
-  DisplayAll();
-  setTimeout(() => {
-    triggerError(m('alertaInicio'), null);
-    startSiren();
-  }, 600);
+  setTimeout(() => typeWrite('> ALERTA CRITICA: REACTOR EN EMERGENCIA — INICIAR PROTOCOLO DE CONTENCION'), 600);
 });
 function clearConsole() {
   if (twTimer) { clearTimeout(twTimer); twTimer = null; }
@@ -619,119 +410,118 @@ function getCtx() {
 
 // Mensajes [pcMax, pcNorm, mobHoriz, mobVert]
 const MSG = {
-  alertaInicio:  ['> ALERTA CRÍTICA. EMERGENCIA EN REACTOR. ESTABILIZA EL SISTEMA E INICIA EL REINICIO URGENTE.',
-                  '> ALERTA CRÍTICA. EMERGENCIA EN REACTOR. ESTABILIZA EL SISTEMA E INICIA EL REINICIO URGENTE.',
-                  '> ALERTA CRÍTICA. EMERGENCIA EN REACTOR. ESTABILIZA EL SISTEMA E INICIA EL REINICIO URGENTE.',
-                  '> EMERGENCIA. REINICIO URGENTE.'],
-  swEstable:     ['> Sistema estable. Modificar la configuración actual podría reactivar la emergencia.',
-                  '> Sistema estable. Modificar la configuración actual podría reactivar la emergencia.',
-                  '> Sistema estable. Modificar la configuración actual podría reactivar la emergencia.',
-                  '> Sistema estable. No tocar.'],
-  sistemaEstabilizado: ['> Sistema estabilizado. El reinicio manual ya puede ejecutarse desde el panel de autorización.',
-                        '> Sistema estabilizado. El reinicio manual ya puede ejecutarse desde el panel de autorización.',
-                        '> Sistema estabilizado. El reinicio manual ya puede ejecutarse desde el panel de autorización.',
-                        '> Sistema estable. Usa el panel.'],
-  manualBloqueado: ['> Protegido tras cierre de seguridad. Usa el lector biométrico para abrir la vitrina.',
-                    '> Protegido tras cierre de seguridad. Usa el lector biométrico para abrir la vitrina.',
-                    '> Protegido tras cierre de seguridad. Usa el lector biométrico para abrir la vitrina.',
-                    '> Bloqueado. Usa lector biométrico.'],
-  manualAbierto:   ['> Manual operativo accesible. Lee todo con atención. Aquí nada está puesto por casualidad.',
-                    '> Manual operativo accesible. Lee todo con atención. Aquí nada está puesto por casualidad.',
-                    '> Manual operativo accesible. Lee todo con atención. Aquí nada está puesto por casualidad.',
-                    '> Manual abierto. Lee con atención.'],
-  tempMal:       ['> Temperatura incorrecta. El sistema sigue inestable.',
+  manualBloqueado: ['> Protegido tras cierre de seguridad. Usa el lector biometrico para abrir la vitrina.',
+                    '> Cierre activo. Manual inaccesible. Usa el lector biometrico para abrirlo.',
+                    '> Manual bloqueado por seguridad. Activa el lector biometrico.',
+                    '> Bloqueado. Usa lector biometrico.'],
+  manualAbierto:   ['> Manual operativo accesible. Lee todo con atencion. Aqui nada esta puesto por casualidad.',
+                    '> Manual disponible. Lee bien. Cada detalle importa.',
+                    '> Manual abierto. No pases nada por alto.',
+                    '> Manual abierto. Lee con atencion.'],
+  temperatura:   ['> TEMPERATURA: {val}C. Nivel critico: >85C. Desactiva interruptores de carga termica.',
+                  '> TEMPERATURA: {val}C. Critico: >85C.',
+                  '> TEMPERATURA: {val}C',
+                  '> TEMP: {val}C'],
+  tempMal:       ['> Temperatura fuera de rango. Esto sigue lejos de ser estable.',
                   '> Temperatura incorrecta. El sistema sigue inestable.',
-                  '> Temperatura incorrecta. El sistema sigue inestable.',
+                  '> Temperatura incorrecta. Aun inestable.',
                   '> Temperatura incorrecta.'],
-  tempBienSistMal: ['> Temperatura correcta. Lástima que el resto del sistema no acompañe.',
-                    '> Temperatura correcta. Lástima que el resto del sistema no acompañe.',
-                    '> Temperatura correcta. Lástima que el resto del sistema no acompañe.',
+  tempBienSistMal: ['> Temperatura en nivel optimo. Lastima que el resto del sistema no acompane.',
+                    '> Temperatura correcta. El sistema sigue inestable.',
+                    '> Temperatura correcta. Sistema inestable.',
                     '> Temperatura correcta.'],
-  tempBienSistBien:['> Temperatura correcta. Sistema estabilizado. Puedes intentar el reinicio.',
-                    '> Temperatura correcta. Sistema estabilizado. Puedes intentar el reinicio.',
-                    '> Temperatura correcta. Sistema estabilizado. Puedes intentar el reinicio.',
-                    '> Temperatura correcta.'],
-  presionMal:    ['> Presión incorrecta. El sistema sigue inestable.',
-                  '> Presión incorrecta. El sistema sigue inestable.',
-                  '> Presión incorrecta. El sistema sigue inestable.',
-                  '> Presión incorrecta.'],
-  presionBienSistMal: ['> Presión correcta. Lástima que el resto del sistema no acompañe.',
-                       '> Presión correcta. Lástima que el resto del sistema no acompañe.',
-                       '> Presión correcta. Lástima que el resto del sistema no acompañe.',
-                       '> Presión correcta.'],
-  presionBienSistBien:['> Presión correcta. Sistema estabilizado. Puedes intentar el reinicio.',
-                       '> Presión correcta. Sistema estabilizado. Puedes intentar el reinicio.',
-                       '> Presión correcta. Sistema estabilizado. Puedes intentar el reinicio.',
-                       '> Presión correcta.'],
-  radMal:        ['> Radiación incorrecta. El sistema sigue inestable.',
-                  '> Radiación incorrecta. El sistema sigue inestable.',
-                  '> Radiación incorrecta. El sistema sigue inestable.',
-                  '> Radiación incorrecta.'],
-  radBienSistMal:['> Radiación correcta. Lástima que el resto del sistema no acompañe.',
-                  '> Radiación correcta. Lástima que el resto del sistema no acompañe.',
-                  '> Radiación correcta. Lástima que el resto del sistema no acompañe.',
-                  '> Radiación correcta.'],
-  radBienSistBien:['> Radiación correcta. Sistema estabilizado. Puedes intentar el reinicio.',
-                   '> Radiación correcta. Sistema estabilizado. Puedes intentar el reinicio.',
-                   '> Radiación correcta. Sistema estabilizado. Puedes intentar el reinicio.',
-                   '> Radiación correcta.'],
-  swOn:          ['> Interruptor {n} — ON. Línea activada. Desactívala para reducir la carga del reactor.',
-                  '> Interruptor {n} — ON. Línea activada. Desactívala para reducir la carga del reactor.',
-                  '> Interruptor {n} — ON. Línea activada. Desactívala para reducir la carga del reactor.',
-                  '> SW{n}: ON'],
-  swOff:         ['> Interruptor {n} — OFF. Línea desactivada.',
-                  '> Interruptor {n} — OFF. Línea desactivada.',
-                  '> Interruptor {n} — OFF. Línea desactivada.',
-                  '> SW{n}: OFF'],
-  lectorSobrecarga:['> Sobrecarga en el circuito. Demasiadas líneas activas. Deja solo la imprescindible, no es tan difícil.',
-                    '> Sobrecarga en el circuito. Demasiadas líneas activas. Deja solo una.',
-                    '> Sobrecarga en el circuito. Demasiadas líneas activas. Deja solo una.',
-                    '> Sobrecarga. Deja una línea.'],
-  lectorSinEnergia:['> Sin suministro eléctrico. El lector no recibe energía. Así no vas a ninguna parte.',
-                    '> Sin suministro eléctrico. El lector no recibe energía. Así no vas a ninguna parte.',
-                    '> Sin suministro eléctrico. El lector no recibe energía. Así no vas a ninguna parte.',
-                    '> Sin energía. Lector inactivo.'],
-  lectorLineaMal:['> Energía detectada, pero la línea no corresponde con el lector. Vas cerca, pero no es esa.',
-                  '> Energía detectada, pero la línea no corresponde con el lector. Vas cerca, pero no es esa.',
-                  '> Energía detectada, pero la línea no corresponde con el lector. Vas cerca, pero no es esa.',
-                  '> Línea incorrecta.'],
-  lectorOK:      ['> Lector biométrico operativo. Acceso autorizado. ',
-                  '> Lector biométrico operativo. Acceso autorizado. ',
-                  '> Lector biométrico operativo. Acceso autorizado. ',
-                  '> Acceso autorizado. '],
-  libreta:       ['> Registro personal del operario. Contiene anotaciones del turno. Puede haber información útil.',
-                  '> Registro personal del operario. Contiene anotaciones del turno. Puede haber información útil.',
-                  '> Registro personal del operario. Contiene anotaciones del turno. Puede haber información útil.',
+  tempBienSistBien:['> Temperatura estable. Todos los sistemas responden correctamente. Puedes intentar el reinicio.',
+                    '> Temperatura estable. Sistema listo para reinicio.',
+                    '> Temperatura estable. Sistema listo.',
+                    '> Temperatura estable.'],
+  presion:       ['> PRESION: {val} bar. Nivel critico: >100 bar. Desactiva interruptores de presion.',
+                  '> PRESION: {val} bar. Critico: >100 bar.',
+                  '> PRESION: {val} bar',
+                  '> PRES: {val} bar'],
+  presionMal:    ['> Presion inestable. Nada critico aun... pero no pinta bien.',
+                  '> Presion incorrecta. El sistema no esta estable.',
+                  '> Presion incorrecta. Sistema inestable.',
+                  '> Presion incorrecta.'],
+  presionBienSistMal: ['> Presion dentro de valores correctos. El resto del sistema no parece tan fino.',
+                       '> Presion correcta. El sistema sigue inestable.',
+                       '> Presion correcta. Sistema inestable.',
+                       '> Presion correcta.'],
+  presionBienSistBien:['> Presion estabilizada. Todos los parametros en rango. Puedes proceder al reinicio.',
+                       '> Presion estable. Sistema listo para reinicio.',
+                       '> Presion estable. Sistema listo.',
+                       '> Presion estable.'],
+  radiacion:     ['> RADIACION: {val} mSv. Umbral de alerta: >10 mSv. Desactiva los sistemas de carga.',
+                  '> RADIACION: {val} mSv. Alerta: >10 mSv.',
+                  '> RADIACION: {val} mSv',
+                  '> RAD: {val} mSv'],
+  radMal:        ['> Radiacion elevada. No es el mejor momento para quedarse aqui.',
+                  '> Radiacion incorrecta. El sistema sigue inestable.',
+                  '> Radiacion incorrecta. Sistema inestable.',
+                  '> Radiacion incorrecta.'],
+  radBienSistMal:['> Radiacion bajo control. Si el resto acompanara, esto ya estaria resuelto.',
+                  '> Radiacion correcta. El sistema sigue inestable.',
+                  '> Radiacion correcta. Sistema inestable.',
+                  '> Radiacion correcta.'],
+  radBienSistBien:['> Radiacion estabilizada. Todos los sistemas en rango. Puedes intentar el reinicio.',
+                   '> Radiacion estable. Sistema listo para reinicio.',
+                   '> Radiacion estable. Sistema listo.',
+                   '> Radiacion estable.'],
+  swActivado:    ['> Interruptor activado. A ver si esto mejora algo... o lo empeora.',
+                  '> Interruptor activado. Veremos que cambia.',
+                  '> Interruptor activado. Cambios en curso.',
+                  '> Interruptor activado.'],
+  swDesactivado: ['> Interruptor desactivado. Puede que acabes de arreglar algo... o no.',
+                  '> Interruptor desactivado. Veremos si ayuda.',
+                  '> Interruptor desactivado. Cambios en curso.',
+                  '> Interruptor desactivado.'],
+  lectorSobrecarga:['> Sobrecarga en el circuito. Demasiadas lineas activas. Deja solo la imprescindible, no es tan dificil.',
+                    '> Sobrecarga detectada. Demasiadas lineas activas. Deja solo una.',
+                    '> Sobrecarga. Demasiadas lineas activas. Deja solo una.',
+                    '> Sobrecarga. Deja una linea.'],
+  lectorSinEnergia:['> Sin suministro electrico. El lector no recibe energia. Asi no vas a ninguna parte.',
+                    '> Sin energia. El lector no funciona.',
+                    '> Sin energia. Lector inactivo.',
+                    '> Sin energia.'],
+  lectorLineaMal:['> Energia detectada, pero la linea no responde al lector. Vas cerca, pero no es esa.',
+                  '> Energia presente, pero linea incorrecta.',
+                  '> Energia incorrecta.',
+                  '> Linea incorrecta.'],
+  lectorOK:      ['> Energia suficiente. Lector biometrico operativo. Por fin algo funciona como deberia.',
+                  '> Energia suficiente. Lector operativo.',
+                  '> Energia correcta. Lector activo.',
+                  '> Lector operativo.'],
+  lector:        ['> LECTOR BIOMETRICO — Acceso restringido. Se requiere autorizacion para continuar.',
+                  '> LECTOR BIOMETRICO — Acceso restringido.',
+                  '> LECTOR BIOMETRICO — Restringido.',
+                  '> Acceso restringido.'],
+  libreta:       ['> REGISTRO PERSONAL del operario. Contiene anotaciones del turno anterior. Puede haber informacion util.',
+                  '> REGISTRO PERSONAL. Contiene anotaciones del turno.',
+                  '> REGISTRO PERSONAL del operario.',
                   '> Registro del operario.'],
   secundarios:   ['> Indicadores secundarios. Mucho ruido, poca utilidad. Si te apetece experimentar sin sentido, adelante.',
-                  '> Indicadores secundarios. Mucho ruido, poca utilidad. Si te apetece experimentar sin sentido, adelante.',
-                  '> Indicadores secundarios. Mucho ruido, poca utilidad. Si te apetece experimentar sin sentido, adelante.',
+                  '> Indicadores secundarios. Mucho ruido. Puedes probar suerte... pero no esperes resultados.',
+                  '> Indicadores secundarios. Mucho ruido. No parece que ayuden demasiado.',
                   '> Mucho ruido. Poca utilidad.'],
-  resetBloqueado:['> Sistema inestable. El panel de autorización está bloqueado. Estabiliza el sistema antes de intentar nada inteligente.',
-                  '> Sistema inestable. Panel bloqueado. Estabiliza primero, luego hablamos de códigos.',
-                  '> Sistema inestable. Panel bloqueado. Estabiliza primero, luego hablamos de códigos.',
+  resetBloqueado:['> Sistema inestable. El panel de autorizacion esta bloqueado. Estabiliza el sistema antes de intentar nada inteligente.',
+                  '> Sistema inestable. Panel bloqueado. Estabiliza primero, luego hablamos de codigos.',
+                  '> Sistema inestable. Panel bloqueado. Primero estabiliza el sistema.',
                   '> Inestable. Panel bloqueado.'],
-  resetEstable:  ['> Sistema estable. Introduce el código para reiniciar el sistema. No lo estropees ahora.',
-                  '> Sistema estable. Introduce el código para reiniciar el sistema. No lo estropees ahora.',
-                  '> Sistema estable. Introduce el código para reiniciar el sistema. No lo estropees ahora.',
-                  '> Sistema estable. Introduce el código.'],
-  resetOK:       ['> ¡¡LO HAS LOGRADO!! Código correcto. Reinicio del sistema en curso. Buen trabajo.',
-                  '> ¡¡LO HAS LOGRADO!! Código correcto. Reinicio del sistema en curso. Buen trabajo.',
-                  '> ¡¡LO HAS LOGRADO!! Código correcto. Reinicio del sistema en curso. Buen trabajo.',
-                  '> Sistema reiniciado.'],
-  resetOrientacion:['> Código numérico válido... pero la interpretación es incorrecta. Revisa la orientación de los datos antes de intentarlo de nuevo.',
-                    '> Código válido... pero la interpretación es incorrecta. Revisa la orientación antes de intentarlo de nuevo.',
-                    '> Código válido... pero la interpretación no. Revisa la orientación antes de intentarlo de nuevo.',
-                    '> Código válido. Revisa orientación.'],
-  resetFail:     ['> Código incorrecto. El sistema sigue esperando una solución válida. Intenta pensar un poco más antes de probar suerte.',
-                  '> Código incorrecto. Esa no es la solución. Dale una vueltita.',
-                  '> Código incorrecto. Esa no es la solución. Dale una vueltita.',
-                  '> Código incorrecto.'],
-  progreso:      ['> Indicadores de progreso. 4 fases a completar.',
-                  '> Indicadores de progreso. 4 fases a completar.',
-                  '> Indicadores de progreso. 4 fases a completar.',
+  resetEstable:  ['> Sistema estable. Introduce el codigo para reiniciar el sistema. No lo estropees ahora.',
+                  '> Sistema estable. Introduce el codigo para reiniciar. Intenta no fallar.',
+                  '> Sistema estable. Introducir codigo para reiniciar.',
+                  '> Sistema estable. Introducir codigo.'],
+  swOn:          ['> INTERRUPTOR {n} — ON. Sistema activo. Desactivalo para reducir la carga del reactor.',
+                  '> INTERRUPTOR {n} ON. Desactivalo para reducir carga.',
+                  '> INTERRUPTOR {n} ON → desactivar.',
+                  '> SW{n}: ON'],
+  swOff:         ['> INTERRUPTOR {n} — OFF. Sistema desactivado.',
+                  '> INTERRUPTOR {n} OFF. Desactivado.',
+                  '> INTERRUPTOR {n} OFF.',
+                  '> SW{n}: OFF'],
+  progreso:      ['> INDICADORES DE PROGRESO del protocolo de contencion. 4 fases a completar.',
+                  '> INDICADORES DE PROGRESO. 4 fases.',
+                  '> Indicadores de progreso.',
                   '> Progreso.'],
-
 };
 const CTX_IDX = { pcMax:0, pcNorm:1, mobHoriz:2, mobVert:3 };
 function m(key, vars) {
@@ -795,79 +585,6 @@ function playClick() {
   playTone(330,0.06,0.04,0.05,'square');
 }
 
-// ── Sirena de emergencia (audio + luces) ─────────────────────
-let sirenIntervalId  = null;   // setInterval que dispara cada ciclo
-let sirenAudioNodes  = [];     // nodos activos del ciclo actual
-let sirenActive      = false;
-
-function playSirenCycle() {
-  // 🎵 Audio desactivado - solo efectos visuales activos
-  return;
-  
-  //// Onda sinusoidal que oscila rápido entre frecuencia baja y alta
-  // try {
-  //  const ctx  = getAudioCtx();
-  //  const osc  = ctx.createOscillator();
-  //  const gain = ctx.createGain();
-  //  osc.connect(gain);
-  //  gain.connect(ctx.destination);
-  //  osc.type = 'sine';
-  //  const t  = ctx.currentTime;
-  //  const dur = 1.6;   // segundos de un ciclo de sirena
-  //  // Oscila 880 Hz → 440 Hz → 880 Hz varias veces dentro del ciclo
-  //  osc.frequency.setValueAtTime(880, t);
-  //  osc.frequency.linearRampToValueAtTime(440, t + dur * 0.5);
-  //  osc.frequency.linearRampToValueAtTime(880, t + dur);
-  //  gain.gain.setValueAtTime(0, t);
-  //  gain.gain.linearRampToValueAtTime(0.14, t + 0.04);
-  //  gain.gain.setValueAtTime(0.14, t + dur - 0.05);
-  //  gain.gain.linearRampToValueAtTime(0, t + dur);
-  //  osc.start(t);
-  //  osc.stop(t + dur + 0.05);
-  //  sirenAudioNodes.push(osc);
-  //  // Limpiar referencia cuando termina
-  //  osc.onended = () => {
-  //    sirenAudioNodes = sirenAudioNodes.filter(n => n !== osc);
-  //  };
-  //} catch(e) { /* AudioContext bloqueado hasta interacción del usuario */ }
-}
-
-function startSiren() {
-  if (sirenActive) return;
-  sirenActive = true;
-  // Activa overlays visuales
-  const so   = document.getElementById('siren-overlay');
-  const soLb = document.getElementById('siren-overlay-lb');
-  if (so)   so.classList.add('active');
-  if (soLb) soLb.classList.add('active');
-  // Primer ciclo inmediato
-  playSirenCycle();
-  // Repite cada ~2 s (ciclo audio 1.6 s + 0.4 s pausa)
-  sirenIntervalId = setInterval(playSirenCycle, 2000);
-}
-
-function stopSiren() {
-  if (!sirenActive) return;
-  sirenActive = false;
-  clearInterval(sirenIntervalId);
-  sirenIntervalId = null;
-  // Para todos los nodos de audio en vuelo
-  sirenAudioNodes.forEach(n => { try { n.stop(); } catch(e){} });
-  sirenAudioNodes = [];
-  // Oculta overlays visuales
-  const so   = document.getElementById('siren-overlay');
-  const soLb = document.getElementById('siren-overlay-lb');
-  if (so)   so.classList.remove('active');
-  if (soLb) soLb.classList.remove('active');
-}
-
-function showOKLed() {
-  const led   = document.getElementById('pres-ok-led');
-  const ledLb = document.getElementById('pres-ok-led-lb');
-  if (led)   led.classList.add('visible');
-  if (ledLb) ledLb.classList.add('visible');
-}
-
 // ── Panel de bombillas ────────────────────────────────────────
 const BULBS    = [0,1,2,3].map(i => document.getElementById('bulb-'    + i));
 const BULBS_LB = [0,1,2,3].map(i => document.getElementById('bulb-lb-' + i));
@@ -880,18 +597,6 @@ function setBulbState(idx, state) {
 }
 function lightNextBulb() { if (bulbCount >= 4) return; setBulbState(bulbCount, 'on'); bulbCount++; }
 function bulbsTriumph() { allBulbs((b,lb) => { b.className='bulb triumph'; lb.className='bulb triumph'; }); }
-function bulbsError() {
-  // Guarda estado actual antes del flash
-  const savedCount = bulbCount;
-  allBulbs((b,lb) => { b.className='bulb error-flash'; lb.className='bulb error-flash'; });
-  setTimeout(() => {
-    // Restaura exactamente las bombillas que estaban encendidas
-    allBulbs((b,lb,i) => {
-      const cls = i < savedCount ? 'bulb on' : 'bulb';
-      b.className = cls; lb.className = cls;
-    });
-  }, 1800);
-}
 function bulbsErrorAndReset() {
   allBulbs((b,lb) => { b.className='bulb error-flash'; lb.className='bulb error-flash'; });
   setTimeout(() => { bulbCount=0; allBulbs((b,lb)=>{ b.className='bulb'; lb.className='bulb'; }); }, 1800);
@@ -913,7 +618,7 @@ function setConsoleError(on) {
   lightboxCrtTxt.classList.toggle('error', on);
 }
 function triggerError(msgInicial, msgFinal) {
-  setConsoleError(true); typeWrite(msgInicial); fireAlarm(); playError(); bulbsError();
+  setConsoleError(true); typeWrite(msgInicial); fireAlarm(); playError();
   escWrap.classList.remove('shaking'); void escWrap.offsetWidth;
   escWrap.classList.add('shaking');
   escWrap.addEventListener('animationend', () => escWrap.classList.remove('shaking'), {once:true});
@@ -934,9 +639,9 @@ const COLOR_MAP = [
 ];
 const HOVER_MSG = {
   objManual:'[ MANUAL DE SEGURIDAD ]',objTemperatura:'[ MONITOR DE TEMPERATURA ]',
-  objPresion:'[ MONITOR DE PRESIÓN ]',objRadiacion:'[ MONITOR DE RADIACIÓN ]',
-  objLector:'[ LECTOR BIOMÉTRICO ]',objConsola:null,objLibreta:'[ REGISTRO PERSONAL ]',
-  objSecundarios:'[ SISTEMAS SECUNDARIOS ]',objReset:'[ PANEL DE AUTORIZACIÓN ]',
+  objPresion:'[ MONITOR DE PRESION ]',objRadiacion:'[ MONITOR DE RADIACION ]',
+  objLector:'[ LECTOR BIOMETRICO ]',objConsola:null,objLibreta:'[ REGISTRO PERSONAL ]',
+  objSecundarios:'[ SISTEMAS SECUNDARIOS ]',objReset:'[ PANEL DE AUTORIZACION ]',
   objSw01:'[ INTERRUPTOR 1 ]',objSw02:'[ INTERRUPTOR 2 ]',objSw03:'[ INTERRUPTOR 3 ]',
   objSw04:'[ INTERRUPTOR 4 ]',objSw05:'[ INTERRUPTOR 5 ]',objSw06:'[ INTERRUPTOR 6 ]',
   objSw07:'[ INTERRUPTOR 7 ]',objSw08:'[ INTERRUPTOR 8 ]',objSw09:'[ INTERRUPTOR 9 ]',
@@ -973,25 +678,8 @@ const lbOverlay = document.getElementById('lb-overlay');
 const lbImg     = document.getElementById('lb-img');
 const lbClose   = document.getElementById('lb-close');
 let lbChainCallback = null;
-
-// Zoom state
-let lbZoom = 1, lbPanX = 0, lbPanY = 0;
-let lbDragging = false, lbDragStartX = 0, lbDragStartY = 0, lbDragPanX = 0, lbDragPanY = 0;
-let lbPinchDist = null;
-
-function lbApplyTransform() {
-  lbImg.style.transform = `scale(${lbZoom}) translate(${lbPanX/lbZoom}px, ${lbPanY/lbZoom}px)`;
-  lbImg.style.cursor = lbZoom > 1 ? 'grab' : 'zoom-in';
-}
-function lbResetZoom() {
-  lbZoom = 1; lbPanX = 0; lbPanY = 0;
-  lbImg.style.transform = '';
-  lbImg.style.cursor = '';
-}
-
 function showImgOverlay(src, onClose) {
   lbImg.src=src; lbChainCallback=onClose||null;
-  lbResetZoom();
   lbOverlay.classList.add('visible');
   const inner=lbOverlay.querySelector('.lb-inner');
   inner.classList.remove('zooming'); void inner.offsetWidth;
@@ -1000,70 +688,14 @@ function showImgOverlay(src, onClose) {
 }
 function hideImgOverlay(runChain) {
   lbOverlay.classList.remove('visible');
-  lbResetZoom();
   document.body.style.overflow='';
   lbImg.src='';
   const cb=lbChainCallback; lbChainCallback=null;
   if (runChain&&cb) setTimeout(cb, 80);
 }
-
-// Wheel zoom
-lbImg.addEventListener('wheel', e => {
-  e.preventDefault();
-  const delta = e.deltaY < 0 ? 1.15 : 0.87;
-  lbZoom = Math.min(5, Math.max(1, lbZoom * delta));
-  if (lbZoom === 1) { lbPanX = 0; lbPanY = 0; }
-  lbApplyTransform();
-}, {passive: false});
-
-// Drag to pan (mouse)
-lbImg.addEventListener('mousedown', e => {
-  if (lbZoom <= 1) return;
-  e.preventDefault();
-  lbDragging = true; lbDragStartX = e.clientX; lbDragStartY = e.clientY;
-  lbDragPanX = lbPanX; lbDragPanY = lbPanY;
-  lbImg.style.cursor = 'grabbing';
-});
-window.addEventListener('mousemove', e => {
-  if (!lbDragging) return;
-  lbPanX = lbDragPanX + (e.clientX - lbDragStartX);
-  lbPanY = lbDragPanY + (e.clientY - lbDragStartY);
-  lbApplyTransform();
-});
-window.addEventListener('mouseup', () => {
-  if (!lbDragging) return;
-  lbDragging = false;
-  lbImg.style.cursor = lbZoom > 1 ? 'grab' : '';
-});
-
-// Pinch zoom (touch)
-lbImg.addEventListener('touchstart', e => {
-  if (e.touches.length === 2) {
-    lbPinchDist = Math.hypot(
-      e.touches[0].clientX - e.touches[1].clientX,
-      e.touches[0].clientY - e.touches[1].clientY);
-  }
-}, {passive: true});
-lbImg.addEventListener('touchmove', e => {
-  if (e.touches.length === 2 && lbPinchDist !== null) {
-    e.preventDefault();
-    const dist = Math.hypot(
-      e.touches[0].clientX - e.touches[1].clientX,
-      e.touches[0].clientY - e.touches[1].clientY);
-    lbZoom = Math.min(5, Math.max(1, lbZoom * (dist / lbPinchDist)));
-    lbPinchDist = dist;
-    if (lbZoom === 1) { lbPanX = 0; lbPanY = 0; }
-    lbApplyTransform();
-  }
-}, {passive: false});
-lbImg.addEventListener('touchend', () => { lbPinchDist = null; });
-
 lbClose.addEventListener('click', e => { e.stopPropagation(); hideImgOverlay(false); });
 lbOverlay.addEventListener('click', e => { if (e.target===lbOverlay) hideImgOverlay(false); });
-document.getElementById('lb-img').addEventListener('click', e => {
-  if (lbZoom > 1) { e.stopPropagation(); return; } // no cerrar si hay zoom
-  e.stopPropagation(); hideImgOverlay(true);
-});
+document.getElementById('lb-img').addEventListener('click', e => { e.stopPropagation(); hideImgOverlay(true); });
 document.addEventListener('keydown', e => {
   if (e.key==='Escape') {
     if (lbOverlay.classList.contains('visible')) hideImgOverlay(false);
@@ -1082,7 +714,6 @@ function onHover(alias) {
     typeWrite('> ' + HOVER_MSG['objIconoVista']);
     return;
   }
-  if (alias === 'objLector' && swVitrinaAbierto) { clearConsole(); return; }
   if (alias && HOVER_MSG[alias]) typeWrite('> ' + HOVER_MSG[alias]);
   else if (!alias) clearConsole();
 }
@@ -1195,7 +826,6 @@ function handleClick(alias) {
       }
       break;
     case 'objLector': {
-      if (swVitrinaAbierto) break;
       const lineas = getLineasActivas();
       if (lineas > 1) {
         typeWrite(m('lectorSobrecarga'));
@@ -1206,15 +836,13 @@ function handleClick(alias) {
       } else {
         typeWrite(m('lectorOK'));
         swVitrinaAbierto = true;
-        lightNextBulb();
-        document.getElementById('escenario-img').src = '../media/ER02_EscenarioVisual_NoGlass.jpg';
-        document.getElementById('lightbox-img').src  = '../media/ER02_EscenarioVisual_NoGlass.jpg';
+        // TO-DO: Pulsar lector biometrico y abrir vitrina manual seguridad
       }
       break;
     }
     case 'objLibreta':
       typeWrite(m('libreta'));
-      setTimeout(() => showImgOverlay('../media/ER02_Libreta.webp'), 300);
+      setTimeout(() => showImgOverlay('../media/ER02_Libreta.jpg'), 300);
       break;
     case 'objSecundarios':
       typeWrite(m('secundarios'));
@@ -1224,7 +852,7 @@ function handleClick(alias) {
         typeWrite(m('resetBloqueado'));
       } else {
         typeWrite(m('resetEstable'));
-        setTimeout(openResetModal, 800);
+        // TO-DO: Introducir Codigo Reset y validar
       }
       break;
     case 'objProgreso':
@@ -1247,210 +875,15 @@ function setSwState(n, val) {
     case 9:sw09=val;break;case 10:sw10=val;break;case 11:sw11=val;break;case 12:sw12=val;break;
   }
 }
-// ── Efectos de cada interruptor en indicadores ────────────────
-const SW_EFFECTS = {
-  1:[1,2,1], 2:[16,20,2], 3:[2,4,1],  4:[18,22,2],
-  5:[4,1,2], 6:[17,21,2], 7:[8,3,1],  8:[3,8,1],
-  9:[6,5,2], 10:[12,7,1], 11:[5,10,2], 12:[10,6,1]
-};
-
-function applySwEffect(n, isOn) {
-  const [dT, dP, dR] = SW_EFFECTS[n];
-  const sign = isOn ? 1 : -1;
-  indTemperatura += sign * dT;
-  indPresion     += sign * dP;
-  indRadiacion   += sign * dR;
-}
-
-// ── Display 7 segmentos (SVG puro) ───────────────────────────
-//  Cada dígito: 7 segmentos a=top b=top-right c=bot-right d=bot e=bot-left f=top-left g=mid
-//  Mapa de segmentos por dígito [a,b,c,d,e,f,g]
-const SEG_MAP = {
-  '0':[1,1,1,1,1,1,0], '1':[0,1,1,0,0,0,0], '2':[1,1,0,1,1,0,1],
-  '3':[1,1,1,1,0,0,1], '4':[0,1,1,0,0,1,1], '5':[1,0,1,1,0,1,1],
-  '6':[1,0,1,1,1,1,1], '7':[1,1,1,0,0,0,0], '8':[1,1,1,1,1,1,1],
-  '9':[1,1,1,1,0,1,1], '-':[0,0,0,0,0,0,1]
-};
-
-// Dimensiones de cada dígito SVG
-const DW = 20, DH = 36, GAP = 3, PAD = 3, T = 3, SW = 3;
-
-// Devuelve el path de cada uno de los 7 segmentos para un dígito de DW×DH
-function segPaths() {
-  const h = DH, w = DW, t = T, s = SW;
-  const m = h/2; // mitad vertical
-  return [
-    // a top
-    `M${t} ${t} L${t+s} ${t+s} L${w-t-s} ${t+s} L${w-t} ${t} Z`,
-    // b top-right
-    `M${w-t} ${t} L${w-t-s} ${t+s} L${w-t-s} ${m-s} L${w-t} ${m} Z`,
-    // c bot-right
-    `M${w-t} ${m} L${w-t-s} ${m+s} L${w-t-s} ${h-t-s} L${w-t} ${h-t} Z`,
-    // d bottom
-    `M${t} ${h-t} L${t+s} ${h-t-s} L${w-t-s} ${h-t-s} L${w-t} ${h-t} Z`,
-    // e bot-left
-    `M${t} ${m} L${t+s} ${m+s} L${t+s} ${h-t-s} L${t} ${h-t} Z`,
-    // f top-left
-    `M${t} ${t} L${t+s} ${t+s} L${t+s} ${m-s} L${t} ${m} Z`,
-    // g middle
-    `M${t+s} ${m} L${t+s*1.5} ${m-s/2} L${w-t-s*1.5} ${m-s/2} L${w-t-s} ${m} L${w-t-s*1.5} ${m+s/2} L${t+s*1.5} ${m+s/2} Z`
-  ];
-}
-const SEG_PATHS = segPaths();
-
-function renderDigit(digit, color, ghostColor) {
-  const segs = SEG_MAP[digit] || SEG_MAP['8'];
-  const ghost = SEG_MAP['8'];
-  let paths = '';
-  // Capa fantasma: todos los segmentos a baja opacidad
-  ghost.forEach((on, i) => {
-    paths += `<path d="${SEG_PATHS[i]}" fill="${ghostColor}" opacity="0.07"/>`;
-  });
-  // Capa activa: segmentos encendidos
-  segs.forEach((on, i) => {
-    if (on) paths += `<path d="${SEG_PATHS[i]}" fill="${color}"/>`;
-  });
-  return `<svg width="${DW}" height="${DH}" viewBox="0 0 ${DW} ${DH}" xmlns="http://www.w3.org/2000/svg">${paths}</svg>`;
-}
-
-function renderNumber(val, color, ghostColor) {
-  const digits = String(val).split('');
-  const totalW = digits.length * (DW + GAP) - GAP + PAD*2;
-  const totalH = DH + PAD*2;
-  // Fondo oscuro semitransparente para simular carcasa LCD
-  let svg = `<svg width="${totalW}" height="${totalH}" viewBox="0 0 ${totalW} ${totalH}" xmlns="http://www.w3.org/2000/svg">`;
-  svg += `<rect width="${totalW}" height="${totalH}" rx="2" fill="rgba(0,0,0,0.55)"/>`;
-  digits.forEach((d, i) => {
-    const x = PAD + i * (DW + GAP);
-    const segs = SEG_MAP[d] || SEG_MAP['8'];
-    const ghost = SEG_MAP['8'];
-    // Ghost layer
-    ghost.forEach((_, si) => {
-      // Translate path by offsetting — rebuild paths with x offset
-      svg += `<path transform="translate(${x},${PAD})" d="${SEG_PATHS[si]}" fill="${ghostColor}" opacity="0.07"/>`;
-    });
-    // Active segments
-    segs.forEach((on, si) => {
-      if (on) svg += `<path transform="translate(${x},${PAD})" d="${SEG_PATHS[si]}" fill="${color}"/>`;
-    });
-  });
-  svg += '</svg>';
-  return svg;
-}
-
-function _setDisplay(idMain, idLb, val, okVal) {
-  const isOk  = val === okVal;
-  const color = isOk ? '#00e600' : '#ff2a00';
-  const ghost = isOk ? '#00ff00' : '#ff4400';
-  const cls   = 'seg-wrap ' + (isOk ? 'seg-green' : 'seg-red');
-  const html  = renderNumber(val, color, ghost);
-  [idMain, idLb].forEach(id => {
-    const el = document.getElementById(id);
-    if (!el) return;
-    el.className  = cls;
-    el.innerHTML  = html;
-  });
-}
-
-function DisplayTemp() { _setDisplay('seg-temp','lb-seg-temp', indTemperatura, 53); }
-function DisplayPres() { _setDisplay('seg-pres','lb-seg-pres', indPresion, 70); }
-function DisplayRadi() { _setDisplay('seg-radi','lb-seg-radi', indRadiacion, 5); }
-function DisplayAll()  { DisplayTemp(); DisplayPres(); DisplayRadi(); }
-
 function toggleSwitch(n) {
-  if (getIndGlobal() === '53705') {
-    typeWrite(m('swEstable'));
-    return;
-  }
   const newState = !getSwState(n);
   setSwState(n, newState);
   updateSwImg(n, newState);
-  applySwEffect(n, newState);
-  DisplayAll();
   playClick();
-  if (getIndGlobal() === '53705') {
-    lightNextBulb();
-    typeWrite(m('sistemaEstabilizado'));
-  } else {
-    typeWrite(newState ? m('swOn', {n}) : m('swOff', {n}));
-  }
-  console.log('[SW' + String(n).padStart(2,'0') + '] → ' + (newState ? 'ON' : 'OFF') +
-              ' | T:'+indTemperatura+' P:'+indPresion+' R:'+indRadiacion);
+  typeWrite(newState ? m('swActivado') : m('swDesactivado'));
+  // TO-DO: Actualizar indicadores y mostrar por monitor
+  console.log('[SW' + String(n).padStart(2,'0') + '] → ' + (newState ? 'ON' : 'OFF'));
 }
-// ── Panel de Autorización (Reset) ─────────────────────────────
-function normalizeInput(str) {
-  return str.trim()
-    .toUpperCase()
-    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-    .replace(/Ñ/g, 'N')
-    .replace(/[^A-Z0-9]/g, '');
-}
-
-function openResetModal() {
-  const el = document.getElementById('popup-reset');
-  const inp = document.getElementById('reset-input');
-  inp.value = '';
-  el.classList.add('visible');
-  setTimeout(() => inp.focus(), 50);
-}
-
-function closeResetModal() {
-  document.getElementById('popup-reset').classList.remove('visible');
-}
-
-function submitResetCode() {
-  const val = normalizeInput(document.getElementById('reset-input').value);
-  closeResetModal();
-  lightNextBulb(); // bombilla 3: intento de código (sea correcto o no)
-  if (val === 'SOLES') {
-    sistemaReseteado = true;
-    lightNextBulb(); // bombilla 4: código correcto
-    // 1. Parar sirena
-    stopSiren();
-    // 2. Cambiar imagen escenario a versión verde
-    const escImg   = document.getElementById('escenario-img');
-    const lbImg    = document.getElementById('lightbox-img');
-    if (escImg) escImg.src = '../media/ER02_EscenarioVisual_NoGlass_Green.jpg';
-    if (lbImg)  lbImg.src  = '../media/ER02_EscenarioVisual_NoGlass_Green.jpg';
-    // 3. Mostrar OK LED en monitor de presión
-    // showOKLed();
-    // 4. Efectos de victoria y mensaje
-    bulbsTriumph();
-    playVictory();
-    typeWrite(m('resetOK'));
-    setTimeout(() => {
-      if (lbOpen) closeLightbox();
-      markDone();
-      popupStarReward.classList.add('visible');
-    }, 2200);
-  } else if (val === '53705') {
-    triggerError(m('resetOrientacion'), null);
-  } else {
-    triggerError(m('resetFail'), null);
-  }
-}
-
-window.addEventListener('load', () => {
-  const popupReset = document.getElementById('popup-reset');
-  const resetInput = document.getElementById('reset-input');
-  document.getElementById('reset-confirm').addEventListener('click', submitResetCode);
-  document.getElementById('reset-cancel').addEventListener('click', closeResetModal);
-  popupReset.addEventListener('click', e => { if (e.target === popupReset) closeResetModal(); });
-  resetInput.addEventListener('keydown', e => { if (e.key === 'Enter') submitResetCode(); });
-}, {once: true});
 </script>
-<div class="popup-overlay" id="popup-reset">
-  <div class="popup-box">
-    <div class="popup-icon">&#9876;</div>
-    <p class="popup-title">Panel de Autorización</p>
-    <p class="popup-msg">Escribe el código secreto</p>
-    <input class="popup-input" id="reset-input" type="password"
-           autocomplete="off" spellcheck="false" placeholder="_ _ _ _ _" maxlength="20"/>
-    <div class="popup-btns">
-      <button class="popup-btn" id="reset-confirm">Confirmar</button>
-      <button class="popup-btn" id="reset-cancel">Cancelar</button>
-    </div>
-  </div>
-</div>
 </body>
 </html>
