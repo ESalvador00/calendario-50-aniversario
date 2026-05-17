@@ -166,6 +166,66 @@
       transition:all .3s;
     }
 
+    /* ── Popup caja alquímica ── */
+    .caja-popup{display:none;position:fixed;inset:0;z-index:310;background:rgba(0,0,0,.88);align-items:center;justify-content:center;}
+    .caja-popup.visible{display:flex;}
+    .caja-box{
+      background:#100c08;
+      border:1px solid rgba(201,168,76,.4);
+      border-radius:6px;
+      padding:2.2rem 2rem 1.8rem;
+      max-width:400px;width:92%;
+      text-align:center;
+      box-shadow:0 0 80px rgba(0,0,0,.95), inset 0 0 40px rgba(201,168,76,.03);
+      position:relative;
+    }
+    .caja-gem{font-size:2.2rem;line-height:1;margin-bottom:.6rem;filter:drop-shadow(0 0 8px rgba(201,168,76,.7));}
+    .caja-title{
+      font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:700;
+      color:var(--gold-light);margin-bottom:.4rem;
+    }
+    .caja-subtitle{
+      font-size:.85rem;font-style:italic;color:rgba(250,246,238,.45);
+      line-height:1.6;margin-bottom:1.4rem;
+    }
+    .caja-select-wrap{position:relative;margin-bottom:1.4rem;}
+    .caja-select{
+      width:100%;
+      background:#1a1208;
+      border:1px solid rgba(201,168,76,.35);
+      border-radius:3px;
+      color:var(--cream);
+      font-family:'Share Tech Mono',monospace;
+      font-size:.88rem;
+      padding:.65rem 2rem .65rem .9rem;
+      appearance:none;-webkit-appearance:none;
+      cursor:pointer;
+      outline:none;
+      transition:border-color .2s, box-shadow .2s;
+    }
+    .caja-select:focus{border-color:var(--gold);box-shadow:0 0 8px rgba(201,168,76,.25);}
+    .caja-select option{background:#1a1208;color:var(--cream);}
+    .caja-select-arrow{
+      position:absolute;right:.75rem;top:50%;transform:translateY(-50%);
+      pointer-events:none;color:var(--gold);font-size:.75rem;
+    }
+    .caja-btns{display:flex;gap:.8rem;justify-content:center;}
+    .caja-btn-ok{
+      padding:.6rem 1.8rem;
+      background:linear-gradient(135deg,rgba(201,168,76,.2),rgba(201,168,76,.08));
+      border:1px solid rgba(201,168,76,.5);border-radius:3px;
+      color:var(--gold-light);font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;
+      cursor:pointer;transition:all .2s;font-family:'Share Tech Mono',monospace;
+    }
+    .caja-btn-ok:hover{background:rgba(201,168,76,.25);border-color:var(--gold);box-shadow:0 0 12px rgba(201,168,76,.3);}
+    .caja-btn-cancel{
+      padding:.6rem 1.4rem;
+      background:none;border:1px solid rgba(255,255,255,.12);border-radius:3px;
+      color:rgba(250,246,238,.35);font-size:.78rem;letter-spacing:.15em;text-transform:uppercase;
+      cursor:pointer;transition:all .2s;font-family:'Share Tech Mono',monospace;
+    }
+    .caja-btn-cancel:hover{border-color:rgba(255,255,255,.3);color:rgba(250,246,238,.6);}
+
     /* ── Popup del libro ── eliminado, usa showImgOverlay */
 
     /* ── Action btns ── */
@@ -307,6 +367,25 @@
     <p class="popup-title">&#161;Tu recompensa!</p>
     <p class="popup-msg" id="reward-text">&#10024; Aquí irá la recompensa especial de este día &#10024;</p>
     <button class="popup-btn" id="star-reward-close">&#161;Genial!</button>
+  </div>
+</div>
+
+<!-- Popup: caja alquímica (selección de elemento) -->
+<div class="caja-popup" id="caja-popup">
+  <div class="caja-box">
+    <div class="caja-gem">💎</div>
+    <p class="caja-title">Caja Sellada</p>
+    <p class="caja-subtitle">La gema de la tapa aguarda.<br>Vierte una gota del compuesto que crees correcto.</p>
+    <div class="caja-select-wrap">
+      <select class="caja-select" id="caja-select">
+        <!-- opciones generadas dinámicamente -->
+      </select>
+      <span class="caja-select-arrow">▾</span>
+    </div>
+    <div class="caja-btns">
+      <button class="caja-btn-ok" id="caja-btn-ok">Verter</button>
+      <button class="caja-btn-cancel" id="caja-btn-cancel">Cancelar</button>
+    </div>
   </div>
 </div>
 
@@ -584,7 +663,8 @@ function setConsoles(html) {
   crtText.innerHTML        = html;
   lightboxCrtTxt.innerHTML = html;
 }
-function typeWrite(msg) {
+function typeWrite(msg, force) {
+  if (dropHoverBlock && !force) return;  // bloqueado por mensaje de resultado
   lastRawMsg = msg;
   const wrapped = wrapMsg(msg);
   if (twTimer) { clearTimeout(twTimer); twTimer = null; }
@@ -600,6 +680,7 @@ function typeWrite(msg) {
   flash();
 }
 function clearConsole() {
+  if (dropHoverBlock) return;   // no borrar mientras hay mensaje de resultado
   if (twTimer) { clearTimeout(twTimer); twTimer = null; }
   twTarget = ''; twIdx = 0;
   setConsoles(CURSOR_HTML);
@@ -887,16 +968,16 @@ window.addEventListener('resize', ()=>{ if(contenidoMatraz[0]||contenidoMatraz[1
 // cx/cy = centro en %, w = ancho en %
 // Orden: objBotella01..10 → índices 0-9
 const BOTELLA_POS = [
-  { cx:33.66, cy:21.50, w:5.0 },  // idx 0 → objBotella01 (#18e6a8)
-  { cx:66.74, cy:21.50, w:5.0 },  // idx 1 → objBotella02 (#18e6e6)
-  { cx:27.76, cy:21.50, w:5.0 },  // idx 2 → objBotella03 (#18e56a)
-  { cx:72.18, cy:21.50, w:5.0 },  // idx 3 → objBotella04 (#18a8e5)
-  { cx:22.48, cy:21.50, w:5.0 },  // idx 4 → objBotella05 (#18e52e)
-  { cx:77.92, cy:21.50, w:5.0 },  // idx 5 → objBotella06 (#176be6)
-  { cx:16.43, cy:21.50, w:5.0 },  // idx 6 → objBotella07 (#42e518)
-  { cx:83.66, cy:21.50, w:5.0 },  // idx 7 → objBotella08 (#182de5)
-  { cx:10.84, cy:21.50, w:5.0 },  // idx 8 → objBotella09 (#7fe518)
-  { cx:89.25, cy:21.50, w:5.0 },  // idx 9 → objBotella10 (#4218e4)
+  { cx:33.66, cy:26.00, w:5.0 },  // idx 0 → objBotella01 (#18e6a8)
+  { cx:66.74, cy:26.00, w:5.0 },  // idx 1 → objBotella02 (#18e6e6)
+  { cx:27.76, cy:26.00, w:5.0 },  // idx 2 → objBotella03 (#18e56a)
+  { cx:72.18, cy:26.00, w:5.0 },  // idx 3 → objBotella04 (#18a8e5)
+  { cx:22.48, cy:26.00, w:5.0 },  // idx 4 → objBotella05 (#18e52e)
+  { cx:77.92, cy:26.00, w:5.0 },  // idx 5 → objBotella06 (#176be6)
+  { cx:16.43, cy:26.00, w:5.0 },  // idx 6 → objBotella07 (#42e518)
+  { cx:83.66, cy:26.00, w:5.0 },  // idx 7 → objBotella08 (#182de5)
+  { cx:10.84, cy:26.00, w:5.0 },  // idx 8 → objBotella09 (#7fe518)
+  { cx:89.25, cy:26.00, w:5.0 },  // idx 9 → objBotella10 (#4218e4)
 ];
 
 // Crear elementos img para las botellas — en escenario normal Y en lightbox
@@ -927,14 +1008,14 @@ function renderBotellaImgs() {
   for (let i = 0; i < 10; i++) {
     const pos  = BOTELLA_POS[i];
     const elem = tblBotellas[i];
-    const left = (pos.cx - pos.w/2) + '%';
-    const top  = (pos.cy - pos.w*1.8/2) + '%';
-    const w    = pos.w + '%';
 
     [botellaImgs[i], botellaImgsLb[i]].forEach(imgEl => {
-      imgEl.style.left  = left;
-      imgEl.style.top   = top;
-      imgEl.style.width = w;
+      // Centrar exactamente en cx/cy con transform
+      imgEl.style.left      = pos.cx + '%';
+      imgEl.style.top       = pos.cy + '%';
+      imgEl.style.transform = 'translate(-50%, -50%)';
+      imgEl.style.width     = pos.w + '%';
+      imgEl.style.height    = 'auto';
       if (elem) {
         imgEl.src = imgResultado(elem.id);
         imgEl.style.opacity = '0.9';
@@ -1031,23 +1112,20 @@ function ejecutarCombinacion() {
 }
 
 function onCierraBotella(resultadoId) {
-  // Bloquear hover para que el mensaje del resultado no se tape
+  // Activar bloqueo de hover INMEDIATAMENTE para proteger la CRT
   dropHoverBlock = true;
   lastAlias = null;
 
-  // 1) Limpiar matraces SIEMPRE (sea error o no)
+  // 1) Limpiar matraces SIEMPRE
   contenidoMatraz[0] = null;
   contenidoMatraz[1] = null;
   updateMatrazVisual();
 
-  // 2) Almacenar en tblBotellas si corresponde
-  //    - Nunca si es error puro (error_*)
-  //    - Sí si es inservible (corrupto, inestable) o compuesto válido
+  // 2) Almacenar en tblBotellas si no es error puro
   if (!esError(resultadoId)) {
     const elem = getElemento(resultadoId);
     if (elem) {
       elem.descubierto = true;
-      // Guardar en primer slot libre (idx 4-9) si no está ya
       const yaEnBotella = tblBotellas.some(b => b && b.id === resultadoId);
       if (!yaEnBotella) {
         const hueco = tblBotellas.findIndex((b, i) => i >= 4 && b === null);
@@ -1060,7 +1138,7 @@ function onCierraBotella(resultadoId) {
     renderBotellaImgs();
   }
 
-  // 3) Efectos audio + visual según tipo de resultado
+  // 3) Efectos audio inmediatos (sin tocar CRT)
   if (esError(resultadoId)) {
     setConsoleError(true);
     fireAlarm();
@@ -1076,16 +1154,21 @@ function onCierraBotella(resultadoId) {
     playDiscovery();
   }
 
-  // 4) Escribir el mensaje — llamar DESPUÉS de los efectos para ser lo último en CRT
-  //    Usamos directamente startType para no hacer el flash de borrado
-  const msg = wrapMsg('> ' + msgResultado(resultadoId));
-  lastRawMsg = '> ' + msgResultado(resultadoId);
-  if (twTimer) { clearTimeout(twTimer); twTimer = null; }
-  setConsoles('');
-  startType(msg);
+  // 4) Escribir el mensaje con setTimeout para ejecutar DESPUÉS
+  //    de cualquier limpieza que haga hideImgOverlay/closeLightbox
+  const rawMsg = '> ' + msgResultado(resultadoId);
+  lastRawMsg = rawMsg;
+  setTimeout(() => {
+    if (twTimer) { clearTimeout(twTimer); twTimer = null; }
+    setConsoles('');
+    startType(wrapMsg(rawMsg));
+  }, 50);
 
-  // 5) Liberar el bloqueo de hover tras 3.5 s (tiempo suficiente para leer)
-  setTimeout(() => { dropHoverBlock = false; }, 3500);
+  // 5) Liberar bloqueo de hover tras 5s (los mensajes de resultado son largos)
+  setTimeout(() => {
+    dropHoverBlock = false;
+    lastAlias = null;
+  }, 5000);
 
   pendienteResultado = null;
 }
@@ -1116,54 +1199,96 @@ function toggleQuemador() {
 //  CAJA SELLADA
 // ════════════════════════════════════════════════════════
 
-// Compuesto que abre la caja (según las recetas: solar→equilibrio = dorado)
-const CLAVE_CAJA = 'dorado';
+// El compuesto que realmente abre la caja
+const CLAVE_CAJA = 'pura';
 
-// Índice en tblBotellas del último compuesto obtenido (el que se usará contra la caja)
-// Para "verter" en la caja, el jugador debe tener el compuesto dorado en tblBotellas
-// y hacer clic en la caja.
+const cajaPopup     = document.getElementById('caja-popup');
+const cajaSelect    = document.getElementById('caja-select');
+const cajaBtnOk     = document.getElementById('caja-btn-ok');
+const cajaBtnCancel = document.getElementById('caja-btn-cancel');
+
+function abrirPopupCaja() {
+  // Poblar el <select> con los elementos descubiertos
+  cajaSelect.innerHTML = '';
+  const descubiertos = tblElementos.filter(e => e.descubierto);
+  if (descubiertos.length === 0) {
+    // No hay nada descubierto todavía (no debería pasar, las 4 iniciales están activas)
+    typeWrite('> No tienes ningún compuesto descubierto aún.');
+    return;
+  }
+  descubiertos.forEach(e => {
+    const opt = document.createElement('option');
+    opt.value = e.id;
+    // Mostrar símbolo + texto del hover (que contiene nombre formateado)
+    opt.textContent = e.simbolo + '  ' + e.hover;
+    cajaSelect.appendChild(opt);
+  });
+  cajaPopup.classList.add('visible');
+}
+
+function cerrarPopupCaja() {
+  cajaPopup.classList.remove('visible');
+}
+
+cajaBtnCancel.addEventListener('click', cerrarPopupCaja);
+cajaPopup.addEventListener('click', e => { if (e.target === cajaPopup) cerrarPopupCaja(); });
+
+cajaBtnOk.addEventListener('click', () => {
+  const elegidoId = cajaSelect.value;
+  cerrarPopupCaja();
+
+  if (elegidoId === CLAVE_CAJA) {
+    // ✓ Compuesto correcto → abrir la caja
+    abrirCaja();
+  } else {
+    // ✗ Compuesto incorrecto → error, caja cimbrea
+    const elem = getElemento(elegidoId);
+    const nombre = elem ? elem.simbolo + ' ' + elem.nombre : elegidoId;
+    triggerError('> ' + nombre + ' reacciona con la gema... pero la caja permanece cerrada.');
+  }
+});
+
 function interaccionCaja() {
   if (cajaAbierta) {
-    typeWrite('> [ CAJA ] — ABIERTA. La recompensa ya es tuya.');
+    typeWrite('> [ CAJA ] \u2014 ABIERTA. La recompensa ya es tuya.');
     return;
   }
-
-  // Buscar el compuesto dorado entre las botellas descubiertas
-  const tieneDorado = tblBotellas.some(b => b && b.id === CLAVE_CAJA);
-
-  if (!tieneDorado) {
-    // No tiene el compuesto correcto aún
-    typeWrite('> [ CAJA ] — SELLADA. Un candado de plata bloquea la apertura. Quizás el compuesto adecuado la transformaría...');
-    return;
-  }
-
-  // Tiene el compuesto dorado → abrir la caja
-  abrirCaja();
+  // Mostrar imagen de la caja + popup de selección en cadena
+  showImgOverlay('../media/ER03_Caja.webp', () => {
+    // Tras cerrar la imagen → abrir el popup de selección
+    setTimeout(() => abrirPopupCaja(), 120);
+  });
 }
 
 function abrirCaja() {
   cajaAbierta = true;
 
-  // Actualizar hover de la caja
-  HOVER_MSG['objCaja'] = '[ CAJA ] — ABIERTA';
+  // Cambiar imagen del escenario (normal y lightbox)
+  document.getElementById('escenario-img').src = '../media/ER03_EscenarioVisualOK.jpg';
+  document.getElementById('lightbox-img').src  = '../media/ER03_EscenarioVisualOK.jpg';
 
-  // Efectos: victoria total
+  // Efectos inmediatos
   bulbsTriumph();
   playVictory();
 
-  // Mensaje CRT dramático
-  typeWrite('> El Compuesto Dorado reacciona con el candado... ✶ ¡La caja se abre!');
-
-  // Mostrar imagen de la caja abierta con overlay
-  setTimeout(() => {
-    showImgOverlay('../media/ER03_Botella_dorado.webp', () => {
-      // Tras cerrar la imagen → marcar completado y mostrar recompensa
-      markDone();
-      setTimeout(() => {
-        popupStarReward.classList.add('visible');
-      }, 400);
-    });
-  }, 1200);
+  // Mostrar imagen caja abierta
+  showImgOverlay('../media/ER03_CajaAbierta.webp', () => {
+    // Tras cerrar la imagen → marcar completado, CRT de victoria, popup recompensa
+    markDone();
+    dropHoverBlock = true;
+    lastAlias = null;
+    setTimeout(() => {
+      if (twTimer) { clearTimeout(twTimer); twTimer = null; }
+      setConsoles('');
+      const msg = '\u265F La Esencia Pura disuelve el sello.\n\n\u2736 \u00a1La caja se abre! La recompensa es tuya.';
+      lastRawMsg = '> ' + msg;
+      startType(wrapMsg('> ' + msg));
+    }, 50);
+    setTimeout(() => {
+      dropHoverBlock = false;
+      popupStarReward.classList.add('visible');
+    }, 5000);
+  });
 }
 
 // ════════════════════════════════════════════════════════
@@ -1205,13 +1330,14 @@ function openLightbox() {
 }
 function closeLightbox() {
   if (!lbOpen) return;
-  lbOpen=false; lastAlias=null; clearConsole();
+  lbOpen=false; lastAlias=null;
+  if (!dropHoverBlock) clearConsole();
   lightbox.classList.remove('visible'); document.body.style.overflow='';
   lightboxImg.removeEventListener('mousemove', onLbMove);
   lightboxImg.removeEventListener('mouseleave', onLbLeave);
   lightboxImg.removeEventListener('click', onLbClick);
   updateExpandIcon();
-  if (lastRawMsg) setTimeout(()=>{ if(!lbOpen) typeWrite(lastRawMsg); },50);
+  if (lastRawMsg && !dropHoverBlock) setTimeout(()=>{ if(!lbOpen) typeWrite(lastRawMsg); },50);
 }
 function onLbMove(e)  { onHover(getAlias(e.clientX,e.clientY,lightboxImg)); }
 function onLbLeave()  { lastAlias=null; clearConsole(); }
