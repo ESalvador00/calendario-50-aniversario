@@ -340,6 +340,163 @@
     .popup-btn{display:inline-block;padding:.7rem 2rem;border:1px solid rgba(201,168,76,.4);border-radius:2px;color:var(--gold);font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;background:none;transition:all .2s;}
     .popup-btn:hover{background:rgba(201,168,76,.1);border-color:var(--gold);}
 
+    /* ── Popup logro: Transmutación completada ── */
+    @keyframes logro-entrada {
+      0%   { opacity:0; transform:scale(.88) translateY(12px); filter:brightness(2.5); }
+      60%  { opacity:1; transform:scale(1.02) translateY(-2px); filter:brightness(1.1); }
+      100% { opacity:1; transform:scale(1)   translateY(0);    filter:brightness(1);   }
+    }
+    @keyframes logro-gema-pulso {
+      0%,100% { text-shadow:0 0 12px #e8c97a, 0 0 28px rgba(232,201,122,.5), 0 0 60px rgba(232,201,122,.2); transform:scale(1); }
+      50%     { text-shadow:0 0 20px #fff,     0 0 50px rgba(232,201,122,.9), 0 0 90px rgba(232,201,122,.5); transform:scale(1.08); }
+    }
+    @keyframes logro-runa-giro {
+      from { transform:translate(-50%,-50%) rotate(0deg); }
+      to   { transform:translate(-50%,-50%) rotate(360deg); }
+    }
+    @keyframes logro-linea-expand {
+      from { width:0; opacity:0; }
+      to   { width:80%; opacity:1; }
+    }
+    @keyframes logro-texto-fade {
+      from { opacity:0; transform:translateY(6px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+    @keyframes logro-btn-pulse {
+      0%,100% { box-shadow:0 0 0 0 rgba(201,168,76,0); }
+      50%     { box-shadow:0 0 20px 4px rgba(201,168,76,.3); }
+    }
+
+    .logro-popup {
+      display:none; position:fixed; inset:0; z-index:450;
+      align-items:center; justify-content:center;
+      background:radial-gradient(ellipse at 50% 40%, rgba(35,20,5,.97) 0%, rgba(8,5,2,.99) 100%);
+    }
+    .logro-popup.visible { display:flex; }
+
+    .logro-box {
+      position:relative; overflow:hidden;
+      max-width:500px; width:93%;
+      padding:3rem 2.6rem 2.4rem;
+      text-align:center;
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(201,168,76,.09) 0%, transparent 65%),
+        linear-gradient(180deg, rgba(18,9,3,0) 0%, #0e0702 100%);
+      border:1px solid rgba(201,168,76,.38);
+      border-radius:2px;
+      box-shadow:
+        0 0 0 1px rgba(201,168,76,.08),
+        0 0 60px rgba(0,0,0,.95),
+        inset 0 1px 0 rgba(201,168,76,.12),
+        inset 0 0 80px rgba(201,168,76,.03);
+      animation: logro-entrada .65s cubic-bezier(.22,.9,.36,1) both;
+    }
+    .logro-box::before,
+    .logro-box::after {
+      content:'';
+      position:absolute;
+      width:22px; height:22px;
+      border-color:rgba(201,168,76,.6);
+      border-style:solid;
+    }
+    .logro-box::before { top:10px; left:10px;  border-width:1px 0 0 1px; }
+    .logro-box::after  { bottom:10px; right:10px; border-width:0 1px 1px 0; }
+    .logro-corner-tr, .logro-corner-bl {
+      position:absolute;
+      width:22px; height:22px;
+      border-color:rgba(201,168,76,.6);
+      border-style:solid;
+      pointer-events:none;
+    }
+    .logro-corner-tr { top:10px; right:10px;  border-width:1px 1px 0 0; }
+    .logro-corner-bl { bottom:10px; left:10px; border-width:0 0 1px 1px; }
+
+    .logro-runa-bg {
+      position:absolute; top:50%; left:50%;
+      transform:translate(-50%,-50%);
+      font-size:16rem; line-height:1;
+      color:transparent;
+      -webkit-text-stroke:1px rgba(201,168,76,.05);
+      pointer-events:none; user-select:none;
+      animation:logro-runa-giro 60s linear infinite;
+      font-family:'Playfair Display',serif;
+    }
+
+    .logro-close-x {
+      position:absolute; top:.75rem; right:1rem;
+      background:none; border:none; color:rgba(201,168,76,.3);
+      font-size:1rem; cursor:pointer; line-height:1;
+      transition:color .2s; font-family:'Share Tech Mono',monospace;
+      letter-spacing:.05em;
+    }
+    .logro-close-x:hover { color:rgba(201,168,76,.8); }
+
+    .logro-pretitulo {
+      font-family:'Share Tech Mono',monospace;
+      font-size:.62rem; letter-spacing:.45em; text-transform:uppercase;
+      color:rgba(201,168,76,.45); margin-bottom:1.4rem;
+      animation:logro-texto-fade .5s .3s both;
+    }
+    .logro-gema {
+      font-size:3.4rem; line-height:1; margin-bottom:1.1rem;
+      display:inline-block;
+      animation:logro-gema-pulso 3s ease-in-out infinite, logro-texto-fade .4s .1s both;
+    }
+    .logro-titulo {
+      font-family:'Playfair Display',serif;
+      font-size:clamp(1.3rem,3.5vw,1.8rem);
+      font-weight:900; font-style:italic;
+      background:linear-gradient(135deg,#fff8e8 0%,var(--gold-light) 40%,var(--gold) 70%,var(--gold-dark) 100%);
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+      background-clip:text;
+      margin-bottom:1.4rem;
+      animation:logro-texto-fade .5s .2s both;
+    }
+    .logro-sep {
+      display:block; height:1px; margin:0 auto 1.5rem;
+      background:linear-gradient(90deg,transparent,rgba(201,168,76,.5),transparent);
+      animation:logro-linea-expand .6s .35s both;
+    }
+    .logro-cuerpo {
+      font-family:'Cormorant Garamond',serif;
+      font-size:clamp(.93rem,2vw,1.05rem); font-style:italic;
+      color:rgba(250,246,238,.68); line-height:1.85;
+      margin-bottom:1.4rem; text-align:left;
+      animation:logro-texto-fade .5s .45s both;
+    }
+    .logro-cuerpo p { margin-bottom:.85rem; }
+    .logro-cuerpo p:last-child { margin-bottom:0; }
+    .logro-item {
+      display:inline-block; margin:0 auto 2rem;
+      padding:.45rem 1.3rem;
+      border:1px solid rgba(201,168,76,.35); border-radius:1px;
+      font-family:'Share Tech Mono',monospace;
+      font-size:.8rem; letter-spacing:.12em;
+      color:var(--gold-light); background:rgba(201,168,76,.06);
+      animation:logro-texto-fade .5s .55s both;
+    }
+    .logro-btn {
+      display:inline-block; padding:.8rem 2.8rem;
+      background:linear-gradient(135deg,rgba(201,168,76,.2),rgba(201,168,76,.07));
+      border:1px solid rgba(201,168,76,.55); border-radius:1px;
+      color:var(--gold-light);
+      font-family:'Share Tech Mono',monospace;
+      font-size:.78rem; letter-spacing:.35em; text-transform:uppercase;
+      cursor:pointer; transition:all .25s;
+      animation:logro-texto-fade .5s .65s both, logro-btn-pulse 2.5s 1.2s ease-in-out infinite;
+    }
+    .logro-btn:hover {
+      background:rgba(201,168,76,.28); border-color:var(--gold);
+      box-shadow:0 0 24px rgba(201,168,76,.35);
+      letter-spacing:.42em;
+      animation:logro-texto-fade 0s; /* cancelar pulso en hover */
+    }
+    @media(max-width:600px){
+      .logro-box { padding:2.2rem 1.5rem 2rem; }
+      .logro-runa-bg { font-size:8rem; }
+      .logro-cuerpo { font-size:.88rem; }
+    }
+
     /* ── Popup introductorio ── */
     .intro-popup{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:400;align-items:center;justify-content:center;}
     .intro-popup.visible{display:flex;}
@@ -486,6 +643,28 @@
     <a class="nav-btn" id="next-btn" href="2028-10-09.html">9 de Octubre &#8594;</a>
   </nav>
   <a class="back-link" href="../index.html">&#8592; Volver al Calendario</a>
+</div>
+
+<!-- Popup: logro — Transmutación completada -->
+<div class="logro-popup" id="logro-popup">
+  <div class="logro-box">
+    <span class="logro-runa-bg" aria-hidden="true">☽</span>
+    <div class="logro-corner-tr" aria-hidden="true"></div>
+    <div class="logro-corner-bl" aria-hidden="true"></div>
+    <button class="logro-close-x" id="logro-close-x">&#10005;</button>
+    <p class="logro-pretitulo">— Reto completado —</p>
+    <div class="logro-gema">◇</div>
+    <p class="logro-titulo">Transmutación completada</p>
+    <span class="logro-sep"></span>
+    <div class="logro-cuerpo">
+      <p>La caja finalmente se abre y una intensa luz blanca inunda el laboratorio.</p>
+      <p>En su interior descansa un fragmento cristalizado de la Piedra Filosofal, aún cálido por la transmutación. Las vetas doradas que recorren la gema parecen moverse lentamente bajo la superficie.</p>
+      <p>Has demostrado comprender las leyes fundamentales de la alquimia.</p>
+      <p>Pero esta era solo la primera obra.</p>
+    </div>
+    <p class="logro-item">◇ &mdash; FRAGMENTO DE LA PIEDRA FILOSOFAL</p><br>
+    <button class="logro-btn" id="logro-btn-reclamar">RECLAMAR</button>
+  </div>
 </div>
 
 <!-- Popup: introducción al reto -->
@@ -1862,10 +2041,35 @@ function abrirCaja() {
   }, 5000);
 }
 
-// Clic en objCaja tras victoria → popup recompensa + navegación al índice
+// ════════════════════════════════════════════════════════
+//  POPUP LOGRO — TRANSMUTACIÓN COMPLETADA
+// ════════════════════════════════════════════════════════
+const logroPopup = document.getElementById('logro-popup');
+
+function cerrarLogroYRecompensa() {
+  logroPopup.classList.remove('visible');
+  // Pequeño delay antes de mostrar la recompensa para que el fade-out respire
+  setTimeout(() => {
+    popupStarReward.classList.add('visible');
+  }, 180);
+}
+
+document.getElementById('logro-btn-reclamar').addEventListener('click', cerrarLogroYRecompensa);
+document.getElementById('logro-close-x').addEventListener('click', cerrarLogroYRecompensa);
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && logroPopup.classList.contains('visible')) {
+    cerrarLogroYRecompensa();
+  }
+});
+
+// Clic en el fondo del logro-popup (fuera del box) también lo cierra
+logroPopup.addEventListener('click', e => {
+  if (e.target === logroPopup) cerrarLogroYRecompensa();
+});
+
+// Clic en el escenario con caja abierta → popup de logro
 function tomarPremio() {
-  // Mostrar popup; al cerrarlo navegará al índice (ver cerrarRewardYVolver)
-  popupStarReward.classList.add('visible');
+  logroPopup.classList.add('visible');
 }
 document.getElementById('caja-click-zone').addEventListener('click', tomarPremio);
 document.getElementById('caja-click-zone-lb').addEventListener('click', tomarPremio);
