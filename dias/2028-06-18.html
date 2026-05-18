@@ -389,6 +389,55 @@
       animation:crt-blink .7s step-end infinite;
       box-shadow:0 0 5px #b8d840, 0 0 10px rgba(184,216,64,.5);
     }
+    #popup-logro {
+      display:none;
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.88);
+      z-index:400;
+      align-items:center;
+      justify-content:center;
+      padding:1rem;
+    }
+    #popup-logro.visible { display:flex; }
+    /* Variante dorada para el popup de logro */
+    #popup-logro .terminal-box {
+      border-color:#3a3018;
+      box-shadow:
+        0 0 0 1px #1a1508,
+        0 0 40px rgba(0,0,0,.95),
+        0 0 60px rgba(184,160,48,.08),
+        inset 0 0 80px rgba(0,0,0,.4);
+    }
+    #popup-logro .terminal-titlebar {
+      border-bottom-color:#2a2010;
+    }
+    #popup-logro .terminal-titlebar-title {
+      color:#d4a830;
+      text-shadow:0 0 8px rgba(212,168,48,.7);
+    }
+    #popup-logro .terminal-label {
+      color:#6a7a20;
+    }
+    #popup-logro .terminal-msg {
+      color:#d8e840;
+      text-shadow:0 0 3px rgba(216,232,64,.55), 0 0 8px rgba(216,232,64,.25);
+    }
+    #popup-logro .tm-highlight {
+      color:#f0e060;
+      text-shadow:0 0 6px rgba(240,224,96,.8);
+    }
+    #popup-logro .terminal-btn {
+      border-color:#6a6a20;
+      color:#d8e840;
+      text-shadow:0 0 4px rgba(216,232,64,.5);
+    }
+    #popup-logro .terminal-btn:hover {
+      background:rgba(160,180,30,.12);
+      border-color:#a0a040;
+      color:#f0f060;
+      box-shadow:0 0 20px rgba(160,180,30,.22), inset 0 0 14px rgba(160,180,30,.08);
+    }
     @media(max-width:600px){
       .wrap{padding:1rem 1rem 2rem;}
       .day-hero{padding:1rem 0 1rem;}
@@ -525,6 +574,27 @@
     <a class="nav-btn" id="next-btn" href="2028-06-19.html">19 de Junio &#8594;</a>
   </nav>
   <a class="back-link" href="../index.html">&#8592; Volver al Calendario</a>
+</div>
+
+<!-- Popup: logro superado (post-resetOK) -->
+<div id="popup-logro">
+  <div class="terminal-box">
+    <div class="terminal-titlebar">
+      <div class="terminal-titlebar-dot"></div>
+      <div class="terminal-titlebar-dot"></div>
+      <div class="terminal-titlebar-dot"></div>
+      <span class="terminal-titlebar-title">[ SISTEMA ASEGURADO — MISIÓN CUMPLIDA ]</span>
+    </div>
+    <div class="terminal-body">
+      <div class="terminal-label">&gt; TRANSMISIÓN SEGURA — AUTORIDAD MÁXIMA CONFIRMADA</div>
+      <div class="terminal-msg">¡<span class="tm-highlight">Soberbio, Operador!</span> Has estabilizado el núcleo y reiniciado los sistemas a tiempo, evitando una catástrofe total (y salvando tu propio pellejo).
+
+La compuerta está abierta y los equipos de rescate ya toman el control. Tu turno de guardia ha terminado y te has ganado oficialmente el derecho a apagar el móvil y tomarte unas larguísimas vacaciones lejos de la radiación.
+
+<span class="tm-highlight">¡Te las has ganado!</span><span class="tm-cursor"></span></div>
+      <button class="terminal-btn" id="logro-close-btn">[ FIRMAR SALIDA DE GUARDIA ]</button>
+    </div>
+  </div>
 </div>
 
 <!-- Popup: intro terminal -->
@@ -786,6 +856,11 @@ function typeWrite(msg) {
 }
 window.addEventListener('load', () => {
   DisplayAll();
+  document.getElementById('logro-close-btn').addEventListener('click', () => {
+    document.getElementById('popup-logro').classList.remove('visible');
+    window.location.href = '../index.html';
+  });
+
   // Mostrar popup intro terminal (solo si el día no está bloqueado)
   const popupIntro = document.getElementById('popup-intro');
   if (!document.getElementById('popup').classList.contains('visible')) {
@@ -1628,7 +1703,7 @@ function submitResetCode() {
     setTimeout(() => {
       if (lbOpen) closeLightbox();
       markDone();
-      popupStarReward.classList.add('visible');
+      document.getElementById('popup-logro').classList.add('visible');
     }, 2200);
   } else if (val === '53705') {
     triggerError(m('resetOrientacion'), null);
