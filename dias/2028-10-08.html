@@ -247,36 +247,9 @@
     }
     .caja-abierta-overlay.visible{ display:block; }
 
-    /* ── Bloqueo de interacción tras victoria ── */
-    /* Cubre todo (escenario normal + lightbox) pero deja pasar el clic de la caja */
-    .victoria-block{
-      display:none;
-      position:fixed;
-      inset:0;
-      z-index:205;   /* encima del lightbox (200) pero debajo del lb-overlay (250) */
-      cursor:default;
-      background:transparent;
-    }
-    .victoria-block.active{ display:block; }
+    /* victoria-block — eliminado; bloqueo gestionado en handleClick */
 
-    /* Zona clicable sobre la caja — posicionada sobre la imagen del escenario */
-    /* Usamos position:absolute dentro de escenario-wrap e lightbox-inner */
-    .caja-click-zone{
-      display:none;
-      position:absolute;
-      /* Zona aproximada de la caja en la imagen — ajusta si es necesario */
-      left:59%; top:48%; width:18%; height:22%;
-      z-index:210;   /* encima del victoria-block */
-      cursor:pointer;
-      border-radius:4px;
-      /* Efecto pulso dorado para guiar al jugador */
-      animation:caja-pulse 1.4s ease-in-out infinite;
-    }
-    .caja-click-zone.active{ display:block; }
-    @keyframes caja-pulse{
-      0%,100%{ box-shadow:0 0 0 0 rgba(201,168,76,0), inset 0 0 0 2px rgba(201,168,76,0); }
-      50%     { box-shadow:0 0 18px 6px rgba(201,168,76,.45), inset 0 0 0 2px rgba(201,168,76,.6); }
-    }
+    /* caja-click-zone — mantenido en DOM pero sin uso visual; el clic se gestiona via clickmap */
 
     /* ── Popup caja alquímica ── */
     .caja-popup{display:none;position:fixed;inset:0;z-index:310;background:rgba(0,0,0,.88);align-items:center;justify-content:center;}
@@ -1043,6 +1016,12 @@ const MSG = {
     '> [ CAJA ] \u2014 ABIERTA. La recompensa ya es tuya.',
     '> [ CAJA ] \u2014 ABIERTA. La recompensa ya es tuya.',
     '> [ CAJA ] \u2014 ABIERTA. La recompensa ya es tuya.',
+  ],
+  cajaTomarRecompensa: [
+    '> \u2736 \u00a1Reto superado! La caja est\u00e1 abierta. Haz clic en la caja para tomar tu recompensa.',
+    '> \u2736 \u00a1Reto superado! La caja est\u00e1 abierta. Haz clic en la caja para tomar tu recompensa.',
+    '> \u2736 \u00a1Reto superado! La caja est\u00e1 abierta. Haz clic en la caja para tomar tu recompensa.',
+    '> \u2736 \u00a1Reto superado! La caja est\u00e1 abierta. Haz clic en la caja para tomar tu recompensa.',
   ],
   cajaSinDescubiertos: [
     '> No tienes ningún compuesto descubierto aún.',
@@ -1860,16 +1839,10 @@ function abrirCaja() {
   setBulbState(3, 'on'); bulbCount = 4;
   playVictory();
 
-  // Bloquear toda interacción salvo la zona de la caja
-  document.getElementById('victoria-block').classList.add('active');
-  document.getElementById('caja-click-zone').classList.add('active');
-  document.getElementById('caja-click-zone-lb').classList.add('active');
-
-  // Si el lightbox estaba abierto, cerrarlo para que la zona de clic
-  // quede en el escenario normal (el victoria-block ya bloquea el lb)
+  // Si el lightbox estaba abierto, cerrarlo
   if (lbOpen) closeLightbox();
 
-  // Marcar completado, CRT de victoria (sin popup automático)
+  // Marcar completado, CRT de victoria
   markDone();
   dropHoverBlock = true;
   lastAlias = null;
@@ -1880,16 +1853,18 @@ function abrirCaja() {
     lastRawMsg = rawVictoria;
     startType(wrapMsg(rawVictoria));
   }, 50);
-  // dropHoverBlock se mantiene activo indefinidamente: el usuario ya no
-  // interactúa con el escenario, solo puede clicar la zona de la caja
+
+  // Tras el mensaje de victoria, liberar dropHoverBlock
+  // (no hace falta recordatorio: cualquier clic activa tomarPremio)
+  setTimeout(() => {
+    dropHoverBlock = false;
+    lastAlias = null;
+  }, 5000);
 }
 
-// Clic en la zona de la caja tras victoria → popup recompensa + navegación al índice
+// Clic en objCaja tras victoria → popup recompensa + navegación al índice
 function tomarPremio() {
-  // Desactivar la zona para evitar doble clic
-  document.getElementById('caja-click-zone').classList.remove('active');
-  document.getElementById('caja-click-zone-lb').classList.remove('active');
-  // Mostrar popup; al cerrarlo navigará al índice (ver cerrarRewardYVolver)
+  // Mostrar popup; al cerrarlo navegará al índice (ver cerrarRewardYVolver)
   popupStarReward.classList.add('visible');
 }
 document.getElementById('caja-click-zone').addEventListener('click', tomarPremio);
@@ -2024,6 +1999,12 @@ let cajaAbierta = false;
 // ════════════════════════════════════════════════════════
 function handleClick(alias, e) {
 
+  // ── Modo victoria: cualquier clic toma la recompensa ─
+  if (cajaAbierta) {
+    tomarPremio();
+    return;
+  }
+
   // ── Expandir / contraer ─────────────────────────────
   if (alias === 'objIconoMax') {
     lbOpen ? closeLightbox() : openLightbox();
@@ -2093,8 +2074,6 @@ window.addEventListener('load', () => {
   initBotellaImgs();
 });
 </script>
-<!-- Bloqueo de interacción tras victoria (cubre todo excepto caja-click-zone) -->
-<div class="victoria-block" id="victoria-block"></div>
 
 </body>
 </html>
