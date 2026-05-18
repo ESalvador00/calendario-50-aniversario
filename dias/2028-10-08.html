@@ -247,6 +247,37 @@
     }
     .caja-abierta-overlay.visible{ display:block; }
 
+    /* ── Bloqueo de interacción tras victoria ── */
+    /* Cubre todo (escenario normal + lightbox) pero deja pasar el clic de la caja */
+    .victoria-block{
+      display:none;
+      position:fixed;
+      inset:0;
+      z-index:205;   /* encima del lightbox (200) pero debajo del lb-overlay (250) */
+      cursor:default;
+      background:transparent;
+    }
+    .victoria-block.active{ display:block; }
+
+    /* Zona clicable sobre la caja — posicionada sobre la imagen del escenario */
+    /* Usamos position:absolute dentro de escenario-wrap e lightbox-inner */
+    .caja-click-zone{
+      display:none;
+      position:absolute;
+      /* Zona aproximada de la caja en la imagen — ajusta si es necesario */
+      left:59%; top:48%; width:18%; height:22%;
+      z-index:210;   /* encima del victoria-block */
+      cursor:pointer;
+      border-radius:4px;
+      /* Efecto pulso dorado para guiar al jugador */
+      animation:caja-pulse 1.4s ease-in-out infinite;
+    }
+    .caja-click-zone.active{ display:block; }
+    @keyframes caja-pulse{
+      0%,100%{ box-shadow:0 0 0 0 rgba(201,168,76,0), inset 0 0 0 2px rgba(201,168,76,0); }
+      50%     { box-shadow:0 0 18px 6px rgba(201,168,76,.45), inset 0 0 0 2px rgba(201,168,76,.6); }
+    }
+
     /* ── Popup caja alquímica ── */
     .caja-popup{display:none;position:fixed;inset:0;z-index:310;background:rgba(0,0,0,.88);align-items:center;justify-content:center;}
     .caja-popup.visible{display:flex;}
@@ -461,6 +492,9 @@
         <img class="caja-abierta-overlay" id="caja-abierta-overlay"
              src="../media/ER03_EscenarioVisualOK.webp" alt=""/>
 
+        <!-- Zona clicable sobre la caja (activa solo tras victoria) -->
+        <div class="caja-click-zone" id="caja-click-zone"></div>
+
         <!-- Alarma roja -->
         <div class="alarm-overlay" id="alarm-overlay"></div>
 
@@ -590,6 +624,8 @@
     <!-- Overlay caja abierta en lightbox -->
     <img class="caja-abierta-overlay" id="caja-abierta-overlay-lb"
          src="../media/ER03_EscenarioVisualOK.webp" alt=""/>
+    <!-- Zona clicable sobre la caja en lightbox (activa solo tras victoria) -->
+    <div class="caja-click-zone" id="caja-click-zone-lb"></div>
     <div class="alarm-overlay" id="alarm-overlay-lb"></div>
     <div class="lightbox-crt" id="lightbox-crt">
       <span class="lightbox-crt-text" id="lightbox-crt-text"></span>
@@ -676,8 +712,14 @@ const popupStarBlocked = document.getElementById('popup-star-blocked');
 const popupStarReward  = document.getElementById('popup-star-reward');
 document.getElementById('star-blocked-close').addEventListener('click', () => popupStarBlocked.classList.remove('visible'));
 popupStarBlocked.addEventListener('click', e => { if (e.target === popupStarBlocked) popupStarBlocked.classList.remove('visible'); });
-document.getElementById('star-reward-close').addEventListener('click', () => popupStarReward.classList.remove('visible'));
-popupStarReward.addEventListener('click', e => { if (e.target === popupStarReward) popupStarReward.classList.remove('visible'); });
+
+// Popup recompensa: al cerrar → volver al calendario
+function cerrarRewardYVolver() {
+  popupStarReward.classList.remove('visible');
+  window.location.href = '../index.html';
+}
+document.getElementById('star-reward-close').addEventListener('click', cerrarRewardYVolver);
+popupStarReward.addEventListener('click', e => { if (e.target === popupStarReward) cerrarRewardYVolver(); });
 function markDone() { localStorage.setItem(DONE_KEY, '1'); updateDone(); }
 function updateDone() {
   const on = localStorage.getItem(DONE_KEY) === '1';
@@ -1818,7 +1860,16 @@ function abrirCaja() {
   setBulbState(3, 'on'); bulbCount = 4;
   playVictory();
 
-  // Sin imagen intermedia: marcar completado, CRT de victoria, popup recompensa
+  // Bloquear toda interacción salvo la zona de la caja
+  document.getElementById('victoria-block').classList.add('active');
+  document.getElementById('caja-click-zone').classList.add('active');
+  document.getElementById('caja-click-zone-lb').classList.add('active');
+
+  // Si el lightbox estaba abierto, cerrarlo para que la zona de clic
+  // quede en el escenario normal (el victoria-block ya bloquea el lb)
+  if (lbOpen) closeLightbox();
+
+  // Marcar completado, CRT de victoria (sin popup automático)
   markDone();
   dropHoverBlock = true;
   lastAlias = null;
@@ -1829,11 +1880,20 @@ function abrirCaja() {
     lastRawMsg = rawVictoria;
     startType(wrapMsg(rawVictoria));
   }, 50);
-  setTimeout(() => {
-    dropHoverBlock = false;
-    popupStarReward.classList.add('visible');
-  }, 5000);
+  // dropHoverBlock se mantiene activo indefinidamente: el usuario ya no
+  // interactúa con el escenario, solo puede clicar la zona de la caja
 }
+
+// Clic en la zona de la caja tras victoria → popup recompensa + navegación al índice
+function tomarPremio() {
+  // Desactivar la zona para evitar doble clic
+  document.getElementById('caja-click-zone').classList.remove('active');
+  document.getElementById('caja-click-zone-lb').classList.remove('active');
+  // Mostrar popup; al cerrarlo navigará al índice (ver cerrarRewardYVolver)
+  popupStarReward.classList.add('visible');
+}
+document.getElementById('caja-click-zone').addEventListener('click', tomarPremio);
+document.getElementById('caja-click-zone-lb').addEventListener('click', tomarPremio);
 
 // ════════════════════════════════════════════════════════
 //  LIGHTBOX ESCENARIO AMPLIADO
@@ -2033,5 +2093,8 @@ window.addEventListener('load', () => {
   initBotellaImgs();
 });
 </script>
+<!-- Bloqueo de interacción tras victoria (cubre todo excepto caja-click-zone) -->
+<div class="victoria-block" id="victoria-block"></div>
+
 </body>
 </html>
