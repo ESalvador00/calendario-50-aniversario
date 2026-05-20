@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>8 de Octubre — 50 Aniversario</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:wght@300;400;500&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:wght@300;400;500&family=IBM+Plex+Mono:ital,wght@0,400;1,400&family=Share+Tech+Mono&display=swap" rel="stylesheet">
   <style>
     :root{--gold:#C9A84C;--gold-light:#E8C97A;--gold-dark:#8B6914;--cream:#FAF6EE;--dark:#1A1410;}
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -41,9 +41,9 @@
     }
     .crt-text{
       position:relative;z-index:2;display:block;width:100%;
-      font-family:'Cormorant Garamond',serif;
-      font-size:clamp(.85rem,1.25vw,1.05rem);line-height:1.4;
-      color:#E8DDC7;letter-spacing:.03em;font-style:italic;
+      font-family:'IBM Plex Mono',monospace;
+      font-size:clamp(.78rem,1.15vw,.95rem);line-height:1.45;
+      color:#E8DDC7;letter-spacing:.02em;
       white-space:pre-wrap;word-break:break-word;overflow:visible;text-align:left;
       text-shadow:0 0 8px rgba(232,221,199,.18), 0 0 2px rgba(232,221,199,.08);
     }
@@ -60,7 +60,7 @@
     .lightbox.visible{display:flex;}
     .lightbox-inner{position:relative;max-width:98vw;max-height:98vh;line-height:0;cursor:pointer;}
     .lightbox-crt{position:absolute;left:2.5%;width:82%;top:86.5%;height:11%;background:rgba(18,13,8,.78);border:none;border-radius:2px;display:flex;align-items:flex-start;padding:1% 2% 0;overflow:hidden;pointer-events:none;z-index:20;animation:alq-breathe 9s ease-in-out infinite;}
-    .lightbox-crt-text{position:relative;z-index:2;display:block;width:100%;font-family:'Cormorant Garamond',serif;font-size:clamp(.9rem,1.4vw,1.1rem);line-height:1.4;color:#E8DDC7;letter-spacing:.03em;font-style:italic;white-space:pre-wrap;word-break:break-word;overflow:visible;text-align:left;text-shadow:0 0 8px rgba(232,221,199,.18),0 0 2px rgba(232,221,199,.08);}
+    .lightbox-crt-text{position:relative;z-index:2;display:block;width:100%;font-family:'IBM Plex Mono',monospace;font-size:clamp(.82rem,1.2vw,1rem);line-height:1.45;color:#E8DDC7;letter-spacing:.02em;white-space:pre-wrap;word-break:break-word;overflow:visible;text-align:left;text-shadow:0 0 8px rgba(232,221,199,.18),0 0 2px rgba(232,221,199,.08);}
     .lightbox-close{position:fixed;top:1rem;right:1.5rem;background:none;border:none;color:rgba(255,255,255,.5);font-size:2rem;cursor:pointer;z-index:201;line-height:1;transition:color .2s;}
     .lightbox-close:hover{color:white;}
 
@@ -1026,10 +1026,10 @@ function m(key, vars) {
 const MSG = {
   // ── Inicio ──────────────────────────────────────────
   sistemaActivo: [
-    '⚗ LABORATORIO ALQUÍMICO — SISTEMA ACTIVO',
-    '⚗ LABORATORIO ALQUÍMICO — SISTEMA ACTIVO',
-    '⚗ LABORATORIO ALQUÍMICO — SISTEMA ACTIVO',
-    '⚗ LABORATORIO ALQUÍMICO — SISTEMA ACTIVO',
+    '> LABORATORIO ALQUÍMICO — SISTEMA ACTIVO',
+    '> LABORATORIO ALQUÍMICO — SISTEMA ACTIVO',
+    '> LABORATORIO ALQUÍMICO — SISTEMA ACTIVO',
+    '> LABORATORIO ALQUÍMICO — SISTEMA ACTIVO',
   ],
   // ── Hover: objetos fijos ────────────────────────────
   hoverPizarra: [
@@ -1100,248 +1100,248 @@ const MSG = {
   ],
   // ── Selección de botella ─────────────────────────────
   botellaDeseleccionada: [
-    '⚗ Botella deseleccionada.',
-    '⚗ Botella deseleccionada.',
-    '⚗ Botella deseleccionada.',
-    '⚗ Botella deseleccionada.',
+    '> Botella deseleccionada.',
+    '> Botella deseleccionada.',
+    '> Botella deseleccionada.',
+    '> Botella deseleccionada.',
   ],
   botellaSeleccionadaMsg: [
-    '⚗ {hover} — Seleccionada. Haz clic en el matraz para cargarla.',
-    '⚗ {hover} — Seleccionada. Haz clic en el matraz para cargarla.',
-    '⚗ {hover} — Seleccionada. Haz clic en el matraz para cargarla.',
-    '⚗ {hover} — Seleccionada. Haz clic en el matraz para cargarla.',
+    '> {hover} — Seleccionada. Haz clic en el matraz para cargarla.',
+    '> {hover} — Seleccionada. Haz clic en el matraz para cargarla.',
+    '> {hover} — Seleccionada. Haz clic en el matraz para cargarla.',
+    '> {hover} — Seleccionada. Haz clic en el matraz para cargarla.',
   ],
   botellaInservible: [
-    '⚗ {hover} — Este compuesto no puede usarse en combinaciones.',
-    '⚗ {hover} — Este compuesto no puede usarse en combinaciones.',
-    '⚗ {hover} — Este compuesto no puede usarse en combinaciones.',
-    '⚗ {hover} — Este compuesto no puede usarse en combinaciones.',
+    '> {hover} — Este compuesto no puede usarse en combinaciones.',
+    '> {hover} — Este compuesto no puede usarse en combinaciones.',
+    '> {hover} — Este compuesto no puede usarse en combinaciones.',
+    '> {hover} — Este compuesto no puede usarse en combinaciones.',
   ],
   // ── Matraces ────────────────────────────────────────
   matrazVaciado: [
-    '⚗ Matraz vaciado.',
-    '⚗ Matraz vaciado.',
-    '⚗ Matraz vaciado.',
-    '⚗ Matraz vaciado.',
+    '> Matraz vaciado.',
+    '> Matraz vaciado.',
+    '> Matraz vaciado.',
+    '> Matraz vaciado.',
   ],
   matrazVacioSinBotella: [
-    '⚗ El matraz está vacío. Selecciona una botella primero.',
-    '⚗ El matraz está vacío. Selecciona una botella primero.',
-    '⚗ El matraz está vacío. Selecciona una botella primero.',
-    '⚗ El matraz está vacío. Selecciona una botella primero.',
+    '> El matraz está vacío. Selecciona una botella primero.',
+    '> El matraz está vacío. Selecciona una botella primero.',
+    '> El matraz está vacío. Selecciona una botella primero.',
+    '> El matraz está vacío. Selecciona una botella primero.',
   ],
   matrazSinBotella: [
-    '⚗ Selecciona una botella antes de cargar el matraz.',
-    '⚗ Selecciona una botella antes de cargar el matraz.',
-    '⚗ Selecciona una botella antes de cargar el matraz.',
-    '⚗ Selecciona una botella antes de cargar el matraz.',
+    '> Selecciona una botella antes de cargar el matraz.',
+    '> Selecciona una botella antes de cargar el matraz.',
+    '> Selecciona una botella antes de cargar el matraz.',
+    '> Selecciona una botella antes de cargar el matraz.',
   ],
   matrazPrimeraCarga: [
-    '⚗ La esencia comienza a extenderse por el cristal.',
-    '⚗ La esencia comienza a extenderse por el cristal.',
-    '⚗ La esencia comienza a extenderse por el cristal.',
-    '⚗ La esencia comienza a extenderse por el cristal.',
+    '> La esencia comienza a extenderse por el cristal.',
+    '> La esencia comienza a extenderse por el cristal.',
+    '> La esencia comienza a extenderse por el cristal.',
+    '> La esencia comienza a extenderse por el cristal.',
   ],
   matrazSegundaCargaQuemadorOn: [
-    '⚗ Los componentes reaccionan bajo el calor del quemador...',
-    '⚗ Los componentes reaccionan bajo el calor del quemador...',
-    '⚗ Los componentes reaccionan bajo el calor del quemador...',
-    '⚗ Los componentes reaccionan bajo el calor del quemador...',
+    '> Los componentes reaccionan bajo el calor del quemador...',
+    '> Los componentes reaccionan bajo el calor del quemador...',
+    '> Los componentes reaccionan bajo el calor del quemador...',
+    '> Los componentes reaccionan bajo el calor del quemador...',
   ],
   matrazSegundaCargaQuemadorOff: [
-    '⚗ Los componentes están cargados. Enciende el quemador para combinarlos.',
-    '⚗ Los componentes están cargados. Enciende el quemador para combinarlos.',
-    '⚗ Los componentes están cargados. Enciende el quemador para combinarlos.',
-    '⚗ Los componentes están cargados. Enciende el quemador para combinarlos.',
+    '> Los componentes están cargados. Enciende el quemador para combinarlos.',
+    '> Los componentes están cargados. Enciende el quemador para combinarlos.',
+    '> Los componentes están cargados. Enciende el quemador para combinarlos.',
+    '> Los componentes están cargados. Enciende el quemador para combinarlos.',
   ],
   matrazLleno: [
-    '⚗ El matraz ya tiene dos esencias. Activa el quemador para combinarlas.',
-    '⚗ El matraz ya tiene dos esencias. Activa el quemador para combinarlas.',
-    '⚗ El matraz ya tiene dos esencias. Activa el quemador para combinarlas.',
-    '⚗ El matraz ya tiene dos esencias. Activa el quemador para combinarlas.',
+    '> El matraz ya tiene dos esencias. Activa el quemador para combinarlas.',
+    '> El matraz ya tiene dos esencias. Activa el quemador para combinarlas.',
+    '> El matraz ya tiene dos esencias. Activa el quemador para combinarlas.',
+    '> El matraz ya tiene dos esencias. Activa el quemador para combinarlas.',
   ],
   matrazFaltaSegunda: [
-    '⚗ Ambos matraces deben tener una esencia para combinar.',
-    '⚗ Ambos matraces deben tener una esencia para combinar.',
-    '⚗ Ambos matraces deben tener una esencia para combinar.',
-    '⚗ Ambos matraces deben tener una esencia para combinar.',
+    '> Ambos matraces deben tener una esencia para combinar.',
+    '> Ambos matraces deben tener una esencia para combinar.',
+    '> Ambos matraces deben tener una esencia para combinar.',
+    '> Ambos matraces deben tener una esencia para combinar.',
   ],
   // ── Quemador ────────────────────────────────────────
   quemadorOnConDos: [
-    '⚗ [ QUEMADOR ] — Encendido. Las esencias empiezan a reaccionar bajo el calor...',
-    '⚗ [ QUEMADOR ] — Encendido. Las esencias empiezan a reaccionar bajo el calor...',
-    '⚗ [ QUEMADOR ] — Encendido. Las esencias empiezan a reaccionar bajo el calor...',
-    '⚗ [ QUEMADOR ] — Encendido. Las esencias empiezan a reaccionar bajo el calor...',
+    '> [ QUEMADOR ] — Encendido. Las esencias empiezan a reaccionar bajo el calor...',
+    '> [ QUEMADOR ] — Encendido. Las esencias empiezan a reaccionar bajo el calor...',
+    '> [ QUEMADOR ] — Encendido. Las esencias empiezan a reaccionar bajo el calor...',
+    '> [ QUEMADOR ] — Encendido. Las esencias empiezan a reaccionar bajo el calor...',
   ],
   quemadorOnConUna: [
-    '⚗ [ QUEMADOR ] — Encendido. Carga la segunda esencia en el matraz para combinar.',
-    '⚗ [ QUEMADOR ] — Encendido. Carga la segunda esencia en el matraz para combinar.',
-    '⚗ [ QUEMADOR ] — Encendido. Carga la segunda esencia en el matraz para combinar.',
-    '⚗ [ QUEMADOR ] — Encendido. Carga la segunda esencia en el matraz para combinar.',
+    '> [ QUEMADOR ] — Encendido. Carga la segunda esencia en el matraz para combinar.',
+    '> [ QUEMADOR ] — Encendido. Carga la segunda esencia en el matraz para combinar.',
+    '> [ QUEMADOR ] — Encendido. Carga la segunda esencia en el matraz para combinar.',
+    '> [ QUEMADOR ] — Encendido. Carga la segunda esencia en el matraz para combinar.',
   ],
   quemadorOnVacio: [
-    '⚗ [ QUEMADOR ] — Encendido. Carga las esencias en los matraces y observa la reacción.',
-    '⚗ [ QUEMADOR ] — Encendido. Carga las esencias en los matraces y observa la reacción.',
-    '⚗ [ QUEMADOR ] — Encendido. Carga las esencias en los matraces y observa la reacción.',
-    '⚗ [ QUEMADOR ] — Encendido. Carga las esencias en los matraces y observa la reacción.',
+    '> [ QUEMADOR ] — Encendido. Carga las esencias en los matraces y observa la reacción.',
+    '> [ QUEMADOR ] — Encendido. Carga las esencias en los matraces y observa la reacción.',
+    '> [ QUEMADOR ] — Encendido. Carga las esencias en los matraces y observa la reacción.',
+    '> [ QUEMADOR ] — Encendido. Carga las esencias en los matraces y observa la reacción.',
   ],
   quemadorOff: [
-    '⚗ [ QUEMADOR ] — Apagado.',
-    '⚗ [ QUEMADOR ] — Apagado.',
-    '⚗ [ QUEMADOR ] — Apagado.',
-    '⚗ [ QUEMADOR ] — Apagado.',
+    '> [ QUEMADOR ] — Apagado.',
+    '> [ QUEMADOR ] — Apagado.',
+    '> [ QUEMADOR ] — Apagado.',
+    '> [ QUEMADOR ] — Apagado.',
   ],
   // ── Caja ────────────────────────────────────────────
   cajaYaAbierta: [
-    '⚗ [ CAJA ] \u2014 ABIERTA. La recompensa ya es tuya.',
-    '⚗ [ CAJA ] \u2014 ABIERTA. La recompensa ya es tuya.',
-    '⚗ [ CAJA ] \u2014 ABIERTA. La recompensa ya es tuya.',
-    '⚗ [ CAJA ] \u2014 ABIERTA. La recompensa ya es tuya.',
+    '> [ CAJA ] \u2014 ABIERTA. La recompensa ya es tuya.',
+    '> [ CAJA ] \u2014 ABIERTA. La recompensa ya es tuya.',
+    '> [ CAJA ] \u2014 ABIERTA. La recompensa ya es tuya.',
+    '> [ CAJA ] \u2014 ABIERTA. La recompensa ya es tuya.',
   ],
   cajaTomarRecompensa: [
-    '⚗ \u2736 \u00a1Reto superado! La caja est\u00e1 abierta. Haz clic en la caja para tomar tu recompensa.',
-    '⚗ \u2736 \u00a1Reto superado! La caja est\u00e1 abierta. Haz clic en la caja para tomar tu recompensa.',
-    '⚗ \u2736 \u00a1Reto superado! La caja est\u00e1 abierta. Haz clic en la caja para tomar tu recompensa.',
-    '⚗ \u2736 \u00a1Reto superado! La caja est\u00e1 abierta. Haz clic en la caja para tomar tu recompensa.',
+    '> \u2736 \u00a1Reto superado! La caja est\u00e1 abierta. Haz clic en la caja para tomar tu recompensa.',
+    '> \u2736 \u00a1Reto superado! La caja est\u00e1 abierta. Haz clic en la caja para tomar tu recompensa.',
+    '> \u2736 \u00a1Reto superado! La caja est\u00e1 abierta. Haz clic en la caja para tomar tu recompensa.',
+    '> \u2736 \u00a1Reto superado! La caja est\u00e1 abierta. Haz clic en la caja para tomar tu recompensa.',
   ],
   cajaSinDescubiertos: [
-    '⚗ No tienes ningún compuesto descubierto aún.',
-    '⚗ No tienes ningún compuesto descubierto aún.',
-    '⚗ No tienes ningún compuesto descubierto aún.',
-    '⚗ No tienes ningún compuesto descubierto aún.',
+    '> No tienes ningún compuesto descubierto aún.',
+    '> No tienes ningún compuesto descubierto aún.',
+    '> No tienes ningún compuesto descubierto aún.',
+    '> No tienes ningún compuesto descubierto aún.',
   ],
   cajaElementoIncorrecto: [
-    '⚗ {nombre} reacciona con la gema... pero la caja permanece cerrada.',
-    '⚗ {nombre} reacciona con la gema... pero la caja permanece cerrada.',
-    '⚗ {nombre} reacciona con la gema... pero la caja permanece cerrada.',
-    '⚗ {nombre} reacciona con la gema... pero la caja permanece cerrada.',
+    '> {nombre} reacciona con la gema... pero la caja permanece cerrada.',
+    '> {nombre} reacciona con la gema... pero la caja permanece cerrada.',
+    '> {nombre} reacciona con la gema... pero la caja permanece cerrada.',
+    '> {nombre} reacciona con la gema... pero la caja permanece cerrada.',
   ],
   cajaVictoria: [
-    '⚗ \u265F La Esencia Pura disuelve el sello.\n\n\u2736 \u00a1La caja se abre! La recompensa es tuya.',
-    '⚗ \u265F La Esencia Pura disuelve el sello.\n\n\u2736 \u00a1La caja se abre! La recompensa es tuya.',
-    '⚗ \u265F La Esencia Pura disuelve el sello.\n\n\u2736 \u00a1La caja se abre! La recompensa es tuya.',
-    '⚗ \u265F La Esencia Pura disuelve el sello.\n\n\u2736 \u00a1La caja se abre! La recompensa es tuya.',
+    '> \u265F La Esencia Pura disuelve el sello. — \u2736 \u00a1La caja se abre! La recompensa es tuya.',
+    '> \u265F La Esencia Pura disuelve el sello. — \u2736 \u00a1La caja se abre! La recompensa es tuya.',
+    '> \u265F La Esencia Pura disuelve el sello. — \u2736 \u00a1La caja se abre! La recompensa es tuya.',
+    '> \u265F La Esencia Pura disuelve el sello. — \u2736 \u00a1La caja se abre! La recompensa es tuya.',
   ],
   // ── Resultados de combinación ────────────────────────
   resEquilibrio: [
-    '⚗ La mezcla adquiere un tono verde sereno y parece estabilizarse.\n\nObtienes [ \u263F \u2014 ESENCIA DEL EQUILIBRIO ]',
-    '⚗ La mezcla adquiere un tono verde sereno y parece estabilizarse.\n\nObtienes [ \u263F \u2014 ESENCIA DEL EQUILIBRIO ]',
-    '⚗ La mezcla adquiere un tono verde sereno y parece estabilizarse.\n\nObtienes [ \u263F \u2014 ESENCIA DEL EQUILIBRIO ]',
-    '⚗ La mezcla adquiere un tono verde sereno y parece estabilizarse.\n\nObtienes [ \u263F \u2014 ESENCIA DEL EQUILIBRIO ]',
+    '> La mezcla adquiere un tono verde sereno y parece estabilizarse. — Obtienes [ \u263F \u2014 ESENCIA DEL EQUILIBRIO ]',
+    '> La mezcla adquiere un tono verde sereno y parece estabilizarse. — Obtienes [ \u263F \u2014 ESENCIA DEL EQUILIBRIO ]',
+    '> La mezcla adquiere un tono verde sereno y parece estabilizarse. — Obtienes [ \u263F \u2014 ESENCIA DEL EQUILIBRIO ]',
+    '> La mezcla adquiere un tono verde sereno y parece estabilizarse. — Obtienes [ \u263F \u2014 ESENCIA DEL EQUILIBRIO ]',
   ],
   resAmanecer: [
-    '⚗ Un brillo naranja ilumina el matraz durante unos instantes.\n\nObtienes [ \u2605 \u2014 COMPUESTO DEL AMANECER ]',
-    '⚗ Un brillo naranja ilumina el matraz durante unos instantes.\n\nObtienes [ \u2605 \u2014 COMPUESTO DEL AMANECER ]',
-    '⚗ Un brillo naranja ilumina el matraz durante unos instantes.\n\nObtienes [ \u2605 \u2014 COMPUESTO DEL AMANECER ]',
-    '⚗ Un brillo naranja ilumina el matraz durante unos instantes.\n\nObtienes [ \u2605 \u2014 COMPUESTO DEL AMANECER ]',
+    '> Un brillo naranja ilumina el matraz durante unos instantes. — Obtienes [ \u2605 \u2014 COMPUESTO DEL AMANECER ]',
+    '> Un brillo naranja ilumina el matraz durante unos instantes. — Obtienes [ \u2605 \u2014 COMPUESTO DEL AMANECER ]',
+    '> Un brillo naranja ilumina el matraz durante unos instantes. — Obtienes [ \u2605 \u2014 COMPUESTO DEL AMANECER ]',
+    '> Un brillo naranja ilumina el matraz durante unos instantes. — Obtienes [ \u2605 \u2014 COMPUESTO DEL AMANECER ]',
   ],
   resBelica: [
-    '⚗ El líquido rojo comienza a agitarse violentamente.\n\nObtienes [ \u2644 \u2014 ESENCIA BÉLICA ]',
-    '⚗ El líquido rojo comienza a agitarse violentamente.\n\nObtienes [ \u2644 \u2014 ESENCIA BÉLICA ]',
-    '⚗ El líquido rojo comienza a agitarse violentamente.\n\nObtienes [ \u2644 \u2014 ESENCIA BÉLICA ]',
-    '⚗ El líquido rojo comienza a agitarse violentamente.\n\nObtienes [ \u2644 \u2014 ESENCIA BÉLICA ]',
+    '> El líquido rojo comienza a agitarse violentamente. — Obtienes [ \u2644 \u2014 ESENCIA BÉLICA ]',
+    '> El líquido rojo comienza a agitarse violentamente. — Obtienes [ \u2644 \u2014 ESENCIA BÉLICA ]',
+    '> El líquido rojo comienza a agitarse violentamente. — Obtienes [ \u2644 \u2014 ESENCIA BÉLICA ]',
+    '> El líquido rojo comienza a agitarse violentamente. — Obtienes [ \u2644 \u2014 ESENCIA BÉLICA ]',
   ],
   resCorrupto: [
-    '⚗ El compuesto se oscurece y desprende una energía inquietante.\n\nObtienes [ \u2620 \u2014 RESIDUO CORRUPTO ]',
-    '⚗ El compuesto se oscurece y desprende una energía inquietante.\n\nObtienes [ \u2620 \u2014 RESIDUO CORRUPTO ]',
-    '⚗ El compuesto se oscurece y desprende una energía inquietante.\n\nObtienes [ \u2620 \u2014 RESIDUO CORRUPTO ]',
-    '⚗ El compuesto se oscurece y desprende una energía inquietante.\n\nObtienes [ \u2620 \u2014 RESIDUO CORRUPTO ]',
+    '> El compuesto se oscurece y desprende una energía inquietante. — Obtienes [ \u2620 \u2014 RESIDUO CORRUPTO ]',
+    '> El compuesto se oscurece y desprende una energía inquietante. — Obtienes [ \u2620 \u2014 RESIDUO CORRUPTO ]',
+    '> El compuesto se oscurece y desprende una energía inquietante. — Obtienes [ \u2620 \u2014 RESIDUO CORRUPTO ]',
+    '> El compuesto se oscurece y desprende una energía inquietante. — Obtienes [ \u2620 \u2014 RESIDUO CORRUPTO ]',
   ],
   resDorado: [
-    '⚗ Partículas doradas flotan lentamente en el interior del matraz.\n\nObtienes [ \u2736 \u2014 COMPUESTO DORADO ]',
-    '⚗ Partículas doradas flotan lentamente en el interior del matraz.\n\nObtienes [ \u2736 \u2014 COMPUESTO DORADO ]',
-    '⚗ Partículas doradas flotan lentamente en el interior del matraz.\n\nObtienes [ \u2736 \u2014 COMPUESTO DORADO ]',
-    '⚗ Partículas doradas flotan lentamente en el interior del matraz.\n\nObtienes [ \u2736 \u2014 COMPUESTO DORADO ]',
+    '> Partículas doradas flotan lentamente en el interior del matraz. — Obtienes [ \u2736 \u2014 COMPUESTO DORADO ]',
+    '> Partículas doradas flotan lentamente en el interior del matraz. — Obtienes [ \u2736 \u2014 COMPUESTO DORADO ]',
+    '> Partículas doradas flotan lentamente en el interior del matraz. — Obtienes [ \u2736 \u2014 COMPUESTO DORADO ]',
+    '> Partículas doradas flotan lentamente en el interior del matraz. — Obtienes [ \u2736 \u2014 COMPUESTO DORADO ]',
   ],
   resErrorVacia: [
-    '⚗ La reacción se desvanece sin producir ningún resultado.',
-    '⚗ La reacción se desvanece sin producir ningún resultado.',
-    '⚗ La reacción se desvanece sin producir ningún resultado.',
-    '⚗ La reacción se desvanece sin producir ningún resultado.',
+    '> La reacción se desvanece sin producir ningún resultado.',
+    '> La reacción se desvanece sin producir ningún resultado.',
+    '> La reacción se desvanece sin producir ningún resultado.',
+    '> La reacción se desvanece sin producir ningún resultado.',
   ],
   resErrorRota: [
-    '⚗ El cristal no soporta la reacción y el matraz se rompe.',
-    '⚗ El cristal no soporta la reacción y el matraz se rompe.',
-    '⚗ El cristal no soporta la reacción y el matraz se rompe.',
-    '⚗ El cristal no soporta la reacción y el matraz se rompe.',
+    '> El cristal no soporta la reacción y el matraz se rompe.',
+    '> El cristal no soporta la reacción y el matraz se rompe.',
+    '> El cristal no soporta la reacción y el matraz se rompe.',
+    '> El cristal no soporta la reacción y el matraz se rompe.',
   ],
   resErrorExplosion: [
-    '⚗ La mezcla explota violentamente dentro del matraz.',
-    '⚗ La mezcla explota violentamente dentro del matraz.',
-    '⚗ La mezcla explota violentamente dentro del matraz.',
-    '⚗ La mezcla explota violentamente dentro del matraz.',
+    '> La mezcla explota violentamente dentro del matraz.',
+    '> La mezcla explota violentamente dentro del matraz.',
+    '> La mezcla explota violentamente dentro del matraz.',
+    '> La mezcla explota violentamente dentro del matraz.',
   ],
   resErrorCeniza: [
-    '⚗ El compuesto se consume hasta reducirse a cenizas.',
-    '⚗ El compuesto se consume hasta reducirse a cenizas.',
-    '⚗ El compuesto se consume hasta reducirse a cenizas.',
-    '⚗ El compuesto se consume hasta reducirse a cenizas.',
+    '> El compuesto se consume hasta reducirse a cenizas.',
+    '> El compuesto se consume hasta reducirse a cenizas.',
+    '> El compuesto se consume hasta reducirse a cenizas.',
+    '> El compuesto se consume hasta reducirse a cenizas.',
   ],
   resErrorSlime: [
-    '⚗ La mezcla se transforma en una sustancia viscosa e inútil.',
-    '⚗ La mezcla se transforma en una sustancia viscosa e inútil.',
-    '⚗ La mezcla se transforma en una sustancia viscosa e inútil.',
-    '⚗ La mezcla se transforma en una sustancia viscosa e inútil.',
+    '> La mezcla se transforma en una sustancia viscosa e inútil.',
+    '> La mezcla se transforma en una sustancia viscosa e inútil.',
+    '> La mezcla se transforma en una sustancia viscosa e inútil.',
+    '> La mezcla se transforma en una sustancia viscosa e inútil.',
   ],
   resErrorHumo: [
-    '⚗ Un humo oscuro comienza a llenar el recipiente.',
-    '⚗ Un humo oscuro comienza a llenar el recipiente.',
-    '⚗ Un humo oscuro comienza a llenar el recipiente.',
-    '⚗ Un humo oscuro comienza a llenar el recipiente.',
+    '> Un humo oscuro comienza a llenar el recipiente.',
+    '> Un humo oscuro comienza a llenar el recipiente.',
+    '> Un humo oscuro comienza a llenar el recipiente.',
+    '> Un humo oscuro comienza a llenar el recipiente.',
   ],
   resErrorEspuma: [
-    '⚗ Una espuma inestable desborda lentamente el matraz.',
-    '⚗ Una espuma inestable desborda lentamente el matraz.',
-    '⚗ Una espuma inestable desborda lentamente el matraz.',
-    '⚗ Una espuma inestable desborda lentamente el matraz.',
+    '> Una espuma inestable desborda lentamente el matraz.',
+    '> Una espuma inestable desborda lentamente el matraz.',
+    '> Una espuma inestable desborda lentamente el matraz.',
+    '> Una espuma inestable desborda lentamente el matraz.',
   ],
   resIgneo: [
-    '⚗ El líquido emite destellos cálidos como brasas encendidas.\n\nObtienes [ \u2646 \u2014 COMPUESTO ÍGNEO ]',
-    '⚗ El líquido emite destellos cálidos como brasas encendidas.\n\nObtienes [ \u2646 \u2014 COMPUESTO ÍGNEO ]',
-    '⚗ El líquido emite destellos cálidos como brasas encendidas.\n\nObtienes [ \u2646 \u2014 COMPUESTO ÍGNEO ]',
-    '⚗ El líquido emite destellos cálidos como brasas encendidas.\n\nObtienes [ \u2646 \u2014 COMPUESTO ÍGNEO ]',
+    '> El líquido emite destellos cálidos como brasas encendidas. — Obtienes [ \u2646 \u2014 COMPUESTO ÍGNEO ]',
+    '> El líquido emite destellos cálidos como brasas encendidas. — Obtienes [ \u2646 \u2014 COMPUESTO ÍGNEO ]',
+    '> El líquido emite destellos cálidos como brasas encendidas. — Obtienes [ \u2646 \u2014 COMPUESTO ÍGNEO ]',
+    '> El líquido emite destellos cálidos como brasas encendidas. — Obtienes [ \u2646 \u2014 COMPUESTO ÍGNEO ]',
   ],
   resInestable: [
-    '⚗ La esencia vibra peligrosamente como si fuera a colapsar.\n\nObtienes [ \u00d7 \u2014 COMPUESTO INESTABLE ]',
-    '⚗ La esencia vibra peligrosamente como si fuera a colapsar.\n\nObtienes [ \u00d7 \u2014 COMPUESTO INESTABLE ]',
-    '⚗ La esencia vibra peligrosamente como si fuera a colapsar.\n\nObtienes [ \u00d7 \u2014 COMPUESTO INESTABLE ]',
-    '⚗ La esencia vibra peligrosamente como si fuera a colapsar.\n\nObtienes [ \u00d7 \u2014 COMPUESTO INESTABLE ]',
+    '> La esencia vibra peligrosamente como si fuera a colapsar. — Obtienes [ \u00d7 \u2014 COMPUESTO INESTABLE ]',
+    '> La esencia vibra peligrosamente como si fuera a colapsar. — Obtienes [ \u00d7 \u2014 COMPUESTO INESTABLE ]',
+    '> La esencia vibra peligrosamente como si fuera a colapsar. — Obtienes [ \u00d7 \u2014 COMPUESTO INESTABLE ]',
+    '> La esencia vibra peligrosamente como si fuera a colapsar. — Obtienes [ \u00d7 \u2014 COMPUESTO INESTABLE ]',
   ],
   resLunar: [
-    '⚗ Un resplandor azulado recorre lentamente el cristal.\n\nObtienes [ \u263D \u2014 ESENCIA LUNAR ]',
-    '⚗ Un resplandor azulado recorre lentamente el cristal.\n\nObtienes [ \u263D \u2014 ESENCIA LUNAR ]',
-    '⚗ Un resplandor azulado recorre lentamente el cristal.\n\nObtienes [ \u263D \u2014 ESENCIA LUNAR ]',
-    '⚗ Un resplandor azulado recorre lentamente el cristal.\n\nObtienes [ \u263D \u2014 ESENCIA LUNAR ]',
+    '> Un resplandor azulado recorre lentamente el cristal. — Obtienes [ \u263D \u2014 ESENCIA LUNAR ]',
+    '> Un resplandor azulado recorre lentamente el cristal. — Obtienes [ \u263D \u2014 ESENCIA LUNAR ]',
+    '> Un resplandor azulado recorre lentamente el cristal. — Obtienes [ \u263D \u2014 ESENCIA LUNAR ]',
+    '> Un resplandor azulado recorre lentamente el cristal. — Obtienes [ \u263D \u2014 ESENCIA LUNAR ]',
   ],
   resPura: [
-    '⚗ La mezcla emite una luz blanca intensa y perfectamente estable.\n\nObtienes [ \u2640 \u2014 ESENCIA PURA ]',
-    '⚗ La mezcla emite una luz blanca intensa y perfectamente estable.\n\nObtienes [ \u2640 \u2014 ESENCIA PURA ]',
-    '⚗ La mezcla emite una luz blanca intensa y perfectamente estable.\n\nObtienes [ \u2640 \u2014 ESENCIA PURA ]',
-    '⚗ La mezcla emite una luz blanca intensa y perfectamente estable.\n\nObtienes [ \u2640 \u2014 ESENCIA PURA ]',
+    '> La mezcla emite una luz blanca intensa y perfectamente estable. — Obtienes [ \u2640 \u2014 ESENCIA PURA ]',
+    '> La mezcla emite una luz blanca intensa y perfectamente estable. — Obtienes [ \u2640 \u2014 ESENCIA PURA ]',
+    '> La mezcla emite una luz blanca intensa y perfectamente estable. — Obtienes [ \u2640 \u2014 ESENCIA PURA ]',
+    '> La mezcla emite una luz blanca intensa y perfectamente estable. — Obtienes [ \u2640 \u2014 ESENCIA PURA ]',
   ],
   resSabio: [
-    '⚗ El compuesto adopta un brillo violáceo lleno de energía.\n\nObtienes [ \u2643 \u2014 COMPUESTO DEL SABIO ]',
-    '⚗ El compuesto adopta un brillo violáceo lleno de energía.\n\nObtienes [ \u2643 \u2014 COMPUESTO DEL SABIO ]',
-    '⚗ El compuesto adopta un brillo violáceo lleno de energía.\n\nObtienes [ \u2643 \u2014 COMPUESTO DEL SABIO ]',
-    '⚗ El compuesto adopta un brillo violáceo lleno de energía.\n\nObtienes [ \u2643 \u2014 COMPUESTO DEL SABIO ]',
+    '> El compuesto adopta un brillo violáceo lleno de energía. — Obtienes [ \u2643 \u2014 COMPUESTO DEL SABIO ]',
+    '> El compuesto adopta un brillo violáceo lleno de energía. — Obtienes [ \u2643 \u2014 COMPUESTO DEL SABIO ]',
+    '> El compuesto adopta un brillo violáceo lleno de energía. — Obtienes [ \u2643 \u2014 COMPUESTO DEL SABIO ]',
+    '> El compuesto adopta un brillo violáceo lleno de energía. — Obtienes [ \u2643 \u2014 COMPUESTO DEL SABIO ]',
   ],
   resSolar: [
-    '⚗ La esencia dorada irradia calor y luminosidad.\n\nObtienes [ \u2609 \u2014 ESENCIA SOLAR ]',
-    '⚗ La esencia dorada irradia calor y luminosidad.\n\nObtienes [ \u2609 \u2014 ESENCIA SOLAR ]',
-    '⚗ La esencia dorada irradia calor y luminosidad.\n\nObtienes [ \u2609 \u2014 ESENCIA SOLAR ]',
-    '⚗ La esencia dorada irradia calor y luminosidad.\n\nObtienes [ \u2609 \u2014 ESENCIA SOLAR ]',
+    '> La esencia dorada irradia calor y luminosidad. — Obtienes [ \u2609 \u2014 ESENCIA SOLAR ]',
+    '> La esencia dorada irradia calor y luminosidad. — Obtienes [ \u2609 \u2014 ESENCIA SOLAR ]',
+    '> La esencia dorada irradia calor y luminosidad. — Obtienes [ \u2609 \u2014 ESENCIA SOLAR ]',
+    '> La esencia dorada irradia calor y luminosidad. — Obtienes [ \u2609 \u2014 ESENCIA SOLAR ]',
   ],
   resVinculo: [
-    '⚗ El líquido rosado palpita suavemente como si tuviera vida propia.\n\nObtienes [ \u2665 \u2014 COMPUESTO DEL VÍNCULO ]',
-    '⚗ El líquido rosado palpita suavemente como si tuviera vida propia.\n\nObtienes [ \u2665 \u2014 COMPUESTO DEL VÍNCULO ]',
-    '⚗ El líquido rosado palpita suavemente como si tuviera vida propia.\n\nObtienes [ \u2665 \u2014 COMPUESTO DEL VÍNCULO ]',
-    '⚗ El líquido rosado palpita suavemente como si tuviera vida propia.\n\nObtienes [ \u2665 \u2014 COMPUESTO DEL VÍNCULO ]',
+    '> El líquido rosado palpita suavemente como si tuviera vida propia. — Obtienes [ \u2665 \u2014 COMPUESTO DEL VÍNCULO ]',
+    '> El líquido rosado palpita suavemente como si tuviera vida propia. — Obtienes [ \u2665 \u2014 COMPUESTO DEL VÍNCULO ]',
+    '> El líquido rosado palpita suavemente como si tuviera vida propia. — Obtienes [ \u2665 \u2014 COMPUESTO DEL VÍNCULO ]',
+    '> El líquido rosado palpita suavemente como si tuviera vida propia. — Obtienes [ \u2665 \u2014 COMPUESTO DEL VÍNCULO ]',
   ],
   resFallback: [
-    '⚗ La reacción no produce ningún resultado útil.',
-    '⚗ La reacción no produce ningún resultado útil.',
-    '⚗ La reacción no produce ningún resultado útil.',
-    '⚗ La reacción no produce ningún resultado útil.',
+    '> La reacción no produce ningún resultado útil.',
+    '> La reacción no produce ningún resultado útil.',
+    '> La reacción no produce ningún resultado útil.',
+    '> La reacción no produce ningún resultado útil.',
   ],
 };
 
@@ -1426,12 +1426,11 @@ function startType(msg) {
 function wrapMsg(msg) {
   const span = lbOpen ? lightboxCrtTxt : crtText;
   const tmp = document.createElement('span');
-  tmp.style.cssText = 'font-family:"Cormorant Garamond",serif;font-style:italic;font-size:' +
-    getComputedStyle(span).fontSize + ';letter-spacing:.03em;visibility:hidden;position:absolute;white-space:pre;';
-  // Cadena representativa larga para estimar ancho medio en fuente proporcional
-  tmp.textContent = 'abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLM';
+  tmp.style.cssText = 'font-family:"IBM Plex Mono",monospace;font-size:' +
+    getComputedStyle(span).fontSize + ';letter-spacing:.02em;visibility:hidden;position:absolute;white-space:pre;';
+  tmp.textContent = 'X';
   document.body.appendChild(tmp);
-  const charW = tmp.getBoundingClientRect().width / tmp.textContent.length;
+  const charW = tmp.getBoundingClientRect().width;
   document.body.removeChild(tmp);
   const containerW = span.getBoundingClientRect().width || span.parentElement.getBoundingClientRect().width;
   const cols = charW > 0 ? Math.max(10, Math.floor(containerW / charW)) : 47;
@@ -1442,7 +1441,7 @@ function wrapMsg(msg) {
     else { if (cur) lines.push(cur); let rem = w; while (rem.length > cols) { lines.push(rem.slice(0,cols)); rem=rem.slice(cols); } cur=rem; }
   }
   if (cur) lines.push(cur);
-  return lines.join('\n');
+  return lines.join(' ');
 }
 function setConsoleError(on) {
   crtText.classList.toggle('error', on);
