@@ -35,7 +35,7 @@
     .crt-overlay{
       position:absolute;left:2.5%;width:82%;top:86.5%;height:11%;
       background:rgba(18,13,8,.78);border:none;border-radius:2px;
-      display:flex;align-items:flex-start;padding:1% 2% 0;
+      display:flex;align-items:flex-start;padding:2.0% 2% 0;
       overflow:hidden;pointer-events:none;z-index:20;
       animation:alq-breathe 9s ease-in-out infinite;
     }
@@ -59,7 +59,7 @@
     .lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.96);z-index:200;align-items:center;justify-content:center;}
     .lightbox.visible{display:flex;}
     .lightbox-inner{position:relative;max-width:98vw;max-height:98vh;line-height:0;cursor:pointer;}
-    .lightbox-crt{position:absolute;left:2.5%;width:82%;top:86.5%;height:11%;background:rgba(18,13,8,.78);border:none;border-radius:2px;display:flex;align-items:flex-start;padding:1% 2% 0;overflow:hidden;pointer-events:none;z-index:20;animation:alq-breathe 9s ease-in-out infinite;}
+    .lightbox-crt{position:absolute;left:2.5%;width:82%;top:86.5%;height:11%;background:rgba(18,13,8,.78);border:none;border-radius:2px;display:flex;align-items:flex-start;padding:2.2% 2% 0;overflow:hidden;pointer-events:none;z-index:20;animation:alq-breathe 9s ease-in-out infinite;}
     .lightbox-crt-text{position:relative;z-index:2;display:block;width:100%;font-family:'IBM Plex Mono',monospace;font-size:clamp(.82rem,1.2vw,1rem);line-height:1.45;color:#E8DDC7;letter-spacing:.02em;white-space:pre-wrap;word-break:break-word;overflow:visible;text-align:left;text-shadow:0 0 8px rgba(232,221,199,.18),0 0 2px rgba(232,221,199,.08);}
     .lightbox-close{position:fixed;top:1rem;right:1.5rem;background:none;border:none;color:rgba(255,255,255,.5);font-size:2rem;cursor:pointer;z-index:201;line-height:1;transition:color .2s;}
     .lightbox-close:hover{color:white;}
@@ -1412,6 +1412,11 @@ function clearConsole() {
   if (dropHoverBlock) return;   // no borrar mientras hay mensaje de resultado
   if (twTimer) { clearTimeout(twTimer); twTimer = null; }
   twTarget = ''; twIdx = 0;
+  // Resetear padding al neutro (1 línea)
+  const ol = document.querySelector('.crt-overlay');
+  const ll = document.querySelector('.lightbox-crt');
+  if (ol) ol.style.paddingTop = '2.0%';
+  if (ll) ll.style.paddingTop = '2.2%';
   setConsoles(CURSOR_HTML);
 }
 function startType(msg) {
@@ -1425,6 +1430,9 @@ function startType(msg) {
 }
 function wrapMsg(msg) {
   const span = lbOpen ? lightboxCrtTxt : crtText;
+  const overlay = lbOpen
+    ? document.querySelector('.lightbox-crt')
+    : document.querySelector('.crt-overlay');
   const tmp = document.createElement('span');
   tmp.style.cssText = 'font-family:"IBM Plex Mono",monospace;font-size:' +
     getComputedStyle(span).fontSize + ';letter-spacing:.02em;visibility:hidden;position:absolute;white-space:pre;';
@@ -1441,6 +1449,14 @@ function wrapMsg(msg) {
     else { if (cur) lines.push(cur); let rem = w; while (rem.length > cols) { lines.push(rem.slice(0,cols)); rem=rem.slice(cols); } cur=rem; }
   }
   if (cur) lines.push(cur);
+  // Ajuste vertical según número de líneas
+  if (overlay) {
+    if (lbOpen) {
+      overlay.style.paddingTop = lines.length >= 2 ? '0.6%' : '2.2%';
+    } else {
+      overlay.style.paddingTop = lines.length >= 2 ? '0.4%' : '2.0%';
+    }
+  }
   return lines.join(' ');
 }
 function setConsoleError(on) {
@@ -2095,9 +2111,9 @@ function updateExpandIcon() {
 }
 updateExpandIcon();
 
-expandIcon.addEventListener('mouseenter', ()=>typeWrite('> '+getHoverDinamico('objIconoMax')));
+expandIcon.addEventListener('mouseenter', ()=>{ const msg=getHoverDinamico('objIconoMax'); typeWrite(msg.startsWith('> ') ? msg : '> '+msg); });
 expandIcon.addEventListener('mouseleave', ()=>{ lastAlias=null; clearConsole(); });
-expandIconLb.addEventListener('mouseenter', ()=>typeWrite('> '+getHoverDinamico('objIconoMax')));
+expandIconLb.addEventListener('mouseenter', ()=>{ const msg=getHoverDinamico('objIconoMax'); typeWrite(msg.startsWith('> ') ? msg : '> '+msg); });
 expandIconLb.addEventListener('mouseleave', ()=>{ lastAlias=null; clearConsole(); });
 
 expandIcon.addEventListener('click', e=>{ e.stopPropagation(); openLightbox(); });
@@ -2174,7 +2190,7 @@ function onHover(alias) {
   if (alias === lastAlias) return;
   lastAlias = alias;
   const msg = alias ? getHoverDinamico(alias) : null;
-  if (msg) typeWrite('> ' + msg);
+  if (msg) typeWrite(msg.startsWith('> ') ? msg : '> ' + msg);
   else if (!alias) clearConsole();
 }
 
