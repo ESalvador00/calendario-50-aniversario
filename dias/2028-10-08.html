@@ -34,7 +34,10 @@
     @keyframes alq-breathe{0%,100%{opacity:1;}45%{opacity:.93;}50%{opacity:.87;}55%{opacity:.94;}}
     .crt-overlay{
       position:absolute;left:2.5%;width:82%;top:86.5%;height:11%;
-      background:rgba(18,13,8,.78);border:none;border-radius:2px;
+      
+      //background:rgba(18,13,8,.78);border:none;border-radius:2px;
+      background:transparent;border:none;border-radius:2px;
+      
       display:flex;align-items:flex-start;padding:0.8% 2% 0;
       overflow:hidden;pointer-events:none;z-index:20;
       animation:alq-breathe 9s ease-in-out infinite;
@@ -59,7 +62,10 @@
     .lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.96);z-index:200;align-items:center;justify-content:center;}
     .lightbox.visible{display:flex;}
     .lightbox-inner{position:relative;max-width:98vw;max-height:98vh;line-height:0;cursor:pointer;}
-    .lightbox-crt{position:absolute;left:2.5%;width:82%;top:86.5%;height:11%;background:rgba(18,13,8,.78);border:none;border-radius:2px;display:flex;align-items:flex-start;padding:1.0% 2% 0;overflow:hidden;pointer-events:none;z-index:20;animation:alq-breathe 9s ease-in-out infinite;}
+    
+    //.lightbox-crt{position:absolute;left:2.5%;width:82%;top:86.5%;height:11%;background:rgba(18,13,8,.78);border:none;border-radius:2px;display:flex;align-items:flex-start;padding:1.0% 2% 0;overflow:hidden;pointer-events:none;z-index:20;animation:alq-breathe 9s ease-in-out infinite;}
+    .lightbox-crt{position:absolute;left:2.5%;width:82%;top:86.5%;height:11%;background:transparent;border:none;border-radius:2px;display:flex;align-items:flex-start;padding:1.0% 2% 0;overflow:hidden;pointer-events:none;z-index:20;animation:alq-breathe 9s ease-in-out infinite;}
+    
     .lightbox-crt-text{position:relative;z-index:2;display:block;width:100%;font-family:'IBM Plex Mono',monospace;font-size:clamp(.82rem,1.2vw,1rem);line-height:1.45;color:#E8DDC7;letter-spacing:.02em;white-space:pre-wrap;word-break:break-word;overflow:visible;text-align:left;text-shadow:0 0 8px rgba(232,221,199,.18),0 0 2px rgba(232,221,199,.08);}
     .lightbox-close{position:fixed;top:1rem;right:1.5rem;background:none;border:none;color:rgba(255,255,255,.5);font-size:2rem;cursor:pointer;z-index:201;line-height:1;transition:color .2s;}
     .lightbox-close:hover{color:white;}
