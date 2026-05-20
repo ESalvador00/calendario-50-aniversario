@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>8 de Octubre — 50 Aniversario</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:wght@300;400;500&family=IBM+Plex+Mono:ital,wght@0,400;1,400&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=IBM+Plex+Mono:ital,wght@0,400;1,400&family=Share+Tech+Mono&family=Cinzel:wght@400;600;700;900&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
   <style>
     :root{--gold:#C9A84C;--gold-light:#E8C97A;--gold-dark:#8B6914;--cream:#FAF6EE;--dark:#1A1410;}
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -348,203 +348,482 @@
     .popup-btn{display:inline-block;padding:.7rem 2rem;border:1px solid rgba(201,168,76,.4);border-radius:2px;color:var(--gold);font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;background:none;transition:all .2s;}
     .popup-btn:hover{background:rgba(201,168,76,.1);border-color:var(--gold);}
 
-    /* ── Popup logro: Transmutación completada ── */
+    /* ══════════════════════════════════════════
+       POPUP LOGRO — Revelación Alquímica
+    ══════════════════════════════════════════ */
     @keyframes logro-entrada {
-      0%   { opacity:0; transform:scale(.88) translateY(12px); filter:brightness(2.5); }
+      0%   { opacity:0; transform:scale(.88) translateY(12px); filter:brightness(3) saturate(0); }
+      50%  { filter:brightness(1.4) saturate(1.2); }
       60%  { opacity:1; transform:scale(1.02) translateY(-2px); filter:brightness(1.1); }
       100% { opacity:1; transform:scale(1)   translateY(0);    filter:brightness(1);   }
     }
     @keyframes logro-gema-pulso {
-      0%,100% { text-shadow:0 0 12px #e8c97a, 0 0 28px rgba(232,201,122,.5), 0 0 60px rgba(232,201,122,.2); transform:scale(1); }
-      50%     { text-shadow:0 0 20px #fff,     0 0 50px rgba(232,201,122,.9), 0 0 90px rgba(232,201,122,.5); transform:scale(1.08); }
+      0%,100% {
+        text-shadow:0 0 16px #fff8d0, 0 0 40px rgba(255,240,180,.6), 0 0 80px rgba(230,200,100,.3);
+        transform:scale(1);
+      }
+      50% {
+        text-shadow:0 0 30px #fff, 0 0 70px rgba(255,250,220,.95), 0 0 120px rgba(255,210,80,.6), 0 0 200px rgba(200,160,60,.3);
+        transform:scale(1.1);
+      }
     }
     @keyframes logro-runa-giro {
-      from { transform:translate(-50%,-50%) rotate(0deg); }
-      to   { transform:translate(-50%,-50%) rotate(360deg); }
+      from{ transform:translate(-50%,-50%) rotate(0deg); }
+      to  { transform:translate(-50%,-50%) rotate(360deg); }
+    }
+    @keyframes logro-runa-giro-inv {
+      from{ transform:translate(-50%,-50%) rotate(0deg); }
+      to  { transform:translate(-50%,-50%) rotate(-360deg); }
     }
     @keyframes logro-linea-expand {
-      from { width:0; opacity:0; }
-      to   { width:80%; opacity:1; }
+      from{ width:0; opacity:0; }
+      to  { width:80%; opacity:1; }
     }
     @keyframes logro-texto-fade {
-      from { opacity:0; transform:translateY(6px); }
-      to   { opacity:1; transform:translateY(0); }
+      from{ opacity:0; transform:translateY(6px); }
+      to  { opacity:1; transform:translateY(0); }
     }
     @keyframes logro-btn-pulse {
-      0%,100% { box-shadow:0 0 0 0 rgba(201,168,76,0); }
-      50%     { box-shadow:0 0 20px 4px rgba(201,168,76,.3); }
+      0%,100%{ box-shadow:0 0 0 0 rgba(255,240,180,0), inset 0 1px 0 rgba(255,255,255,.1); }
+      50%    { box-shadow:0 0 28px 6px rgba(255,240,180,.18), inset 0 1px 0 rgba(255,255,255,.1); }
+    }
+    @keyframes logro-halo-expand {
+      0%  { transform:translate(-50%,-50%) scale(.5); opacity:.35; }
+      70% { opacity:.1; }
+      100%{ transform:translate(-50%,-50%) scale(2.2); opacity:0; }
+    }
+    @keyframes logro-particle-ascend {
+      0%  { transform:translateY(0) translateX(0) scale(1); opacity:.7; }
+      100%{ transform:translateY(-120px) translateX(var(--px,0px)) scale(.1); opacity:0; }
+    }
+    @keyframes logro-smoke-drift {
+      0%  { transform:translateY(0) translateX(-50%) scaleX(1); opacity:.18; }
+      50% { opacity:.08; }
+      100%{ transform:translateY(-60px) translateX(-50%) scaleX(1.8); opacity:0; }
     }
 
     .logro-popup {
       display:none; position:fixed; inset:0; z-index:450;
       align-items:center; justify-content:center;
-      background:radial-gradient(ellipse at 50% 40%, rgba(35,20,5,.97) 0%, rgba(8,5,2,.99) 100%);
+      background:radial-gradient(ellipse at 50% 30%, rgba(50,35,8,.97) 0%, rgba(8,5,2,.99) 100%);
     }
     .logro-popup.visible { display:flex; }
 
     .logro-box {
       position:relative; overflow:hidden;
-      max-width:500px; width:93%;
-      padding:3rem 2.6rem 2.4rem;
+      max-width:520px; width:93%;
+      padding:3.2rem 2.8rem 2.6rem;
       text-align:center;
       background:
-        radial-gradient(ellipse at 50% 0%, rgba(201,168,76,.09) 0%, transparent 65%),
-        linear-gradient(180deg, rgba(18,9,3,0) 0%, #0e0702 100%);
-      border:1px solid rgba(201,168,76,.38);
-      border-radius:2px;
+        radial-gradient(ellipse at 50% -5%, rgba(255,240,160,.12) 0%, transparent 55%),
+        radial-gradient(ellipse at 25% 110%, rgba(180,130,30,.1) 0%, transparent 50%),
+        radial-gradient(ellipse at 75% 110%, rgba(150,100,20,.08) 0%, transparent 50%),
+        linear-gradient(180deg, rgba(40,25,5,.0) 0%, rgba(12,8,2,1) 100%);
+      border:1px solid rgba(255,240,160,.42);
+      border-radius:1px;
       box-shadow:
-        0 0 0 1px rgba(201,168,76,.08),
-        0 0 60px rgba(0,0,0,.95),
-        inset 0 1px 0 rgba(201,168,76,.12),
-        inset 0 0 80px rgba(201,168,76,.03);
-      animation: logro-entrada .65s cubic-bezier(.22,.9,.36,1) both;
+        0 0 0 4px rgba(255,240,160,.05),
+        0 0 0 8px rgba(255,240,160,.02),
+        0 0 100px rgba(0,0,0,.95),
+        0 0 60px rgba(200,160,40,.06),
+        inset 0 1px 0 rgba(255,240,180,.14),
+        inset 0 0 100px rgba(10,6,1,.95);
+      animation: logro-entrada .75s cubic-bezier(.22,.9,.36,1) both;
     }
+
+    /* Esquinas doradas brillantes */
     .logro-box::before,
     .logro-box::after {
-      content:'';
-      position:absolute;
-      width:22px; height:22px;
-      border-color:rgba(201,168,76,.6);
-      border-style:solid;
+      content:''; position:absolute;
+      width:28px; height:28px;
+      border-color:rgba(255,240,160,.65); border-style:solid;
     }
-    .logro-box::before { top:10px; left:10px;  border-width:1px 0 0 1px; }
-    .logro-box::after  { bottom:10px; right:10px; border-width:0 1px 1px 0; }
-    .logro-corner-tr, .logro-corner-bl {
-      position:absolute;
-      width:22px; height:22px;
-      border-color:rgba(201,168,76,.6);
-      border-style:solid;
+    .logro-box::before{ top:12px; left:12px;  border-width:1px 0 0 1px; }
+    .logro-box::after { bottom:12px; right:12px; border-width:0 1px 1px 0; }
+    .logro-corner-tr,
+    .logro-corner-bl {
+      position:absolute; width:28px; height:28px;
+      border-color:rgba(255,240,160,.65); border-style:solid;
       pointer-events:none;
     }
-    .logro-corner-tr { top:10px; right:10px;  border-width:1px 1px 0 0; }
-    .logro-corner-bl { bottom:10px; left:10px; border-width:0 0 1px 1px; }
+    .logro-corner-tr{ top:12px; right:12px;  border-width:1px 1px 0 0; }
+    .logro-corner-bl{ bottom:12px; left:12px; border-width:0 0 1px 1px; }
 
+    /* Halo de revelación (círculo de luz que expande al aparecer) */
+    .logro-halo {
+      position:absolute; top:38%; left:50%;
+      transform:translate(-50%,-50%);
+      width:120px; height:120px;
+      border-radius:50%;
+      border:1px solid rgba(255,240,160,.3);
+      pointer-events:none; z-index:0;
+      animation:logro-halo-expand 2s .2s ease-out both;
+    }
+    .logro-halo-2 {
+      position:absolute; top:38%; left:50%;
+      transform:translate(-50%,-50%);
+      width:80px; height:80px;
+      border-radius:50%;
+      border:1px solid rgba(255,240,160,.2);
+      pointer-events:none; z-index:0;
+      animation:logro-halo-expand 2s .4s ease-out both;
+    }
+
+    /* Gran runa doble giratoria de fondo */
     .logro-runa-bg {
       position:absolute; top:50%; left:50%;
       transform:translate(-50%,-50%);
-      font-size:16rem; line-height:1;
+      font-size:17rem; line-height:1;
       color:transparent;
-      -webkit-text-stroke:1px rgba(201,168,76,.05);
+      -webkit-text-stroke:1px rgba(255,240,160,.055);
       pointer-events:none; user-select:none;
-      animation:logro-runa-giro 60s linear infinite;
-      font-family:'Playfair Display',serif;
+      animation:logro-runa-giro 50s linear infinite;
+      font-family:'Cinzel',serif;
+    }
+    .logro-runa-bg-2 {
+      position:absolute; top:50%; left:50%;
+      transform:translate(-50%,-50%);
+      font-size:10rem; line-height:1;
+      color:transparent;
+      -webkit-text-stroke:1px rgba(255,240,160,.04);
+      pointer-events:none; user-select:none;
+      animation:logro-runa-giro-inv 35s linear infinite;
+      font-family:'Cinzel',serif;
+    }
+
+    /* Humo brillante bajo la gema */
+    .logro-smoke {
+      position:absolute; bottom:42%; left:50%;
+      transform:translateX(-50%);
+      width:60px; height:30px;
+      background:radial-gradient(ellipse at 50% 100%, rgba(255,245,200,.15) 0%, transparent 70%);
+      border-radius:50%;
+      pointer-events:none; z-index:1;
+      animation:logro-smoke-drift 2.5s ease-out infinite;
+    }
+    .logro-smoke-2 {
+      position:absolute; bottom:42%; left:50%;
+      transform:translateX(-50%);
+      width:40px; height:20px;
+      background:radial-gradient(ellipse at 50% 100%, rgba(200,160,255,.1) 0%, transparent 70%);
+      border-radius:50%;
+      pointer-events:none; z-index:1;
+      animation:logro-smoke-drift 3.2s .6s ease-out infinite;
+    }
+
+    /* Partículas doradas ascendentes */
+    .logro-particle {
+      position:absolute; border-radius:50%;
+      width:2px; height:2px;
+      background:rgba(255,240,160,.8);
+      pointer-events:none; z-index:1;
+      animation:logro-particle-ascend var(--dur,2.5s) var(--delay,0s) ease-out infinite;
+      box-shadow:0 0 4px rgba(255,240,160,.6);
     }
 
     .logro-close-x {
       position:absolute; top:.75rem; right:1rem;
-      background:none; border:none; color:rgba(201,168,76,.3);
+      background:none; border:none; color:rgba(255,240,160,.25);
       font-size:1rem; cursor:pointer; line-height:1;
       transition:color .2s; font-family:'Share Tech Mono',monospace;
-      letter-spacing:.05em;
+      letter-spacing:.05em; z-index:10;
     }
-    .logro-close-x:hover { color:rgba(201,168,76,.8); }
+    .logro-close-x:hover{ color:rgba(255,240,160,.75); }
 
+    /* Línea de símbolos alquímicos */
     .logro-pretitulo {
-      font-family:'Share Tech Mono',monospace;
-      font-size:.62rem; letter-spacing:.45em; text-transform:uppercase;
-      color:rgba(201,168,76,.45); margin-bottom:1.4rem;
+      position:relative; z-index:2;
+      font-family:'Cinzel',serif;
+      font-size:.58rem; letter-spacing:.55em; text-transform:uppercase;
+      color:rgba(255,240,160,.4); margin-bottom:1.4rem;
       animation:logro-texto-fade .5s .3s both;
     }
+
     .logro-gema {
-      font-size:3.4rem; line-height:1; margin-bottom:1.1rem;
+      position:relative; z-index:2;
+      font-size:3.8rem; line-height:1; margin-bottom:1.1rem;
       display:inline-block;
       animation:logro-gema-pulso 3s ease-in-out infinite, logro-texto-fade .4s .1s both;
     }
+
     .logro-titulo {
-      font-family:'Playfair Display',serif;
-      font-size:clamp(1.3rem,3.5vw,1.8rem);
-      font-weight:900; font-style:italic;
-      background:linear-gradient(135deg,#fff8e8 0%,var(--gold-light) 40%,var(--gold) 70%,var(--gold-dark) 100%);
+      position:relative; z-index:2;
+      font-family:'Cinzel',serif;
+      font-size:clamp(1.15rem,3.2vw,1.65rem);
+      font-weight:700;
+      letter-spacing:.08em;
+      background:linear-gradient(135deg, #fffbe8 0%, #f5e490 30%, #d4a820 65%, #a07510 100%);
       -webkit-background-clip:text; -webkit-text-fill-color:transparent;
       background-clip:text;
       margin-bottom:1.4rem;
+      text-shadow:none;
       animation:logro-texto-fade .5s .2s both;
     }
+
     .logro-sep {
       display:block; height:1px; margin:0 auto 1.5rem;
-      background:linear-gradient(90deg,transparent,rgba(201,168,76,.5),transparent);
+      background:linear-gradient(90deg, transparent, rgba(255,240,160,.55), transparent);
       animation:logro-linea-expand .6s .35s both;
+      position:relative; z-index:2;
     }
+
     .logro-cuerpo {
-      font-family:'Cormorant Garamond',serif;
-      font-size:clamp(.93rem,2vw,1.05rem); font-style:italic;
-      color:rgba(250,246,238,.68); line-height:1.85;
+      position:relative; z-index:2;
+      font-family:'EB Garamond',serif;
+      font-size:clamp(.95rem,2vw,1.08rem); font-style:italic;
+      color:rgba(250,240,210,.62); line-height:1.9;
       margin-bottom:1.4rem; text-align:left;
       animation:logro-texto-fade .5s .45s both;
     }
-    .logro-cuerpo p { margin-bottom:.85rem; }
-    .logro-cuerpo p:last-child { margin-bottom:0; }
+    .logro-cuerpo p{ margin-bottom:.85rem; }
+    .logro-cuerpo p:last-child{ margin-bottom:0; }
+
     .logro-item {
+      position:relative; z-index:2;
       display:inline-block; margin:0 auto 2rem;
-      padding:.45rem 1.3rem;
-      border:1px solid rgba(201,168,76,.35); border-radius:1px;
-      font-family:'Share Tech Mono',monospace;
-      font-size:.8rem; letter-spacing:.12em;
-      color:var(--gold-light); background:rgba(201,168,76,.06);
+      padding:.5rem 1.5rem;
+      border:1px solid rgba(255,240,160,.38); border-radius:1px;
+      font-family:'Cinzel',serif;
+      font-size:.68rem; letter-spacing:.18em;
+      color:rgba(255,240,160,.8);
+      background:rgba(255,240,160,.04);
+      box-shadow:0 0 16px rgba(255,240,160,.06), inset 0 0 20px rgba(255,240,160,.03);
       animation:logro-texto-fade .5s .55s both;
     }
+
     .logro-btn {
-      display:inline-block; padding:.8rem 2.8rem;
-      background:linear-gradient(135deg,rgba(201,168,76,.2),rgba(201,168,76,.07));
-      border:1px solid rgba(201,168,76,.55); border-radius:1px;
-      color:var(--gold-light);
-      font-family:'Share Tech Mono',monospace;
-      font-size:.78rem; letter-spacing:.35em; text-transform:uppercase;
-      cursor:pointer; transition:all .25s;
+      position:relative; z-index:2;
+      display:inline-block; padding:.95rem 3rem;
+      background:linear-gradient(135deg, rgba(255,240,160,.18) 0%, rgba(220,180,60,.08) 50%, rgba(160,100,10,.14) 100%);
+      border:1px solid rgba(255,240,160,.55); border-radius:1px;
+      color:#F5E4A0;
+      font-family:'Cinzel',serif;
+      font-size:.7rem; font-weight:600;
+      letter-spacing:.35em; text-transform:uppercase;
+      cursor:pointer; transition:all .3s;
+      text-shadow:0 0 16px rgba(255,240,160,.3);
+      box-shadow:0 0 0 1px rgba(255,240,160,.07), inset 0 1px 0 rgba(255,255,255,.1), 0 4px 30px rgba(0,0,0,.7);
       animation:logro-texto-fade .5s .65s both, logro-btn-pulse 2.5s 1.2s ease-in-out infinite;
     }
     .logro-btn:hover {
-      background:rgba(201,168,76,.28); border-color:var(--gold);
-      box-shadow:0 0 24px rgba(201,168,76,.35);
+      background:linear-gradient(135deg, rgba(255,240,160,.3) 0%, rgba(220,180,60,.18) 50%, rgba(180,120,20,.22) 100%);
+      border-color:rgba(255,240,160,.9);
+      color:#FFFBE0;
+      box-shadow:0 0 40px rgba(255,240,160,.25), 0 0 16px rgba(255,240,160,.15), inset 0 1px 0 rgba(255,255,255,.15), 0 4px 30px rgba(0,0,0,.7);
       letter-spacing:.42em;
-      animation:logro-texto-fade 0s; /* cancelar pulso en hover */
-    }
-    @media(max-width:600px){
-      .logro-box { padding:2.2rem 1.5rem 2rem; }
-      .logro-runa-bg { font-size:8rem; }
-      .logro-cuerpo { font-size:.88rem; }
+      text-shadow:0 0 24px rgba(255,240,160,.6);
+      animation:none;
     }
 
-    /* ── Popup introductorio ── */
-    .intro-popup{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:400;align-items:center;justify-content:center;}
-    .intro-popup.visible{display:flex;}
-    .intro-box{
-      background:var(--dark);
-      border:1px solid rgba(201,168,76,.35);
-      border-radius:6px;
-      padding:3rem 2.5rem 2.5rem;
-      max-width:520px;width:92%;
-      text-align:center;
-      box-shadow:0 0 80px rgba(0,0,0,.95), inset 0 0 60px rgba(201,168,76,.03);
-      position:relative;
+    @media(max-width:600px){
+      .logro-box{ padding:2.2rem 1.5rem 2rem; }
+      .logro-runa-bg{ font-size:8rem; }
+      .logro-runa-bg-2{ font-size:5rem; }
+      .logro-cuerpo{ font-size:.88rem; }
+      .logro-btn{ padding:.8rem 2rem; font-size:.62rem; letter-spacing:.25em; }
     }
-    .intro-icon{font-size:2.6rem;line-height:1;margin-bottom:1.2rem;filter:drop-shadow(0 0 10px rgba(201,168,76,.6));}
+
+    /* ══════════════════════════════════════════
+       POPUP INTRODUCTORIO — Grimoire / Arcane
+    ══════════════════════════════════════════ */
+    @keyframes intro-candle-flicker {
+      0%,100%{ opacity:.82; }
+      18%{ opacity:.68; }
+      37%{ opacity:.9; }
+      55%{ opacity:.72; }
+      74%{ opacity:.87; }
+    }
+    @keyframes intro-particle-rise {
+      0%  { transform:translateY(0) translateX(0) scale(1); opacity:.55; }
+      60% { opacity:.3; }
+      100%{ transform:translateY(-90px) translateX(var(--px,8px)) scale(.3); opacity:0; }
+    }
+    @keyframes intro-entrada {
+      0%  { opacity:0; transform:scale(.93) translateY(18px); filter:brightness(2); }
+      70% { opacity:1; transform:scale(1.01) translateY(-2px); filter:brightness(1.05); }
+      100%{ opacity:1; transform:scale(1)   translateY(0);    filter:brightness(1); }
+    }
+    @keyframes intro-filigrana-giro {
+      from{ transform:translate(-50%,-50%) rotate(0deg); }
+      to  { transform:translate(-50%,-50%) rotate(360deg); }
+    }
+    @keyframes intro-seal-pulse {
+      0%,100%{ box-shadow:0 0 0 0 rgba(201,168,76,0), 0 0 80px rgba(0,0,0,.95), inset 0 0 80px rgba(8,4,1,.9); }
+      50%    { box-shadow:0 0 32px 4px rgba(201,168,76,.08), 0 0 80px rgba(0,0,0,.95), inset 0 0 80px rgba(8,4,1,.9); }
+    }
+    @keyframes intro-rune-drift {
+      0%,100%{ letter-spacing:.6em; opacity:.06; }
+      50%    { letter-spacing:.75em; opacity:.1; }
+    }
+
+    .intro-popup{
+      display:none; position:fixed; inset:0; z-index:400;
+      align-items:center; justify-content:center;
+      background:radial-gradient(ellipse at 50% 35%, rgba(30,14,4,.97) 0%, rgba(5,3,1,.99) 100%);
+      animation:intro-candle-flicker 8s ease-in-out infinite;
+    }
+    .intro-popup.visible{ display:flex; }
+
+    .intro-box{
+      position:relative; overflow:hidden;
+      max-width:540px; width:93%;
+      padding:3.2rem 2.8rem 2.8rem;
+      text-align:center;
+      background:
+        radial-gradient(ellipse at 50% -10%, rgba(201,168,76,.11) 0%, transparent 60%),
+        radial-gradient(ellipse at 20% 100%, rgba(120,55,10,.12) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 100%, rgba(80,30,5,.1) 0%, transparent 50%),
+        linear-gradient(180deg, rgba(22,11,3,0) 0%, #0d0602 100%);
+      border:1px solid rgba(201,168,76,.32);
+      border-radius:1px;
+      box-shadow:
+        0 0 0 4px rgba(201,168,76,.04),
+        0 0 0 8px rgba(201,168,76,.02),
+        0 0 80px rgba(0,0,0,.95),
+        inset 0 0 80px rgba(8,4,1,.9);
+      animation:intro-entrada .7s cubic-bezier(.22,.9,.36,1) both, intro-seal-pulse 5s 1s ease-in-out infinite;
+    }
+
+    /* Esquinas alquímicas decorativas — cuatro ángulos */
+    .intro-box::before,
+    .intro-box::after {
+      content:''; position:absolute;
+      width:28px; height:28px;
+      border-color:rgba(201,168,76,.55); border-style:solid;
+    }
+    .intro-box::before{ top:12px; left:12px;  border-width:1px 0 0 1px; }
+    .intro-box::after { bottom:12px; right:12px; border-width:0 1px 1px 0; }
+    .intro-corner-tr,
+    .intro-corner-bl {
+      position:absolute; width:28px; height:28px;
+      border-color:rgba(201,168,76,.55); border-style:solid;
+      pointer-events:none;
+    }
+    .intro-corner-tr{ top:12px; right:12px;  border-width:1px 1px 0 0; }
+    .intro-corner-bl{ bottom:12px; left:12px; border-width:0 0 1px 1px; }
+
+    /* Gran runa de fondo giratoria */
+    .intro-runa-bg {
+      position:absolute; top:50%; left:50%;
+      transform:translate(-50%,-50%);
+      font-size:18rem; line-height:1;
+      color:transparent;
+      -webkit-text-stroke:1px rgba(201,168,76,.04);
+      pointer-events:none; user-select:none;
+      animation:intro-filigrana-giro 90s linear infinite;
+      font-family:'Cinzel',serif;
+    }
+
+    /* Línea superior de símbolos alquímicos */
+    .intro-sigils {
+      position:relative; z-index:2;
+      font-size:.75rem; letter-spacing:.6em;
+      color:rgba(201,168,76,.3);
+      margin-bottom:1.6rem;
+      font-family:'Cinzel',serif;
+      animation:intro-rune-drift 6s ease-in-out infinite;
+      user-select:none;
+    }
+
+    /* Separador ornamental */
+    .intro-ornament {
+      display:flex; align-items:center; justify-content:center;
+      gap:.7rem; margin:0 auto 1.5rem;
+      position:relative; z-index:2;
+    }
+    .intro-orn-line {
+      height:1px; width:50px;
+      background:linear-gradient(to right, transparent, rgba(201,168,76,.5));
+    }
+    .intro-orn-line.r {
+      background:linear-gradient(to left, transparent, rgba(201,168,76,.5));
+    }
+    .intro-orn-diamond {
+      width:6px; height:6px;
+      background:rgba(201,168,76,.6);
+      transform:rotate(45deg);
+      box-shadow:0 0 6px rgba(201,168,76,.4);
+    }
+
+    .intro-icon{
+      position:relative; z-index:2;
+      font-size:2.8rem; line-height:1; margin-bottom:1.1rem;
+      filter:drop-shadow(0 0 10px rgba(201,168,76,.5)) drop-shadow(0 0 24px rgba(201,168,76,.25));
+      animation:intro-candle-flicker 4s ease-in-out infinite;
+    }
     .intro-title{
-      font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:700;
-      color:var(--gold-light);margin-bottom:1.4rem;letter-spacing:.02em;
+      position:relative; z-index:2;
+      font-family:'Cinzel',serif;
+      font-size:clamp(1.15rem,3.2vw,1.5rem);
+      font-weight:700;
+      letter-spacing:.1em;
+      color:#EAD89A;
+      text-shadow:0 0 20px rgba(201,168,76,.25), 0 2px 4px rgba(0,0,0,.8);
+      margin-bottom:1.6rem;
     }
     .intro-body{
-      font-size:.97rem;font-style:italic;color:rgba(250,246,238,.62);
-      line-height:1.85;margin-bottom:2.2rem;text-align:left;
+      position:relative; z-index:2;
+      font-family:'EB Garamond',serif;
+      font-size:clamp(.93rem,2vw,1.05rem);
+      font-style:italic;
+      color:rgba(240,230,208,.6);
+      line-height:1.9; margin-bottom:2.2rem; text-align:left;
     }
-    .intro-body p{margin-bottom:.9rem;}
-    .intro-body p:last-child{margin-bottom:0;}
+    .intro-body p{ margin-bottom:.9rem; }
+    .intro-body p:last-child{ margin-bottom:0; }
+
+    /* Partículas de vela flotantes */
+    .intro-particle {
+      position:absolute; border-radius:50%;
+      width:2px; height:2px;
+      background:rgba(201,168,76,.7);
+      pointer-events:none; z-index:1;
+      animation:intro-particle-rise var(--dur,3s) var(--delay,0s) ease-out infinite;
+      box-shadow:0 0 4px rgba(201,168,76,.5);
+    }
+
+    /* Botón ceremonial */
+    .intro-btn-wrap{
+      position:relative; z-index:2;
+      display:inline-block;
+    }
     .intro-btn{
       display:inline-block;
-      padding:.75rem 2.2rem;
-      background:linear-gradient(135deg,rgba(201,168,76,.18),rgba(201,168,76,.07));
-      border:1px solid rgba(201,168,76,.5);border-radius:3px;
-      color:var(--gold-light);
-      font-family:'Share Tech Mono',monospace;
-      font-size:.78rem;letter-spacing:.22em;text-transform:uppercase;
-      cursor:pointer;transition:all .2s;
+      padding:.95rem 2.8rem;
+      background:linear-gradient(135deg, rgba(201,168,76,.16) 0%, rgba(201,168,76,.06) 50%, rgba(140,100,20,.12) 100%);
+      border:1px solid rgba(201,168,76,.55);
+      border-radius:1px;
+      color:#DCC87A;
+      font-family:'Cinzel',serif;
+      font-size:.72rem; font-weight:600;
+      letter-spacing:.3em; text-transform:uppercase;
+      cursor:pointer;
+      transition:all .35s;
+      position:relative; overflow:hidden;
+      text-shadow:0 0 12px rgba(201,168,76,.3);
+      box-shadow:0 0 0 1px rgba(201,168,76,.08), inset 0 1px 0 rgba(201,168,76,.1), 0 4px 24px rgba(0,0,0,.6);
     }
-    .intro-btn:hover{background:rgba(201,168,76,.28);border-color:var(--gold);box-shadow:0 0 16px rgba(201,168,76,.3);}
+    .intro-btn::before{
+      content:''; position:absolute; inset:0;
+      background:linear-gradient(135deg, transparent 0%, rgba(201,168,76,.08) 50%, transparent 100%);
+      opacity:0; transition:opacity .3s;
+    }
+    .intro-btn:hover{
+      background:linear-gradient(135deg, rgba(201,168,76,.28) 0%, rgba(201,168,76,.15) 50%, rgba(160,115,20,.22) 100%);
+      border-color:rgba(201,168,76,.85);
+      color:#F5E4A0;
+      box-shadow:0 0 32px rgba(201,168,76,.25), 0 0 12px rgba(201,168,76,.15), inset 0 1px 0 rgba(201,168,76,.2), 0 4px 24px rgba(0,0,0,.6);
+      letter-spacing:.36em;
+      text-shadow:0 0 20px rgba(201,168,76,.5);
+    }
+    .intro-btn:hover::before{ opacity:1; }
 
     @media(max-width:600px){
-      .intro-box{padding:2rem 1.4rem 2rem;}
-      .intro-title{font-size:1.1rem;}
-      .intro-body{font-size:.88rem;}
+      .intro-box{ padding:2.2rem 1.5rem 2.2rem; }
+      .intro-runa-bg{ font-size:8rem; }
+      .intro-title{ font-size:1.05rem; }
+      .intro-body{ font-size:.88rem; }
+      .intro-btn{ padding:.8rem 2rem; font-size:.65rem; letter-spacing:.22em; }
     }
 
     @media(max-width:600px){
@@ -656,13 +935,32 @@
 <!-- Popup: logro — Transmutación completada -->
 <div class="logro-popup" id="logro-popup">
   <div class="logro-box">
-    <span class="logro-runa-bg" aria-hidden="true">☽</span>
+    <!-- Runas de fondo dobles giratorias -->
+    <span class="logro-runa-bg"   aria-hidden="true">✦</span>
+    <span class="logro-runa-bg-2" aria-hidden="true">◈</span>
+    <!-- Halos de revelación -->
+    <div class="logro-halo"   aria-hidden="true"></div>
+    <div class="logro-halo-2" aria-hidden="true"></div>
+    <!-- Humo brillante bajo la gema -->
+    <div class="logro-smoke"   aria-hidden="true"></div>
+    <div class="logro-smoke-2" aria-hidden="true"></div>
+    <!-- Partículas doradas ascendentes -->
+    <div class="logro-particle" style="left:20%;bottom:40%;--dur:2.2s;--delay:0s;  --px:-12px;" aria-hidden="true"></div>
+    <div class="logro-particle" style="left:35%;bottom:38%;--dur:3.1s;--delay:.4s; --px:8px;"  aria-hidden="true"></div>
+    <div class="logro-particle" style="left:50%;bottom:42%;--dur:2.7s;--delay:.8s; --px:-6px;" aria-hidden="true"></div>
+    <div class="logro-particle" style="left:65%;bottom:39%;--dur:3.4s;--delay:.2s; --px:14px;" aria-hidden="true"></div>
+    <div class="logro-particle" style="left:78%;bottom:41%;--dur:2.5s;--delay:.6s; --px:-10px;"aria-hidden="true"></div>
+    <div class="logro-particle" style="left:28%;bottom:45%;--dur:3.8s;--delay:1s;  --px:5px;"  aria-hidden="true"></div>
+    <div class="logro-particle" style="left:72%;bottom:44%;--dur:2.9s;--delay:1.3s;--px:-8px;" aria-hidden="true"></div>
+    <!-- Esquinas decorativas -->
     <div class="logro-corner-tr" aria-hidden="true"></div>
     <div class="logro-corner-bl" aria-hidden="true"></div>
+    <!-- Botón cerrar -->
     <button class="logro-close-x" id="logro-close-x">&#10005;</button>
-    <p class="logro-pretitulo">— Reto completado —</p>
-    <div class="logro-gema">◇</div>
-    <p class="logro-titulo">Transmutación completada</p>
+    <!-- Contenido -->
+    <p class="logro-pretitulo">✦ &nbsp; La Gran Obra &nbsp; ✦</p>
+    <div class="logro-gema">💎</div>
+    <p class="logro-titulo">La transmutación se ha completado</p>
     <span class="logro-sep"></span>
     <div class="logro-cuerpo">
       <p>La caja finalmente se abre y una intensa luz blanca inunda el laboratorio.</p>
@@ -670,23 +968,55 @@
       <p>Has demostrado comprender las leyes fundamentales de la alquimia.</p>
       <p>Pero esta era solo la primera obra.</p>
     </div>
-    <p class="logro-item">◇ &mdash; FRAGMENTO DE LA PIEDRA FILOSOFAL</p><br>
-    <button class="logro-btn" id="logro-btn-reclamar">RECLAMAR</button>
+    <p class="logro-item">◈ &nbsp;&mdash;&nbsp; FRAGMENTO DE LA PIEDRA FILOSOFAL &nbsp;&mdash;&nbsp; ◈</p><br>
+    <button class="logro-btn" id="logro-btn-reclamar">[ CONTINUAR LA GRAN OBRA ]</button>
   </div>
 </div>
 
 <!-- Popup: introducción al reto -->
 <div class="intro-popup" id="intro-popup">
   <div class="intro-box">
+    <!-- Gran runa giratoria de fondo -->
+    <span class="intro-runa-bg" aria-hidden="true">⚗</span>
+    <!-- Esquinas decorativas -->
+    <div class="intro-corner-tr" aria-hidden="true"></div>
+    <div class="intro-corner-bl" aria-hidden="true"></div>
+    <!-- Partículas de vela flotantes -->
+    <div class="intro-particle" style="left:15%;bottom:20%;--dur:3.2s;--delay:0s;  --px:-8px;"  aria-hidden="true"></div>
+    <div class="intro-particle" style="left:28%;bottom:15%;--dur:4.1s;--delay:.5s; --px:10px;"  aria-hidden="true"></div>
+    <div class="intro-particle" style="left:50%;bottom:18%;--dur:3.7s;--delay:1s;  --px:-5px;"  aria-hidden="true"></div>
+    <div class="intro-particle" style="left:72%;bottom:22%;--dur:4.5s;--delay:.3s; --px:12px;"  aria-hidden="true"></div>
+    <div class="intro-particle" style="left:85%;bottom:17%;--dur:3.4s;--delay:.8s; --px:-9px;"  aria-hidden="true"></div>
+    <div class="intro-particle" style="left:42%;bottom:10%;--dur:5.0s;--delay:1.4s;--px:6px;"   aria-hidden="true"></div>
+    <!-- Línea de símbolos alquímicos superior -->
+    <div class="intro-sigils" aria-hidden="true">☿ &nbsp; ♄ &nbsp; ☉ &nbsp; ☽ &nbsp; ♃</div>
+    <!-- Separador ornamental superior -->
+    <div class="intro-ornament" aria-hidden="true">
+      <div class="intro-orn-line"></div>
+      <div class="intro-orn-diamond"></div>
+      <div class="intro-orn-line r"></div>
+    </div>
+    <!-- Icono central -->
     <div class="intro-icon">⚗️</div>
-    <p class="intro-title">Laboratorio Alquímico</p>
+    <!-- Título -->
+    <p class="intro-title">El Laboratorio del Alquimista</p>
+    <!-- Separador ornamental inferior -->
+    <div class="intro-ornament" style="margin-bottom:1.4rem;" aria-hidden="true">
+      <div class="intro-orn-line"></div>
+      <div class="intro-orn-diamond"></div>
+      <div class="intro-orn-line r"></div>
+    </div>
+    <!-- Cuerpo -->
     <div class="intro-body">
       <p>Has entrado en el antiguo laboratorio del alquimista.</p>
       <p>Durante años, sus investigaciones sobre la transmutación permanecieron ocultas tras símbolos y fórmulas incompletas. En un lado de la sala descansa una caja sellada que, según las notas dispersas por el laboratorio, protege una Piedra Filosofal.</p>
       <p>Solo quien comprenda las leyes de las esencias podrá abrirla.</p>
       <p>Experimenta, interpreta las anotaciones y descubre la combinación capaz de romper el sello.</p>
     </div>
-    <button class="intro-btn" id="intro-btn">[ COMENZAR TRANSMUTACIÓN ]</button>
+    <!-- Botón ceremonial -->
+    <div class="intro-btn-wrap">
+      <button class="intro-btn" id="intro-btn">[ COMENZAR TRANSMUTACIÓN ]</button>
+    </div>
   </div>
 </div>
 
