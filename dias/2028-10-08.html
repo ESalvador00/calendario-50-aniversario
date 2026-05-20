@@ -1458,9 +1458,9 @@ function wrapMsg(msg) {
   // Ajuste vertical según número de líneas
   if (overlay) {
     if (lbOpen) {
-      overlay.style.paddingTop = lines.length >= 2 ? '0.3%' : '1.0%';
+      overlay.style.paddingTop = lines.length >= 2 ? '0.35%' : '1.0%'; // expandido
     } else {
-      overlay.style.paddingTop = lines.length >= 2 ? '0.2%' : '0.8%';
+      overlay.style.paddingTop = lines.length >= 2 ? '0.15%' : '0.8%'; // normal enric
     }
   }
   return lines.join(' ');
