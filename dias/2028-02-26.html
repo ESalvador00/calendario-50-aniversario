@@ -272,6 +272,237 @@
       .day-nav{margin-top:1rem;padding-top:1rem;}
       .ornament-line-h{margin-bottom:1rem;}
     }
+
+    /* ── Popups burocracia Guerra Fría ──────────────────────────── */
+    @import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
+
+    @keyframes paper-flicker {
+      0%,100%{opacity:1;}
+      47%{opacity:1;}
+      48%{opacity:.94;}
+      49%{opacity:1;}
+      82%{opacity:1;}
+      83%{opacity:.97;}
+      84%{opacity:1;}
+    }
+    @keyframes stamp-drop {
+      0%  { transform:translateY(-18px) rotate(-3deg) scale(1.08); opacity:0; }
+      60% { transform:translateY(2px)   rotate(-1.5deg) scale(1.01); opacity:1; }
+      100%{ transform:translateY(0)     rotate(-2deg) scale(1); opacity:1; }
+    }
+    @keyframes scanline {
+      0%  { background-position: 0 0; }
+      100%{ background-position: 0 4px; }
+    }
+    @keyframes typewriter-blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
+
+    .gov-popup-overlay {
+      display:none;
+      position:fixed;inset:0;
+      background:rgba(8,6,4,.88);
+      z-index:400;
+      align-items:center;justify-content:center;
+      backdrop-filter:blur(2px);
+    }
+    .gov-popup-overlay.visible { display:flex; }
+
+    .gov-popup-doc {
+      position:relative;
+      max-width:540px;width:92%;
+      background:#e8e0c8;
+      background-image:
+        /* grain */
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E"),
+        /* yellow tinge */
+        linear-gradient(160deg, #ede5c2 0%, #dfd5ae 60%, #cfc7a1 100%);
+      border:1px solid #8a7a52;
+      box-shadow:
+        0 0 0 6px rgba(90,75,40,.18),
+        0 0 0 7px rgba(50,40,15,.10),
+        4px 8px 32px rgba(0,0,0,.7),
+        inset 0 1px 0 rgba(255,255,255,.35),
+        inset 0 -1px 0 rgba(0,0,0,.08);
+      padding:0;
+      overflow:hidden;
+      animation:paper-flicker 9s infinite;
+      font-family:'Special Elite','Courier New',monospace;
+    }
+
+    /* Scanlines overlay */
+    .gov-popup-doc::after {
+      content:'';
+      position:absolute;inset:0;
+      background:repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        transparent 3px,
+        rgba(0,0,0,.03) 3px,
+        rgba(0,0,0,.03) 4px
+      );
+      pointer-events:none;
+      z-index:10;
+      animation:scanline .15s linear infinite;
+    }
+
+    /* Header strip */
+    .gov-doc-header {
+      background:#2c2416;
+      background-image:linear-gradient(180deg,#3a2f1c 0%,#241d10 100%);
+      padding:.55rem 1.4rem;
+      display:flex;align-items:center;justify-content:space-between;
+      border-bottom:3px solid #8a6e30;
+      position:relative;z-index:2;
+    }
+    .gov-doc-header-seal {
+      font-size:.65rem;
+      letter-spacing:.35em;
+      text-transform:uppercase;
+      color:#b8962a;
+      font-family:'Special Elite','Courier New',monospace;
+    }
+    .gov-doc-header-ref {
+      font-size:.6rem;
+      letter-spacing:.15em;
+      color:rgba(184,150,42,.55);
+      font-family:'Courier New',monospace;
+    }
+
+    /* Red "TOP SECRET" diagonal band */
+    .gov-doc-topsecret {
+      position:absolute;
+      top:3.2rem;right:-2.2rem;
+      background:#8b0000;
+      color:#f5c5c5;
+      font-size:.6rem;
+      font-weight:900;
+      letter-spacing:.45em;
+      text-transform:uppercase;
+      padding:.25rem 3rem;
+      transform:rotate(30deg);
+      transform-origin:center;
+      box-shadow:0 2px 8px rgba(0,0,0,.4);
+      z-index:15;
+      font-family:'Courier New',monospace;
+    }
+
+    .gov-doc-body {
+      padding:1.6rem 2rem 1.4rem;
+      position:relative;z-index:2;
+    }
+
+    /* Doble línea divisoria */
+    .gov-doc-rule {
+      border:none;
+      border-top:2px solid #7a6535;
+      border-bottom:1px solid rgba(122,101,53,.4);
+      margin:.8rem 0 1rem;
+    }
+
+    .gov-doc-title {
+      font-size:clamp(.75rem,1.8vw,.95rem);
+      font-weight:900;
+      letter-spacing:.12em;
+      color:#1a1208;
+      text-transform:uppercase;
+      text-align:center;
+      line-height:1.35;
+      font-family:'Special Elite','Courier New',monospace;
+      text-shadow:1px 1px 0 rgba(255,255,255,.35);
+    }
+
+    .gov-doc-text {
+      font-size:clamp(.72rem,1.5vw,.82rem);
+      color:#1e1608;
+      line-height:1.75;
+      font-family:'Special Elite','Courier New',monospace;
+      white-space:pre-wrap;
+      word-break:break-word;
+      margin-top:.6rem;
+    }
+
+    /* Dossier classification bar at bottom */
+    .gov-doc-footer {
+      background:#2c2416;
+      background-image:linear-gradient(0deg,#1a1208 0%,#2c2416 100%);
+      padding:.4rem 1.4rem;
+      display:flex;align-items:center;justify-content:space-between;
+      border-top:3px solid #8a6e30;
+      position:relative;z-index:2;
+    }
+    .gov-doc-footer-code {
+      font-size:.58rem;
+      letter-spacing:.2em;
+      color:rgba(184,150,42,.5);
+      font-family:'Courier New',monospace;
+    }
+
+    /* Stamp */
+    .gov-stamp {
+      position:absolute;
+      right:1.6rem;
+      bottom:3.2rem;
+      width:90px;height:90px;
+      border:3px solid rgba(139,0,0,.75);
+      border-radius:4px;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      color:rgba(139,0,0,.78);
+      font-family:'Courier New',monospace;
+      font-size:.52rem;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      font-weight:900;
+      line-height:1.5;
+      text-align:center;
+      transform:rotate(-8deg);
+      z-index:12;
+      pointer-events:none;
+      animation:stamp-drop .5s cubic-bezier(.25,.8,.3,1.1) .3s both;
+    }
+    .gov-stamp::before {
+      content:'';
+      position:absolute;inset:-4px;
+      border:1px solid rgba(139,0,0,.3);
+      border-radius:4px;
+    }
+    .gov-stamp-big {
+      font-size:1.05rem;
+      letter-spacing:.05em;
+      margin-bottom:.1rem;
+      display:block;
+    }
+
+    /* CTA Button */
+    .gov-doc-btn-wrap {
+      text-align:center;
+      margin-top:1.2rem;
+      position:relative;z-index:2;
+    }
+    .gov-doc-btn {
+      display:inline-block;
+      padding:.65rem 1.8rem;
+      border:2px solid #5a4a1a;
+      border-bottom:3px solid #3a2e0e;
+      background:linear-gradient(180deg,#d4c27a 0%,#b8a450 60%,#9e8c3a 100%);
+      color:#1a1208;
+      font-family:'Special Elite','Courier New',monospace;
+      font-size:clamp(.65rem,1.5vw,.78rem);
+      font-weight:900;
+      letter-spacing:.2em;
+      text-transform:uppercase;
+      cursor:pointer;
+      border-radius:2px;
+      box-shadow:2px 3px 0 rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.3);
+      transition:all .12s;
+    }
+    .gov-doc-btn:hover {
+      background:linear-gradient(180deg,#e0ce82 0%,#c8b05c 60%,#a8963e 100%);
+      transform:translateY(-1px);
+      box-shadow:3px 5px 0 rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.4);
+    }
+    .gov-doc-btn:active {
+      transform:translateY(1px);
+      box-shadow:1px 1px 0 rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.2);
+    }
   </style>
 </head>
 <body>
@@ -374,6 +605,64 @@
     <p class="popup-title">&#161;Tu recompensa!</p>
     <p class="popup-msg" id="reward-text">&#10024; Aquí irá la recompensa especial de este día &#10024;</p>
     <button class="popup-btn" id="star-reward-close">&#161;Genial!</button>
+  </div>
+</div>
+
+<!-- Popup: introducción burocrática Guerra Fría -->
+<div class="gov-popup-overlay" id="popup-intro-gov">
+  <div class="gov-popup-doc">
+    <div class="gov-doc-topsecret">Alto Secreto</div>
+    <div class="gov-doc-header">
+      <span class="gov-doc-header-seal">&#9632; Ministerio de Archivos Clasificados &#9632;</span>
+      <span class="gov-doc-header-ref">REF: ER-01 / SEC-49</span>
+    </div>
+    <div class="gov-doc-body">
+      <p class="gov-doc-title">[ REGISTRO DE ENTRADA — EXPEDIENTE BLOQUEADO ]</p>
+      <hr class="gov-doc-rule"/>
+      <p class="gov-doc-text">&gt; ATENCIÓN, AGENTE: Has accedido a la sala de control del archivo central sin la acreditación correspondiente. El sistema de cierre neumático de los Ministerios ha sellado el perímetro de seguridad por protocolo de contraespionaje. Para levantar el confinamiento, deberás validar tus credenciales.
+
+El sistema monitorizará tu progreso de forma estricta. No intentes forzar las cerraduras.</p>
+      <div class="gov-stamp">
+        <span class="gov-stamp-big">&#9888;</span>
+        CONFINADO<br>PROTOCOLO<br>ACTIVO
+      </div>
+      <div class="gov-doc-btn-wrap">
+        <button class="gov-doc-btn" id="intro-gov-start">[ INICIAR REGISTRO DE SALIDA ]</button>
+      </div>
+    </div>
+    <div class="gov-doc-footer">
+      <span class="gov-doc-footer-code">FORM. A-114-B · USO EXCLUSIVO DEL DEPARTAMENTO</span>
+      <span class="gov-doc-footer-code">DESTRUIR TRAS LECTURA</span>
+    </div>
+  </div>
+</div>
+
+<!-- Popup: éxito burocrático Guerra Fría -->
+<div class="gov-popup-overlay" id="popup-exito-gov">
+  <div class="gov-popup-doc">
+    <div class="gov-doc-topsecret">Caso Cerrado</div>
+    <div class="gov-doc-header">
+      <span class="gov-doc-header-seal">&#9632; Ministerio de Archivos Clasificados &#9632;</span>
+      <span class="gov-doc-header-ref">REF: ER-01 / CLR-49</span>
+    </div>
+    <div class="gov-doc-body">
+      <p class="gov-doc-title">[ CREDENCIAL VERIFICADA — CASO CERRADO ]</p>
+      <hr class="gov-doc-rule"/>
+      <p class="gov-doc-text">&gt; ARCHIVO PROCESADO CON ÉXITO. El código de seguridad ha sido cotejado correctamente con los expedientes confidenciales del departamento.
+
+Los pestillos de la puerta principal se han desbloqueado. El sello de cuarentena de la habitación ha sido retirado. Recoje tus pertenencias y abandona el despacho de inmediato; el registro de esta operación será incinerado en los próximos sesenta segundos para mantener el anonimato de la misión.</p>
+      <div class="gov-stamp" style="border-color:rgba(0,100,0,.75);color:rgba(0,100,0,.78);">
+        <span class="gov-stamp-big">&#10003;</span>
+        APROBADO<br>LIBERADO<br>ARCHIVADO
+      </div>
+      <div class="gov-doc-btn-wrap">
+        <button class="gov-doc-btn" id="exito-gov-close">[ ARCHIVAR EXPEDIENTE Y SALIR ]</button>
+      </div>
+    </div>
+    <div class="gov-doc-footer">
+      <span class="gov-doc-footer-code">FORM. A-114-B · USO EXCLUSIVO DEL DEPARTAMENTO</span>
+      <span class="gov-doc-footer-code">DESTRUIR TRAS LECTURA</span>
+    </div>
   </div>
 </div>
 
@@ -516,7 +805,7 @@ function typeWrite(msg) {
   }
   flash();
 }
-window.addEventListener('load', () => { setTimeout(() => typeWrite('> SISTEMA INICIADO'), 600); });
+// typeWrite inicial se dispara desde el popup de introducción al cerrarse
 function clearConsole() {
   if (twTimer) { clearTimeout(twTimer); twTimer = null; }
   twTarget = ''; twIdx = 0;
@@ -1097,9 +1386,9 @@ function handleClick(alias) {
         markDone();
         if (lbOpen) {
           closeLightbox();
-          setTimeout(() => popupStarReward.classList.add('visible'), 350);
+          setTimeout(() => document.getElementById('popup-exito-gov').classList.add('visible'), 350);
         } else {
-          popupStarReward.classList.add('visible');
+          document.getElementById('popup-exito-gov').classList.add('visible');
         }
       } else {
         typeWrite(m('puertaCerrada'));
@@ -1306,6 +1595,50 @@ document.addEventListener('touchend', e => {
       cy: (tbEl.offsetTop  + tbEl.offsetHeight / 2) / (c.offsetHeight || 1) * 100,
     };
   }
+});
+
+// ── Popup de introducción (Guerra Fría) ───────────────────────
+window.addEventListener('load', () => {
+  const introEl  = document.getElementById('popup-intro-gov');
+  const btnStart = document.getElementById('intro-gov-start');
+  // Solo mostrar si el día ya es accesible (no en modo "día futuro bloqueado")
+  const isFuture = !isPreview && thisDate > today;
+  if (!isFuture) {
+    introEl.classList.add('visible');
+  }
+  btnStart.addEventListener('click', () => {
+    introEl.classList.remove('visible');
+    setTimeout(() => typeWrite('> SISTEMA INICIADO'), 400);
+  });
+});
+
+// ── Popup de éxito → recompensa → índice ──────────────────────
+window.addEventListener('load', () => {
+  const exitoEl  = document.getElementById('popup-exito-gov');
+  const btnExito = document.getElementById('exito-gov-close');
+  const rewardEl = document.getElementById('popup-star-reward');
+
+  btnExito.addEventListener('click', () => {
+    exitoEl.classList.remove('visible');
+    // Pequeña pausa antes de mostrar la recompensa
+    setTimeout(() => rewardEl.classList.add('visible'), 200);
+  });
+
+  // Al cerrar recompensa → volver al calendario
+  const rewardCloseBtn = document.getElementById('star-reward-close');
+  // Reemplazar el listener existente redirigiendo al índice
+  rewardCloseBtn.replaceWith(rewardCloseBtn.cloneNode(true));
+  document.getElementById('star-reward-close').addEventListener('click', () => {
+    rewardEl.classList.remove('visible');
+    window.location.href = '../index.html';
+  });
+  // Click fuera del box también lleva al índice
+  rewardEl.addEventListener('click', e => {
+    if (e.target === rewardEl) {
+      rewardEl.classList.remove('visible');
+      window.location.href = '../index.html';
+    }
+  });
 });
 </script>
 </body>
