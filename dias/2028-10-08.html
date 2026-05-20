@@ -659,8 +659,8 @@
     .intro-popup{
       display:none; position:fixed; inset:0; z-index:400;
       align-items:center; justify-content:center;
-      background:radial-gradient(ellipse at 50% 35%, rgba(30,14,4,.97) 0%, rgba(5,3,1,.99) 100%);
-      animation:intro-candle-flicker 8s ease-in-out infinite;
+      background:#08040100;
+      background:radial-gradient(ellipse at 50% 35%, #1e0e04 0%, #050301 100%);
     }
     .intro-popup.visible{ display:flex; }
 
@@ -669,18 +669,18 @@
       max-width:540px; width:93%;
       padding:3.2rem 2.8rem 2.8rem;
       text-align:center;
+      background:#100804;
       background:
-        radial-gradient(ellipse at 50% -10%, rgba(201,168,76,.13) 0%, transparent 60%),
-        radial-gradient(ellipse at 20% 100%, rgba(120,55,10,.15) 0%, transparent 50%),
-        radial-gradient(ellipse at 80% 100%, rgba(80,30,5,.12) 0%, transparent 50%),
-        linear-gradient(180deg, #120a03 0%, #0d0602 100%);
+        radial-gradient(ellipse at 50% -10%, rgba(201,168,76,.13) 0%, #120a03 60%),
+        radial-gradient(ellipse at 20% 110%, rgba(120,55,10,.4) 0%, #100804 50%),
+        radial-gradient(ellipse at 80% 110%, rgba(80,30,5,.3) 0%, #100804 50%);
       border:1px solid rgba(201,168,76,.32);
       border-radius:1px;
       box-shadow:
         0 0 0 4px rgba(201,168,76,.04),
         0 0 0 8px rgba(201,168,76,.02),
         0 0 80px rgba(0,0,0,.95),
-        inset 0 0 80px rgba(8,4,1,.9);
+        inset 0 0 80px rgba(8,4,1,1);
       animation:intro-entrada .7s cubic-bezier(.22,.9,.36,1) both, intro-seal-pulse 5s 1s ease-in-out infinite;
     }
 
