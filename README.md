@@ -202,10 +202,10 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-06-14 | Cultura: iniciales de famosos | OKINAWA | Lugar03_01.jpg .. Lugar03_07.jpg | Ajenos | PDTE |
 | 2028-06-15 | Adivina quién soy | TESLA | Gerard_20160205.png | Gerard | PDTE |
 | 2028-06-16 | Adivina las películas | Flashdance, El Señor de los Anillos, Batman, Up, Cinema Paradiso | Flashdance, El_Senor_de_los_Anillos, Batman, Up, Cinema_Paradiso (mp3 y jpg) | N/A | PDTE |
-| 2028-07-08 | Minijuego (La Puerta de los Glifos) | N/A | N/A | N/A | PDTE |
-| 2028-07-10 | Adivina el logo correcto | 10 logos icónicos | Logos.png | N/A | PDTE |
 | 2028-06-18 | Escape Room: 02-Sala de Control Nuclear | SOLES | ER02_EscenarioVisual.jpg + ER02_EscenarioClickmap.jpg | N/A | PDTE |
 | 2028-06-19 | Rosco de pasapalabra | N/A | N/A | N/A | PDTE |
+| 2028-07-08 | Minijuego (La Puerta de los Glifos) | N/A | N/A | N/A | PDTE |
+| 2028-07-10 | Adivina el logo correcto | 10 logos icónicos | Logos.png | N/A | PDTE |
 | 2028-07-04 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
 | 2028-07-11 | Timeline histórico doble | A:01-06 / B:01-06 | Timeline02_01A..06A.png + Timeline02_01B..06B.png | N/A | PDTE |
 | 2028-07-12 | Adivina quién soy | POE | David_20231209.png | David | PDTE |
@@ -235,6 +235,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-09-25 | Rosco de pasapalabra | N/A | N/A | N/A | PDTE |
 | 2028-09-26 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
 | 2028-10-03 | Cultura: iniciales de famosos | CRETA | Lugar11_01.jpg .. Lugar11_05.jpg | Ajenos | PDTE |
+| 2028-10-08 | Escape Room: 03-Laboratorio Alquímico | Esencia Pura | ER03_EscenarioVisual.jpg + ER03_EscenarioClickmap.jpg | N/A | PDTE |
 | 2028-10-09 | Adivina el logo correcto | 10 logos icónicos | Logos.png | N/A | PDTE |
 | 2028-10-10 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
 | 2028-10-16 | Sigue la letra | Chiquilla (Seguridad Social) | Chiquilla.mp3 | N/A | PDTE |
