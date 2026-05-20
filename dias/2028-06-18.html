@@ -785,8 +785,7 @@ const popupStarBlocked = document.getElementById('popup-star-blocked');
 const popupStarReward  = document.getElementById('popup-star-reward');
 document.getElementById('star-blocked-close').addEventListener('click', () => popupStarBlocked.classList.remove('visible'));
 popupStarBlocked.addEventListener('click', e => { if (e.target === popupStarBlocked) popupStarBlocked.classList.remove('visible'); });
-document.getElementById('star-reward-close').addEventListener('click', () => popupStarReward.classList.remove('visible'));
-popupStarReward.addEventListener('click', e => { if (e.target === popupStarReward) popupStarReward.classList.remove('visible'); });
+popupStarReward.addEventListener('click', e => { if (e.target === popupStarReward) { popupStarReward.classList.remove('visible'); window.location.href = '../index.html'; } });
 function markDone() { localStorage.setItem(DONE_KEY, '1'); updateDone(); }
 function updateDone() {
   const on = localStorage.getItem(DONE_KEY) === '1';
@@ -858,6 +857,10 @@ window.addEventListener('load', () => {
   DisplayAll();
   document.getElementById('logro-close-btn').addEventListener('click', () => {
     document.getElementById('popup-logro').classList.remove('visible');
+    popupStarReward.classList.add('visible');
+  });
+  document.getElementById('star-reward-close').addEventListener('click', () => {
+    popupStarReward.classList.remove('visible');
     window.location.href = '../index.html';
   });
 
@@ -1704,7 +1707,7 @@ function submitResetCode() {
       if (lbOpen) closeLightbox();
       markDone();
       document.getElementById('popup-logro').classList.add('visible');
-    }, 2200);
+    }, 3000);
   } else if (val === '53705') {
     triggerError(m('resetOrientacion'), null);
   } else {
