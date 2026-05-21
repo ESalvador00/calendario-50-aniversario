@@ -287,5 +287,4 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 |--------------|-------------|--------|
 |  Logos icónicos (×9 días) | Rellenar contenido de: 2028-01-17, 2028-02-01, 2028-04-10, 2028-06-05, 2028-08-07, 2028-09-04, 2028-10-09, 2028-11-06, 2028-12-20 | 🔲 Pdte |
 |  Pasapalabra (×12 meses) | Completar los restos de letras para los 12 meses del calendario | 🔲 Pdte |
-|  Laberinto invisible (×12 meses) | Definir y actualizar el laberinto | 🔲 Pdte |
 |  Escape Rooms + Retos de observación | Añadir música ambiental de fondo en los días tipo Escape Room y en los retos de agudeza visual | 🔲 Pdte |
