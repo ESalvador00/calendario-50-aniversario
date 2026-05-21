@@ -220,6 +220,16 @@
   </div>
 </div>
 
+<!-- Popup: introducción -->
+<div class="popup-overlay visible" id="popup-intro">
+  <div class="popup-box">
+    <div class="popup-icon">🌑</div>
+    <p class="popup-title">¿Listo para el reto?</p>
+    <p class="popup-msg">El laberinto existe… pero sus paredes son <strong style="color:var(--gold-light)">invisibles</strong>.<br><br>Al empezar verás la cuadrícula durante un brevísimo instante. <strong style="color:var(--gold-light)">¡Memoriza el camino!</strong><br><br>Si chocas con un muro, vuelves al inicio. Llega a la meta con los menos intentos posibles.</p>
+    <button class="popup-btn" id="intro-start">¡Empezar!</button>
+  </div>
+</div>
+
 <script>
 const PREVIEW_KEY = 'cal_preview';
 const isPreview   = localStorage.getItem(PREVIEW_KEY) === '1';
@@ -499,7 +509,10 @@ document.getElementById('help-close').addEventListener('click', () => popupHelp.
 popupHelp.addEventListener('click', e => { if (e.target === popupHelp) popupHelp.classList.remove('visible'); });
 document.getElementById('reset-btn').addEventListener('click', resetGame);
 
-resetGame();
+document.getElementById('intro-start').addEventListener('click', () => {
+  document.getElementById('popup-intro').classList.remove('visible');
+  resetGame();
+});
 </script>
 </body>
 </html>
