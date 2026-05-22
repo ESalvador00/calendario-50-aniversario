@@ -155,6 +155,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-01-30 | Agudeza visual — banderas Código Internacional de Señales Marítimas | 99274 | FinAno2020.png | Nieves, Enric, Ari, Alex | PDTE |
 | 2028-02-01 | Adivina el logo correcto | 10 logos icónicos | Logos.png | N/A | PDTE |
 | 2028-02-02 | Cultura: iniciales de famosos, especial cine | QUEBEC | Lugar06_01.jpg .. Lugar06_06.jpg | Ajenos | PDTE |
+| 2028-02-03 | Puzzle visual | ACHI | Puzzle01_01.png .. Puzzle01_05.png | N/A | PDTE |
 | 2028-02-05 | Minijuego (Ranas Saltadoras) | N/A | N/A | N/A | PDTE |
 | 2028-02-06 | Agudeza visual — clickmap museo (binario) | ENRIC | Museo_visual.png + Museo_clickmap.png + Ultima_cena.png + Ariadna_20190701.png | Ariadna | PDTE |
 | 2028-02-09 | Timeline musical, España en los 2000 | 2002-2008 | Asereje.jpg .. Tenia_tanto_que_darte.jpg | N/A | PDTE |
@@ -287,4 +288,5 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 |--------------|-------------|--------|
 |  Logos icónicos (×9 días) | Rellenar contenido de: 2028-01-17, 2028-02-01, 2028-04-10, 2028-06-05, 2028-08-07, 2028-09-04, 2028-10-09, 2028-11-06, 2028-12-20 | 🔲 Pdte |
 |  Pasapalabra (×12 meses) | Completar los restos de letras para los 12 meses del calendario | 🔲 Pdte |
+|  Laberinto invisible (×12 meses) | Definir y actualizar el laberinto | 🔲 Pdte |
 |  Escape Rooms + Retos de observación | Añadir música ambiental de fondo en los días tipo Escape Room y en los retos de agudeza visual | 🔲 Pdte |
