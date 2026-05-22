@@ -12,8 +12,8 @@
     html,body{height:100%;}
     body{background-color:var(--dark);color:var(--cream);font-family:'Cormorant Garamond',serif;min-height:100vh;display:flex;flex-direction:column;overflow-x:hidden;}
     body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 25% 15%,rgba(201,168,76,.10) 0%,transparent 55%),radial-gradient(ellipse at 75% 85%,rgba(124,54,38,.10) 0%,transparent 55%);pointer-events:none;z-index:0;}
-    .wrap{position:relative;z-index:1;max-width:800px;margin:0 auto;padding:1.5rem 2rem 2rem;flex:1;display:flex;flex-direction:column;}
-    .day-hero{text-align:center;flex:1;display:flex;flex-direction:column;align-items:center;padding:1rem 0 0;position:relative;}
+    .wrap{position:relative;z-index:1;width:100%;margin:0 auto;padding:1.5rem 2rem 2rem;flex:1;display:flex;flex-direction:column;}
+    .day-hero{text-align:center;flex:1;display:flex;flex-direction:column;align-items:center;padding:1rem 0 0;position:relative;width:100%;}
     .ornament-line-h{display:flex;align-items:center;justify-content:center;gap:1rem;margin-bottom:1rem;}
     .o-line{height:1px;width:60px;background:linear-gradient(to right,transparent,var(--gold));}
     .o-line.r{background:linear-gradient(to left,transparent,var(--gold));}
@@ -22,7 +22,6 @@
     h1{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,7vw,5rem);font-weight:900;line-height:1;background:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 50%,var(--gold-dark) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.2rem;}
     .month-label{font-family:'Playfair Display',serif;font-size:clamp(1.1rem,2.8vw,1.8rem);font-weight:400;font-style:italic;color:rgba(250,246,238,.45);margin-bottom:1rem;}
 
-    /* ── Área de contenido — crece para llenar el espacio ── */
     .content-area{
       width:100%;
       flex:1;
@@ -34,8 +33,8 @@
       flex-direction:column;
       align-items:center;
       gap:1rem;
-      /* Altura mínima para no colapsarse antes de que carguen las imágenes */
       min-height:200px;
+      height:100%;
     }
 
     /* ── Puzzle canvas — ocupa todo el espacio disponible ── */
@@ -126,7 +125,6 @@
     .popup-btn{display:inline-block;padding:.7rem 2rem;border:1px solid rgba(201,168,76,.4);border-radius:2px;color:var(--gold);font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;background:none;transition:all .2s;}
     .popup-btn:hover{background:rgba(201,168,76,.1);border-color:var(--gold);}
 
-    /* ── Mobile ── */
     @media(max-width:600px){
       .wrap{padding:.8rem .8rem 1.2rem;}
       .day-hero{padding:.5rem 0 0;}
@@ -248,9 +246,7 @@
 // ══════════════════════════════════════════════════════════
 
 // Imagen de fondo del contenedor (null = sin fondo)
-//const BG_IMAGE = null;
-const BG_IMAGE = 'Alex_20220817.png';
-  
+const BG_IMAGE = null;
 
 // Piezas: archivo, z-index (1 = más al frente, N = más al fondo), opacidad 0-1
 // widthPct: % del ancho del contenedor que ocupará la pieza al cargar (responsive)
