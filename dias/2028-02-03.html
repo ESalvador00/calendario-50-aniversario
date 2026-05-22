@@ -71,10 +71,6 @@
       -webkit-user-drag:none;
     }
 
-    /* ── Controles bajo el puzzle ── */
-    .puzzle-controls{display:flex;justify-content:flex-end;width:100%;}
-    .btn-reset{padding:.3rem .9rem;background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.25);border-radius:2px;color:rgba(201,168,76,.6);font-family:'Cormorant Garamond',serif;font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;transition:all .2s;flex-shrink:0;}
-    .btn-reset:hover{background:rgba(201,168,76,.18);color:var(--gold);}
 
     /* ── Código secreto ── */
     .codigo-wrap{width:100%;display:flex;flex-direction:column;align-items:center;gap:.7rem;flex-shrink:0;}
@@ -158,10 +154,7 @@
       <!-- Puzzle visual -->
       <div class="puzzle-container" id="puzzle-container"></div>
 
-      <!-- Botón reset -->
-      <div class="puzzle-controls">
-        <button class="btn-reset" id="btn-reset">↺ Reiniciar piezas</button>
-      </div>
+
 
       <!-- Código secreto -->
       <div class="codigo-wrap">
@@ -597,19 +590,13 @@ function activarDrag(entry) {
   wrapper.addEventListener('touchend', () => terminar());
 }
 
-// ── Botón reset ────────────────────────────────────────────
-let precargadas = null;
 
-document.getElementById('btn-reset').addEventListener('click', () => {
-  if (precargadas) crearPiezas(precargadas);
-});
 
 // ── Arranque ───────────────────────────────────────────────
 // Esperamos a que el contenedor tenga altura real (el layout ya pintó)
 requestAnimationFrame(() => {
   precargarImagenes().then(imgs => {
-    precargadas = imgs;
-    crearPiezas(precargadas);
+    crearPiezas(imgs);
   });
 });
 </script>
