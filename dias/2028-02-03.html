@@ -24,7 +24,7 @@
 
     .content-area{
       width:100%;
-      flex:1;
+      flex:none;
       border:1px solid rgba(201,168,76,.15);
       border-radius:4px;
       padding:1rem;
@@ -33,8 +33,7 @@
       flex-direction:column;
       align-items:center;
       gap:1rem;
-      min-height:200px;
-      height:100%;
+      height:100vh;
     }
 
     /* ── Puzzle canvas — ocupa todo el espacio disponible ── */
@@ -423,9 +422,9 @@ function precargarImagenes() {
 }
 
 // Calcula el ancho en px de una pieza según widthPct y el contenedor actual
-function calcPieceWidth(pieza) {
+function calcPieceWidth(naturalW, totalNaturalW) {
   const cw = container.clientWidth;
-  return Math.round(cw * pieza.widthPct);
+  return Math.round(cw * (naturalW / totalNaturalW));
 }
 
 // Posición aleatoria: deja la pieza completamente dentro del contenedor
@@ -455,6 +454,7 @@ function crearPiezas(precargadas) {
   container.querySelectorAll('.puzzle-piece').forEach(el => el.remove());
 
   const maxZ = PIEZAS.length;
+  const totalNaturalW = precargadas.reduce((sum, p) => sum + (p.img.naturalWidth || 1), 0);
 
   precargadas.forEach(({ pieza, img }, idx) => {
     const wrapper = document.createElement('div');
@@ -471,8 +471,8 @@ function crearPiezas(precargadas) {
     wrapper.appendChild(imgEl);
     container.appendChild(wrapper);
 
-    // Tamaño fijo basado en widthPct y aspect ratio real de la imagen
-    const pxW = calcPieceWidth(pieza);
+    // Tamaño proporcional al ancho natural de cada imagen
+    const pxW = calcPieceWidth(img.naturalWidth || 1, totalNaturalW);
     const aspect = (img.naturalHeight && img.naturalWidth)
       ? img.naturalHeight / img.naturalWidth
       : 1;
