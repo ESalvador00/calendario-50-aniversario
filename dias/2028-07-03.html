@@ -12,8 +12,8 @@
     html,body{height:100%;}
     body{background-color:var(--dark);color:var(--cream);font-family:'Cormorant Garamond',serif;min-height:100vh;display:flex;flex-direction:column;overflow-x:hidden;}
     body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 25% 15%,rgba(201,168,76,.10) 0%,transparent 55%),radial-gradient(ellipse at 75% 85%,rgba(124,54,38,.10) 0%,transparent 55%);pointer-events:none;z-index:0;}
-    .wrap{position:relative;z-index:1;max-width:800px;margin:0 auto;padding:1.5rem 2rem 2rem;flex:1;display:flex;flex-direction:column;}
-    .day-hero{text-align:center;flex:1;display:flex;flex-direction:column;align-items:center;padding:1rem 0 0;position:relative;}
+    .wrap{position:relative;z-index:1;width:100%;margin:0 auto;padding:1.5rem 2rem 2rem;flex:1;display:flex;flex-direction:column;}
+    .day-hero{text-align:center;flex:1;display:flex;flex-direction:column;align-items:center;padding:1rem 0 0;position:relative;width:100%;}
     .ornament-line-h{display:flex;align-items:center;justify-content:center;gap:1rem;margin-bottom:1rem;}
     .o-line{height:1px;width:60px;background:linear-gradient(to right,transparent,var(--gold));}
     .o-line.r{background:linear-gradient(to left,transparent,var(--gold));}
@@ -21,15 +21,57 @@
     .day-of-week{font-size:.85rem;letter-spacing:.4em;text-transform:uppercase;color:rgba(201,168,76,.5);margin-bottom:.4rem;}
     h1{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,7vw,5rem);font-weight:900;line-height:1;background:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 50%,var(--gold-dark) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.2rem;}
     .month-label{font-family:'Playfair Display',serif;font-size:clamp(1.1rem,2.8vw,1.8rem);font-weight:400;font-style:italic;color:rgba(250,246,238,.45);margin-bottom:1rem;}
-    .content-area{width:100%;flex:1;border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:1rem;background:rgba(255,255,255,.02);display:flex;flex-direction:column;align-items:center;gap:1rem;min-height:200px;}
-    .puzzle-container{position:relative;width:100%;flex:1;min-height:160px;background:rgba(0,0,0,.25);border:1px solid rgba(201,168,76,.12);border-radius:3px;overflow:hidden;touch-action:none;cursor:default;}
+
+    .content-area{
+      width:100%;
+      flex:none;
+      border:1px solid rgba(201,168,76,.15);
+      border-radius:4px;
+      padding:1rem;
+      background:rgba(255,255,255,.02);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:1rem;
+      height:100vh;
+    }
+
+    /* ── Puzzle canvas — ocupa todo el espacio disponible ── */
+    .puzzle-container{
+      position:relative;
+      width:100%;
+      flex:1;           /* se expande para llenar lo que sobra en content-area */
+      min-height:160px;
+      background:rgba(0,0,0,.25);
+      border:1px solid rgba(201,168,76,.12);
+      border-radius:3px;
+      overflow:hidden;
+      touch-action:none;
+      cursor:default;
+    }
     .puzzle-container.has-bg{background-size:cover;background-position:center;background-repeat:no-repeat;}
-    .puzzle-piece{position:absolute;cursor:grab;user-select:none;-webkit-user-select:none;touch-action:none;}
+
+    /* Las piezas son absolutas; su ancho/alto se fija por JS al cargar */
+    .puzzle-piece{
+      position:absolute;
+      cursor:grab;
+      user-select:none;
+      -webkit-user-select:none;
+      touch-action:none;
+      /* Sin width/height en CSS — se aplica desde JS */
+    }
     .puzzle-piece.dragging{cursor:grabbing;}
-    .puzzle-piece img{display:block;width:100%;height:auto;pointer-events:none;user-select:none;-webkit-user-drag:none;}
-    .puzzle-controls{display:flex;justify-content:flex-end;width:100%;}
-    .btn-reset{padding:.3rem .9rem;background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.25);border-radius:2px;color:rgba(201,168,76,.6);font-family:'Cormorant Garamond',serif;font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;transition:all .2s;flex-shrink:0;}
-    .btn-reset:hover{background:rgba(201,168,76,.18);color:var(--gold);}
+    .puzzle-piece img{
+      display:block;
+      width:100%;   /* ocupa el ancho que JS asigna al wrapper */
+      height:auto;
+      pointer-events:none;
+      user-select:none;
+      -webkit-user-drag:none;
+    }
+
+
+    /* ── Código secreto ── */
     .codigo-wrap{width:100%;display:flex;flex-direction:column;align-items:center;gap:.7rem;flex-shrink:0;}
     .codigo-label{font-size:.8rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(201,168,76,.55);}
     .codigo-row{display:flex;gap:.6rem;width:100%;max-width:340px;align-items:center;}
@@ -40,20 +82,26 @@
     @keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-6px);}75%{transform:translateX(6px);}}
     .btn-validar{padding:.5rem 1.2rem;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.35);border-radius:2px;color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:all .2s;white-space:nowrap;}
     .btn-validar:hover{background:rgba(201,168,76,.2);border-color:var(--gold);}
+
+    /* ── Bolitas de pistas ── */
     .pistas-wrap{display:flex;gap:.7rem;align-items:center;justify-content:center;flex-wrap:nowrap;}
     .pista-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;letter-spacing:0;cursor:default;border:2px solid transparent;transition:all .25s;user-select:none;font-family:'Cormorant Garamond',serif;}
-    .pista-dot.rojo  {background:rgba(180,50,50,.25);border-color:rgba(180,50,50,.4);color:rgba(255,120,120,.5);}
-    .pista-dot.ambar {background:rgba(220,160,40,.2);border-color:rgba(220,160,40,.7);color:rgba(240,190,80,.9);cursor:pointer;animation:pulse-ambar 1.5s ease-in-out infinite;}
-    .pista-dot.verde {background:rgba(50,180,100,.2);border-color:rgba(50,180,100,.6);color:rgba(80,220,130,.9);cursor:pointer;}
+    .pista-dot.rojo  {background:rgba(180,50,50,.25); border-color:rgba(180,50,50,.4); color:rgba(255,120,120,.5);}
+    .pista-dot.ambar {background:rgba(220,160,40,.2);  border-color:rgba(220,160,40,.7); color:rgba(240,190,80,.9); cursor:pointer; animation:pulse-ambar 1.5s ease-in-out infinite;}
+    .pista-dot.verde {background:rgba(50,180,100,.2);  border-color:rgba(50,180,100,.6); color:rgba(80,220,130,.9); cursor:pointer;}
     .pista-dot.ambar:hover{background:rgba(220,160,40,.35);}
     .pista-dot.verde:hover{background:rgba(50,180,100,.35);}
     @keyframes pulse-ambar{0%,100%{box-shadow:0 0 0 0 rgba(220,160,40,.4);}50%{box-shadow:0 0 0 5px rgba(220,160,40,.0);}}
+
+    /* ── Nav ── */
     .day-nav{display:flex;justify-content:space-between;align-items:center;padding-top:1.5rem;border-top:1px solid rgba(201,168,76,.1);margin-top:1.5rem;}
     .nav-btn{font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(201,168,76,.5);text-decoration:none;padding:.6rem 1.2rem;border:1px solid rgba(201,168,76,.18);border-radius:2px;transition:all .2s;}
     .nav-btn:hover{color:var(--gold-light);border-color:rgba(201,168,76,.5);background:rgba(201,168,76,.05);}
     .year-badge{font-size:.7rem;letter-spacing:.3em;color:rgba(201,168,76,.25);text-transform:uppercase;}
     .back-link{display:block;text-align:center;margin-top:1.2rem;color:rgba(201,168,76,.35);font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;text-decoration:none;transition:color .2s;}
     .back-link:hover{color:var(--gold);}
+
+    /* ── Action btns ── */
     .action-btns{position:absolute;top:0;right:0;display:flex;flex-direction:column;align-items:center;gap:.2rem;}
     .icon-btn{background:none;border:none;cursor:pointer;font-size:2rem;line-height:1;transition:color .2s,transform .2s;padding:.2rem;}
     .icon-btn:hover{transform:scale(1.2);}
@@ -61,6 +109,8 @@
     .fav-btn.active{color:#e05a6a;}
     .done-btn{color:var(--gold);opacity:0.6;}
     .done-btn.active{color:var(--gold);opacity:1;}
+
+    /* ── Popups ── */
     .popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:100;align-items:center;justify-content:center;}
     .popup-overlay.visible{display:flex;}
     .popup-box{background:var(--dark);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:3rem 2.5rem;max-width:420px;width:90%;text-align:center;box-shadow:0 0 60px rgba(0,0,0,.8);}
@@ -69,6 +119,7 @@
     .popup-msg{font-size:1rem;font-style:italic;color:rgba(250,246,238,.6);line-height:1.7;margin-bottom:2rem;}
     .popup-btn{display:inline-block;padding:.7rem 2rem;border:1px solid rgba(201,168,76,.4);border-radius:2px;color:var(--gold);font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;background:none;transition:all .2s;}
     .popup-btn:hover{background:rgba(201,168,76,.1);border-color:var(--gold);}
+
     @media(max-width:600px){
       .wrap{padding:.8rem .8rem 1.2rem;}
       .day-hero{padding:.5rem 0 0;}
@@ -87,8 +138,8 @@
 <div class="wrap">
   <div class="day-hero">
     <div class="action-btns">
-      <button class="icon-btn fav-btn"  id="fav-btn"  title="Añadir a favoritos">&#9825;</button>
-      <button class="icon-btn done-btn" id="done-btn" title="Marcar como completado">&#9734;</button>
+      <button class="icon-btn fav-btn"  id="fav-btn"  title="Añadir a favoritos">♡</button>
+      <button class="icon-btn done-btn" id="done-btn" title="Marcar como completado">☆</button>
     </div>
     <div class="ornament-line-h">
       <div class="o-line"></div><div class="o-dot"></div><div class="o-line r"></div>
@@ -98,15 +149,18 @@
     <p class="month-label">de Julio</p>
 
     <div class="content-area">
+
+      <!-- Puzzle visual -->
       <div class="puzzle-container" id="puzzle-container"></div>
-      <div class="puzzle-controls">
-        <button class="btn-reset" id="btn-reset">&#8635; Reiniciar piezas</button>
-      </div>
+
+
+
+      <!-- Código secreto -->
       <div class="codigo-wrap">
         <p class="codigo-label">Introduce el código secreto</p>
         <div class="codigo-row">
-          <span class="lock-icon">&#128274;</span>
-          <input type="text" class="codigo-input" id="codigo-input" placeholder="&middot; &middot; &middot; &middot; &middot;" maxlength="20" autocomplete="off"/>
+          <span class="lock-icon">🔒</span>
+          <input type="text" class="codigo-input" id="codigo-input" placeholder="· · · · ·" maxlength="20" autocomplete="off"/>
           <button class="btn-validar" id="btn-validar">Validar</button>
         </div>
         <div class="pistas-wrap">
@@ -116,6 +170,7 @@
           <div class="pista-dot rojo"  id="pista-4" title="Pista 4">4</div>
         </div>
       </div>
+
     </div>
   </div>
 
@@ -130,46 +185,50 @@
 <!-- Popup: día futuro -->
 <div class="popup-overlay" id="popup">
   <div class="popup-box">
-    <div class="popup-icon">&#127873;</div>
-    <p class="popup-title">&#161;Un poco de paciencia!</p>
-    <p class="popup-msg">No seas impaciente...<br>Este día aún no ha llegado.<br>Ya llegará, y será especial. &#129293;</p>
+    <div class="popup-icon">🎁</div>
+    <p class="popup-title">¡Un poco de paciencia!</p>
+    <p class="popup-msg">No seas impaciente...<br>Este día aún no ha llegado.<br>Ya llegará, y será especial. 🤍</p>
     <button class="popup-btn" onclick="window.location.href='../index.html'">Volver al calendario</button>
   </div>
 </div>
+
 <!-- Popup: código incorrecto -->
 <div class="popup-overlay" id="popup-error">
   <div class="popup-box">
-    <div class="popup-icon">&#128269;</div>
-    <p class="popup-title">&#161;Casi lo tienes!</p>
-    <p class="popup-msg">Ese no es el código correcto...<br>Fíjate bien y vuelve a intentarlo. &#128170;</p>
+    <div class="popup-icon">🔍</div>
+    <p class="popup-title">¡Casi lo tienes!</p>
+    <p class="popup-msg">Ese no es el código correcto...<br>Fíjate bien y vuelve a intentarlo. 💪</p>
     <button class="popup-btn" id="error-close">Intentarlo de nuevo</button>
   </div>
 </div>
+
 <!-- Popup: pista -->
 <div class="popup-overlay" id="popup-pista">
   <div class="popup-box">
-    <div class="popup-icon">&#128161;</div>
+    <div class="popup-icon">💡</div>
     <p class="popup-title" id="pista-titulo">Pista</p>
     <p class="popup-msg" id="pista-texto">La pista aparecerá aquí.</p>
     <button class="popup-btn" id="pista-close">Entendido</button>
   </div>
 </div>
+
 <!-- Popup: estrella bloqueada -->
 <div class="popup-overlay" id="popup-star-blocked">
   <div class="popup-box">
-    <div class="popup-icon">&#127942;</div>
-    <p class="popup-title">&#161;Tu recompensa te espera!</p>
-    <p class="popup-msg">Para acceder a tu recompensa primero debes resolver el desafío de hoy...<br><br>&#161;Tú puedes! &#128170;</p>
+    <div class="popup-icon">🏆</div>
+    <p class="popup-title">¡Tu recompensa te espera!</p>
+    <p class="popup-msg">Para acceder a tu recompensa primero debes resolver el desafío de hoy...<br><br>¡Tú puedes! 💪</p>
     <button class="popup-btn" id="star-blocked-close">Volver</button>
   </div>
 </div>
+
 <!-- Popup: recompensa -->
 <div class="popup-overlay" id="popup-star-reward">
   <div class="popup-box">
-    <div class="popup-icon">&#127873;</div>
-    <p class="popup-title">&#161;Tu recompensa!</p>
-    <p class="popup-msg" id="reward-text">&#10024; Aquí irá la recompensa especial de este día &#10024;</p>
-    <button class="popup-btn" id="star-reward-close">&#161;Genial!</button>
+    <div class="popup-icon">🎁</div>
+    <p class="popup-title">¡Tu recompensa!</p>
+    <p class="popup-msg" id="reward-text">✨ Aquí irá la recompensa especial de este día ✨</p>
+    <button class="popup-btn" id="star-reward-close">¡Genial!</button>
   </div>
 </div>
 
@@ -177,7 +236,12 @@
 // ══════════════════════════════════════════════════════════
 // CONFIGURACIÓN DEL PUZZLE VISUAL
 // ══════════════════════════════════════════════════════════
+
+// Imagen de fondo del contenedor (null = sin fondo)
 const BG_IMAGE = null;
+
+// Piezas: archivo, z-index (1 = más al frente, N = más al fondo), opacidad 0-1
+// widthPct: % del ancho del contenedor que ocupará la pieza al cargar (responsive)
 const PIEZAS = [
   { file: 'Puzzle01_01.png', zIndex: 1, opacity: 0.6, widthPct: 0.55 },
   { file: 'Puzzle01_02.png', zIndex: 2, opacity: 0.6, widthPct: 0.55 },
@@ -185,8 +249,18 @@ const PIEZAS = [
   { file: 'Puzzle01_04.png', zIndex: 4, opacity: 0.6, widthPct: 0.55 },
   { file: 'Puzzle01_05.png', zIndex: 5, opacity: 0.6, widthPct: 0.55 },
 ];
-const SECRETS = ['ACHI'];
-const PISTAS = ['Puzzle','4 palabras','otra pista','mas pistas'];
+
+// Respuestas válidas
+const SECRETS = ['ALEX'];
+
+// Pistas
+const PISTAS = [
+  'Se trata simplemente de un puzzle: resuélvelo y la clave será tuya.',
+  'Fíjate bien en las muescas; debes utilizarlas para alinear cada una de las piezas.',
+  'En el momento en que el puzzle esté resuelto, la clave se revelará ante ti sin dejar dudas.',
+  'La clave que buscamos es un nombre, un nombre de solo cuatro letras.',
+];
+
 // ══════════════════════════════════════════════════════════
 
 const PREVIEW_KEY = 'cal_preview';
@@ -210,11 +284,12 @@ if (!isPreview && nextDateStr) {
 }
 popup.addEventListener('click', e => { if (e.target === popup) window.location.href = '../index.html'; });
 
+// ── Favourites ─────────────────────────────────────────────
 const FAV_KEY = 'fav_2028-07-03';
 const favBtn  = document.getElementById('fav-btn');
 function updateFav() {
   const on = localStorage.getItem(FAV_KEY) === '1';
-  favBtn.textContent = on ? '\u2764' : '\u2661';
+  favBtn.textContent = on ? '❤' : '♡';
   favBtn.classList.toggle('active', on);
   favBtn.title = on ? 'Quitar de favoritos' : 'Añadir a favoritos';
 }
@@ -225,18 +300,21 @@ favBtn.addEventListener('click', () => {
 });
 updateFav();
 
+// ── Done ───────────────────────────────────────────────────
 const DONE_KEY         = 'done_2028-07-03';
 const doneBtn          = document.getElementById('done-btn');
 const popupStarBlocked = document.getElementById('popup-star-blocked');
 const popupStarReward  = document.getElementById('popup-star-reward');
+
 document.getElementById('star-blocked-close').addEventListener('click', () => popupStarBlocked.classList.remove('visible'));
 popupStarBlocked.addEventListener('click', e => { if (e.target === popupStarBlocked) popupStarBlocked.classList.remove('visible'); });
 document.getElementById('star-reward-close').addEventListener('click', () => popupStarReward.classList.remove('visible'));
 popupStarReward.addEventListener('click', e => { if (e.target === popupStarReward) popupStarReward.classList.remove('visible'); });
+
 function markDone() { localStorage.setItem(DONE_KEY, '1'); updateDone(); }
 function updateDone() {
   const on = localStorage.getItem(DONE_KEY) === '1';
-  doneBtn.textContent = on ? '\u2605' : '\u2606';
+  doneBtn.textContent = on ? '★' : '☆';
   doneBtn.classList.toggle('active', on);
   doneBtn.title = on ? 'Ver recompensa' : 'Marcar como completado';
 }
@@ -248,19 +326,25 @@ doneBtn.addEventListener('click', () => {
 });
 updateDone();
 
+// ── Código secreto ─────────────────────────────────────────
 const codigoInput = document.getElementById('codigo-input');
 const popupError  = document.getElementById('popup-error');
+
 function normalizar(str) {
   return str.trim().toUpperCase()
     .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
     .replace(/[Ññ]/g, 'N');
 }
+
 document.getElementById('btn-validar').addEventListener('click', validar);
 codigoInput.addEventListener('keydown', e => { if (e.key === 'Enter') validar(); });
+
 function validar() {
   const val = normalizar(codigoInput.value);
   if (SECRETS.map(normalizar).includes(val)) {
-    markDone(); codigoInput.value = ''; popupStarReward.classList.add('visible');
+    markDone();
+    codigoInput.value = '';
+    popupStarReward.classList.add('visible');
   } else {
     codigoInput.classList.add('error');
     setTimeout(() => codigoInput.classList.remove('error'), 400);
@@ -268,16 +352,20 @@ function validar() {
   }
 }
 document.getElementById('error-close').addEventListener('click', () => {
-  popupError.classList.remove('visible'); codigoInput.value = ''; codigoInput.focus();
+  popupError.classList.remove('visible');
+  codigoInput.value = '';
+  codigoInput.focus();
 });
 popupError.addEventListener('click', e => {
   if (e.target === popupError) { popupError.classList.remove('visible'); codigoInput.value = ''; }
 });
 
+// ── Bolitas de pistas ──────────────────────────────────────
 const dotIds      = ['pista-1','pista-2','pista-3','pista-4'];
 let pistaEstado   = [1, 0, 0, 0];
 let pistaCallback = null;
 const popupPista  = document.getElementById('popup-pista');
+
 function renderDots() {
   dotIds.forEach((id, i) => {
     document.getElementById(id).className = 'pista-dot ' + ['rojo','ambar','verde'][pistaEstado[i]];
@@ -311,118 +399,205 @@ renderDots();
 // ══════════════════════════════════════════════════════════
 // PUZZLE VISUAL
 // ══════════════════════════════════════════════════════════
+
 const container = document.getElementById('puzzle-container');
+
 if (BG_IMAGE) {
   container.classList.add('has-bg');
   container.style.backgroundImage = `url('../media/${BG_IMAGE}')`;
 }
-const pieceData = [];
+
+// Estado de las piezas: guardamos pos relativa (0-1) para poder recalcular si resize
+// pero SOLO en el momento de colocarlas, no durante el drag
+const pieceData = []; // { el, imgEl, relX, relY, fixedW, fixedH }
+
+// Carga todas las imágenes en paralelo y resuelve cuando están listas
 function precargarImagenes() {
   return Promise.all(PIEZAS.map(p => new Promise(resolve => {
     const img = new Image();
-    img.onload  = () => resolve({ pieza: p, img });
-    img.onerror = () => resolve({ pieza: p, img });
+    img.onload = () => resolve({ pieza: p, img });
+    img.onerror = () => resolve({ pieza: p, img }); // continuar aunque falle
     img.src = `../media/${p.file}`;
   })));
 }
-function calcPieceWidth(pieza) { return Math.round(container.clientWidth * pieza.widthPct); }
+
+// Calcula el ancho en px de una pieza según widthPct y el contenedor actual
+function calcPieceWidth(naturalW, totalNaturalW) {
+  const cw = container.clientWidth;
+  return Math.round(cw * (naturalW / totalNaturalW));
+}
+
+// Posición aleatoria: deja la pieza completamente dentro del contenedor
 function randomPosition(pxW, pxH) {
-  const cw = container.clientWidth, ch = container.clientHeight;
+  const cw = container.clientWidth;
+  const ch = container.clientHeight;
+  const maxX = Math.max(0, cw - pxW);
+  const maxY = Math.max(0, ch - pxH);
   return {
-    x: Math.floor(Math.random() * Math.max(0, cw - pxW)),
-    y: Math.floor(Math.random() * Math.max(0, ch - pxH))
+    x: Math.floor(Math.random() * maxX),
+    y: Math.floor(Math.random() * maxY)
   };
 }
+
+// Coloca una pieza en el DOM con tamaño y posición fijos
+function colocarPieza(wrapper, imgEl, pxW, pxH, x, y) {
+  wrapper.style.width  = pxW + 'px';
+  wrapper.style.height = pxH + 'px';
+  wrapper.style.left   = x + 'px';
+  wrapper.style.top    = y + 'px';
+}
+
+// Inicializa / reinicia todas las piezas
 function crearPiezas(precargadas) {
+  // Limpiar estado y DOM
   pieceData.length = 0;
   container.querySelectorAll('.puzzle-piece').forEach(el => el.remove());
+
   const maxZ = PIEZAS.length;
-  precargadas.forEach(( { pieza, img }, idx) => {
+  const totalNaturalW = precargadas.reduce((sum, p) => sum + (p.img.naturalWidth || 1), 0);
+
+  precargadas.forEach(({ pieza, img }, idx) => {
     const wrapper = document.createElement('div');
     wrapper.className = 'puzzle-piece';
+    // zIndex: 1=frente → CSS alto; N=fondo → CSS bajo
     wrapper.style.zIndex  = String(maxZ - pieza.zIndex + 1);
     wrapper.style.opacity = String(pieza.opacity);
+
     const imgEl = document.createElement('img');
-    imgEl.src = img.src; imgEl.alt = `Pieza ${idx + 1}`; imgEl.draggable = false;
+    imgEl.src       = img.src;
+    imgEl.alt       = `Pieza ${idx + 1}`;
+    imgEl.draggable = false;
+
     wrapper.appendChild(imgEl);
     container.appendChild(wrapper);
-    const pxW = calcPieceWidth(pieza);
-    const aspect = (img.naturalHeight && img.naturalWidth) ? img.naturalHeight / img.naturalWidth : 1;
+
+    // Tamaño proporcional al ancho natural de cada imagen
+    const pxW = calcPieceWidth(img.naturalWidth || 1, totalNaturalW);
+    const aspect = (img.naturalHeight && img.naturalWidth)
+      ? img.naturalHeight / img.naturalWidth
+      : 1;
     const pxH = Math.round(pxW * aspect);
-    wrapper.style.width  = pxW + 'px';
-    wrapper.style.height = pxH + 'px';
+
     const pos = randomPosition(pxW, pxH);
-    wrapper.style.left = pos.x + 'px';
-    wrapper.style.top  = pos.y + 'px';
-    const entry = { el: wrapper, imgEl, pieza, fixedW: pxW, fixedH: pxH };
+    colocarPieza(wrapper, imgEl, pxW, pxH, pos.x, pos.y);
+
+    const entry = { el: wrapper, imgEl, pieza, fixedW: pxW, fixedH: pxH, relX: pos.x / container.clientWidth, relY: pos.y / container.clientHeight };
     pieceData.push(entry);
+
     activarDrag(entry);
   });
 }
+
+// ── Hit-test de pixel alpha ────────────────────────────────
+// Dibuja la imagen en un canvas off-screen y comprueba el canal alpha en (px, py)
+// Se cachea por imagen para no redibujar en cada mousedown
 const alphaCache = new WeakMap();
+
 function getCanvas(imgEl) {
   if (alphaCache.has(imgEl)) return alphaCache.get(imgEl);
   const c = document.createElement('canvas');
-  c.width = imgEl.naturalWidth || 1; c.height = imgEl.naturalHeight || 1;
-  try { c.getContext('2d').drawImage(imgEl, 0, 0); alphaCache.set(imgEl, c); }
-  catch { alphaCache.set(imgEl, null); }
+  c.width  = imgEl.naturalWidth  || 1;
+  c.height = imgEl.naturalHeight || 1;
+  try {
+    c.getContext('2d').drawImage(imgEl, 0, 0);
+    alphaCache.set(imgEl, c);
+  } catch { /* CORS — cache null */ alphaCache.set(imgEl, null); }
   return alphaCache.get(imgEl);
 }
+
 function esPixelOpaco(entry, clientX, clientY) {
-  const rect   = entry.el.getBoundingClientRect();
+  const rect = entry.el.getBoundingClientRect();
   const scaleX = (entry.imgEl.naturalWidth  || entry.fixedW) / entry.fixedW;
   const scaleY = (entry.imgEl.naturalHeight || entry.fixedH) / entry.fixedH;
   const px = Math.round((clientX - rect.left) * scaleX);
   const py = Math.round((clientY - rect.top)  * scaleY);
   const canvas = getCanvas(entry.imgEl);
-  if (!canvas) return true;
-  try { return canvas.getContext('2d').getImageData(px, py, 1, 1).data[3] > 10; }
-  catch { return true; }
+  if (!canvas) return true; // CORS: siempre arrastrar
+  try {
+    const d = canvas.getContext('2d').getImageData(px, py, 1, 1).data;
+    return d[3] > 10;
+  } catch { return true; }
 }
+
+// ── Drag & Drop ────────────────────────────────────────────
 function activarDrag(entry) {
   const wrapper = entry.el;
-  let dragging = false, startClientX, startClientY, origLeft, origTop;
-  const zOrig = wrapper.style.zIndex, zTop = String(PIEZAS.length + 20);
+  let dragging = false;
+  let startClientX, startClientY;
+  let origLeft, origTop;
+  // z-index original para restaurar tras el drag
+  const zOrig = wrapper.style.zIndex;
+  const zTop  = String(PIEZAS.length + 20);
+
   function iniciar(cx, cy) {
-    dragging = true; startClientX = cx; startClientY = cy;
+    dragging     = true;
+    startClientX = cx;
+    startClientY = cy;
+    // Leemos la posición actual del wrapper (puede haber cambiado por drags previos)
     origLeft = parseInt(wrapper.style.left, 10) || 0;
     origTop  = parseInt(wrapper.style.top,  10) || 0;
-    wrapper.style.zIndex = zTop; wrapper.classList.add('dragging');
+    wrapper.style.zIndex = zTop;
+    wrapper.classList.add('dragging');
   }
+
   function mover(cx, cy) {
     if (!dragging) return;
     wrapper.style.left = (origLeft + cx - startClientX) + 'px';
     wrapper.style.top  = (origTop  + cy - startClientY) + 'px';
   }
+
   function terminar() {
     if (!dragging) return;
-    dragging = false; wrapper.classList.remove('dragging'); wrapper.style.zIndex = zOrig;
-    const cw = container.clientWidth, ch = container.clientHeight;
+    dragging = false;
+    wrapper.classList.remove('dragging');
+    wrapper.style.zIndex = zOrig;
+    // Clamp: mantener la pieza dentro del contenedor
+    const cw = container.clientWidth;
+    const ch = container.clientHeight;
     let l = parseInt(wrapper.style.left, 10) || 0;
     let t = parseInt(wrapper.style.top,  10) || 0;
-    wrapper.style.left = Math.max(0, Math.min(l, cw - entry.fixedW)) + 'px';
-    wrapper.style.top  = Math.max(0, Math.min(t, ch - entry.fixedH)) + 'px';
+    l = Math.max(0, Math.min(l, cw - entry.fixedW));
+    t = Math.max(0, Math.min(t, ch - entry.fixedH));
+    wrapper.style.left = l + 'px';
+    wrapper.style.top  = t + 'px';
+    // Actualizar pos relativa (por si hay resize posterior)
+    entry.relX = l / cw;
+    entry.relY = t / ch;
   }
+
+  // Mouse
   wrapper.addEventListener('mousedown', e => {
     if (!esPixelOpaco(entry, e.clientX, e.clientY)) return;
-    e.preventDefault(); iniciar(e.clientX, e.clientY);
+    e.preventDefault();
+    iniciar(e.clientX, e.clientY);
   });
+  // Escuchamos en window para no perder el drag si el cursor sale del wrapper
   window.addEventListener('mousemove', e => { if (dragging) mover(e.clientX, e.clientY); });
-  window.addEventListener('mouseup',   () => terminar());
+  window.addEventListener('mouseup',   ()  => terminar());
+
+  // Touch
   wrapper.addEventListener('touchstart', e => {
     const t = e.touches[0];
     if (!esPixelOpaco(entry, t.clientX, t.clientY)) return;
-    e.preventDefault(); iniciar(t.clientX, t.clientY);
+    e.preventDefault();
+    iniciar(t.clientX, t.clientY);
   }, { passive: false });
   wrapper.addEventListener('touchmove', e => {
-    if (!dragging) return; e.preventDefault(); mover(e.touches[0].clientX, e.touches[0].clientY);
+    if (!dragging) return;
+    e.preventDefault();
+    mover(e.touches[0].clientX, e.touches[0].clientY);
   }, { passive: false });
   wrapper.addEventListener('touchend', () => terminar());
 }
-let precargadas = null;
-document.getElementById('btn-reset').addEventListener('click', () => { if (precargadas) crearPiezas(precargadas); });
+
+
+
+// ── Arranque ───────────────────────────────────────────────
+// Esperamos a que el contenedor tenga altura real (el layout ya pintó)
 requestAnimationFrame(() => {
-  precargarImagenes().then(imgs => { precargadas = imgs; crearPiezas(precargadas); });
+  precargarImagenes().then(imgs => {
+    crearPiezas(imgs);
+  });
 });
 </script>
 </body>
