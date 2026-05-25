@@ -170,13 +170,13 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-03-04 | Minijuego (Simón Dice) | N/A | N/A | N/A | PDTE |
 | 2028-03-06 | Adivina el logo correcto | 10 logos icónicos | Logos.png | N/A | PDTE |
 | 2028-03-07 | Puzzle visual | ACHI | Puzzle01_01.png .. Puzzle01_05.png | N/A | PDTE |
+| 2028-03-08 | Cultura: iniciales de famosos, especial mujeres | JAMAICA | Lugar02_01.jpg .. Lugar02_07.jpg | Ajenos | PDTE |
+| 2028-03-12 | Agudeza visual — cifrado César | PLATANO | Alex_20191006.png | Alex | PDTE |
 | 2028-03-13 | Rosco de pasapalabra | N/A | N/A | N/A | PDTE |
 | 2028-03-14 | Sigue la letra | Sin ti no soy nada (Amaral) | Sin_ti_no_soy_nada.mp3 | N/A | PDTE |
 | 2028-03-15 | Adivina quién soy | AGATHA CHRISTIE | Mari_20220819.png | Mari | PDTE |
 | 2028-03-26 | Palabras Intraducibles - Brasileño | CAFUNE | NievesAri_20210817.png | Nieves y Ariadna | PDTE |
 | 2028-03-28 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
-| 2028-03-08 | Cultura: iniciales de famosos, especial mujeres | JAMAICA | Lugar02_01.jpg .. Lugar02_07.jpg | Ajenos | PDTE |
-| 2028-03-12 | Agudeza visual — cifrado César | PLATANO | Alex_20191006.png | Alex | PDTE |
 | 2028-04-08 | Minijuego (El Lobo, la Cabra y la Col) | N/A | N/A | N/A | PDTE |
 | 2028-04-10 | Adivina el logo correcto | 10 logos icónicos | Logos.png | N/A | PDTE |
 | 2028-04-11 | Adivina quién soy | DALI | Ari_20130601.png | Ariadna | PDTE |
@@ -194,11 +194,11 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-05-16 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
 | 2028-05-17 | Sigue la letra | La chispa adecuada (Héroes del Silencio) | La_chispa_adecuada.mp3 | N/A | PDTE |
 | 2028-05-22 | Cultura: iniciales de famosos | CAPRI | Lugar08_01.jpg .. Lugar08_05.jpg | Ajenos | PDTE |
-| 2028-05-29 | Adivina el logo correcto | 10 logos icónicos | Logos.png | N/A | PDTE |
-| 2028-06-01 | Puzzle visual | ACHI | Puzzle01_01.png .. Puzzle01_05.png | N/A | PDTE |
 | 2028-05-23 | Rosco de pasapalabra | N/A | N/A | N/A | PDTE |
 | 2028-05-24 | Puzzle visual | ACHI | Puzzle01_01.png .. Puzzle01_05.png | N/A | PDTE |
 | 2028-05-26 | Adivina las películas | Fiebre del Sábado Noche, Jurassic Park, Coco, Gladiator, Pulp Fiction | Fiebre_del_Sabado_Noche, Jurassic_Park, Coco, Gladiator, Pulp_Fiction (mp3 y jpg) | N/A | PDTE |
+| 2028-05-29 | Adivina el logo correcto | 10 logos icónicos | Logos.png | N/A | PDTE |
+| 2028-06-01 | Puzzle visual | ACHI | Puzzle01_01.png .. Puzzle01_05.png | N/A | PDTE |
 | 2028-06-03 | Minijuego (La Balanza Falsa) | N/A | N/A | N/A | PDTE |
 | 2028-06-05 | Adivina el logo correcto | 10 logos icónicos | Logos.png | N/A | PDTE |
 | 2028-06-06 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
@@ -209,10 +209,10 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-06-16 | Adivina las películas | Flashdance, El Señor de los Anillos, Batman, Up, Cinema Paradiso | Flashdance, El_Senor_de_los_Anillos, Batman, Up, Cinema_Paradiso (mp3 y jpg) | N/A | PDTE |
 | 2028-06-18 | Escape Room: 02-Sala de Control Nuclear | SOLES | ER02_EscenarioVisual.jpg + ER02_EscenarioClickmap.jpg | N/A | PDTE |
 | 2028-06-19 | Rosco de pasapalabra | N/A | N/A | N/A | PDTE |
+| 2028-07-03 | Puzzle visual | ACHI | Puzzle01_01.png .. Puzzle01_05.png | N/A | PDTE |
+| 2028-07-04 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
 | 2028-07-08 | Minijuego (La Puerta de los Glifos) | N/A | N/A | N/A | PDTE |
 | 2028-07-10 | Adivina el logo correcto | 10 logos icónicos | Logos.png | N/A | PDTE |
-| 2028-07-04 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
-| 2028-07-03 | Puzzle visual | ACHI | Puzzle01_01.png .. Puzzle01_05.png | N/A | PDTE |
 | 2028-07-11 | Timeline histórico doble | A:01-06 / B:01-06 | Timeline02_01A..06A.png + Timeline02_01B..06B.png | N/A | PDTE |
 | 2028-07-12 | Adivina quién soy | POE | David_20231209.png | David | PDTE |
 | 2028-07-16 | Agudeza visual — Elementos químicos | BRUSELAS | Alex_20231027.png | Alex | PDTE |
@@ -242,8 +242,8 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-09-22 | Adivina las películas | Pesadilla antes de Navidad, La La Land, El Último Mohicano, The Pianist, Inside Out | Pesadilla_antes_de_Navidad, La_La_Land, El_Ultimo_Mohicano, The_Pianist, Inside_Out (mp3 y jpg) | N/A | PDTE |
 | 2028-09-25 | Rosco de pasapalabra | N/A | N/A | N/A | PDTE |
 | 2028-09-26 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
-| 2028-10-03 | Cultura: iniciales de famosos | CRETA | Lugar11_01.jpg .. Lugar11_05.jpg | Ajenos | PDTE |
 | 2028-10-02 | Puzzle visual | ACHI | Puzzle01_01.png .. Puzzle01_05.png | N/A | PDTE |
+| 2028-10-03 | Cultura: iniciales de famosos | CRETA | Lugar11_01.jpg .. Lugar11_05.jpg | Ajenos | PDTE |
 | 2028-10-08 | Escape Room: 03-Laboratorio Alquímico | Esencia Pura | ER03_EscenarioVisual.jpg + ER03_EscenarioClickmap.jpg | N/A | PDTE |
 | 2028-10-09 | Adivina el logo correcto | 10 logos icónicos | Logos.png | N/A | PDTE |
 | 2028-10-10 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
@@ -274,8 +274,8 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-12-19 | Cultura: iniciales de famosos, especial deporte | ONTARIO | Lugar05_01.jpg .. Lugar05_07.jpg | Ajenos | PDTE |
 | 2028-12-20 | Adivina el logo correcto | 10 logos icónicos | Logos.png | N/A | PDTE |
 | 2028-12-23 | Minijuego (La Torre de Hanoi) | N/A | N/A | N/A | PDTE |
-| 2029-01-03 | Timeline musical, Internacional en los 2000 | 2000-2009 | Music.jpg, Complicated.jpg, Hey_Ya.jpg, Crazy.jpg, Umbrella.jpg, I_Gotta_Feeling.jpg + .mp3 | N/A | PDTE |
 | 2029-01-02 | Puzzle visual | ACHI | Puzzle01_01.png .. Puzzle01_05.png | N/A | PDTE |
+| 2029-01-03 | Timeline musical, Internacional en los 2000 | 2000-2009 | Music.jpg, Complicated.jpg, Hey_Ya.jpg, Crazy.jpg, Umbrella.jpg, I_Gotta_Feeling.jpg + .mp3 | N/A | PDTE |
 
 
 ---
@@ -298,6 +298,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 |  Día / Ámbito | Descripción | Estado |
 |--------------|-------------|--------|
 |  Logos icónicos (×9 días) | Rellenar contenido de: 2028-01-17, 2028-02-01, 2028-04-10, 2028-06-05, 2028-08-07, 2028-09-04, 2028-10-09, 2028-11-06, 2028-12-20 | 🔲 Pdte |
+|  Puzzle visuales (x11 días) | Rellenar contenido de 11 días excepto 03-FEB que ya está | 🔲 Pdte |
 |  Pasapalabra (×12 meses) | Completar los restos de letras para los 12 meses del calendario | 🔲 Pdte |
 |  Laberinto invisible (×12 meses) | Definir y actualizar el laberinto | 🔲 Pdte |
 |  Escape Rooms + Retos de observación | Añadir música ambiental de fondo en los días tipo Escape Room y en los retos de agudeza visual | 🔲 Pdte |
