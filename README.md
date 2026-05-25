@@ -195,7 +195,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-05-17 | Sigue la letra | La chispa adecuada (Héroes del Silencio) | La_chispa_adecuada.mp3 | N/A | PDTE |
 | 2028-05-22 | Cultura: iniciales de famosos | CAPRI | Lugar08_01.jpg .. Lugar08_05.jpg | Ajenos | PDTE |
 | 2028-05-23 | Rosco de pasapalabra | N/A | N/A | N/A | PDTE |
-| 2028-05-24 | Puzzle visual | ACHI | Puzzle01_01.png .. Puzzle01_05.png | N/A | PDTE |
+| 2028-05-24 | Puzzle visual | ARI | Puzzle04_01.png .. Puzzle04_07.png | N/A | PDTE |
 | 2028-05-26 | Adivina las películas | Fiebre del Sábado Noche, Jurassic Park, Coco, Gladiator, Pulp Fiction | Fiebre_del_Sabado_Noche, Jurassic_Park, Coco, Gladiator, Pulp_Fiction (mp3 y jpg) | N/A | PDTE |
 | 2028-05-29 | Adivina el logo correcto | 10 logos icónicos | Logos.png | N/A | PDTE |
 | 2028-06-01 | Puzzle visual | ACHI | Puzzle01_01.png .. Puzzle01_05.png | N/A | PDTE |
@@ -298,7 +298,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 |  Día / Ámbito | Descripción | Estado |
 |--------------|-------------|--------|
 |  Logos icónicos (×9 días) | Rellenar contenido de: 2028-01-17, 2028-02-01, 2028-04-10, 2028-06-05, 2028-08-07, 2028-09-04, 2028-10-09, 2028-11-06, 2028-12-20 | 🔲 Pdte |
-|  Puzzle visuales | OK: 03-FEB, 07-MAR y 27-ABR | 🔲 Pdte |
+|  Puzzle visuales | OK: 03-FEB, 07-MAR, 27-ABR, 24-MAY | 🔲 Pdte |
 |  Pasapalabra (×12 meses) | Completar los restos de letras para los 12 meses del calendario | 🔲 Pdte |
 |  Laberinto invisible (×12 meses) | Definir y actualizar el laberinto | 🔲 Pdte |
 |  Escape Rooms + Retos de observación | Añadir música ambiental de fondo en los días tipo Escape Room y en los retos de agudeza visual | 🔲 Pdte |
