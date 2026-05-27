@@ -77,12 +77,12 @@
     /* ════════════════════════════════════════════════
        POPUP KAWAII — Toca Boca World style
        ════════════════════════════════════════════════ */
-    .tb-overlay{display:none;position:fixed;inset:0;z-index:200;pointer-events:none;}
-    .tb-overlay.visible{display:block;pointer-events:auto;}
+    /* overlay eliminado como bloqueador — sólo contenedor transparente sin interacción */
+    .tb-overlay{display:contents;}
 
-    /* Ventana draggable */
+    /* Ventana flotante no modal (paleta tipo Photoshop) */
     .tb-window{
-      position:absolute;
+      position:fixed;
       background:var(--tb-bg);
       border:3px solid var(--tb-border);
       border-radius:20px;
@@ -98,7 +98,9 @@
       top:15%;
       left:50%;
       transform:translateX(-50%);
+      z-index:200;
     }
+    .tb-window.tb-hidden{display:none;}
 
     /* Barra de título draggable */
     .tb-titlebar{
@@ -305,7 +307,7 @@
      POPUP kawaii: PISTAS (movible, scroll vertical)
      ═══════════════════════════════════════════════════ -->
 <div class="tb-overlay" id="popup-pistas">
-  <div class="tb-window" id="tb-pistas-win">
+  <div class="tb-window tb-hidden" id="tb-pistas-win">
     <div class="tb-titlebar" id="tb-pistas-drag">
       <div class="tb-win-title">
         <span class="emoji">💡</span> Pistas
@@ -331,7 +333,7 @@
      POPUP kawaii: TABLA DE DEDUCCIÓN
      ═══════════════════════════════════════════════════ -->
 <div class="tb-overlay" id="popup-tabla">
-  <div class="tb-window tabla-window" id="tb-tabla-win">
+  <div class="tb-window tabla-window tb-hidden" id="tb-tabla-win">
     <div class="tb-titlebar tabla-bar" id="tb-tabla-drag">
       <div class="tb-win-title">
         <span class="emoji">📋</span> Tabla de deducción
@@ -588,25 +590,21 @@ document.getElementById('incompleto-close').addEventListener('click', () => popu
 popupIncompleto.addEventListener('click', e => { if (e.target === popupIncompleto) popupIncompleto.classList.remove('visible'); });
 
 // ══════════════════════════════════════════════════════════
-// POPUP KAWAII — Pistas (movible)
+// POPUP KAWAII — Pistas (paleta flotante no modal)
 // ══════════════════════════════════════════════════════════
-const overlayPistas = document.getElementById('popup-pistas');
-const winPistas     = document.getElementById('tb-pistas-win');
+const winPistas = document.getElementById('tb-pistas-win');
 
 document.getElementById('btn-pistas').addEventListener('click', () => {
-  overlayPistas.classList.add('visible');
+  winPistas.classList.remove('tb-hidden');
   centrarVentana(winPistas);
 });
-document.getElementById('tb-pistas-close').addEventListener('click', () => overlayPistas.classList.remove('visible'));
-// Clic fuera de la ventana = cerrar
-overlayPistas.addEventListener('click', e => { if (e.target === overlayPistas) overlayPistas.classList.remove('visible'); });
+document.getElementById('tb-pistas-close').addEventListener('click', () => winPistas.classList.add('tb-hidden'));
 activarDragVentana(winPistas, document.getElementById('tb-pistas-drag'));
 
 // ══════════════════════════════════════════════════════════
-// POPUP KAWAII — Tabla de deducción (movible)
+// POPUP KAWAII — Tabla de deducción (paleta flotante no modal)
 // ══════════════════════════════════════════════════════════
-const overlayTabla = document.getElementById('popup-tabla');
-const winTabla     = document.getElementById('tb-tabla-win');
+const winTabla = document.getElementById('tb-tabla-win');
 
 // Persistencia de la tabla en localStorage
 const TABLA_KEY = 'tabla_2028-01-15';
@@ -640,20 +638,19 @@ document.querySelectorAll('.tb-select').forEach(sel => sel.addEventListener('cha
 restaurarTabla();
 
 document.getElementById('btn-tabla').addEventListener('click', () => {
-  overlayTabla.classList.add('visible');
+  winTabla.classList.remove('tb-hidden');
   centrarVentana(winTabla);
 });
 document.getElementById('tb-tabla-close').addEventListener('click', () => {
   guardarTabla();
-  overlayTabla.classList.remove('visible');
+  winTabla.classList.add('tb-hidden');
 });
-overlayTabla.addEventListener('click', e => { if (e.target === overlayTabla) { guardarTabla(); overlayTabla.classList.remove('visible'); } });
 activarDragVentana(winTabla, document.getElementById('tb-tabla-drag'));
 
 // ── Botón Volver (guarda y cierra)
 document.getElementById('tb-tabla-volver').addEventListener('click', () => {
   guardarTabla();
-  overlayTabla.classList.remove('visible');
+  winTabla.classList.add('tb-hidden');
 });
 
 // ── Validación desde la tabla ──
@@ -669,7 +666,7 @@ function validarSolucion() {
   }
 
   // Cerrar la tabla antes de mostrar el resultado
-  overlayTabla.classList.remove('visible');
+  winTabla.classList.add('tb-hidden');
 
   // Comprobar solución
   let correcto = true;
