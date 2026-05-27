@@ -288,7 +288,6 @@
         <span class="lock-icon">🔒</span>
         <button class="btn-accion" id="btn-pistas">Pistas</button>
         <button class="btn-accion" id="btn-tabla">Tabla de deducción</button>
-        <button class="btn-accion" id="btn-validar-main">Validar</button>
       </div>
 
     </div>
@@ -316,12 +315,14 @@
     </div>
     <div class="tb-body">
       <div class="tb-deco">🍕 🍝 🍳 🍔</div>
-      <div class="tb-bubble"><span class="hi">¡Hola! 👋</span>Cada persona de la mesa tiene su plato favorito <strong>y</strong> su salsa preferida. ¡Ninguna combinación se repite!</div>
-      <div class="tb-bubble">🔍 <strong>Pista 1:</strong> Enric no soporta el ketchup ni la carbonara. Solo hay una salsa que le va bien con su plato.</div>
-      <div class="tb-bubble">🔍 <strong>Pista 2:</strong> Nieves adora la pasta. La acompaña siempre con la misma salsa que lleva su nombre... ¡o casi!</div>
-      <div class="tb-bubble">🔍 <strong>Pista 3:</strong> Ariadna es muy original: su plato no lleva ni queso fundido ni tomate. La salsa que usa viene del sur de Europa.</div>
-      <div class="tb-bubble">🔍 <strong>Pista 4:</strong> Alex siempre pide hamburguesa. Y con hamburguesa, ¡lo suyo es el ketchup!</div>
-      <div class="tb-bubble">💬 ¿Ya lo tienes? Abre la <strong>Tabla de deducción</strong> y coloca cada combinación en su sitio 🎉</div>
+      <div class="tb-bubble"><span class="hi">Pistas 🔍</span>Usa estas pistas para rellenar la tabla de deducción:</div>
+      <div class="tb-bubble">1· La pasta llevaba salsa carbonara.</div>
+      <div class="tb-bubble">2· Enric no comió tortilla.</div>
+      <div class="tb-bubble">3· Ariadna eligió pesto.</div>
+      <div class="tb-bubble">4· La hamburguesa llevaba ketchup.</div>
+      <div class="tb-bubble">5· Alex no comió pizza.</div>
+      <div class="tb-bubble">6· Nieves no eligió mayonesa.</div>
+      <div class="tb-bubble">7· El plato con pesto no era hamburguesa.</div>
     </div>
   </div>
 </div>
@@ -339,7 +340,7 @@
       <button class="tb-close-btn tabla-close" id="tb-tabla-close">✕</button>
     </div>
     <div class="tb-body">
-      <div class="tb-deco">🌈 ¡Completa la tabla y resuelve el misterio! 🌈</div>
+      <p style="font-family:'Nunito',sans-serif;font-size:.85rem;color:#555;line-height:1.55;margin-bottom:.9rem;background:#fff;border:2px solid #b2ebf2;border-radius:14px;padding:.7rem 1rem;">El viernes decidimos hacer un <strong style="color:var(--tb-blue);">'viernes loco'</strong> y cada uno eligió lo que más le apetecía para cenar y la salsa que quería. Descubre qué cenó cada miembro de la familia y con qué salsa lo acompañó.</p>
       <table class="deduccion-table" id="deduccion-table">
         <thead>
           <tr>
@@ -649,34 +650,26 @@ document.getElementById('tb-tabla-close').addEventListener('click', () => {
 overlayTabla.addEventListener('click', e => { if (e.target === overlayTabla) { guardarTabla(); overlayTabla.classList.remove('visible'); } });
 activarDragVentana(winTabla, document.getElementById('tb-tabla-drag'));
 
-// Botón Volver (guarda y cierra)
+// ── Botón Volver (guarda y cierra)
 document.getElementById('tb-tabla-volver').addEventListener('click', () => {
   guardarTabla();
   overlayTabla.classList.remove('visible');
 });
 
 // ── Validación desde la tabla ──
-document.getElementById('tb-tabla-validar').addEventListener('click', () => validarSolucion(true));
+document.getElementById('tb-tabla-validar').addEventListener('click', () => validarSolucion());
 
-// ── Validación desde botón principal ──
-document.getElementById('btn-validar-main').addEventListener('click', () => validarSolucion(false));
-
-function validarSolucion(desdeTabla) {
+function validarSolucion() {
   // Comprobar que todos los campos están rellenos
   for (const [persona, cols] of Object.entries(SELECTS)) {
     if (!document.getElementById(cols.plato).value || !document.getElementById(cols.salsa).value) {
-      if (desdeTabla) {
-        // Mostrar popup incompleto (encima de la tabla)
-        popupIncompleto.classList.add('visible');
-      } else {
-        // Abrir la tabla para que lo complete
-        overlayTabla.classList.add('visible');
-        centrarVentana(winTabla);
-        setTimeout(() => popupIncompleto.classList.add('visible'), 150);
-      }
+      popupIncompleto.classList.add('visible');
       return;
     }
   }
+
+  // Cerrar la tabla antes de mostrar el resultado
+  overlayTabla.classList.remove('visible');
 
   // Comprobar solución
   let correcto = true;
@@ -690,17 +683,10 @@ function validarSolucion(desdeTabla) {
   }
 
   if (correcto) {
-    if (desdeTabla) overlayTabla.classList.remove('visible');
     markDone();
     popupStarReward.classList.add('visible');
   } else {
-    if (!desdeTabla) {
-      overlayTabla.classList.add('visible');
-      centrarVentana(winTabla);
-      setTimeout(() => popupError.classList.add('visible'), 150);
-    } else {
-      popupError.classList.add('visible');
-    }
+    popupError.classList.add('visible');
   }
 }
 
