@@ -145,6 +145,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 |-----|------|-------|-------|---------|------------|
 | 2028-01-12 | Sigue la letra | La flaca (Jarabe de Palo) | La_flaca.mp3 | N/A | PDTE |
 | 2028-01-14 | Adivina las películas | Dirty Dancing, Frozen, La Mision, Los Cazafantasmas, Matrix | Dirty_Dancing, Frozen, La_Mision, Los_Cazafantasmas, Matrix (mp3 y jpg) | N/A | PDTE |
+| 2028-01-15 | Satisfacción con restricciones múltiples | Enric↔pizza+mayonesa / Nieves↔pasta+carbonara / Ariadna↔tortilla+pesto / Alex↔hamburguesa+ketchup | RSR01_Escenario.webp + RSR01_01A..01D.png + RSR01_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
 | 2028-01-17 | Adivina el logo correcto | 10 logos icónicos | Logos.png | N/A | PDTE |
 | 2028-01-19 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
 | 2028-01-21 | Cultura: iniciales de famosos | CORCEGA | Lugar01_01.jpg .. Lugar01_07.jpg | Ajenos | PDTE |
