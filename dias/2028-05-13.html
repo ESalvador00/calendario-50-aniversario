@@ -27,12 +27,12 @@
     .month-label{font-family:'Playfair Display',serif;font-size:clamp(1.1rem,2.8vw,1.8rem);font-weight:400;font-style:italic;color:rgba(250,246,238,.45);margin-bottom:1rem;}
 
     /* ── Content area ── */
-    .content-area{width:100%;flex:none;border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:1rem;background:rgba(255,255,255,.02);display:flex;flex-direction:column;align-items:center;gap:1rem;height:100vh;}
+    .content-area{width:100%;flex:none;border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:1rem;background:rgba(255,255,255,.02);display:flex;flex-direction:column;align-items:center;gap:1rem;}
 
     /* ── Escenario (imagen de fondo + piezas) ── */
-    .scenario-wrap{position:relative;width:100%;flex:1;min-height:160px;display:flex;flex-direction:column;}
+    .scenario-wrap{position:relative;width:100%;display:flex;flex-direction:column;}
     .scenario-titulo{font-family:'Playfair Display',serif;font-size:clamp(.85rem,2vw,1.1rem);font-style:italic;color:rgba(201,168,76,.6);letter-spacing:.15em;text-align:center;padding-bottom:.4rem;flex-shrink:0;}
-    .puzzle-container{position:relative;width:100%;flex:1;min-height:100px;background:rgba(0,0,0,.25);border:1px solid rgba(201,168,76,.12);border-radius:3px;overflow:hidden;touch-action:none;cursor:default;}
+    .puzzle-container{position:relative;width:100%;aspect-ratio:3/2;background:rgba(0,0,0,.25);border:1px solid rgba(201,168,76,.12);border-radius:3px;overflow:hidden;touch-action:none;cursor:default;}
     .puzzle-container.has-bg{background-size:cover;background-position:center;background-repeat:no-repeat;}
     .puzzle-piece{position:absolute;cursor:grab;user-select:none;-webkit-user-select:none;touch-action:none;}
     .puzzle-piece.dragging{cursor:grabbing;}
@@ -486,14 +486,14 @@
 // ══════════════════════════════════════════════════════════
 
 const PIEZAS = [
-  { file: 'RSR05_01A.png', zIndex: 1, opacity: 1.0, widthPct: 0.07  },
-  { file: 'RSR05_01B.png', zIndex: 2, opacity: 1.0, widthPct: 0.07  },
-  { file: 'RSR05_01C.png', zIndex: 3, opacity: 1.0, widthPct: 0.07  },
-  { file: 'RSR05_01D.png', zIndex: 4, opacity: 1.0, widthPct: 0.07  },
-  { file: 'RSR05_02A.png', zIndex: 5, opacity: 1.0, widthPct: 0.035 },
-  { file: 'RSR05_02B.png', zIndex: 6, opacity: 1.0, widthPct: 0.025 },
-  { file: 'RSR05_02C.png', zIndex: 7, opacity: 1.0, widthPct: 0.035 },
-  { file: 'RSR05_02D.png', zIndex: 8, opacity: 1.0, widthPct: 0.035 },
+  { file: 'RSR05_01A.png', zIndex: 1, opacity: 1.0, widthPct: 0.08  },
+  { file: 'RSR05_01B.png', zIndex: 2, opacity: 1.0, widthPct: 0.08  },
+  { file: 'RSR05_01C.png', zIndex: 3, opacity: 1.0, widthPct: 0.08  },
+  { file: 'RSR05_01D.png', zIndex: 4, opacity: 1.0, widthPct: 0.08  },
+  { file: 'RSR05_02A.png', zIndex: 5, opacity: 1.0, widthPct: 0.055 },
+  { file: 'RSR05_02B.png', zIndex: 6, opacity: 1.0, widthPct: 0.045 },
+  { file: 'RSR05_02C.png', zIndex: 7, opacity: 1.0, widthPct: 0.055 },
+  { file: 'RSR05_02D.png', zIndex: 8, opacity: 1.0, widthPct: 0.055 },
 ];
 
 const SOLUCION = [
