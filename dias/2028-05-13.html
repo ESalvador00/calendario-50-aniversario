@@ -647,14 +647,16 @@ document.getElementById('tb-tabla-volver').addEventListener('click', () => {
 document.getElementById('tb-tabla-validar').addEventListener('click', () => validarSolucion());
 
 function validarSolucion() {
+  // Cerrar siempre la tabla antes de mostrar cualquier popup
+  guardarTabla();
+  winTabla.classList.add('tb-hidden');
+
   for (const [persona, cols] of Object.entries(SELECTS)) {
     if (!document.getElementById(cols.col1).value || !document.getElementById(cols.col2).value) {
       popupIncompleto.classList.add('visible');
       return;
     }
   }
-
-  winTabla.classList.add('tb-hidden');
 
   let correcto = true;
   for (const sol of SOLUCION) {

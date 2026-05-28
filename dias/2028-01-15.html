@@ -657,6 +657,10 @@ document.getElementById('tb-tabla-volver').addEventListener('click', () => {
 document.getElementById('tb-tabla-validar').addEventListener('click', () => validarSolucion());
 
 function validarSolucion() {
+  // Cerrar siempre la tabla antes de mostrar cualquier popup
+  guardarTabla();
+  winTabla.classList.add('tb-hidden');
+
   // Comprobar que todos los campos están rellenos
   for (const [persona, cols] of Object.entries(SELECTS)) {
     if (!document.getElementById(cols.plato).value || !document.getElementById(cols.salsa).value) {
@@ -664,9 +668,6 @@ function validarSolucion() {
       return;
     }
   }
-
-  // Cerrar la tabla antes de mostrar el resultado
-  winTabla.classList.add('tb-hidden');
 
   // Comprobar solución
   let correcto = true;
