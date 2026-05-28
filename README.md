@@ -269,6 +269,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-11-24 | Ingenio: negro sobre negro | 300.000 | The_Rolling_Stones_Paint_It_Black.mp3 | N/A | PDTE |
 | 2028-12-05 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
 | 2028-12-07 | Puzzle visual | ACHI | Puzzle01_01.png .. Puzzle01_05.png | N/A | PDTE |
+| 2028-12-09 | Satisfacción con restricciones múltiples | Enric: ajedrez+frutos secos / Nieves: cartas+patatas / Ariadna: puzle+galletas / Alex: dominó+gominolas | RSR12_Escenario.webp + RSR12_01A..01D.png + RSR12_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
 | 2028-12-11 | Sigue la letra | Cuéntame un cuento (Celtas Cortos) | Cuentame_un_cuento.mp3 | N/A | PDTE |
 | 2028-12-13 | Adivina quién soy | DARTH VADER | Enric_20130227.png | Enric | PDTE |
 | 2028-12-15 | Adivina las películas | Sister Act, Beetlejuice, Reservoir Dogs, El resplandor, Jumanji | Sister_Act, Beetlejuice, Reservoir_Dogs, El_resplandor, Jumanji (mp3 y jpg) | N/A | PDTE |
