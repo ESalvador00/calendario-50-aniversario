@@ -5,149 +5,67 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>10 de Junio — 50 Aniversario</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:wght@300;400;500&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   <style>
-    :root{--gold:#C9A84C;--gold-light:#E8C97A;--gold-dark:#8B6914;--cream:#FAF6EE;--dark:#1A1410;}
+    :root{--gold:#C9A84C;--gold-light:#E8C97A;--gold-dark:#8B6914;--cream:#FAF6EE;--dark:#1A1410;
+          /* Toca Boca palette */
+          --tb-pink:#FF6B9D;--tb-pink-light:#FFB3D1;--tb-yellow:#FFD93D;--tb-green:#6BCB77;
+          --tb-blue:#4ECDC4;--tb-purple:#C77DFF;--tb-orange:#FF9A3C;--tb-bg:#FFF0F5;
+          --tb-border:#FF6B9D;--tb-shadow:rgba(255,107,157,.35);}
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-    body{background-color:var(--dark);color:var(--cream);font-family:'Cormorant Garamond',serif;min-height:100vh;display:flex;flex-direction:column;}
+    html,body{height:100%;}
+    body{background-color:var(--dark);color:var(--cream);font-family:'Cormorant Garamond',serif;min-height:100vh;display:flex;flex-direction:column;overflow-x:hidden;}
     body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 25% 15%,rgba(201,168,76,.10) 0%,transparent 55%),radial-gradient(ellipse at 75% 85%,rgba(124,54,38,.10) 0%,transparent 55%);pointer-events:none;z-index:0;}
-    .wrap{position:relative;z-index:1;max-width:800px;margin:0 auto;padding:3rem 2rem 4rem;flex:1;display:flex;flex-direction:column;}
-    .day-hero{text-align:center;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 0 2rem;position:relative;}
-    .ornament-line-h{display:flex;align-items:center;justify-content:center;gap:1rem;margin-bottom:2rem;}
+    .wrap{position:relative;z-index:1;width:100%;margin:0 auto;padding:1.5rem 2rem 2rem;flex:1;display:flex;flex-direction:column;}
+    .day-hero{text-align:center;flex:1;display:flex;flex-direction:column;align-items:center;padding:1rem 0 0;position:relative;width:100%;}
+    .ornament-line-h{display:flex;align-items:center;justify-content:center;gap:1rem;margin-bottom:1rem;}
     .o-line{height:1px;width:60px;background:linear-gradient(to right,transparent,var(--gold));}
     .o-line.r{background:linear-gradient(to left,transparent,var(--gold));}
     .o-dot{width:5px;height:5px;background:var(--gold);border-radius:50%;}
-    .day-of-week{font-size:.85rem;letter-spacing:.4em;text-transform:uppercase;color:rgba(201,168,76,.5);margin-bottom:1rem;}
-    h1{font-family:'Playfair Display',serif;font-size:clamp(3rem,9vw,7rem);font-weight:900;line-height:1;background:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 50%,var(--gold-dark) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.5rem;}
-    .month-label{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3.5vw,2.4rem);font-weight:400;font-style:italic;color:rgba(250,246,238,.45);margin-bottom:2.5rem;}
+    .day-of-week{font-size:.85rem;letter-spacing:.4em;text-transform:uppercase;color:rgba(201,168,76,.5);margin-bottom:.4rem;}
+    h1{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,7vw,5rem);font-weight:900;line-height:1;background:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 50%,var(--gold-dark) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.2rem;}
+    .month-label{font-family:'Playfair Display',serif;font-size:clamp(1.1rem,2.8vw,1.8rem);font-weight:400;font-style:italic;color:rgba(250,246,238,.45);margin-bottom:1rem;}
 
-    /* ── CONTENT AREA ── */
-    .content-area{width:100%;border:1px solid rgba(201,168,76,.2);border-radius:6px;overflow:hidden;background:rgba(0,0,0,.25);position:relative;}
+    /* ── Content area ── */
+    .content-area{width:100%;flex:none;border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:1rem;background:rgba(255,255,255,.02);display:flex;flex-direction:column;align-items:center;gap:1rem;}
 
-    /* Escenario */
-    .scenario-wrap{position:relative;width:100%;aspect-ratio:16/7;overflow:hidden;cursor:default;}
-    .scenario-bg{width:100%;height:100%;object-fit:cover;display:block;user-select:none;-webkit-user-drag:none;}
-    .scenario-title{position:absolute;bottom:0;left:0;right:0;padding:.6rem 1rem;background:linear-gradient(transparent,rgba(0,0,0,.7));font-family:'Playfair Display',serif;font-size:clamp(.9rem,2.5vw,1.3rem);font-weight:700;color:var(--gold-light);text-align:left;}
+    /* ── Escenario (imagen de fondo + piezas) ── */
+    .scenario-wrap{position:relative;width:100%;display:flex;flex-direction:column;}
+    .scenario-titulo{font-family:'Playfair Display',serif;font-size:clamp(.85rem,2vw,1.1rem);font-style:italic;color:rgba(201,168,76,.6);letter-spacing:.15em;text-align:center;padding-bottom:.4rem;flex-shrink:0;}
+    .puzzle-container{position:relative;width:100%;aspect-ratio:3/2;background:rgba(0,0,0,.25);border:1px solid rgba(201,168,76,.12);border-radius:3px;overflow:hidden;touch-action:none;cursor:default;}
+    .puzzle-container.has-bg{background-size:cover;background-position:center;background-repeat:no-repeat;}
+    .puzzle-piece{position:absolute;cursor:grab;user-select:none;-webkit-user-select:none;touch-action:none;}
+    .puzzle-piece.dragging{cursor:grabbing;}
+    .puzzle-piece img{display:block;width:100%;height:auto;pointer-events:none;user-select:none;-webkit-user-drag:none;}
 
-    /* Piezas flotantes sobre el escenario */
-    .piece{position:absolute;cursor:grab;user-select:none;-webkit-user-drag:none;touch-action:none;transition:filter .15s;}
-    .piece:active{cursor:grabbing;filter:drop-shadow(0 4px 12px rgba(201,168,76,.5));}
-    .piece img{width:100%;height:auto;display:block;pointer-events:none;-webkit-user-drag:none;}
+    /* ── Frase central ── */
+    .frase-reto{font-size:clamp(.9rem,2.2vw,1.1rem);font-style:italic;color:rgba(250,246,238,.5);letter-spacing:.08em;text-align:center;flex-shrink:0;}
 
-    /* Panel de reto */
-    .reto-panel{padding:1.5rem 2rem;background:rgba(0,0,0,.15);}
-    .reto-intro{font-size:.95rem;font-style:italic;color:rgba(250,246,238,.55);margin-bottom:1.2rem;line-height:1.6;}
-    .reto-title{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:var(--gold-light);margin-bottom:1.4rem;text-align:center;letter-spacing:.05em;}
+    /* ── Barra de botones ── */
+    .action-bar{display:flex;gap:.6rem;align-items:center;justify-content:center;flex-wrap:wrap;flex-shrink:0;}
+    .lock-icon{font-size:1.4rem;opacity:.6;}
+    .btn-accion{padding:.45rem 1.1rem;border-radius:20px;font-family:'Cormorant Garamond',serif;font-size:.82rem;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;transition:all .2s;border:1px solid rgba(201,168,76,.35);background:rgba(201,168,76,.08);color:var(--gold);}
+    .btn-accion:hover{background:rgba(201,168,76,.2);border-color:var(--gold);}
 
-    /* Tabla deducción */
-    .deduction-table{width:100%;border-collapse:collapse;font-size:.9rem;margin-bottom:1.4rem;}
-    .deduction-table th{font-family:'Playfair Display',serif;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);padding:.6rem .8rem;border-bottom:1px solid rgba(201,168,76,.3);text-align:center;font-weight:700;}
-    .deduction-table th:first-child{text-align:left;}
-    .deduction-table td{padding:.55rem .8rem;border-bottom:1px solid rgba(201,168,76,.08);vertical-align:middle;}
-    .deduction-table td:first-child{font-weight:500;color:rgba(250,246,238,.9);font-size:.95rem;}
-    .deduction-table tr:last-child td{border-bottom:none;}
-    .deduction-table tr:hover td{background:rgba(201,168,76,.04);}
-    .cell-select{
-      width:100%;
-      background:rgba(0,0,0,.4);
-      border:1px solid rgba(201,168,76,.25);
-      border-radius:3px;
-      color:rgba(250,246,238,.85);
-      font-family:'Cormorant Garamond',serif;
-      font-size:.9rem;
-      padding:.35rem .5rem;
-      cursor:pointer;
-      outline:none;
-      transition:border-color .2s;
-      appearance:none;
-      -webkit-appearance:none;
-      text-align:center;
-    }
-    .cell-select:focus{border-color:rgba(201,168,76,.6);}
-    .cell-select option{background:#1A1410;color:var(--cream);}
-    .cell-select.correct{border-color:#6dbf7e;color:#9eeaac;}
-    .cell-select.incorrect{border-color:#e0706a;color:#f5a09a;}
-
-    /* Pistas */
-    .clues-toggle{
-      width:100%;background:none;border:1px solid rgba(201,168,76,.2);border-radius:3px;
-      color:rgba(201,168,76,.6);font-family:'Cormorant Garamond',serif;font-size:.85rem;
-      letter-spacing:.15em;text-transform:uppercase;padding:.55rem 1rem;cursor:pointer;
-      transition:all .2s;margin-bottom:.8rem;display:flex;align-items:center;justify-content:center;gap:.5rem;
-    }
-    .clues-toggle:hover{border-color:rgba(201,168,76,.5);color:var(--gold-light);background:rgba(201,168,76,.05);}
-    .clues-arrow{transition:transform .25s;font-size:.7rem;}
-    .clues-arrow.open{transform:rotate(180deg);}
-    .clues-body{display:none;margin-bottom:1rem;}
-    .clues-body.open{display:block;}
-    .clues-list{list-style:none;padding:0;display:flex;flex-direction:column;gap:.4rem;}
-    .clue-item{
-      display:flex;align-items:flex-start;gap:.6rem;font-size:.88rem;
-      color:rgba(250,246,238,.65);padding:.4rem .6rem;
-      border-left:2px solid rgba(201,168,76,.2);line-height:1.5;
-    }
-    .clue-num{font-size:.7rem;color:rgba(201,168,76,.4);min-width:1.2rem;margin-top:.1rem;font-weight:700;}
-
-    /* Botón validar */
-    .validate-btn{
-      display:block;width:100%;padding:.8rem;
-      background:linear-gradient(135deg,rgba(201,168,76,.15),rgba(201,168,76,.08));
-      border:1px solid rgba(201,168,76,.35);border-radius:3px;
-      color:var(--gold-light);font-family:'Cormorant Garamond',serif;font-size:1rem;
-      letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:all .2s;
-    }
-    .validate-btn:hover{background:linear-gradient(135deg,rgba(201,168,76,.25),rgba(201,168,76,.15));border-color:var(--gold);}
-    .validate-btn:disabled{opacity:.4;cursor:not-allowed;}
-
-    /* Nav */
-    .day-nav{display:flex;justify-content:space-between;align-items:center;padding-top:2.5rem;border-top:1px solid rgba(201,168,76,.1);margin-top:2.5rem;}
+    /* ── Nav ── */
+    .day-nav{display:flex;justify-content:space-between;align-items:center;padding-top:1.5rem;border-top:1px solid rgba(201,168,76,.1);margin-top:1.5rem;}
     .nav-btn{font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(201,168,76,.5);text-decoration:none;padding:.6rem 1.2rem;border:1px solid rgba(201,168,76,.18);border-radius:2px;transition:all .2s;}
     .nav-btn:hover{color:var(--gold-light);border-color:rgba(201,168,76,.5);background:rgba(201,168,76,.05);}
-    .nav-btn.disabled{opacity:0;pointer-events:none;}
     .year-badge{font-size:.7rem;letter-spacing:.3em;color:rgba(201,168,76,.25);text-transform:uppercase;}
-    .back-link{display:block;text-align:center;margin-top:2rem;color:rgba(201,168,76,.35);font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;text-decoration:none;transition:color .2s;}
+    .back-link{display:block;text-align:center;margin-top:1.2rem;color:rgba(201,168,76,.35);font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;text-decoration:none;transition:color .2s;}
     .back-link:hover{color:var(--gold);}
 
-    /* Botones fav y done */
-    .action-btns{position:absolute;top:0;right:0;display:flex;flex-direction:column;align-items:center;gap:.2rem;z-index:10;}
+    /* ── Action btns ── */
+    .action-btns{position:absolute;top:0;right:0;display:flex;flex-direction:column;align-items:center;gap:.2rem;}
     .icon-btn{background:none;border:none;cursor:pointer;font-size:2rem;line-height:1;transition:color .2s,transform .2s;padding:.2rem;}
     .icon-btn:hover{transform:scale(1.2);}
     .fav-btn{color:rgba(250,246,238,.2);}
     .fav-btn.active{color:#e05a6a;}
-    .fav-btn.active:hover{color:#ff7a88;}
     .done-btn{color:var(--gold);opacity:0.6;}
     .done-btn.active{color:var(--gold);opacity:1;}
-    .done-btn.active:hover{color:var(--gold-light);opacity:1;}
 
-    /* ── VENTANAS KAWAII FLOTANTES ── */
-    .kwindow{
-      position:fixed;z-index:200;background:rgba(20,16,12,.95);
-      border:1px solid rgba(201,168,76,.4);border-radius:10px;
-      box-shadow:0 8px 40px rgba(0,0,0,.7);min-width:220px;max-width:340px;
-      display:none;overflow:hidden;
-    }
-    .kwindow.visible{display:block;}
-    .kw-header{
-      display:flex;align-items:center;justify-content:space-between;
-      padding:.5rem .8rem;background:rgba(201,168,76,.08);
-      border-bottom:1px solid rgba(201,168,76,.2);cursor:move;user-select:none;
-    }
-    .kw-title{font-family:'Playfair Display',serif;font-size:.85rem;color:var(--gold-light);font-weight:700;}
-    .kw-close{background:none;border:none;color:rgba(250,246,238,.4);font-size:1.1rem;cursor:pointer;line-height:1;padding:0 .2rem;transition:color .2s;}
-    .kw-close:hover{color:#e05a6a;}
-    .kw-body{padding:1rem 1.2rem 1.2rem;font-size:.9rem;color:rgba(250,246,238,.75);line-height:1.6;text-align:center;}
-    .kw-icon{font-size:2rem;margin-bottom:.5rem;}
-    .kw-msg{font-style:italic;}
-    .kw-btn{
-      display:inline-block;margin-top:.9rem;padding:.5rem 1.4rem;
-      border:1px solid rgba(201,168,76,.35);border-radius:2px;
-      color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:.8rem;
-      letter-spacing:.15em;text-transform:uppercase;cursor:pointer;background:none;transition:all .2s;
-    }
-    .kw-btn:hover{background:rgba(201,168,76,.1);border-color:var(--gold);}
-
-    /* ── POPUPS MODALES AUXILIARES ── */
-    .popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:300;align-items:center;justify-content:center;}
+    /* ── Popup base (estándar dorado) ── */
+    .popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:100;align-items:center;justify-content:center;}
     .popup-overlay.visible{display:flex;}
     .popup-box{background:var(--dark);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:3rem 2.5rem;max-width:420px;width:90%;text-align:center;box-shadow:0 0 60px rgba(0,0,0,.8);}
     .popup-icon{font-size:3rem;margin-bottom:1rem;}
@@ -156,16 +74,187 @@
     .popup-btn{display:inline-block;padding:.7rem 2rem;border:1px solid rgba(201,168,76,.4);border-radius:2px;color:var(--gold);font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;background:none;transition:all .2s;}
     .popup-btn:hover{background:rgba(201,168,76,.1);border-color:var(--gold);}
 
+    /* ════════════════════════════════════════════════
+       POPUP KAWAII — Toca Boca World style
+       ════════════════════════════════════════════════ */
+    .tb-overlay{display:contents;}
+
+    /* Ventana flotante no modal */
+    .tb-window{
+      position:fixed;
+      background:var(--tb-bg);
+      border:3px solid var(--tb-border);
+      border-radius:20px;
+      box-shadow:4px 6px 0 var(--tb-shadow), 0 0 0 6px rgba(255,107,157,.08);
+      width:min(340px,90vw);
+      min-height:120px;
+      max-height:70vh;
+      display:flex;
+      flex-direction:column;
+      overflow:hidden;
+      font-family:'Nunito',sans-serif;
+      user-select:none;
+      top:15%;
+      left:50%;
+      transform:translateX(-50%);
+      z-index:200;
+    }
+    .tb-window.tb-hidden{display:none;}
+
+    /* Barra de título draggable */
+    .tb-titlebar{
+      background:var(--tb-pink);
+      padding:.55rem 1rem;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      cursor:grab;
+      flex-shrink:0;
+      border-bottom:2px solid rgba(255,255,255,.3);
+    }
+    .tb-titlebar:active{cursor:grabbing;}
+    .tb-win-title{color:#fff;font-weight:900;font-size:1rem;letter-spacing:.03em;display:flex;align-items:center;gap:.4rem;}
+    .tb-win-title .emoji{font-size:1.2rem;}
+    .tb-close-btn{background:#fff;border:none;border-radius:50%;width:26px;height:26px;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;color:var(--tb-pink);font-weight:900;transition:transform .15s;flex-shrink:0;}
+    .tb-close-btn:hover{transform:scale(1.2);}
+
+    /* Cuerpo scrollable */
+    .tb-body{padding:1rem 1.2rem 1.2rem;overflow-y:auto;flex:1;}
+    .tb-body::-webkit-scrollbar{width:6px;}
+    .tb-body::-webkit-scrollbar-track{background:var(--tb-pink-light);border-radius:3px;}
+    .tb-body::-webkit-scrollbar-thumb{background:var(--tb-pink);border-radius:3px;}
+
+    /* Burbujas de texto kawaii */
+    .tb-bubble{
+      background:#fff;
+      border:2px solid var(--tb-pink-light);
+      border-radius:14px;
+      padding:.65rem 1rem;
+      margin-bottom:.7rem;
+      font-size:.92rem;
+      color:#555;
+      line-height:1.5;
+      position:relative;
+    }
+    .tb-bubble::before{
+      content:'✦';
+      position:absolute;
+      left:-1px;
+      top:50%;
+      transform:translate(-50%,-50%);
+      font-size:.6rem;
+      color:var(--tb-pink);
+    }
+    .tb-bubble:last-child{margin-bottom:0;}
+    .tb-bubble strong{color:var(--tb-pink);font-weight:800;}
+    .tb-bubble .hi{font-size:1.2rem;display:block;margin-bottom:.2rem;}
+
+    /* Decoraciones kawaii */
+    .tb-deco{text-align:center;font-size:1.5rem;margin-bottom:.5rem;}
+
+    /* ════════════════════════════════════════════════
+       POPUP TABLA DE DEDUCCIÓN — también kawaii
+       ════════════════════════════════════════════════ */
+    .tb-window.tabla-window{
+      width:min(520px,96vw);
+      max-height:85vh;
+      top:5%;
+      left:50%;
+      transform:translateX(-50%);
+    }
+    .tb-titlebar.tabla-bar{background:var(--tb-blue);}
+    .tb-close-btn.tabla-close{color:var(--tb-blue);}
+
+    /* Tabla de deducción */
+    .deduccion-table{width:100%;border-collapse:separate;border-spacing:0 6px;margin-bottom:1rem;}
+    .deduccion-table th{
+      background:var(--tb-blue);
+      color:#fff;
+      font-family:'Nunito',sans-serif;
+      font-weight:800;
+      font-size:.82rem;
+      padding:.5rem .6rem;
+      text-align:center;
+      letter-spacing:.04em;
+    }
+    .deduccion-table th:first-child{border-radius:12px 0 0 12px;}
+    .deduccion-table th:last-child{border-radius:0 12px 12px 0;}
+    .deduccion-table td{
+      background:#fff;
+      border:2px solid #b2ebf2;
+      padding:.4rem .5rem;
+      text-align:center;
+      vertical-align:middle;
+    }
+    .deduccion-table td:first-child{
+      border-radius:12px 0 0 12px;
+      font-family:'Nunito',sans-serif;
+      font-weight:800;
+      color:var(--tb-blue);
+      font-size:.88rem;
+      white-space:nowrap;
+    }
+    .deduccion-table td:last-child{border-radius:0 12px 12px 0;}
+
+    /* Comboboxes kawaii */
+    .tb-select{
+      font-family:'Nunito',sans-serif;
+      font-size:.82rem;
+      font-weight:700;
+      color:#444;
+      background:#f0fafd;
+      border:2px solid #b2ebf2;
+      border-radius:10px;
+      padding:.3rem .5rem;
+      cursor:pointer;
+      width:100%;
+      transition:border-color .2s,background .2s;
+      -webkit-appearance:none;
+      appearance:none;
+      text-align:center;
+    }
+    .tb-select:focus{outline:none;border-color:var(--tb-blue);background:#e0f7fa;}
+    .tb-select:hover{border-color:var(--tb-blue);}
+
+    /* Botones kawaii de la tabla */
+    .tb-btn-row{display:flex;gap:.6rem;justify-content:center;margin-top:.3rem;}
+    .tb-btn{
+      padding:.5rem 1.3rem;
+      border-radius:20px;
+      border:none;
+      font-family:'Nunito',sans-serif;
+      font-weight:800;
+      font-size:.82rem;
+      letter-spacing:.05em;
+      cursor:pointer;
+      transition:transform .15s,box-shadow .15s;
+    }
+    .tb-btn:active{transform:scale(.96);}
+    .tb-btn.volver{background:var(--tb-yellow);color:#7a5200;box-shadow:0 3px 0 #c48500;}
+    .tb-btn.volver:hover{box-shadow:0 4px 0 #c48500;transform:translateY(-1px);}
+    .tb-btn.validar{background:var(--tb-green);color:#1b5e20;box-shadow:0 3px 0 #388e3c;}
+    .tb-btn.validar:hover{box-shadow:0 4px 0 #388e3c;transform:translateY(-1px);}
+
+    /* Estrellitas decorativas */
+    @keyframes tb-bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-5px);}}
+    .tb-star{display:inline-block;animation:tb-bounce 1.2s ease-in-out infinite;}
+    .tb-star:nth-child(2){animation-delay:.2s;}
+    .tb-star:nth-child(3){animation-delay:.4s;}
+
     @media(max-width:600px){
-      .wrap{padding:1rem 1rem 2rem;}
-      .day-hero{padding:1rem 0 1rem;}
-      h1{font-size:clamp(2rem,14vw,4rem);}
-      .month-label{font-size:clamp(1rem,4vw,1.6rem);margin-bottom:1rem;}
-      .day-nav{margin-top:1rem;padding-top:1rem;}
-      .ornament-line-h{margin-bottom:1rem;}
-      .reto-panel{padding:1rem;}
-      .deduction-table{font-size:.8rem;}
-      .kwindow{max-width:90vw;}
+      .wrap{padding:.8rem .8rem 1.2rem;}
+      .day-hero{padding:.5rem 0 0;}
+      h1{font-size:clamp(2rem,12vw,3.5rem);}
+      .month-label{font-size:clamp(.9rem,3.5vw,1.4rem);margin-bottom:.6rem;}
+      .content-area{padding:.6rem;gap:.6rem;}
+      .action-bar{gap:.4rem;}
+      .btn-accion{font-size:.72rem;padding:.4rem .8rem;}
+      .day-nav{margin-top:.8rem;padding-top:.8rem;}
+      .ornament-line-h{margin-bottom:.6rem;}
+      .tb-window{width:94vw;}
+      .tb-window.tabla-window{width:98vw;}
+      .deduccion-table th,.deduccion-table td{padding:.35rem .3rem;}
+      .tb-select{font-size:.75rem;}
     }
   </style>
 </head>
@@ -183,148 +272,27 @@
     <h1>10</h1>
     <p class="month-label">de Junio</p>
 
-    <!-- Área de contenido del reto -->
     <div class="content-area">
 
-      <!-- Escenario con piezas flotantes -->
-      <div class="scenario-wrap" id="scenario-wrap">
-        <img class="scenario-bg" src="RSR01_Escenario.webp" alt="Desayuno del domingo" draggable="false"/>
-
-        <!-- Piezas arrastrables sobre el escenario -->
-        <div class="piece" id="piece-0" style="left:50%;top:50%;transform:translate(-50%,-50%);width:7%;z-index:1;opacity:1.0;">
-          <img src="RSR06_01A.png" alt="pieza"/>
-        </div>
-        <div class="piece" id="piece-1" style="left:50%;top:50%;transform:translate(-50%,-50%);width:7%;z-index:2;opacity:1.0;">
-          <img src="RSR06_01B.png" alt="pieza"/>
-        </div>
-        <div class="piece" id="piece-2" style="left:50%;top:50%;transform:translate(-50%,-50%);width:7%;z-index:3;opacity:1.0;">
-          <img src="RSR06_01C.png" alt="pieza"/>
-        </div>
-        <div class="piece" id="piece-3" style="left:50%;top:50%;transform:translate(-50%,-50%);width:7%;z-index:4;opacity:1.0;">
-          <img src="RSR06_01D.png" alt="pieza"/>
-        </div>
-        <div class="piece" id="piece-4" style="left:50%;top:50%;transform:translate(-50%,-50%);width:7%;z-index:5;opacity:1.0;">
-          <img src="RSR06_02A.png" alt="pieza"/>
-        </div>
-        <div class="piece" id="piece-5" style="left:50%;top:50%;transform:translate(-50%,-50%);width:7%;z-index:6;opacity:1.0;">
-          <img src="RSR06_02B.png" alt="pieza"/>
-        </div>
-        <div class="piece" id="piece-6" style="left:50%;top:50%;transform:translate(-50%,-50%);width:7%;z-index:7;opacity:1.0;">
-          <img src="RSR06_02C.png" alt="pieza"/>
-        </div>
-        <div class="piece" id="piece-7" style="left:50%;top:50%;transform:translate(-50%,-50%);width:7%;z-index:8;opacity:1.0;">
-          <img src="RSR06_02D.png" alt="pieza"/>
-        </div>
-
-        <div class="scenario-title">Desayuno del domingo</div>
+      <!-- Escenario con título + imagen de fondo + piezas -->
+      <div class="scenario-wrap">
+        <p class="scenario-titulo">Desayuno del domingo</p>
+        <div class="puzzle-container has-bg" id="puzzle-container"
+             style="background-image:url('../media/RSR01_Escenario.webp')"></div>
       </div>
 
-      <!-- Panel del reto -->
-      <div class="reto-panel">
-        <p class="reto-intro">El domingo por la mañana cada miembro desayunó algo distinto para empezar el día. Descubre qué bebida tomó cada uno y qué acompañamiento eligió.</p>
-        <p class="reto-title">Averigua qué corresponde a cada uno</p>
+      <!-- Frase del reto -->
+      <p class="frase-reto">Averigua qué corresponde a cada uno</p>
 
-        <table class="deduction-table" id="deduction-table">
-          <thead>
-            <tr>
-              <th>Persona</th>
-              <th>Bebidas</th>
-              <th>Comidas</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Enric</td>
-              <td><select class="cell-select" data-row="0" data-col="0">
-                <option value="">—</option>
-                <option value="café">☕ Café</option>
-                <option value="té">🍵 Té</option>
-                <option value="cacao">🍫 Cacao</option>
-                <option value="leche">🥛 Leche</option>
-              </select></td>
-              <td><select class="cell-select" data-row="0" data-col="1">
-                <option value="">—</option>
-                <option value="tostadas">🍞 Tostadas</option>
-                <option value="cereales">🥣 Cereales</option>
-                <option value="galletas">🍪 Galletas</option>
-                <option value="croissant">🥐 Croissant</option>
-              </select></td>
-            </tr>
-            <tr>
-              <td>Nieves</td>
-              <td><select class="cell-select" data-row="1" data-col="0">
-                <option value="">—</option>
-                <option value="café">☕ Café</option>
-                <option value="té">🍵 Té</option>
-                <option value="cacao">🍫 Cacao</option>
-                <option value="leche">🥛 Leche</option>
-              </select></td>
-              <td><select class="cell-select" data-row="1" data-col="1">
-                <option value="">—</option>
-                <option value="tostadas">🍞 Tostadas</option>
-                <option value="cereales">🥣 Cereales</option>
-                <option value="galletas">🍪 Galletas</option>
-                <option value="croissant">🥐 Croissant</option>
-              </select></td>
-            </tr>
-            <tr>
-              <td>Ariadna</td>
-              <td><select class="cell-select" data-row="2" data-col="0">
-                <option value="">—</option>
-                <option value="café">☕ Café</option>
-                <option value="té">🍵 Té</option>
-                <option value="cacao">🍫 Cacao</option>
-                <option value="leche">🥛 Leche</option>
-              </select></td>
-              <td><select class="cell-select" data-row="2" data-col="1">
-                <option value="">—</option>
-                <option value="tostadas">🍞 Tostadas</option>
-                <option value="cereales">🥣 Cereales</option>
-                <option value="galletas">🍪 Galletas</option>
-                <option value="croissant">🥐 Croissant</option>
-              </select></td>
-            </tr>
-            <tr>
-              <td>Alex</td>
-              <td><select class="cell-select" data-row="3" data-col="0">
-                <option value="">—</option>
-                <option value="café">☕ Café</option>
-                <option value="té">🍵 Té</option>
-                <option value="cacao">🍫 Cacao</option>
-                <option value="leche">🥛 Leche</option>
-              </select></td>
-              <td><select class="cell-select" data-row="3" data-col="1">
-                <option value="">—</option>
-                <option value="tostadas">🍞 Tostadas</option>
-                <option value="cereales">🥣 Cereales</option>
-                <option value="galletas">🍪 Galletas</option>
-                <option value="croissant">🥐 Croissant</option>
-              </select></td>
-            </tr>
-          </tbody>
-        </table>
-
-        <!-- Pistas desplegables -->
-        <button class="clues-toggle" id="clues-toggle">
-          <span>💡 Ver pistas</span>
-          <span class="clues-arrow" id="clues-arrow">▼</span>
-        </button>
-        <div class="clues-body" id="clues-body">
-          <ul class="clues-list">
-            <li class="clue-item"><span class="clue-num">1.</span><span>El cacao iba con galletas.</span></li>
-            <li class="clue-item"><span class="clue-num">2.</span><span>Enric tomó café.</span></li>
-            <li class="clue-item"><span class="clue-num">3.</span><span>Ariadna no tomó té.</span></li>
-            <li class="clue-item"><span class="clue-num">4.</span><span>La leche iba con cereales.</span></li>
-            <li class="clue-item"><span class="clue-num">5.</span><span>Alex desayunó croissant.</span></li>
-            <li class="clue-item"><span class="clue-num">6.</span><span>Nieves no comió galletas.</span></li>
-            <li class="clue-item"><span class="clue-num">7.</span><span>El café no iba con cereales.</span></li>
-          </ul>
-        </div>
-
-        <button class="validate-btn" id="validate-btn">Comprobar solución</button>
+      <!-- Barra de acciones -->
+      <div class="action-bar">
+        <span class="lock-icon">🔒</span>
+        <button class="btn-accion" id="btn-pistas">Pistas</button>
+        <button class="btn-accion" id="btn-tabla">Tabla de deducción</button>
       </div>
-    </div><!-- /content-area -->
-  </div><!-- /day-hero -->
+
+    </div>
+  </div>
 
   <nav class="day-nav">
     <a class="nav-btn" href="2028-06-09.html">&#8592; 9 de Junio</a>
@@ -334,7 +302,134 @@
   <a class="back-link" href="../index.html">&#8592; Volver al Calendario</a>
 </div>
 
-<!-- ── POPUP: día no llegado ── -->
+<!-- ═══════════════════════════════════════════════════
+     POPUP kawaii: PISTAS (paleta flotante no modal)
+     ═══════════════════════════════════════════════════ -->
+<div class="tb-overlay" id="popup-pistas">
+  <div class="tb-window tb-hidden" id="tb-pistas-win">
+    <div class="tb-titlebar" id="tb-pistas-drag">
+      <div class="tb-win-title">
+        <span class="emoji">💡</span> Pistas
+        <span class="tb-star">✨</span><span class="tb-star">✨</span><span class="tb-star">✨</span>
+      </div>
+      <button class="tb-close-btn" id="tb-pistas-close">✕</button>
+    </div>
+    <div class="tb-body">
+      <div class="tb-deco">☕ 🍵 🍫 🥛</div>
+      <div class="tb-bubble"><span class="hi">Pistas 🔍</span>Usa estas pistas para rellenar la tabla de deducción:</div>
+      <div class="tb-bubble">1· El cacao iba con galletas.</div>
+      <div class="tb-bubble">2· Enric tomó café.</div>
+      <div class="tb-bubble">3· Ariadna no tomó té.</div>
+      <div class="tb-bubble">4· La leche iba con cereales.</div>
+      <div class="tb-bubble">5· Alex desayunó croissant.</div>
+      <div class="tb-bubble">6· Nieves no comió galletas.</div>
+      <div class="tb-bubble">7· El café no iba con cereales.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     POPUP kawaii: TABLA DE DEDUCCIÓN (paleta flotante no modal)
+     ═══════════════════════════════════════════════════ -->
+<div class="tb-overlay" id="popup-tabla">
+  <div class="tb-window tabla-window tb-hidden" id="tb-tabla-win">
+    <div class="tb-titlebar tabla-bar" id="tb-tabla-drag">
+      <div class="tb-win-title">
+        <span class="emoji">📋</span> Tabla de deducción
+        <span class="tb-star">⭐</span><span class="tb-star">⭐</span>
+      </div>
+      <button class="tb-close-btn tabla-close" id="tb-tabla-close">✕</button>
+    </div>
+    <div class="tb-body">
+      <p style="font-family:'Nunito',sans-serif;font-size:.85rem;color:#555;line-height:1.55;margin-bottom:.9rem;background:#fff;border:2px solid #b2ebf2;border-radius:14px;padding:.7rem 1rem;">El domingo por la mañana cada miembro desayunó algo distinto para empezar el día. Descubre qué <strong style="color:var(--tb-blue);">bebida</strong> tomó cada uno y qué <strong style="color:var(--tb-blue);">acompañamiento</strong> eligió.</p>
+      <table class="deduccion-table" id="deduccion-table">
+        <thead>
+          <tr>
+            <th>Persona</th>
+            <th>Bebida</th>
+            <th>Comida</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Enric</td>
+            <td><select class="tb-select" id="sel-enric-bebida">
+              <option value="">— elige —</option>
+              <option value="café">☕ Café</option>
+              <option value="té">🍵 Té</option>
+              <option value="cacao">🍫 Cacao</option>
+              <option value="leche">🥛 Leche</option>
+            </select></td>
+            <td><select class="tb-select" id="sel-enric-comida">
+              <option value="">— elige —</option>
+              <option value="tostadas">🍞 Tostadas</option>
+              <option value="cereales">🥣 Cereales</option>
+              <option value="galletas">🍪 Galletas</option>
+              <option value="croissant">🥐 Croissant</option>
+            </select></td>
+          </tr>
+          <tr>
+            <td>Nieves</td>
+            <td><select class="tb-select" id="sel-nieves-bebida">
+              <option value="">— elige —</option>
+              <option value="café">☕ Café</option>
+              <option value="té">🍵 Té</option>
+              <option value="cacao">🍫 Cacao</option>
+              <option value="leche">🥛 Leche</option>
+            </select></td>
+            <td><select class="tb-select" id="sel-nieves-comida">
+              <option value="">— elige —</option>
+              <option value="tostadas">🍞 Tostadas</option>
+              <option value="cereales">🥣 Cereales</option>
+              <option value="galletas">🍪 Galletas</option>
+              <option value="croissant">🥐 Croissant</option>
+            </select></td>
+          </tr>
+          <tr>
+            <td>Ariadna</td>
+            <td><select class="tb-select" id="sel-ariadna-bebida">
+              <option value="">— elige —</option>
+              <option value="café">☕ Café</option>
+              <option value="té">🍵 Té</option>
+              <option value="cacao">🍫 Cacao</option>
+              <option value="leche">🥛 Leche</option>
+            </select></td>
+            <td><select class="tb-select" id="sel-ariadna-comida">
+              <option value="">— elige —</option>
+              <option value="tostadas">🍞 Tostadas</option>
+              <option value="cereales">🥣 Cereales</option>
+              <option value="galletas">🍪 Galletas</option>
+              <option value="croissant">🥐 Croissant</option>
+            </select></td>
+          </tr>
+          <tr>
+            <td>Alex</td>
+            <td><select class="tb-select" id="sel-alex-bebida">
+              <option value="">— elige —</option>
+              <option value="café">☕ Café</option>
+              <option value="té">🍵 Té</option>
+              <option value="cacao">🍫 Cacao</option>
+              <option value="leche">🥛 Leche</option>
+            </select></td>
+            <td><select class="tb-select" id="sel-alex-comida">
+              <option value="">— elige —</option>
+              <option value="tostadas">🍞 Tostadas</option>
+              <option value="cereales">🥣 Cereales</option>
+              <option value="galletas">🍪 Galletas</option>
+              <option value="croissant">🥐 Croissant</option>
+            </select></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="tb-btn-row">
+        <button class="tb-btn volver" id="tb-tabla-volver">⬅ Volver</button>
+        <button class="tb-btn validar" id="tb-tabla-validar">✔ Validar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Popup: día futuro -->
 <div class="popup-overlay" id="popup">
   <div class="popup-box">
     <div class="popup-icon">🎁</div>
@@ -344,7 +439,27 @@
   </div>
 </div>
 
-<!-- ── POPUP: estrella bloqueada ── -->
+<!-- Popup: tabla incompleta -->
+<div class="popup-overlay" id="popup-incompleto">
+  <div class="popup-box">
+    <div class="popup-icon">🤔</div>
+    <p class="popup-title">¡Faltan datos!</p>
+    <p class="popup-msg">Completa todos los campos de la tabla antes de validar. ¡Casi lo tienes! 💪</p>
+    <button class="popup-btn" id="incompleto-close">Seguir rellenando</button>
+  </div>
+</div>
+
+<!-- Popup: error validación -->
+<div class="popup-overlay" id="popup-error">
+  <div class="popup-box">
+    <div class="popup-icon">🔍</div>
+    <p class="popup-title">¡Sigue intentándolo!</p>
+    <p class="popup-msg">Esa combinación no es correcta...<br>Relee las pistas y vuelve a intentarlo. 💪</p>
+    <button class="popup-btn" id="error-close">Volver a intentar</button>
+  </div>
+</div>
+
+<!-- Popup: estrella bloqueada -->
 <div class="popup-overlay" id="popup-star-blocked">
   <div class="popup-box">
     <div class="popup-icon">🏆</div>
@@ -354,7 +469,7 @@
   </div>
 </div>
 
-<!-- ── POPUP: recompensa ── -->
+<!-- Popup: recompensa -->
 <div class="popup-overlay" id="popup-star-reward">
   <div class="popup-box">
     <div class="popup-icon">🎁</div>
@@ -364,56 +479,45 @@
   </div>
 </div>
 
-<!-- ── VENTANA KAWAII: ¡Correcto! ── -->
-<div class="kwindow" id="kw-correct">
-  <div class="kw-header" id="kw-correct-header">
-    <span class="kw-title">¡Resuelto!</span>
-    <button class="kw-close" data-kw="kw-correct">✕</button>
-  </div>
-  <div class="kw-body">
-    <div class="kw-icon">🎉</div>
-    <p class="kw-msg">¡Enhorabuena!<br>¡Has resuelto el desayuno del domingo!</p>
-    <button class="kw-btn" data-kw="kw-correct">¡Genial!</button>
-  </div>
-</div>
-
-<!-- ── VENTANA KAWAII: Error ── -->
-<div class="kwindow" id="kw-error">
-  <div class="kw-header" id="kw-error-header">
-    <span class="kw-title">Algo no encaja...</span>
-    <button class="kw-close" data-kw="kw-error">✕</button>
-  </div>
-  <div class="kw-body">
-    <div class="kw-icon">🔍</div>
-    <p class="kw-msg" id="kw-error-msg">Hay alguna asignación incorrecta.<br>Revisa las pistas e inténtalo de nuevo.</p>
-    <button class="kw-btn" data-kw="kw-error">Seguir intentando</button>
-  </div>
-</div>
-
-<!-- ── VENTANA KAWAII: Incompleto ── -->
-<div class="kwindow" id="kw-incomplete">
-  <div class="kw-header" id="kw-incomplete-header">
-    <span class="kw-title">Faltan datos</span>
-    <button class="kw-close" data-kw="kw-incomplete">✕</button>
-  </div>
-  <div class="kw-body">
-    <div class="kw-icon">📝</div>
-    <p class="kw-msg">Completa todas las casillas antes de comprobar la solución.</p>
-    <button class="kw-btn" data-kw="kw-incomplete">Entendido</button>
-  </div>
-</div>
-
 <script>
-// ── CONSTANTES ──────────────────────────────────────────────
+// ══════════════════════════════════════════════════════════
+// CONFIGURACIÓN DEL RETO — Satisfacción con restricciones múltiples
+// ══════════════════════════════════════════════════════════
+
+const PIEZAS = [
+  { file: 'RSR06_01A.png', zIndex: 1, opacity: 1.0, widthPct: 0.07 },
+  { file: 'RSR06_01B.png', zIndex: 2, opacity: 1.0, widthPct: 0.07 },
+  { file: 'RSR06_01C.png', zIndex: 3, opacity: 1.0, widthPct: 0.07 },
+  { file: 'RSR06_01D.png', zIndex: 4, opacity: 1.0, widthPct: 0.07 },
+  { file: 'RSR06_02A.png', zIndex: 5, opacity: 1.0, widthPct: 0.07 },
+  { file: 'RSR06_02B.png', zIndex: 6, opacity: 1.0, widthPct: 0.07 },
+  { file: 'RSR06_02C.png', zIndex: 7, opacity: 1.0, widthPct: 0.07 },
+  { file: 'RSR06_02D.png', zIndex: 8, opacity: 1.0, widthPct: 0.07 },
+];
+
+const SOLUCION = [
+  { persona: 'Enric',   col1: 'café',   col2: 'tostadas'  },
+  { persona: 'Nieves',  col1: 'té',     col2: 'croissant' },
+  { persona: 'Ariadna', col1: 'cacao',  col2: 'galletas'  },
+  { persona: 'Alex',    col1: 'leche',  col2: 'cereales'  },
+];
+
+const SELECTS = {
+  'Enric':   { col1: 'sel-enric-bebida',   col2: 'sel-enric-comida'   },
+  'Nieves':  { col1: 'sel-nieves-bebida',  col2: 'sel-nieves-comida'  },
+  'Ariadna': { col1: 'sel-ariadna-bebida', col2: 'sel-ariadna-comida' },
+  'Alex':    { col1: 'sel-alex-bebida',    col2: 'sel-alex-comida'    },
+};
+
+// ══════════════════════════════════════════════════════════
+
 const PREVIEW_KEY = 'cal_preview';
 const isPreview   = localStorage.getItem(PREVIEW_KEY) === '1';
 const today       = new Date(); today.setHours(0,0,0,0);
 const thisDate    = new Date('2028-06-10'); thisDate.setHours(0,0,0,0);
 const nextDateStr = '2028-06-11';
-const DATE_KEY    = '2028-06-10';
+const popup       = document.getElementById('popup');
 
-// ── CONTROL FECHA ────────────────────────────────────────────
-const popup = document.getElementById('popup');
 if (!isPreview && thisDate > today) {
   document.querySelector('.day-hero').style.filter = 'blur(4px)';
   document.querySelector('.day-nav').style.visibility = 'hidden';
@@ -428,8 +532,8 @@ if (!isPreview && nextDateStr) {
 }
 popup.addEventListener('click', e => { if (e.target === popup) window.location.href = '../index.html'; });
 
-// ── FAV ──────────────────────────────────────────────────────
-const FAV_KEY = 'fav_' + DATE_KEY;
+// ── Favourites ──────────────────────────────────────────
+const FAV_KEY = 'fav_2028-06-10';
 const favBtn  = document.getElementById('fav-btn');
 function updateFav() {
   const on = localStorage.getItem(FAV_KEY) === '1';
@@ -438,14 +542,15 @@ function updateFav() {
   favBtn.title = on ? 'Quitar de favoritos' : 'Añadir a favoritos';
 }
 favBtn.addEventListener('click', () => {
-  localStorage.getItem(FAV_KEY) === '1' ? localStorage.removeItem(FAV_KEY) : localStorage.setItem(FAV_KEY, '1');
+  const on = localStorage.getItem(FAV_KEY) === '1';
+  on ? localStorage.removeItem(FAV_KEY) : localStorage.setItem(FAV_KEY, '1');
   updateFav();
 });
 updateFav();
 
-// ── DONE ─────────────────────────────────────────────────────
-const DONE_KEY = 'done_' + DATE_KEY;
-const doneBtn  = document.getElementById('done-btn');
+// ── Done ────────────────────────────────────────────────
+const DONE_KEY         = 'done_2028-06-10';
+const doneBtn          = document.getElementById('done-btn');
 const popupStarBlocked = document.getElementById('popup-star-blocked');
 const popupStarReward  = document.getElementById('popup-star-reward');
 
@@ -454,6 +559,7 @@ popupStarBlocked.addEventListener('click', e => { if (e.target === popupStarBloc
 document.getElementById('star-reward-close').addEventListener('click', () => popupStarReward.classList.remove('visible'));
 popupStarReward.addEventListener('click', e => { if (e.target === popupStarReward) popupStarReward.classList.remove('visible'); });
 
+function markDone() { localStorage.setItem(DONE_KEY, '1'); updateDone(); }
 function updateDone() {
   const on = localStorage.getItem(DONE_KEY) === '1';
   doneBtn.textContent = on ? '★' : '☆';
@@ -461,227 +567,302 @@ function updateDone() {
   doneBtn.title = on ? 'Ver recompensa' : 'Marcar como completado';
 }
 doneBtn.addEventListener('click', () => {
-  if (localStorage.getItem(DONE_KEY) === '1') {
-    popupStarReward.classList.add('visible');
-  } else {
-    if (isPreview) {
-      localStorage.setItem(DONE_KEY, '1');
-      updateDone();
-    } else {
-      popupStarBlocked.classList.add('visible');
-    }
-  }
+  const on = localStorage.getItem(DONE_KEY) === '1';
+  if (on) { popupStarReward.classList.add('visible'); }
+  else if (isPreview) { markDone(); }
+  else { popupStarBlocked.classList.add('visible'); }
 });
 updateDone();
 
-// ── PIEZAS ARRASTRABLES ──────────────────────────────────────
-const PIECES_KEY = 'pieces_' + DATE_KEY;
-const scenarioWrap = document.getElementById('scenario-wrap');
-const pieces = document.querySelectorAll('.piece');
+// ── Popups auxiliares ────────────────────────────────────
+const popupError      = document.getElementById('popup-error');
+const popupIncompleto = document.getElementById('popup-incompleto');
+document.getElementById('error-close').addEventListener('click', () => popupError.classList.remove('visible'));
+popupError.addEventListener('click', e => { if (e.target === popupError) popupError.classList.remove('visible'); });
+document.getElementById('incompleto-close').addEventListener('click', () => popupIncompleto.classList.remove('visible'));
+popupIncompleto.addEventListener('click', e => { if (e.target === popupIncompleto) popupIncompleto.classList.remove('visible'); });
 
-function savePieces() {
-  const data = [];
-  pieces.forEach(p => {
-    data.push({ left: p.style.left, top: p.style.top, transform: p.style.transform });
-  });
-  localStorage.setItem(PIECES_KEY, JSON.stringify(data));
+// ══════════════════════════════════════════════════════════
+// POPUP KAWAII — Pistas (paleta flotante no modal)
+// ══════════════════════════════════════════════════════════
+const winPistas = document.getElementById('tb-pistas-win');
+
+document.getElementById('btn-pistas').addEventListener('click', () => {
+  winPistas.classList.remove('tb-hidden');
+  centrarVentana(winPistas);
+});
+document.getElementById('tb-pistas-close').addEventListener('click', () => winPistas.classList.add('tb-hidden'));
+activarDragVentana(winPistas, document.getElementById('tb-pistas-drag'));
+
+// ══════════════════════════════════════════════════════════
+// POPUP KAWAII — Tabla de deducción (paleta flotante no modal)
+// ══════════════════════════════════════════════════════════
+const winTabla = document.getElementById('tb-tabla-win');
+
+const TABLA_KEY = 'tabla_2028-06-10';
+
+function guardarTabla() {
+  const data = {};
+  for (const [persona, cols] of Object.entries(SELECTS)) {
+    data[persona] = {
+      col1: document.getElementById(cols.col1).value,
+      col2: document.getElementById(cols.col2).value,
+    };
+  }
+  localStorage.setItem(TABLA_KEY, JSON.stringify(data));
 }
 
-function loadPieces() {
-  const raw = localStorage.getItem(PIECES_KEY);
-  if (!raw) return;
+function restaurarTabla() {
   try {
-    const data = JSON.parse(raw);
-    pieces.forEach((p, i) => {
-      if (data[i]) {
-        p.style.left = data[i].left;
-        p.style.top  = data[i].top;
-        p.style.transform = data[i].transform || '';
+    const data = JSON.parse(localStorage.getItem(TABLA_KEY));
+    if (!data) return;
+    for (const [persona, cols] of Object.entries(SELECTS)) {
+      if (data[persona]) {
+        document.getElementById(cols.col1).value = data[persona].col1 || '';
+        document.getElementById(cols.col2).value = data[persona].col2 || '';
       }
-    });
-  } catch(e) {}
+    }
+  } catch {}
 }
 
-function makeDraggable(el) {
-  let dragging = false, ox = 0, oy = 0;
-  const rect0 = () => scenarioWrap.getBoundingClientRect();
+document.querySelectorAll('.tb-select').forEach(sel => sel.addEventListener('change', guardarTabla));
+restaurarTabla();
 
-  function startDrag(cx, cy) {
+document.getElementById('btn-tabla').addEventListener('click', () => {
+  winTabla.classList.remove('tb-hidden');
+  centrarVentana(winTabla);
+});
+document.getElementById('tb-tabla-close').addEventListener('click', () => {
+  guardarTabla();
+  winTabla.classList.add('tb-hidden');
+});
+activarDragVentana(winTabla, document.getElementById('tb-tabla-drag'));
+
+document.getElementById('tb-tabla-volver').addEventListener('click', () => {
+  guardarTabla();
+  winTabla.classList.add('tb-hidden');
+});
+
+document.getElementById('tb-tabla-validar').addEventListener('click', () => validarSolucion());
+
+function validarSolucion() {
+  guardarTabla();
+  winTabla.classList.add('tb-hidden');
+
+  for (const [persona, cols] of Object.entries(SELECTS)) {
+    if (!document.getElementById(cols.col1).value || !document.getElementById(cols.col2).value) {
+      popupIncompleto.classList.add('visible');
+      return;
+    }
+  }
+
+  let correcto = true;
+  for (const sol of SOLUCION) {
+    const v1 = document.getElementById(SELECTS[sol.persona].col1).value;
+    const v2 = document.getElementById(SELECTS[sol.persona].col2).value;
+    if (v1 !== sol.col1 || v2 !== sol.col2) { correcto = false; break; }
+  }
+
+  if (correcto) {
+    markDone();
+    popupStarReward.classList.add('visible');
+  } else {
+    popupError.classList.add('visible');
+  }
+}
+
+// ══════════════════════════════════════════════════════════
+// UTILIDADES — ventanas kawaii movibles
+// ══════════════════════════════════════════════════════════
+function centrarVentana(win) {
+  if (win.dataset.moved !== '1') {
+    win.style.left = '50%';
+    win.style.top  = '15%';
+    win.style.transform = 'translateX(-50%)';
+  }
+}
+
+function activarDragVentana(win, handle) {
+  let dragging = false;
+  let ox, oy, startX, startY;
+
+  function iniciar(cx, cy) {
     dragging = true;
-    const wr = rect0();
-    const er = el.getBoundingClientRect();
-    ox = cx - (er.left - wr.left + er.width / 2);
-    oy = cy - (er.top  - wr.top  + er.height / 2);
-    el.style.transform = '';
-    el.style.zIndex = parseInt(el.style.zIndex || 1) + 100;
-    document.body.style.userSelect = 'none';
+    const rect = win.getBoundingClientRect();
+    win.style.left = rect.left + 'px';
+    win.style.top  = rect.top  + 'px';
+    win.style.transform = 'none';
+    ox = rect.left; oy = rect.top;
+    startX = cx; startY = cy;
+    win.dataset.moved = '1';
   }
-  function moveDrag(cx, cy) {
+
+  function mover(cx, cy) {
     if (!dragging) return;
-    const wr = rect0();
-    const pctX = ((cx - ox - wr.left) / wr.width)  * 100;
-    const pctY = ((cy - oy - wr.top)  / wr.height) * 100;
-    el.style.left = pctX + '%';
-    el.style.top  = pctY + '%';
+    const nx = ox + cx - startX;
+    const ny = oy + cy - startY;
+    const maxX = window.innerWidth  - win.offsetWidth;
+    const maxY = window.innerHeight - win.offsetHeight;
+    win.style.left = Math.max(0, Math.min(nx, maxX)) + 'px';
+    win.style.top  = Math.max(0, Math.min(ny, maxY)) + 'px';
   }
-  function endDrag() {
+
+  function terminar() { dragging = false; }
+
+  handle.addEventListener('mousedown', e => { e.preventDefault(); iniciar(e.clientX, e.clientY); });
+  window.addEventListener('mousemove', e => { if (dragging) mover(e.clientX, e.clientY); });
+  window.addEventListener('mouseup', terminar);
+
+  handle.addEventListener('touchstart', e => {
+    const t = e.touches[0];
+    iniciar(t.clientX, t.clientY);
+  }, { passive: true });
+  handle.addEventListener('touchmove', e => {
+    if (!dragging) return;
+    e.preventDefault();
+    mover(e.touches[0].clientX, e.touches[0].clientY);
+  }, { passive: false });
+  handle.addEventListener('touchend', terminar);
+}
+
+// ══════════════════════════════════════════════════════════
+// PUZZLE VISUAL — piezas flotantes
+// ══════════════════════════════════════════════════════════
+const container = document.getElementById('puzzle-container');
+const pieceData = [];
+
+function precargarImagenes() {
+  return Promise.all(PIEZAS.map(p => new Promise(resolve => {
+    const img = new Image();
+    img.onload  = () => resolve({ pieza: p, img });
+    img.onerror = () => resolve({ pieza: p, img });
+    img.src = `../media/${p.file}`;
+  })));
+}
+
+function crearPiezas(precargadas) {
+  pieceData.length = 0;
+  container.querySelectorAll('.puzzle-piece').forEach(el => el.remove());
+
+  const maxZ = PIEZAS.length;
+
+  precargadas.forEach(({ pieza, img }, idx) => {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'puzzle-piece';
+    wrapper.style.zIndex  = String(maxZ - pieza.zIndex + 1);
+    wrapper.style.opacity = String(pieza.opacity);
+
+    const imgEl = document.createElement('img');
+    imgEl.src       = img.src;
+    imgEl.alt       = `Pieza ${idx + 1}`;
+    imgEl.draggable = false;
+    wrapper.appendChild(imgEl);
+    container.appendChild(wrapper);
+
+    const cw    = container.clientWidth;
+    const pxW   = Math.round(cw * pieza.widthPct);
+    const aspect = (img.naturalHeight && img.naturalWidth) ? img.naturalHeight / img.naturalWidth : 1;
+    const pxH   = Math.round(pxW * aspect);
+
+    wrapper.style.width  = pxW + 'px';
+    wrapper.style.height = pxH + 'px';
+    wrapper.style.left   = ((container.clientWidth  - pxW) / 2) + 'px';
+    wrapper.style.top    = ((container.clientHeight - pxH) / 2) + 'px';
+
+    const entry = { el: wrapper, imgEl, pieza, fixedW: pxW, fixedH: pxH };
+    pieceData.push(entry);
+    activarDragPieza(entry);
+  });
+}
+
+const alphaCache = new WeakMap();
+function getCanvas(imgEl) {
+  if (alphaCache.has(imgEl)) return alphaCache.get(imgEl);
+  const c = document.createElement('canvas');
+  c.width  = imgEl.naturalWidth  || 1;
+  c.height = imgEl.naturalHeight || 1;
+  try {
+    c.getContext('2d').drawImage(imgEl, 0, 0);
+    alphaCache.set(imgEl, c);
+  } catch { alphaCache.set(imgEl, null); }
+  return alphaCache.get(imgEl);
+}
+
+function esPixelOpaco(entry, clientX, clientY) {
+  const rect   = entry.el.getBoundingClientRect();
+  const scaleX = (entry.imgEl.naturalWidth  || entry.fixedW) / entry.fixedW;
+  const scaleY = (entry.imgEl.naturalHeight || entry.fixedH) / entry.fixedH;
+  const px = Math.round((clientX - rect.left) * scaleX);
+  const py = Math.round((clientY - rect.top)  * scaleY);
+  const canvas = getCanvas(entry.imgEl);
+  if (!canvas) return true;
+  try {
+    const d = canvas.getContext('2d').getImageData(px, py, 1, 1).data;
+    return d[3] > 10;
+  } catch { return true; }
+}
+
+function activarDragPieza(entry) {
+  const wrapper = entry.el;
+  let dragging = false;
+  let startCX, startCY, origLeft, origTop;
+  const zOrig = wrapper.style.zIndex;
+  const zTop  = String(PIEZAS.length + 20);
+
+  function iniciar(cx, cy) {
+    dragging = true;
+    startCX = cx; startCY = cy;
+    origLeft = parseInt(wrapper.style.left, 10) || 0;
+    origTop  = parseInt(wrapper.style.top,  10) || 0;
+    wrapper.style.zIndex = zTop;
+    wrapper.classList.add('dragging');
+  }
+
+  function mover(cx, cy) {
+    if (!dragging) return;
+    wrapper.style.left = (origLeft + cx - startCX) + 'px';
+    wrapper.style.top  = (origTop  + cy - startCY) + 'px';
+  }
+
+  function terminar() {
     if (!dragging) return;
     dragging = false;
-    el.style.zIndex = parseInt(el.style.zIndex) - 100;
-    document.body.style.userSelect = '';
-    savePieces();
+    wrapper.classList.remove('dragging');
+    wrapper.style.zIndex = zOrig;
+    const cw = container.clientWidth;
+    const ch = container.clientHeight;
+    let l = parseInt(wrapper.style.left, 10) || 0;
+    let t = parseInt(wrapper.style.top,  10) || 0;
+    l = Math.max(0, Math.min(l, cw - entry.fixedW));
+    t = Math.max(0, Math.min(t, ch - entry.fixedH));
+    wrapper.style.left = l + 'px';
+    wrapper.style.top  = t + 'px';
   }
 
-  // Mouse
-  el.addEventListener('mousedown', e => { e.preventDefault(); startDrag(e.clientX, e.clientY); });
-  document.addEventListener('mousemove', e => moveDrag(e.clientX, e.clientY));
-  document.addEventListener('mouseup', endDrag);
-
-  // Touch
-  el.addEventListener('touchstart', e => { e.preventDefault(); startDrag(e.touches[0].clientX, e.touches[0].clientY); }, { passive: false });
-  document.addEventListener('touchmove', e => { if (dragging) { e.preventDefault(); moveDrag(e.touches[0].clientX, e.touches[0].clientY); }}, { passive: false });
-  document.addEventListener('touchend', endDrag);
-}
-
-pieces.forEach(p => makeDraggable(p));
-loadPieces();
-
-// ── PISTAS TOGGLE ────────────────────────────────────────────
-const cluesToggle = document.getElementById('clues-toggle');
-const cluesBody   = document.getElementById('clues-body');
-const cluesArrow  = document.getElementById('clues-arrow');
-cluesToggle.addEventListener('click', () => {
-  const open = cluesBody.classList.toggle('open');
-  cluesArrow.classList.toggle('open', open);
-});
-
-// ── VENTANAS KAWAII ──────────────────────────────────────────
-let kwTop = 120, kwLeft = null;
-
-function showKwindow(id) {
-  const kw = document.getElementById(id);
-  if (!kw) return;
-  // Posición inicial centrada horizontalmente
-  if (kwLeft === null) {
-    kwLeft = Math.max(10, (window.innerWidth - 320) / 2);
-  }
-  kw.style.top  = kwTop + 'px';
-  kw.style.left = kwLeft + 'px';
-  kw.classList.add('visible');
-  kwTop = (kwTop + 30) % (window.innerHeight - 200);
-}
-
-function hideKwindow(id) {
-  const kw = document.getElementById(id);
-  if (kw) kw.classList.remove('visible');
-}
-
-// Cerrar con botones
-document.querySelectorAll('.kw-close, .kw-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const id = btn.dataset.kw;
-    if (id) hideKwindow(id);
+  wrapper.addEventListener('mousedown', e => {
+    if (!esPixelOpaco(entry, e.clientX, e.clientY)) return;
+    e.preventDefault();
+    iniciar(e.clientX, e.clientY);
   });
-});
+  window.addEventListener('mousemove', e => { if (dragging) mover(e.clientX, e.clientY); });
+  window.addEventListener('mouseup', () => terminar());
 
-// Drag de ventanas kawaii
-document.querySelectorAll('.kw-header').forEach(header => {
-  const kw = header.closest('.kwindow');
-  let dragging = false, ox = 0, oy = 0;
-  header.addEventListener('mousedown', e => {
-    dragging = true;
-    ox = e.clientX - kw.offsetLeft;
-    oy = e.clientY - kw.offsetTop;
-    document.body.style.userSelect = 'none';
-  });
-  document.addEventListener('mousemove', e => {
+  wrapper.addEventListener('touchstart', e => {
+    const t = e.touches[0];
+    if (!esPixelOpaco(entry, t.clientX, t.clientY)) return;
+    e.preventDefault();
+    iniciar(t.clientX, t.clientY);
+  }, { passive: false });
+  wrapper.addEventListener('touchmove', e => {
     if (!dragging) return;
-    kw.style.left = Math.max(0, e.clientX - ox) + 'px';
-    kw.style.top  = Math.max(0, e.clientY - oy) + 'px';
-  });
-  document.addEventListener('mouseup', () => { dragging = false; document.body.style.userSelect = ''; });
-
-  header.addEventListener('touchstart', e => {
-    dragging = true;
-    ox = e.touches[0].clientX - kw.offsetLeft;
-    oy = e.touches[0].clientY - kw.offsetTop;
-  }, { passive: true });
-  document.addEventListener('touchmove', e => {
-    if (!dragging) return;
-    kw.style.left = Math.max(0, e.touches[0].clientX - ox) + 'px';
-    kw.style.top  = Math.max(0, e.touches[0].clientY - oy) + 'px';
-  }, { passive: true });
-  document.addEventListener('touchend', () => { dragging = false; });
-});
-
-// ── TABLA: persistencia ──────────────────────────────────────
-const TABLE_KEY = 'table_' + DATE_KEY;
-const selects   = document.querySelectorAll('.cell-select');
-
-function saveTable() {
-  const vals = {};
-  selects.forEach(s => { vals[s.dataset.row + '_' + s.dataset.col] = s.value; });
-  localStorage.setItem(TABLE_KEY, JSON.stringify(vals));
+    e.preventDefault();
+    mover(e.touches[0].clientX, e.touches[0].clientY);
+  }, { passive: false });
+  wrapper.addEventListener('touchend', () => terminar());
 }
 
-function loadTable() {
-  const raw = localStorage.getItem(TABLE_KEY);
-  if (!raw) return;
-  try {
-    const vals = JSON.parse(raw);
-    selects.forEach(s => {
-      const k = s.dataset.row + '_' + s.dataset.col;
-      if (vals[k]) s.value = vals[k];
-    });
-  } catch(e) {}
-}
-
-selects.forEach(s => s.addEventListener('change', () => { saveTable(); clearColors(); }));
-loadTable();
-
-function clearColors() {
-  selects.forEach(s => { s.classList.remove('correct', 'incorrect'); });
-}
-
-// ── SOLUCIÓN ─────────────────────────────────────────────────
-// [row][col]: col 0 = bebida, col 1 = comida
-const SOLUTION = [
-  ['café',   'tostadas'],   // Enric
-  ['té',     'croissant'],  // Nieves
-  ['cacao',  'galletas'],   // Ariadna
-  ['leche',  'cereales'],   // Alex
-];
-
-// ── VALIDACIÓN ───────────────────────────────────────────────
-document.getElementById('validate-btn').addEventListener('click', () => {
-  // 1. Comprobar si hay celdas vacías
-  const anyEmpty = Array.from(selects).some(s => s.value === '');
-  if (anyEmpty) { showKwindow('kw-incomplete'); return; }
-
-  // 2. Verificar respuestas
-  let allCorrect = true;
-  let wrongCount = 0;
-  selects.forEach(s => {
-    const row = parseInt(s.dataset.row);
-    const col = parseInt(s.dataset.col);
-    const correct = s.value === SOLUTION[row][col];
-    s.classList.remove('correct', 'incorrect');
-    s.classList.add(correct ? 'correct' : 'incorrect');
-    if (!correct) { allCorrect = false; wrongCount++; }
-  });
-
-  if (allCorrect) {
-    // Marcar como completado
-    localStorage.setItem(DONE_KEY, '1');
-    updateDone();
-    showKwindow('kw-correct');
-  } else {
-    const msg = wrongCount === 1
-      ? 'Hay 1 asignación incorrecta.<br>Revisa las pistas e inténtalo de nuevo.'
-      : `Hay ${wrongCount} asignaciones incorrectas.<br>Revisa las pistas e inténtalo de nuevo.`;
-    document.getElementById('kw-error-msg').innerHTML = msg;
-    showKwindow('kw-error');
-  }
+requestAnimationFrame(() => {
+  precargarImagenes().then(imgs => crearPiezas(imgs));
 });
 </script>
 </body>
