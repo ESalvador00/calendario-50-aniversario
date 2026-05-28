@@ -224,6 +224,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-07-23 | Palabras Intraducibles - Alemán | SEHNSUCHT | AriAlex_20170611.jpg | Ariadna y Alex | PDTE |
 | 2028-07-24 | Rosco de pasapalabra | N/A | N/A | N/A | PDTE |
 | 2028-07-28 | Timeline musical, España en los 90 | 1990-1999 | Entre_dos_tierras.jpg .. Tu_calorro.jpg | N/A | PDTE |
+| 2028-07-29 | Satisfacción con restricciones múltiples | Enric: bicicleta+Galletas / Nieves: cometa+bocadillo / Ariadna: fútbol+fruta / Alex: columpios+Patatas | RSR07_Escenario.webp + RSR07_01A..01D.png + RSR07_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
 | 2028-08-01 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
 | 2028-08-02 | Puzzle visual | ACHI | Puzzle01_01.png .. Puzzle01_05.png | N/A | PDTE |
 | 2028-08-07 | Adivina el logo correcto | 10 logos icónicos | Logos.png | N/A | PDTE |
