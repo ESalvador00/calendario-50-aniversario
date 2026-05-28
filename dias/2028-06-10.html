@@ -20,7 +20,86 @@
     .day-of-week{font-size:.85rem;letter-spacing:.4em;text-transform:uppercase;color:rgba(201,168,76,.5);margin-bottom:1rem;}
     h1{font-family:'Playfair Display',serif;font-size:clamp(3rem,9vw,7rem);font-weight:900;line-height:1;background:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 50%,var(--gold-dark) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.5rem;}
     .month-label{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3.5vw,2.4rem);font-weight:400;font-style:italic;color:rgba(250,246,238,.45);margin-bottom:2.5rem;}
-    .content-area{width:100%;border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:2.5rem;min-height:220px;background:rgba(255,255,255,.02);color:rgba(250,246,238,.4);font-size:1rem;font-style:italic;text-align:center;display:flex;align-items:center;justify-content:center;}
+
+    /* ── CONTENT AREA ── */
+    .content-area{width:100%;border:1px solid rgba(201,168,76,.2);border-radius:6px;overflow:hidden;background:rgba(0,0,0,.25);position:relative;}
+
+    /* Escenario */
+    .scenario-wrap{position:relative;width:100%;aspect-ratio:16/7;overflow:hidden;cursor:default;}
+    .scenario-bg{width:100%;height:100%;object-fit:cover;display:block;user-select:none;-webkit-user-drag:none;}
+    .scenario-title{position:absolute;bottom:0;left:0;right:0;padding:.6rem 1rem;background:linear-gradient(transparent,rgba(0,0,0,.7));font-family:'Playfair Display',serif;font-size:clamp(.9rem,2.5vw,1.3rem);font-weight:700;color:var(--gold-light);text-align:left;}
+
+    /* Piezas flotantes sobre el escenario */
+    .piece{position:absolute;cursor:grab;user-select:none;-webkit-user-drag:none;touch-action:none;transition:filter .15s;}
+    .piece:active{cursor:grabbing;filter:drop-shadow(0 4px 12px rgba(201,168,76,.5));}
+    .piece img{width:100%;height:auto;display:block;pointer-events:none;-webkit-user-drag:none;}
+
+    /* Panel de reto */
+    .reto-panel{padding:1.5rem 2rem;background:rgba(0,0,0,.15);}
+    .reto-intro{font-size:.95rem;font-style:italic;color:rgba(250,246,238,.55);margin-bottom:1.2rem;line-height:1.6;}
+    .reto-title{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:var(--gold-light);margin-bottom:1.4rem;text-align:center;letter-spacing:.05em;}
+
+    /* Tabla deducción */
+    .deduction-table{width:100%;border-collapse:collapse;font-size:.9rem;margin-bottom:1.4rem;}
+    .deduction-table th{font-family:'Playfair Display',serif;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);padding:.6rem .8rem;border-bottom:1px solid rgba(201,168,76,.3);text-align:center;font-weight:700;}
+    .deduction-table th:first-child{text-align:left;}
+    .deduction-table td{padding:.55rem .8rem;border-bottom:1px solid rgba(201,168,76,.08);vertical-align:middle;}
+    .deduction-table td:first-child{font-weight:500;color:rgba(250,246,238,.9);font-size:.95rem;}
+    .deduction-table tr:last-child td{border-bottom:none;}
+    .deduction-table tr:hover td{background:rgba(201,168,76,.04);}
+    .cell-select{
+      width:100%;
+      background:rgba(0,0,0,.4);
+      border:1px solid rgba(201,168,76,.25);
+      border-radius:3px;
+      color:rgba(250,246,238,.85);
+      font-family:'Cormorant Garamond',serif;
+      font-size:.9rem;
+      padding:.35rem .5rem;
+      cursor:pointer;
+      outline:none;
+      transition:border-color .2s;
+      appearance:none;
+      -webkit-appearance:none;
+      text-align:center;
+    }
+    .cell-select:focus{border-color:rgba(201,168,76,.6);}
+    .cell-select option{background:#1A1410;color:var(--cream);}
+    .cell-select.correct{border-color:#6dbf7e;color:#9eeaac;}
+    .cell-select.incorrect{border-color:#e0706a;color:#f5a09a;}
+
+    /* Pistas */
+    .clues-toggle{
+      width:100%;background:none;border:1px solid rgba(201,168,76,.2);border-radius:3px;
+      color:rgba(201,168,76,.6);font-family:'Cormorant Garamond',serif;font-size:.85rem;
+      letter-spacing:.15em;text-transform:uppercase;padding:.55rem 1rem;cursor:pointer;
+      transition:all .2s;margin-bottom:.8rem;display:flex;align-items:center;justify-content:center;gap:.5rem;
+    }
+    .clues-toggle:hover{border-color:rgba(201,168,76,.5);color:var(--gold-light);background:rgba(201,168,76,.05);}
+    .clues-arrow{transition:transform .25s;font-size:.7rem;}
+    .clues-arrow.open{transform:rotate(180deg);}
+    .clues-body{display:none;margin-bottom:1rem;}
+    .clues-body.open{display:block;}
+    .clues-list{list-style:none;padding:0;display:flex;flex-direction:column;gap:.4rem;}
+    .clue-item{
+      display:flex;align-items:flex-start;gap:.6rem;font-size:.88rem;
+      color:rgba(250,246,238,.65);padding:.4rem .6rem;
+      border-left:2px solid rgba(201,168,76,.2);line-height:1.5;
+    }
+    .clue-num{font-size:.7rem;color:rgba(201,168,76,.4);min-width:1.2rem;margin-top:.1rem;font-weight:700;}
+
+    /* Botón validar */
+    .validate-btn{
+      display:block;width:100%;padding:.8rem;
+      background:linear-gradient(135deg,rgba(201,168,76,.15),rgba(201,168,76,.08));
+      border:1px solid rgba(201,168,76,.35);border-radius:3px;
+      color:var(--gold-light);font-family:'Cormorant Garamond',serif;font-size:1rem;
+      letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:all .2s;
+    }
+    .validate-btn:hover{background:linear-gradient(135deg,rgba(201,168,76,.25),rgba(201,168,76,.15));border-color:var(--gold);}
+    .validate-btn:disabled{opacity:.4;cursor:not-allowed;}
+
+    /* Nav */
     .day-nav{display:flex;justify-content:space-between;align-items:center;padding-top:2.5rem;border-top:1px solid rgba(201,168,76,.1);margin-top:2.5rem;}
     .nav-btn{font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(201,168,76,.5);text-decoration:none;padding:.6rem 1.2rem;border:1px solid rgba(201,168,76,.18);border-radius:2px;transition:all .2s;}
     .nav-btn:hover{color:var(--gold-light);border-color:rgba(201,168,76,.5);background:rgba(201,168,76,.05);}
@@ -28,8 +107,9 @@
     .year-badge{font-size:.7rem;letter-spacing:.3em;color:rgba(201,168,76,.25);text-transform:uppercase;}
     .back-link{display:block;text-align:center;margin-top:2rem;color:rgba(201,168,76,.35);font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;text-decoration:none;transition:color .2s;}
     .back-link:hover{color:var(--gold);}
+
     /* Botones fav y done */
-    .action-btns{position:absolute;top:0;right:0;display:flex;flex-direction:column;align-items:center;gap:.2rem;}
+    .action-btns{position:absolute;top:0;right:0;display:flex;flex-direction:column;align-items:center;gap:.2rem;z-index:10;}
     .icon-btn{background:none;border:none;cursor:pointer;font-size:2rem;line-height:1;transition:color .2s,transform .2s;padding:.2rem;}
     .icon-btn:hover{transform:scale(1.2);}
     .fav-btn{color:rgba(250,246,238,.2);}
@@ -38,8 +118,36 @@
     .done-btn{color:var(--gold);opacity:0.6;}
     .done-btn.active{color:var(--gold);opacity:1;}
     .done-btn.active:hover{color:var(--gold-light);opacity:1;}
-    /* Popup */
-    .popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:100;align-items:center;justify-content:center;}
+
+    /* ── VENTANAS KAWAII FLOTANTES ── */
+    .kwindow{
+      position:fixed;z-index:200;background:rgba(20,16,12,.95);
+      border:1px solid rgba(201,168,76,.4);border-radius:10px;
+      box-shadow:0 8px 40px rgba(0,0,0,.7);min-width:220px;max-width:340px;
+      display:none;overflow:hidden;
+    }
+    .kwindow.visible{display:block;}
+    .kw-header{
+      display:flex;align-items:center;justify-content:space-between;
+      padding:.5rem .8rem;background:rgba(201,168,76,.08);
+      border-bottom:1px solid rgba(201,168,76,.2);cursor:move;user-select:none;
+    }
+    .kw-title{font-family:'Playfair Display',serif;font-size:.85rem;color:var(--gold-light);font-weight:700;}
+    .kw-close{background:none;border:none;color:rgba(250,246,238,.4);font-size:1.1rem;cursor:pointer;line-height:1;padding:0 .2rem;transition:color .2s;}
+    .kw-close:hover{color:#e05a6a;}
+    .kw-body{padding:1rem 1.2rem 1.2rem;font-size:.9rem;color:rgba(250,246,238,.75);line-height:1.6;text-align:center;}
+    .kw-icon{font-size:2rem;margin-bottom:.5rem;}
+    .kw-msg{font-style:italic;}
+    .kw-btn{
+      display:inline-block;margin-top:.9rem;padding:.5rem 1.4rem;
+      border:1px solid rgba(201,168,76,.35);border-radius:2px;
+      color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:.8rem;
+      letter-spacing:.15em;text-transform:uppercase;cursor:pointer;background:none;transition:all .2s;
+    }
+    .kw-btn:hover{background:rgba(201,168,76,.1);border-color:var(--gold);}
+
+    /* ── POPUPS MODALES AUXILIARES ── */
+    .popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:300;align-items:center;justify-content:center;}
     .popup-overlay.visible{display:flex;}
     .popup-box{background:var(--dark);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:3rem 2.5rem;max-width:420px;width:90%;text-align:center;box-shadow:0 0 60px rgba(0,0,0,.8);}
     .popup-icon{font-size:3rem;margin-bottom:1rem;}
@@ -47,16 +155,19 @@
     .popup-msg{font-size:1rem;font-style:italic;color:rgba(250,246,238,.6);line-height:1.7;margin-bottom:2rem;}
     .popup-btn{display:inline-block;padding:.7rem 2rem;border:1px solid rgba(201,168,76,.4);border-radius:2px;color:var(--gold);font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;background:none;transition:all .2s;}
     .popup-btn:hover{background:rgba(201,168,76,.1);border-color:var(--gold);}
+
     @media(max-width:600px){
       .wrap{padding:1rem 1rem 2rem;}
       .day-hero{padding:1rem 0 1rem;}
       h1{font-size:clamp(2rem,14vw,4rem);}
       .month-label{font-size:clamp(1rem,4vw,1.6rem);margin-bottom:1rem;}
-      .content-area{padding:1.2rem;min-height:120px;}
       .day-nav{margin-top:1rem;padding-top:1rem;}
       .ornament-line-h{margin-bottom:1rem;}
+      .reto-panel{padding:1rem;}
+      .deduction-table{font-size:.8rem;}
+      .kwindow{max-width:90vw;}
     }
-</style>
+  </style>
 </head>
 <body>
 <div class="wrap">
@@ -71,10 +182,150 @@
     <p class="day-of-week">Sábado</p>
     <h1>10</h1>
     <p class="month-label">de Junio</p>
+
+    <!-- Área de contenido del reto -->
     <div class="content-area">
-      <p>Espacio reservado para el contenido de este día</p>
-    </div>
-  </div>
+
+      <!-- Escenario con piezas flotantes -->
+      <div class="scenario-wrap" id="scenario-wrap">
+        <img class="scenario-bg" src="RSR01_Escenario.webp" alt="Desayuno del domingo" draggable="false"/>
+
+        <!-- Piezas arrastrables sobre el escenario -->
+        <div class="piece" id="piece-0" style="left:50%;top:50%;transform:translate(-50%,-50%);width:7%;z-index:1;opacity:1.0;">
+          <img src="RSR06_01A.png" alt="pieza"/>
+        </div>
+        <div class="piece" id="piece-1" style="left:50%;top:50%;transform:translate(-50%,-50%);width:7%;z-index:2;opacity:1.0;">
+          <img src="RSR06_01B.png" alt="pieza"/>
+        </div>
+        <div class="piece" id="piece-2" style="left:50%;top:50%;transform:translate(-50%,-50%);width:7%;z-index:3;opacity:1.0;">
+          <img src="RSR06_01C.png" alt="pieza"/>
+        </div>
+        <div class="piece" id="piece-3" style="left:50%;top:50%;transform:translate(-50%,-50%);width:7%;z-index:4;opacity:1.0;">
+          <img src="RSR06_01D.png" alt="pieza"/>
+        </div>
+        <div class="piece" id="piece-4" style="left:50%;top:50%;transform:translate(-50%,-50%);width:7%;z-index:5;opacity:1.0;">
+          <img src="RSR06_02A.png" alt="pieza"/>
+        </div>
+        <div class="piece" id="piece-5" style="left:50%;top:50%;transform:translate(-50%,-50%);width:7%;z-index:6;opacity:1.0;">
+          <img src="RSR06_02B.png" alt="pieza"/>
+        </div>
+        <div class="piece" id="piece-6" style="left:50%;top:50%;transform:translate(-50%,-50%);width:7%;z-index:7;opacity:1.0;">
+          <img src="RSR06_02C.png" alt="pieza"/>
+        </div>
+        <div class="piece" id="piece-7" style="left:50%;top:50%;transform:translate(-50%,-50%);width:7%;z-index:8;opacity:1.0;">
+          <img src="RSR06_02D.png" alt="pieza"/>
+        </div>
+
+        <div class="scenario-title">Desayuno del domingo</div>
+      </div>
+
+      <!-- Panel del reto -->
+      <div class="reto-panel">
+        <p class="reto-intro">El domingo por la mañana cada miembro desayunó algo distinto para empezar el día. Descubre qué bebida tomó cada uno y qué acompañamiento eligió.</p>
+        <p class="reto-title">Averigua qué corresponde a cada uno</p>
+
+        <table class="deduction-table" id="deduction-table">
+          <thead>
+            <tr>
+              <th>Persona</th>
+              <th>Bebidas</th>
+              <th>Comidas</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Enric</td>
+              <td><select class="cell-select" data-row="0" data-col="0">
+                <option value="">—</option>
+                <option value="café">☕ Café</option>
+                <option value="té">🍵 Té</option>
+                <option value="cacao">🍫 Cacao</option>
+                <option value="leche">🥛 Leche</option>
+              </select></td>
+              <td><select class="cell-select" data-row="0" data-col="1">
+                <option value="">—</option>
+                <option value="tostadas">🍞 Tostadas</option>
+                <option value="cereales">🥣 Cereales</option>
+                <option value="galletas">🍪 Galletas</option>
+                <option value="croissant">🥐 Croissant</option>
+              </select></td>
+            </tr>
+            <tr>
+              <td>Nieves</td>
+              <td><select class="cell-select" data-row="1" data-col="0">
+                <option value="">—</option>
+                <option value="café">☕ Café</option>
+                <option value="té">🍵 Té</option>
+                <option value="cacao">🍫 Cacao</option>
+                <option value="leche">🥛 Leche</option>
+              </select></td>
+              <td><select class="cell-select" data-row="1" data-col="1">
+                <option value="">—</option>
+                <option value="tostadas">🍞 Tostadas</option>
+                <option value="cereales">🥣 Cereales</option>
+                <option value="galletas">🍪 Galletas</option>
+                <option value="croissant">🥐 Croissant</option>
+              </select></td>
+            </tr>
+            <tr>
+              <td>Ariadna</td>
+              <td><select class="cell-select" data-row="2" data-col="0">
+                <option value="">—</option>
+                <option value="café">☕ Café</option>
+                <option value="té">🍵 Té</option>
+                <option value="cacao">🍫 Cacao</option>
+                <option value="leche">🥛 Leche</option>
+              </select></td>
+              <td><select class="cell-select" data-row="2" data-col="1">
+                <option value="">—</option>
+                <option value="tostadas">🍞 Tostadas</option>
+                <option value="cereales">🥣 Cereales</option>
+                <option value="galletas">🍪 Galletas</option>
+                <option value="croissant">🥐 Croissant</option>
+              </select></td>
+            </tr>
+            <tr>
+              <td>Alex</td>
+              <td><select class="cell-select" data-row="3" data-col="0">
+                <option value="">—</option>
+                <option value="café">☕ Café</option>
+                <option value="té">🍵 Té</option>
+                <option value="cacao">🍫 Cacao</option>
+                <option value="leche">🥛 Leche</option>
+              </select></td>
+              <td><select class="cell-select" data-row="3" data-col="1">
+                <option value="">—</option>
+                <option value="tostadas">🍞 Tostadas</option>
+                <option value="cereales">🥣 Cereales</option>
+                <option value="galletas">🍪 Galletas</option>
+                <option value="croissant">🥐 Croissant</option>
+              </select></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Pistas desplegables -->
+        <button class="clues-toggle" id="clues-toggle">
+          <span>💡 Ver pistas</span>
+          <span class="clues-arrow" id="clues-arrow">▼</span>
+        </button>
+        <div class="clues-body" id="clues-body">
+          <ul class="clues-list">
+            <li class="clue-item"><span class="clue-num">1.</span><span>El cacao iba con galletas.</span></li>
+            <li class="clue-item"><span class="clue-num">2.</span><span>Enric tomó café.</span></li>
+            <li class="clue-item"><span class="clue-num">3.</span><span>Ariadna no tomó té.</span></li>
+            <li class="clue-item"><span class="clue-num">4.</span><span>La leche iba con cereales.</span></li>
+            <li class="clue-item"><span class="clue-num">5.</span><span>Alex desayunó croissant.</span></li>
+            <li class="clue-item"><span class="clue-num">6.</span><span>Nieves no comió galletas.</span></li>
+            <li class="clue-item"><span class="clue-num">7.</span><span>El café no iba con cereales.</span></li>
+          </ul>
+        </div>
+
+        <button class="validate-btn" id="validate-btn">Comprobar solución</button>
+      </div>
+    </div><!-- /content-area -->
+  </div><!-- /day-hero -->
+
   <nav class="day-nav">
     <a class="nav-btn" href="2028-06-09.html">&#8592; 9 de Junio</a>
     <span class="year-badge">50 Aniversario · 2028</span>
@@ -83,6 +334,7 @@
   <a class="back-link" href="../index.html">&#8592; Volver al Calendario</a>
 </div>
 
+<!-- ── POPUP: día no llegado ── -->
 <div class="popup-overlay" id="popup">
   <div class="popup-box">
     <div class="popup-icon">🎁</div>
@@ -92,7 +344,7 @@
   </div>
 </div>
 
-<!-- Popup estrella bloqueada -->
+<!-- ── POPUP: estrella bloqueada ── -->
 <div class="popup-overlay" id="popup-star-blocked">
   <div class="popup-box">
     <div class="popup-icon">🏆</div>
@@ -102,7 +354,7 @@
   </div>
 </div>
 
-<!-- Popup recompensa del día -->
+<!-- ── POPUP: recompensa ── -->
 <div class="popup-overlay" id="popup-star-reward">
   <div class="popup-box">
     <div class="popup-icon">🎁</div>
@@ -112,20 +364,61 @@
   </div>
 </div>
 
-<script>
-const PREVIEW_KEY  = 'cal_preview';
-const isPreview    = localStorage.getItem(PREVIEW_KEY) === '1';
-const today        = new Date(); today.setHours(0,0,0,0);
-const thisDate     = new Date('2028-06-10'); thisDate.setHours(0,0,0,0);
-const nextDateStr  = '2028-06-11';
-const popup        = document.getElementById('popup');
+<!-- ── VENTANA KAWAII: ¡Correcto! ── -->
+<div class="kwindow" id="kw-correct">
+  <div class="kw-header" id="kw-correct-header">
+    <span class="kw-title">¡Resuelto!</span>
+    <button class="kw-close" data-kw="kw-correct">✕</button>
+  </div>
+  <div class="kw-body">
+    <div class="kw-icon">🎉</div>
+    <p class="kw-msg">¡Enhorabuena!<br>¡Has resuelto el desayuno del domingo!</p>
+    <button class="kw-btn" data-kw="kw-correct">¡Genial!</button>
+  </div>
+</div>
 
+<!-- ── VENTANA KAWAII: Error ── -->
+<div class="kwindow" id="kw-error">
+  <div class="kw-header" id="kw-error-header">
+    <span class="kw-title">Algo no encaja...</span>
+    <button class="kw-close" data-kw="kw-error">✕</button>
+  </div>
+  <div class="kw-body">
+    <div class="kw-icon">🔍</div>
+    <p class="kw-msg" id="kw-error-msg">Hay alguna asignación incorrecta.<br>Revisa las pistas e inténtalo de nuevo.</p>
+    <button class="kw-btn" data-kw="kw-error">Seguir intentando</button>
+  </div>
+</div>
+
+<!-- ── VENTANA KAWAII: Incompleto ── -->
+<div class="kwindow" id="kw-incomplete">
+  <div class="kw-header" id="kw-incomplete-header">
+    <span class="kw-title">Faltan datos</span>
+    <button class="kw-close" data-kw="kw-incomplete">✕</button>
+  </div>
+  <div class="kw-body">
+    <div class="kw-icon">📝</div>
+    <p class="kw-msg">Completa todas las casillas antes de comprobar la solución.</p>
+    <button class="kw-btn" data-kw="kw-incomplete">Entendido</button>
+  </div>
+</div>
+
+<script>
+// ── CONSTANTES ──────────────────────────────────────────────
+const PREVIEW_KEY = 'cal_preview';
+const isPreview   = localStorage.getItem(PREVIEW_KEY) === '1';
+const today       = new Date(); today.setHours(0,0,0,0);
+const thisDate    = new Date('2028-06-10'); thisDate.setHours(0,0,0,0);
+const nextDateStr = '2028-06-11';
+const DATE_KEY    = '2028-06-10';
+
+// ── CONTROL FECHA ────────────────────────────────────────────
+const popup = document.getElementById('popup');
 if (!isPreview && thisDate > today) {
   document.querySelector('.day-hero').style.filter = 'blur(4px)';
   document.querySelector('.day-nav').style.visibility = 'hidden';
   popup.classList.add('visible');
 }
-
 if (!isPreview && nextDateStr) {
   const nextDate = new Date(nextDateStr); nextDate.setHours(0,0,0,0);
   if (nextDate > today) {
@@ -133,11 +426,10 @@ if (!isPreview && nextDateStr) {
     if (nextBtn) nextBtn.addEventListener('click', e => { e.preventDefault(); popup.classList.add('visible'); });
   }
 }
-
 popup.addEventListener('click', e => { if (e.target === popup) window.location.href = '../index.html'; });
 
-// ── Favourite ──────────────────────────────────────────────
-const FAV_KEY = 'fav_2028-06-10';
+// ── FAV ──────────────────────────────────────────────────────
+const FAV_KEY = 'fav_' + DATE_KEY;
 const favBtn  = document.getElementById('fav-btn');
 function updateFav() {
   const on = localStorage.getItem(FAV_KEY) === '1';
@@ -146,31 +438,21 @@ function updateFav() {
   favBtn.title = on ? 'Quitar de favoritos' : 'Añadir a favoritos';
 }
 favBtn.addEventListener('click', () => {
-  const on = localStorage.getItem(FAV_KEY) === '1';
-  on ? localStorage.removeItem(FAV_KEY) : localStorage.setItem(FAV_KEY, '1');
+  localStorage.getItem(FAV_KEY) === '1' ? localStorage.removeItem(FAV_KEY) : localStorage.setItem(FAV_KEY, '1');
   updateFav();
 });
 updateFav();
 
-// ── Done (actividad completada) ────────────────────────────
-const DONE_KEY = 'done_2028-06-10';
+// ── DONE ─────────────────────────────────────────────────────
+const DONE_KEY = 'done_' + DATE_KEY;
 const doneBtn  = document.getElementById('done-btn');
 const popupStarBlocked = document.getElementById('popup-star-blocked');
 const popupStarReward  = document.getElementById('popup-star-reward');
 
-document.getElementById('star-blocked-close').addEventListener('click', () => {
-  popupStarBlocked.classList.remove('visible');
-});
-popupStarBlocked.addEventListener('click', e => {
-  if (e.target === popupStarBlocked) popupStarBlocked.classList.remove('visible');
-});
-
-document.getElementById('star-reward-close').addEventListener('click', () => {
-  popupStarReward.classList.remove('visible');
-});
-popupStarReward.addEventListener('click', e => {
-  if (e.target === popupStarReward) popupStarReward.classList.remove('visible');
-});
+document.getElementById('star-blocked-close').addEventListener('click', () => popupStarBlocked.classList.remove('visible'));
+popupStarBlocked.addEventListener('click', e => { if (e.target === popupStarBlocked) popupStarBlocked.classList.remove('visible'); });
+document.getElementById('star-reward-close').addEventListener('click', () => popupStarReward.classList.remove('visible'));
+popupStarReward.addEventListener('click', e => { if (e.target === popupStarReward) popupStarReward.classList.remove('visible'); });
 
 function updateDone() {
   const on = localStorage.getItem(DONE_KEY) === '1';
@@ -179,12 +461,9 @@ function updateDone() {
   doneBtn.title = on ? 'Ver recompensa' : 'Marcar como completado';
 }
 doneBtn.addEventListener('click', () => {
-  const on = localStorage.getItem(DONE_KEY) === '1';
-  if (on) {
-    // Already done → show reward
+  if (localStorage.getItem(DONE_KEY) === '1') {
     popupStarReward.classList.add('visible');
   } else {
-    // Not done → only allowed in preview mode
     if (isPreview) {
       localStorage.setItem(DONE_KEY, '1');
       updateDone();
@@ -194,6 +473,216 @@ doneBtn.addEventListener('click', () => {
   }
 });
 updateDone();
+
+// ── PIEZAS ARRASTRABLES ──────────────────────────────────────
+const PIECES_KEY = 'pieces_' + DATE_KEY;
+const scenarioWrap = document.getElementById('scenario-wrap');
+const pieces = document.querySelectorAll('.piece');
+
+function savePieces() {
+  const data = [];
+  pieces.forEach(p => {
+    data.push({ left: p.style.left, top: p.style.top, transform: p.style.transform });
+  });
+  localStorage.setItem(PIECES_KEY, JSON.stringify(data));
+}
+
+function loadPieces() {
+  const raw = localStorage.getItem(PIECES_KEY);
+  if (!raw) return;
+  try {
+    const data = JSON.parse(raw);
+    pieces.forEach((p, i) => {
+      if (data[i]) {
+        p.style.left = data[i].left;
+        p.style.top  = data[i].top;
+        p.style.transform = data[i].transform || '';
+      }
+    });
+  } catch(e) {}
+}
+
+function makeDraggable(el) {
+  let dragging = false, ox = 0, oy = 0;
+  const rect0 = () => scenarioWrap.getBoundingClientRect();
+
+  function startDrag(cx, cy) {
+    dragging = true;
+    const wr = rect0();
+    const er = el.getBoundingClientRect();
+    ox = cx - (er.left - wr.left + er.width / 2);
+    oy = cy - (er.top  - wr.top  + er.height / 2);
+    el.style.transform = '';
+    el.style.zIndex = parseInt(el.style.zIndex || 1) + 100;
+    document.body.style.userSelect = 'none';
+  }
+  function moveDrag(cx, cy) {
+    if (!dragging) return;
+    const wr = rect0();
+    const pctX = ((cx - ox - wr.left) / wr.width)  * 100;
+    const pctY = ((cy - oy - wr.top)  / wr.height) * 100;
+    el.style.left = pctX + '%';
+    el.style.top  = pctY + '%';
+  }
+  function endDrag() {
+    if (!dragging) return;
+    dragging = false;
+    el.style.zIndex = parseInt(el.style.zIndex) - 100;
+    document.body.style.userSelect = '';
+    savePieces();
+  }
+
+  // Mouse
+  el.addEventListener('mousedown', e => { e.preventDefault(); startDrag(e.clientX, e.clientY); });
+  document.addEventListener('mousemove', e => moveDrag(e.clientX, e.clientY));
+  document.addEventListener('mouseup', endDrag);
+
+  // Touch
+  el.addEventListener('touchstart', e => { e.preventDefault(); startDrag(e.touches[0].clientX, e.touches[0].clientY); }, { passive: false });
+  document.addEventListener('touchmove', e => { if (dragging) { e.preventDefault(); moveDrag(e.touches[0].clientX, e.touches[0].clientY); }}, { passive: false });
+  document.addEventListener('touchend', endDrag);
+}
+
+pieces.forEach(p => makeDraggable(p));
+loadPieces();
+
+// ── PISTAS TOGGLE ────────────────────────────────────────────
+const cluesToggle = document.getElementById('clues-toggle');
+const cluesBody   = document.getElementById('clues-body');
+const cluesArrow  = document.getElementById('clues-arrow');
+cluesToggle.addEventListener('click', () => {
+  const open = cluesBody.classList.toggle('open');
+  cluesArrow.classList.toggle('open', open);
+});
+
+// ── VENTANAS KAWAII ──────────────────────────────────────────
+let kwTop = 120, kwLeft = null;
+
+function showKwindow(id) {
+  const kw = document.getElementById(id);
+  if (!kw) return;
+  // Posición inicial centrada horizontalmente
+  if (kwLeft === null) {
+    kwLeft = Math.max(10, (window.innerWidth - 320) / 2);
+  }
+  kw.style.top  = kwTop + 'px';
+  kw.style.left = kwLeft + 'px';
+  kw.classList.add('visible');
+  kwTop = (kwTop + 30) % (window.innerHeight - 200);
+}
+
+function hideKwindow(id) {
+  const kw = document.getElementById(id);
+  if (kw) kw.classList.remove('visible');
+}
+
+// Cerrar con botones
+document.querySelectorAll('.kw-close, .kw-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const id = btn.dataset.kw;
+    if (id) hideKwindow(id);
+  });
+});
+
+// Drag de ventanas kawaii
+document.querySelectorAll('.kw-header').forEach(header => {
+  const kw = header.closest('.kwindow');
+  let dragging = false, ox = 0, oy = 0;
+  header.addEventListener('mousedown', e => {
+    dragging = true;
+    ox = e.clientX - kw.offsetLeft;
+    oy = e.clientY - kw.offsetTop;
+    document.body.style.userSelect = 'none';
+  });
+  document.addEventListener('mousemove', e => {
+    if (!dragging) return;
+    kw.style.left = Math.max(0, e.clientX - ox) + 'px';
+    kw.style.top  = Math.max(0, e.clientY - oy) + 'px';
+  });
+  document.addEventListener('mouseup', () => { dragging = false; document.body.style.userSelect = ''; });
+
+  header.addEventListener('touchstart', e => {
+    dragging = true;
+    ox = e.touches[0].clientX - kw.offsetLeft;
+    oy = e.touches[0].clientY - kw.offsetTop;
+  }, { passive: true });
+  document.addEventListener('touchmove', e => {
+    if (!dragging) return;
+    kw.style.left = Math.max(0, e.touches[0].clientX - ox) + 'px';
+    kw.style.top  = Math.max(0, e.touches[0].clientY - oy) + 'px';
+  }, { passive: true });
+  document.addEventListener('touchend', () => { dragging = false; });
+});
+
+// ── TABLA: persistencia ──────────────────────────────────────
+const TABLE_KEY = 'table_' + DATE_KEY;
+const selects   = document.querySelectorAll('.cell-select');
+
+function saveTable() {
+  const vals = {};
+  selects.forEach(s => { vals[s.dataset.row + '_' + s.dataset.col] = s.value; });
+  localStorage.setItem(TABLE_KEY, JSON.stringify(vals));
+}
+
+function loadTable() {
+  const raw = localStorage.getItem(TABLE_KEY);
+  if (!raw) return;
+  try {
+    const vals = JSON.parse(raw);
+    selects.forEach(s => {
+      const k = s.dataset.row + '_' + s.dataset.col;
+      if (vals[k]) s.value = vals[k];
+    });
+  } catch(e) {}
+}
+
+selects.forEach(s => s.addEventListener('change', () => { saveTable(); clearColors(); }));
+loadTable();
+
+function clearColors() {
+  selects.forEach(s => { s.classList.remove('correct', 'incorrect'); });
+}
+
+// ── SOLUCIÓN ─────────────────────────────────────────────────
+// [row][col]: col 0 = bebida, col 1 = comida
+const SOLUTION = [
+  ['café',   'tostadas'],   // Enric
+  ['té',     'croissant'],  // Nieves
+  ['cacao',  'galletas'],   // Ariadna
+  ['leche',  'cereales'],   // Alex
+];
+
+// ── VALIDACIÓN ───────────────────────────────────────────────
+document.getElementById('validate-btn').addEventListener('click', () => {
+  // 1. Comprobar si hay celdas vacías
+  const anyEmpty = Array.from(selects).some(s => s.value === '');
+  if (anyEmpty) { showKwindow('kw-incomplete'); return; }
+
+  // 2. Verificar respuestas
+  let allCorrect = true;
+  let wrongCount = 0;
+  selects.forEach(s => {
+    const row = parseInt(s.dataset.row);
+    const col = parseInt(s.dataset.col);
+    const correct = s.value === SOLUTION[row][col];
+    s.classList.remove('correct', 'incorrect');
+    s.classList.add(correct ? 'correct' : 'incorrect');
+    if (!correct) { allCorrect = false; wrongCount++; }
+  });
+
+  if (allCorrect) {
+    // Marcar como completado
+    localStorage.setItem(DONE_KEY, '1');
+    updateDone();
+    showKwindow('kw-correct');
+  } else {
+    const msg = wrongCount === 1
+      ? 'Hay 1 asignación incorrecta.<br>Revisa las pistas e inténtalo de nuevo.'
+      : `Hay ${wrongCount} asignaciones incorrectas.<br>Revisa las pistas e inténtalo de nuevo.`;
+    document.getElementById('kw-error-msg').innerHTML = msg;
+    showKwindow('kw-error');
+  }
+});
 </script>
 </body>
 </html>
