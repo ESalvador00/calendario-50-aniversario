@@ -161,7 +161,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-02-06 | Agudeza visual — clickmap museo (binario) | ENRIC | Museo_visual.png + Museo_clickmap.png + Ultima_cena.png + Ariadna_20190701.png | Ariadna | PDTE |
 | 2028-02-09 | Timeline musical, España en los 2000 | 2002-2008 | Asereje.jpg .. Tenia_tanto_que_darte.jpg | N/A | PDTE |
 | 2028-02-18 | Adivina las películas | Regreso al Futuro, ET El Extraterrestre, Mision Imposible, Toy Story, Alien El octavo pasajero | Regreso_al_Futuro, ET_El_Extraterrestre, Mision_Imposible, Toy_Story, Alien_El_octavo_pasajero (mp3 y jpg) | N/A | PDTE |
-| 2028-02-19 | Satisfacción con restricciones múltiples: Organizando una fiesta | xxx | RSR02_Escenario.webp + RSR02_01A..01D.png + RSR02_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
+| 2028-02-19 | Satisfacción con restricciones múltiples: Organizando una fiesta | Enric: música+altavoz / Nieves: cocinar+horno / Ariadna: invitaciones+sobres / Alex: decorar+globos | RSR02_Escenario.webp + RSR02_01A..01D.png + RSR02_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
 | 2028-02-20 | Palabras Intraducibles - Japonés | IKIGAI | NievesAriAlex_20160406.jpg | Nieves, Ariadna y Alexandra | PDTE |
 | 2028-02-21 | Rosco de pasapalabra | N/A | N/A | N/A | PDTE |
 | 2028-02-22 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
@@ -173,7 +173,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-03-06 | Adivina el logo correcto | 10 logos icónicos | Logos.png | N/A | PDTE |
 | 2028-03-07 | Puzzle visual | AFI | Puzzle02_01.png .. Puzzle02_04.png | N/A | PDTE |
 | 2028-03-08 | Cultura: iniciales de famosos, especial mujeres | JAMAICA | Lugar02_01.jpg .. Lugar02_07.jpg | Ajenos | PDTE |
-| 2028-03-11 | Satisfacción con restricciones múltiples: Tarde de lluvia en casa | xxx | RSR03_Escenario.webp + RSR03_01A..01D.png + RSR03_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
+| 2028-03-11 | Satisfacción con restricciones múltiples: Tarde de lluvia en casa | Enric: leer+fruta / Nieves: película+palomitas / Ariadna: dibujar+galletas / Alex: videojuegos+chocolatina | RSR03_Escenario.webp + RSR03_01A..01D.png + RSR03_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
 | 2028-03-12 | Agudeza visual — cifrado César | PLATANO | Alex_20191006.png | Alex | PDTE |
 | 2028-03-13 | Rosco de pasapalabra | N/A | N/A | N/A | PDTE |
 | 2028-03-14 | Sigue la letra | Sin ti no soy nada (Amaral) | Sin_ti_no_soy_nada.mp3 | N/A | PDTE |
@@ -184,7 +184,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-04-10 | Adivina el logo correcto | 10 logos icónicos | Logos.png | N/A | PDTE |
 | 2028-04-11 | Adivina quién soy | DALI | Ari_20130601.png | Ariadna | PDTE |
 | 2028-04-12 | Sigue la letra | No dudaría (Antonio Flores) | No_dudaria.mp3 | N/A | PDTE |
-| 2028-04-15 | Satisfacción con restricciones múltiples: Ordenando la habitación | xxx | RSR04_Escenario.webp + RSR04_01A..01D.png + RSR04_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
+| 2028-04-15 | Satisfacción con restricciones múltiples: Ordenando la habitación | Enric: armario+cajas / Nieves: escritorio+trapo / Ariadna: estantería+bolsas / Alex: cama+aspiradora | RSR04_Escenario.webp + RSR04_01A..01D.png + RSR04_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
 | 2028-04-16 | Agudeza visual — clickmap museo (coordenadas hex) | CHAD | Museo2_visual.png + Museo2_clickmap.png + Cuadros_verdes.png + Ariadna_20190601.png | Ariadna | PDTE |
 | 2028-04-17 | Rosco de pasapalabra | N/A | N/A | N/A | PDTE |
 | 2028-04-18 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
@@ -207,7 +207,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-06-03 | Minijuego (La Balanza Falsa) | N/A | N/A | N/A | PDTE |
 | 2028-06-05 | Adivina el logo correcto | 10 logos icónicos | Logos.png | N/A | PDTE |
 | 2028-06-06 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
-| 2028-06-10 | Satisfacción con restricciones múltiples: Desayuno del domingo | xxx | RSR06_Escenario.webp + RSR06_01A..01D.png + RSR06_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
+| 2028-06-10 | Satisfacción con restricciones múltiples: Desayuno del domingo | Enric: café+tostadas / Nieves: té+croissant / Ariadna: cacao+galletas / Alex: leche+cereales | RSR06_Escenario.webp + RSR06_01A..01D.png + RSR06_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
 | 2028-06-11 | Agudeza visual — Fibonacci | 1597 | Alex_20170807.png | Alex | PDTE |
 | 2028-06-12 | Sigue la letra | Voy en un coche (Christina y Los Subterráneos) | Voy_en_un_coche.mp3 | N/A | PDTE |
 | 2028-06-14 | Cultura: iniciales de famosos | OKINAWA | Lugar03_01.jpg .. Lugar03_07.jpg | Ajenos | PDTE |
@@ -231,7 +231,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-07-29 | Satisfacción con restricciones múltiples: Excursión al parque | Enric: bicicleta+Galletas / Nieves: cometa+bocadillo / Ariadna: fútbol+fruta / Alex: columpios+Patatas | RSR07_Escenario.webp + RSR07_01A..01D.png + RSR07_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
 | 2028-08-01 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
 | 2028-08-02 | Puzzle visual | ACHI | Puzzle01_01.png .. Puzzle01_05.png | N/A | PDTE |
-| 2028-08-05 | Satisfacción con restricciones múltiples: Noche de películas | xxx | RSR08_Escenario.webp + RSR08_01A..01D.png + RSR08_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
+| 2028-08-05 | Satisfacción con restricciones múltiples: Noche de películas | Enric: misterio+helado / Nieves: comedia+pizza / Ariadna: aventuras+nachos / Alex: animación+palomitas | RSR08_Escenario.webp + RSR08_01A..01D.png + RSR08_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
 | 2028-08-07 | Adivina el logo correcto | 10 logos icónicos | Logos.png | N/A | PDTE |
 | 2028-08-11 | Adivina las películas | La Bella y la Bestia, Solo en Casa, Halloween, Top Gun, El Caballero Oscuro | La_Bella_y_la_Bestia, Solo_en_Casa, Halloween, Top_Gun, El_Caballero_Oscuro (mp3 y jpg) | N/A | PDTE |
 | 2028-08-17 | Adivina quién soy | NAPOLEON | Juan_20190813.png | Juan | PDTE |
@@ -240,7 +240,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-08-23 | Sigue la letra | Hijo de la luna (Mecano) | Hijo_de_la_luna.mp3 | N/A | PDTE |
 | 2028-08-26 | Minijuego (Las Jarras de Agua) | N/A | N/A | N/A | PDTE |
 | 2028-08-30 | Cultura: iniciales de famosos | MALLORCA | Lugar10_01.jpg .. Lugar10_08.jpg | Ajenos | PDTE |
-| 2028-09-02 | Satisfacción con restricciones múltiples: Tarde de manualidades | xxx | RSR09_Escenario.webp + RSR09_01A..01D.png + RSR09_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
+| 2028-09-02 | Satisfacción con restricciones múltiples: Tarde de manualidades | Enric: pintar+témperas / Nieves: modelar+plastilina / Ariadna: pegar+pegatinas / Alex: recortar+cartulina | RSR09_Escenario.webp + RSR09_01A..01D.png + RSR09_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
 | 2028-09-03 | Palabras Intraducibles - Finlandés | SISU | Nieves_20160102.jpg | Nieves | PDTE |
 | 2028-09-04 | Adivina el logo correcto | 10 logos icónicos | Logos.png | N/A | PDTE |
 | 2028-09-05 | Puzzle visual | ACHI | Puzzle01_01.png .. Puzzle01_05.png | N/A | PDTE |
@@ -275,7 +275,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-11-21 | Cultura: iniciales de famosos | MALTA | Lugar12_01.jpg .. Lugar12_05.jpg | Ajenos | PDTE |
 | 2028-11-22 | Puzzle visual | ACHI | Puzzle01_01.png .. Puzzle01_05.png | N/A | PDTE |
 | 2028-11-24 | Ingenio: negro sobre negro | 300.000 | The_Rolling_Stones_Paint_It_Black.mp3 | N/A | PDTE |
-| 2028-11-25 | Satisfacción con restricciones múltiples: Merienda después del cole | xxx | RSR11_Escenario.webp + RSR11_01A..01D.png + RSR11_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
+| 2028-11-25 | Satisfacción con restricciones múltiples: Merienda después del cole | Enric: tortilla+agua / Nieves: queso+zumo / Ariadna: jamón+cola / Alex: nocilla+leche | RSR11_Escenario.webp + RSR11_01A..01D.png + RSR11_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
 | 2028-12-05 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
 | 2028-12-07 | Puzzle visual | ACHI | Puzzle01_01.png .. Puzzle01_05.png | N/A | PDTE |
 | 2028-12-09 | Satisfacción con restricciones múltiples: Juegos de mesa | Enric: ajedrez+frutos secos / Nieves: cartas+patatas / Ariadna: puzle+galletas / Alex: dominó+gominolas | RSR12_Escenario.webp + RSR12_01A..01D.png + RSR12_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
