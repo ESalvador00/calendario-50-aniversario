@@ -23,20 +23,15 @@
     .content-area{width:100%;border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:2rem;background:rgba(255,255,255,.02);display:flex;flex-direction:column;align-items:center;gap:1.8rem;}
     .foto-intro{font-size:.8rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(201,168,76,.55);}
     .game-arena{width:100%;display:flex;align-items:center;justify-content:center;gap:1.4rem;user-select:none;}
-    .foto-card{flex:1;max-width:240px;aspect-ratio:1/1;background:rgba(255,255,255,.02);border:1px solid rgba(201,168,76,.2);border-radius:4px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:0;cursor:pointer;position:relative;overflow:hidden;transition:border-color .3s,background .3s,box-shadow .3s;}
+    .foto-card{flex:1;max-width:min(42vw,340px);aspect-ratio:1/1;background:rgba(255,255,255,.02);border:1px solid rgba(201,168,76,.2);border-radius:4px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:0;cursor:pointer;position:relative;overflow:hidden;transition:border-color .3s,background .3s,box-shadow .3s;}
     .foto-card:hover{border-color:var(--gold);background:rgba(201,168,76,.05);box-shadow:0 6px 28px rgba(0,0,0,.45);}
     .foto-card.ok {border-color:#4CAF50!important;background:rgba(76,175,80,.07)!important;}
     .foto-card.err{border-color:#E05A6A!important;background:rgba(224,90,106,.07)!important;}
-    .foto-card img{width:100%;height:100%;object-fit:cover;pointer-events:none;display:block;position:absolute;top:0;left:0;transform-origin:center bottom;}
-    .card-label{position:absolute;top:.4rem;left:.4rem;font-family:'Playfair Display',serif;font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(201,168,76,.5);z-index:2;background:rgba(26,20,16,.5);padding:.1rem .3rem;border-radius:2px;}
+    .foto-card img{width:100%;height:100%;object-fit:cover;pointer-events:none;display:block;position:absolute;top:0;left:0;}
     .fecha-label{position:relative;z-index:2;width:100%;text-align:center;padding:.35rem .5rem;background:rgba(26,20,16,.75);font-family:'Playfair Display',serif;font-size:.75rem;letter-spacing:.15em;color:var(--gold-light);display:none;}
     .fecha-label.visible{display:block;}
     .dificultad{font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--gold);letter-spacing:.2em;text-align:center;min-height:1.6em;}
-    @keyframes swayR{0%{transform:rotate(0deg);}50%{transform:rotate(10deg);}100%{transform:rotate(-10deg);}}
-    @keyframes swayL{0%{transform:rotate(0deg);}50%{transform:rotate(-10deg);}100%{transform:rotate(10deg);}}
-    .foto-card.card-a.playing img{animation:swayR 3s cubic-bezier(.45,.05,.55,.95) infinite;}
-    .foto-card.card-b.playing img{animation:swayL 3s cubic-bezier(.45,.05,.55,.95) infinite;}
-    .timer-rail{display:flex;flex-direction:column;gap:5px;height:200px;width:5px;flex-shrink:0;}
+    .timer-rail{display:flex;flex-direction:column;gap:5px;height:min(42vw,320px);width:5px;flex-shrink:0;}
     .t-seg{flex:1;border-radius:3px;background:rgba(201,168,76,.12);transition:background .4s ease,box-shadow .4s ease;}
     .t-seg.on{background:var(--gold);box-shadow:0 0 10px rgba(201,168,76,.5);}
     .prog-row{display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap;}
@@ -82,8 +77,8 @@
       .month-label{font-size:clamp(1rem,4vw,1.6rem);margin-bottom:1rem;}
       .content-area{padding:1rem;gap:1rem;}
       .game-arena{gap:.6rem;}
-      .foto-card{max-width:calc(50vw - 48px);}
-      .timer-rail{height:140px;}
+      .foto-card{max-width:calc(50vw - 36px);}
+      .timer-rail{height:min(28vw,200px);}
       .day-nav{margin-top:1rem;padding-top:1rem;}
       .ornament-line-h{margin-bottom:1rem;}
     }
@@ -112,7 +107,6 @@
       <div class="game-arena" id="game-arena">
         <div class="foto-card card-a" id="card-a">
           <img id="img-a" src="" alt="Foto A" draggable="false"/>
-          <span class="card-label">A</span>
           <div class="fecha-label" id="fecha-a"></div>
         </div>
 
@@ -126,7 +120,6 @@
 
         <div class="foto-card card-b" id="card-b">
           <img id="img-b" src="" alt="Foto B" draggable="false"/>
-          <span class="card-label">B</span>
           <div class="fecha-label" id="fecha-b"></div>
         </div>
       </div>
@@ -346,8 +339,6 @@ function startTimer() {
   }, 1000);
 }
 
-function startSway(){ cardA.classList.add('playing'); cardB.classList.add('playing'); }
-function stopSway() { cardA.classList.remove('playing'); cardB.classList.remove('playing'); }
 
 // ── Mostrar fechas y esperar input del usuario ─────────────────
 function showFechasAndWait(foto, isCorrect) {
@@ -388,12 +379,10 @@ function loadStep(i) {
   document.getElementById('pd-'+i).classList.add('current');
   cardA.className='foto-card card-a';
   cardB.className='foto-card card-b';
-  startSway(); startTimer();
 }
 
 function resolve(choice) {
   if (busy) return; busy=true;
-  clearInterval(timerID); stopSway();
   const foto=FOTOS[step];
   const dot=document.getElementById('pd-'+step);
   dot.classList.remove('current');
