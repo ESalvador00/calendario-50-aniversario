@@ -154,6 +154,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-01-26 | Rosco de pasapalabra | N/A | N/A | N/A | PDTE |
 | 2028-01-28 | Timeline histórico doble | A:01-06 / B:01-06 | Timeline01_01A..06A.png + Timeline01_01B..06B.png | N/A | PDTE |
 | 2028-01-30 | Agudeza visual — banderas Código Internacional de Señales Marítimas | 99274 | FinAno2020.png | Nieves, Enric, Ari, Alex | PDTE |
+| 2028-01-31 | ¿Qué foto es más antigua? | 10 momentos vividos | PDTE | PDTE | PDTE |
 | 2028-02-01 | Adivina el logo correcto | 10 logos icónicos | Logos.png | N/A | PDTE |
 | 2028-02-02 | Cultura: iniciales de famosos, especial cine | QUEBEC | Lugar06_01.jpg .. Lugar06_06.jpg | Ajenos | PDTE |
 | 2028-02-03 | Puzzle visual | ALEX | Puzzle01_01.png .. Puzzle01_05.png | N/A | PDTE |
