@@ -11,7 +11,7 @@
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
     body{background-color:var(--dark);color:var(--cream);font-family:'Cormorant Garamond',serif;min-height:100vh;display:flex;flex-direction:column;}
     body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 25% 15%,rgba(201,168,76,.10) 0%,transparent 55%),radial-gradient(ellipse at 75% 85%,rgba(124,54,38,.10) 0%,transparent 55%);pointer-events:none;z-index:0;}
-    .wrap{position:relative;z-index:1;max-width:800px;margin:0 auto;padding:3rem 2rem 4rem;flex:1;display:flex;flex-direction:column;}
+    .wrap{position:relative;z-index:1;width:100%;max-width:960px;margin:0 auto;padding:3rem 2rem 4rem;flex:1;display:flex;flex-direction:column;}
     .day-hero{text-align:center;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 0 2rem;position:relative;}
     .ornament-line-h{display:flex;align-items:center;justify-content:center;gap:1rem;margin-bottom:2rem;}
     .o-line{height:1px;width:60px;background:linear-gradient(to right,transparent,var(--gold));}
@@ -22,20 +22,25 @@
     .month-label{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3.5vw,2.4rem);font-weight:400;font-style:italic;color:rgba(250,246,238,.45);margin-bottom:2.5rem;}
     .content-area{width:100%;border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:2rem 1.5rem;background:rgba(255,255,255,.02);display:flex;flex-direction:column;align-items:center;gap:1.8rem;}
     .foto-intro{font-size:.8rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(201,168,76,.55);}
-    .game-arena{width:100%;display:flex;align-items:stretch;justify-content:center;gap:10px;user-select:none;}
-    .foto-card{flex:1;min-width:0;aspect-ratio:1/1;background:rgba(255,255,255,.02);border:1px solid rgba(201,168,76,.2);border-radius:4px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:0;cursor:pointer;position:relative;overflow:hidden;transition:border-color .3s,background .3s,box-shadow .3s;transform-origin:center bottom;}
-    @keyframes swayR{0%,100%{transform:rotate(0deg);}50%{transform:rotate(4deg);}}
-    @keyframes swayL{0%,100%{transform:rotate(0deg);}50%{transform:rotate(-4deg);}}
-    .foto-card.card-a.playing{animation:swayR 2.8s ease-in-out infinite;}
-    .foto-card.card-b.playing{animation:swayL 2.8s ease-in-out infinite;}
-    .foto-card:hover{border-color:var(--gold);background:rgba(201,168,76,.05);box-shadow:0 6px 28px rgba(0,0,0,.45);}
+    /* game-arena: fila con las dos fotos y el timer en medio */
+    .game-arena{width:100%;display:flex;align-items:flex-end;justify-content:center;gap:10px;user-select:none;}
+    /* foto-card-wrap: contenedor ESTÁTICO — nunca rota, nunca cambia de tamaño */
+    .foto-card-wrap{flex:1;min-width:0;aspect-ratio:1/1;position:relative;cursor:pointer;}
+    /* foto-card: capa interior que rota y tiene overflow:hidden para recortar la img */
+    .foto-card{position:absolute;inset:0;border:1px solid rgba(201,168,76,.2);border-radius:4px;overflow:hidden;background:rgba(255,255,255,.02);display:flex;flex-direction:column;align-items:stretch;justify-content:flex-end;transition:border-color .3s,background .3s,box-shadow .3s;transform-origin:center bottom;will-change:transform;}
+    @keyframes swayR{0%,100%{transform:rotate(0deg);}50%{transform:rotate(5deg);}}
+    @keyframes swayL{0%,100%{transform:rotate(0deg);}50%{transform:rotate(-5deg);}}
+    .foto-card-wrap.card-a .foto-card.playing{animation:swayR 2.8s ease-in-out infinite;}
+    .foto-card-wrap.card-b .foto-card.playing{animation:swayL 2.8s ease-in-out infinite;}
+    .foto-card-wrap:hover .foto-card{border-color:var(--gold);background:rgba(201,168,76,.05);box-shadow:0 6px 28px rgba(0,0,0,.45);}
     .foto-card.ok {border-color:#4CAF50!important;background:rgba(76,175,80,.07)!important;animation:none!important;}
     .foto-card.err{border-color:#E05A6A!important;background:rgba(224,90,106,.07)!important;animation:none!important;}
     .foto-card img{width:100%;height:100%;object-fit:cover;pointer-events:none;display:block;position:absolute;top:0;left:0;}
     .fecha-label{position:relative;z-index:2;width:100%;text-align:center;padding:.35rem .5rem;background:rgba(26,20,16,.75);font-family:'Playfair Display',serif;font-size:.75rem;letter-spacing:.15em;color:var(--gold-light);display:none;}
     .fecha-label.visible{display:block;}
     .dificultad{font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--gold);letter-spacing:.2em;text-align:center;min-height:1.6em;}
-    .timer-rail{display:flex;flex-direction:column;gap:5px;width:8px;flex-shrink:0;align-self:stretch;}
+    /* timer-rail: altura ligada al aspect-ratio del wrap vía JS */
+    .timer-rail{display:flex;flex-direction:column;gap:5px;width:8px;flex-shrink:0;}
     .t-seg{flex:1;border-radius:3px;background:rgba(201,168,76,.12);transition:background .4s ease,box-shadow .4s ease;}
     .t-seg.on{background:var(--gold);box-shadow:0 0 10px rgba(201,168,76,.5);}
     .prog-row{display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap;}
@@ -108,12 +113,14 @@
       <p class="foto-intro">¿Qué foto es más antigua?</p>
 
       <div class="game-arena" id="game-arena">
-        <div class="foto-card card-a" id="card-a">
-          <img id="img-a" src="" alt="Foto A" draggable="false"/>
-          <div class="fecha-label" id="fecha-a"></div>
+        <div class="foto-card-wrap card-a" id="wrap-a">
+          <div class="foto-card" id="card-a">
+            <img id="img-a" src="" alt="Foto A" draggable="false"/>
+            <div class="fecha-label" id="fecha-a"></div>
+          </div>
         </div>
 
-        <div class="timer-rail">
+        <div class="timer-rail" id="timer-rail">
           <div class="t-seg on" id="seg-5"></div>
           <div class="t-seg on" id="seg-4"></div>
           <div class="t-seg on" id="seg-3"></div>
@@ -121,9 +128,11 @@
           <div class="t-seg on" id="seg-1"></div>
         </div>
 
-        <div class="foto-card card-b" id="card-b">
-          <img id="img-b" src="" alt="Foto B" draggable="false"/>
-          <div class="fecha-label" id="fecha-b"></div>
+        <div class="foto-card-wrap card-b" id="wrap-b">
+          <div class="foto-card" id="card-b">
+            <img id="img-b" src="" alt="Foto B" draggable="false"/>
+            <div class="fecha-label" id="fecha-b"></div>
+          </div>
         </div>
       </div>
 
@@ -309,12 +318,21 @@ function soundWrong()   { const t=getCtx().currentTime; tone(250,'sawtooth',t,.3
 let step=0, timeLeft=5, timerID=null, busy=false, aciertos=0;
 let waitingForNext = false;
 
+const wrapA     = document.getElementById('wrap-a');
+const wrapB     = document.getElementById('wrap-b');
 const cardA     = document.getElementById('card-a');
 const cardB     = document.getElementById('card-b');
 const imgA      = document.getElementById('img-a');
 const imgB      = document.getElementById('img-b');
 const fechaA    = document.getElementById('fecha-a');
 const fechaB    = document.getElementById('fecha-b');
+
+// Sync timer-rail height to foto-card-wrap height (aspect-ratio driven)
+function syncTimerHeight(){
+  const h = wrapA.getBoundingClientRect().height;
+  if(h>0) document.getElementById('timer-rail').style.height = h+'px';
+}
+window.addEventListener('resize', syncTimerHeight);
 const progRow   = document.getElementById('prog-row');
 const finalWrap = document.getElementById('final-wrap');
 const gameArena = document.getElementById('game-arena');
@@ -383,9 +401,10 @@ function loadStep(i) {
   dificultad.textContent = foto.label;
   document.querySelectorAll('.prog-dot').forEach(d=>d.classList.remove('current'));
   document.getElementById('pd-'+i).classList.add('current');
-  cardA.className='foto-card card-a';
-  cardB.className='foto-card card-b';
+  cardA.className='foto-card';
+  cardB.className='foto-card';
   startSway(); startTimer();
+  syncTimerHeight();
 }
 
 function resolve(choice) {
@@ -442,11 +461,11 @@ document.getElementById('btn-reiniciar').addEventListener('click',()=>{
 });
 
 // ── Interacción: elegir foto ──────────────────────────────────
-cardA.addEventListener('click',()=>{
+wrapA.addEventListener('click',()=>{
   if (waitingForNext) { nextStep(); return; }
   if (!busy) resolve('A');
 });
-cardB.addEventListener('click',()=>{
+wrapB.addEventListener('click',()=>{
   if (waitingForNext) { nextStep(); return; }
   if (!busy) resolve('B');
 });
@@ -472,6 +491,7 @@ const popupIntro = document.getElementById('popup-intro');
 document.getElementById('intro-start').addEventListener('click',()=>{
   popupIntro.classList.remove('visible');
   loadStep(0);
+  setTimeout(syncTimerHeight, 50);
 });
 </script>
 </body>
