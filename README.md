@@ -319,10 +319,10 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 
 ## ✅ TO-DO — Temas pendientes
 
-|  Día / Ámbito | Descripción | Estado |
-|--------------|-------------|--------|
-|  Logos icónicos (×9 días) | Rellenar contenido de: 2028-01-17, 2028-02-01, 2028-04-10, 2028-06-05, 2028-08-07, 2028-09-04, 2028-10-09, 2028-11-06, 2028-12-20 | 🔲 Pdte |
-|  Puzzle visuales | OK: 03-FEB, 07-MAR, 27-ABR, 24-MAY | 🔲 Pdte |
-|  Pasapalabra (×12 meses) | Completar los restos de letras para los 12 meses del calendario | 🔲 Pdte |
-|  Laberinto invisible (×12 meses) | Definir y actualizar el laberinto | 🔲 Pdte |
-|  Escape Rooms + Retos de observación | Añadir música ambiental de fondo en los días tipo Escape Room y en los retos de agudeza visual | 🔲 Pdte |
+|  Día / Ámbito | Descripción | 
+|--------------|-------------|
+|  Logos icónicos (×9 días) | Rellenar contenido de: 2028-01-17, 2028-02-01, 2028-04-10, 2028-06-05, 2028-08-07, 2028-09-04, 2028-10-09, 2028-11-06, 2028-12-20 |
+|  Puzzle visuales | OK: 03-FEB, 07-MAR, 27-ABR, 24-MAY, Resto PDTE |
+|  Pasapalabra (×12 meses) |Falta por rellenar los 12 retos |
+| "¿Qué foto es más antigua?" (×12 meses) | Falta por rellenar los 12 retos | 
+|  Escape Rooms + Retos de observación | Añadir música ambiental de fondo en los días tipo Escape Room y en los retos de agudeza visual |
