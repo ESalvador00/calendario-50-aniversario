@@ -20,18 +20,22 @@
     .day-of-week{font-size:.85rem;letter-spacing:.4em;text-transform:uppercase;color:rgba(201,168,76,.5);margin-bottom:1rem;}
     h1{font-family:'Playfair Display',serif;font-size:clamp(3rem,9vw,7rem);font-weight:900;line-height:1;background:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 50%,var(--gold-dark) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.5rem;}
     .month-label{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3.5vw,2.4rem);font-weight:400;font-style:italic;color:rgba(250,246,238,.45);margin-bottom:2.5rem;}
-    .content-area{width:100%;border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:2rem;background:rgba(255,255,255,.02);display:flex;flex-direction:column;align-items:center;gap:1.8rem;}
+    .content-area{width:100%;border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:2rem 1.5rem;background:rgba(255,255,255,.02);display:flex;flex-direction:column;align-items:center;gap:1.8rem;}
     .foto-intro{font-size:.8rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(201,168,76,.55);}
-    .game-arena{width:100%;display:flex;align-items:center;justify-content:center;gap:1.4rem;user-select:none;}
-    .foto-card{flex:1;max-width:min(42vw,340px);aspect-ratio:1/1;background:rgba(255,255,255,.02);border:1px solid rgba(201,168,76,.2);border-radius:4px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:0;cursor:pointer;position:relative;overflow:hidden;transition:border-color .3s,background .3s,box-shadow .3s;}
+    .game-arena{width:100%;display:flex;align-items:stretch;justify-content:center;gap:10px;user-select:none;}
+    .foto-card{flex:1;min-width:0;aspect-ratio:1/1;background:rgba(255,255,255,.02);border:1px solid rgba(201,168,76,.2);border-radius:4px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:0;cursor:pointer;position:relative;overflow:hidden;transition:border-color .3s,background .3s,box-shadow .3s;transform-origin:center bottom;}
+    @keyframes swayR{0%,100%{transform:rotate(0deg);}50%{transform:rotate(4deg);}}
+    @keyframes swayL{0%,100%{transform:rotate(0deg);}50%{transform:rotate(-4deg);}}
+    .foto-card.card-a.playing{animation:swayR 2.8s ease-in-out infinite;}
+    .foto-card.card-b.playing{animation:swayL 2.8s ease-in-out infinite;}
     .foto-card:hover{border-color:var(--gold);background:rgba(201,168,76,.05);box-shadow:0 6px 28px rgba(0,0,0,.45);}
-    .foto-card.ok {border-color:#4CAF50!important;background:rgba(76,175,80,.07)!important;}
-    .foto-card.err{border-color:#E05A6A!important;background:rgba(224,90,106,.07)!important;}
+    .foto-card.ok {border-color:#4CAF50!important;background:rgba(76,175,80,.07)!important;animation:none!important;}
+    .foto-card.err{border-color:#E05A6A!important;background:rgba(224,90,106,.07)!important;animation:none!important;}
     .foto-card img{width:100%;height:100%;object-fit:cover;pointer-events:none;display:block;position:absolute;top:0;left:0;}
     .fecha-label{position:relative;z-index:2;width:100%;text-align:center;padding:.35rem .5rem;background:rgba(26,20,16,.75);font-family:'Playfair Display',serif;font-size:.75rem;letter-spacing:.15em;color:var(--gold-light);display:none;}
     .fecha-label.visible{display:block;}
     .dificultad{font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--gold);letter-spacing:.2em;text-align:center;min-height:1.6em;}
-    .timer-rail{display:flex;flex-direction:column;gap:5px;height:min(42vw,320px);width:5px;flex-shrink:0;}
+    .timer-rail{display:flex;flex-direction:column;gap:5px;width:8px;flex-shrink:0;align-self:stretch;}
     .t-seg{flex:1;border-radius:3px;background:rgba(201,168,76,.12);transition:background .4s ease,box-shadow .4s ease;}
     .t-seg.on{background:var(--gold);box-shadow:0 0 10px rgba(201,168,76,.5);}
     .prog-row{display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap;}
@@ -76,9 +80,8 @@
       h1{font-size:clamp(2rem,14vw,4rem);}
       .month-label{font-size:clamp(1rem,4vw,1.6rem);margin-bottom:1rem;}
       .content-area{padding:1rem;gap:1rem;}
-      .game-arena{gap:.6rem;}
-      .foto-card{max-width:calc(50vw - 36px);}
-      .timer-rail{height:min(28vw,200px);}
+      .game-arena{gap:6px;}
+      .content-area{padding:1rem .75rem;}
       .day-nav{margin-top:1rem;padding-top:1rem;}
       .ornament-line-h{margin-bottom:1rem;}
     }
@@ -329,6 +332,9 @@ function updateTimer() {
   for (let i=1; i<=5; i++)
     document.getElementById('seg-'+i).classList.toggle('on', i<=timeLeft);
 }
+function startSway(){ cardA.classList.add('playing'); cardB.classList.add('playing'); }
+function stopSway() { cardA.classList.remove('playing'); cardB.classList.remove('playing'); }
+
 function startTimer() {
   clearInterval(timerID); timeLeft=5; updateTimer();
   timerID = setInterval(()=>{
@@ -379,10 +385,12 @@ function loadStep(i) {
   document.getElementById('pd-'+i).classList.add('current');
   cardA.className='foto-card card-a';
   cardB.className='foto-card card-b';
+  startSway(); startTimer();
 }
 
 function resolve(choice) {
   if (busy) return; busy=true;
+  clearInterval(timerID); stopSway();
   const foto=FOTOS[step];
   const dot=document.getElementById('pd-'+step);
   dot.classList.remove('current');
