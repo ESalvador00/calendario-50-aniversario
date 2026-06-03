@@ -203,6 +203,9 @@
 
     <div class="content-area">
 
+      <!-- Título del reto -->
+      <p class="reto-label">Timeline: cuadros famosos</p>
+
       <!-- Grid de imágenes -->
       <div class="timeline-grid" id="row-a"></div>
 
@@ -218,10 +221,10 @@
         <div class="year-cell" data-col="7">1830</div>
       </div>
 
-      <!-- Label + botón -->
-      <p class="reto-label">Timeline: cuadros famosos</p>
+      <!-- Instrucción + botón -->
+      <p class="reto-label" style="font-size:.72rem;letter-spacing:.15em;opacity:.7;">Ordena los cuadros cronológicamente</p>
       <div style="display:flex;align-items:center;gap:.7rem;">
-        <span style="font-size:1.4rem;opacity:.6;">🎨</span>
+        <span style="font-size:1.4rem;opacity:.6;">🔒</span>
         <button class="btn-validar" id="btn-validar">Validar</button>
       </div>
 
@@ -252,7 +255,7 @@
 <!-- Popup: ánimo (respuesta incorrecta) -->
 <div class="popup-overlay" id="popup-fail">
   <div class="popup-box">
-    <div class="popup-icon">🧩</div>
+    <div class="popup-icon">🎨</div>
     <p class="popup-title">¡Casi lo tienes!</p>
     <p class="popup-msg" id="fail-msg">El orden no es del todo correcto...<br>Revisa bien la cronología y vuelve a intentarlo. 💪</p>
     <button class="popup-btn" id="fail-close">Seguir intentando</button>
