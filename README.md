@@ -245,6 +245,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-08-17 | Adivina quién soy | NAPOLEON | Juan_20190813.png | Juan | PDTE |
 | 2028-08-20 | Palabras Intraducibles - Tagalo | GIGIL | Alex_20140531.png | Alex | PDTE |
 | 2028-08-21 | Rosco de pasapalabra | N/A | N/A | N/A | PDTE |
+| 2028-08-22 | Timeline: cuadros famosos | 8 cuadros famosos | impresion_sol_naciente.jpg, noche_estrellada.jpg, grito.jpg, senoritas_avinon.jpg, persistencia_memoria.jpg, guernica.jpg, marilyn_diptych.jpg, whaam.jpg | N/A | PDTE |
 | 2028-08-23 | Sigue la letra | Hijo de la luna (Mecano) | Hijo_de_la_luna.mp3 | N/A | PDTE |
 | 2028-08-26 | Minijuego (Las Jarras de Agua) | N/A | N/A | N/A | PDTE |
 | 2028-08-28 | ¿Qué foto es más antigua? | 10 momentos vividos | PDTE | PDTE | PDTE |
