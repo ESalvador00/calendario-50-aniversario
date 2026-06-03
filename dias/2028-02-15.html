@@ -65,6 +65,8 @@
     /* Drag states */
     .img-slot.dragging{opacity:.4;border-color:rgba(201,168,76,.6);}
     .img-slot.drag-over{border-color:var(--gold);transform:scale(1.04);box-shadow:0 0 12px rgba(201,168,76,.4);}
+    .img-slot.correct{border-color:rgba(50,200,100,.8);box-shadow:0 0 10px rgba(50,200,100,.35);}
+    .img-slot.wrong  {border-color:rgba(220,60,60,.8); box-shadow:0 0 10px rgba(220,60,60,.35);}
 
     /* ── Fila de años (oculta por defecto) ── */
     .years-row{
@@ -417,6 +419,7 @@ function initDrag(container) {
     if (!slot) return;
     dragSrc = slot;
     slot.classList.add('dragging');
+    clearSlotMarks();
     e.dataTransfer.effectAllowed = 'move';
   });
 
@@ -476,6 +479,7 @@ function initDrag(container) {
     if (!slot) return;
     touchSrc = slot;
     slot.classList.add('dragging');
+    clearSlotMarks();
     const rect  = slot.getBoundingClientRect();
     touchClone  = slot.cloneNode(true);
     touchClone.style.cssText = `position:fixed;width:${rect.width}px;height:${rect.height}px;opacity:.7;pointer-events:none;z-index:999;top:${rect.top}px;left:${rect.left}px;`;
@@ -530,13 +534,28 @@ function countCorrect() {
   return [...slots].filter((slot, idx) => parseInt(slot.dataset.correct) === idx).length;
 }
 
+function markSlots() {
+  const slots = document.getElementById('row-a').querySelectorAll('.img-slot');
+  slots.forEach((slot, idx) => {
+    slot.classList.remove('correct','wrong');
+    if (parseInt(slot.dataset.correct) === idx) slot.classList.add('correct');
+    else                                          slot.classList.add('wrong');
+  });
+}
+function clearSlotMarks() {
+  document.getElementById('row-a').querySelectorAll('.img-slot')
+    .forEach(s => s.classList.remove('correct','wrong'));
+}
+
 document.getElementById('btn-validar').addEventListener('click', () => {
   const c = countCorrect();
   if (c === 8) {
+    clearSlotMarks();
     revealYears();
     markDone();
     setTimeout(() => popupStarReward.classList.add('visible'), 500);
   } else {
+    markSlots();
     failMsg.innerHTML = `El orden no es del todo correcto...<br><strong>${c} de 8</strong> cuadros bien colocados.<br><br>¡Revisa la cronología y vuelve a intentarlo! 💪`;
     popupFail.classList.add('visible');
   }
@@ -574,9 +593,13 @@ document.getElementById('row-a').addEventListener('click', e => {
 const PISTAS = [
   'Ordena estos cuadrazos cronológicamente. Todos ellos rompieron moldes en su época. Puedes arrastrar y soltar para cambiar el orden de los lienzos o quedarte embobado descifrando sus secretos un rato. 🖼️🎨',
   'Esta pista es visual; quizá con los años resulte más fácil.',
+  'El juego arranca en Italia. Las dos obras más antiguas fueron creadas a comienzos del siglo XVI por artistas nacidos en el siglo XV.',
+  'Las tres obras centrales de la línea temporal pertenecen al siglo XVII y destacan por una iluminación más oscura y dramática que el resto.',
+  'Las dos obras más recientes fueron pintadas en el siglo XIX, aunque sus autores nacieron en el siglo XVIII.',
+  'La tercera obra actúa como el "puente" perfecto del siglo XVI. Está justo en el medio, separando el Renacimiento luminoso de los italianos del bloque oscuro y barroco que vendrá después.',
 ];
-const dotIds      = ['pista-1','pista-2'];
-let pistaEstado   = [1, 0];
+const dotIds      = ['pista-1','pista-2','pista-3','pista-4','pista-5','pista-6'];
+let pistaEstado   = [1, 0, 0, 0, 0, 0];
 let pistaCallback = null;
 
 const popupPista  = document.getElementById('popup-pista');
