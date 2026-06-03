@@ -182,6 +182,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-03-14 | Sigue la letra | Sin ti no soy nada (Amaral) | Sin_ti_no_soy_nada.mp3 | N/A | PDTE |
 | 2028-03-15 | Adivina quién soy | AGATHA CHRISTIE | Mari_20220819.png | Mari | PDTE |
 | 2028-03-16 | ¿Qué foto es más antigua? | 10 momentos vividos | PDTE | PDTE | PDTE |
+| 2028-03-20 | Timeline: óperas famosas | 8 óperas famosas | orfeo.jpg, alcina.jpg, bodas_figaro.jpg, don_giovanni.jpg, flauta_magica.jpg, barbero_sevilla.jpg, norma.jpg, la_traviata.jpg | N/A | PDTE |
 | 2028-03-26 | Palabras Intraducibles - Brasileño | CAFUNE | NievesAri_20210817.png | Nieves y Ariadna | PDTE |
 | 2028-03-28 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
 | 2028-04-08 | Minijuego (El Lobo, la Cabra y la Col) | N/A | N/A | N/A | PDTE |
