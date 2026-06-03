@@ -263,6 +263,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-09-22 | Adivina las películas | Pesadilla antes de Navidad, La La Land, El Último Mohicano, The Pianist, Inside Out | Pesadilla_antes_de_Navidad, La_La_Land, El_Ultimo_Mohicano, The_Pianist, Inside_Out (mp3 y jpg) | N/A | PDTE |
 | 2028-09-25 | Rosco de pasapalabra | N/A | N/A | N/A | PDTE |
 | 2028-09-26 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
+| 2028-09-28 | Timeline: óperas famosas | 8 óperas famosas | aida.jpg, carmen.jpg, parsifal.jpg, dama_picas.jpg, la_boheme.jpg, tosca.jpg, madama_butterfly.jpg, caballero_rosa.jpg | N/A | PDTE |
 | 2028-10-02 | Puzzle visual | ACHI | Puzzle01_01.png .. Puzzle01_05.png | N/A | PDTE |
 | 2028-10-03 | Cultura: iniciales de famosos | CRETA | Lugar11_01.jpg .. Lugar11_05.jpg | Ajenos | PDTE |
 | 2028-10-08 | Escape Room: 03-Laboratorio Alquímico | Esencia Pura | ER03_EscenarioVisual.jpg + ER03_EscenarioClickmap.jpg | N/A | PDTE |
