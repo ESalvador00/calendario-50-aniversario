@@ -196,6 +196,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-04-18 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
 | 2028-04-19 | Cultura: iniciales de famosos, especial política | MADEIRA | Lugar07_01.jpg .. Lugar07_07.jpg | Ajenos | PDTE |
 | 2028-04-27 | Puzzle visual | ECF | Puzzle03_01.png .. Puzzle03_02.png | N/A | PDTE |
+| 2028-04-25 | Timeline: monumentos y edificios | 8 monumentos famosos | gran_piramide_guiza.jpg, partenon.jpg, coliseo.jpg, santa_sofia.jpg, mezquita_cordoba.jpg, catedral_chartres.jpg, machu_picchu.jpg, taj_mahal.jpg | N/A | PDTE |
 | 2028-04-28 | Adivina las películas | El Rey León, Titanic, Piratas del Caribe, Forrest Gump, Braveheart | El_Rey_Leon, Titanic, Piratas_del_Caribe, Forrest_Gump, Braveheart (mp3 y jpg) | N/A | PDTE |
 | 2028-05-06 | Minijuego (Las 5 Monedas de Tait) | N/A | N/A | N/A | PDTE |
 | 2028-05-08 | Adivina quién soy | VOLDEMORT | Alex_20200222.png | Alex | PDTE |
@@ -236,6 +237,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-07-21 | Adivina las películas | Superman, Grease, La Sirenita, Indiana Jones, American Beauty | Superman, Grease, La_Sirenita, Indiana_Jones, American_Beauty (mp3 y jpg) | N/A | PDTE |
 | 2028-07-23 | Palabras Intraducibles - Alemán | SEHNSUCHT | AriAlex_20170611.jpg | Ariadna y Alex | PDTE |
 | 2028-07-24 | Rosco de pasapalabra | N/A | N/A | N/A | PDTE |
+| 2028-07-25 | Timeline: monumentos y edificios | 8 monumentos famosos | estatua_libertad.jpg, torre_eiffel.jpg, cristo_redentor.jpg, opera_sidney.jpg, museo_guggenheim_bilbao.jpg, torres_petronas.jpg, burj_khalifa.jpg, marina_bay_sands.jpg | N/A | PDTE |
 | 2028-07-28 | Timeline musical, España en los 90 | 1990-1999 | Entre_dos_tierras.jpg .. Tu_calorro.jpg | N/A | PDTE |
 | 2028-07-29 | Satisfacción con restricciones múltiples: Excursión al parque | Enric: bicicleta+Galletas / Nieves: cometa+bocadillo / Ariadna: fútbol+fruta / Alex: columpios+Patatas | RSR07_Escenario.webp + RSR07_01A..01D.png + RSR07_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
 | 2028-08-01 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
