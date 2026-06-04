@@ -271,6 +271,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-10-08 | Escape Room: 03-Laboratorio Alquímico | Esencia Pura | ER03_EscenarioVisual.jpg + ER03_EscenarioClickmap.jpg | N/A | PDTE |
 | 2028-10-09 | Adivina el logo correcto | 10 logos icónicos | Logos.png | N/A | PDTE |
 | 2028-10-10 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
+| 2028-10-11 | Timeline: monumentos y edificios | 8 monumentos famosos | mezquita_cordoba.jpg, santa_maria_naranco.jpg, murallas_avila.jpg, catedral_cuenca.jpg, alhambra.jpg, catedral_granada.jpg, monasterio_escorial.jpg, palacio_real_madrid.jpg | N/A | PDTE |
 | 2028-10-16 | Sigue la letra | Chiquilla (Seguridad Social) | Chiquilla.mp3 | N/A | PDTE |
 | 2028-10-17 | ¿Qué foto es más antigua? | 10 momentos vividos | PDTE | PDTE | PDTE |
 | 2028-10-18 | Timeline musical, Internacional en los 90 | 1990-1999 | Ice_ice_baby.jpg, Losing_my_religion.jpg, Zombie.jpg, Wannabe.jpg, Baby_one_more_time.jpg, Genie_in_a_Bottle.jpg + .mp3 | N/A | PDTE |
@@ -306,6 +307,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-12-23 | Minijuego (La Torre de Hanoi) | N/A | N/A | N/A | PDTE |
 | 2029-01-02 | Puzzle visual | ACHI | Puzzle01_01.png .. Puzzle01_05.png | N/A | PDTE |
 | 2029-01-03 | Timeline musical, Internacional en los 2000 | 2000-2009 | Music.jpg, Complicated.jpg, Hey_Ya.jpg, Crazy.jpg, Umbrella.jpg, I_Gotta_Feeling.jpg + .mp3 | N/A | PDTE |
+| 2029-01-04 | Timeline: monumentos y edificios | 8 monumentos famosos | sagrada_familia.jpg, parque_guell.jpg, casa_batllo.jpg, pedrera.jpg, plaza_espana.jpg, valle_cuelgamuros.jpg, museo_guggenheim_bilbao.jpg, palau_les_arts.jpg | N/A | PDTE |
 
 
 ---
