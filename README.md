@@ -199,6 +199,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-04-27 | Puzzle visual | ECF | Puzzle03_01.png .. Puzzle03_02.png | N/A | PDTE |
 | 2028-04-25 | Timeline: monumentos y edificios | 8 monumentos famosos | gran_piramide_guiza.jpg, partenon.jpg, coliseo.jpg, santa_sofia.jpg, mezquita_cordoba.jpg, catedral_chartres.jpg, machu_picchu.jpg, taj_mahal.jpg | N/A | PDTE |
 | 2028-04-28 | Adivina las películas | El Rey León, Titanic, Piratas del Caribe, Forrest Gump, Braveheart | El_Rey_Leon, Titanic, Piratas_del_Caribe, Forrest_Gump, Braveheart (mp3 y jpg) | N/A | PDTE |
+| 2028-04-30 | Palabras Intraducibles - Galés | HIRAETH | Sants_Mudanza_20190821.jpg | Ninguno | PDTE |
 | 2028-05-06 | Minijuego (Las 5 Monedas de Tait) | N/A | N/A | N/A | PDTE |
 | 2028-05-08 | Adivina quién soy | VOLDEMORT | Alex_20200222.png | Alex | PDTE |
 | 2028-05-09 | Timeline musical, España en los 80 | 1980-1987 | No_dudaria.jpg .. Hijo_de_la_luna.jpg | N/A | PDTE |
