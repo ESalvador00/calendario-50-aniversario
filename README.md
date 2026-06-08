@@ -219,7 +219,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-06-05 | Adivina el logo correcto | 10 logos icónicos | Logos.png | N/A | PDTE |
 | 2028-06-06 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
 | 2028-06-10 | Satisfacción con restricciones múltiples: Desayuno del domingo | Enric: café+tostadas / Nieves: té+croissant / Ariadna: cacao+galletas / Alex: leche+cereales | RSR06_Escenario.webp + RSR06_01A..01D.png + RSR06_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
-| 2028-06-11 | Agudeza visual — Fibonacci | 1597 | Alex_20170807.png | Alex | PDTE |
+| 2028-06-11 | Agudeza visual — Secuencia lógica | 8293 | Alex_20170807.jpg | Alex | PDTE |
 | 2028-06-12 | Sigue la letra | Voy en un coche (Christina y Los Subterráneos) | Voy_en_un_coche.mp3 | N/A | PDTE |
 | 2028-06-14 | Cultura: iniciales de famosos | OKINAWA | Lugar03_01.jpg .. Lugar03_07.jpg | Ajenos | PDTE |
 | 2028-06-15 | Adivina quién soy | TESLA | Gerard_20160205.png | Gerard | PDTE |
