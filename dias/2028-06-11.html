@@ -127,12 +127,12 @@
       <!-- Imagen del reto -->
       <p class="foto-titulo">7 de agosto de 2017</p>
       <div class="img-click" id="img-click">
-        <img src="../media/Alex_20170807.png" alt="Alex" id="reto-img" draggable="false"/>
+        <img src="../media/Alex_20170807.jpg" alt="Alex" id="reto-img" draggable="false"/>
       </div>
 
       <!-- Código secreto -->
       <div class="codigo-wrap">
-        <p class="codigo-label">Adivina la clave</p>
+        <p class="codigo-label">Adivina el siguiente número de la secuencia</p>
         <div class="codigo-row">
           <span class="lock-icon">🔒</span>
           <input type="text" class="codigo-input" id="codigo-input" placeholder="· · · · · · · ·" maxlength="10" autocomplete="off"/>
@@ -211,7 +211,7 @@
 <div class="lightbox" id="lightbox">
   <button class="lightbox-close" id="lightbox-close">✕</button>
   <div class="lightbox-inner" id="lightbox-inner">
-    <img src="../media/Alex_20170807.png" alt="Alex" id="lightbox-img" draggable="false"/>
+    <img src="../media/Alex_20170807.jpg" alt="Alex" id="lightbox-img" draggable="false"/>
   </div>
   <p class="lightbox-hint">Scroll para zoom · Arrastra para mover · ESC para cerrar</p>
 </div>
@@ -281,15 +281,14 @@ doneBtn.addEventListener('click', () => {
 updateDone();
 
 // ── Código secreto ─────────────────────────────────────────
-const RESPUESTAS_OK = ['1597'];
+const RESPUESTAS_OK = ['8293', '8.293'];
 const codigoInput   = document.getElementById('codigo-input');
 const popupError    = document.getElementById('popup-error');
 
 function normalizar(s) {
-  return s.trim().toUpperCase()
+  return s.trim()
     .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-    .replace(/\u00D1/g, 'N')
-    .replace(/[^A-Z0-9 ]/g, '');
+    .replace(/[^0-9.]/g, '');
 }
 
 function validar() {
@@ -321,10 +320,10 @@ popupError.addEventListener('click', e => {
 
 // ── Bolitas de pistas ──────────────────────────────────────
 const PISTAS = [
-  'Mira bien la imagen. La niña no es la única protagonista; el cartel que sostiene esconde un enigma numérico. Debes encontrar el siguiente número de la lista que termina en 987. No busques fuera de la foto, la respuesta está escrita en el papel. Fíjate en el patrón.',
-  '¿Ves esa forma de caracol gigante detrás de ella? No es casualidad. Esa espiral perfecta se repite en muchas cosas. Si miras a un lado, verás una piña, y al otro, un girasol. El secreto de la secuencia numérica del cartel es el mismo secreto que crea estas formas en la naturaleza. ¡Todo está conectado!',
-  'Los números no están puestos al azar. Forman una secuencia lógica. El "puente" que une un número con el siguiente es la operación más básica: la suma. ¿Qué pasa si sumas dos números vecinos? El resultado te dará el siguiente de la lista. ¡pruébalo con los primeros números!',
-  'Estás ante la secuencia más famosa de la historia, la Sucesión de Fibonacci (quizás por eso la Torre de Pisa, la ciudad natal de Fibonacci, está en su camiseta, ¿te diste cuenta?). Si logras aplicar la regla de la suma para encontrar el valor que sigue al 987, el enigma será tuyo. ¡Ya lo tienes!',
+  'Observa la serie con atención. El patrón que buscas define qué número debe ocupar el siguiente lugar en la lista.',
+  'No busques sumas, restas ni operaciones complejas. La respuesta no se esconde en el valor matemático de los números.',
+  'No mires cada número como un bloque entero. Míralos como un conjunto de cuatro piezas individuales que se combinan.',
+  'El orden de las cifras no es caótico: hay un baile coreografiado de derecha a izquierda.',
 ];
 
 const dotIds      = ['pista-1','pista-2','pista-3','pista-4'];
