@@ -186,6 +186,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-03-20 | Timeline: óperas famosas | 8 óperas famosas | orfeo.jpg, alcina.jpg, bodas_figaro.jpg, don_giovanni.jpg, flauta_magica.jpg, barbero_sevilla.jpg, norma.jpg, la_traviata.jpg | N/A | PDTE |
 | 2028-03-26 | Palabras Intraducibles - Brasileño | CAFUNE | NievesAri_20210817.png | Nieves y Ariadna | PDTE |
 | 2028-03-28 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
+| 2028-04-02 | Agudeza visual — Jeroglífico | USO LA MENTE | Ari_20150512.jpg | Ariadna | PDTE |
 | 2028-04-08 | Minijuego (El Lobo, la Cabra y la Col) | N/A | N/A | N/A | PDTE |
 | 2028-04-06 | ¿Qué foto es más antigua? | 10 momentos vividos | PDTE | PDTE | PDTE |
 | 2028-04-10 | Adivina el logo correcto | 10 logos icónicos | Logos.png | N/A | PDTE |
