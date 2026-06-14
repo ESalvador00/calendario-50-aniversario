@@ -287,6 +287,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-10-22 | Palabras Intraducibles - Griego | MERAKI | Cumple_20170211.jpg | Nieves, Ariadna y Alex | PDTE |
 | 2028-10-23 | Rosco de pasapalabra | N/A | N/A | N/A | PDTE |
 | 2028-10-24 | Adivina quién soy | GOYA | Enric_20110101.png | Enric | PDTE |
+| 2028-10-26 | Acertijos y adivinanzas - Espías lógicos | SIETE | Enric_20150314.png | Enric | PDTE |
 | 2028-10-28 | Minijuego (Reparto de Combustible) | N/A | N/A | N/A | PDTE |
 | 2028-11-04 | Ingenio — el frutero y el arcoíris | 32215 | Ari_20150714.jpg | Ariadna | PDTE |
 | 2028-11-06 | Adivina el logo correcto | 10 logos icónicos | Logos.png | N/A | PDTE |
