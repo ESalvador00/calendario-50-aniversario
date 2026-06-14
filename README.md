@@ -164,6 +164,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-02-09 | Timeline musical, España en los 2000 | 2002-2008 | Asereje.jpg .. Tenia_tanto_que_darte.jpg | N/A | PDTE |
 | 2028-02-14 | ¿Qué foto es más antigua? | 10 momentos vividos | PDTE | PDTE | PDTE |
 | 2028-02-15 | Timeline: cuadros famosos | 8 cuadros famosos | mona_lisa.jpg, creacion_adan.jpg, torre_babel.jpg, vocacion_san_mateo.jpg, leccion_anatomia.jpg, meninas.jpg, caminante_mar_nubes.jpg, libertad_guiando_pueblo.jpg | N/A | PDTE |
+| 2028-02-16 | Acertijos y adivinanzas - El león y el unicornio | JUEVES | Alex_20180619.png | Alexandra | PDTE |
 | 2028-02-18 | Adivina las películas | Regreso al Futuro, ET El Extraterrestre, Mision Imposible, Toy Story, Alien El octavo pasajero | Regreso_al_Futuro, ET_El_Extraterrestre, Mision_Imposible, Toy_Story, Alien_El_octavo_pasajero (mp3 y jpg) | N/A | PDTE |
 | 2028-02-19 | Satisfacción con restricciones múltiples: Organizando una fiesta | Enric: música+altavoz / Nieves: cocinar+horno / Ariadna: invitaciones+sobres / Alex: decorar+globos | RSR02_Escenario.webp + RSR02_01A..01D.png + RSR02_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
 | 2028-02-20 | Palabras Intraducibles - Japonés | IKIGAI | NievesAriAlex_20160406.jpg | Nieves, Ariadna y Alexandra | PDTE |
