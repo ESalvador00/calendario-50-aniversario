@@ -225,7 +225,7 @@ doneBtn.addEventListener('click', () => {
 });
 updateDone();
 
-const TEXTO_INICIAL = 'Un espía llega a la puerta de un club secreto. Escucha que al primero que llega le dicen "Dieciocho" y él responde "Nueve" y entra. Al segundo le dicen "Ocho" y responde "Cuatro" y entra. El espía llega, le dicen "Catorce", él responde "Siete" y lo matan. ¿Qué número debería haber dicho?';
+const TEXTO_INICIAL = 'Un espía llega a la puerta de un club secreto. Escucha que al primero que llega le dicen "Dieciocho" y él responde "Nueve" y entra. Al segundo le dicen "Catorce" y responde "Siete" y entra. El espía se acerca, le dicen "Seis", él responde "Tres" y lo matan. ¿Qué número debería haber dicho?';
 
 const bocadilloTexto = document.getElementById('bocadillo-texto');
 
@@ -245,7 +245,7 @@ function typeText(text) {
 }
 typeText(TEXTO_INICIAL);
 
-const RESPUESTAS_OK = ['SIETE', '7'];
+const RESPUESTAS_OK = ['CUATRO', '4'];
 const codigoInput   = document.getElementById('codigo-input');
 const btnValidar    = document.getElementById('btn-validar');
 const popupFail     = document.getElementById('popup-fail');
