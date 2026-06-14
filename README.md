@@ -259,6 +259,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-08-23 | Sigue la letra | Hijo de la luna (Mecano) | Hijo_de_la_luna.mp3 | N/A | PDTE |
 | 2028-08-26 | Minijuego (Las Jarras de Agua) | N/A | N/A | N/A | PDTE |
 | 2028-08-28 | ¿Qué foto es más antigua? | 10 momentos vividos | PDTE | PDTE | PDTE |
+| 2028-08-29 | Acertijos y adivinanzas - El carnicero | CARNE | Cris_20100317.png | Cristina | PDTE |
 | 2028-08-30 | Cultura: iniciales de famosos | MALLORCA | Lugar10_01.jpg .. Lugar10_08.jpg | Ajenos | PDTE |
 | 2028-09-02 | Satisfacción con restricciones múltiples: Tarde de manualidades | Enric: pintar+témperas / Nieves: modelar+plastilina / Ariadna: pegar+pegatinas / Alex: recortar+cartulina | RSR09_Escenario.webp + RSR09_01A..01D.png + RSR09_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
 | 2028-09-03 | Palabras Intraducibles - Finlandés | SISU | Nieves_20160102.jpg | Nieves | PDTE |
