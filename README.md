@@ -200,7 +200,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-04-18 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
 | 2028-04-19 | Cultura: iniciales de famosos, especial política | MADEIRA | Lugar07_01.jpg .. Lugar07_07.jpg | Ajenos | PDTE |
 | 2028-04-27 | Puzzle visual | ECF | Puzzle03_01.png .. Puzzle03_02.png | N/A | PDTE |
-| 2028-04-26 | Acertijos y adivinanzas - El lago y los lirios | 5 mins | Ari_20190913.png | Ariadna | PDTE |
+| 2028-04-26 | Acertijos y adivinanzas - El lago y los lirios | 47 | Ari_20190913.png | Ariadna | PDTE |
 | 2028-04-25 | Timeline: monumentos y edificios | 8 monumentos famosos | gran_piramide_guiza.jpg, partenon.jpg, coliseo.jpg, santa_sofia.jpg, mezquita_cordoba.jpg, catedral_chartres.jpg, machu_picchu.jpg, taj_mahal.jpg | N/A | PDTE |
 | 2028-04-28 | Adivina las películas | El Rey León, Titanic, Piratas del Caribe, Forrest Gump, Braveheart | El_Rey_Leon, Titanic, Piratas_del_Caribe, Forrest_Gump, Braveheart (mp3 y jpg) | N/A | PDTE |
 | 2028-04-30 | Palabras Intraducibles - Galés | HIRAETH | Sants_Mudanza_20190821.jpg | Ninguno | PDTE |
@@ -223,7 +223,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-06-03 | Minijuego (La Balanza Falsa) | N/A | N/A | N/A | PDTE |
 | 2028-06-05 | Adivina el logo correcto | 10 logos icónicos | Logos.png | N/A | PDTE |
 | 2028-06-06 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
-| 2028-06-07 | Acertijos y adivinanzas - Máquinas trabajando | 5 mins | David_20101231.png | David | PDTE |
+| 2028-06-07 | Acertijos y adivinanzas - Máquinas trabajando | 5 | David_20101231.png | David | PDTE |
 | 2028-06-10 | Satisfacción con restricciones múltiples: Desayuno del domingo | Enric: café+tostadas / Nieves: té+croissant / Ariadna: cacao+galletas / Alex: leche+cereales | RSR06_Escenario.webp + RSR06_01A..01D.png + RSR06_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
 | 2028-06-11 | Agudeza visual — Secuencia lógica | 8293 | Alex_20170807.jpg | Alex | PDTE |
 | 2028-06-12 | Sigue la letra | Voy en un coche (Christina y Los Subterráneos) | Voy_en_un_coche.mp3 | N/A | PDTE |
@@ -269,7 +269,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-09-03 | Palabras Intraducibles - Finlandés | SISU | Nieves_20160102.jpg | Nieves | PDTE |
 | 2028-09-04 | Adivina el logo correcto | 10 logos icónicos | Logos.png | N/A | PDTE |
 | 2028-09-05 | Puzzle visual | ACHI | Puzzle01_01.png .. Puzzle01_05.png | N/A | PDTE |
-| 2028-09-06 | Acertijos y adivinanzas - Montones de paja | UNO | Gerard_20220705.png | Gerard | PDTE |
+| 2028-09-06 | Acertijos y adivinanzas - Montones de paja | 1 | Gerard_20220705.png | Gerard | PDTE |
 | 2028-09-09 | Minijuego (El Cruce del Puente) | N/A | N/A | N/A | PDTE |
 | 2028-09-12 | Adivina quién soy | MARY SHELLEY | Cristina_20130713.png | Cristina | PDTE |
 | 2028-09-13 | ¿Qué foto es más antigua? | 10 momentos vividos | PDTE | PDTE | PDTE |
@@ -327,7 +327,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2029-01-02 | Puzzle visual | ACHI | Puzzle01_01.png .. Puzzle01_05.png | N/A | PDTE |
 | 2029-01-03 | Timeline musical, Internacional en los 2000 | 2000-2009 | Music.jpg, Complicated.jpg, Hey_Ya.jpg, Crazy.jpg, Umbrella.jpg, I_Gotta_Feeling.jpg + .mp3 | N/A | PDTE |
 | 2029-01-04 | Timeline: monumentos y edificios | 8 monumentos famosos | sagrada_familia.jpg, parque_guell.jpg, casa_batllo.jpg, pedrera.jpg, plaza_espana.jpg, valle_cuelgamuros.jpg, museo_guggenheim_bilbao.jpg, palau_les_arts.jpg | N/A | PDTE |
-| 2029-01-08 | Acertijos y adivinanzas - Bate y pelota | 5 CTS | Alex_20231111.png | Alexandra | PDTE |
+| 2029-01-08 | Acertijos y adivinanzas - Bate y pelota | 0.05 | Alex_20231111.png | Alexandra | PDTE |
 
 
 ---
