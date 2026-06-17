@@ -32,6 +32,7 @@
     @keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
     .codigo-wrap{width:100%;display:flex;flex-direction:column;align-items:center;gap:.9rem;}
     .codigo-label{font-size:.8rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(201,168,76,.55);}
+    .codigo-hint{font-size:.75rem;font-style:italic;color:rgba(201,168,76,.35);letter-spacing:.05em;}
     .codigo-row{display:flex;gap:.6rem;width:100%;max-width:340px;align-items:center;}
     .lock-icon{font-size:1.4rem;flex-shrink:0;opacity:.6;}
     .codigo-input{flex:1;min-width:0;background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.25);border-radius:2px;color:var(--cream);font-family:'Cormorant Garamond',serif;font-size:1.1rem;letter-spacing:.2em;text-align:center;padding:.55rem .8rem;outline:none;transition:border-color .2s;}
@@ -107,9 +108,12 @@
 
       <div class="codigo-wrap">
         <p class="codigo-label">Resuelve el acertijo</p>
+        <p class="codigo-hint">Introduce la respuesta en montones (número entero)</p>
         <div class="codigo-row">
           <span class="lock-icon">🔒</span>
-          <input type="text" class="codigo-input" id="codigo-input" placeholder="· · · · · · · ·" maxlength="20" autocomplete="off"/>
+          <input type="text" inputmode="numeric" class="codigo-input" id="codigo-input"
+            placeholder="· · ·" maxlength="6" autocomplete="off"
+            pattern="^\d+$"/>
           <button class="btn-validar" id="btn-validar">Validar</button>
         </div>
       </div>
@@ -250,6 +254,11 @@ const codigoInput   = document.getElementById('codigo-input');
 const btnValidar    = document.getElementById('btn-validar');
 const popupFail     = document.getElementById('popup-fail');
 
+/* Solo permite dígitos enteros */
+codigoInput.addEventListener('input', () => {
+  codigoInput.value = codigoInput.value.replace(/[^0-9]/g, '');
+});
+
 document.getElementById('fail-close').addEventListener('click', () => {
   popupFail.classList.remove('visible');
   codigoInput.value = '';
@@ -258,10 +267,8 @@ document.getElementById('fail-close').addEventListener('click', () => {
 popupFail.addEventListener('click', e => { if (e.target === popupFail) popupFail.classList.remove('visible'); });
 
 function validar() {
-  const val = codigoInput.value.trim().toUpperCase()
-    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-    .replace(/[ÑñN]/g, c => c === 'Ñ' || c === 'ñ' ? 'N' : c);
-  if (RESPUESTAS_OK.includes(val)) {
+  const val = parseInt(codigoInput.value.trim(), 10);
+  if (val === 1) {
     codigoInput.classList.remove('error');
     codigoInput.classList.add('ok');
     markDone();
