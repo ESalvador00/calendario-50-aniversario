@@ -282,7 +282,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-10-02 | Puzzle visual | ACHI | Puzzle01_01.png .. Puzzle01_05.png | N/A | PDTE |
 | 2028-10-03 | Cultura: iniciales de famosos | CRETA | Lugar11_01.jpg .. Lugar11_05.jpg | Ajenos | PDTE |
 | 2028-10-08 | Escape Room: 03-Laboratorio Alquímico | Esencia Pura | ER03_EscenarioVisual.jpg + ER03_EscenarioClickmap.jpg | N/A | PDTE |
-| 2028-10-09 | Adivina el logo correcto | 10 logos icónicos | Logos.png | N/A | PDTE |
+| 2028-10-09 | Primeras frases de novelas | 6 novelas famosas | historia_dos_ciudades.jpg, tunel.jpg, matadero_cinco.jpg, lolita.jpg, veinte_mil_leguas.jpg, torre_oscura_pistolero.jpg | N/A | PDTE |
 | 2028-10-10 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
 | 2028-10-11 | Timeline: monumentos y edificios | 8 monumentos famosos | mezquita_cordoba.jpg, santa_maria_naranco.jpg, murallas_avila.jpg, catedral_cuenca.jpg, alhambra.jpg, catedral_granada.jpg, monasterio_escorial.jpg, palacio_real_madrid.jpg | N/A | PDTE |
 | 2028-10-16 | Sigue la letra | Chiquilla (Seguridad Social) | Chiquilla.mp3 | N/A | PDTE |
@@ -349,7 +349,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 
 |  Día / Ámbito | Descripción | 
 |--------------|-------------|
-|  Logos icónicos (×5 días) | Rellenar contenido de: 2028-01-17, 2028-09-04, 2028-10-09, 2028-11-06, 2028-12-20 |
+|  Logos icónicos (×4 días) | Rellenar contenido de: 2028-01-17, 2028-09-04, 2028-11-06, 2028-12-20 |
 |  Puzzle visuales | OK: 03-FEB, 07-MAR, 27-ABR, 24-MAY, Resto PDTE |
 |  Pasapalabra (×12 meses) |Falta por rellenar los 12 retos |
 | "¿Qué foto es más antigua?" (×12 meses) | Falta por rellenar los 12 retos | 
