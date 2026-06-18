@@ -254,7 +254,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-08-01 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
 | 2028-08-02 | Puzzle visual | ACHI | Puzzle01_01.png .. Puzzle01_05.png | N/A | PDTE |
 | 2028-08-05 | Satisfacción con restricciones múltiples: Noche de películas | Enric: misterio+helado / Nieves: comedia+pizza / Ariadna: aventuras+nachos / Alex: animación+palomitas | RSR08_Escenario.webp + RSR08_01A..01D.png + RSR08_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
-| 2028-08-07 | Adivina el logo correcto | 10 logos icónicos | Logos.png | N/A | PDTE |
+| 2028-08-07 | Primeras frases de novelas | 6 novelas famosas | ana_karenina.jpg, guardian_entre_centeno.jpg, metamorfosis.jpg, rayuela.jpg, peter_pan.jpg, idiota.jpg | N/A | PDTE |
 | 2028-08-11 | Adivina las películas | La Bella y la Bestia, Solo en Casa, Halloween, Top Gun, El Caballero Oscuro | La_Bella_y_la_Bestia, Solo_en_Casa, Halloween, Top_Gun, El_Caballero_Oscuro (mp3 y jpg) | N/A | PDTE |
 | 2028-08-17 | Adivina quién soy | NAPOLEON | Juan_20190813.png | Juan | PDTE |
 | 2028-08-20 | Palabras Intraducibles - Tagalo | GIGIL | Alex_20140531.png | Alex | PDTE |
@@ -349,7 +349,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 
 |  Día / Ámbito | Descripción | 
 |--------------|-------------|
-|  Logos icónicos (×6 días) | Rellenar contenido de: 2028-01-17, 2028-08-07, 2028-09-04, 2028-10-09, 2028-11-06, 2028-12-20 |
+|  Logos icónicos (×5 días) | Rellenar contenido de: 2028-01-17, 2028-09-04, 2028-10-09, 2028-11-06, 2028-12-20 |
 |  Puzzle visuales | OK: 03-FEB, 07-MAR, 27-ABR, 24-MAY, Resto PDTE |
 |  Pasapalabra (×12 meses) |Falta por rellenar los 12 retos |
 | "¿Qué foto es más antigua?" (×12 meses) | Falta por rellenar los 12 retos | 
