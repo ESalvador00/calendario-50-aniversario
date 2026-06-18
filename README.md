@@ -321,7 +321,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-12-15 | Adivina las películas | Sister Act, Beetlejuice, Reservoir Dogs, El resplandor, Jumanji | Sister_Act, Beetlejuice, Reservoir_Dogs, El_resplandor, Jumanji (mp3 y jpg) | N/A | PDTE |
 | 2028-12-18 | Rosco de pasapalabra | N/A | N/A | N/A | PDTE |
 | 2028-12-19 | Cultura: iniciales de famosos, especial deporte | ONTARIO | Lugar05_01.jpg .. Lugar05_07.jpg | Ajenos | PDTE |
-| 2028-12-20 | Adivina el logo correcto | 10 logos icónicos | Logos.png | N/A | PDTE |
+| 2028-12-20 | Primeras frases de novelas | 6 novelas famosas | moby_dick.jpg, principito.jpg, mundo_feliz.jpg, busca_tiempo_perdido.jpg, familia_pascual_duarte.jpg, hp_piedra_filosofal.jpg | N/A | PDTE |
 | 2028-12-21 | Timeline: películas de cine | amanece_no_poco, tesis, familia, otros, laberinto_fauno, celda_211, reino, sociedad_nieve | amanece_no_poco.jpg, tesis.jpg, familia.jpg, otros.jpg, laberinto_fauno.jpg, celda_211.jpg, reino.jpg, sociedad_nieve.jpg | N/A | PDTE |
 | 2028-12-23 | Minijuego (La Torre de Hanoi) | N/A | N/A | N/A | PDTE |
 | 2029-01-02 | Puzzle visual | ACHI | Puzzle01_01.png .. Puzzle01_05.png | N/A | PDTE |
@@ -349,7 +349,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 
 |  Día / Ámbito | Descripción | 
 |--------------|-------------|
-|  Logos icónicos (×4 días) | Rellenar contenido de: 2028-01-17, 2028-09-04, 2028-11-06, 2028-12-20 |
+|  Logos icónicos (×3 días) | Rellenar contenido de: 2028-01-17, 2028-09-04, 2028-11-06 |
 |  Puzzle visuales | OK: 03-FEB, 07-MAR, 27-ABR, 24-MAY, Resto PDTE |
 |  Pasapalabra (×12 meses) |Falta por rellenar los 12 retos |
 | "¿Qué foto es más antigua?" (×12 meses) | Falta por rellenar los 12 retos | 
