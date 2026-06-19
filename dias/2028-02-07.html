@@ -11,7 +11,8 @@
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
     body{background-color:var(--dark);color:var(--cream);font-family:'Cormorant Garamond',serif;min-height:100vh;display:flex;flex-direction:column;}
     body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 25% 15%,rgba(201,168,76,.10) 0%,transparent 55%),radial-gradient(ellipse at 75% 85%,rgba(124,54,38,.10) 0%,transparent 55%);pointer-events:none;z-index:0;}
-    .wrap{position:relative;z-index:1;max-width:800px;margin:0 auto;padding:3rem 2rem 4rem;flex:1;display:flex;flex-direction:column;}
+
+    .wrap{position:relative;z-index:1;width:100%;max-width:100%;margin:0 auto;padding:3rem 2rem 4rem;flex:1;display:flex;flex-direction:column;}
     .day-hero{text-align:center;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 0 2rem;position:relative;}
     .ornament-line-h{display:flex;align-items:center;justify-content:center;gap:1rem;margin-bottom:2rem;}
     .o-line{height:1px;width:60px;background:linear-gradient(to right,transparent,var(--gold));}
@@ -20,7 +21,56 @@
     .day-of-week{font-size:.85rem;letter-spacing:.4em;text-transform:uppercase;color:rgba(201,168,76,.5);margin-bottom:1rem;}
     h1{font-family:'Playfair Display',serif;font-size:clamp(3rem,9vw,7rem);font-weight:900;line-height:1;background:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 50%,var(--gold-dark) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.5rem;}
     .month-label{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3.5vw,2.4rem);font-weight:400;font-style:italic;color:rgba(250,246,238,.45);margin-bottom:2.5rem;}
-    .content-area{width:100%;border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:2.5rem;min-height:220px;background:rgba(255,255,255,.02);color:rgba(250,246,238,.4);font-size:1rem;font-style:italic;text-align:center;display:flex;align-items:center;justify-content:center;}
+
+    /* ── Área de contenido ── */
+    .content-area{width:100%;border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:2rem;background:rgba(255,255,255,.02);display:flex;flex-direction:column;align-items:center;gap:1.6rem;}
+
+    /* ── Label del reto ── */
+    .reto-label{font-family:'Playfair Display',serif;font-size:.78rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:rgba(201,168,76,.6);text-align:center;}
+
+    /* ── Grids dobles (4 columnas cada uno) ── */
+    .series-grids{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;}
+
+    /* Grid A — portadas */
+    .grid-a{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;}
+
+    /* Grid B — pistas */
+    .grid-b{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;}
+
+    /* ── Slot portada ── */
+    .serie-slot{position:relative;aspect-ratio:2/3;border-radius:3px;overflow:hidden;border:2px solid rgba(201,168,76,.12);background:rgba(255,255,255,.03);transition:border-color .3s,box-shadow .3s;}
+    .serie-slot img{display:block;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .5s ease;}
+    .serie-slot.revealed img{opacity:1;}
+    .serie-slot.revealed{border-color:rgba(50,200,100,.8);box-shadow:0 0 10px rgba(50,200,100,.35);}
+    .serie-slot .placeholder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4rem;transition:opacity .4s;}
+    .serie-slot.revealed .placeholder{opacity:0;pointer-events:none;}
+    .placeholder-num{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:900;background:linear-gradient(135deg,var(--gold-light),var(--gold),var(--gold-dark));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;}
+    .placeholder-mark{font-size:1rem;color:rgba(201,168,76,.3);}
+    .serie-slot.active-slot{border-color:rgba(201,168,76,.6);box-shadow:0 0 8px rgba(201,168,76,.2);}
+
+    /* ── Slot pistas ── */
+    .pistas-slot{display:flex;flex-direction:column;gap:4px;align-items:center;padding:.4rem .2rem;}
+    .pistas-slot-num{font-family:'Playfair Display',serif;font-size:.6rem;font-weight:700;letter-spacing:.15em;color:rgba(201,168,76,.4);text-transform:uppercase;margin-bottom:2px;}
+    .pista-dot{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;cursor:default;border:2px solid transparent;transition:all .25s;user-select:none;font-family:'Cormorant Garamond',serif;}
+    .pista-dot.rojo  {background:rgba(180,50,50,.25);border-color:rgba(180,50,50,.4);color:rgba(255,120,120,.5);}
+    .pista-dot.ambar {background:rgba(220,160,40,.2);border-color:rgba(220,160,40,.7);color:rgba(240,190,80,.9);cursor:pointer;animation:pulse-ambar 1.5s ease-in-out infinite;}
+    .pista-dot.verde {background:rgba(50,180,100,.2);border-color:rgba(50,180,100,.6);color:rgba(80,220,130,.9);cursor:pointer;}
+    .pista-dot.ambar:hover{background:rgba(220,160,40,.35);}
+    .pista-dot.verde:hover{background:rgba(50,180,100,.35);}
+    @keyframes pulse-ambar{0%,100%{box-shadow:0 0 0 0 rgba(220,160,40,.4);}50%{box-shadow:0 0 0 5px rgba(220,160,40,.0);}}
+
+    /* ── Input validación ── */
+    .validacion-wrap{display:flex;flex-direction:column;align-items:center;gap:.8rem;width:100%;}
+    .input-row{display:flex;align-items:center;gap:.7rem;flex-wrap:wrap;justify-content:center;}
+    .codigo-input{background:rgba(255,255,255,.05);border:1px solid rgba(201,168,76,.25);border-radius:2px;color:var(--cream);font-family:'Cormorant Garamond',serif;font-size:.95rem;padding:.55rem 1rem;width:220px;outline:none;transition:border-color .2s;text-align:center;}
+    .codigo-input:focus{border-color:rgba(201,168,76,.6);}
+    .codigo-input.shake{animation:shake .35s;}
+    @keyframes shake{0%,100%{transform:translateX(0);}20%{transform:translateX(-6px);}60%{transform:translateX(6px);}80%{transform:translateX(-3px);}}
+    .btn-validar{padding:.65rem 2.5rem;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.35);border-radius:2px;color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:.85rem;letter-spacing:.25em;text-transform:uppercase;cursor:pointer;transition:all .2s;}
+    .btn-validar:hover{background:rgba(201,168,76,.2);border-color:var(--gold);}
+    .progreso-label{font-size:.75rem;letter-spacing:.1em;color:rgba(201,168,76,.45);font-style:italic;}
+
+    /* ── Nav ── */
     .day-nav{display:flex;justify-content:space-between;align-items:center;padding-top:2.5rem;border-top:1px solid rgba(201,168,76,.1);margin-top:2.5rem;}
     .nav-btn{font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(201,168,76,.5);text-decoration:none;padding:.6rem 1.2rem;border:1px solid rgba(201,168,76,.18);border-radius:2px;transition:all .2s;}
     .nav-btn:hover{color:var(--gold-light);border-color:rgba(201,168,76,.5);background:rgba(201,168,76,.05);}
@@ -28,7 +78,8 @@
     .year-badge{font-size:.7rem;letter-spacing:.3em;color:rgba(201,168,76,.25);text-transform:uppercase;}
     .back-link{display:block;text-align:center;margin-top:2rem;color:rgba(201,168,76,.35);font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;text-decoration:none;transition:color .2s;}
     .back-link:hover{color:var(--gold);}
-    /* Botones fav y done */
+
+    /* ── Action btns ── */
     .action-btns{position:absolute;top:0;right:0;display:flex;flex-direction:column;align-items:center;gap:.2rem;}
     .icon-btn{background:none;border:none;cursor:pointer;font-size:2rem;line-height:1;transition:color .2s,transform .2s;padding:.2rem;}
     .icon-btn:hover{transform:scale(1.2);}
@@ -38,7 +89,8 @@
     .done-btn{color:var(--gold);opacity:0.6;}
     .done-btn.active{color:var(--gold);opacity:1;}
     .done-btn.active:hover{color:var(--gold-light);opacity:1;}
-    /* Popup */
+
+    /* ── Popups ── */
     .popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:100;align-items:center;justify-content:center;}
     .popup-overlay.visible{display:flex;}
     .popup-box{background:var(--dark);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:3rem 2.5rem;max-width:420px;width:90%;text-align:center;box-shadow:0 0 60px rgba(0,0,0,.8);}
@@ -47,16 +99,22 @@
     .popup-msg{font-size:1rem;font-style:italic;color:rgba(250,246,238,.6);line-height:1.7;margin-bottom:2rem;}
     .popup-btn{display:inline-block;padding:.7rem 2rem;border:1px solid rgba(201,168,76,.4);border-radius:2px;color:var(--gold);font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;background:none;transition:all .2s;}
     .popup-btn:hover{background:rgba(201,168,76,.1);border-color:var(--gold);}
+
+    /* ── Mobile ── */
     @media(max-width:600px){
       .wrap{padding:1rem 1rem 2rem;}
       .day-hero{padding:1rem 0 1rem;}
       h1{font-size:clamp(2rem,14vw,4rem);}
       .month-label{font-size:clamp(1rem,4vw,1.6rem);margin-bottom:1rem;}
-      .content-area{padding:1.2rem;min-height:120px;}
-      .day-nav{margin-top:1rem;padding-top:1rem;}
+      .content-area{padding:1rem;gap:1rem;}
+      .series-grids{grid-template-columns:1fr;gap:1rem;}
+      .grid-a,.grid-b{grid-template-columns:repeat(4,1fr);}
+      .pista-dot{width:22px;height:22px;font-size:.6rem;}
+      .codigo-input{width:180px;}
       .ornament-line-h{margin-bottom:1rem;}
+      .day-nav{margin-top:1rem;padding-top:1rem;}
     }
-</style>
+  </style>
 </head>
 <body>
 <div class="wrap">
@@ -71,18 +129,108 @@
     <p class="day-of-week">Lunes</p>
     <h1>7</h1>
     <p class="month-label">de Febrero</p>
+
     <div class="content-area">
-      <p>Espacio reservado para el contenido de este día</p>
-    </div>
-  </div>
+
+      <!-- Título del reto -->
+      <p class="reto-label">Clásicos de Aventuras y Misterio</p>
+
+      <!-- Grids dobles -->
+      <div class="series-grids">
+
+        <!-- Grid A: portadas -->
+        <div class="grid-a" id="grid-a">
+          <div class="serie-slot active-slot" id="slot-0">
+            <img src="../media/dragones_mazmorras.jpg" alt="Serie 1"/>
+            <div class="placeholder">
+              <span class="placeholder-num">1</span>
+              <span class="placeholder-mark">?</span>
+            </div>
+          </div>
+          <div class="serie-slot" id="slot-1">
+            <img src="../media/inspector_gadget.jpg" alt="Serie 2"/>
+            <div class="placeholder">
+              <span class="placeholder-num">2</span>
+              <span class="placeholder-mark">?</span>
+            </div>
+          </div>
+          <div class="serie-slot" id="slot-2">
+            <img src="../media/coche_fantastico.jpg" alt="Serie 3"/>
+            <div class="placeholder">
+              <span class="placeholder-num">3</span>
+              <span class="placeholder-mark">?</span>
+            </div>
+          </div>
+          <div class="serie-slot" id="slot-3">
+            <img src="../media/expediente_x.jpg" alt="Serie 4"/>
+            <div class="placeholder">
+              <span class="placeholder-num">4</span>
+              <span class="placeholder-mark">?</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Grid B: pistas por serie -->
+        <div class="grid-b" id="grid-b">
+          <!-- Columna 0 -->
+          <div class="pistas-slot" id="pistas-col-0">
+            <div class="pistas-slot-num">Nº1</div>
+            <div class="pista-dot ambar" id="p0-0" data-serie="0" data-pista="0">1</div>
+            <div class="pista-dot rojo"  id="p0-1" data-serie="0" data-pista="1">2</div>
+            <div class="pista-dot rojo"  id="p0-2" data-serie="0" data-pista="2">3</div>
+            <div class="pista-dot rojo"  id="p0-3" data-serie="0" data-pista="3">4</div>
+          </div>
+          <!-- Columna 1 -->
+          <div class="pistas-slot" id="pistas-col-1">
+            <div class="pistas-slot-num">Nº2</div>
+            <div class="pista-dot ambar" id="p1-0" data-serie="1" data-pista="0">1</div>
+            <div class="pista-dot rojo"  id="p1-1" data-serie="1" data-pista="1">2</div>
+            <div class="pista-dot rojo"  id="p1-2" data-serie="1" data-pista="2">3</div>
+            <div class="pista-dot rojo"  id="p1-3" data-serie="1" data-pista="3">4</div>
+          </div>
+          <!-- Columna 2 -->
+          <div class="pistas-slot" id="pistas-col-2">
+            <div class="pistas-slot-num">Nº3</div>
+            <div class="pista-dot ambar" id="p2-0" data-serie="2" data-pista="0">1</div>
+            <div class="pista-dot rojo"  id="p2-1" data-serie="2" data-pista="1">2</div>
+            <div class="pista-dot rojo"  id="p2-2" data-serie="2" data-pista="2">3</div>
+            <div class="pista-dot rojo"  id="p2-3" data-serie="2" data-pista="3">4</div>
+          </div>
+          <!-- Columna 3 -->
+          <div class="pistas-slot" id="pistas-col-3">
+            <div class="pistas-slot-num">Nº4</div>
+            <div class="pista-dot ambar" id="p3-0" data-serie="3" data-pista="0">1</div>
+            <div class="pista-dot rojo"  id="p3-1" data-serie="3" data-pista="1">2</div>
+            <div class="pista-dot rojo"  id="p3-2" data-serie="3" data-pista="2">3</div>
+            <div class="pista-dot rojo"  id="p3-3" data-serie="3" data-pista="3">4</div>
+          </div>
+        </div>
+
+      </div><!-- /.series-grids -->
+
+      <!-- Instrucción + input -->
+      <p class="reto-label" style="font-size:.72rem;letter-spacing:.15em;opacity:.7;">Adivina las series</p>
+      <div class="validacion-wrap">
+        <div class="input-row">
+          <span style="font-size:1.4rem;opacity:.6;">🔒</span>
+          <input type="text" class="codigo-input" id="codigo-input" placeholder="Escribe el nombre…" autocomplete="off" autocorrect="off" spellcheck="false"/>
+          <button class="btn-validar" id="btn-validar">Validar</button>
+        </div>
+        <p class="progreso-label" id="progreso-label">Serie 1 de 4</p>
+      </div>
+
+    </div><!-- /.content-area -->
+  </div><!-- /.day-hero -->
+
   <nav class="day-nav">
     <a class="nav-btn" href="2028-02-06.html">&#8592; 6 de Febrero</a>
     <span class="year-badge">50 Aniversario · 2028</span>
     <a class="nav-btn" id="next-btn" href="2028-02-08.html">8 de Febrero &#8594;</a>
   </nav>
   <a class="back-link" href="../index.html">&#8592; Volver al Calendario</a>
-</div>
+</div><!-- /.wrap -->
 
+<!-- Popup: día futuro -->
 <div class="popup-overlay" id="popup">
   <div class="popup-box">
     <div class="popup-icon">🎁</div>
@@ -92,7 +240,7 @@
   </div>
 </div>
 
-<!-- Popup estrella bloqueada -->
+<!-- Popup: estrella bloqueada -->
 <div class="popup-overlay" id="popup-star-blocked">
   <div class="popup-box">
     <div class="popup-icon">🏆</div>
@@ -102,7 +250,7 @@
   </div>
 </div>
 
-<!-- Popup recompensa del día -->
+<!-- Popup: recompensa -->
 <div class="popup-overlay" id="popup-star-reward">
   <div class="popup-box">
     <div class="popup-icon">🎁</div>
@@ -112,20 +260,40 @@
   </div>
 </div>
 
+<!-- Popup: fallo -->
+<div class="popup-overlay" id="popup-fail">
+  <div class="popup-box">
+    <div class="popup-icon">🎭</div>
+    <p class="popup-title">¡Casi lo tienes!</p>
+    <p class="popup-msg" id="fail-msg">No es el nombre correcto...<br>¡Sigue intentándolo! 💪</p>
+    <button class="popup-btn" id="fail-close">Seguir intentando</button>
+  </div>
+</div>
+
+<!-- Popup: pista textual -->
+<div class="popup-overlay" id="popup-pista">
+  <div class="popup-box">
+    <div class="popup-icon">💡</div>
+    <p class="popup-title" id="pista-titulo">Pista</p>
+    <p class="popup-msg" id="pista-texto"></p>
+    <button class="popup-btn" id="pista-close">Entendido</button>
+  </div>
+</div>
+
 <script>
-const PREVIEW_KEY  = 'cal_preview';
-const isPreview    = localStorage.getItem(PREVIEW_KEY) === '1';
-const today        = new Date(); today.setHours(0,0,0,0);
-const thisDate     = new Date('2028-02-07'); thisDate.setHours(0,0,0,0);
-const nextDateStr  = '2028-02-08';
-const popup        = document.getElementById('popup');
+// ── Preview / bloqueo ───────────────────────────────────────
+const PREVIEW_KEY = 'cal_preview';
+const isPreview   = localStorage.getItem(PREVIEW_KEY) === '1';
+const today       = new Date(); today.setHours(0,0,0,0);
+const thisDate    = new Date('2028-02-07'); thisDate.setHours(0,0,0,0);
+const nextDateStr = '2028-02-08';
+const popup       = document.getElementById('popup');
 
 if (!isPreview && thisDate > today) {
   document.querySelector('.day-hero').style.filter = 'blur(4px)';
   document.querySelector('.day-nav').style.visibility = 'hidden';
   popup.classList.add('visible');
 }
-
 if (!isPreview && nextDateStr) {
   const nextDate = new Date(nextDateStr); nextDate.setHours(0,0,0,0);
   if (nextDate > today) {
@@ -133,10 +301,9 @@ if (!isPreview && nextDateStr) {
     if (nextBtn) nextBtn.addEventListener('click', e => { e.preventDefault(); popup.classList.add('visible'); });
   }
 }
-
 popup.addEventListener('click', e => { if (e.target === popup) window.location.href = '../index.html'; });
 
-// ── Favourite ──────────────────────────────────────────────
+// ── Favourites ──────────────────────────────────────────────
 const FAV_KEY = 'fav_2028-02-07';
 const favBtn  = document.getElementById('fav-btn');
 function updateFav() {
@@ -152,26 +319,18 @@ favBtn.addEventListener('click', () => {
 });
 updateFav();
 
-// ── Done (actividad completada) ────────────────────────────
-const DONE_KEY = 'done_2028-02-07';
-const doneBtn  = document.getElementById('done-btn');
+// ── Done ────────────────────────────────────────────────────
+const DONE_KEY         = 'done_2028-02-07';
+const doneBtn          = document.getElementById('done-btn');
 const popupStarBlocked = document.getElementById('popup-star-blocked');
 const popupStarReward  = document.getElementById('popup-star-reward');
 
-document.getElementById('star-blocked-close').addEventListener('click', () => {
-  popupStarBlocked.classList.remove('visible');
-});
-popupStarBlocked.addEventListener('click', e => {
-  if (e.target === popupStarBlocked) popupStarBlocked.classList.remove('visible');
-});
+document.getElementById('star-blocked-close').addEventListener('click', () => popupStarBlocked.classList.remove('visible'));
+popupStarBlocked.addEventListener('click', e => { if (e.target === popupStarBlocked) popupStarBlocked.classList.remove('visible'); });
+document.getElementById('star-reward-close').addEventListener('click', () => popupStarReward.classList.remove('visible'));
+popupStarReward.addEventListener('click', e => { if (e.target === popupStarReward) popupStarReward.classList.remove('visible'); });
 
-document.getElementById('star-reward-close').addEventListener('click', () => {
-  popupStarReward.classList.remove('visible');
-});
-popupStarReward.addEventListener('click', e => {
-  if (e.target === popupStarReward) popupStarReward.classList.remove('visible');
-});
-
+function markDone() { localStorage.setItem(DONE_KEY, '1'); updateDone(); }
 function updateDone() {
   const on = localStorage.getItem(DONE_KEY) === '1';
   doneBtn.textContent = on ? '★' : '☆';
@@ -180,20 +339,247 @@ function updateDone() {
 }
 doneBtn.addEventListener('click', () => {
   const on = localStorage.getItem(DONE_KEY) === '1';
-  if (on) {
-    // Already done → show reward
-    popupStarReward.classList.add('visible');
-  } else {
-    // Not done → only allowed in preview mode
-    if (isPreview) {
-      localStorage.setItem(DONE_KEY, '1');
-      updateDone();
-    } else {
-      popupStarBlocked.classList.add('visible');
-    }
-  }
+  if (on) { popupStarReward.classList.add('visible'); }
+  else if (isPreview) { markDone(); }
+  else { popupStarBlocked.classList.add('visible'); }
 });
 updateDone();
+
+// ── Normalización ──────────────────────────────────────────
+function normalizar(s) {
+  return s.trim().toUpperCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^A-Z0-9& ]/g, ' ')
+    .replace(/\s+/g, ' ').trim();
+}
+
+// ── Datos de series ─────────────────────────────────────────
+const SERIES = [
+  {
+    id: 0,
+    respuestas: ['DRAGONES Y MAZMORRAS', 'D&G'],
+    audio: '../media/dragones_mazmorras.mp3',
+    pistaTexto: 'Serie de animación fantástica estadounidense de los 80 basada en el juego de rol.'
+  },
+  {
+    id: 1,
+    respuestas: ['INSPECTOR GADGET'],
+    audio: '../media/inspector_gadget.mp3',
+    pistaTexto: 'Animación de los 80 sobre un despistado detective cibernético y sus artilugios.'
+  },
+  {
+    id: 2,
+    respuestas: ['EL COCHE FANTASTICO', 'COCHE FANTASTICO', 'KIT EL COCHE FANTASTICO', 'KIT'],
+    audio: '../media/coche_fantastico.mp3',
+    pistaTexto: 'Serie de acción estadounidense de los 80 con un vehículo inteligente e indestructible.'
+  },
+  {
+    id: 3,
+    respuestas: ['EXPEDIENTE X'],
+    audio: '../media/expediente_x.mp3',
+    pistaTexto: 'Serie estadounidense de ciencia ficción y misterio paranormal que redefinió los 90.'
+  }
+];
+
+// ── Estado ─────────────────────────────────────────────────
+// pistaEstados[serieIdx][pistaIdx]: 0=rojo, 1=ambar, 2=verde
+let pistaEstados = [
+  [1, 0, 0, 0],
+  [1, 0, 0, 0],
+  [1, 0, 0, 0],
+  [1, 0, 0, 0]
+];
+let serieActual = 0;
+let audioActual = null;
+
+// Cargar estado desde localStorage
+const ESTADO_KEY = 'estado_2028-02-07';
+function cargarEstado() {
+  const guardado = localStorage.getItem(ESTADO_KEY);
+  if (guardado) {
+    try {
+      const s = JSON.parse(guardado);
+      serieActual  = s.serieActual  || 0;
+      pistaEstados = s.pistaEstados || pistaEstados;
+    } catch(e) {}
+  }
+}
+function guardarEstado() {
+  localStorage.setItem(ESTADO_KEY, JSON.stringify({ serieActual, pistaEstados }));
+}
+
+cargarEstado();
+
+// ── Audio ───────────────────────────────────────────────────
+function reproducirAudio(serieIdx, duracion) {
+  if (audioActual) { audioActual.pause(); audioActual.currentTime = 0; }
+  audioActual = new Audio(SERIES[serieIdx].audio);
+  audioActual.play().catch(() => {});
+  if (duracion !== null) {
+    setTimeout(() => {
+      if (audioActual) { audioActual.pause(); audioActual.currentTime = 0; }
+    }, duracion * 1000);
+  }
+}
+
+// ── Render estado visual ─────────────────────────────────────
+function renderEstado() {
+  // Portadas
+  SERIES.forEach((s, idx) => {
+    const slot = document.getElementById('slot-' + idx);
+    if (idx < serieActual) {
+      slot.classList.add('revealed');
+      slot.classList.remove('active-slot');
+    } else if (idx === serieActual) {
+      slot.classList.remove('revealed');
+      slot.classList.add('active-slot');
+    } else {
+      slot.classList.remove('revealed', 'active-slot');
+    }
+  });
+
+  // Bolitas
+  for (let s = 0; s < 4; s++) {
+    for (let p = 0; p < 4; p++) {
+      const dot = document.getElementById('p' + s + '-' + p);
+      if (!dot) continue;
+      const estado = pistaEstados[s][p];
+      dot.className = 'pista-dot ' + ['rojo','ambar','verde'][estado];
+      // Solo clickable si serie ya resuelta o es la serie actual
+      const activa = estado > 0;
+      dot.style.pointerEvents = activa ? '' : 'none';
+    }
+  }
+
+  // Progreso
+  const label = document.getElementById('progreso-label');
+  if (serieActual >= 4) {
+    label.textContent = '¡Todas resueltas! 🎉';
+  } else {
+    label.textContent = 'Serie ' + (serieActual + 1) + ' de 4';
+  }
+
+  // Input
+  const input = document.getElementById('codigo-input');
+  const btn   = document.getElementById('btn-validar');
+  if (serieActual >= 4) {
+    input.disabled = true;
+    btn.disabled   = true;
+    btn.style.opacity = '.4';
+    input.placeholder = 'Reto completado';
+  } else {
+    input.disabled = false;
+    btn.disabled   = false;
+    btn.style.opacity = '';
+    input.placeholder = 'Escribe el nombre…';
+  }
+}
+
+// ── Pistas ──────────────────────────────────────────────────
+const popupPista  = document.getElementById('popup-pista');
+const pistaTexto  = document.getElementById('pista-texto');
+const pistaTitulo = document.getElementById('pista-titulo');
+let pistaCallback = null;
+
+function cerrarPista() {
+  popupPista.classList.remove('visible');
+  if (pistaCallback) { pistaCallback(); pistaCallback = null; }
+}
+document.getElementById('pista-close').addEventListener('click', cerrarPista);
+popupPista.addEventListener('click', e => { if (e.target === popupPista) cerrarPista(); });
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && popupPista.classList.contains('visible')) cerrarPista();
+});
+
+// Delegar click en las bolitas del grid-b
+document.getElementById('grid-b').addEventListener('click', e => {
+  const dot = e.target.closest('.pista-dot');
+  if (!dot) return;
+  const s = parseInt(dot.dataset.serie);
+  const p = parseInt(dot.dataset.pista);
+  if (pistaEstados[s][p] === 0) return; // rojo: bloqueada
+
+  // Pistas 0,1,2 → audio; pista 3 → texto
+  if (p === 0) {
+    // 3 segundos
+    reproducirAudio(s, 3);
+    avanzarPista(s, p);
+  } else if (p === 1) {
+    // 10 segundos
+    reproducirAudio(s, 10);
+    avanzarPista(s, p);
+  } else if (p === 2) {
+    // Sin restricción
+    reproducirAudio(s, null);
+    avanzarPista(s, p);
+  } else if (p === 3) {
+    // Pista textual → popup
+    pistaTitulo.textContent = 'Pista 4 · Serie ' + (s + 1);
+    pistaTexto.textContent  = SERIES[s].pistaTexto;
+    popupPista.classList.add('visible');
+    pistaCallback = () => { avanzarPista(s, p); };
+  }
+});
+
+function avanzarPista(s, p) {
+  const eraAmbar = pistaEstados[s][p] === 1;
+  pistaEstados[s][p] = 2; // verde
+  if (eraAmbar && p + 1 < 4) pistaEstados[s][p + 1] = 1; // siguiente a ámbar
+  guardarEstado();
+  renderEstado();
+}
+
+// ── Validación ──────────────────────────────────────────────
+const popupFail = document.getElementById('popup-fail');
+document.getElementById('fail-close').addEventListener('click', () => popupFail.classList.remove('visible'));
+popupFail.addEventListener('click', e => { if (e.target === popupFail) popupFail.classList.remove('visible'); });
+
+const codigoInput = document.getElementById('codigo-input');
+const btnValidar  = document.getElementById('btn-validar');
+
+function validar() {
+  if (serieActual >= 4) return;
+  const val = normalizar(codigoInput.value);
+  if (!val) return;
+
+  const respuestasNorm = SERIES[serieActual].respuestas.map(normalizar);
+  if (respuestasNorm.includes(val)) {
+    // ¡Correcto!
+    const slotAnterior = document.getElementById('slot-' + serieActual);
+    slotAnterior.classList.add('revealed');
+    slotAnterior.classList.remove('active-slot');
+    serieActual++;
+    guardarEstado();
+    codigoInput.value = '';
+
+    if (serieActual >= 4) {
+      renderEstado();
+      markDone();
+      setTimeout(() => popupStarReward.classList.add('visible'), 600);
+    } else {
+      renderEstado();
+    }
+  } else {
+    // Incorrecto
+    codigoInput.classList.remove('shake');
+    void codigoInput.offsetWidth;
+    codigoInput.classList.add('shake');
+    document.getElementById('fail-msg').innerHTML =
+      'No es el nombre correcto...<br>¡Sigue intentándolo! 💪';
+    popupFail.classList.add('visible');
+  }
+}
+
+btnValidar.addEventListener('click', validar);
+codigoInput.addEventListener('keydown', e => { if (e.key === 'Enter') validar(); });
+codigoInput.addEventListener('animationend', () => codigoInput.classList.remove('shake'));
+
+// ── Si ya está completado al cargar ─────────────────────────
+if (localStorage.getItem(DONE_KEY) === '1') {
+  serieActual = 4;
+}
+
+renderEstado();
 </script>
 </body>
 </html>
