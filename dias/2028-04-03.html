@@ -11,7 +11,8 @@
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
     body{background-color:var(--dark);color:var(--cream);font-family:'Cormorant Garamond',serif;min-height:100vh;display:flex;flex-direction:column;}
     body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 25% 15%,rgba(201,168,76,.10) 0%,transparent 55%),radial-gradient(ellipse at 75% 85%,rgba(124,54,38,.10) 0%,transparent 55%);pointer-events:none;z-index:0;}
-    .wrap{position:relative;z-index:1;max-width:800px;margin:0 auto;padding:3rem 2rem 4rem;flex:1;display:flex;flex-direction:column;}
+
+    .wrap{position:relative;z-index:1;width:100%;max-width:100%;margin:0 auto;padding:3rem 2rem 4rem;flex:1;display:flex;flex-direction:column;}
     .day-hero{text-align:center;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 0 2rem;position:relative;}
     .ornament-line-h{display:flex;align-items:center;justify-content:center;gap:1rem;margin-bottom:2rem;}
     .o-line{height:1px;width:60px;background:linear-gradient(to right,transparent,var(--gold));}
@@ -20,7 +21,54 @@
     .day-of-week{font-size:.85rem;letter-spacing:.4em;text-transform:uppercase;color:rgba(201,168,76,.5);margin-bottom:1rem;}
     h1{font-family:'Playfair Display',serif;font-size:clamp(3rem,9vw,7rem);font-weight:900;line-height:1;background:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 50%,var(--gold-dark) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.5rem;}
     .month-label{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3.5vw,2.4rem);font-weight:400;font-style:italic;color:rgba(250,246,238,.45);margin-bottom:2.5rem;}
-    .content-area{width:100%;border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:2.5rem;min-height:220px;background:rgba(255,255,255,.02);color:rgba(250,246,238,.4);font-size:1rem;font-style:italic;text-align:center;display:flex;align-items:center;justify-content:center;}
+
+    /* ── Área de contenido ── */
+    .content-area{width:100%;border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:2rem;background:rgba(255,255,255,.02);display:flex;flex-direction:column;align-items:center;gap:1.6rem;}
+
+    /* ── Label del reto ── */
+    .reto-label{font-family:'Playfair Display',serif;font-size:.78rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:rgba(201,168,76,.6);text-align:center;}
+
+    /* ── Grid de series: 4 columnas, cada una con carátula encima y pistas debajo ── */
+    .series-grid{width:100%;display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;}
+    .serie-col{display:flex;flex-direction:column;align-items:center;gap:.6rem;}
+
+    /* ── Slot portada ── */
+    .serie-slot{position:relative;width:100%;aspect-ratio:2/3;border-radius:3px;overflow:hidden;border:2px solid rgba(201,168,76,.12);background:rgba(255,255,255,.03);transition:border-color .3s,box-shadow .3s;}
+    .serie-slot img{display:block;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .5s ease;}
+    .serie-slot.revealed img{opacity:1;}
+    .serie-slot.revealed{border-color:rgba(50,200,100,.8);box-shadow:0 0 10px rgba(50,200,100,.35);}
+    .serie-slot .placeholder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4rem;transition:opacity .4s;}
+    .serie-slot.revealed .placeholder{opacity:0;pointer-events:none;}
+    .placeholder-num{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:900;background:linear-gradient(135deg,var(--gold-light),var(--gold),var(--gold-dark));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;}
+    .placeholder-mark{font-size:1rem;color:rgba(201,168,76,.3);}
+    .serie-slot.active-slot{border-color:rgba(201,168,76,.6);box-shadow:0 0 8px rgba(201,168,76,.2);}
+
+    /* ── Fila de pistas (horizontal, debajo de cada carátula) ── */
+    .pistas-fila{display:flex;flex-direction:row;gap:5px;justify-content:center;width:100%;}
+    .pista-dot{position:relative;flex:1;min-width:0;height:30px;border-radius:4px;display:flex;align-items:center;justify-content:center;gap:2px;font-size:.62rem;font-weight:700;cursor:default;border:2px solid transparent;transition:all .25s;user-select:none;font-family:'Cormorant Garamond',serif;}
+    .pista-dot.rojo  {background:rgba(180,50,50,.25);border-color:rgba(180,50,50,.4);color:rgba(255,120,120,.5);}
+    .pista-dot.ambar {background:rgba(220,160,40,.2);border-color:rgba(220,160,40,.7);color:rgba(240,190,80,.9);cursor:pointer;animation:pulse-ambar 1.5s ease-in-out infinite;}
+    .pista-dot.verde {background:rgba(50,180,100,.2);border-color:rgba(50,180,100,.6);color:rgba(80,220,130,.9);cursor:pointer;}
+    .pista-dot.ambar:hover{background:rgba(220,160,40,.35);}
+    .pista-dot.verde:hover{background:rgba(50,180,100,.35);}
+    .pista-dot.playing{animation:pulse-playing 1s ease-in-out infinite;}
+    @keyframes pulse-ambar{0%,100%{box-shadow:0 0 0 0 rgba(220,160,40,.4);}50%{box-shadow:0 0 0 4px rgba(220,160,40,.0);}}
+    @keyframes pulse-playing{0%,100%{box-shadow:0 0 0 0 rgba(80,220,130,.5);}50%{box-shadow:0 0 0 5px rgba(80,220,130,.0);}}
+    .pista-icon{font-size:.85rem;line-height:1;}
+    .pista-num-sm{font-size:.55rem;opacity:.7;}
+
+    /* ── Input validación ── */
+    .validacion-wrap{display:flex;flex-direction:column;align-items:center;gap:.8rem;width:100%;}
+    .input-row{display:flex;align-items:center;gap:.7rem;flex-wrap:wrap;justify-content:center;}
+    .codigo-input{background:rgba(255,255,255,.05);border:1px solid rgba(201,168,76,.25);border-radius:2px;color:var(--cream);font-family:'Cormorant Garamond',serif;font-size:.95rem;padding:.55rem 1rem;width:220px;outline:none;transition:border-color .2s;text-align:center;}
+    .codigo-input:focus{border-color:rgba(201,168,76,.6);}
+    .codigo-input.shake{animation:shake .35s;}
+    @keyframes shake{0%,100%{transform:translateX(0);}20%{transform:translateX(-6px);}60%{transform:translateX(6px);}80%{transform:translateX(-3px);}}
+    .btn-validar{padding:.65rem 2.5rem;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.35);border-radius:2px;color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:.85rem;letter-spacing:.25em;text-transform:uppercase;cursor:pointer;transition:all .2s;}
+    .btn-validar:hover{background:rgba(201,168,76,.2);border-color:var(--gold);}
+    .progreso-label{font-size:.75rem;letter-spacing:.1em;color:rgba(201,168,76,.45);font-style:italic;}
+
+    /* ── Nav ── */
     .day-nav{display:flex;justify-content:space-between;align-items:center;padding-top:2.5rem;border-top:1px solid rgba(201,168,76,.1);margin-top:2.5rem;}
     .nav-btn{font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(201,168,76,.5);text-decoration:none;padding:.6rem 1.2rem;border:1px solid rgba(201,168,76,.18);border-radius:2px;transition:all .2s;}
     .nav-btn:hover{color:var(--gold-light);border-color:rgba(201,168,76,.5);background:rgba(201,168,76,.05);}
@@ -28,7 +76,8 @@
     .year-badge{font-size:.7rem;letter-spacing:.3em;color:rgba(201,168,76,.25);text-transform:uppercase;}
     .back-link{display:block;text-align:center;margin-top:2rem;color:rgba(201,168,76,.35);font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;text-decoration:none;transition:color .2s;}
     .back-link:hover{color:var(--gold);}
-    /* Botones fav y done */
+
+    /* ── Action btns ── */
     .action-btns{position:absolute;top:0;right:0;display:flex;flex-direction:column;align-items:center;gap:.2rem;}
     .icon-btn{background:none;border:none;cursor:pointer;font-size:2rem;line-height:1;transition:color .2s,transform .2s;padding:.2rem;}
     .icon-btn:hover{transform:scale(1.2);}
@@ -38,7 +87,8 @@
     .done-btn{color:var(--gold);opacity:0.6;}
     .done-btn.active{color:var(--gold);opacity:1;}
     .done-btn.active:hover{color:var(--gold-light);opacity:1;}
-    /* Popup */
+
+    /* ── Popups ── */
     .popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:100;align-items:center;justify-content:center;}
     .popup-overlay.visible{display:flex;}
     .popup-box{background:var(--dark);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:3rem 2.5rem;max-width:420px;width:90%;text-align:center;box-shadow:0 0 60px rgba(0,0,0,.8);}
@@ -47,16 +97,24 @@
     .popup-msg{font-size:1rem;font-style:italic;color:rgba(250,246,238,.6);line-height:1.7;margin-bottom:2rem;}
     .popup-btn{display:inline-block;padding:.7rem 2rem;border:1px solid rgba(201,168,76,.4);border-radius:2px;color:var(--gold);font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;background:none;transition:all .2s;}
     .popup-btn:hover{background:rgba(201,168,76,.1);border-color:var(--gold);}
+
+    /* ── Mobile ── */
     @media(max-width:600px){
       .wrap{padding:1rem 1rem 2rem;}
       .day-hero{padding:1rem 0 1rem;}
       h1{font-size:clamp(2rem,14vw,4rem);}
       .month-label{font-size:clamp(1rem,4vw,1.6rem);margin-bottom:1rem;}
-      .content-area{padding:1.2rem;min-height:120px;}
-      .day-nav{margin-top:1rem;padding-top:1rem;}
+      .content-area{padding:1rem;gap:1rem;}
+      .series-grid{gap:.5rem;}
+      .pistas-fila{gap:3px;}
+      .pista-dot{height:26px;font-size:.55rem;border-radius:3px;}
+      .pista-icon{font-size:.7rem;}
+      .pista-num-sm{display:none;}
+      .codigo-input{width:180px;}
       .ornament-line-h{margin-bottom:1rem;}
+      .day-nav{margin-top:1rem;padding-top:1rem;}
     }
-</style>
+  </style>
 </head>
 <body>
 <div class="wrap">
@@ -71,18 +129,108 @@
     <p class="day-of-week">Lunes</p>
     <h1>3</h1>
     <p class="month-label">de Abril</p>
+
     <div class="content-area">
-      <p>Espacio reservado para el contenido de este día</p>
-    </div>
-  </div>
+
+      <!-- Título del reto -->
+      <p class="reto-label">Épica, Combate y Drama Médico</p>
+
+      <!-- Grid de series: carátula + pistas en columna, por cada serie -->
+      <div class="series-grid" id="series-grid">
+
+        <!-- Serie 1 -->
+        <div class="serie-col">
+          <div class="serie-slot active-slot" id="slot-0">
+            <img src="../media/anatomia_grey.jpg" alt="Serie 1: Anatomía de Grey"/>
+            <div class="placeholder">
+              <span class="placeholder-num">1</span>
+              <span class="placeholder-mark">?</span>
+            </div>
+          </div>
+          <div class="pistas-fila">
+            <div class="pista-dot ambar" id="p0-0" data-serie="0" data-pista="0"><span class="pista-icon">▶</span><span class="pista-num-sm">1</span></div>
+            <div class="pista-dot rojo"  id="p0-1" data-serie="0" data-pista="1"><span class="pista-icon">▶</span><span class="pista-num-sm">2</span></div>
+            <div class="pista-dot rojo"  id="p0-2" data-serie="0" data-pista="2"><span class="pista-icon">▶</span><span class="pista-num-sm">3</span></div>
+            <div class="pista-dot rojo"  id="p0-3" data-serie="0" data-pista="3"><span class="pista-icon">💬</span><span class="pista-num-sm">4</span></div>
+          </div>
+        </div>
+
+        <!-- Serie 2 -->
+        <div class="serie-col">
+          <div class="serie-slot" id="slot-1">
+            <img src="../media/caballeros_zodiaco.jpg" alt="Serie 2: Caballeros del Zodiaco"/>
+            <div class="placeholder">
+              <span class="placeholder-num">2</span>
+              <span class="placeholder-mark">?</span>
+            </div>
+          </div>
+          <div class="pistas-fila">
+            <div class="pista-dot rojo" id="p1-0" data-serie="1" data-pista="0"><span class="pista-icon">▶</span><span class="pista-num-sm">1</span></div>
+            <div class="pista-dot rojo" id="p1-1" data-serie="1" data-pista="1"><span class="pista-icon">▶</span><span class="pista-num-sm">2</span></div>
+            <div class="pista-dot rojo" id="p1-2" data-serie="1" data-pista="2"><span class="pista-icon">▶</span><span class="pista-num-sm">3</span></div>
+            <div class="pista-dot rojo" id="p1-3" data-serie="1" data-pista="3"><span class="pista-icon">💬</span><span class="pista-num-sm">4</span></div>
+          </div>
+        </div>
+
+        <!-- Serie 3 -->
+        <div class="serie-col">
+          <div class="serie-slot" id="slot-2">
+            <img src="../media/dragon_ball.jpg" alt="Serie 3: Dragon Ball"/>
+            <div class="placeholder">
+              <span class="placeholder-num">3</span>
+              <span class="placeholder-mark">?</span>
+            </div>
+          </div>
+          <div class="pistas-fila">
+            <div class="pista-dot rojo" id="p2-0" data-serie="2" data-pista="0"><span class="pista-icon">▶</span><span class="pista-num-sm">1</span></div>
+            <div class="pista-dot rojo" id="p2-1" data-serie="2" data-pista="1"><span class="pista-icon">▶</span><span class="pista-num-sm">2</span></div>
+            <div class="pista-dot rojo" id="p2-2" data-serie="2" data-pista="2"><span class="pista-icon">▶</span><span class="pista-num-sm">3</span></div>
+            <div class="pista-dot rojo" id="p2-3" data-serie="2" data-pista="3"><span class="pista-icon">💬</span><span class="pista-num-sm">4</span></div>
+          </div>
+        </div>
+
+        <!-- Serie 4 -->
+        <div class="serie-col">
+          <div class="serie-slot" id="slot-3">
+            <img src="../media/urgencias.jpg" alt="Serie 4: Urgencias"/>
+            <div class="placeholder">
+              <span class="placeholder-num">4</span>
+              <span class="placeholder-mark">?</span>
+            </div>
+          </div>
+          <div class="pistas-fila">
+            <div class="pista-dot rojo" id="p3-0" data-serie="3" data-pista="0"><span class="pista-icon">▶</span><span class="pista-num-sm">1</span></div>
+            <div class="pista-dot rojo" id="p3-1" data-serie="3" data-pista="1"><span class="pista-icon">▶</span><span class="pista-num-sm">2</span></div>
+            <div class="pista-dot rojo" id="p3-2" data-serie="3" data-pista="2"><span class="pista-icon">▶</span><span class="pista-num-sm">3</span></div>
+            <div class="pista-dot rojo" id="p3-3" data-serie="3" data-pista="3"><span class="pista-icon">💬</span><span class="pista-num-sm">4</span></div>
+          </div>
+        </div>
+
+      </div><!-- /.series-grid -->
+
+      <!-- Instrucción + input -->
+      <p class="reto-label" style="font-size:.72rem;letter-spacing:.15em;opacity:.7;">Adivina las series</p>
+      <div class="validacion-wrap">
+        <div class="input-row">
+          <span style="font-size:1.4rem;opacity:.6;">🔒</span>
+          <input type="text" class="codigo-input" id="codigo-input" placeholder="Escribe el nombre…" autocomplete="off" autocorrect="off" spellcheck="false"/>
+          <button class="btn-validar" id="btn-validar">Validar</button>
+        </div>
+        <p class="progreso-label" id="progreso-label">Serie 1 de 4</p>
+      </div>
+
+    </div><!-- /.content-area -->
+  </div><!-- /.day-hero -->
+
   <nav class="day-nav">
     <a class="nav-btn" href="2028-04-02.html">&#8592; 2 de Abril</a>
     <span class="year-badge">50 Aniversario · 2028</span>
-    <a class="nav-btn" id="next-btn" href="2028-04-04.html">4 de Abril &#8594;</a>
+    <a class="nav-btn" id="next-btn" href="2028-04-06.html">6 de Abril &#8594;</a>
   </nav>
   <a class="back-link" href="../index.html">&#8592; Volver al Calendario</a>
-</div>
+</div><!-- /.wrap -->
 
+<!-- Popup: día futuro -->
 <div class="popup-overlay" id="popup">
   <div class="popup-box">
     <div class="popup-icon">🎁</div>
@@ -92,7 +240,7 @@
   </div>
 </div>
 
-<!-- Popup estrella bloqueada -->
+<!-- Popup: estrella bloqueada -->
 <div class="popup-overlay" id="popup-star-blocked">
   <div class="popup-box">
     <div class="popup-icon">🏆</div>
@@ -102,7 +250,7 @@
   </div>
 </div>
 
-<!-- Popup recompensa del día -->
+<!-- Popup: recompensa -->
 <div class="popup-overlay" id="popup-star-reward">
   <div class="popup-box">
     <div class="popup-icon">🎁</div>
@@ -112,20 +260,40 @@
   </div>
 </div>
 
+<!-- Popup: fallo -->
+<div class="popup-overlay" id="popup-fail">
+  <div class="popup-box">
+    <div class="popup-icon">🎭</div>
+    <p class="popup-title">¡Casi lo tienes!</p>
+    <p class="popup-msg" id="fail-msg">No es el nombre correcto...<br>¡Sigue intentándolo! 💪</p>
+    <button class="popup-btn" id="fail-close">Seguir intentando</button>
+  </div>
+</div>
+
+<!-- Popup: pista textual -->
+<div class="popup-overlay" id="popup-pista">
+  <div class="popup-box">
+    <div class="popup-icon">💡</div>
+    <p class="popup-title" id="pista-titulo">Pista</p>
+    <p class="popup-msg" id="pista-texto"></p>
+    <button class="popup-btn" id="pista-close">Entendido</button>
+  </div>
+</div>
+
 <script>
-const PREVIEW_KEY  = 'cal_preview';
-const isPreview    = localStorage.getItem(PREVIEW_KEY) === '1';
-const today        = new Date(); today.setHours(0,0,0,0);
-const thisDate     = new Date('2028-04-03'); thisDate.setHours(0,0,0,0);
-const nextDateStr  = '2028-04-04';
-const popup        = document.getElementById('popup');
+// ── Preview / bloqueo ───────────────────────────────────────
+const PREVIEW_KEY = 'cal_preview';
+const isPreview   = localStorage.getItem(PREVIEW_KEY) === '1';
+const today       = new Date(); today.setHours(0,0,0,0);
+const thisDate    = new Date('2028-04-03'); thisDate.setHours(0,0,0,0);
+const nextDateStr = '2028-04-06';
+const popup       = document.getElementById('popup');
 
 if (!isPreview && thisDate > today) {
   document.querySelector('.day-hero').style.filter = 'blur(4px)';
   document.querySelector('.day-nav').style.visibility = 'hidden';
   popup.classList.add('visible');
 }
-
 if (!isPreview && nextDateStr) {
   const nextDate = new Date(nextDateStr); nextDate.setHours(0,0,0,0);
   if (nextDate > today) {
@@ -133,10 +301,9 @@ if (!isPreview && nextDateStr) {
     if (nextBtn) nextBtn.addEventListener('click', e => { e.preventDefault(); popup.classList.add('visible'); });
   }
 }
-
 popup.addEventListener('click', e => { if (e.target === popup) window.location.href = '../index.html'; });
 
-// ── Favourite ──────────────────────────────────────────────
+// ── Favourites ──────────────────────────────────────────────
 const FAV_KEY = 'fav_2028-04-03';
 const favBtn  = document.getElementById('fav-btn');
 function updateFav() {
@@ -152,26 +319,18 @@ favBtn.addEventListener('click', () => {
 });
 updateFav();
 
-// ── Done (actividad completada) ────────────────────────────
-const DONE_KEY = 'done_2028-04-03';
-const doneBtn  = document.getElementById('done-btn');
+// ── Done ────────────────────────────────────────────────────
+const DONE_KEY         = 'done_2028-04-03';
+const doneBtn          = document.getElementById('done-btn');
 const popupStarBlocked = document.getElementById('popup-star-blocked');
 const popupStarReward  = document.getElementById('popup-star-reward');
 
-document.getElementById('star-blocked-close').addEventListener('click', () => {
-  popupStarBlocked.classList.remove('visible');
-});
-popupStarBlocked.addEventListener('click', e => {
-  if (e.target === popupStarBlocked) popupStarBlocked.classList.remove('visible');
-});
+document.getElementById('star-blocked-close').addEventListener('click', () => popupStarBlocked.classList.remove('visible'));
+popupStarBlocked.addEventListener('click', e => { if (e.target === popupStarBlocked) popupStarBlocked.classList.remove('visible'); });
+document.getElementById('star-reward-close').addEventListener('click', () => popupStarReward.classList.remove('visible'));
+popupStarReward.addEventListener('click', e => { if (e.target === popupStarReward) popupStarReward.classList.remove('visible'); });
 
-document.getElementById('star-reward-close').addEventListener('click', () => {
-  popupStarReward.classList.remove('visible');
-});
-popupStarReward.addEventListener('click', e => {
-  if (e.target === popupStarReward) popupStarReward.classList.remove('visible');
-});
-
+function markDone() { localStorage.setItem(DONE_KEY, '1'); updateDone(); }
 function updateDone() {
   const on = localStorage.getItem(DONE_KEY) === '1';
   doneBtn.textContent = on ? '★' : '☆';
@@ -180,20 +339,262 @@ function updateDone() {
 }
 doneBtn.addEventListener('click', () => {
   const on = localStorage.getItem(DONE_KEY) === '1';
-  if (on) {
-    // Already done → show reward
-    popupStarReward.classList.add('visible');
-  } else {
-    // Not done → only allowed in preview mode
-    if (isPreview) {
-      localStorage.setItem(DONE_KEY, '1');
-      updateDone();
-    } else {
-      popupStarBlocked.classList.add('visible');
-    }
-  }
+  if (on) { popupStarReward.classList.add('visible'); }
+  else if (isPreview) { markDone(); }
+  else { popupStarBlocked.classList.add('visible'); }
 });
 updateDone();
+
+// ── Normalización ──────────────────────────────────────────
+function normalizar(s) {
+  return s.trim().toUpperCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^A-Z0-9& ]/g, ' ')
+    .replace(/\s+/g, ' ').trim();
+}
+
+// ── Datos de series ─────────────────────────────────────────
+const SERIES = [
+  {
+    id: 0,
+    respuestas: ['ANATOMIA DE GREY', 'GREY', 'GREYS ANATOMY', 'GREY S ANATOMY', 'ANATOMIA GREY', 'ANATOMY OF GREY'],
+    audio: '../media/anatomia_grey.mp3',
+    pistaTexto: 'Drama médico estadounidense, un auténtico y longevo fenómeno de los 2000.'
+  },
+  {
+    id: 1,
+    respuestas: ['CABALLEROS DEL ZODIACO', 'LOS CABALLEROS DEL ZODIACO', 'SAINT SEIYA', 'SAINT SEIYA LOS CABALLEROS DEL ZODIACO', 'CABALLEROS', 'LOS CABALLEROS'],
+    audio: '../media/caballeros_zodiaco.mp3',
+    pistaTexto: 'Anime clásico de acción, mitología y armaduras que marcó a los niños de los 80/90.'
+  },
+  {
+    id: 2,
+    respuestas: ['DRAGON BALL', 'DRAGONBALL', 'BOLA DE DRAGON', 'BOLAS DE DRAGON', 'LAS BOLAS DEL DRAGON', 'BOLES DE DRAC', 'LES BOLES DE DRAC', 'LES BOLES DEL DRAC', 'BOLAS DE DRAC', 'BOLA DE DRAC'],
+    audio: '../media/dragon_ball.mp3',
+    pistaTexto: 'El anime de artes marciales más influyente de la historia, nacido en los 80.'
+  },
+  {
+    id: 3,
+    respuestas: ['URGENCIAS', 'ER', 'ER EMERGENCIAS', 'SALA DE URGENCIAS'],
+    audio: '../media/urgencias.mp3',
+    pistaTexto: 'Aclamado e intenso drama médico estadounidense que dominó las pantallas en los 90.'
+  }
+];
+
+// ── Estado (en memoria, no se persiste — siempre empieza de 0) ──
+// pistaEstados[serieIdx][pistaIdx]: 0=rojo, 1=ambar, 2=verde
+let pistaEstados = [
+  [1, 0, 0, 0], // serie 1: primera pista ya disponible
+  [0, 0, 0, 0], // serie 2: bloqueada hasta resolver serie 1
+  [0, 0, 0, 0], // serie 3: bloqueada hasta resolver serie 2
+  [0, 0, 0, 0]  // serie 4: bloqueada hasta resolver serie 3
+];
+let serieActual = 0;
+let audioActual = null;
+let audioPlayingKey = null; // 's-p' de la pista que está sonando actualmente
+
+// ── Audio con play/pausa ──────────────────────────────────────
+let audioTimeout = null;
+
+function detenerAudio() {
+  if (audioActual) { audioActual.pause(); audioActual.currentTime = 0; }
+  if (audioTimeout) { clearTimeout(audioTimeout); audioTimeout = null; }
+  if (audioPlayingKey) {
+    const dotAnterior = document.getElementById('p' + audioPlayingKey);
+    if (dotAnterior) dotAnterior.classList.remove('playing');
+  }
+  audioPlayingKey = null;
+}
+
+function toggleAudio(s, p, duracion) {
+  const key = s + '-' + p;
+  const dot = document.getElementById('p' + key);
+
+  // Si esta misma pista está sonando, actúa como pausa
+  if (audioPlayingKey === key) {
+    detenerAudio();
+    return;
+  }
+
+  // Si había otra pista sonando, la paramos primero
+  detenerAudio();
+
+  audioActual = new Audio(SERIES[s].audio);
+  audioActual.play().catch(() => {});
+  audioPlayingKey = key;
+  dot.classList.add('playing');
+
+  audioActual.addEventListener('ended', () => {
+    if (audioPlayingKey === key) detenerAudio();
+  });
+
+  if (duracion !== null) {
+    audioTimeout = setTimeout(() => {
+      if (audioPlayingKey === key) detenerAudio();
+    }, duracion * 1000);
+  }
+}
+
+// ── Render estado visual ─────────────────────────────────────
+function renderEstado() {
+  // Portadas
+  SERIES.forEach((s, idx) => {
+    const slot = document.getElementById('slot-' + idx);
+    if (idx < serieActual) {
+      slot.classList.add('revealed');
+      slot.classList.remove('active-slot');
+    } else if (idx === serieActual) {
+      slot.classList.remove('revealed');
+      slot.classList.add('active-slot');
+    } else {
+      slot.classList.remove('revealed', 'active-slot');
+    }
+  });
+
+  // Bolitas de pistas
+  for (let s = 0; s < 4; s++) {
+    for (let p = 0; p < 4; p++) {
+      const dot = document.getElementById('p' + s + '-' + p);
+      if (!dot) continue;
+      const estado = pistaEstados[s][p];
+      const playing = (audioPlayingKey === (s + '-' + p));
+      dot.className = 'pista-dot ' + ['rojo','ambar','verde'][estado] + (playing ? ' playing' : '');
+      const activa = estado > 0;
+      dot.style.pointerEvents = activa ? '' : 'none';
+      // Icono play/pause solo para pistas de audio (0,1,2)
+      if (p < 3) {
+        const icon = dot.querySelector('.pista-icon');
+        if (icon) icon.textContent = playing ? '⏸' : '▶';
+      }
+    }
+  }
+
+  // Progreso
+  const label = document.getElementById('progreso-label');
+  if (serieActual >= 4) {
+    label.textContent = '¡Todas resueltas! 🎉';
+  } else {
+    label.textContent = 'Serie ' + (serieActual + 1) + ' de 4';
+  }
+
+  // Input
+  const input = document.getElementById('codigo-input');
+  const btn   = document.getElementById('btn-validar');
+  if (serieActual >= 4) {
+    input.disabled = true;
+    btn.disabled   = true;
+    btn.style.opacity = '.4';
+    input.placeholder = 'Reto completado';
+  } else {
+    input.disabled = false;
+    btn.disabled   = false;
+    btn.style.opacity = '';
+    input.placeholder = 'Escribe el nombre…';
+  }
+}
+
+// ── Pistas ──────────────────────────────────────────────────
+const popupPista  = document.getElementById('popup-pista');
+const pistaTexto  = document.getElementById('pista-texto');
+const pistaTitulo = document.getElementById('pista-titulo');
+let pistaCallback = null;
+
+function cerrarPista() {
+  popupPista.classList.remove('visible');
+  if (pistaCallback) { pistaCallback(); pistaCallback = null; }
+}
+document.getElementById('pista-close').addEventListener('click', cerrarPista);
+popupPista.addEventListener('click', e => { if (e.target === popupPista) cerrarPista(); });
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && popupPista.classList.contains('visible')) cerrarPista();
+});
+
+// Delegar click en las bolitas de pistas
+document.getElementById('series-grid').addEventListener('click', e => {
+  const dot = e.target.closest('.pista-dot');
+  if (!dot) return;
+  const s = parseInt(dot.dataset.serie);
+  const p = parseInt(dot.dataset.pista);
+  if (pistaEstados[s][p] === 0) return; // rojo: bloqueada
+
+  // Pistas 0,1,2 → audio con play/pausa; pista 3 → texto
+  if (p === 0) {
+    toggleAudio(s, p, 3);
+    avanzarPista(s, p);
+  } else if (p === 1) {
+    toggleAudio(s, p, 10);
+    avanzarPista(s, p);
+  } else if (p === 2) {
+    toggleAudio(s, p, null);
+    avanzarPista(s, p);
+  } else if (p === 3) {
+    pistaTitulo.textContent = 'Pista 4 · Serie ' + (s + 1);
+    pistaTexto.textContent  = SERIES[s].pistaTexto;
+    popupPista.classList.add('visible');
+    pistaCallback = () => { avanzarPista(s, p); };
+  }
+});
+
+function avanzarPista(s, p) {
+  const eraAmbar = pistaEstados[s][p] === 1;
+  pistaEstados[s][p] = 2; // verde
+  if (eraAmbar && p + 1 < 4) pistaEstados[s][p + 1] = 1; // siguiente pista de la misma serie a ámbar
+  renderEstado();
+}
+
+// ── Validación ──────────────────────────────────────────────
+const popupFail = document.getElementById('popup-fail');
+document.getElementById('fail-close').addEventListener('click', () => popupFail.classList.remove('visible'));
+popupFail.addEventListener('click', e => { if (e.target === popupFail) popupFail.classList.remove('visible'); });
+
+const codigoInput = document.getElementById('codigo-input');
+const btnValidar  = document.getElementById('btn-validar');
+
+function validar() {
+  if (serieActual >= 4) return;
+  const val = normalizar(codigoInput.value);
+  if (!val) return;
+
+  const respuestasNorm = SERIES[serieActual].respuestas.map(normalizar);
+  if (respuestasNorm.includes(val)) {
+    // ¡Correcto!
+    detenerAudio();
+    const slotAnterior = document.getElementById('slot-' + serieActual);
+    slotAnterior.classList.add('revealed');
+    slotAnterior.classList.remove('active-slot');
+
+    const serieResuelta = serieActual;
+    serieActual++;
+    codigoInput.value = '';
+
+    // Habilita la primera pista (ámbar) de la siguiente serie, si existe
+    if (serieActual < 4) {
+      pistaEstados[serieActual][0] = 1;
+    }
+
+    if (serieActual >= 4) {
+      renderEstado();
+      markDone();
+      setTimeout(() => popupStarReward.classList.add('visible'), 600);
+    } else {
+      renderEstado();
+    }
+  } else {
+    // Incorrecto
+    codigoInput.classList.remove('shake');
+    void codigoInput.offsetWidth;
+    codigoInput.classList.add('shake');
+    document.getElementById('fail-msg').innerHTML =
+      'No es el nombre correcto...<br>¡Sigue intentándolo! 💪';
+    popupFail.classList.add('visible');
+  }
+}
+
+btnValidar.addEventListener('click', validar);
+codigoInput.addEventListener('keydown', e => { if (e.key === 'Enter') validar(); });
+codigoInput.addEventListener('animationend', () => codigoInput.classList.remove('shake'));
+
+renderEstado();
 </script>
 </body>
 </html>
