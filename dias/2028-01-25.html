@@ -24,7 +24,7 @@
 
     /* ── Canvas pixelado ── */
     .cuadro-wrap{position:relative;width:100%;max-width:500px;}
-    .cuadro-canvas{display:block;width:100%;height:auto;border-radius:3px;border:1px solid rgba(201,168,76,.12);image-rendering:pixelated;image-rendering:crisp-edges;}
+    .cuadro-canvas{display:block;width:auto;height:auto;max-width:100%;max-height:38vh;border-radius:3px;border:1px solid rgba(201,168,76,.12);image-rendering:pixelated;image-rendering:crisp-edges;}
     .cuadro-num{font-family:'Playfair Display',serif;font-size:.75rem;letter-spacing:.12em;color:rgba(201,168,76,.45);text-align:right;margin-top:.35rem;}
 
     /* ── Contador + pausa ── */
@@ -276,17 +276,17 @@ const CUADROS = [
   {
     src: '../media/mona_lisa1.jpg',
     respuestas: ['MONA LISA', 'GIOCONDA'],
-    label: 'Cuadro 1 de 3 · Fácil'
+    label: 'Cuadro 1 de 3 · Dificultad baja'
   },
   {
     src: '../media/nighthawks1.jpg',
     respuestas: ['NIGHTHAWKS'],
-    label: 'Cuadro 2 de 3 · Medio'
+    label: 'Cuadro 2 de 3 · Dificultad media'
   },
   {
     src: '../media/whistlers_mother1.jpg',
     respuestas: ['WHISTLERS MOTHER'],
-    label: 'Cuadro 3 de 3 · Difícil'
+    label: 'Cuadro 3 de 3 · Dificultad alta'
   }
 ];
 
@@ -300,7 +300,7 @@ let cuadroActual = 0;
 let bloques      = 1;
 let pausado      = false;
 let intervalo    = null;
-const MAX_BLOQUES = 180; // resolución máxima
+const MAX_BLOQUES = 300;
 
 const canvas    = document.getElementById('cuadro-canvas');
 const ctx       = canvas.getContext('2d');
@@ -331,9 +331,11 @@ function renderPixelado(bloques) {
   const lado = Math.max(W, H);
   const tamBloque = Math.max(1, Math.floor(lado / bloques));
 
-  // Ajustar canvas al tamaño natural de la imagen
+  // Ajustar canvas al tamaño natural de la imagen (CSS max-height lo escala visualmente)
   canvas.width  = W;
   canvas.height = H;
+  // Forzar aspect-ratio correcto vía atributo de estilo (Safari)
+  canvas.style.aspectRatio = W + '/' + H;
 
   // Dibujar imagen reducida al número de bloques y reescalar
   const bW = Math.ceil(W / tamBloque);
@@ -388,7 +390,7 @@ function iniciarContador() {
     bloques++;
     contEl.textContent = bloques;
     renderPixelado(bloques);
-  }, 1000);
+  }, 500);
 }
 
 btnPausa.addEventListener('click', () => {
