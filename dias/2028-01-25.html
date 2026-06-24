@@ -23,8 +23,8 @@
     .content-area{width:100%;border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:2rem;background:rgba(255,255,255,.02);display:flex;flex-direction:column;align-items:center;gap:1.5rem;}
 
     /* ── Canvas pixelado ── */
-    .cuadro-wrap{position:relative;width:100%;max-width:500px;}
-    .cuadro-canvas{display:block;width:auto;height:auto;max-width:100%;max-height:38vh;border-radius:3px;border:1px solid rgba(201,168,76,.12);image-rendering:pixelated;image-rendering:crisp-edges;}
+    .cuadro-wrap{position:relative;width:100%;display:flex;flex-direction:column;align-items:center;}
+    .cuadro-canvas{display:block;border-radius:3px;border:1px solid rgba(201,168,76,.12);image-rendering:pixelated;image-rendering:crisp-edges;}
     .cuadro-num{font-family:'Playfair Display',serif;font-size:.75rem;letter-spacing:.12em;color:rgba(201,168,76,.45);text-align:right;margin-top:.35rem;}
 
     /* ── Contador + pausa ── */
@@ -331,11 +331,18 @@ function renderPixelado(bloques) {
   const lado = Math.max(W, H);
   const tamBloque = Math.max(1, Math.floor(lado / bloques));
 
-  // Ajustar canvas al tamaño natural de la imagen (CSS max-height lo escala visualmente)
+  // Tamaño de visualización: lado más largo = 75% del viewport disponible
+  const availW = canvas.parentElement.clientWidth || window.innerWidth * 0.9;
+  const availH = window.innerHeight * 0.75;
+  const scaleW = availW / W;
+  const scaleH = availH / H;
+  const scale  = Math.min(scaleW, scaleH, 1); // nunca ampliar más allá del natural
+  canvas.style.width  = Math.round(W * scale) + 'px';
+  canvas.style.height = Math.round(H * scale) + 'px';
+
+  // Resolución interna = tamaño natural
   canvas.width  = W;
   canvas.height = H;
-  // Forzar aspect-ratio correcto vía atributo de estilo (Safari)
-  canvas.style.aspectRatio = W + '/' + H;
 
   // Dibujar imagen reducida al número de bloques y reescalar
   const bW = Math.ceil(W / tamBloque);
@@ -408,9 +415,13 @@ popupFail.addEventListener('click', e => { if (e.target === popupFail) { popupFa
 
 document.getElementById('ok-close').addEventListener('click', () => {
   popupOk.classList.remove('visible');
-  cuadroActual++;
-  cargarCuadro(cuadroActual);
-  codigoInput.focus();
+  if (cuadroActual < CUADROS.length - 1) {
+    cuadroActual++;
+    cargarCuadro(cuadroActual);
+    codigoInput.focus();
+  } else {
+    popupStarReward.classList.add('visible');
+  }
 });
 popupOk.addEventListener('click', e => { if (e.target === popupOk) popupOk.classList.remove('visible'); });
 
@@ -428,14 +439,19 @@ function validar() {
       document.getElementById('ok-icon').textContent  = '🎨';
       document.getElementById('ok-title').textContent = '¡Correcto!';
       document.getElementById('ok-msg').innerHTML     = MSGS_OK[cuadroActual] + '<br><br>Prepárate para el siguiente cuadro.';
+      document.getElementById('ok-close').textContent = 'Siguiente cuadro ▶';
       // Marcar punto como resuelto
       document.getElementById('prog-' + cuadroActual).className = 'prog-dot resuelto';
       setTimeout(() => popupOk.classList.add('visible'), 400);
     } else {
-      // Último cuadro: completado
+      // Último cuadro: popup con título/autor y después recompensa
+      document.getElementById('ok-icon').textContent  = '🏆';
+      document.getElementById('ok-title').textContent = '¡Lo has conseguido!';
+      document.getElementById('ok-msg').innerHTML     = MSGS_OK[cuadroActual] + '<br><br>Has completado los tres cuadros. ¡Felicidades!';
+      document.getElementById('ok-close').textContent = 'Ver recompensa 🎁';
       document.getElementById('prog-2').className = 'prog-dot resuelto';
       markDone();
-      setTimeout(() => popupStarReward.classList.add('visible'), 400);
+      setTimeout(() => popupOk.classList.add('visible'), 400);
     }
   } else {
     codigoInput.classList.remove('ok');
