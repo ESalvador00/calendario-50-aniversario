@@ -151,6 +151,16 @@
   <a class="back-link" href="../index.html">&#8592; Volver al Calendario</a>
 </div>
 
+<!-- Popup: introducción al reto -->
+<div class="popup-overlay visible" id="popup-intro">
+  <div class="popup-box">
+    <div class="popup-icon">🎨</div>
+    <p class="popup-title">Adivina el cuadro</p>
+    <p class="popup-msg">Se mostrarán <strong style="color:var(--gold-light)">3 cuadros famosos</strong>, cada uno más difícil que el anterior.<br><br>La imagen empieza completamente pixelada y va ganando nitidez con el tiempo. <strong style="color:var(--gold-light)">Cuanto antes aciertes, más puntos obtienes.</strong><br><br>Puedes pausar el tiempo en cualquier momento con el botón ⏸ para pensar con calma.</p>
+    <button class="popup-btn" id="intro-close">¡Empezar! 🖼</button>
+  </div>
+</div>
+
 <!-- Popup: día futuro bloqueado -->
 <div class="popup-overlay" id="popup">
   <div class="popup-box">
@@ -321,13 +331,14 @@ const popupOk     = document.getElementById('popup-ok');
 let imgObj = new Image();
 
 function normalize(str) {
-  const ARTICULOS = /\b(de|del|el|la|los|las|un|una|unos|unas|al|en|y|e|o|u|a)\b/g;
-  return str.trim().toUpperCase()
+  const ARTICULOS = /\b(de|del|el|la|los|las|un|una|unos|unas|al|en|y|e|o|u|a)\b/gi;
+  return str.trim()
     .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
     .replace(/[^\w\s]/g, '')
     .replace(ARTICULOS, ' ')
     .replace(/\s+/g, ' ')
-    .trim();
+    .trim()
+    .toUpperCase();
 }
 
 function levenshtein(a, b) {
@@ -493,7 +504,24 @@ btnValidar.addEventListener('click', validar);
 codigoInput.addEventListener('keydown', e => { if (e.key === 'Enter') validar(); });
 
 /* ── Arranque ── */
+// Cargar la primera imagen en pausa; el contador arranca al cerrar el popup de intro
+pausado = true;
 cargarCuadro(0);
+btnPausa.textContent = '▶'; // refleja estado pausado inicial
+
+const popupIntro = document.getElementById('popup-intro');
+document.getElementById('intro-close').addEventListener('click', () => {
+  popupIntro.classList.remove('visible');
+  pausado = false;
+  btnPausa.textContent = '⏸';
+});
+popupIntro.addEventListener('click', e => {
+  if (e.target === popupIntro) {
+    popupIntro.classList.remove('visible');
+    pausado = false;
+    btnPausa.textContent = '⏸';
+  }
+});
 </script>
 </body>
 </html>
