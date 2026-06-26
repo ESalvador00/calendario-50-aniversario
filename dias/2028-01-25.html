@@ -275,31 +275,35 @@ updateDone();
 const CUADROS = [
   {
     src: '../media/mona_lisa1.jpg',
-    respuestas: ['MONA LISA', 'GIOCONDA'],
-    label: 'Cuadro 1 de 3 · Dificultad baja'
+    respuestas: ['MONA LISA','MONALISA','GIOCONDA','JOCONDA'],
+    label: 'Cuadro 1 de 3 · Dificultad baja',
+    mult: 1.00
   },
   {
     src: '../media/nighthawks1.jpg',
-    respuestas: ['NIGHTHAWKS'],
-    label: 'Cuadro 2 de 3 · Dificultad media'
+    respuestas: ['NIGHTHAWKS','HALCONES NOCHE','NOCTAMBULOS'],
+    label: 'Cuadro 2 de 3 · Dificultad media',
+    mult: 1.15
   },
   {
     src: '../media/whistlers_mother1.jpg',
-    respuestas: ['WHISTLERS MOTHER'],
-    label: 'Cuadro 3 de 3 · Dificultad alta'
+    respuestas: ['WHISTLERS MOTHER','MADRE WHISTLER','RETRATO MADRE WHISTLER'],
+    label: 'Cuadro 3 de 3 · Dificultad alta',
+    mult: 1.30
   }
 ];
 
 const MSGS_OK = [
-  '¡Correcto! Era la <em>Mona Lisa</em> de Leonardo da Vinci.',
-  '¡Bien! Era <em>Nighthawks</em> de Edward Hopper.',
-  '¡Impresionante! Era el <em>Arrangement in Grey and Black</em> de James McNeill Whistler.'
+  '¡Exacto! Era <em>La Gioconda</em>, más conocida como <em>La Mona Lisa</em>, la obra maestra de Leonardo da Vinci realizada entre 1503 y 1519.',
+  '¡Correcto! Se trataba de <em>Nighthawks</em>, una de las pinturas más célebres de Edward Hopper, creada en 1942.',
+  'Muy bien visto. Era <em>Whistler\'s Mother</em>, el famoso retrato pintado por James McNeill Whistler en 1871.'
 ];
 
 let cuadroActual = 0;
 let bloques      = 1;
 let pausado      = false;
 let intervalo    = null;
+let puntosTotal  = 0;
 const MAX_BLOQUES = 300;
 
 const canvas    = document.getElementById('cuadro-canvas');
@@ -317,10 +321,30 @@ const popupOk     = document.getElementById('popup-ok');
 let imgObj = new Image();
 
 function normalize(str) {
+  const ARTICULOS = /\b(de|del|el|la|los|las|un|una|unos|unas|al|en|y|e|o|u|a)\b/g;
   return str.trim().toUpperCase()
     .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
     .replace(/[^\w\s]/g, '')
-    .replace(/\s+/g, ' ');
+    .replace(ARTICULOS, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function levenshtein(a, b) {
+  const dp = Array.from({length: a.length + 1}, (_, i) =>
+    Array.from({length: b.length + 1}, (_, j) => i === 0 ? j : j === 0 ? i : 0)
+  );
+  for (let i = 1; i <= a.length; i++)
+    for (let j = 1; j <= b.length; j++)
+      dp[i][j] = a[i-1] === b[j-1]
+        ? dp[i-1][j-1]
+        : 1 + Math.min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1]);
+  return dp[a.length][b.length];
+}
+
+function calcularPuntos(segundos, mult) {
+  const base = Math.max(0, 2000 - segundos * 10);
+  return Math.round(base * mult);
 }
 
 function renderPixelado(bloques) {
@@ -336,7 +360,7 @@ function renderPixelado(bloques) {
   const availH = window.innerHeight * 0.75;
   const scaleW = availW / W;
   const scaleH = availH / H;
-  const scale  = Math.min(scaleW, scaleH, 1); // nunca ampliar más allá del natural
+  const scale  = Math.min(scaleW, scaleH); // escalar para caber en el espacio disponible
   canvas.style.width  = Math.round(W * scale) + 'px';
   canvas.style.height = Math.round(H * scale) + 'px';
 
@@ -427,27 +451,31 @@ popupOk.addEventListener('click', e => { if (e.target === popupOk) popupOk.class
 
 function validar() {
   const val = normalize(codigoInput.value);
-  const ok  = CUADROS[cuadroActual].respuestas.some(r => normalize(r) === val);
+  const ok  = CUADROS[cuadroActual].respuestas.some(r => {
+    const nr = normalize(r);
+    return val === nr || levenshtein(val, nr) <= 2;
+  });
 
   if (ok) {
     clearInterval(intervalo);
     codigoInput.classList.remove('error');
     codigoInput.classList.add('ok');
 
+    const puntosCuadro = calcularPuntos(bloques, CUADROS[cuadroActual].mult);
+    puntosTotal += puntosCuadro;
+    const puntosHTML = `<br><br><span style="font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--gold-light);">✦ +${puntosCuadro} puntos · Total: ${puntosTotal} puntos</span>`;
+
     if (cuadroActual < CUADROS.length - 1) {
-      // Cuadro intermedio: mostrar popup de éxito y avanzar
       document.getElementById('ok-icon').textContent  = '🎨';
       document.getElementById('ok-title').textContent = '¡Correcto!';
-      document.getElementById('ok-msg').innerHTML     = MSGS_OK[cuadroActual] + '<br><br>Prepárate para el siguiente cuadro.';
+      document.getElementById('ok-msg').innerHTML     = MSGS_OK[cuadroActual] + puntosHTML + '<br><br>Prepárate para el siguiente cuadro.';
       document.getElementById('ok-close').textContent = 'Siguiente cuadro ▶';
-      // Marcar punto como resuelto
       document.getElementById('prog-' + cuadroActual).className = 'prog-dot resuelto';
       setTimeout(() => popupOk.classList.add('visible'), 400);
     } else {
-      // Último cuadro: popup con título/autor y después recompensa
       document.getElementById('ok-icon').textContent  = '🏆';
       document.getElementById('ok-title').textContent = '¡Lo has conseguido!';
-      document.getElementById('ok-msg').innerHTML     = MSGS_OK[cuadroActual] + '<br><br>Has completado los tres cuadros. ¡Felicidades!';
+      document.getElementById('ok-msg').innerHTML     = MSGS_OK[cuadroActual] + puntosHTML + '<br><br>Has completado los tres cuadros. ¡Felicidades!';
       document.getElementById('ok-close').textContent = 'Ver recompensa 🎁';
       document.getElementById('prog-2').className = 'prog-dot resuelto';
       markDone();
