@@ -396,14 +396,14 @@ function renderPixelado(bloques) {
   ctx.drawImage(off, 0, 0, W, H);
 }
 
-function cargarCuadro(idx) {
+function cargarCuadro(idx, startPaused = false) {
   clearInterval(intervalo);
   bloques    = 1;
-  pausado    = false;
+  pausado    = startPaused;
   codigoInput.value = '';
   codigoInput.classList.remove('ok', 'error');
   contEl.textContent = '1';
-  btnPausa.textContent = '⏸';
+  btnPausa.textContent = startPaused ? '▶' : '⏸';
   cuadroNum.textContent = CUADROS[idx].label;
   msgEntre.innerHTML = '';
 
@@ -504,10 +504,8 @@ btnValidar.addEventListener('click', validar);
 codigoInput.addEventListener('keydown', e => { if (e.key === 'Enter') validar(); });
 
 /* ── Arranque ── */
-// Cargar la primera imagen en pausa; el contador arranca al cerrar el popup de intro
-pausado = true;
-cargarCuadro(0);
-btnPausa.textContent = '▶'; // refleja estado pausado inicial
+// El primer cuadro arranca pausado hasta que el usuario cierra el popup de intro
+cargarCuadro(0, true);
 
 const popupIntro = document.getElementById('popup-intro');
 document.getElementById('intro-close').addEventListener('click', () => {
