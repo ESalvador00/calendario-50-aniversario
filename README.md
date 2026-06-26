@@ -167,6 +167,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-02-14 | ¿Qué foto es más antigua? | 10 momentos vividos | PDTE | PDTE | PDTE |
 | 2028-02-15 | Timeline: cuadros famosos | 8 cuadros famosos | mona_lisa.jpg, creacion_adan.jpg, torre_babel.jpg, vocacion_san_mateo.jpg, leccion_anatomia.jpg, meninas.jpg, caminante_mar_nubes.jpg, libertad_guiando_pueblo.jpg | N/A | PDTE |
 | 2028-02-16 | Acertijos y adivinanzas - El león y el unicornio | JUEVES | Alex_20180619.png | Alexandra | PDTE |
+| 2028-02-23 | Adivina el cuadro | JOVEN PERLA / NAPOLEON CRUZANDO ALPES / COLUMNA ROTA | joven_perla1.jpg, napoleon_cruzando_alpes1.jpg, columna_rota1.jpg | N/A | PDTE |
 | 2028-02-18 | Adivina las películas | Regreso al Futuro, ET El Extraterrestre, Mision Imposible, Toy Story, Alien El octavo pasajero | Regreso_al_Futuro, ET_El_Extraterrestre, Mision_Imposible, Toy_Story, Alien_El_octavo_pasajero (mp3 y jpg) | N/A | PDTE |
 | 2028-02-19 | Satisfacción con restricciones múltiples: Organizando una fiesta | Enric: música+altavoz / Nieves: cocinar+horno / Ariadna: invitaciones+sobres / Alex: decorar+globos | RSR02_Escenario.webp + RSR02_01A..01D.png + RSR02_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
 | 2028-02-20 | Palabras Intraducibles - Japonés | IKIGAI | NievesAriAlex_20160406.jpg | Nieves, Ariadna y Alexandra | PDTE |
@@ -188,6 +189,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-03-16 | ¿Qué foto es más antigua? | 10 momentos vividos | PDTE | PDTE | PDTE |
 | 2028-03-20 | Timeline: óperas famosas | 8 óperas famosas | orfeo.jpg, alcina.jpg, bodas_figaro.jpg, don_giovanni.jpg, flauta_magica.jpg, barbero_sevilla.jpg, norma.jpg, la_traviata.jpg | N/A | PDTE |
 | 2028-03-21 | Acertijos y adivinanzas - Madre con cinco hijos | LUIS | Ari_20131110.png | Ariadna | PDTE |
+| 2028-03-22 | Adivina el cuadro | GRITO / DAMA ARMINO / LECTORA | grito1.jpg, dama_armino1.jpg, lectora1.jpg | N/A | PDTE |
 | 2028-03-26 | Palabras Intraducibles - Brasileño | CAFUNE | NievesAri_20210817.png | Nieves y Ariadna | PDTE |
 | 2028-03-27 | Adivina la serie | 7 Vidas, Aída, Los Simpson, Shin Chan | 7_vidas.jpg/.mp3, aida.jpg/.mp3, simpson.jpg/.mp3, shin_chan.jpg/.mp3 | N/A | PDTE |
 | 2028-03-28 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
@@ -201,6 +203,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-04-15 | Satisfacción con restricciones múltiples: Ordenando la habitación | Enric: armario+cajas / Nieves: escritorio+trapo / Ariadna: estantería+bolsas / Alex: cama+aspiradora | RSR04_Escenario.webp + RSR04_01A..01D.png + RSR04_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
 | 2028-04-16 | Agudeza visual — clickmap museo (coordenadas hex) | CHAD | Museo2_visual.png + Museo2_clickmap.png + Cuadros_verdes.png + Ariadna_20190601.png | Ariadna | PDTE |
 | 2028-04-17 | Rosco de pasapalabra | N/A | N/A | N/A | PDTE |
+| 2028-04-24 | Adivina el cuadro | NOCHE ESTRELLADA / CAMINANTE SOBRE MAR NUBES / CHRISTINAS WORLD | noche_estrellada1.jpg, caminante_mar_nubes1.jpg, cristinas_world1.jpg | N/A | PDTE |
 | 2028-04-18 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
 | 2028-04-19 | Cultura: iniciales de famosos, especial política | MADEIRA | Lugar07_01.jpg .. Lugar07_07.jpg | Ajenos | PDTE |
 | 2028-04-25 | Timeline: monumentos y edificios | 8 monumentos famosos | gran_piramide_guiza.jpg, partenon.jpg, coliseo.jpg, santa_sofia.jpg, mezquita_cordoba.jpg, catedral_chartres.jpg, machu_picchu.jpg, taj_mahal.jpg | N/A | PDTE |
@@ -213,6 +216,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-05-06 | Minijuego (Las 5 Monedas de Tait) | N/A | N/A | N/A | PDTE |
 | 2028-05-08 | Adivina quién soy | VOLDEMORT | Alex_20200222.png | Alex | PDTE |
 | 2028-05-09 | Timeline musical, España en los 80 | 1980-1987 | No_dudaria.jpg .. Hijo_de_la_luna.jpg | N/A | PDTE |
+| 2028-05-10 | Adivina el cuadro | PERSISTENCIA MEMORIA / MUJER CON SOMBRILLA / MUERTE MARAT | persistencia_memoria1.jpg, mujer_sombrilla1.jpg, muerte_marat1.jpg | N/A | PDTE |
 | 2028-05-13 | Satisfacción con restricciones múltiples: Preparando las mochilas | Enric: negra+manta / Nieves: roja+cámara / Ariadna: azul+auriculares / Alex: verde+consola | RSR05_Escenario.webp + RSR05_01A..01D.png + RSR05_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
 | 2028-05-14 | Palabras Intraducibles - Japonés | BOKETTO | Enric_20220816.png | Enric | PDTE |
 | 2028-05-16 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
@@ -240,6 +244,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-06-19 | Rosco de pasapalabra | N/A | N/A | N/A | PDTE |
 | 2028-06-20 | ¿Qué foto es más antigua? | 10 momentos vividos | PDTE | PDTE | PDTE |
 | 2028-06-26 | Timeline: películas de cine | metropolis, lo_que_viento_llevo, ciudadano_kane, siete_samurais, psicosis, 2001_odisea_espacio, padrino, star_wars_iv | metropolis.jpg, lo_que_viento_llevo.jpg, ciudadano_kane.jpg, siete_samurais.jpg, psicosis.jpg, 2001_odisea_espacio.jpg, padrino.jpg, star_wars_iv.jpg | N/A | PDTE |
+| 2028-06-27 | Adivina el cuadro | HIJO HOMBRE / MATRIMONIO ARNOLFINI / AUTORRETRATO CON SOMBRERO FIELTRO GRIS | hijo_del_hombre1.jpg, matrimonio_arnolfini1.jpg, autorretrato_sombrero_gris1.jpg | N/A | PDTE |
 | 2028-07-03 | Puzzle visual | ACHI | Puzzle01_01.png .. Puzzle01_05.png | N/A | PDTE |
 | 2028-07-04 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
 | 2028-07-05 | Acertijos y adivinanzas - Raro, raro | CAMISA | Ari_20140523.png | Ariadna | PDTE |
@@ -258,6 +263,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-07-26 | Adivina la serie | Candy Candy, Compañeros, Los Osos Amorosos, Sensación de vivir | candy_candy.jpg/.mp3, companeros.jpg/.mp3, osos_amorosos.jpg/.mp3, sensacion_de_vivir.jpg/.mp3 | N/A | PDTE |
 | 2028-07-28 | Timeline musical, España en los 90 | 1990-1999 | Entre_dos_tierras.jpg .. Tu_calorro.jpg | N/A | PDTE |
 | 2028-07-29 | Satisfacción con restricciones múltiples: Excursión al parque | Enric: bicicleta+Galletas / Nieves: cometa+bocadillo / Ariadna: fútbol+fruta / Alex: columpios+Patatas | RSR07_Escenario.webp + RSR07_01A..01D.png + RSR07_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
+| 2028-07-31 | Adivina el cuadro | AMERICAN GOTHIC / OFELIA / MUJER LLORANDO | american_gothic1.jpg, ofelia1.jpg, mujer_llorando1.jpg | N/A | PDTE |
 | 2028-08-01 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
 | 2028-08-02 | Puzzle visual | ACHI | Puzzle01_01.png .. Puzzle01_05.png | N/A | PDTE |
 | 2028-08-05 | Satisfacción con restricciones múltiples: Noche de películas | Enric: misterio+helado / Nieves: comedia+pizza / Ariadna: aventuras+nachos / Alex: animación+palomitas | RSR08_Escenario.webp + RSR08_01A..01D.png + RSR08_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
@@ -269,6 +275,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-08-21 | Rosco de pasapalabra | N/A | N/A | N/A | PDTE |
 | 2028-08-22 | Timeline: cuadros famosos | 8 cuadros famosos | impresion_sol_naciente.jpg, noche_estrellada.jpg, grito.jpg, senoritas_avinon.jpg, persistencia_memoria.jpg, guernica.jpg, marilyn_diptych.jpg, whaam.jpg | N/A | PDTE |
 | 2028-08-23 | Sigue la letra | Hijo de la luna (Mecano) | Hijo_de_la_luna.mp3 | N/A | PDTE |
+| 2028-08-24 | Adivina el cuadro | BESO / MAJA DESNUDA / MADAME X | beso1.jpg, maja_desnuda1.jpg, madame_x1.jpg | N/A | PDTE |
 | 2028-08-26 | Minijuego (Las Jarras de Agua) | N/A | N/A | N/A | PDTE |
 | 2028-08-28 | ¿Qué foto es más antigua? | 10 momentos vividos | PDTE | PDTE | PDTE |
 | 2028-08-29 | Acertijos y adivinanzas - El carnicero | CARNE | Cris_20100317.png | Cristina | PDTE |
@@ -281,6 +288,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-09-09 | Minijuego (El Cruce del Puente) | N/A | N/A | N/A | PDTE |
 | 2028-09-12 | Adivina quién soy | MARY SHELLEY | Cristina_20130713.png | Cristina | PDTE |
 | 2028-09-13 | ¿Qué foto es más antigua? | 10 momentos vividos | PDTE | PDTE | PDTE |
+| 2028-09-14 | Adivina el cuadro | GIRASOLES / TRAICION IMAGENES / GITANA DORMIDA | girasoles1.jpg, traicion_imagenes1.jpg, gitana_dormida1.jpg | N/A | PDTE |
 | 2028-09-18 | Cultura: iniciales de famosos, especial música | BORNEO | Lugar04_01.jpg .. Lugar04_06.jpg | Ajenos | PDTE |
 | 2028-09-19 | Adivina la serie | Corrupción en Miami, Los Soprano, Musculman, Pokémon | corrupcion_miami.jpg/.mp3, soprano.jpg/.mp3, musculman.jpg/.mp3, pokemon.jpg/.mp3 | N/A | PDTE |
 | 2028-09-20 | Sigue la letra | Ella (Viceversa) | Ella.mp3 | N/A | PDTE |
@@ -305,6 +313,8 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-10-24 | Adivina quién soy | GOYA | Enric_20110101.png | Enric | PDTE |
 | 2028-10-26 | Acertijos y adivinanzas - Espías lógicos | SIETE | Enric_20150314.png | Enric | PDTE |
 | 2028-10-28 | Minijuego (Reparto de Combustible) | N/A | N/A | N/A | PDTE |
+| 2028-10-30 | Adivina el cuadro | HABITACION ARLES, MAJA VESTIDA, RETRATO ADELE BLOCHBAUER I | habitacion_arles1.jpg, maja_vestida1.jpg, retrato_adele_bloch1.jpg| N/A | PDTE |
+| 2028-11-02 | Adivina el cuadro | DOS FRIDAS / COLUMPIO / NOVIA | dos_fridas1.jpg, columpio1.jpg, novia1.jpg | N/A | PDTE |
 | 2028-11-04 | Ingenio — el frutero y el arcoíris | 32215 | Ari_20150714.jpg | Ariadna | PDTE |
 | 2028-11-06 | Adivina el logo correcto | 10 logos icónicos | Logos.png | N/A | PDTE |
 | 2028-11-07 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
@@ -336,11 +346,13 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-12-21 | Timeline: películas de cine | amanece_no_poco, tesis, familia, otros, laberinto_fauno, celda_211, reino, sociedad_nieve | amanece_no_poco.jpg, tesis.jpg, familia.jpg, otros.jpg, laberinto_fauno.jpg, celda_211.jpg, reino.jpg, sociedad_nieve.jpg | N/A | PDTE |
 | 2028-12-23 | Minijuego (La Torre de Hanoi) | N/A | N/A | N/A | PDTE |
 | 2028-12-27 | Adivina la serie | Embrujadas, Érase una vez, Ranma, V | embrujadas.jpg/.mp3, erase_una_vez.jpg/.mp3, ranma.jpg/.mp3, v.jpg/.mp3 | N/A | PDTE |
+| 2028-12-28 | Adivina el cuadro | GRAN OLA KANAGAWA, ESPERANZA II, JOVEN AZUL | gran_ola_kanagawa1.jpg, esperanza_ii1.jpg, joven_azul1.jpg | N/A | PDTE |
 | 2029-01-02 | Puzzle visual | ACHI | Puzzle01_01.png .. Puzzle01_05.png | N/A | PDTE |
 | 2029-01-03 | Timeline musical, Internacional en los 2000 | 2000-2009 | Music.jpg, Complicated.jpg, Hey_Ya.jpg, Crazy.jpg, Umbrella.jpg, I_Gotta_Feeling.jpg + .mp3 | N/A | PDTE |
 | 2029-01-04 | Timeline: monumentos y edificios | 8 monumentos famosos | sagrada_familia.jpg, parque_guell.jpg, casa_batllo.jpg, pedrera.jpg, plaza_espana.jpg, valle_cuelgamuros.jpg, museo_guggenheim_bilbao.jpg, palau_les_arts.jpg | N/A | PDTE |
 | 2029-01-08 | Acertijos y adivinanzas - Bate y pelota | 0.05 | Alex_20231111.png | Alexandra | PDTE |
 | 2029-01-09 | Adivina la serie | Els Bobobobs, La Aldea del Arce, Los Osos Gummi, Se ha escrito un crimen | els_bobobobs.jpg/.mp3, aldea_arce.jpg/.mp3, osos_gummi.jpg/.mp3, escrito_un_crimen.jpg/.mp3 | N/A | PDTE |
+
 
 
 ---
