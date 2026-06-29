@@ -245,7 +245,7 @@ function typeText(text) {
 }
 typeText(TEXTO_INICIAL);
 
-const RESPUESTAS_OK = ['AGUJA', 'AGUJAS', 'UNA AGUJA', 'UNAS AGUJAS'];
+const RESPUESTAS_OK = ['AGUJA'];
 const codigoInput   = document.getElementById('codigo-input');
 const btnValidar    = document.getElementById('btn-validar');
 const popupFail     = document.getElementById('popup-fail');
@@ -257,11 +257,36 @@ document.getElementById('fail-close').addEventListener('click', () => {
 });
 popupFail.addEventListener('click', e => { if (e.target === popupFail) popupFail.classList.remove('visible'); });
 
-function validar() {
-  const val = codigoInput.value.trim().toUpperCase()
+function normalizar(s) {
+  const ARTICULOS = /\b(de|del|el|la|los|las|un|una|unos|unas|al|en|y|e|o|u|a)\b/gi;
+  return s.trim()
     .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-    .replace(/[ÑñN]/g, c => c === 'Ñ' || c === 'ñ' ? 'N' : c);
-  if (RESPUESTAS_OK.includes(val)) {
+    .replace(/[^\w\s]/g, '')
+    .replace(ARTICULOS, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .toUpperCase();
+}
+
+function levenshtein(a, b) {
+  const dp = Array.from({length: a.length + 1}, (_, i) =>
+    Array.from({length: b.length + 1}, (_, j) => i === 0 ? j : j === 0 ? i : 0)
+  );
+  for (let i = 1; i <= a.length; i++)
+    for (let j = 1; j <= b.length; j++)
+      dp[i][j] = a[i-1] === b[j-1]
+        ? dp[i-1][j-1]
+        : 1 + Math.min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1]);
+  return dp[a.length][b.length];
+}
+
+function validar() {
+  const val = normalizar(codigoInput.value);
+  const ok  = RESPUESTAS_OK.some(r => {
+    const nr = normalizar(r);
+    return val === nr || levenshtein(val, nr) <= 1;
+  });
+  if (ok) {
     codigoInput.classList.remove('error');
     codigoInput.classList.add('ok');
     markDone();
