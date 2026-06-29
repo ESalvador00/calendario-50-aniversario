@@ -201,6 +201,16 @@
   </div>
 </div>
 
+<!-- Popup: tiempo agotado (MAX_BLOQUES alcanzado) -->
+<div class="popup-overlay" id="popup-ko">
+  <div class="popup-box">
+    <div class="popup-icon">🖼</div>
+    <p class="popup-title" id="ko-title">¡Se acabó el tiempo!</p>
+    <p class="popup-msg" id="ko-msg">No pasa nada, este es difícil.</p>
+    <button class="popup-btn" id="ko-close">Siguiente cuadro ▶</button>
+  </div>
+</div>
+
 <!-- Popup: cuadro acertado (intermedio) -->
 <div class="popup-overlay" id="popup-ok">
   <div class="popup-box">
@@ -309,12 +319,18 @@ const MSGS_OK = [
   'Muy bien. Era uno de los autorretratos más conocidos de Van Gogh.'
 ];
 
+const MSGS_KO = [
+  'Era <em>El hijo del hombre</em>, el famoso personaje con la manzana frente al rostro.',
+  'Era <em>El matrimonio Arnolfini</em>, una de las joyas de la pintura flamenca.',
+  'Era uno de los autorretratos más conocidos de Van Gogh.'
+];
+
 let cuadroActual = 0;
 let bloques      = 1;
 let pausado      = false;
 let intervalo    = null;
 let puntosTotal  = 0;
-const MAX_BLOQUES = 300;
+const MAX_BLOQUES = 100;
 
 const canvas    = document.getElementById('cuadro-canvas');
 const ctx       = canvas.getContext('2d');
@@ -326,6 +342,7 @@ const codigoInput = document.getElementById('codigo-input');
 const btnValidar  = document.getElementById('btn-validar');
 const popupFail   = document.getElementById('popup-fail');
 const popupOk     = document.getElementById('popup-ok');
+const popupKo     = document.getElementById('popup-ko');
 
 /* Imagen cargada en memoria para pixelado */
 let imgObj = new Image();
@@ -421,6 +438,12 @@ function iniciarContador() {
     if (bloques >= MAX_BLOQUES) {
       clearInterval(intervalo);
       contEl.textContent = bloques;
+      // Mostrar popup de fracaso
+      const esUltimo = cuadroActual === CUADROS.length - 1;
+      document.getElementById('ko-title').textContent = '¡Se acabó el tiempo!';
+      document.getElementById('ko-msg').innerHTML = MSGS_KO[cuadroActual];
+      document.getElementById('ko-close').textContent = esUltimo ? 'Ver recompensa 🎁' : 'Siguiente cuadro ▶';
+      setTimeout(() => popupKo.classList.add('visible'), 400);
       return;
     }
     bloques++;
@@ -434,6 +457,28 @@ btnPausa.addEventListener('click', () => {
   btnPausa.textContent = pausado ? '▶' : '⏸';
 });
 
+document.getElementById('ko-close').addEventListener('click', () => {
+  popupKo.classList.remove('visible');
+  mostrarNitidaYluego(() => {
+    if (cuadroActual < CUADROS.length - 1) {
+      cuadroActual++;
+      cargarCuadro(cuadroActual);
+      codigoInput.focus();
+    } else {
+      popupStarReward.classList.add('visible');
+    }
+  });
+});
+popupKo.addEventListener('click', e => { if (e.target === popupKo) popupKo.classList.remove('visible'); });
+
+/* ── Imagen nítida 3s antes de continuar ── */
+function mostrarNitidaYluego(callback) {
+  pausado = true;
+  btnPausa.textContent = '▶';
+  renderPixelado(99999);
+  setTimeout(callback, 3000);
+}
+
 /* ── Validación ── */
 document.getElementById('fail-close').addEventListener('click', () => {
   popupFail.classList.remove('visible');
@@ -444,13 +489,15 @@ popupFail.addEventListener('click', e => { if (e.target === popupFail) { popupFa
 
 document.getElementById('ok-close').addEventListener('click', () => {
   popupOk.classList.remove('visible');
-  if (cuadroActual < CUADROS.length - 1) {
-    cuadroActual++;
-    cargarCuadro(cuadroActual);
-    codigoInput.focus();
-  } else {
-    popupStarReward.classList.add('visible');
-  }
+  mostrarNitidaYluego(() => {
+    if (cuadroActual < CUADROS.length - 1) {
+      cuadroActual++;
+      cargarCuadro(cuadroActual);
+      codigoInput.focus();
+    } else {
+      popupStarReward.classList.add('visible');
+    }
+  });
 });
 popupOk.addEventListener('click', e => { if (e.target === popupOk) popupOk.classList.remove('visible'); });
 
