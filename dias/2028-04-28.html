@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+const PELICULAS<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8"/>
@@ -301,7 +301,7 @@ const PELICULAS = [
     titulo:    'El Rey León (1994)',
     audio:     '../media/El_Rey_Leon.mp3',
     slotId:    'slot-0',
-    respuestas: ['EL REY LEON','REY LEON','THE LION KING'],
+    respuestas: ['REY LEON','THE LION KING'],
     pistas: [
       'Un resumen: Un joven heredero huye de su responsabilidad tras una tragedia familiar inducida, viviendo una vida de despreocupación hasta que el pasado llama a su puerta.',
       'Un dato: Es la película de animación tradicional (dibujada a mano) más taquillera de la historia. Hans Zimmer ganó el Óscar por su banda sonora de tintes africanos.',
@@ -327,7 +327,7 @@ const PELICULAS = [
     titulo:    'Piratas del Caribe (2003)',
     audio:     '../media/Piratas_del_Caribe.mp3',
     slotId:    'slot-2',
-    respuestas: ['PIRATAS DEL CARIBE'],
+    respuestas: ['PIRATAS CARIBE'],
     pistas: [
       'Un resumen: Un herrero se alía con un capitán excéntrico para rescatar a una mujer y recuperar un barco robado.',
       'Un dato: Basada originalmente en una atracción de un parque temático de Disney. La BSO principal, aunque acreditada a Klaus Badelt, fue supervisada por Hans Zimmer.',
@@ -340,7 +340,7 @@ const PELICULAS = [
     titulo:    'Forrest Gump (1994)',
     audio:     '../media/Forrest_Gump.mp3',
     slotId:    'slot-3',
-    respuestas: ['FORREST GUMP','FOREST GUMP'],
+    respuestas: ['FORREST GUMP'],
     pistas: [
       'Un resumen: Un hombre con una capacidad intelectual limitada hace cosas históricas por accidente mientras otros, más listos, se complican la vida.',
       'Un dato: Alan Silvestri compuso su icónica melodía de piano. La película derrotó a Pulp Fiction en los Óscar de 1994.',
@@ -353,7 +353,7 @@ const PELICULAS = [
     titulo:    'Braveheart (1995)',
     audio:     '../media/Braveheart.mp3',
     slotId:    'slot-4',
-    respuestas: ['BRAVEHEART','BRAVE HEART'],
+    respuestas: ['BRAVEHEART'],
     pistas: [
       'Un resumen: Un campesino convence a miles de personas de morir por su venganza personal.',
       'Un dato: James Horner utilizó gaitas y flautas irlandesas para una BSO que es el himno oficioso de un país. Ganó el Óscar a Mejor Película en 1995.',
@@ -365,10 +365,26 @@ const PELICULAS = [
 ];
 
 function normalizar(s) {
-  return s.trim().toUpperCase()
+  const ARTICULOS = /\b(de|del|el|la|los|las|un|una|unos|unas|al|en|y|e|o|u|a)\b/gi;
+  return s.trim()
     .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-    .replace(/\u00D1/g, 'N')
-    .replace(/[^A-Z0-9 ]/g, '');
+    .replace(/[^\w\s]/g, '')
+    .replace(ARTICULOS, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .toUpperCase();
+}
+
+function levenshtein(a, b) {
+  const dp = Array.from({length: a.length + 1}, (_, i) =>
+    Array.from({length: b.length + 1}, (_, j) => i === 0 ? j : j === 0 ? i : 0)
+  );
+  for (let i = 1; i <= a.length; i++)
+    for (let j = 1; j <= b.length; j++)
+      dp[i][j] = a[i-1] === b[j-1]
+        ? dp[i-1][j-1]
+        : 1 + Math.min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1]);
+  return dp[a.length][b.length];
 }
 
 let peliculaActual = 0;
@@ -471,7 +487,11 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape' && popupPista
 
 function validar() {
   const val = normalizar(codigoInput.value);
-  if (PELICULAS[peliculaActual].respuestas.includes(val)) {
+  const ok = PELICULAS[peliculaActual].respuestas.some(r => {
+    const nr = normalizar(r);
+    return val === nr || levenshtein(val, nr) <= 1;
+  });
+  if (ok) {
     codigoInput.classList.remove('error'); codigoInput.classList.add('ok');
     document.getElementById(PELICULAS[peliculaActual].slotId).classList.add('revealed');
     stopCurrent();

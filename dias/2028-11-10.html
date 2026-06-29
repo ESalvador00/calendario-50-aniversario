@@ -334,7 +334,7 @@ const PELICULAS = [
     titulo:    'Armageddon (1998)',
     audio:     '../media/Armageddon.mp3',
     slotId:    'slot-0',
-    respuestas: ['ARMAGEDDON','ARMAGEDON'],
+    respuestas: ['ARMAGEDDON'],
     pistas: [
       'Un resumen: En vez de dejar que expertos hagan su trabajo, enseñan a otros a hacerlo en el último momento con consecuencias dudosas.',
       'Un dato: De 1998. La canción "I Don\'t Want to Miss a Thing" de Aerosmith dominó las listas de éxitos durante meses.',
@@ -360,7 +360,7 @@ const PELICULAS = [
     titulo:    'Los Increíbles (2004)',
     audio:     '../media/Los_Increibles.mp3',
     slotId:    'slot-2',
-    respuestas: ['LOS INCREIBLES','INCREIBLES','THE INCREDIBLES','INCREDIBLES'],
+    respuestas: ['INCREIBLES','THE INCREDIBLES','INCREDIBLES'],
     pistas: [
       'Un resumen: Personas con habilidades extraordinarias fingen ser normales hasta que ser normales deja de ser una opción.',
       'Un dato: Michael Giacchino compuso en 2004 una BSO que rinde homenaje al estilo "jazz-spy" de las películas de James Bond de los años 60.',
@@ -373,7 +373,7 @@ const PELICULAS = [
     titulo:    'La historia interminable (1984)',
     audio:     '../media/La_historia_interminable.mp3',
     slotId:    'slot-3',
-    respuestas: ['LA HISTORIA INTERMINABLE','HISTORIA INTERMINABLE'],
+    respuestas: ['HISTORIA INTERMINABLE'],
     pistas: [
       'Un resumen: Un niño lee un libro que se alarga tanto como su capacidad de abstraerse de la realidad.',
       'Un dato: Coproducción germano-estadounidense de 1984. El tema principal de Limahl es el epítome del pop fantástico de los 80.',
@@ -386,7 +386,7 @@ const PELICULAS = [
     titulo:    'Los Goonies (1985)',
     audio:     '../media/Los_Goonies.mp3',
     slotId:    'slot-4',
-    respuestas: ['LOS GOONIES','GOONIES'],
+    respuestas: ['GOONIES'],
     pistas: [
       'Un resumen: Unos niños se meten en problemas cada vez más grandes porque nadie adulto está supervisando.',
       'Un dato: Aventura de 1985 producida por Spielberg. Cyndi Lauper compuso el tema principal "The Goonies \'R\' Good Enough".',
@@ -399,10 +399,26 @@ const PELICULAS = [
 
 // ── Normalización ─────────────────────────────────────────
 function normalizar(s) {
-  return s.trim().toUpperCase()
+  const ARTICULOS = /\b(de|del|el|la|los|las|un|una|unos|unas|al|en|y|e|o|u|a)\b/gi;
+  return s.trim()
     .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-    .replace(/\u00D1/g, 'N')
-    .replace(/[^A-Z0-9 ]/g, '');
+    .replace(/[^\w\s]/g, '')
+    .replace(ARTICULOS, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .toUpperCase();
+}
+
+function levenshtein(a, b) {
+  const dp = Array.from({length: a.length + 1}, (_, i) =>
+    Array.from({length: b.length + 1}, (_, j) => i === 0 ? j : j === 0 ? i : 0)
+  );
+  for (let i = 1; i <= a.length; i++)
+    for (let j = 1; j <= b.length; j++)
+      dp[i][j] = a[i-1] === b[j-1]
+        ? dp[i-1][j-1]
+        : 1 + Math.min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1]);
+  return dp[a.length][b.length];
 }
 
 // ── Estado del reto ───────────────────────────────────────
@@ -525,7 +541,11 @@ document.addEventListener('keydown', e => {
 // ── Validación ───────────────────────────────────────────
 function validar() {
   const val = normalizar(codigoInput.value);
-  if (PELICULAS[peliculaActual].respuestas.includes(val)) {
+  const ok = PELICULAS[peliculaActual].respuestas.some(r => {
+    const nr = normalizar(r);
+    return val === nr || levenshtein(val, nr) <= 1;
+  });
+  if (ok) {
     codigoInput.classList.remove('error');
     codigoInput.classList.add('ok');
     document.getElementById(PELICULAS[peliculaActual].slotId).classList.add('revealed');

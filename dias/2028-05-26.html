@@ -298,7 +298,7 @@ const PELICULAS = [
     titulo:    'Fiebre del Sábado Noche (1977)',
     audio:     '../media/Fiebre_del_Sabado_Noche.mp3',
     slotId:    'slot-0',
-    respuestas: ['FIEBRE DEL SABADO NOCHE','SABADO NOCHE','SATURDAY NIGHT FEVER','SATURDAY NIGHT'],
+    respuestas: ['FIEBRE SABADO NOCHE','SABADO NOCHE','SATURDAY NIGHT FEVER','SATURDAY NIGHT'],
     pistas: [
       'Un resumen: Un joven con un trabajo precario en una tienda de pinturas gasta todo su sueldo en laca y camisas de poliéster para escapar de su familia disfuncional bailando.',
       'Un dato: Estrenada en 1977, su banda sonora de los Bee Gees es una de las más vendidas de la historia y definió la era Disco.',
@@ -311,7 +311,7 @@ const PELICULAS = [
     titulo:    'Jurassic Park (1993)',
     audio:     '../media/Jurassic_Park.mp3',
     slotId:    'slot-1',
-    respuestas: ['JURASSIC PARK','JURASIC PARK','PARQUE JURASICO'],
+    respuestas: ['JURASSIC PARK', 'PARQUE JURASICO'],
     pistas: [
       'Un resumen: Un parque temático ignora todas las advertencias científicas hasta que, sorprendentemente, todo sale mal.',
       'Un dato: Dirigida por Spielberg en 1993, revolucionó el cine al mezclar animatrónicos de tamaño real con efectos digitales de ILM.',
@@ -362,10 +362,26 @@ const PELICULAS = [
 ];
 
 function normalizar(s) {
-  return s.trim().toUpperCase()
+  const ARTICULOS = /\b(de|del|el|la|los|las|un|una|unos|unas|al|en|y|e|o|u|a)\b/gi;
+  return s.trim()
     .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-    .replace(/\u00D1/g, 'N')
-    .replace(/[^A-Z0-9 ]/g, '');
+    .replace(/[^\w\s]/g, '')
+    .replace(ARTICULOS, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .toUpperCase();
+}
+
+function levenshtein(a, b) {
+  const dp = Array.from({length: a.length + 1}, (_, i) =>
+    Array.from({length: b.length + 1}, (_, j) => i === 0 ? j : j === 0 ? i : 0)
+  );
+  for (let i = 1; i <= a.length; i++)
+    for (let j = 1; j <= b.length; j++)
+      dp[i][j] = a[i-1] === b[j-1]
+        ? dp[i-1][j-1]
+        : 1 + Math.min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1]);
+  return dp[a.length][b.length];
 }
 
 let peliculaActual = 0;
@@ -468,7 +484,11 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape' && popupPista
 
 function validar() {
   const val = normalizar(codigoInput.value);
-  if (PELICULAS[peliculaActual].respuestas.includes(val)) {
+  const ok = PELICULAS[peliculaActual].respuestas.some(r => {
+    const nr = normalizar(r);
+    return val === nr || levenshtein(val, nr) <= 1;
+  });
+  if (ok) {
     codigoInput.classList.remove('error'); codigoInput.classList.add('ok');
     document.getElementById(PELICULAS[peliculaActual].slotId).classList.add('revealed');
     stopCurrent();

@@ -324,7 +324,7 @@ const PELICULAS = [
     titulo:    'La Sirenita (1989)',
     audio:     '../media/La_Sirenita.mp3',
     slotId:    'slot-2',
-    respuestas: ['LA SIRENITA','SIRENITA'],
+    respuestas: ['SIRENITA'],
     pistas: [
       'Un resumen: Una adolescente cambia su cuerpo y abandona su familia por alguien que acaba de conocer.',
       'Un dato: Estrenada en 1989, marcó el inicio del "Renacimiento de Disney". Alan Menken ganó el Óscar a mejor banda sonora con ritmos de calipso y Broadway.',
@@ -340,11 +340,10 @@ const PELICULAS = [
     respuestas: [
       'INDIANA',
       'INDIANA JONES',
-      'INDIANA JONES Y EL ARCA PERDIDA',
-      'INDIANA JONES EN BUSCA DEL ARCA PERDIDA',
-      'INDIANA JONES EN BUSCA DEL ARCA PERDIDA',
-      'EN BUSCA DEL ARCA PERDIDA',
-      'EL ARCA PERDIDA',
+      'INDIANA JONES ARCA PERDIDA',
+      'INDIANA JONES BUSCA ARCA PERDIDA',
+      'BUSCA ARCA PERDIDA',
+      'ARCA PERDIDA',
     ],
     pistas: [
       'Un resumen: Un profesor universitario viaja por el mundo robando patrimonio cultural ajeno que quizá sería mejor no tocar.',
@@ -370,11 +369,26 @@ const PELICULAS = [
 ];
 
 function normalizar(s) {
-  return s.trim().toUpperCase()
+  const ARTICULOS = /\b(de|del|el|la|los|las|un|una|unos|unas|al|en|y|e|o|u|a)\b/gi;
+  return s.trim()
     .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-    .replace(/\u00D1/g, 'N')
-    .replace(/[^A-Z0-9 ]/g, '')
-    .replace(/ +/g, ' ');
+    .replace(/[^\w\s]/g, '')
+    .replace(ARTICULOS, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .toUpperCase();
+}
+
+function levenshtein(a, b) {
+  const dp = Array.from({length: a.length + 1}, (_, i) =>
+    Array.from({length: b.length + 1}, (_, j) => i === 0 ? j : j === 0 ? i : 0)
+  );
+  for (let i = 1; i <= a.length; i++)
+    for (let j = 1; j <= b.length; j++)
+      dp[i][j] = a[i-1] === b[j-1]
+        ? dp[i-1][j-1]
+        : 1 + Math.min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1]);
+  return dp[a.length][b.length];
 }
 
 let peliculaActual = 0;
@@ -477,7 +491,11 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape' && popupPista
 
 function validar() {
   const val = normalizar(codigoInput.value);
-  if (PELICULAS[peliculaActual].respuestas.includes(val)) {
+  const ok = PELICULAS[peliculaActual].respuestas.some(r => {
+    const nr = normalizar(r);
+    return val === nr || levenshtein(val, nr) <= 1;
+  });
+  if (ok) {
     codigoInput.classList.remove('error'); codigoInput.classList.add('ok');
     document.getElementById(PELICULAS[peliculaActual].slotId).classList.add('revealed');
     stopCurrent();

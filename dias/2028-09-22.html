@@ -312,7 +312,7 @@ const PELICULAS = [
     titulo:    'Pesadilla antes de Navidad (1993)',
     audio:     '../media/Pesadilla_antes_de_Navidad.mp3',
     slotId:    'slot-0',
-    respuestas: ['PESADILLA ANTES DE NAVIDAD', 'PESADILLA ANTES NAVIDAD'],
+    respuestas: ['PESADILLA ANTES NAVIDAD'],
     pistas: [
       'Un resumen: Un líder carismático secuestra una festividad porque se aburre de la suya.',
       'Un dato: Producida por Tim Burton (aunque dirigida por Henry Selick) en 1993. Danny Elfman no solo compuso la música, sino que también puso la voz cantada al protagonista.',
@@ -325,7 +325,7 @@ const PELICULAS = [
     titulo:    'La La Land (2016)',
     audio:     '../media/La_La_Land.mp3',
     slotId:    'slot-1',
-    respuestas: ['LA LA LAND', 'LALA LAND', 'LALALAND', 'LALAND'],
+    respuestas: ['LA LA LAND', 'LAND'],
     pistas: [
       'Un resumen: Dos artistas egocéntricos se enamoran y luego deciden que sus carreras profesionales son mucho más importantes que su relación sentimental.',
       'Un dato: Musical de 2016 que batió récords de nominaciones. Justin Hurwitz compuso todas las canciones, incluyendo el melancólico "City of Stars".',
@@ -338,7 +338,7 @@ const PELICULAS = [
     titulo:    'El Último Mohicano (1992)',
     audio:     '../media/El_Ultimo_Mohicano.mp3',
     slotId:    'slot-2',
-    respuestas: ['EL ULTIMO MOHICANO', 'ULTIMO MOHICANO', 'MOHICANO', 'EL ULTIMO DE LOS MOHICANOS'],
+    respuestas: ['ULTIMO MOHICANO', 'MOHICANO'],
     pistas: [
       'Un resumen: Un hombre sobrevive a una guerra porque es mejor en todo que prácticamente cualquiera. No es Rambo.',
       'Un dato: Película de 1992. Su tema principal "The Gael" es tan épico y reconocido que se utiliza constantemente en eventos deportivos y documentales.',
@@ -351,7 +351,7 @@ const PELICULAS = [
     titulo:    'The Pianist (2002)',
     audio:     '../media/The_Pianist.mp3',
     slotId:    'slot-3',
-    respuestas: ['THE PIANIST', 'PIANIST', 'PIANISTA', 'EL PIANISTA'],
+    respuestas: ['THE PIANIST', 'PIANIST', 'PIANISTA'],
     pistas: [
       'Un resumen: Un músico sobrevive ocultándose mientras el mundo a su alrededor se desmorona.',
       'Un dato: Dirigida por Roman Polanski en 2002. La banda sonora está repleta de piezas de Frédéric Chopin, que se convierten en el refugio espiritual del protagonista.',
@@ -364,7 +364,7 @@ const PELICULAS = [
     titulo:    'Del Revés (2015)',
     audio:     '../media/Inside_Out.mp3',
     slotId:    'slot-4',
-    respuestas: ['INSIDE OUT', 'DEL REVES', 'INTENSAMENTE', 'INTENSA-MENTE', 'INTENSA MENTE'],
+    respuestas: ['INSIDE OUT', 'REVES', 'INTENSAMENTE'],
     pistas: [
       'Un resumen: Una preadolescente sufre un colapso emocional y una pérdida de identidad temporal porque sus padres decidieron mudarse de ciudad sin consultar su bienestar psicológico.',
       'Un dato: Película de Pixar (2015). Michael Giacchino compuso la música, usando un piano muy sencillo para representar la fragilidad de la infancia y los recuerdos.',
@@ -377,10 +377,26 @@ const PELICULAS = [
 
 // ── Normalización ──────────────────────────────────────────
 function normalizar(s) {
-  return s.trim().toUpperCase()
+  const ARTICULOS = /\b(de|del|el|la|los|las|un|una|unos|unas|al|en|y|e|o|u|a)\b/gi;
+  return s.trim()
     .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-    .replace(/\u00D1/g, 'N')
-    .replace(/[^A-Z0-9 ]/g, '');
+    .replace(/[^\w\s]/g, '')
+    .replace(ARTICULOS, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .toUpperCase();
+}
+
+function levenshtein(a, b) {
+  const dp = Array.from({length: a.length + 1}, (_, i) =>
+    Array.from({length: b.length + 1}, (_, j) => i === 0 ? j : j === 0 ? i : 0)
+  );
+  for (let i = 1; i <= a.length; i++)
+    for (let j = 1; j <= b.length; j++)
+      dp[i][j] = a[i-1] === b[j-1]
+        ? dp[i-1][j-1]
+        : 1 + Math.min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1]);
+  return dp[a.length][b.length];
 }
 
 // ── Estado del reto ────────────────────────────────────────
@@ -502,7 +518,11 @@ document.addEventListener('keydown', e => {
 // ── Validación ─────────────────────────────────────────────
 function validar() {
   const val = normalizar(codigoInput.value);
-  if (PELICULAS[peliculaActual].respuestas.includes(val)) {
+  const ok = PELICULAS[peliculaActual].respuestas.some(r => {
+    const nr = normalizar(r);
+    return val === nr || levenshtein(val, nr) <= 1;
+  });
+  if (ok) {
     codigoInput.classList.remove('error');
     codigoInput.classList.add('ok');
     document.getElementById(PELICULAS[peliculaActual].slotId).classList.add('revealed');

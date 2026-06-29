@@ -312,7 +312,7 @@ const PELICULAS = [
     titulo:    'La Bella y la Bestia (1991)',
     audio:     '../media/La_Bella_y_la_Bestia.mp3',
     slotId:    'slot-0',
-    respuestas: ['LA BELLA Y LA BESTIA', 'BELLA Y BESTIA'],
+    respuestas: ['BELLA BESTIA'],
     pistas: [
       'Un resumen: Una joven soñadora con síndrome de Estocolmo decide enamorarse de su secuestrador, un aristócrata con problemas de control de ira y exceso de vello corporal.',
       'Un dato: Fue la primera película de animación de la historia en ser nominada al Óscar a Mejor Película (1991). Alan Menken creó un estilo de musical de Broadway que salvó a Disney.',
@@ -325,7 +325,7 @@ const PELICULAS = [
     titulo:    'Solo en Casa (1990)',
     audio:     '../media/Solo_en_Casa.mp3',
     slotId:    'slot-1',
-    respuestas: ['SOLO EN CASA'],
+    respuestas: ['SOLO CASA'],
     pistas: [
       'Un resumen: Unos ladrones subestiman a un niño con demasiado tiempo libre y tendencias sádicas.',
       'Un dato: Comedia de 1990. John Williams compuso la banda sonora (incluyendo el tema "Somewhere in My Memory"), dándole un aire de cuento de hadas mágico a una comedia de bofetones.',
@@ -338,7 +338,7 @@ const PELICULAS = [
     titulo:    'Halloween (1978)',
     audio:     '../media/Halloween.mp3',
     slotId:    'slot-2',
-    respuestas: ['HALLOWEEN', 'HALOWEEN'],
+    respuestas: ['HALLOWEEN'],
     pistas: [
       'Un resumen: Un hombre mata gente por su barrio mientras todos ignoran sistemáticamente las señales obvias.',
       'Un dato: Película de 1978. El propio director, John Carpenter, compuso el famosísimo tema principal de piano en un compás de 5/4 porque no tenían presupuesto para un compositor.',
@@ -364,7 +364,7 @@ const PELICULAS = [
     titulo:    'El Caballero Oscuro (2008)',
     audio:     '../media/El_Caballero_Oscuro.mp3',
     slotId:    'slot-4',
-    respuestas: ['EL CABALLERO OSCURO', 'CABALLERO OSCURO', 'BATMAN'],
+    respuestas: ['CABALLERO OSCURO', 'BATMAN'],
     pistas: [
       'Un resumen: Un millonario, un policía y un anarquista compiten por ver quién gestiona peor el caos.',
       'Un dato: Dirigida por Christopher Nolan en 2008. Hans Zimmer compuso el tema del villano usando un solo de violonchelo que suena como una cuchilla rozando metal.',
@@ -377,10 +377,26 @@ const PELICULAS = [
 
 // ── Normalización ──────────────────────────────────────────
 function normalizar(s) {
-  return s.trim().toUpperCase()
+  const ARTICULOS = /\b(de|del|el|la|los|las|un|una|unos|unas|al|en|y|e|o|u|a)\b/gi;
+  return s.trim()
     .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-    .replace(/\u00D1/g, 'N')
-    .replace(/[^A-Z0-9 ]/g, '');
+    .replace(/[^\w\s]/g, '')
+    .replace(ARTICULOS, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .toUpperCase();
+}
+
+function levenshtein(a, b) {
+  const dp = Array.from({length: a.length + 1}, (_, i) =>
+    Array.from({length: b.length + 1}, (_, j) => i === 0 ? j : j === 0 ? i : 0)
+  );
+  for (let i = 1; i <= a.length; i++)
+    for (let j = 1; j <= b.length; j++)
+      dp[i][j] = a[i-1] === b[j-1]
+        ? dp[i-1][j-1]
+        : 1 + Math.min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1]);
+  return dp[a.length][b.length];
 }
 
 // ── Estado del reto ────────────────────────────────────────
@@ -502,7 +518,11 @@ document.addEventListener('keydown', e => {
 // ── Validación ─────────────────────────────────────────────
 function validar() {
   const val = normalizar(codigoInput.value);
-  if (PELICULAS[peliculaActual].respuestas.includes(val)) {
+  const ok = PELICULAS[peliculaActual].respuestas.some(r => {
+    const nr = normalizar(r);
+    return val === nr || levenshtein(val, nr) <= 1;
+  });
+  if (ok) {
     codigoInput.classList.remove('error');
     codigoInput.classList.add('ok');
     document.getElementById(PELICULAS[peliculaActual].slotId).classList.add('revealed');

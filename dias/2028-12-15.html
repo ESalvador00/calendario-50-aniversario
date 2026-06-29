@@ -334,7 +334,7 @@ const PELICULAS = [
     titulo:    'Beetlejuice (1988)',
     audio:     '../media/Beetlejuice.mp3',
     slotId:    'slot-1',
-    respuestas: ['BEETLEJUICE','BEETELJUICE','BITELCHUS'],
+    respuestas: ['BEETLEJUICE', 'BITELCHUS'],
     pistas: [
       'Un resumen: Invocar soluciones extrañas suele empeorar el problema inicial, pero de forma entretenida.',
       'Un dato: Clásico de Tim Burton (1988). Danny Elfman mezcla sonidos de feria y circo, aunque la escena más famosa usa el "Day-O" de Harry Belafonte.',
@@ -360,7 +360,7 @@ const PELICULAS = [
     titulo:    'El resplandor (1980)',
     audio:     '../media/El_resplandor.mp3',
     slotId:    'slot-3',
-    respuestas: ['EL RESPLANDOR','RESPLANDOR'],
+    respuestas: ['RESPLANDOR'],
     pistas: [
       'Un resumen: El aislamiento prolongado convierte problemas personales en problemas mucho más grandes.',
       'Un dato: Stanley Kubrick (1980) utilizó música de vanguardia y sintetizadores para crear una de las bandas sonoras más inquietantes del cine de terror.',
@@ -386,10 +386,26 @@ const PELICULAS = [
 
 // ── Normalización ─────────────────────────────────────────
 function normalizar(s) {
-  return s.trim().toUpperCase()
+  const ARTICULOS = /\b(de|del|el|la|los|las|un|una|unos|unas|al|en|y|e|o|u|a)\b/gi;
+  return s.trim()
     .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-    .replace(/\u00D1/g, 'N')
-    .replace(/[^A-Z0-9 ]/g, '');
+    .replace(/[^\w\s]/g, '')
+    .replace(ARTICULOS, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .toUpperCase();
+}
+
+function levenshtein(a, b) {
+  const dp = Array.from({length: a.length + 1}, (_, i) =>
+    Array.from({length: b.length + 1}, (_, j) => i === 0 ? j : j === 0 ? i : 0)
+  );
+  for (let i = 1; i <= a.length; i++)
+    for (let j = 1; j <= b.length; j++)
+      dp[i][j] = a[i-1] === b[j-1]
+        ? dp[i-1][j-1]
+        : 1 + Math.min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1]);
+  return dp[a.length][b.length];
 }
 
 // ── Estado del reto ───────────────────────────────────────
@@ -512,7 +528,11 @@ document.addEventListener('keydown', e => {
 // ── Validación ───────────────────────────────────────────
 function validar() {
   const val = normalizar(codigoInput.value);
-  if (PELICULAS[peliculaActual].respuestas.includes(val)) {
+  const ok = PELICULAS[peliculaActual].respuestas.some(r => {
+    const nr = normalizar(r);
+    return val === nr || levenshtein(val, nr) <= 1;
+  });
+  if (ok) {
     codigoInput.classList.remove('error');
     codigoInput.classList.add('ok');
     document.getElementById(PELICULAS[peliculaActual].slotId).classList.add('revealed');

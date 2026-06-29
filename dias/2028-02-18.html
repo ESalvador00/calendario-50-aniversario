@@ -309,7 +309,7 @@ const PELICULAS = [
     titulo:    'Regreso al Futuro (1985)',
     audio:     '../media/Regreso_al_Futuro.mp3',
     slotId:    'slot-0',
-    respuestas: ['REGRESO AL FUTURO','BACK TO THE FUTURE'],
+    respuestas: ['REGRESO FUTURO','BACK TO THE FUTURE'],
     pistas: [
       'Un resumen: Un adolescente ayuda a un científico excéntrico a corregir un error genealógico que él mismo provocó por accidente.',
       'Un dato: Estrenada en 1985, fue rechazada por más de 40 estudios antes de que Robert Zemeckis lograra producirla.',
@@ -322,7 +322,7 @@ const PELICULAS = [
     titulo:    'E.T. El Extraterrestre (1982)',
     audio:     '../media/ET_El_Extraterrestre.mp3',
     slotId:    'slot-1',
-    respuestas: ['ET EL EXTRATERRESTRE','ET EL EXTRATERRESTRE','EL EXTRATERRESTRE','ET','ET'],
+    respuestas: ['ET EXTRATERRESTRE', 'ET'],
     pistas: [
       'Un resumen: Un botánico con sobrepeso es olvidado por sus colegas y debe confiar en la hospitalidad de un niño abandonado por su padre.',
       'Un dato: Spielberg utilizó gran parte del presupuesto en animatrónicos; la película superó a Star Wars como la más taquillera de la historia en su momento.',
@@ -361,7 +361,7 @@ const PELICULAS = [
     titulo:    'Alien: El octavo pasajero (1979)',
     audio:     '../media/Alien_El_octavo_pasajero.mp3',
     slotId:    'slot-4',
-    respuestas: ['ALIEN EL OCTAVO PASAJERO','ALIEN','EL OCTAVO PASAJERO'],
+    respuestas: ['ALIEN OCTAVO PASAJERO','ALIEN','OCTAVO PASAJERO'],
     pistas: [
       'Un resumen: El protocolo de una nave de carga obliga a la tripulación a investigar una señal desconocida, trayendo a bordo un polizón letal.',
       'Un dato: Ridley Scott (1979) mezcló el terror gótico con la ciencia ficción; el diseño del bicho fue obra del artista surrealista H.R. Giger.',
@@ -374,10 +374,26 @@ const PELICULAS = [
 
 // ── Normalización ─────────────────────────────────────────
 function normalizar(s) {
-  return s.trim().toUpperCase()
+  const ARTICULOS = /\b(de|del|el|la|los|las|un|una|unos|unas|al|en|y|e|o|u|a)\b/gi;
+  return s.trim()
     .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-    .replace(/\u00D1/g, 'N')
-    .replace(/[^A-Z0-9 ]/g, '');
+    .replace(/[^\w\s]/g, '')
+    .replace(ARTICULOS, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .toUpperCase();
+}
+
+function levenshtein(a, b) {
+  const dp = Array.from({length: a.length + 1}, (_, i) =>
+    Array.from({length: b.length + 1}, (_, j) => i === 0 ? j : j === 0 ? i : 0)
+  );
+  for (let i = 1; i <= a.length; i++)
+    for (let j = 1; j <= b.length; j++)
+      dp[i][j] = a[i-1] === b[j-1]
+        ? dp[i-1][j-1]
+        : 1 + Math.min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1]);
+  return dp[a.length][b.length];
 }
 
 // ── Estado del reto ───────────────────────────────────────
@@ -491,7 +507,11 @@ document.addEventListener('keydown', e => {
 // ── Validación ───────────────────────────────────────────
 function validar() {
   const val = normalizar(codigoInput.value);
-  if (PELICULAS[peliculaActual].respuestas.includes(val)) {
+  const ok = PELICULAS[peliculaActual].respuestas.some(r => {
+    const nr = normalizar(r);
+    return val === nr || levenshtein(val, nr) <= 1;
+  });
+  if (ok) {
     codigoInput.classList.remove('error');
     codigoInput.classList.add('ok');
     document.getElementById(PELICULAS[peliculaActual].slotId).classList.add('revealed');

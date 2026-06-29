@@ -325,7 +325,7 @@ const PELICULAS = [
     titulo:    'Harry Potter y la piedra filosofal (2001)',
     audio:     '../media/Harry_Potter.mp3',
     slotId:    'slot-1',
-    respuestas: ['HARRY POTTER', 'HARRY POTTER Y LA PIEDRA FILOSOFAL', 'LA PIEDRA FILOSOFAL', 'HARRY POTTER 1', 'HARRY POTTER I'],
+    respuestas: ['HARRY POTTER', 'HARRY POTTER PIEDRA FILOSOFAL', 'PIEDRA FILOSOFAL'],
     pistas: [
       'Un resumen: Un niño descubre que es especial y entra en una institución donde ser especial es básicamente obligatorio.',
       'Un dato: John Williams compuso el "Tema de Hedwig" en 2001, una melodía de celesta que se convirtió en el sonido universal de la magia.',
@@ -338,7 +338,7 @@ const PELICULAS = [
     titulo:    'Aladdin (1992)',
     audio:     '../media/Aladdin.mp3',
     slotId:    'slot-2',
-    respuestas: ['ALADDIN', 'ALADIN'],
+    respuestas: ['ALADDIN'],
     pistas: [
       'Un resumen: Un chico pobre miente sobre quién es para gustar más, y sorprendentemente le funciona.',
       'Un dato: Estrenada en 1992. Alan Menken compuso canciones como "Un mundo ideal" o "Un amigo fiel", adaptando el estilo a un tono de comedia frenética.',
@@ -351,7 +351,7 @@ const PELICULAS = [
     titulo:    'Superdetective en Hollywood (1984)',
     audio:     '../media/Superdetective_en_Hollywood.mp3',
     slotId:    'slot-3',
-    respuestas: ['SUPERDETECTIVE EN HOLLYWOOD', 'UN SUPERDETECTIVE EN HOLLYWOOD', 'UN SUPERDETECTIVE', 'SUPERDETECTIVE'],
+    respuestas: ['SUPERDETECTIVE HOLLYWOOD', 'SUPERDETECTIVE'],
     pistas: [
       'Un resumen: Un policía que no sigue normas demuestra que no seguir normas es, en efecto, la mejor norma.',
       'Un dato: De 1984. Su tema instrumental "Axel F", basado en sintetizadores, es uno de los más pegadizos y versionados de la historia.',
@@ -377,10 +377,26 @@ const PELICULAS = [
 
 // ── Normalización ──────────────────────────────────────────
 function normalizar(s) {
-  return s.trim().toUpperCase()
+  const ARTICULOS = /\b(de|del|el|la|los|las|un|una|unos|unas|al|en|y|e|o|u|a)\b/gi;
+  return s.trim()
     .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-    .replace(/\u00D1/g, 'N')
-    .replace(/[^A-Z0-9 ]/g, '');
+    .replace(/[^\w\s]/g, '')
+    .replace(ARTICULOS, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .toUpperCase();
+}
+
+function levenshtein(a, b) {
+  const dp = Array.from({length: a.length + 1}, (_, i) =>
+    Array.from({length: b.length + 1}, (_, j) => i === 0 ? j : j === 0 ? i : 0)
+  );
+  for (let i = 1; i <= a.length; i++)
+    for (let j = 1; j <= b.length; j++)
+      dp[i][j] = a[i-1] === b[j-1]
+        ? dp[i-1][j-1]
+        : 1 + Math.min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1]);
+  return dp[a.length][b.length];
 }
 
 // ── Estado del reto ────────────────────────────────────────
@@ -502,7 +518,11 @@ document.addEventListener('keydown', e => {
 // ── Validación ─────────────────────────────────────────────
 function validar() {
   const val = normalizar(codigoInput.value);
-  if (PELICULAS[peliculaActual].respuestas.includes(val)) {
+  const ok = PELICULAS[peliculaActual].respuestas.some(r => {
+    const nr = normalizar(r);
+    return val === nr || levenshtein(val, nr) <= 1;
+  });
+  if (ok) {
     codigoInput.classList.remove('error');
     codigoInput.classList.add('ok');
     document.getElementById(PELICULAS[peliculaActual].slotId).classList.add('revealed');

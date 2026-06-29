@@ -334,7 +334,7 @@ const PELICULAS = [
     titulo:    'Los Cazafantasmas (1984)',
     audio:     '../media/Los_Cazafantasmas.mp3',
     slotId:    'slot-0',
-    respuestas: ['LOS CAZAFANTASMAS','CAZAFANTASMAS','GHOSTBUSTERS','GHOSTBUSTER'],
+    respuestas: ['CAZAFANTASMAS', 'GHOSTBUSTERS'],
     pistas: [
       'Un resumen: Cuatro científicos desempleados montan un negocio de eliminación de residuos sin licencia ambiental en Nueva York.',
       'Un dato: Comedia de 1984 dirigida por Ivan Reitman. El vehículo utilizado es un Cadillac Miller-Meteor de 1959.',
@@ -347,7 +347,7 @@ const PELICULAS = [
     titulo:    'Frozen (2013)',
     audio:     '../media/Frozen.mp3',
     slotId:    'slot-1',
-    respuestas: ['FROZEN','FRONZEN','FRONZE','FROZE'],
+    respuestas: ['FROZEN'],
     pistas: [
       'Un resumen: Dos hermanas convierten problemas emocionales en un desastre climático a gran escala.',
       'Un dato: Ganó 2 premios Óscar en 2014 (Película de Animación y Canción Original). Es la película que rompió el tópico del "príncipe azul" salvador.',
@@ -360,7 +360,7 @@ const PELICULAS = [
     titulo:    'Dirty Dancing (1987)',
     audio:     '../media/Dirty_Dancing.mp3',
     slotId:    'slot-2',
-    respuestas: ['DIRTY DANCING','DIRTI DANCING','DIRTY DANCIN'],
+    respuestas: ['DIRTY DANCING'],
     pistas: [
       'Un resumen: Una adolescente de clase alta financia el aborto clandestino de una empleada para terminar frotándose contra un instructor de baile que le dobla la edad en un campamento de verano.',
       'Un dato: Estrenada en 1987, fue la primera película en vender más de un millón de copias en vídeo doméstico. Su coreógrafo fue Kenny Ortega.',
@@ -386,7 +386,7 @@ const PELICULAS = [
     titulo:    'La Misión (1986)',
     audio:     '../media/La_Mision.mp3',
     slotId:    'slot-4',
-    respuestas: ['LA MISION','MISION','THE MISSION','MISSION'],
+    respuestas: ['MISION','THE MISSION','MISSION'],
     pistas: [
       'Un resumen: Unos hombres intentan hacer el bien en un sistema diseñado para lo contrario.',
       'Un dato: Palma de Oro en Cannes (1986). Su banda sonora, de Ennio Morricone, es considerada una de las mejores de la historia pese a no ganar el Óscar.',
@@ -399,10 +399,26 @@ const PELICULAS = [
 
 // ── Normalización ─────────────────────────────────────────
 function normalizar(s) {
-  return s.trim().toUpperCase()
+  const ARTICULOS = /\b(de|del|el|la|los|las|un|una|unos|unas|al|en|y|e|o|u|a)\b/gi;
+  return s.trim()
     .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-    .replace(/\u00D1/g, 'N')
-    .replace(/[^A-Z0-9 ]/g, '');
+    .replace(/[^\w\s]/g, '')
+    .replace(ARTICULOS, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .toUpperCase();
+}
+
+function levenshtein(a, b) {
+  const dp = Array.from({length: a.length + 1}, (_, i) =>
+    Array.from({length: b.length + 1}, (_, j) => i === 0 ? j : j === 0 ? i : 0)
+  );
+  for (let i = 1; i <= a.length; i++)
+    for (let j = 1; j <= b.length; j++)
+      dp[i][j] = a[i-1] === b[j-1]
+        ? dp[i-1][j-1]
+        : 1 + Math.min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1]);
+  return dp[a.length][b.length];
 }
 
 // ── Estado del reto ───────────────────────────────────────
@@ -530,7 +546,11 @@ document.addEventListener('keydown', e => {
 // ── Validación ───────────────────────────────────────────
 function validar() {
   const val = normalizar(codigoInput.value);
-  if (PELICULAS[peliculaActual].respuestas.includes(val)) {
+  const ok = PELICULAS[peliculaActual].respuestas.some(r => {
+    const nr = normalizar(r);
+    return val === nr || levenshtein(val, nr) <= 1;
+  });
+  if (ok) {
     codigoInput.classList.remove('error');
     codigoInput.classList.add('ok');
     // Revelar imagen del slot
