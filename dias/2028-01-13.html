@@ -49,17 +49,17 @@
     .popup-btn:hover{background:rgba(201,168,76,.1);border-color:var(--gold);}
 
     /* ── Adivina el slogan ─────────────────────────────────── */
-    .quiz-progress{display:flex;align-items:center;gap:.7rem;}
+    .quiz-progress{width:560px;max-width:calc(100vw - 4rem);flex-shrink:0;display:flex;align-items:center;justify-content:center;gap:.7rem;}
     .quiz-progress-label{font-size:.72rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(201,168,76,.5);}
     .quiz-dots{display:flex;gap:.4rem;}
     .quiz-dot{width:14px;height:14px;border-radius:50%;background:rgba(255,255,255,.06);border:1px solid rgba(201,168,76,.25);transition:all .35s;}
     .quiz-dot.filled{background:radial-gradient(circle at 35% 30%,var(--gold-light),var(--gold) 60%,var(--gold-dark));border-color:var(--gold-light);box-shadow:0 0 8px rgba(201,168,76,.6);}
-    .slogan-card{position:relative;width:100%;max-width:560px;padding:1.8rem 2.2rem;border:1px solid rgba(201,168,76,.22);border-radius:6px;background:linear-gradient(135deg,rgba(201,168,76,.06),rgba(255,255,255,.015));text-align:center;}
+    .slogan-card{position:relative;width:560px;max-width:calc(100vw - 4rem);flex-shrink:0;padding:1.8rem 2.2rem;border:1px solid rgba(201,168,76,.22);border-radius:6px;background:linear-gradient(135deg,rgba(201,168,76,.06),rgba(255,255,255,.015));text-align:center;}
     .quote-mark{font-family:'Playfair Display',serif;font-size:2.4rem;color:rgba(201,168,76,.35);line-height:0;position:absolute;}
     .quote-open{top:1.6rem;left:.9rem;}
     .quote-close{bottom:.4rem;right:.9rem;}
     .slogan-text{font-family:'Playfair Display',serif;font-size:clamp(1.15rem,2.4vw,1.5rem);font-style:italic;font-weight:700;color:var(--gold-light);line-height:1.5;padding:0 1.2rem;min-height:2.4em;display:flex;align-items:center;justify-content:center;transition:opacity .3s;}
-    .options-grid{width:100%;max-width:560px;display:grid;grid-template-columns:1fr 1fr;gap:.9rem;}
+    .options-grid{width:560px;max-width:calc(100vw - 4rem);flex-shrink:0;display:grid;grid-template-columns:1fr 1fr;gap:.9rem;}
     .option-btn{display:flex;align-items:center;gap:.7rem;padding:.85rem 1.1rem;background:rgba(255,255,255,.03);border:1px solid rgba(201,168,76,.22);border-radius:4px;color:var(--cream);font-family:'Cormorant Garamond',serif;font-size:1.05rem;cursor:pointer;transition:all .2s;text-align:left;}
     .option-btn:hover:not(:disabled){background:rgba(201,168,76,.1);border-color:var(--gold);transform:translateY(-1px);}
     .option-btn:disabled{cursor:default;}
@@ -69,7 +69,7 @@
     .option-btn.correct .option-letter{border-color:#4CAF50;color:#8ee592;}
     .option-btn.wrong{background:rgba(224,90,106,.16);border-color:#e05a6a;}
     .option-btn.wrong .option-letter{border-color:#e05a6a;color:#ff9aa5;}
-    .quiz-feedback{min-height:2.4em;text-align:center;font-size:1rem;font-style:italic;line-height:1.6;color:rgba(250,246,238,.55);transition:opacity .25s;}
+    .quiz-feedback{width:560px;max-width:calc(100vw - 4rem);flex-shrink:0;min-height:2.4em;text-align:center;font-size:1rem;font-style:italic;line-height:1.6;color:rgba(250,246,238,.55);transition:opacity .25s;}
     .quiz-feedback.ok{color:#8ee592;font-weight:600;font-style:normal;}
     .quiz-feedback.err{color:#ff9aa5;font-weight:600;font-style:normal;}
     .quiz-feedback.info{color:rgba(201,168,76,.75);}
@@ -86,8 +86,10 @@
       .content-area{padding:1.4rem 1rem;min-height:120px;}
       .day-nav{margin-top:1rem;padding-top:1rem;}
       .ornament-line-h{margin-bottom:1rem;}
-      .options-grid{grid-template-columns:1fr;}
-      .slogan-card{padding:1.5rem 1.4rem;}
+      .options-grid{grid-template-columns:1fr;max-width:calc(100vw - 2rem);}
+      .slogan-card{padding:1.5rem 1.4rem;max-width:calc(100vw - 2rem);}
+      .quiz-progress{max-width:calc(100vw - 2rem);}
+      .quiz-feedback{max-width:calc(100vw - 2rem);}
       .quote-open{left:.4rem;top:1.2rem;}
       .quote-close{right:.4rem;}
     }
@@ -315,45 +317,45 @@ const ADS = [
   { "frase": "Tenemos una carta para ti.", "opciones": ["Correos","Seur","MRW","DHL"], "respuesta": "Correos", "info": "Tenemos una carta para ti. Correos (2000)", "dificultad": "Alta" },
   { "frase": "El cuerpo te pide Salsa.", "opciones": ["Doritos","Lay's","Pringles","Ruffles"], "respuesta": "Doritos", "info": "El cuerpo te pide Salsa. Doritos (1996)", "dificultad": "Alta" },
   { "frase": "Vuelve a casa vuelve, por Navidad.", "opciones": ["El Almendro","Suchard","1880","La Estepeña"], "respuesta": "El Almendro", "info": "Vuelve a casa vuelve, por Navidad. El Almendro (1991)", "dificultad": "Alta" },
-  { "frase": "Del ..., me fío.", "opciones": ["El Caserío","La Vaca que ríe","Babybel","Kiri"], "respuesta": "El Caserío", "info": "Del ..., me fío. El Caserío (1984)", "dificultad": "Media" },
+  { "frase": "Del ..., me fío.", "opciones": ["El Caserío","La Vaca que ríe","Babybel","Kiri"], "respuesta": "El Caserío", "info": "Del Caserío, me fío. El Caserío (1984)", "dificultad": "Media" },
   { "frase": "Mediterráneamente.", "opciones": ["Estrella Damm","San Miguel","Mahou","Cruzcampo"], "respuesta": "Estrella Damm", "info": "Mediterráneamente. Estrella Damm (2005)", "dificultad": "Alta" },
   { "frase": "¡Hola, soy tu menstruación!", "opciones": ["Evax","Ausonia","Tampax","Carefree"], "respuesta": "Evax", "info": "¡Hola, soy tu menstruación! Evax (1995)", "dificultad": "Baja" },
   { "frase": "¿A qué huelen las nubes?", "opciones": ["Evax","Ausonia","Carefree","Tampax"], "respuesta": "Evax", "info": "¿A qué huelen las nubes? Evax (2006)", "dificultad": "Media" },
-  { "frase": "Pipas ..., contemplando el mundo.", "opciones": ["Facundo","Grefusa","Churruca","Piponazo"], "respuesta": "Facundo", "info": "Pipas ..., contemplando el mundo. Facundo (2000)", "dificultad": "Alta" },
-  { "frase": "Las muñecas de ... se dirigen al portal.", "opciones": ["Famosa","Mattel","Hasbro","Feber"], "respuesta": "Famosa", "info": "Las muñecas de ... se dirigen al portal. Famosa (1972)", "dificultad": "Media" },
+  { "frase": "Pipas ..., contemplando el mundo.", "opciones": ["Facundo","Grefusa","Churruca","Piponazo"], "respuesta": "Facundo", "info": "Pipas Facundo, contemplando el mundo. Facundo (2000)", "dificultad": "Alta" },
+  { "frase": "Las muñecas de ... se dirigen al portal.", "opciones": ["Famosa","Mattel","Hasbro","Feber"], "respuesta": "Famosa", "info": "Las muñecas de Famosa se dirigen al portal. Famosa (1972)", "dificultad": "Media" },
   { "frase": "Tenemos una chica nueva en la oficina.", "opciones": ["Farala","Chilly","Evax","Don Algodón"], "respuesta": "Farala", "info": "Tenemos una chica nueva en la oficina. Farala (1995)", "dificultad": "Media" },
   { "frase": "¿Quién puede resistirse?", "opciones": ["Ferrero Rocher","Lindt","Suchard","Nestlé"], "respuesta": "Ferrero Rocher", "info": "¿Quién puede resistirse? Ferrero Rocher (1990)", "dificultad": "Baja" },
-  { "frase": "Hoy me siento...", "opciones": ["Flex","Pikolin","Tempur","Lo Monaco"], "respuesta": "Flex", "info": "Hoy me siento... Flex (1986)", "dificultad": "Media" },
+  { "frase": "Hoy me siento...", "opciones": ["Flex","Pikolin","Tempur","Lo Monaco"], "respuesta": "Flex", "info": "Hoy me siento... Flex. Flex (1986)", "dificultad": "Media" },
   { "frase": "El auténtico sabor mediterráneo.", "opciones": ["Font Vella","Lanjarón","Bezoya","Solán de Cabras"], "respuesta": "Font Vella", "info": "El auténtico sabor mediterráneo. Font Vella (1999)", "dificultad": "Baja" },
   { "frase": "Curro se va al Caribe.", "opciones": ["Halcón Viajes","Viajes El Corte Inglés","Viajes Ecuador","B travel"], "respuesta": "Halcón Viajes", "info": "Curro se va al Caribe. Halcón Viajes (1994)", "dificultad": "Media" },
   { "frase": "Bienvenido a la República Independiente de tu Casa.", "opciones": ["IKEA","Conforama","Leroy Merlin","JYSK"], "respuesta": "IKEA", "info": "Bienvenido a la República Independiente de tu Casa. IKEA (2003)", "dificultad": "Baja" },
   { "frase": "¿Qué hace un chico como tú en un sitio como este?", "opciones": ["KAS","Fanta","Mirinda","Schweppes"], "respuesta": "KAS", "info": "¿Qué hace un chico como tú en un sitio como este? KAS (1991)", "dificultad": "Alta" },
   { "frase": "El único que es único.", "opciones": ["Kellogg's Corn Flakes","Chocapic","Nesquik","Smacks"], "respuesta": "Kellogg's Corn Flakes", "info": "El único que es único. Kellogg's Corn Flakes (2004)", "dificultad": "Media" },
   { "frase": "El milagro anti-grasa.", "opciones": ["KH-7","Don Limpio","Tenn","Cillit Bang"], "respuesta": "KH-7", "info": "El milagro anti-grasa. KH-7 (1988)", "dificultad": "Alta" },
-  { "frase": "Si no hay ..., nos vamos.", "opciones": ["La Casera","Fanta","Schweppes","Kas"], "respuesta": "La Casera", "info": "Si no hay ..., nos vamos. La Casera (1993)", "dificultad": "Media" },
+  { "frase": "Si no hay ..., nos vamos.", "opciones": ["La Casera","Fanta","Schweppes","Kas"], "respuesta": "La Casera", "info": "Si no hay Casera, nos vamos. La Casera (1993)", "dificultad": "Media" },
   { "frase": "Porque yo lo valgo.", "opciones": ["L'Oréal","Garnier","Pantene","Schwarzkopf"], "respuesta": "L'Oréal", "info": "Porque yo lo valgo. L'Oréal (1989)", "dificultad": "Baja" },
-  { "frase": "Hay cosas que el dinero no puede comprar. Para todo lo demás...", "opciones": ["Mastercard","Visa","American Express","Maestro"], "respuesta": "Mastercard", "info": "Hay cosas que el dinero no puede comprar. Para todo lo demás... Mastercard (1997)", "dificultad": "Baja" },
+  { "frase": "Hay cosas que el dinero no puede comprar. Para todo lo demás...", "opciones": ["Mastercard","Visa","American Express","Maestro"], "respuesta": "Mastercard", "info": "Hay cosas que el dinero no puede comprar. Para todo lo demás, Mastercard. Mastercard (1997)", "dificultad": "Baja" },
   { "frase": "Yo no soy tonto.", "opciones": ["MediaMarkt","PC Componentes","Worten","Fnac"], "respuesta": "MediaMarkt", "info": "Yo no soy tonto. MediaMarkt (1999)", "dificultad": "Baja" },
   { "frase": "Porque el roce hace el cariño.", "opciones": ["Mimosín","Flor","Vernel","Lenor"], "respuesta": "Mimosín", "info": "Porque el roce hace el cariño. Mimosín (1986)", "dificultad": "Baja" },
   { "frase": "Just Do It.", "opciones": ["Nike","Adidas","Puma","Reebok"], "respuesta": "Nike", "info": "Just Do It. Nike (1988)", "dificultad": "Baja" },
-  { "frase": "Leche, cacao, avellanas y azúcar... ¡...!", "opciones": ["Nocilla","Nutella","ColaCao","Nesquik"], "respuesta": "Nocilla", "info": "Leche, cacao, avellanas y azúcar... ¡...! Nocilla (1980)", "dificultad": "Baja" },
+  { "frase": "Leche, cacao, avellanas y azúcar... ¡...!", "opciones": ["Nocilla","Nutella","ColaCao","Nesquik"], "respuesta": "Nocilla", "info": "Leche, cacao, avellanas y azúcar... ¡Nocilla! Nocilla (1980)", "dificultad": "Baja" },
   { "frase": "Connecting People.", "opciones": ["Nokia","Motorola","Ericsson","Siemens"], "respuesta": "Nokia", "info": "Connecting People. Nokia (1992)", "dificultad": "Media" },
   { "frase": "Suavidad que se nota.", "opciones": ["Norit","Perlán","Mimosín","Flor"], "respuesta": "Norit", "info": "Suavidad que se nota. Norit (1987)", "dificultad": "Media" },
   { "frase": "¿Dónde está la pasta?", "opciones": ["Pastas Gallo","Pastas El Pavo","Barilla","Buitoni"], "respuesta": "Pastas Gallo", "info": "¿Dónde está la pasta? Pastas Gallo (1992)", "dificultad": "Alta" },
-  { "frase": "¿Es nuevo? No, lavado con...", "opciones": ["Perlan","Norit","Woolite","Mimosín"], "respuesta": "Perlan", "info": "¿Es nuevo? No, lavado con... Perlan (1991)", "dificultad": "Baja" },
+  { "frase": "¿Es nuevo? No, lavado con...", "opciones": ["Perlan","Norit","Woolite","Mimosín"], "respuesta": "Perlan", "info": "¿Es nuevo? No, lavado con Perlan. Perlan (1991)", "dificultad": "Baja" },
   { "frase": "A mí me daban dos.", "opciones": ["Petit Suisse","Danonino","Actimel","Natillas Danone"], "respuesta": "Petit Suisse", "info": "A mí me daban dos. Petit Suisse (1983)", "dificultad": "Media" },
-  { "frase": "A mí plin, yo duermo en...", "opciones": ["Pikolin","Flex","LoMonaco","Emma"], "respuesta": "Pikolin", "info": "A mí plin, yo duermo en... Pikolin (1990)", "dificultad": "Media" },
+  { "frase": "A mí plin, yo duermo en...", "opciones": ["Pikolin","Flex","LoMonaco","Emma"], "respuesta": "Pikolin", "info": "A mí plin, yo duermo en Pikolin. Pikolin (1990)", "dificultad": "Media" },
   { "frase": "La potencia sin control no sirve de nada.", "opciones": ["Pirelli","Michelin","Bridgestone","Goodyear"], "respuesta": "Pirelli", "info": "La potencia sin control no sirve de nada. Pirelli (1996)", "dificultad": "Baja" },
   { "frase": "¡Por mí y por todos mis compañeros!", "opciones": ["Plátano de Canarias","Leche Pascual","Danone","Font Vella"], "respuesta": "Plátano de Canarias", "info": "¡Por mí y por todos mis compañeros! Plátano de Canarias (2004)", "dificultad": "Alta" },
-  { "frase": "... te da aaalas.", "opciones": ["Red Bull","Monster Energy","Burn","Rockstar"], "respuesta": "Red Bull", "info": "... te da aaalas. Red Bull (2001)", "dificultad": "Baja" },
+  { "frase": "... te da aaalas.", "opciones": ["Red Bull","Monster Energy","Burn","Rockstar"], "respuesta": "Red Bull", "info": "Red Bull te da aaalas. Red Bull (2001)", "dificultad": "Baja" },
   { "frase": "JASP: Jóvenes Aunque Sobradamente Preparados.", "opciones": ["Renault Clio","Seat Ibiza","Peugeot 206","Opel Corsa"], "respuesta": "Renault Clio", "info": "JASP: Jóvenes Aunque Sobradamente Preparados. Renault Clio (2001)", "dificultad": "Media" },
   { "frase": "Tú mueves el mundo.", "opciones": ["Repsol","Cepsa","Iberdrola","Endesa"], "respuesta": "Repsol", "info": "Tú mueves el mundo. Repsol (2008)", "dificultad": "Alta" },
-  { "frase": "... no te abandona.", "opciones": ["Rexona","Sanex","Axe","Dove"], "respuesta": "Rexona", "info": "... no te abandona. Rexona (2000)", "dificultad": "Baja" },
+  { "frase": "... no te abandona.", "opciones": ["Rexona","Sanex","Axe","Dove"], "respuesta": "Rexona", "info": "Rexona no te abandona. Rexona (2000)", "dificultad": "Baja" },
   { "frase": "Aceptamos barco como animal acuático.", "opciones": ["Scattergories","Trivial Pursuit","Monopoly","Pictionary"], "respuesta": "Scattergories", "info": "Aceptamos barco como animal acuático. Scattergories (1992)", "dificultad": "Media" },
   { "frase": "El secreto está en la masa.", "opciones": ["Telepizza","Pizza Hut","Domino's Pizza","Papa John's"], "respuesta": "Telepizza", "info": "El secreto está en la masa. Telepizza (1994)", "dificultad": "Baja" },
   { "frase": "El algodón no engaña.", "opciones": ["Tenn","Don Limpio","Pronto","KH-7"], "respuesta": "Tenn", "info": "El algodón no engaña. Tenn (1984)", "dificultad": "Baja" },
   { "frase": "El frotar se va a acabar.", "opciones": ["Wipp Express","Ariel","Elena","Skip"], "respuesta": "Wipp Express", "info": "El frotar se va a acabar. Wipp Express (1982)", "dificultad": "Alta" },
-  { "frase": "Hola, soy el primo de ...", "opciones": ["Zumosol","Don Simón","Granini","Pascual"], "respuesta": "Zumosol", "info": "Hola, soy el primo de ... Zumosol (1998)", "dificultad": "Baja" }
+  { "frase": "Hola, soy el primo de ...", "opciones": ["Zumosol","Don Simón","Granini","Pascual"], "respuesta": "Zumosol", "info": "Hola, soy el primo de Zumosol. Zumosol (1998)", "dificultad": "Baja" }
 ];
 
 const POINTS_TO_WIN = 5;
