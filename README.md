@@ -177,6 +177,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-02-24 | Adivina quién soy | DIONISIO | David_20220805.png | David | PDTE |
 | 2028-02-26 | Escape Room: 01-El archivo secreto | ENIGMA | ER01_EscenarioVisual.jpg + ER01_EscenarioClickmap.jpg | N/A | PDTE |
 | 2028-02-28 | Sigue la letra | Llamando a la Tierra (M-Clan) | Llamando_a_la_Tierra.mp3 | N/A | PDTE |
+| 2028-02-29 | Adivina el slogan | 58 anuncios míticos, hasta 5 aciertos | N/A | N/A | PDTE |
 | 2028-03-03 | Adivina las películas | Amelie, El Guardaespaldas, Ghost, Oppenheimer, Sherlock Holmes | Amelie, El_Guardaespaldas, Ghost, Oppenheimer, Sherlock_Holmes (mp3 y jpg) | N/A | PDTE |
 | 2028-03-04 | Minijuego (Simón Dice) | N/A | N/A | N/A | PDTE |
 | 2028-03-06 | Adivina el logo correcto | 10 logos icónicos | Logos.png | N/A | PDTE |
@@ -194,8 +195,10 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-03-26 | Palabras Intraducibles - Brasileño | CAFUNE | NievesAri_20210817.png | Nieves y Ariadna | PDTE |
 | 2028-03-27 | Adivina la serie | 7 Vidas, Aída, Los Simpson, Shin Chan | 7_vidas.jpg/.mp3, aida.jpg/.mp3, simpson.jpg/.mp3, shin_chan.jpg/.mp3 | N/A | PDTE |
 | 2028-03-28 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
+| 2028-03-29 | Adivina el slogan | 58 anuncios míticos, hasta 5 aciertos | N/A | N/A | PDTE |
 | 2028-04-02 | Agudeza visual — Jeroglífico | USO LA MENTE | Ari_20150512.jpg | Ariadna | PDTE |
 | 2028-04-03 | Adivina la serie | Anatomía de Grey, Caballeros del Zodiaco, Dragon Ball, Urgencias | anatomia_grey.jpg/.mp3, caballeros_zodiaco.jpg/.mp3, dragon_ball.jpg/.mp3, urgencias.jpg/.mp3 | N/A | PDTE |
+| 2028-04-05 | Adivina el slogan | 58 anuncios míticos, hasta 5 aciertos | N/A | N/A | PDTE |
 | 2028-04-06 | ¿Qué foto es más antigua? | 10 momentos vividos | PDTE | PDTE | PDTE |
 | 2028-04-08 | Minijuego (El Lobo, la Cabra y la Col) | N/A | N/A | N/A | PDTE |
 | 2028-04-10 | Primeras frases de novelas | 6 novelas famosas | orgullo_prejuicio.jpg, cronica_muerte_anunciada.jpg, rebelion_granja.jpg, ruido_furia.jpg, dracula.jpg, coronel_no_escriba.jpg | N/A | PDTE |
@@ -229,6 +232,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-05-26 | Adivina las películas | Fiebre del Sábado Noche, Jurassic Park, Coco, Gladiator, Pulp Fiction | Fiebre_del_Sabado_Noche, Jurassic_Park, Coco, Gladiator, Pulp_Fiction (mp3 y jpg) | N/A | PDTE |
 | 2028-05-29 | Adivina el logo correcto | 10 logos icónicos | Logos.png | N/A | PDTE |
 | 2028-05-30 | ¿Qué foto es más antigua? | 10 momentos vividos | PDTE | PDTE | PDTE |
+| 2028-05-31 | Adivina el slogan | 58 anuncios míticos, hasta 5 aciertos | N/A | N/A | PDTE |
 | 2028-06-01 | Puzzle visual | ACHI | Puzzle01_01.png .. Puzzle01_05.png | N/A | PDTE |
 | 2028-06-03 | Minijuego (La Balanza Falsa) | N/A | N/A | N/A | PDTE |
 | 2028-06-05 | Primeras frases de novelas | 6 novelas famosas | cien_anos_soledad.jpg, extranjero.jpg, hobbit.jpg, crimen_castigo.jpg, hombre_invisible.jpg, tropico_cancer.jpg | N/A | PDTE |
@@ -246,6 +250,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-06-20 | ¿Qué foto es más antigua? | 10 momentos vividos | PDTE | PDTE | PDTE |
 | 2028-06-26 | Timeline: películas de cine | metropolis, lo_que_viento_llevo, ciudadano_kane, siete_samurais, psicosis, 2001_odisea_espacio, padrino, star_wars_iv | metropolis.jpg, lo_que_viento_llevo.jpg, ciudadano_kane.jpg, siete_samurais.jpg, psicosis.jpg, 2001_odisea_espacio.jpg, padrino.jpg, star_wars_iv.jpg | N/A | PDTE |
 | 2028-06-27 | Adivina el cuadro | HIJO HOMBRE / MATRIMONIO ARNOLFINI / AUTORRETRATO CON SOMBRERO FIELTRO GRIS | hijo_del_hombre_hd.jpg, matrimonio_arnolfini_hd.jpg, autorretrato_sombrero_gris_hd.jpg | N/A | PDTE |
+| 2028-06-28 | Adivina el slogan | 58 anuncios míticos, hasta 5 aciertos | N/A | N/A | PDTE |
 | 2028-07-03 | Puzzle visual | ACHI | Puzzle01_01.png .. Puzzle01_05.png | N/A | PDTE |
 | 2028-07-04 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
 | 2028-07-05 | Acertijos y adivinanzas - Raro, raro | CAMISA | Ari_20140523.png | Ariadna | PDTE |
@@ -253,6 +258,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-07-10 | Adivina el logo correcto | 10 logos icónicos | Logos.png | N/A | PDTE |
 | 2028-07-11 | Timeline histórico doble | A:01-06 / B:01-06 | Timeline02_01A..06A.png + Timeline02_01B..06B.png | N/A | PDTE |
 | 2028-07-12 | Adivina quién soy | POE | David_20231209.png | David | PDTE |
+| 2028-07-13 | Adivina el slogan | 58 anuncios míticos, hasta 5 aciertos | N/A | N/A | PDTE |
 | 2028-07-16 | Agudeza visual — Elementos químicos | BRUSELAS | Alex_20231027.png | Alex | PDTE |
 | 2028-07-17 | ¿Qué foto es más antigua? | 10 momentos vividos | PDTE | PDTE | PDTE |
 | 2028-07-18 | Cultura: iniciales de famosos | HAWAII | Lugar09_01.jpg .. Lugar09_06.jpg | Ajenos | PDTE |
@@ -269,6 +275,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-08-02 | Puzzle visual | ACHI | Puzzle01_01.png .. Puzzle01_05.png | N/A | PDTE |
 | 2028-08-05 | Satisfacción con restricciones múltiples: Noche de películas | Enric: misterio+helado / Nieves: comedia+pizza / Ariadna: aventuras+nachos / Alex: animación+palomitas | RSR08_Escenario.webp + RSR08_01A..01D.png + RSR08_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
 | 2028-08-07 | Primeras frases de novelas | 6 novelas famosas | ana_karenina.jpg, guardian_entre_centeno.jpg, metamorfosis.jpg, rayuela.jpg, peter_pan.jpg, idiota.jpg | N/A | PDTE |
+| 2028-08-08 | Adivina el slogan | 58 anuncios míticos, hasta 5 aciertos | N/A | N/A | PDTE |
 | 2028-08-11 | Adivina las películas | La Bella y la Bestia, Solo en Casa, Halloween, Top Gun, El Caballero Oscuro | La_Bella_y_la_Bestia, Solo_en_Casa, Halloween, Top_Gun, El_Caballero_Oscuro (mp3 y jpg) | N/A | PDTE |
 | 2028-08-14 | Adivina la serie | Doraemon, Els Barrufets, Los Problemas Crecen, Médico de Familia | doraemon.jpg/.mp3, els_barrufets.jpg/.mp3, problemas_crecen.jpg/.mp3, medico_familia.jpg/.mp3 | N/A | PDTE |
 | 2028-08-17 | Adivina quién soy | NAPOLEON | Juan_20190813.png | Juan | PDTE |
@@ -297,6 +304,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-09-25 | Rosco de pasapalabra | N/A | N/A | N/A | PDTE |
 | 2028-09-26 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
 | 2028-09-28 | Timeline: óperas famosas | 8 óperas famosas | aida.jpg, carmen.jpg, parsifal.jpg, dama_picas.jpg, la_boheme.jpg, tosca.jpg, madama_butterfly.jpg, caballero_rosa.jpg | N/A | PDTE |
+| 2028-09-29 | Adivina el slogan | 58 anuncios míticos, hasta 5 aciertos | N/A | N/A | PDTE |
 | 2028-10-02 | Puzzle visual | ACHI | Puzzle01_01.png .. Puzzle01_05.png | N/A | PDTE |
 | 2028-10-03 | Cultura: iniciales de famosos | CRETA | Lugar11_01.jpg .. Lugar11_05.jpg | Ajenos | PDTE |
 | 2028-10-05 | Adivina la serie | Chicho Terremoto, Juana y Sergio, El Príncipe de Bel-Air, Sexo en Nueva York | chicho_terremoto.jpg/.mp3, juana_sergio.jpg/.mp3, principe_bel_air.jpg/.mp3, sexo_nueva_york.jpg/.mp3 | N/A | PDTE |
@@ -312,6 +320,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-10-22 | Palabras Intraducibles - Griego | MERAKI | Cumple_20170211.jpg | Nieves, Ariadna y Alex | PDTE |
 | 2028-10-23 | Rosco de pasapalabra | N/A | N/A | N/A | PDTE |
 | 2028-10-24 | Adivina quién soy | GOYA | Enric_20110101.png | Enric | PDTE |
+| 2028-10-25 | Adivina el slogan | 58 anuncios míticos, hasta 5 aciertos | N/A | N/A | PDTE |
 | 2028-10-26 | Acertijos y adivinanzas - Espías lógicos | SIETE | Enric_20150314.png | Enric | PDTE |
 | 2028-10-28 | Minijuego (Reparto de Combustible) | N/A | N/A | N/A | PDTE |
 | 2028-10-30 | Adivina el cuadro | HABITACION ARLES, MAJA VESTIDA, RETRATO ADELE BLOCHBAUER I | habitacion_arles_hd.jpg, maja_vestida_hd.jpg, retrato_adele_bloch_hd.jpg| N/A | PDTE |
@@ -323,6 +332,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-11-10 | Adivina las películas | Armageddon, Fama, Los Increíbles, La historia interminable, Los Goonies | Armageddon, Fama, Los_Increibles, La_historia_interminable, Los_Goonies (mp3 y jpg) | N/A | PDTE |
 | 2028-11-13 | Sigue la letra | Voy a pasármelo bien (Hombres G) | Voy_a_pasarmelo_bien.mp3 | N/A | PDTE |
 | 2028-11-14 | Adivina quién soy | ELEVEN | Ari_20220701.png | Ariadna | PDTE |
+| 2028-11-15 | Adivina el slogan | 58 anuncios míticos, hasta 5 aciertos | N/A | N/A | PDTE |
 | 2028-11-18 | Minijuego (El Triángulo Girado) | N/A | N/A | N/A | PDTE |
 | 2028-11-19 | Palabras Intraducibles - Yiddish | NAKHES | Alex_20250622.jpg | Alexandra | PDTE |
 | 2028-11-20 | Rosco de pasapalabra | N/A | N/A | N/A | PDTE |
@@ -340,6 +350,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-12-11 | Sigue la letra | Cuéntame un cuento (Celtas Cortos) | Cuentame_un_cuento.mp3 | N/A | PDTE |
 | 2028-12-12 | ¿Qué foto es más antigua? | 10 momentos vividos | PDTE | PDTE | PDTE |
 | 2028-12-13 | Adivina quién soy | DARTH VADER | Enric_20130227.png | Enric | PDTE |
+| 2028-12-14 | Adivina el slogan | 58 anuncios míticos, hasta 5 aciertos | N/A | N/A | PDTE |
 | 2028-12-15 | Adivina las películas | Sister Act, Beetlejuice, Reservoir Dogs, El resplandor, Jumanji | Sister_Act, Beetlejuice, Reservoir_Dogs, El_resplandor, Jumanji (mp3 y jpg) | N/A | PDTE |
 | 2028-12-18 | Rosco de pasapalabra | N/A | N/A | N/A | PDTE |
 | 2028-12-19 | Cultura: iniciales de famosos, especial deporte | ONTARIO | Lugar05_01.jpg .. Lugar05_07.jpg | Ajenos | PDTE |
