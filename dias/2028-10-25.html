@@ -20,7 +20,7 @@
     .day-of-week{font-size:.85rem;letter-spacing:.4em;text-transform:uppercase;color:rgba(201,168,76,.5);margin-bottom:1rem;}
     h1{font-family:'Playfair Display',serif;font-size:clamp(3rem,9vw,7rem);font-weight:900;line-height:1;background:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 50%,var(--gold-dark) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.5rem;}
     .month-label{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3.5vw,2.4rem);font-weight:400;font-style:italic;color:rgba(250,246,238,.45);margin-bottom:2.5rem;}
-    .content-area{width:100%;border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:2.5rem;min-height:220px;background:rgba(255,255,255,.02);color:rgba(250,246,238,.4);font-size:1rem;font-style:italic;text-align:center;display:flex;align-items:center;justify-content:center;}
+    .content-area{width:100%;border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:2rem 1.8rem;min-height:220px;background:rgba(255,255,255,.02);display:flex;flex-direction:column;align-items:center;gap:1.4rem;}
     .day-nav{display:flex;justify-content:space-between;align-items:center;padding-top:2.5rem;border-top:1px solid rgba(201,168,76,.1);margin-top:2.5rem;}
     .nav-btn{font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(201,168,76,.5);text-decoration:none;padding:.6rem 1.2rem;border:1px solid rgba(201,168,76,.18);border-radius:2px;transition:all .2s;}
     .nav-btn:hover{color:var(--gold-light);border-color:rgba(201,168,76,.5);background:rgba(201,168,76,.05);}
@@ -47,14 +47,51 @@
     .popup-msg{font-size:1rem;font-style:italic;color:rgba(250,246,238,.6);line-height:1.7;margin-bottom:2rem;}
     .popup-btn{display:inline-block;padding:.7rem 2rem;border:1px solid rgba(201,168,76,.4);border-radius:2px;color:var(--gold);font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;background:none;transition:all .2s;}
     .popup-btn:hover{background:rgba(201,168,76,.1);border-color:var(--gold);}
+
+    /* ── Adivina el slogan ─────────────────────────────────── */
+    .quiz-progress{width:560px;max-width:calc(100vw - 4rem);flex-shrink:0;display:flex;align-items:center;justify-content:center;gap:.7rem;}
+    .quiz-progress-label{font-size:.72rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(201,168,76,.5);}
+    .quiz-dots{display:flex;gap:.4rem;}
+    .quiz-dot{width:14px;height:14px;border-radius:50%;background:rgba(255,255,255,.06);border:1px solid rgba(201,168,76,.25);transition:all .35s;}
+    .quiz-dot.filled{background:radial-gradient(circle at 35% 30%,var(--gold-light),var(--gold) 60%,var(--gold-dark));border-color:var(--gold-light);box-shadow:0 0 8px rgba(201,168,76,.6);}
+    .slogan-card{position:relative;width:560px;max-width:calc(100vw - 4rem);flex-shrink:0;padding:1.8rem 2.2rem;border:1px solid rgba(201,168,76,.22);border-radius:6px;background:linear-gradient(135deg,rgba(201,168,76,.06),rgba(255,255,255,.015));text-align:center;}
+    .quote-mark{font-family:'Playfair Display',serif;font-size:2.4rem;color:rgba(201,168,76,.35);line-height:0;position:absolute;}
+    .quote-open{top:1.6rem;left:.9rem;}
+    .quote-close{bottom:.4rem;right:.9rem;}
+    .slogan-text{font-family:'Playfair Display',serif;font-size:clamp(1.15rem,2.4vw,1.5rem);font-style:italic;font-weight:700;color:var(--gold-light);line-height:1.5;padding:0 1.2rem;min-height:2.4em;display:flex;align-items:center;justify-content:center;transition:opacity .3s;}
+    .options-grid{width:560px;max-width:calc(100vw - 4rem);flex-shrink:0;display:grid;grid-template-columns:1fr 1fr;gap:.9rem;}
+    .option-btn{display:flex;align-items:center;gap:.7rem;padding:.85rem 1.1rem;background:rgba(255,255,255,.03);border:1px solid rgba(201,168,76,.22);border-radius:4px;color:var(--cream);font-family:'Cormorant Garamond',serif;font-size:1.05rem;cursor:pointer;transition:all .2s;text-align:left;}
+    .option-btn:hover:not(:disabled){background:rgba(201,168,76,.1);border-color:var(--gold);transform:translateY(-1px);}
+    .option-btn:disabled{cursor:default;}
+    .option-letter{flex-shrink:0;width:1.9rem;height:1.9rem;border-radius:50%;border:1px solid rgba(201,168,76,.4);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:700;font-size:.9rem;color:var(--gold);}
+    .option-text{flex:1;line-height:1.3;}
+    .option-btn.correct{background:rgba(76,175,80,.16);border-color:#4CAF50;}
+    .option-btn.correct .option-letter{border-color:#4CAF50;color:#8ee592;}
+    .option-btn.wrong{background:rgba(224,90,106,.16);border-color:#e05a6a;}
+    .option-btn.wrong .option-letter{border-color:#e05a6a;color:#ff9aa5;}
+    .quiz-feedback{width:560px;max-width:calc(100vw - 4rem);flex-shrink:0;min-height:2.4em;text-align:center;font-size:1rem;font-style:italic;line-height:1.6;color:rgba(250,246,238,.55);transition:opacity .25s;}
+    .quiz-feedback.ok{color:#8ee592;font-weight:600;font-style:normal;}
+    .quiz-feedback.err{color:#ff9aa5;font-weight:600;font-style:normal;}
+    .quiz-feedback.info{color:rgba(201,168,76,.75);}
+    .quiz-complete{display:none;flex-direction:column;align-items:center;gap:.6rem;text-align:center;padding:1rem 0;}
+    .quiz-complete .popup-icon{margin-bottom:.2rem;}
+    .quiz-complete-title{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--gold-light);}
+    .quiz-complete-msg{font-size:1rem;font-style:italic;color:rgba(250,246,238,.6);line-height:1.6;max-width:420px;}
+
     @media(max-width:600px){
       .wrap{padding:1rem 1rem 2rem;}
       .day-hero{padding:1rem 0 1rem;}
       h1{font-size:clamp(2rem,14vw,4rem);}
       .month-label{font-size:clamp(1rem,4vw,1.6rem);margin-bottom:1rem;}
-      .content-area{padding:1.2rem;min-height:120px;}
+      .content-area{padding:1.4rem 1rem;min-height:120px;}
       .day-nav{margin-top:1rem;padding-top:1rem;}
       .ornament-line-h{margin-bottom:1rem;}
+      .options-grid{grid-template-columns:1fr;max-width:calc(100vw - 2rem);}
+      .slogan-card{padding:1.5rem 1.4rem;max-width:calc(100vw - 2rem);}
+      .quiz-progress{max-width:calc(100vw - 2rem);}
+      .quiz-feedback{max-width:calc(100vw - 2rem);}
+      .quote-open{left:.4rem;top:1.2rem;}
+      .quote-close{right:.4rem;}
     }
 </style>
 </head>
@@ -71,8 +108,39 @@
     <p class="day-of-week">Miércoles</p>
     <h1>25</h1>
     <p class="month-label">de Octubre</p>
+
     <div class="content-area">
-      <p>Espacio reservado para el contenido de este día</p>
+      <div class="quiz-progress">
+        <span class="quiz-progress-label">Aciertos</span>
+        <div class="quiz-dots" id="quiz-dots">
+          <div class="quiz-dot" id="qd-1"></div>
+          <div class="quiz-dot" id="qd-2"></div>
+          <div class="quiz-dot" id="qd-3"></div>
+          <div class="quiz-dot" id="qd-4"></div>
+          <div class="quiz-dot" id="qd-5"></div>
+        </div>
+      </div>
+
+      <div class="slogan-card" id="slogan-card">
+        <span class="quote-mark quote-open">&#8220;</span>
+        <p class="slogan-text" id="slogan-text"></p>
+        <span class="quote-mark quote-close">&#8221;</span>
+      </div>
+
+      <div class="options-grid" id="options-grid">
+        <button class="option-btn" id="opt-A" data-letter="A"><span class="option-letter">A</span><span class="option-text" id="opt-A-text"></span></button>
+        <button class="option-btn" id="opt-B" data-letter="B"><span class="option-letter">B</span><span class="option-text" id="opt-B-text"></span></button>
+        <button class="option-btn" id="opt-C" data-letter="C"><span class="option-letter">C</span><span class="option-text" id="opt-C-text"></span></button>
+        <button class="option-btn" id="opt-D" data-letter="D"><span class="option-letter">D</span><span class="option-text" id="opt-D-text"></span></button>
+      </div>
+
+      <p class="quiz-feedback" id="quiz-feedback">Elige la marca del anuncio, con el ratón, el dedo o tecleando A, B, C o D.</p>
+
+      <div class="quiz-complete" id="quiz-complete">
+        <div class="popup-icon">🏆</div>
+        <p class="quiz-complete-title">¡Enhorabuena!</p>
+        <p class="quiz-complete-msg">Has acertado 5 anuncios míticos. ¡Menuda memoria publicitaria!</p>
+      </div>
     </div>
   </div>
   <nav class="day-nav">
@@ -107,8 +175,18 @@
   <div class="popup-box">
     <div class="popup-icon">🎁</div>
     <p class="popup-title">¡Tu recompensa!</p>
-    <p class="popup-msg" id="reward-text">✨ Aquí irá la recompensa especial de este día ✨</p>
+    <p class="popup-msg" id="reward-text">PDTE</p>
     <button class="popup-btn" id="star-reward-close">¡Genial!</button>
+  </div>
+</div>
+
+<!-- Popup fallo (invariante, reservado) -->
+<div class="popup-overlay" id="popup-fail">
+  <div class="popup-box">
+    <div class="popup-icon">🤔</div>
+    <p class="popup-title">¡Casi, casi!</p>
+    <p class="popup-msg">Esa no era la respuesta correcta.<br>¡Sigue intentándolo!</p>
+    <button class="popup-btn" id="fail-close">Continuar</button>
   </div>
 </div>
 
@@ -157,6 +235,7 @@ const DONE_KEY = 'done_2028-10-25';
 const doneBtn  = document.getElementById('done-btn');
 const popupStarBlocked = document.getElementById('popup-star-blocked');
 const popupStarReward  = document.getElementById('popup-star-reward');
+const popupFail         = document.getElementById('popup-fail');
 
 document.getElementById('star-blocked-close').addEventListener('click', () => {
   popupStarBlocked.classList.remove('visible');
@@ -172,6 +251,13 @@ popupStarReward.addEventListener('click', e => {
   if (e.target === popupStarReward) popupStarReward.classList.remove('visible');
 });
 
+document.getElementById('fail-close').addEventListener('click', () => popupFail.classList.remove('visible'));
+popupFail.addEventListener('click', e => { if (e.target === popupFail) popupFail.classList.remove('visible'); });
+
+function markDone() {
+  localStorage.setItem(DONE_KEY, '1');
+  updateDone();
+}
 function updateDone() {
   const on = localStorage.getItem(DONE_KEY) === '1';
   doneBtn.textContent = on ? '★' : '☆';
@@ -181,19 +267,215 @@ function updateDone() {
 doneBtn.addEventListener('click', () => {
   const on = localStorage.getItem(DONE_KEY) === '1';
   if (on) {
-    // Already done → show reward
     popupStarReward.classList.add('visible');
+  } else if (isPreview) {
+    markDone();
   } else {
-    // Not done → only allowed in preview mode
-    if (isPreview) {
-      localStorage.setItem(DONE_KEY, '1');
-      updateDone();
-    } else {
-      popupStarBlocked.classList.add('visible');
-    }
+    popupStarBlocked.classList.add('visible');
   }
 });
 updateDone();
+
+// ── Audio sintetizado ──────────────────────────────────────
+let _ctx = null;
+function getCtx() {
+  if (!_ctx) _ctx = new (window.AudioContext || window.webkitAudioContext)();
+  if (_ctx.state === 'suspended') _ctx.resume();
+  return _ctx;
+}
+function tone(freq, type, t0, dur, vol) {
+  const ctx = getCtx();
+  const osc = ctx.createOscillator(), g = ctx.createGain();
+  osc.type = type; osc.frequency.setValueAtTime(freq, t0);
+  g.gain.setValueAtTime(vol || .08, t0);
+  g.gain.exponentialRampToValueAtTime(.0001, t0 + dur);
+  osc.connect(g); g.connect(ctx.destination);
+  osc.start(t0); osc.stop(t0 + dur);
+}
+function soundCorrect() { const t = getCtx().currentTime; tone(523.25,'triangle',t,.25); tone(659.25,'triangle',t+.1,.25); tone(783.99,'triangle',t+.2,.25); tone(1046.5,'triangle',t+.3,.45); }
+function soundWrong()   { const t = getCtx().currentTime; tone(250,'sawtooth',t,.35,.06); tone(220,'sawtooth',t+.15,.35,.06); tone(196,'sawtooth',t+.3,.5,.06); }
+function soundWin()     { const t = getCtx().currentTime; [523.25,659.25,783.99,1046.5,1318.5].forEach((f,i)=>tone(f,'triangle',t+i*.13,.35,.09)); }
+
+// ── Datos: anuncios míticos ─────────────────────────────────
+const ADS = [
+  { "frase": "Impossible Is Nothing.", "opciones": ["Adidas","Nike","Puma","Asics"], "respuesta": "Adidas", "info": "Impossible Is Nothing. Adidas (2004)", "dificultad": "Media" },
+  { "frase": "¿Y la cartera?", "opciones": ["Airtel","Movistar","Amena","Vodafone"], "respuesta": "Airtel", "info": "¿Y la cartera? Airtel (1997)", "dificultad": "Alta" },
+  { "frase": "Hola, soy Edu. ¡Feliz Navidad!", "opciones": ["Airtel","Movistar","Amena","Vodafone"], "respuesta": "Airtel", "info": "Hola, soy Edu. ¡Feliz Navidad! Airtel (1997)", "dificultad": "Media" },
+  { "frase": "Libre.", "opciones": ["Amena","Airtel","Movistar","Vodafone"], "respuesta": "Amena", "info": "Libre. Amena (1999)", "dificultad": "Media" },
+  { "frase": "Think Different.", "opciones": ["Apple","Microsoft","IBM","Dell"], "respuesta": "Apple", "info": "Think Different. Apple (1997)", "dificultad": "Alta" },
+  { "frase": "¿No tienes pueblo?", "opciones": ["Aquarius","Nestea","Trina","Kas"], "respuesta": "Aquarius", "info": "¿No tienes pueblo? Aquarius (2005)", "dificultad": "Alta" },
+  { "frase": "Lava más blanco.", "opciones": ["Ariel","Dixan","Skip","Wipp Express"], "respuesta": "Ariel", "info": "Lava más blanco. Ariel (1991)", "dificultad": "Alta" },
+  { "frase": "¿Cueces o enriqueces?", "opciones": ["Avecrem","Knorr","Maggi","Bovril"], "respuesta": "Avecrem", "info": "¿Cueces o enriqueces? Avecrem (1985)", "dificultad": "Baja" },
+  { "frase": "¿Te gusta conducir?", "opciones": ["BMW","Audi","Volvo","Mercedes-Benz"], "respuesta": "BMW", "info": "¿Te gusta conducir? BMW (1997)", "dificultad": "Baja" },
+  { "frase": "Be water, my friend.", "opciones": ["BMW","Audi","Toyota","Honda"], "respuesta": "BMW", "info": "Be water, my friend. BMW (2006)", "dificultad": "Baja" },
+  { "frase": "Tacita a tacita.", "opciones": ["Cafés Monky","Cafés Marcilla","Saimaza","Nescafé"], "respuesta": "Cafés Monky", "info": "Tacita a tacita. Cafés Monky (1982)", "dificultad": "Alta" },
+  { "frase": "El fresco del barrio.", "opciones": ["Calippo","Magnum","Cornetto","Frigo Pie"], "respuesta": "Calippo", "info": "El fresco del barrio. Calippo (2001)", "dificultad": "Baja" },
+  { "frase": "La chispa de la vida.", "opciones": ["Coca-Cola","Pepsi","Kas","Schweppes"], "respuesta": "Coca-Cola", "info": "La chispa de la vida. Coca-Cola (1995)", "dificultad": "Baja" },
+  { "frase": "Para los altos, para los bajos... Para todos.", "opciones": ["Coca-Cola","Pepsi","Kas","Trinaranjus"], "respuesta": "Coca-Cola", "info": "Para los altos, para los bajos... Para todos. Coca-Cola (2002)", "dificultad": "Media" },
+  { "frase": "Destapa la felicidad.", "opciones": ["Coca-Cola","Pepsi","Fanta","Sprite"], "respuesta": "Coca-Cola", "info": "Destapa la felicidad. Coca-Cola (2009)", "dificultad": "Media" },
+  { "frase": "Busque, compare y, si encuentra algo mejor, cómprelo.", "opciones": ["Colón","Ariel","Skip","Dixan"], "respuesta": "Colón", "info": "Busque, compare y, si encuentra algo mejor, cómprelo. Colón (1982)", "dificultad": "Alta" },
+  { "frase": "Tenemos una carta para ti.", "opciones": ["Correos","Seur","MRW","DHL"], "respuesta": "Correos", "info": "Tenemos una carta para ti. Correos (2000)", "dificultad": "Alta" },
+  { "frase": "El cuerpo te pide Salsa.", "opciones": ["Doritos","Lay's","Pringles","Ruffles"], "respuesta": "Doritos", "info": "El cuerpo te pide Salsa. Doritos (1996)", "dificultad": "Alta" },
+  { "frase": "Vuelve a casa vuelve, por Navidad.", "opciones": ["El Almendro","Suchard","1880","La Estepeña"], "respuesta": "El Almendro", "info": "Vuelve a casa vuelve, por Navidad. El Almendro (1991)", "dificultad": "Alta" },
+  { "frase": "Del ..., me fío.", "opciones": ["El Caserío","La Vaca que ríe","Babybel","Kiri"], "respuesta": "El Caserío", "info": "Del Caserío, me fío. El Caserío (1984)", "dificultad": "Media" },
+  { "frase": "Mediterráneamente.", "opciones": ["Estrella Damm","San Miguel","Mahou","Cruzcampo"], "respuesta": "Estrella Damm", "info": "Mediterráneamente. Estrella Damm (2005)", "dificultad": "Alta" },
+  { "frase": "¡Hola, soy tu menstruación!", "opciones": ["Evax","Ausonia","Tampax","Carefree"], "respuesta": "Evax", "info": "¡Hola, soy tu menstruación! Evax (1995)", "dificultad": "Baja" },
+  { "frase": "¿A qué huelen las nubes?", "opciones": ["Evax","Ausonia","Carefree","Tampax"], "respuesta": "Evax", "info": "¿A qué huelen las nubes? Evax (2006)", "dificultad": "Media" },
+  { "frase": "Pipas ..., contemplando el mundo.", "opciones": ["Facundo","Grefusa","Churruca","Piponazo"], "respuesta": "Facundo", "info": "Pipas Facundo, contemplando el mundo. Facundo (2000)", "dificultad": "Alta" },
+  { "frase": "Las muñecas de ... se dirigen al portal.", "opciones": ["Famosa","Mattel","Hasbro","Feber"], "respuesta": "Famosa", "info": "Las muñecas de Famosa se dirigen al portal. Famosa (1972)", "dificultad": "Media" },
+  { "frase": "Tenemos una chica nueva en la oficina.", "opciones": ["Farala","Chilly","Evax","Don Algodón"], "respuesta": "Farala", "info": "Tenemos una chica nueva en la oficina. Farala (1995)", "dificultad": "Media" },
+  { "frase": "¿Quién puede resistirse?", "opciones": ["Ferrero Rocher","Lindt","Suchard","Nestlé"], "respuesta": "Ferrero Rocher", "info": "¿Quién puede resistirse? Ferrero Rocher (1990)", "dificultad": "Baja" },
+  { "frase": "Hoy me siento...", "opciones": ["Flex","Pikolin","Tempur","Lo Monaco"], "respuesta": "Flex", "info": "Hoy me siento... Flex. Flex (1986)", "dificultad": "Media" },
+  { "frase": "El auténtico sabor mediterráneo.", "opciones": ["Font Vella","Lanjarón","Bezoya","Solán de Cabras"], "respuesta": "Font Vella", "info": "El auténtico sabor mediterráneo. Font Vella (1999)", "dificultad": "Baja" },
+  { "frase": "Curro se va al Caribe.", "opciones": ["Halcón Viajes","Viajes El Corte Inglés","Viajes Ecuador","B travel"], "respuesta": "Halcón Viajes", "info": "Curro se va al Caribe. Halcón Viajes (1994)", "dificultad": "Media" },
+  { "frase": "Bienvenido a la República Independiente de tu Casa.", "opciones": ["IKEA","Conforama","Leroy Merlin","JYSK"], "respuesta": "IKEA", "info": "Bienvenido a la República Independiente de tu Casa. IKEA (2003)", "dificultad": "Baja" },
+  { "frase": "¿Qué hace un chico como tú en un sitio como este?", "opciones": ["KAS","Fanta","Mirinda","Schweppes"], "respuesta": "KAS", "info": "¿Qué hace un chico como tú en un sitio como este? KAS (1991)", "dificultad": "Alta" },
+  { "frase": "El único que es único.", "opciones": ["Kellogg's Corn Flakes","Chocapic","Nesquik","Smacks"], "respuesta": "Kellogg's Corn Flakes", "info": "El único que es único. Kellogg's Corn Flakes (2004)", "dificultad": "Media" },
+  { "frase": "El milagro anti-grasa.", "opciones": ["KH-7","Don Limpio","Tenn","Cillit Bang"], "respuesta": "KH-7", "info": "El milagro anti-grasa. KH-7 (1988)", "dificultad": "Alta" },
+  { "frase": "Si no hay ..., nos vamos.", "opciones": ["La Casera","Fanta","Schweppes","Kas"], "respuesta": "La Casera", "info": "Si no hay Casera, nos vamos. La Casera (1993)", "dificultad": "Media" },
+  { "frase": "Porque yo lo valgo.", "opciones": ["L'Oréal","Garnier","Pantene","Schwarzkopf"], "respuesta": "L'Oréal", "info": "Porque yo lo valgo. L'Oréal (1989)", "dificultad": "Baja" },
+  { "frase": "Hay cosas que el dinero no puede comprar. Para todo lo demás...", "opciones": ["Mastercard","Visa","American Express","Maestro"], "respuesta": "Mastercard", "info": "Hay cosas que el dinero no puede comprar. Para todo lo demás, Mastercard. Mastercard (1997)", "dificultad": "Baja" },
+  { "frase": "Yo no soy tonto.", "opciones": ["MediaMarkt","PC Componentes","Worten","Fnac"], "respuesta": "MediaMarkt", "info": "Yo no soy tonto. MediaMarkt (1999)", "dificultad": "Baja" },
+  { "frase": "Porque el roce hace el cariño.", "opciones": ["Mimosín","Flor","Vernel","Lenor"], "respuesta": "Mimosín", "info": "Porque el roce hace el cariño. Mimosín (1986)", "dificultad": "Baja" },
+  { "frase": "Just Do It.", "opciones": ["Nike","Adidas","Puma","Reebok"], "respuesta": "Nike", "info": "Just Do It. Nike (1988)", "dificultad": "Baja" },
+  { "frase": "Leche, cacao, avellanas y azúcar... ¡...!", "opciones": ["Nocilla","Nutella","ColaCao","Nesquik"], "respuesta": "Nocilla", "info": "Leche, cacao, avellanas y azúcar... ¡Nocilla! Nocilla (1980)", "dificultad": "Baja" },
+  { "frase": "Connecting People.", "opciones": ["Nokia","Motorola","Ericsson","Siemens"], "respuesta": "Nokia", "info": "Connecting People. Nokia (1992)", "dificultad": "Media" },
+  { "frase": "Suavidad que se nota.", "opciones": ["Norit","Perlán","Mimosín","Flor"], "respuesta": "Norit", "info": "Suavidad que se nota. Norit (1987)", "dificultad": "Media" },
+  { "frase": "¿Dónde está la pasta?", "opciones": ["Pastas Gallo","Pastas El Pavo","Barilla","Buitoni"], "respuesta": "Pastas Gallo", "info": "¿Dónde está la pasta? Pastas Gallo (1992)", "dificultad": "Alta" },
+  { "frase": "¿Es nuevo? No, lavado con...", "opciones": ["Perlan","Norit","Woolite","Mimosín"], "respuesta": "Perlan", "info": "¿Es nuevo? No, lavado con Perlan. Perlan (1991)", "dificultad": "Baja" },
+  { "frase": "A mí me daban dos.", "opciones": ["Petit Suisse","Danonino","Actimel","Natillas Danone"], "respuesta": "Petit Suisse", "info": "A mí me daban dos. Petit Suisse (1983)", "dificultad": "Media" },
+  { "frase": "A mí plin, yo duermo en...", "opciones": ["Pikolin","Flex","LoMonaco","Emma"], "respuesta": "Pikolin", "info": "A mí plin, yo duermo en Pikolin. Pikolin (1990)", "dificultad": "Media" },
+  { "frase": "La potencia sin control no sirve de nada.", "opciones": ["Pirelli","Michelin","Bridgestone","Goodyear"], "respuesta": "Pirelli", "info": "La potencia sin control no sirve de nada. Pirelli (1996)", "dificultad": "Baja" },
+  { "frase": "¡Por mí y por todos mis compañeros!", "opciones": ["Plátano de Canarias","Leche Pascual","Danone","Font Vella"], "respuesta": "Plátano de Canarias", "info": "¡Por mí y por todos mis compañeros! Plátano de Canarias (2004)", "dificultad": "Alta" },
+  { "frase": "... te da aaalas.", "opciones": ["Red Bull","Monster Energy","Burn","Rockstar"], "respuesta": "Red Bull", "info": "Red Bull te da aaalas. Red Bull (2001)", "dificultad": "Baja" },
+  { "frase": "JASP: Jóvenes Aunque Sobradamente Preparados.", "opciones": ["Renault Clio","Seat Ibiza","Peugeot 206","Opel Corsa"], "respuesta": "Renault Clio", "info": "JASP: Jóvenes Aunque Sobradamente Preparados. Renault Clio (2001)", "dificultad": "Media" },
+  { "frase": "Tú mueves el mundo.", "opciones": ["Repsol","Cepsa","Iberdrola","Endesa"], "respuesta": "Repsol", "info": "Tú mueves el mundo. Repsol (2008)", "dificultad": "Alta" },
+  { "frase": "... no te abandona.", "opciones": ["Rexona","Sanex","Axe","Dove"], "respuesta": "Rexona", "info": "Rexona no te abandona. Rexona (2000)", "dificultad": "Baja" },
+  { "frase": "Aceptamos barco como animal acuático.", "opciones": ["Scattergories","Trivial Pursuit","Monopoly","Pictionary"], "respuesta": "Scattergories", "info": "Aceptamos barco como animal acuático. Scattergories (1992)", "dificultad": "Media" },
+  { "frase": "El secreto está en la masa.", "opciones": ["Telepizza","Pizza Hut","Domino's Pizza","Papa John's"], "respuesta": "Telepizza", "info": "El secreto está en la masa. Telepizza (1994)", "dificultad": "Baja" },
+  { "frase": "El algodón no engaña.", "opciones": ["Tenn","Don Limpio","Pronto","KH-7"], "respuesta": "Tenn", "info": "El algodón no engaña. Tenn (1984)", "dificultad": "Baja" },
+  { "frase": "El frotar se va a acabar.", "opciones": ["Wipp Express","Ariel","Elena","Skip"], "respuesta": "Wipp Express", "info": "El frotar se va a acabar. Wipp Express (1982)", "dificultad": "Alta" },
+  { "frase": "Hola, soy el primo de ...", "opciones": ["Zumosol","Don Simón","Granini","Pascual"], "respuesta": "Zumosol", "info": "Hola, soy el primo de Zumosol. Zumosol (1998)", "dificultad": "Baja" }
+];
+
+const POINTS_TO_WIN = 5;
+const LETTERS = ['A','B','C','D'];
+
+function shuffle(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+let deck = shuffle(ADS);
+let deckPos = 0;
+let score = 0;
+let answered = false;
+let currentAd = null;
+let currentCorrectLetter = null;
+
+function nextAd() {
+  if (deckPos >= deck.length) { deck = shuffle(ADS); deckPos = 0; }
+  return deck[deckPos++];
+}
+
+const sloganText   = document.getElementById('slogan-text');
+const feedbackEl    = document.getElementById('quiz-feedback');
+const quizComplete  = document.getElementById('quiz-complete');
+const sloganCard    = document.getElementById('slogan-card');
+const optionsGrid   = document.getElementById('options-grid');
+const progressRow   = document.querySelector('.quiz-progress');
+
+function updateDots() {
+  for (let i = 1; i <= POINTS_TO_WIN; i++) {
+    document.getElementById('qd-' + i).classList.toggle('filled', i <= score);
+  }
+}
+
+function loadQuestion() {
+  answered = false;
+  currentAd = nextAd();
+  const shuffledOpts = shuffle(currentAd.opciones);
+  const correctIndex = shuffledOpts.indexOf(currentAd.respuesta);
+  currentCorrectLetter = LETTERS[correctIndex];
+
+  sloganText.style.opacity = 0;
+  setTimeout(() => {
+    sloganText.textContent = currentAd.frase;
+    sloganText.style.opacity = 1;
+  }, 150);
+
+  LETTERS.forEach((letter, i) => {
+    const btn = document.getElementById('opt-' + letter);
+    btn.classList.remove('correct', 'wrong');
+    btn.disabled = false;
+    document.getElementById('opt-' + letter + '-text').textContent = shuffledOpts[i];
+  });
+
+  feedbackEl.textContent = 'Elige la marca del anuncio, con el ratón, el dedo o tecleando A, B, C o D.';
+  feedbackEl.className = 'quiz-feedback';
+}
+
+function selectOption(letter) {
+  if (answered || !currentAd) return;
+  answered = true;
+
+  LETTERS.forEach(l => { document.getElementById('opt-' + l).disabled = true; });
+
+  const correct = letter === currentCorrectLetter;
+  document.getElementById('opt-' + currentCorrectLetter).classList.add('correct');
+  if (!correct) document.getElementById('opt-' + letter).classList.add('wrong');
+
+  if (correct) {
+    soundCorrect();
+    score++;
+    updateDots();
+    feedbackEl.textContent = '¡Bien hecho! ✅';
+    feedbackEl.className = 'quiz-feedback ok';
+  } else {
+    soundWrong();
+    feedbackEl.textContent = 'No era esa... ❌';
+    feedbackEl.className = 'quiz-feedback err';
+  }
+
+  setTimeout(() => {
+    feedbackEl.textContent = '📜 ' + currentAd.info;
+    feedbackEl.className = 'quiz-feedback info';
+  }, 1300);
+
+  setTimeout(() => {
+    if (score >= POINTS_TO_WIN) {
+      finishQuiz();
+    } else {
+      loadQuestion();
+    }
+  }, 3800);
+}
+
+function finishQuiz() {
+  progressRow.style.display = 'none';
+  sloganCard.style.display = 'none';
+  optionsGrid.style.display = 'none';
+  feedbackEl.style.display = 'none';
+  quizComplete.style.display = 'flex';
+  soundWin();
+  markDone();
+  setTimeout(() => popupStarReward.classList.add('visible'), 700);
+}
+
+LETTERS.forEach(letter => {
+  document.getElementById('opt-' + letter).addEventListener('click', () => selectOption(letter));
+});
+document.addEventListener('keydown', e => {
+  const k = e.key.toUpperCase();
+  if (LETTERS.includes(k)) selectOption(k);
+});
+
+updateDots();
+loadQuestion();
 </script>
 </body>
 </html>
