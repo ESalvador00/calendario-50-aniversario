@@ -269,7 +269,7 @@ const bocadilloTexto = document.getElementById('bocadillo-texto');
 /* ── Nitidez progresiva de la imagen del poble ───────────── */
 const imgPueblo  = document.getElementById('img-pueblo');
 const BLUR_MAX   = 20;   // px, a 0% de nitidez
-const PASO_PISTA = 15;   // % de nitidez que suma cada pista usada
+const PASO_PISTA = 20;   // % de nitidez que suma cada pista usada
 let sharpness    = 0;    // 0-100
 
 function updateBlur() {
@@ -367,6 +367,7 @@ function validar() {
     codigoInput.classList.add('ok');
     sharpness = 100;
     updateBlur();
+    document.getElementById('bocadillo').style.display = 'none';
     msgAcierto.textContent = 'Exacte! La resposta era El Papiol';
     msgAcierto.classList.add('visible');
     markDone();
