@@ -150,6 +150,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-01-17 | Adivina el logo correcto | 10 logos icónicos | Logos.png | N/A | PDTE |
 | 2028-01-18 | Timeline: películas de cine | muerte_ciclista, bienvenido_mister_marshall, placido, caza, espiritu_colmena, fantasma_libertad, bosque_lobo, deprisa_deprisa | muerte_ciclista.jpg, bienvenido_mister_marshall.jpg, placido.jpg, caza.jpg, espiritu_colmena.jpg, fantasma_libertad.jpg, bosque_lobo.jpg, deprisa_deprisa.jpg | N/A | PDTE |
 | 2028-01-19 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
+| 2028-01-20 | El poble amagat | EL PAPIOL | Enric_20210912.png + ElPapiol.jpg | Enric | PDTE |
 | 2028-01-21 | Cultura: iniciales de famosos | CORCEGA | Lugar01_01.jpg .. Lugar01_07.jpg | Ajenos | PDTE |
 | 2028-01-22 | Minijuego (Mastermind) | N/A | N/A | N/A | PDTE |
 | 2028-01-24 | Adivina quién soy | HEIMDALL | Alex_20220817.png | Alex | PDTE |
