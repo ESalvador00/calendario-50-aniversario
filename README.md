@@ -169,7 +169,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-02-14 | ¿Qué foto es más antigua? | 10 momentos vividos | PDTE | PDTE | PDTE |
 | 2028-02-15 | Timeline: cuadros famosos | 8 cuadros famosos | mona_lisa.jpg, creacion_adan.jpg, torre_babel.jpg, vocacion_san_mateo.jpg, leccion_anatomia.jpg, meninas.jpg, caminante_mar_nubes.jpg, libertad_guiando_pueblo.jpg | N/A | PDTE |
 | 2028-02-16 | Acertijos y adivinanzas - El león y el unicornio | JUEVES | Alex_20180619.png | Alexandra | PDTE |
-| 2028-02-17 | El poble amagat | EL PAPIOL | Enric_20210912.png + ElPapiol.jpg | Enric | PDTE |
+| 2028-02-17 | El poble amagat | CALDES DE MONTBUI | Ariadna_20160221.png + CaldesMontbui.jpg | Ariadna| PDTE |
 | 2028-02-23 | Adivina el cuadro | JOVEN PERLA / NAPOLEON CRUZANDO ALPES / COLUMNA ROTA | joven_perla_hd.jpg, napoleon_cruzando_alpes_hd.jpg, columna_rota_hd.jpg | N/A | PDTE |
 | 2028-02-18 | Adivina las películas | Regreso al Futuro, ET El Extraterrestre, Mision Imposible, Toy Story, Alien El octavo pasajero | Regreso_al_Futuro, ET_El_Extraterrestre, Mision_Imposible, Toy_Story, Alien_El_octavo_pasajero (mp3 y jpg) | N/A | PDTE |
 | 2028-02-19 | Satisfacción con restricciones múltiples: Organizando una fiesta | Enric: música+altavoz / Nieves: cocinar+horno / Ariadna: invitaciones+sobres / Alex: decorar+globos | RSR02_Escenario.webp + RSR02_01A..01D.png + RSR02_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
@@ -194,7 +194,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-03-20 | Timeline: óperas famosas | 8 óperas famosas | orfeo.jpg, alcina.jpg, bodas_figaro.jpg, don_giovanni.jpg, flauta_magica.jpg, barbero_sevilla.jpg, norma.jpg, la_traviata.jpg | N/A | PDTE |
 | 2028-03-21 | Acertijos y adivinanzas - Madre con cinco hijos | LUIS | Ari_20131110.png | Ariadna | PDTE |
 | 2028-03-22 | Adivina el cuadro | GRITO / DAMA ARMINO / LECTORA | grito_hd.jpg, dama_armino_hd.jpg, lectora_hd.jpg | N/A | PDTE |
-| 2028-03-23 | El poble amagat | EL PAPIOL | Enric_20210912.png + ElPapiol.jpg | Enric | PDTE |
+| 2028-03-23 | El poble amagat | FALSET | Alex_20240105.png + Falset.jpg | Alexandra| PDTE |
 | 2028-03-26 | Palabras Intraducibles - Brasileño | CAFUNE | NievesAri_20210817.png | Nieves y Ariadna | PDTE |
 | 2028-03-27 | Adivina la serie | 7 Vidas, Aída, Los Simpson, Shin Chan | 7_vidas.jpg/.mp3, aida.jpg/.mp3, simpson.jpg/.mp3, shin_chan.jpg/.mp3 | N/A | PDTE |
 | 2028-03-28 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
@@ -207,7 +207,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-04-10 | Primeras frases de novelas | 6 novelas famosas | orgullo_prejuicio.jpg, cronica_muerte_anunciada.jpg, rebelion_granja.jpg, ruido_furia.jpg, dracula.jpg, coronel_no_escriba.jpg | N/A | PDTE |
 | 2028-04-11 | Adivina quién soy | DALI | Ari_20130601.png | Ariadna | PDTE |
 | 2028-04-12 | Sigue la letra | No dudaría (Antonio Flores) | No_dudaria.mp3 | N/A | PDTE |
-| 2028-04-13 | El poble amagat | EL PAPIOL | Enric_20210912.png + ElPapiol.jpg | Enric | PDTE |
+| 2028-04-13 | El poble amagat | GELIDA | Alex_20230702.png + Gelida.jpg | Alexandra | PDTE |
 | 2028-04-15 | Satisfacción con restricciones múltiples: Ordenando la habitación | Enric: armario+cajas / Nieves: escritorio+trapo / Ariadna: estantería+bolsas / Alex: cama+aspiradora | RSR04_Escenario.webp + RSR04_01A..01D.png + RSR04_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
 | 2028-04-16 | Agudeza visual — clickmap museo (coordenadas hex) | CHAD | Museo2_visual.png + Museo2_clickmap.png + Cuadros_verdes.png + Ariadna_20190601.png | Ariadna | PDTE |
 | 2028-04-17 | Rosco de pasapalabra | N/A | N/A | N/A | PDTE |
@@ -227,7 +227,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-05-10 | Adivina el cuadro | PERSISTENCIA MEMORIA / MUJER CON SOMBRILLA / MUERTE MARAT | persistencia_memoria_hd.jpg, mujer_sombrilla_hd.jpg, muerte_marat_hd.jpg | N/A | PDTE |
 | 2028-05-13 | Satisfacción con restricciones múltiples: Preparando las mochilas | Enric: negra+manta / Nieves: roja+cámara / Ariadna: azul+auriculares / Alex: verde+consola | RSR05_Escenario.webp + RSR05_01A..01D.png + RSR05_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
 | 2028-05-14 | Palabras Intraducibles - Japonés | BOKETTO | Enric_20220816.png | Enric | PDTE |
-| 2028-05-15 | El poble amagat | EL PAPIOL | Enric_20210912.png + ElPapiol.jpg | Enric | PDTE |
+| 2028-05-15 | El poble amagat | CADAQUÉS | Alex_20191116.png + Cadaques.jpg | Alexandra | PDTE |
 | 2028-05-16 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
 | 2028-05-17 | Sigue la letra | La chispa adecuada (Héroes del Silencio) | La_chispa_adecuada.mp3 | N/A | PDTE |
 | 2028-05-18 | Timeline: películas de cine | blade_runner, parque_jurasico, pulp_fiction, titanic, senor_anillos_comunidad, caballero_oscuro, interstellar, parasitos | blade_runner.jpg, parque_jurasico.jpg, pulp_fiction.jpg, titanic.jpg, senor_anillos_comunidad.jpg, caballero_oscuro.jpg, interstellar.jpg, parasitos.jpg | N/A | PDTE |
@@ -243,7 +243,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-06-05 | Primeras frases de novelas | 6 novelas famosas | cien_anos_soledad.jpg, extranjero.jpg, hobbit.jpg, crimen_castigo.jpg, hombre_invisible.jpg, tropico_cancer.jpg | N/A | PDTE |
 | 2028-06-06 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
 | 2028-06-07 | Acertijos y adivinanzas - Máquinas trabajando | 5 | David_20101231.png | David | PDTE |
-| 2028-06-08 | El poble amagat | EL PAPIOL | Enric_20210912.png + ElPapiol.jpg | Enric | PDTE |
+| 2028-06-08 | El poble amagat | RUPIT | David_20191225.png + Rupit.jpg | David | PDTE |
 | 2028-06-10 | Satisfacción con restricciones múltiples: Desayuno del domingo | Enric: café+tostadas / Nieves: té+croissant / Ariadna: cacao+galletas / Alex: leche+cereales | RSR06_Escenario.webp + RSR06_01A..01D.png + RSR06_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
 | 2028-06-11 | Agudeza visual — Secuencia lógica | 8293 | Alex_20170807.jpg | Alex | PDTE |
 | 2028-06-12 | Sigue la letra | Voy en un coche (Christina y Los Subterráneos) | Voy_en_un_coche.mp3 | N/A | PDTE |
@@ -261,7 +261,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-07-03 | Puzzle visual | ACHI | Puzzle01_01.png .. Puzzle01_05.png | N/A | PDTE |
 | 2028-07-04 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
 | 2028-07-05 | Acertijos y adivinanzas - Raro, raro | CAMISA | Ari_20140523.png | Ariadna | PDTE |
-| 2028-07-06 | El poble amagat | EL PAPIOL | Enric_20210912.png + ElPapiol.jpg | Enric | PDTE |
+| 2028-07-06 | El poble amagat | ARTES | Ariadna_20230310.png + Artes.jpg | Ariadna | PDTE |
 | 2028-07-08 | Minijuego (La Puerta de los Glifos) | N/A | N/A | N/A | PDTE |
 | 2028-07-10 | Adivina el logo correcto | 10 logos icónicos | Logos.png | N/A | PDTE |
 | 2028-07-11 | Timeline histórico doble | A:01-06 / B:01-06 | Timeline02_01A..06A.png + Timeline02_01B..06B.png | N/A | PDTE |
@@ -281,7 +281,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-07-31 | Adivina el cuadro | AMERICAN GOTHIC / OFELIA / MUJER LLORANDO | american_gothic_hd.jpg, ofelia_hd.jpg, mujer_llorando_hd.jpg | N/A | PDTE |
 | 2028-08-01 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
 | 2028-08-02 | Puzzle visual | ACHI | Puzzle01_01.png .. Puzzle01_05.png | N/A | PDTE |
-| 2028-08-03 | El poble amagat | EL PAPIOL | Enric_20210912.png + ElPapiol.jpg | Enric | PDTE |
+| 2028-08-03 | El poble amagat | ALTAFULLA | Nieves_20190209.png + Altafulla.jpg | Nieves | PDTE |
 | 2028-08-05 | Satisfacción con restricciones múltiples: Noche de películas | Enric: misterio+helado / Nieves: comedia+pizza / Ariadna: aventuras+nachos / Alex: animación+palomitas | RSR08_Escenario.webp + RSR08_01A..01D.png + RSR08_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
 | 2028-08-07 | Primeras frases de novelas | 6 novelas famosas | ana_karenina.jpg, guardian_entre_centeno.jpg, metamorfosis.jpg, rayuela.jpg, peter_pan.jpg, idiota.jpg | N/A | PDTE |
 | 2028-08-08 | Adivina el slogan | 58 anuncios míticos, hasta 5 aciertos | N/A | N/A | PDTE |
@@ -302,7 +302,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-09-04 | Adivina el logo correcto | 10 logos icónicos | Logos.png | N/A | PDTE |
 | 2028-09-05 | Puzzle visual | ACHI | Puzzle01_01.png .. Puzzle01_05.png | N/A | PDTE |
 | 2028-09-06 | Acertijos y adivinanzas - Montones de paja | 1 | Gerard_20220705.png | Gerard | PDTE |
-| 2028-09-07 | El poble amagat | EL PAPIOL | Enric_20210912.png + ElPapiol.jpg | Enric | PDTE |
+| 2028-09-07 | El poble amagat | CERVERA | Mari_20230708.png + Cervera.jpg | Cervera | PDTE |
 | 2028-09-09 | Minijuego (El Cruce del Puente) | N/A | N/A | N/A | PDTE |
 | 2028-09-12 | Adivina quién soy | MARY SHELLEY | Cristina_20130713.png | Cristina | PDTE |
 | 2028-09-13 | ¿Qué foto es más antigua? | 10 momentos vividos | PDTE | PDTE | PDTE |
@@ -325,7 +325,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-10-16 | Sigue la letra | Chiquilla (Seguridad Social) | Chiquilla.mp3 | N/A | PDTE |
 | 2028-10-17 | ¿Qué foto es más antigua? | 10 momentos vividos | PDTE | PDTE | PDTE |
 | 2028-10-18 | Timeline musical, Internacional en los 90 | 1990-1999 | Ice_ice_baby.jpg, Losing_my_religion.jpg, Zombie.jpg, Wannabe.jpg, Baby_one_more_time.jpg, Genie_in_a_Bottle.jpg + .mp3 | N/A | PDTE |
-| 2028-10-19 | El poble amagat | EL PAPIOL | Enric_20210912.png + ElPapiol.jpg | Enric | PDTE |
+| 2028-10-19 | El poble amagat | CASTELLÓ D’EMPÚRIES | Ariadna_20190215.png + CastelloEmpuries.jpg | Ariadna | PDTE |
 | 2028-10-20 | Adivina las películas | Rocky, Harry Potter, Aladdin, Superdetective en Hollywood, Karate Kid | Rocky, Harry_Potter, Aladdin, Superdetective_en_Hollywood, Karate_Kid (mp3 y jpg) | N/A | PDTE |
 | 2028-10-21 | Satisfacción con restricciones múltiples: Picnic familiar | Enric: limonada+helado / Nieves: zumo+fruta / Ariadna: cola+yogur / Alex: agua+brownie | RSR10_Escenario.webp + RSR10_01A..01D.png + RSR10_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
 | 2028-10-22 | Palabras Intraducibles - Griego | MERAKI | Cumple_20170211.jpg | Nieves, Ariadna y Alex | PDTE |
@@ -344,7 +344,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-11-13 | Sigue la letra | Voy a pasármelo bien (Hombres G) | Voy_a_pasarmelo_bien.mp3 | N/A | PDTE |
 | 2028-11-14 | Adivina quién soy | ELEVEN | Ari_20220701.png | Ariadna | PDTE |
 | 2028-11-15 | Adivina el slogan | 58 anuncios míticos, hasta 5 aciertos | N/A | N/A | PDTE |
-| 2028-11-16 | El poble amagat | EL PAPIOL | Enric_20210912.png + ElPapiol.jpg | Enric | PDTE |
+| 2028-11-16 | El poble amagat | MONISTROL DE MONTSERRAT | Nieves_20110306.png + Monistrol.jpg | Nieves | PDTE |
 | 2028-11-18 | Minijuego (El Triángulo Girado) | N/A | N/A | N/A | PDTE |
 | 2028-11-19 | Palabras Intraducibles - Yiddish | NAKHES | Alex_20250622.jpg | Alexandra | PDTE |
 | 2028-11-20 | Rosco de pasapalabra | N/A | N/A | N/A | PDTE |
@@ -355,7 +355,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-11-27 | ¿Qué foto es más antigua? | 10 momentos vividos | PDTE | PDTE | PDTE |
 | 2028-11-28 | Acertijos y adivinanzas - A lo bestia | DADO | Alex_20190605.png | Alexandra | PDTE |
 | 2028-11-29 | Adivina la serie | El Secreto de Puente Viejo, Los Fruittis, Magnum, Mofli | secreto_puente_viejo.jpg/.mp3, fruittis.jpg/.mp3, magnum.jpg/.mp3, mofli.jpg/.mp3 | N/A | PDTE |
-| 2028-12-04 | El poble amagat | EL PAPIOL | Enric_20210912.png + ElPapiol.jpg | Enric | PDTE |
+| 2028-12-04 | El poble amagat | ESPARREGUERA | Ariadna_20191116.png + Esparreguera.jpg | Ariadna | PDTE |
 | 2028-12-05 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
 | 2028-12-06 | Acertijos y adivinanzas - Oficio reconocido | AGUJA | Ari_20200215.png | Ariadna | PDTE |
 | 2028-12-07 | Puzzle visual | ACHI | Puzzle01_01.png .. Puzzle01_05.png | N/A | PDTE |
