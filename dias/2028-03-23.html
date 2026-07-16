@@ -114,10 +114,10 @@
     <div class="content-area">
 
       <div class="foto-scene">
-        <p class="foto-titulo">12 de septiembre de 2021</p>
+        <p class="foto-titulo">5 de enero de 2024</p>
         <div class="img-stack">
-          <img class="pueblo-img" id="img-pueblo" src="../media/ElPapiol.jpg" alt="Poble a endevinar" draggable="false"/>
-          <img class="persona-img" src="../media/Enric_20210912.png" alt="Enric" draggable="false"/>
+          <img class="pueblo-img" id="img-pueblo" src="../media/Falset.jpg" alt="Poble a endevinar" draggable="false"/>
+          <img class="persona-img" src="../media/Alex_20240105.png" alt="Alex" draggable="false"/>
         </div>
         <div class="bocadillo" id="bocadillo">
           <p class="bocadillo-texto" id="bocadillo-texto">Endevina el poble amagat</p>
@@ -253,11 +253,13 @@ doneBtn.addEventListener('click', () => {
 updateDone();
 
 const PISTAS = [
-  "És un lloc de l'àrea metropolitana.",
-  'Té un castell.',
-  'És un poble amb article.',
-  'És famós per les seves retencions.',
-  'Dins del seu nom hi ha amagat el nom d\'un familiar.'
+
+  'Es troba envoltat de vinyes en pendent i muntanyes de pissarra.',
+  'És un diminutiu.',
+  'Sembla un poble de mentida però és real .',
+  'La terra és tan pobra que, per compensar, dona un dels millors licors del món.',
+  'És la capital d'una comarca petita amb denominació d'origen qualificada.'
+
 ];
 
 const dotIds    = ['pista-1','pista-2','pista-3','pista-4','pista-5'];
@@ -320,7 +322,7 @@ dotIds.forEach((id, idx) => {
 });
 renderDots();
 
-const RESPUESTAS_OK = ['EL PAPIOL', 'PAPIOL'];
+const RESPUESTAS_OK = ['FALSET'];
 const codigoInput   = document.getElementById('codigo-input');
 const btnValidar    = document.getElementById('btn-validar');
 const popupFail     = document.getElementById('popup-fail');
@@ -368,7 +370,7 @@ function validar() {
     sharpness = 100;
     updateBlur();
     document.getElementById('bocadillo').style.display = 'none';
-    msgAcierto.textContent = 'Exacte! La resposta era El Papiol';
+    msgAcierto.textContent = 'Correctíssim! El destí amagat era Falset';
     msgAcierto.classList.add('visible');
     markDone();
     setTimeout(() => popupStarReward.classList.add('visible'), 3000);

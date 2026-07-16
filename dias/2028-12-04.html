@@ -114,10 +114,10 @@
     <div class="content-area">
 
       <div class="foto-scene">
-        <p class="foto-titulo">12 de septiembre de 2021</p>
+        <p class="foto-titulo">16 de noviembre de 2019</p>
         <div class="img-stack">
-          <img class="pueblo-img" id="img-pueblo" src="../media/ElPapiol.jpg" alt="Poble a endevinar" draggable="false"/>
-          <img class="persona-img" src="../media/Enric_20210912.png" alt="Enric" draggable="false"/>
+          <img class="pueblo-img" id="img-pueblo" src="../media/Esparreguera.jpg" alt="Poble a endevinar" draggable="false"/>
+          <img class="persona-img" src="../media/Ariadna_20191116.png" alt="Ariadna" draggable="false"/>
         </div>
         <div class="bocadillo" id="bocadillo">
           <p class="bocadillo-texto" id="bocadillo-texto">Endevina el poble amagat</p>
@@ -253,11 +253,13 @@ doneBtn.addEventListener('click', () => {
 updateDone();
 
 const PISTAS = [
-  "És un lloc de l'àrea metropolitana.",
-  'Té un castell.',
-  'És un poble amb article.',
-  'És famós per les seves retencions.',
-  'Dins del seu nom hi ha amagat el nom d\'un familiar.'
+
+  "Per allà hi passa un dels principals rius de Catalunya.",
+  "Segons com, aquest poble els pots trobar pels marges.",
+  "Un dels perruquers més famosos del món va néixer en aquest lloc.",
+  "Els seus vilatans són molt apassionats.",
+  "Forma part de la comarca del Baix Llobregat."
+
 ];
 
 const dotIds    = ['pista-1','pista-2','pista-3','pista-4','pista-5'];
@@ -320,7 +322,7 @@ dotIds.forEach((id, idx) => {
 });
 renderDots();
 
-const RESPUESTAS_OK = ['EL PAPIOL', 'PAPIOL'];
+const RESPUESTAS_OK = ['ESPARREGUERA'];
 const codigoInput   = document.getElementById('codigo-input');
 const btnValidar    = document.getElementById('btn-validar');
 const popupFail     = document.getElementById('popup-fail');
@@ -368,7 +370,7 @@ function validar() {
     sharpness = 100;
     updateBlur();
     document.getElementById('bocadillo').style.display = 'none';
-    msgAcierto.textContent = 'Exacte! La resposta era El Papiol';
+    msgAcierto.textContent = 'Totalment correcte! Era ni més ni menys que Esparreguera';
     msgAcierto.classList.add('visible');
     markDone();
     setTimeout(() => popupStarReward.classList.add('visible'), 3000);
