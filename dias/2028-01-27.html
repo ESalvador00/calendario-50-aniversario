@@ -127,8 +127,8 @@
       <div class="codigo-wrap">
         <p class="codigo-label">Adivina el PIN</p>
         <div class="codigo-row">
-          <span class="lock-icon">🔒</span>
-          <input type="text" class="codigo-input" id="codigo-input" placeholder="· · · ·" maxlength="4" inputmode="numeric" autocomplete="off"/>
+          <span class="lock-icon">🔢</span>
+          <input type="text" class="codigo-input" id="codigo-input" placeholder="· · · ·" maxlength="4" inputmode="numeric" pattern="[0-9]*" autocomplete="off"/>
           <button class="btn-validar" id="btn-validar">Validar</button>
         </div>
         <!-- Bolitas de pistas -->
@@ -336,13 +336,18 @@ CUADRICULAS.forEach((cuadricula, gIdx) => {
 });
 
 // ── Código secreto ─────────────────────────────────────────
-const RESPUESTAS_OK = ['5785'];
+const RESPUESTAS_OK = ['5784'];
 const codigoInput   = document.getElementById('codigo-input');
 const popupError    = document.getElementById('popup-error');
 
 function normalizar(s) {
   return s.trim().replace(/[^0-9]/g, '');
 }
+
+codigoInput.addEventListener('input', () => {
+  const soloDigitos = codigoInput.value.replace(/[^0-9]/g, '').slice(0, 4);
+  if (soloDigitos !== codigoInput.value) codigoInput.value = soloDigitos;
+});
 
 function validar() {
   const val = normalizar(codigoInput.value);
@@ -373,7 +378,7 @@ popupError.addEventListener('click', e => {
 
 // ── Bolitas de pistas ──────────────────────────────────────
 const PISTAS = [
-  '¿Recuerdas el Buscaminas? Los números te dicen cuántas casillas encendidas hay alrededor.',
+  '¿Recuerdas el Buscaminas? Los números te dicen cuántas casillas encendidas hay alrededor. La primera cuadrícula la tienes de ejemplo, ¡juega con las otras 3 para dar con el PIN!',
   '¿Qué ves al final? Las casillas encendidas no son al azar, forman la silueta de un número del 0 al 9.',
   'Arranca por el 5: si necesita 5 vecinas y solo hay pistas abajo, la barra de arriba va llena seguro.',
 ];
