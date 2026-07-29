@@ -293,16 +293,6 @@ function buildPieSVG(endAngle) {
     svg.appendChild(path);
   }
 
-  // Guías: 8 radios (octavos), 4 de ellos (cuadrantes) más marcados
-  for (let a = 0; a < 360; a += 45) {
-    const [x, y] = pt(a, r, cx, cy);
-    const line = document.createElementNS(svgNS, 'line');
-    line.setAttribute('x1', cx); line.setAttribute('y1', cy);
-    line.setAttribute('x2', x);  line.setAttribute('y2', y);
-    line.classList.add(a % 90 === 0 ? 'pie-spoke-major' : 'pie-spoke-minor');
-    svg.appendChild(line);
-  }
-
   const outline = document.createElementNS(svgNS, 'circle');
   outline.setAttribute('cx', cx); outline.setAttribute('cy', cy); outline.setAttribute('r', r);
   outline.setAttribute('fill', 'none');
