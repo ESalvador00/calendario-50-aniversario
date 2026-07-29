@@ -199,11 +199,11 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-03-27 | Adivina la serie | 7 Vidas, Aída, Los Simpson, Shin Chan | 7_vidas.jpg/.mp3, aida.jpg/.mp3, simpson.jpg/.mp3, shin_chan.jpg/.mp3 | N/A | PDTE |
 | 2028-03-28 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
 | 2028-03-29 | Adivina el slogan | 58 anuncios míticos, hasta 5 aciertos | N/A | N/A | PDTE |
-| 2028-03-30 | Adivina el PIN | 1789 | N/A | N/A | PDTE |
 | 2028-04-02 | Agudeza visual — Jeroglífico | USO LA MENTE | Ari_20150512.jpg | Ariadna | PDTE |
 | 2028-04-03 | Adivina la serie | Anatomía de Grey, Caballeros del Zodiaco, Dragon Ball, Urgencias | anatomia_grey.jpg/.mp3, caballeros_zodiaco.jpg/.mp3, dragon_ball.jpg/.mp3, urgencias.jpg/.mp3 | N/A | PDTE |
 | 2028-04-05 | Adivina el slogan | 58 anuncios míticos, hasta 5 aciertos | N/A | N/A | PDTE |
 | 2028-04-06 | ¿Qué foto es más antigua? | 10 momentos vividos | PDTE | PDTE | PDTE |
+| 2028-04-07 | Adivina el PIN | 3152 | N/A | N/A | PDTE |
 | 2028-04-08 | Minijuego (El Lobo, la Cabra y la Col) | N/A | N/A | N/A | PDTE |
 | 2028-04-10 | Primeras frases de novelas | 6 novelas famosas | orgullo_prejuicio.jpg, cronica_muerte_anunciada.jpg, rebelion_granja.jpg, ruido_furia.jpg, dracula.jpg, coronel_no_escriba.jpg | N/A | PDTE |
 | 2028-04-11 | Adivina quién soy | DALI | Ari_20130601.png | Ariadna | PDTE |
