@@ -203,7 +203,6 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-04-03 | Adivina la serie | Anatomía de Grey, Caballeros del Zodiaco, Dragon Ball, Urgencias | anatomia_grey.jpg/.mp3, caballeros_zodiaco.jpg/.mp3, dragon_ball.jpg/.mp3, urgencias.jpg/.mp3 | N/A | PDTE |
 | 2028-04-05 | Adivina el slogan | 58 anuncios míticos, hasta 5 aciertos | N/A | N/A | PDTE |
 | 2028-04-06 | ¿Qué foto es más antigua? | 10 momentos vividos | PDTE | PDTE | PDTE |
-| 2028-04-07 | Adivina el PIN | 3152 | N/A | N/A | PDTE |
 | 2028-04-08 | Minijuego (El Lobo, la Cabra y la Col) | N/A | N/A | N/A | PDTE |
 | 2028-04-10 | Primeras frases de novelas | 6 novelas famosas | orgullo_prejuicio.jpg, cronica_muerte_anunciada.jpg, rebelion_granja.jpg, ruido_furia.jpg, dracula.jpg, coronel_no_escriba.jpg | N/A | PDTE |
 | 2028-04-11 | Adivina quién soy | DALI | Ari_20130601.png | Ariadna | PDTE |
@@ -226,6 +225,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-05-08 | Adivina quién soy | VOLDEMORT | Alex_20200222.png | Alex | PDTE |
 | 2028-05-09 | Timeline musical, España en los 80 | 1980-1987 | No_dudaria.jpg .. Hijo_de_la_luna.jpg | N/A | PDTE |
 | 2028-05-10 | Adivina el cuadro | PERSISTENCIA MEMORIA / MUJER CON SOMBRILLA / MUERTE MARAT | persistencia_memoria_hd.jpg, mujer_sombrilla_hd.jpg, muerte_marat_hd.jpg | N/A | PDTE |
+| 2028-05-12 | Adivina el PIN | 5482 | N/A | N/A | PDTE |
 | 2028-05-13 | Satisfacción con restricciones múltiples: Preparando las mochilas | Enric: negra+manta / Nieves: roja+cámara / Ariadna: azul+auriculares / Alex: verde+consola | RSR05_Escenario.webp + RSR05_01A..01D.png + RSR05_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
 | 2028-05-14 | Palabras Intraducibles - Japonés | BOKETTO | Enric_20220816.png | Enric | PDTE |
 | 2028-05-15 | El poble amagat | CADAQUÉS | Alex_20191116.png + Cadaques.jpg | Alexandra | PDTE |
