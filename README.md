@@ -258,11 +258,11 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-06-26 | Timeline: películas de cine | metropolis, lo_que_viento_llevo, ciudadano_kane, siete_samurais, psicosis, 2001_odisea_espacio, padrino, star_wars_iv | metropolis.jpg, lo_que_viento_llevo.jpg, ciudadano_kane.jpg, siete_samurais.jpg, psicosis.jpg, 2001_odisea_espacio.jpg, padrino.jpg, star_wars_iv.jpg | N/A | PDTE |
 | 2028-06-27 | Adivina el cuadro | HIJO HOMBRE / MATRIMONIO ARNOLFINI / AUTORRETRATO CON SOMBRERO FIELTRO GRIS | hijo_del_hombre_hd.jpg, matrimonio_arnolfini_hd.jpg, autorretrato_sombrero_gris_hd.jpg | N/A | PDTE |
 | 2028-06-28 | Adivina el slogan | 58 anuncios míticos, hasta 5 aciertos | N/A | N/A | PDTE |
-| 2028-06-30 | Adivina el PIN | 1243 | N/A | N/A | PDTE |
 | 2028-07-03 | Puzzle visual | ACHI | Puzzle01_01.png .. Puzzle01_05.png | N/A | PDTE |
 | 2028-07-04 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
 | 2028-07-05 | Acertijos y adivinanzas - Raro, raro | CAMISA | Ari_20140523.png | Ariadna | PDTE |
 | 2028-07-06 | El poble amagat | ARTES | Ariadna_20230310.png + Artes.jpg | Ariadna | PDTE |
+| 2028-07-07 | Adivina el PIN | 9106 | N/A | N/A | PDTE |
 | 2028-07-08 | Minijuego (La Puerta de los Glifos) | N/A | N/A | N/A | PDTE |
 | 2028-07-10 | Adivina el logo correcto | 10 logos icónicos | Logos.png | N/A | PDTE |
 | 2028-07-11 | Timeline histórico doble | A:01-06 / B:01-06 | Timeline02_01A..06A.png + Timeline02_01B..06B.png | N/A | PDTE |
