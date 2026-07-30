@@ -225,7 +225,6 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-05-08 | Adivina quién soy | VOLDEMORT | Alex_20200222.png | Alex | PDTE |
 | 2028-05-09 | Timeline musical, España en los 80 | 1980-1987 | No_dudaria.jpg .. Hijo_de_la_luna.jpg | N/A | PDTE |
 | 2028-05-10 | Adivina el cuadro | PERSISTENCIA MEMORIA / MUJER CON SOMBRILLA / MUERTE MARAT | persistencia_memoria_hd.jpg, mujer_sombrilla_hd.jpg, muerte_marat_hd.jpg | N/A | PDTE |
-| 2028-05-12 | Adivina el PIN | 5482 | N/A | N/A | PDTE |
 | 2028-05-13 | Satisfacción con restricciones múltiples: Preparando las mochilas | Enric: negra+manta / Nieves: roja+cámara / Ariadna: azul+auriculares / Alex: verde+consola | RSR05_Escenario.webp + RSR05_01A..01D.png + RSR05_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
 | 2028-05-14 | Palabras Intraducibles - Japonés | BOKETTO | Enric_20220816.png | Enric | PDTE |
 | 2028-05-15 | El poble amagat | CADAQUÉS | Alex_20191116.png + Cadaques.jpg | Alexandra | PDTE |
@@ -259,6 +258,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-06-26 | Timeline: películas de cine | metropolis, lo_que_viento_llevo, ciudadano_kane, siete_samurais, psicosis, 2001_odisea_espacio, padrino, star_wars_iv | metropolis.jpg, lo_que_viento_llevo.jpg, ciudadano_kane.jpg, siete_samurais.jpg, psicosis.jpg, 2001_odisea_espacio.jpg, padrino.jpg, star_wars_iv.jpg | N/A | PDTE |
 | 2028-06-27 | Adivina el cuadro | HIJO HOMBRE / MATRIMONIO ARNOLFINI / AUTORRETRATO CON SOMBRERO FIELTRO GRIS | hijo_del_hombre_hd.jpg, matrimonio_arnolfini_hd.jpg, autorretrato_sombrero_gris_hd.jpg | N/A | PDTE |
 | 2028-06-28 | Adivina el slogan | 58 anuncios míticos, hasta 5 aciertos | N/A | N/A | PDTE |
+| 2028-06-30 | Adivina el PIN | 1243 | N/A | N/A | PDTE |
 | 2028-07-03 | Puzzle visual | ACHI | Puzzle01_01.png .. Puzzle01_05.png | N/A | PDTE |
 | 2028-07-04 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
 | 2028-07-05 | Acertijos y adivinanzas - Raro, raro | CAMISA | Ari_20140523.png | Ariadna | PDTE |
