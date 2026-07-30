@@ -264,7 +264,7 @@ doneBtn.addEventListener('click', () => {
 updateDone();
 
 // ── Código secreto ─────────────────────────────────────────
-const RESPUESTAS_OK = ['8239'];
+const RESPUESTAS_OK = ['8293'];
 const codigoInput   = document.getElementById('codigo-input');
 const popupError    = document.getElementById('popup-error');
 
@@ -306,9 +306,9 @@ popupError.addEventListener('click', e => {
 
 // ── Bolitas de pistas ──────────────────────────────────────
 const PISTAS = [
-  'Empieza por la letra que tenga menos posibilidades.',
-  'Recuerda que todos los resultados son un único dígito y que ninguna letra se repite.',
-  'El cubo de B es la clave para empezar.',
+  'No empieces por A, empieza por la letra que tenga menos posibilidades.',
+  'Todas las letras representan dígitos distintos y todos los resultados son de una sola cifra.',
+  'Solo un valor de B puede cumplir todas las condiciones. El cubo de B es la clave para empezar.',
 ];
 
 const dotIds      = ['pista-1','pista-2','pista-3'];
