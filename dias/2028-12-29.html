@@ -283,7 +283,17 @@ const DIGITS = [
 const svgNS = 'http://www.w3.org/2000/svg';
 const svgEl = document.getElementById('seven-svg');
 const DIGIT_WIDTH = 60, DIGIT_GAP = 16;
+const DIGIT_STAGGER_MS = 120; // desfase entre el inicio de cada dígito
 const digitElems = [];
+
+function shuffle(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
 
 DIGITS.forEach((segs, i) => {
   const g = document.createElementNS(svgNS, 'g');
@@ -304,24 +314,30 @@ DIGITS.forEach((segs, i) => {
   });
 
   svgEl.appendChild(g);
-  digitElems.push({ segs, rectBySeg });
+  digitElems.push({ segs, rectBySeg, order: shuffle(segs), idx: 0 });
 });
 
-let tick = 0;
-function stepAnimation() {
-  digitElems.forEach(({ segs, rectBySeg }) => {
-    Object.values(rectBySeg).forEach(rectEl => {
-      rectEl.classList.remove('seg-on');
-      rectEl.classList.add('seg-off');
-    });
-    const activeSeg = segs[tick % segs.length];
-    rectBySeg[activeSeg].classList.remove('seg-off');
-    rectBySeg[activeSeg].classList.add('seg-on');
+function tickDigit(d) {
+  Object.values(d.rectBySeg).forEach(rectEl => {
+    rectEl.classList.remove('seg-on');
+    rectEl.classList.add('seg-off');
   });
-  tick++;
+  if (d.idx >= d.order.length) {
+    d.order = shuffle(d.segs); // nuevo ciclo: mismos segmentos, orden distinto
+    d.idx = 0;
+  }
+  const activeSeg = d.order[d.idx];
+  d.idx++;
+  d.rectBySeg[activeSeg].classList.remove('seg-off');
+  d.rectBySeg[activeSeg].classList.add('seg-on');
 }
-stepAnimation();
-setInterval(stepAnimation, 500);
+
+digitElems.forEach((d, i) => {
+  setTimeout(() => {
+    tickDigit(d);
+    setInterval(() => tickDigit(d), 500);
+  }, i * DIGIT_STAGGER_MS);
+});
 
 // ── Código secreto ─────────────────────────────────────────
 const RESPUESTAS_OK = ['7653'];
