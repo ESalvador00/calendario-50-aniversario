@@ -318,6 +318,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-09-13 | ¿Qué foto es más antigua? | 10 momentos vividos | PDTE | PDTE | PDTE |
 | 2028-09-14 | Adivina el cuadro | GIRASOLES / TRAICION IMAGENES / GITANA DORMIDA | girasoles_hd.jpg, traicion_imagenes_hd.jpg, gitana_dormida_hd.jpg | N/A | PDTE |
 | 2028-09-15 | Adivina el PIN | 3486 | ImgMapa.png | N/A | PDTE |
+| 2028-09-16 | Ingenio — morse visual | .---.--.. | N/A | N/A | PDTE |
 | 2028-09-18 | Cultura: iniciales de famosos, especial música | BORNEO | Lugar04_01.jpg .. Lugar04_06.jpg | Ajenos | PDTE |
 | 2028-09-19 | Adivina la serie | Corrupción en Miami, Los Soprano, Musculman, Pokémon | corrupcion_miami.jpg/.mp3, soprano.jpg/.mp3, musculman.jpg/.mp3, pokemon.jpg/.mp3 | N/A | PDTE |
 | 2028-09-20 | Sigue la letra | Ella (Viceversa) | Ella.mp3 | N/A | PDTE |
