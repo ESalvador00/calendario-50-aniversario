@@ -116,7 +116,7 @@
 
       <!-- Código secreto -->
       <div class="codigo-wrap">
-        <p class="codigo-label">Descífralo y adivina quién la canta</p>
+        <p class="codigo-label">Introduce la respuesta</p>
         <div class="codigo-row">
           <span class="lock-icon">🔒</span>
           <input type="text" class="codigo-input" id="codigo-input" placeholder="· · · · · · · ·" maxlength="40" autocomplete="off"/>
@@ -315,7 +315,7 @@ function validar() {
   const val = normalizar(codigoInput.value);
   const ok  = RESPUESTAS_OK.some(r => {
     const nr = normalizar(r);
-    return val === nr || levenshtein(val, nr) <= 1;
+    return val === nr || levenshtein(val, nr) <= 2;
   });
   if (ok) {
     codigoInput.classList.remove('error');
