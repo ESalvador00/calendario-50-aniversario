@@ -24,11 +24,9 @@
     .content-area{width:100%;border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:2rem;background:rgba(255,255,255,.02);display:flex;flex-direction:column;align-items:center;gap:1.8rem;}
 
     /* ── Luz de morse ── */
-    .morse-wrap{width:100%;display:flex;flex-direction:column;align-items:center;gap:1.2rem;padding:1rem 0;}
-    .morse-light{width:70px;height:70px;border-radius:50%;background:radial-gradient(circle,rgba(90,80,60,.25) 0%,rgba(60,50,40,.1) 100%);border:2px solid rgba(201,168,76,.3);transition:background .06s linear,box-shadow .06s linear,border-color .06s linear;}
-    .morse-light.on{background:radial-gradient(circle,#fff6da 0%,var(--gold-light) 55%,var(--gold) 100%);border-color:var(--gold-light);box-shadow:0 0 35px 12px rgba(232,201,122,.65);}
-    .morse-replay{padding:.5rem 1.3rem;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.35);border-radius:2px;color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:all .2s;}
-    .morse-replay:hover{background:rgba(201,168,76,.2);border-color:var(--gold);}
+    .morse-wrap{width:100%;display:flex;align-items:center;justify-content:center;padding:1.5rem 0;position:relative;min-height:180px;}
+    .morse-light{width:320px;height:320px;max-width:80vw;max-height:80vw;border-radius:50%;background:radial-gradient(circle,transparent 0%,transparent 100%);opacity:0;transition:opacity .12s ease-out;pointer-events:none;}
+    .morse-light.on{background:radial-gradient(circle,rgba(232,201,122,.5) 0%,rgba(201,168,76,.22) 30%,rgba(201,168,76,.08) 55%,transparent 78%);opacity:1;}
 
     .codigo-wrap{width:100%;display:flex;flex-direction:column;align-items:center;gap:.9rem;}
     .codigo-label{font-size:.8rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(201,168,76,.55);}
@@ -84,7 +82,7 @@
       h1{font-size:clamp(2rem,14vw,4rem);}
       .month-label{font-size:clamp(1rem,4vw,1.6rem);margin-bottom:1rem;}
       .content-area{padding:1rem;gap:1rem;}
-      .morse-light{width:56px;height:56px;}
+      .morse-light{width:220px;height:220px;}
       .pistas-wrap{gap:.4rem;}
       .pista-dot{width:24px;height:24px;font-size:.7rem;}
       .codigo-row{max-width:100%;}
@@ -112,7 +110,6 @@
       <!-- Luz de morse -->
       <div class="morse-wrap">
         <div class="morse-light" id="morse-light"></div>
-        <button class="morse-replay" id="morse-replay">&#9654; Repetir señal</button>
       </div>
 
       <!-- Código secreto -->
@@ -257,14 +254,12 @@ doneBtn.addEventListener('click', () => {
 });
 updateDone();
 
-// ── Luz de morse: ".- .-. --.. .- -." ───────────────────────
+// ── Luz de morse: ".- .-. --.. .- -." (bucle continuo) ──────
 const MORSE_MSG   = '.- .-. --.. .- -.';
 const morseLight  = document.getElementById('morse-light');
-const morseReplay = document.getElementById('morse-replay');
-const DOT_MS = 200, DASH_MS = 600, GAP_SYM_MS = 200, GAP_LETTER_MS = 600;
+const DOT_MS = 200, DASH_MS = 600, GAP_SYM_MS = 200, GAP_LETTER_MS = 600, GAP_LOOP_MS = 1400;
 
 function reproducirMorse(str) {
-  morseReplay.disabled = true;
   let t = 0;
   for (const ch of str) {
     if (ch === '.' || ch === '-') {
@@ -277,10 +272,9 @@ function reproducirMorse(str) {
       t += GAP_LETTER_MS - GAP_SYM_MS;
     }
   }
-  setTimeout(() => { morseReplay.disabled = false; }, t);
+  setTimeout(() => reproducirMorse(str), t + GAP_LOOP_MS);
 }
 
-morseReplay.addEventListener('click', () => reproducirMorse(MORSE_MSG));
 setTimeout(() => reproducirMorse(MORSE_MSG), 600);
 
 // ── Código secreto (sin espacios + tolerancia Levenshtein) ──
