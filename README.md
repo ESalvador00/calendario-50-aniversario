@@ -236,6 +236,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-05-16 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
 | 2028-05-17 | Sigue la letra | La chispa adecuada (Héroes del Silencio) | La_chispa_adecuada.mp3 | N/A | PDTE |
 | 2028-05-18 | Timeline: películas de cine | blade_runner, parque_jurasico, pulp_fiction, titanic, senor_anillos_comunidad, caballero_oscuro, interstellar, parasitos | blade_runner.jpg, parque_jurasico.jpg, pulp_fiction.jpg, titanic.jpg, senor_anillos_comunidad.jpg, caballero_oscuro.jpg, interstellar.jpg, parasitos.jpg | N/A | PDTE |
+| 2028-05-20 | Ingenio — texto en Wingdings | ANNIE LENNOX | No_more_i_love_yous.mp3 | N/A | PDTE |
 | 2028-05-22 | Cultura: iniciales de famosos | CAPRI | Lugar08_01.jpg .. Lugar08_05.jpg | Ajenos | PDTE |
 | 2028-05-23 | Rosco de pasapalabra | N/A | N/A | N/A | PDTE |
 | 2028-05-24 | Puzzle visual | ARI | Puzzle04_01.png .. Puzzle04_07.png | N/A | PDTE |
