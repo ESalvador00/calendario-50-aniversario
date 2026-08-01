@@ -280,6 +280,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-07-18 | Cultura: iniciales de famosos | HAWAII | Lugar09_01.jpg .. Lugar09_06.jpg | Ajenos | PDTE |
 | 2028-07-19 | Sigue la letra | Vino tinto (Estopa) | Vino_tinto.mp3 | N/A | PDTE |
 | 2028-07-21 | Adivina las películas | Superman, Grease, La Sirenita, Indiana Jones, American Beauty | Superman, Grease, La_Sirenita, Indiana_Jones, American_Beauty (mp3 y jpg) | N/A | PDTE |
+| 2028-07-22 | Ingenio — código SMS multi-tap | 5885554443382 | Ariadna_20130812.jpg | Ariadna | PDTE |
 | 2028-07-23 | Palabras Intraducibles - Alemán | SEHNSUCHT | AriAlex_20170611.jpg | Ariadna y Alex | PDTE |
 | 2028-07-24 | Rosco de pasapalabra | N/A | N/A | N/A | PDTE |
 | 2028-07-25 | Timeline: monumentos y edificios | 8 monumentos famosos | estatua_libertad.jpg, torre_eiffel.jpg, cristo_redentor.jpg, opera_sidney.jpg, museo_guggenheim_bilbao.jpg, torres_petronas.jpg, burj_khalifa.jpg, marina_bay_sands.jpg | N/A | PDTE |
