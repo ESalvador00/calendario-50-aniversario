@@ -73,6 +73,7 @@
     .popup-icon{font-size:3rem;margin-bottom:1rem;}
     .popup-title{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--gold-light);margin-bottom:1rem;}
     .popup-msg{font-size:1rem;font-style:italic;color:rgba(250,246,238,.6);line-height:1.7;margin-bottom:2rem;}
+    .popup-msg .morse-clue{display:block;font-style:normal;font-family:'Cormorant Garamond',monospace;letter-spacing:.35em;color:var(--gold-light);margin-bottom:.5rem;}
     .popup-btn{display:inline-block;padding:.7rem 2rem;border:1px solid rgba(201,168,76,.4);border-radius:2px;color:var(--gold);font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;background:none;transition:all .2s;}
     .popup-btn:hover{background:rgba(201,168,76,.1);border-color:var(--gold);}
 
@@ -256,9 +257,8 @@ updateDone();
 
 // ── Luz de morse: "- .- .-. --.. .- -." (bucle continuo) ──────
 const MORSE_MSG   = '- .- .-. --.. .- -.';
- 
 const morseLight  = document.getElementById('morse-light');
-const DOT_MS = 1800, DASH_MS = 650, GAP_SYM_MS = 200, GAP_LETTER_MS = 600, GAP_LOOP_MS = 1400;
+const DOT_MS = 200, DASH_MS = 650, GAP_SYM_MS = 200, GAP_LETTER_MS = 600, GAP_LOOP_MS = 1400;
 
 function reproducirMorse(str) {
   let t = 0;
@@ -280,6 +280,7 @@ setTimeout(() => reproducirMorse(MORSE_MSG), 600);
 
 // ── Código secreto (sin espacios + tolerancia Levenshtein) ──
 const RESPUESTAS_OK = ['.---.--..'];
+
 const codigoInput   = document.getElementById('codigo-input');
 const popupError    = document.getElementById('popup-error');
 
@@ -335,7 +336,7 @@ const PISTAS = [
   'La luz es el mensajero.',
   'No todas las señales duran lo mismo.',
   'Los marinos y los telegrafistas conocían bien este lenguaje.',
-  '- .- .-. --.. .- -. <br>Lee el mensaje antes de contestarlo.',
+  '<span class="morse-clue">- .- .-. --.. .- -.</span>Lee el mensaje antes de contestarlo.',
   'Contesta en el mismo idioma en que te hablan.',
 ];
 
@@ -364,7 +365,7 @@ document.addEventListener('keydown', e => {
 dotIds.forEach((id, i) => {
   document.getElementById(id).addEventListener('click', () => {
     if (pistaEstado[i] === 0) return;
-    document.getElementById('pista-texto').textContent = PISTAS[i];
+    document.getElementById('pista-texto').innerHTML = PISTAS[i];
     document.getElementById('pista-titulo').textContent = `Pista ${i + 1}`;
     popupPista.classList.add('visible');
     pistaCallback = () => {
