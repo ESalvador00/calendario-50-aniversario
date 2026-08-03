@@ -388,6 +388,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-12-27 | Adivina la serie | Embrujadas, Érase una vez, Ranma, V | embrujadas.jpg/.mp3, erase_una_vez.jpg/.mp3, ranma.jpg/.mp3, v.jpg/.mp3 | N/A | PDTE |
 | 2028-12-28 | Adivina el cuadro | GRAN OLA KANAGAWA, ESPERANZA II, JOVEN AZUL | gran_ola_kanagawa_hd.jpg, esperanza_ii_hd.jpg, joven_azul_hd.jpg | N/A | PDTE |
 | 2028-12-29 | Adivina el PIN | 7653 | N/A | N/A | PDTE |
+| 2028-12-30 | Palabras Intraducibles - Galés | CWTCH | NievesAriAlex_20180406.jpg | Nieves, Ariadna y Alex | PDTE |
 | 2029-01-02 | Puzzle visual | ACHI | Puzzle01_01.png .. Puzzle01_05.png | N/A | PDTE |
 | 2029-01-03 | Timeline musical, Internacional en los 2000 | 2000-2009 | Music.jpg, Complicated.jpg, Hey_Ya.jpg, Crazy.jpg, Umbrella.jpg, I_Gotta_Feeling.jpg + .mp3 | N/A | PDTE |
 | 2029-01-04 | Timeline: monumentos y edificios | 8 monumentos famosos | sagrada_familia.jpg, parque_guell.jpg, casa_batllo.jpg, pedrera.jpg, plaza_espana.jpg, valle_cuelgamuros.jpg, museo_guggenheim_bilbao.jpg, palau_les_arts.jpg | N/A | PDTE |
