@@ -81,8 +81,13 @@
 
     .match-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:200;align-items:center;justify-content:center;flex-direction:column;}
     .match-overlay.visible{display:flex;}
-    .match-overlay img{display:block;max-width:88vw;max-height:80vh;object-fit:contain;border:1px solid rgba(201,168,76,.35);border-radius:4px;}
+    .match-overlay-img-wrap{position:relative;max-width:88vw;max-height:80vh;}
+    .match-overlay-img-wrap img{display:block;max-width:88vw;max-height:80vh;object-fit:contain;border:1px solid rgba(201,168,76,.35);border-radius:4px;}
+    .match-overlay-date{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0);opacity:0;transition:opacity .2s,background .2s;font-family:'Playfair Display',serif;font-size:1.3rem;font-style:italic;color:var(--gold-light);text-align:center;padding:1rem;pointer-events:none;}
+    .match-overlay-img-wrap:hover .match-overlay-date{opacity:1;background:rgba(0,0,0,.55);}
     .match-hint{margin-top:1.4rem;font-size:.75rem;letter-spacing:.2em;color:rgba(250,246,238,.4);text-transform:uppercase;text-align:center;padding:0 1rem;}
+    .reset-btn{margin-top:.4rem;padding:.55rem 1.4rem;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.35);border-radius:2px;color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:all .2s;}
+    .reset-btn:hover{background:rgba(201,168,76,.2);border-color:var(--gold);}
   </style>
 </head>
 <body>
@@ -102,6 +107,7 @@
     <div class="content-area">
       <p class="memory-title">Empareja las imágenes</p>
       <div class="memory-grid" id="memory-grid"></div>
+      <button class="reset-btn" id="reset-btn">Reiniciar juego</button>
     </div>
   </div>
 
@@ -145,8 +151,11 @@
 
 <!-- Overlay: imagen conjunta al acertar pareja -->
 <div class="match-overlay" id="match-overlay">
-  <img src="" alt="Pareja acertada" id="match-overlay-img"/>
-  <p class="match-hint">Toca, mueve el ratón o pulsa una tecla para continuar</p>
+  <div class="match-overlay-img-wrap">
+    <img src="" alt="Pareja acertada" id="match-overlay-img"/>
+    <div class="match-overlay-date" id="match-overlay-date"></div>
+  </div>
+  <p class="match-hint">Toca o pulsa una tecla para continuar</p>
 </div>
 
 <script>
@@ -239,36 +248,51 @@ function playError()   { beep(180, 0.3, 'sawtooth'); }
 // ── Juego de memoria ─────────────────────────────────────────
 const BASES = ['20040626','20061224','20101211','20151205','20170807','20190601','20200208','20250105'];
 
-let cards = [];
-BASES.forEach(base => {
-  cards.push({ base, person: 'E', img: `../media/NievesEnric_${base}_E.jpg` });
-  cards.push({ base, person: 'N', img: `../media/NievesEnric_${base}_N.jpg` });
-});
-
-// Fisher-Yates shuffle — se reparte al azar en cada carga/recarga
-for (let i = cards.length - 1; i > 0; i--) {
-  const j = Math.floor(Math.random() * (i + 1));
-  [cards[i], cards[j]] = [cards[j], cards[i]];
+const MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+function formatFecha(base) {
+  const y = base.slice(0, 4), m = parseInt(base.slice(4, 6), 10), d = parseInt(base.slice(6, 8), 10);
+  return `${d} de ${MESES[m - 1]} de ${y}`;
 }
 
 const grid = document.getElementById('memory-grid');
+const resetBtn = document.getElementById('reset-btn');
+let cards = [];
 let flipped = [];
 let lock = false;
 let matchedPairs = 0;
 
-cards.forEach((c, idx) => {
-  const card = document.createElement('div');
-  card.className = 'card';
-  card.dataset.base = c.base;
-  card.dataset.idx = idx;
-  card.innerHTML = `
-    <div class="card-inner">
-      <div class="card-face card-back"></div>
-      <div class="card-face card-front"><img src="${c.img}" alt="Tarjeta" draggable="false"/></div>
-    </div>`;
-  card.addEventListener('click', () => onCardClick(card));
-  grid.appendChild(card);
-});
+function buildGrid() {
+  cards = [];
+  BASES.forEach(base => {
+    cards.push({ base, person: 'E', img: `../media/NievesEnric_${base}_E.jpg` });
+    cards.push({ base, person: 'N', img: `../media/NievesEnric_${base}_N.jpg` });
+  });
+
+  // Fisher-Yates shuffle — se reparte al azar en cada carga/recarga o reinicio
+  for (let i = cards.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [cards[i], cards[j]] = [cards[j], cards[i]];
+  }
+
+  flipped = [];
+  lock = false;
+  matchedPairs = 0;
+  grid.innerHTML = '';
+
+  cards.forEach((c, idx) => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.dataset.base = c.base;
+    card.dataset.idx = idx;
+    card.innerHTML = `
+      <div class="card-inner">
+        <div class="card-face card-back"></div>
+        <div class="card-face card-front"><img src="${c.img}" alt="Tarjeta" draggable="false"/></div>
+      </div>`;
+    card.addEventListener('click', () => onCardClick(card));
+    grid.appendChild(card);
+  });
+}
 
 function onCardClick(card) {
   if (lock) return;
@@ -297,18 +321,19 @@ function onCardClick(card) {
   }
 }
 
-const matchOverlay    = document.getElementById('match-overlay');
-const matchOverlayImg = document.getElementById('match-overlay-img');
+const matchOverlay     = document.getElementById('match-overlay');
+const matchOverlayImg  = document.getElementById('match-overlay-img');
+const matchOverlayDate = document.getElementById('match-overlay-date');
 let dismissMatch = null;
 
 function showMatchOverlay(base, c1, c2) {
   matchOverlayImg.src = `../media/NievesEnric_${base}.jpg`;
+  matchOverlayDate.textContent = formatFecha(base);
   matchOverlay.classList.add('visible');
 
   dismissMatch = () => hideMatchOverlay(c1, c2);
   setTimeout(() => {
     matchOverlay.addEventListener('click', dismissMatch, { once: true });
-    document.addEventListener('mousemove', dismissMatch, { once: true });
     document.addEventListener('keydown', dismissMatch, { once: true });
     document.addEventListener('touchstart', dismissMatch, { once: true });
   }, 300);
@@ -317,7 +342,6 @@ function showMatchOverlay(base, c1, c2) {
 function hideMatchOverlay(c1, c2) {
   matchOverlay.classList.remove('visible');
   matchOverlay.removeEventListener('click', dismissMatch);
-  document.removeEventListener('mousemove', dismissMatch);
   document.removeEventListener('keydown', dismissMatch);
   document.removeEventListener('touchstart', dismissMatch);
 
@@ -332,6 +356,19 @@ function hideMatchOverlay(c1, c2) {
     setTimeout(() => popupStarReward.classList.add('visible'), 400);
   }
 }
+
+resetBtn.addEventListener('click', () => {
+  matchOverlay.classList.remove('visible');
+  if (dismissMatch) {
+    matchOverlay.removeEventListener('click', dismissMatch);
+    document.removeEventListener('keydown', dismissMatch);
+    document.removeEventListener('touchstart', dismissMatch);
+    dismissMatch = null;
+  }
+  buildGrid();
+});
+
+buildGrid();
 </script>
 </body>
 </html>
