@@ -158,7 +158,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-01-26 | Rosco de pasapalabra | N/A | N/A | N/A | PDTE |
 | 2028-01-27 | Adivina el PIN | 5784 | N/A | N/A | PDTE |
 | 2028-01-28 | Timeline histórico doble | A:01-06 / B:01-06 | Timeline01_01A..06A.png + Timeline01_01B..06B.png | N/A | PDTE |
-| 2028-01-29 | Memory 4x4 | N/A | NievesEnric_20040626/_20061224/_20101211/_20151205/_20170807/_20190601/_20200208/_20250105 (+_E/_N por tarjeta) | Nieves, Enric | PDTE |
+| 2028-01-29 | Memory 4x4 | N/A | NievesEnric + 20040626 20061224 20101211 20151205 20170807 20190601 20200208 20250105 (+_E/_N) | Nieves, Enric | PDTE |
 | 2028-01-30 | Agudeza visual — banderas Código Internacional de Señales Marítimas | 99274 | FinAno2020.png | Nieves, Enric, Ari, Alex | PDTE |
 | 2028-01-31 | ¿Qué foto es más antigua? | 10 momentos vividos | PDTE | PDTE | PDTE |
 | 2028-02-01 | Primeras frases de novelas | 6 novelas famosas | don_quijote_mancha.jpg, 1984.jpg, pedro_paramo.jpg, neuromante.jpg, jane_eyre.jpg, isla_tesoro.jpg | N/A | PDTE |
