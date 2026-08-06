@@ -244,6 +244,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-05-23 | Rosco de pasapalabra | N/A | N/A | N/A | PDTE |
 | 2028-05-24 | Puzzle visual | ARI | Puzzle04_01.png .. Puzzle04_07.png | N/A | PDTE |
 | 2028-05-26 | Adivina las películas | Fiebre del Sábado Noche, Jurassic Park, Coco, Gladiator, Pulp Fiction | Fiebre_del_Sabado_Noche, Jurassic_Park, Coco, Gladiator, Pulp_Fiction (mp3 y jpg) | N/A | PDTE |
+| 2028-05-28 | Memory 4x4 | N/A | NievesEnric_20061024, NievesEnric_20200510, NievesEnric_20200627, NievesEnric_20220623, NievesEnric_20230501, NievesEnric_20251116, NievesEnric_20251207, NievesEnric_20260510 (+_E/_N) | Nieves, Enric | PDTE |
 | 2028-05-29 | Adivina el logo correcto | 10 logos icónicos | Logos.png | N/A | PDTE |
 | 2028-05-30 | ¿Qué foto es más antigua? | 10 momentos vividos | PDTE | PDTE | PDTE |
 | 2028-05-31 | Adivina el slogan | 58 anuncios míticos, hasta 5 aciertos | N/A | N/A | PDTE |
