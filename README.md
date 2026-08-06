@@ -378,6 +378,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-12-06 | Acertijos y adivinanzas - Oficio reconocido | AGUJA | Ari_20200215.png | Ariadna | PDTE |
 | 2028-12-07 | Puzzle visual | ACHI | Puzzle01_01.png .. Puzzle01_05.png | N/A | PDTE |
 | 2028-12-09 | Satisfacción con restricciones múltiples: Juegos de mesa | Enric: ajedrez+frutos secos / Nieves: cartas+patatas / Ariadna: puzle+galletas / Alex: dominó+gominolas | RSR12_Escenario.webp + RSR12_01A..01D.png + RSR12_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
+| 2028-12-10 | Memory 4x4 | N/A | NievesEnric_20041205, NievesEnric_20061024, NievesEnric_20090122, NievesEnric_20170515, NievesEnric_20190406, NievesEnric_20220413, NievesEnric_20250413, NievesEnric_20250803 (+_E/_N) | Nieves, Enric | PDTE |
 | 2028-12-11 | Sigue la letra | Cuéntame un cuento (Celtas Cortos) | Cuentame_un_cuento.mp3 | N/A | PDTE |
 | 2028-12-12 | ¿Qué foto es más antigua? | 10 momentos vividos | PDTE | PDTE | PDTE |
 | 2028-12-13 | Adivina quién soy | DARTH VADER | Enric_20130227.png | Enric | PDTE |
