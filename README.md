@@ -290,6 +290,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-07-26 | Adivina la serie | Candy Candy, Compañeros, Los Osos Amorosos, Sensación de vivir | candy_candy.jpg/.mp3, companeros.jpg/.mp3, osos_amorosos.jpg/.mp3, sensacion_de_vivir.jpg/.mp3 | N/A | PDTE |
 | 2028-07-28 | Timeline musical, España en los 90 | 1990-1999 | Entre_dos_tierras.jpg .. Tu_calorro.jpg | N/A | PDTE |
 | 2028-07-29 | Satisfacción con restricciones múltiples: Excursión al parque | Enric: bicicleta+Galletas / Nieves: cometa+bocadillo / Ariadna: fútbol+fruta / Alex: columpios+Patatas | RSR07_Escenario.webp + RSR07_01A..01D.png + RSR07_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
+| 2028-07-30 | Memory 4x4 | N/A | NievesEnric_20040425, NievesEnric_20061004, NievesEnric_20180714, NievesEnric_20190811, NievesEnric_20200718, NievesEnric_20200919, NievesEnric_20220514, NievesEnric_20240510 (+_E/_N) | Nieves, Enric | PDTE |
 | 2028-07-31 | Adivina el cuadro | AMERICAN GOTHIC / OFELIA / MUJER LLORANDO | american_gothic_hd.jpg, ofelia_hd.jpg, mujer_llorando_hd.jpg | N/A | PDTE |
 | 2028-08-01 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
 | 2028-08-02 | Puzzle visual | ACHI | Puzzle01_01.png .. Puzzle01_05.png | N/A | PDTE |
