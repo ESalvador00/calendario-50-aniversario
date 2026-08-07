@@ -340,6 +340,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-10-10 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
 | 2028-10-11 | Timeline: monumentos y edificios | 8 monumentos famosos | mezquita_cordoba.jpg, santa_maria_naranco.jpg, murallas_avila.jpg, catedral_cuenca.jpg, alhambra.jpg, catedral_granada.jpg, monasterio_escorial.jpg, palacio_real_madrid.jpg | N/A | PDTE |
 | 2028-10-13 | Adivina el PIN | 2314 | N/A | N/A | PDTE |
+| 2028-10-15 | Memory 4x4 | N/A | NievesEnric_20011227, NievesEnric_20171001, NievesEnric_20181124, NievesEnric_20201010, NievesEnric_20210515, NievesEnric_20220507, NievesEnric_20230819, NievesEnric_20240819 (+_E/_N) | Nieves, Enric | PDTE |
 | 2028-10-16 | Sigue la letra | Chiquilla (Seguridad Social) | Chiquilla.mp3 | N/A | PDTE |
 | 2028-10-17 | ¿Qué foto es más antigua? | 10 momentos vividos | PDTE | PDTE | PDTE |
 | 2028-10-18 | Timeline musical, Internacional en los 90 | 1990-1999 | Ice_ice_baby.jpg, Losing_my_religion.jpg, Zombie.jpg, Wannabe.jpg, Baby_one_more_time.jpg, Genie_in_a_Bottle.jpg + .mp3 | N/A | PDTE |
