@@ -182,17 +182,6 @@
   </div>
 </div>
 
-<!-- popup: fin de juego -->
-<div class="popup-overlay" id="popup-fin">
-  <div class="popup-box">
-    <div class="popup-icon" id="fin-icon">&#127881;</div>
-    <p class="popup-title" id="fin-title">&#161;Rosco completado!</p>
-    <p class="popup-msg"   id="fin-msg"></p>
-    <button class="popup-btn" id="fin-reintentar">Reintentar</button>
-    <button class="popup-btn secondary" onclick="window.location.href='../index.html'">Volver al calendario</button>
-  </div>
-</div>
-
 <script>
 const PREVIEW_KEY = 'cal_preview';
 const isPreview   = localStorage.getItem(PREVIEW_KEY) === '1';
@@ -394,14 +383,16 @@ function iniciarJuego(){
   document.getElementById('respuesta-input').focus();
 }
 
+function esPendiente(l){ return estado[l]==='pending' || estado[l]==='err'; }
+
 function siguienteLetraPendiente(){
-  const quedan=LETRAS_ACTIVAS.some(l=>estado[l]==='pending');
+  const quedan=LETRAS_ACTIVAS.some(esPendiente);
   if(!quedan){finJuego();return;}
   let intentos=0;
   do{
     posicion=(posicion+1)%orden.length;intentos++;
     if(intentos>orden.length)break;
-  }while(estado[LETRAS_ACTIVAS[orden[posicion]]]!=='pending');
+  }while(!esPendiente(LETRAS_ACTIVAS[orden[posicion]]));
   dibujarRosco();mostrarPregunta();updateScore();
   document.getElementById('respuesta-input').value='';
   document.getElementById('respuesta-input').focus();
@@ -425,7 +416,7 @@ function contestar(){
     estado[letra]='ok';
     soundCorrect();
     dibujarRosco();updateScore();
-    const quedan=LETRAS_ACTIVAS.some(l=>estado[l]==='pending');
+    const quedan=LETRAS_ACTIVAS.some(esPendiente);
     if(!quedan){setTimeout(()=>finJuego(),450);return;}
     setTimeout(siguienteLetraPendiente,450);
   } else {
@@ -433,12 +424,8 @@ function contestar(){
     estado[letra]='err';
     soundWrong();
     dibujarRosco();updateScore();
-    // Se marca en rojo momentáneamente; al dar la vuelta el rosco vuelve a preguntarse (intentos infinitos)
-    setTimeout(()=>{
-      estado[letra]='pending';
-      dibujarRosco();updateScore();
-      siguienteLetraPendiente();
-    },600);
+    // La letra queda marcada en rojo; al dar la vuelta el rosco vuelve a preguntarse (intentos infinitos)
+    setTimeout(siguienteLetraPendiente,600);
   }
 }
 
@@ -451,20 +438,9 @@ function finJuego(){
   document.getElementById('btn-pasa').disabled=true;
   document.getElementById('btn-contesta').disabled=true;
   dibujarRosco();
-  document.getElementById('fin-icon').textContent  = '\uD83C\uDFC6';
-  document.getElementById('fin-title').textContent = '\u00A1Rosco completado!';
-  document.getElementById('fin-msg').textContent   = TOTAL+' de '+TOTAL+' correctas'+(errTotal>0?(' \u00B7 '+errTotal+' fallo'+(errTotal===1?'':'s')+' por el camino'):' \u00B7 \u00A1sin fallos!')+'\n\n'+(errTotal===0?'\u00A1PERFECTO! Has resuelto el rosco entero sin fallar.':'\u00A1Enhorabuena! Has completado el rosco.');
-  if(isPreview)markDone();
-  setTimeout(()=>document.getElementById('popup-fin').classList.add('visible'),500);
+  markDone();
+  setTimeout(()=>popupStarReward.classList.add('visible'),500);
 }
-
-document.getElementById('fin-reintentar').addEventListener('click',()=>{
-  document.getElementById('popup-fin').classList.remove('visible');
-  iniciarJuego();
-});
-document.getElementById('popup-fin').addEventListener('click',e=>{
-  if(e.target===document.getElementById('popup-fin'))document.getElementById('popup-fin').classList.remove('visible');
-});
 
 iniciarJuego();
 </script>
