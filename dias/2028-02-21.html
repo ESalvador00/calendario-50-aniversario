@@ -12,39 +12,47 @@
     html,body{height:100%;}
     body{background-color:var(--dark);color:var(--cream);font-family:'Cormorant Garamond',serif;min-height:100vh;display:flex;flex-direction:column;overflow-x:hidden;}
     body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 25% 15%,rgba(201,168,76,.10) 0%,transparent 55%),radial-gradient(ellipse at 75% 85%,rgba(124,54,38,.10) 0%,transparent 55%);pointer-events:none;z-index:0;}
-    .wrap{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:1.2rem 1.5rem 2rem;flex:1;display:flex;flex-direction:column;}
-    .day-hero{text-align:center;position:relative;padding-bottom:.6rem;}
-    .ornament-line-h{display:flex;align-items:center;justify-content:center;gap:1rem;margin-bottom:.8rem;}
-    .o-line{height:1px;width:50px;background:linear-gradient(to right,transparent,var(--gold));}
+    .wrap{position:relative;z-index:1;width:100%;margin:0 auto;padding:1.5rem 2rem 2rem;flex:1;display:flex;flex-direction:column;}
+    .day-hero{text-align:center;flex:1;display:flex;flex-direction:column;align-items:center;padding:1rem 0 0;position:relative;width:100%;}
+    .ornament-line-h{display:flex;align-items:center;justify-content:center;gap:1rem;margin-bottom:1rem;}
+    .o-line{height:1px;width:60px;background:linear-gradient(to right,transparent,var(--gold));}
     .o-line.r{background:linear-gradient(to left,transparent,var(--gold));}
     .o-dot{width:5px;height:5px;background:var(--gold);border-radius:50%;}
-    .day-of-week{font-size:.85rem;letter-spacing:.4em;text-transform:uppercase;color:rgba(201,168,76,.5);margin-bottom:1rem;}
-    h1{font-family:'Playfair Display',serif;font-size:clamp(3rem,9vw,7rem);font-weight:900;line-height:1;background:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 50%,var(--gold-dark) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.5rem;}
-    .month-label{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3.5vw,2.4rem);font-weight:400;font-style:italic;color:rgba(250,246,238,.45);margin-bottom:.5rem;}
-    .action-btns{position:absolute;top:0;right:0;display:flex;flex-direction:column;align-items:center;gap:.2rem;}
-    .icon-btn{background:none;border:none;cursor:pointer;font-size:2rem;line-height:1;transition:color .2s,transform .2s;padding:.2rem;}
-    .icon-btn:hover{transform:scale(1.2);}
-    .fav-btn{color:rgba(250,246,238,.2);}
-    .fav-btn.active{color:#e05a6a;}
-    .done-btn{color:var(--gold);opacity:.6;}
-    .done-btn.active{color:var(--gold);opacity:1;}
-    .content-area{width:100%;border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:1.2rem 1rem;background:rgba(255,255,255,.02);display:flex;flex-direction:column;align-items:center;gap:.9rem;}
-    .timer-row{display:flex;align-items:center;gap:.8rem;width:100%;max-width:560px;}
-    .timer-display{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:var(--gold-light);min-width:2.5ch;text-align:center;line-height:1;}
-    .timer-display.urgent{color:#e05a6a;}
-    .timer-bar-outer{flex:1;height:6px;background:rgba(201,168,76,.12);border-radius:3px;overflow:hidden;}
-    .timer-bar-inner{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--gold-dark),var(--gold),var(--gold-light));transition:width .5s linear,background .5s;}
-    .timer-bar-inner.urgent{background:linear-gradient(90deg,#8B1414,#e05a6a,#ff9090);}
-    .rosco-wrap{position:relative;width:min(60vw,calc(100vh - 300px),480px);height:min(60vw,calc(100vh - 300px),480px);flex-shrink:0;}
-    .rosco-svg{width:100%;height:100%;}
+    .day-of-week{font-size:.85rem;letter-spacing:.4em;text-transform:uppercase;color:rgba(201,168,76,.5);margin-bottom:.4rem;}
+    h1{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,7vw,5rem);font-weight:900;line-height:1;background:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 50%,var(--gold-dark) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.2rem;}
+    .month-label{font-family:'Playfair Display',serif;font-size:clamp(1.1rem,2.8vw,1.8rem);font-weight:400;font-style:italic;color:rgba(250,246,238,.45);margin-bottom:1rem;}
+
+    .content-area{
+      width:100%;
+      flex:none;
+      border:1px solid rgba(201,168,76,.15);
+      border-radius:4px;
+      padding:1rem;
+      background:rgba(255,255,255,.02);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:.8rem;
+      height:100vh;
+    }
+
+    /* ── Título del reto ── */
+    .reto-title{font-family:'Playfair Display',serif;font-size:clamp(1.1rem,2vw + .6rem,1.6rem);font-weight:700;letter-spacing:.03em;color:var(--gold-light);text-align:center;flex-shrink:0;}
+
+    /* ── Rosco — ocupa todo el espacio disponible ── */
+    .rosco-outer{position:relative;width:100%;flex:1;min-height:0;display:flex;align-items:center;justify-content:center;}
+    .rosco-wrap{position:relative;height:100%;max-width:100%;aspect-ratio:1/1;}
+    .rosco-svg{width:100%;height:100%;display:block;}
     .pregunta-wrap{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:23%;}
     .pregunta-txt{font-family:'Cormorant Garamond',serif;font-size:clamp(.6rem,.85vw + .35rem,.95rem);font-style:italic;color:rgba(250,246,238,.75);text-align:center;line-height:1.4;}
     .pregunta-letra{font-family:'Playfair Display',serif;font-size:clamp(.95rem,1.3vw+.45rem,1.3rem);font-weight:700;color:var(--gold-light);display:block;margin-bottom:.25rem;}
-    .score-row{display:flex;gap:1.4rem;font-size:.78rem;letter-spacing:.15em;text-transform:uppercase;}
+
+    .score-row{display:flex;gap:1.4rem;font-size:.78rem;letter-spacing:.15em;text-transform:uppercase;flex-shrink:0;}
     .score-ok{color:#4CAF50;}
     .score-err{color:#e05a6a;}
     .score-skip{color:rgba(201,168,76,.5);}
-    .input-row{display:flex;gap:.6rem;width:100%;max-width:560px;}
+
+    .input-row{display:flex;gap:.6rem;width:100%;max-width:560px;flex-shrink:0;}
     .respuesta-input{flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.25);border-radius:2px;color:var(--cream);font-family:'Cormorant Garamond',serif;font-size:1.1rem;padding:.5rem .8rem;outline:none;transition:border-color .2s;}
     .respuesta-input:focus{border-color:rgba(201,168,76,.6);}
     .btn-pasa,.btn-contesta{padding:.5rem 1rem;border-radius:2px;font-family:'Cormorant Garamond',serif;font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;border:1px solid;transition:all .2s;white-space:nowrap;}
@@ -52,12 +60,25 @@
     .btn-pasa:hover{background:rgba(201,168,76,.08);border-color:var(--gold);color:var(--gold);}
     .btn-contesta{background:rgba(201,168,76,.12);border-color:rgba(201,168,76,.45);color:var(--gold);}
     .btn-contesta:hover{background:rgba(201,168,76,.22);border-color:var(--gold-light);}
-    .day-nav{display:flex;justify-content:space-between;align-items:center;padding-top:1.5rem;border-top:1px solid rgba(201,168,76,.1);margin-top:auto;}
-    .nav-btn{font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(201,168,76,.5);text-decoration:none;padding:.5rem 1rem;border:1px solid rgba(201,168,76,.18);border-radius:2px;transition:all .2s;}
+
+    /* ── Nav ── */
+    .day-nav{display:flex;justify-content:space-between;align-items:center;padding-top:1.5rem;border-top:1px solid rgba(201,168,76,.1);margin-top:1.5rem;}
+    .nav-btn{font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(201,168,76,.5);text-decoration:none;padding:.6rem 1.2rem;border:1px solid rgba(201,168,76,.18);border-radius:2px;transition:all .2s;}
     .nav-btn:hover{color:var(--gold-light);border-color:rgba(201,168,76,.5);background:rgba(201,168,76,.05);}
-    .year-badge{font-size:.65rem;letter-spacing:.3em;color:rgba(201,168,76,.25);text-transform:uppercase;}
-    .back-link{display:block;text-align:center;margin-top:1.2rem;color:rgba(201,168,76,.35);font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;text-decoration:none;transition:color .2s;}
+    .year-badge{font-size:.7rem;letter-spacing:.3em;color:rgba(201,168,76,.25);text-transform:uppercase;}
+    .back-link{display:block;text-align:center;margin-top:1.2rem;color:rgba(201,168,76,.35);font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;text-decoration:none;transition:color .2s;}
     .back-link:hover{color:var(--gold);}
+
+    /* ── Action btns ── */
+    .action-btns{position:absolute;top:0;right:0;display:flex;flex-direction:column;align-items:center;gap:.2rem;}
+    .icon-btn{background:none;border:none;cursor:pointer;font-size:2rem;line-height:1;transition:color .2s,transform .2s;padding:.2rem;}
+    .icon-btn:hover{transform:scale(1.2);}
+    .fav-btn{color:rgba(250,246,238,.2);}
+    .fav-btn.active{color:#e05a6a;}
+    .done-btn{color:var(--gold);opacity:0.6;}
+    .done-btn.active{color:var(--gold);opacity:1;}
+
+    /* ── Popups ── */
     .popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:100;align-items:center;justify-content:center;}
     .popup-overlay.visible{display:flex;}
     .popup-box{background:var(--dark);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:2.5rem 2rem;max-width:420px;width:90%;text-align:center;box-shadow:0 0 60px rgba(0,0,0,.8);}
@@ -67,28 +88,19 @@
     .popup-btn{display:inline-block;padding:.65rem 1.8rem;border:1px solid rgba(201,168,76,.4);border-radius:2px;color:var(--gold);font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;background:none;transition:all .2s;margin:.3rem;}
     .popup-btn:hover{background:rgba(201,168,76,.1);border-color:var(--gold);}
     .popup-btn.secondary{color:rgba(250,246,238,.4);border-color:rgba(250,246,238,.15);}
+
     @media(max-width:600px){
       .wrap{padding:.8rem .8rem 1.2rem;}
-      .rosco-wrap{width:min(88vw,calc(100vh - 300px),340px);height:min(88vw,calc(100vh - 300px),340px);}
-      .content-area{padding:.7rem .5rem;gap:.5rem;}
-      h1{font-size:clamp(2rem,10vw,3.5rem);}
-      .month-label{font-size:clamp(1rem,3.5vw,1.6rem);margin-bottom:.2rem;}
-      .ornament-line-h{margin-bottom:.5rem;}
+      .day-hero{padding:.5rem 0 0;}
+      h1{font-size:clamp(2rem,12vw,3.5rem);}
+      .month-label{font-size:clamp(.9rem,3.5vw,1.4rem);margin-bottom:.6rem;}
+      .content-area{padding:.6rem;gap:.6rem;}
+      .day-nav{margin-top:.8rem;padding-top:.8rem;}
+      .ornament-line-h{margin-bottom:.6rem;}
       .input-row{flex-wrap:wrap;}
       .respuesta-input{min-width:0;width:100%;order:1;}
       .btn-pasa{order:2;flex:1;}
       .btn-contesta{order:3;flex:1;}
-    }
-    @media(max-height:680px) and (orientation:landscape){
-      .wrap{padding:.4rem 1rem .6rem;}
-      h1{font-size:1.6rem;}
-      .month-label{font-size:.9rem;margin-bottom:.1rem;}
-      .day-of-week{font-size:.65rem;margin-bottom:.2rem;}
-      .ornament-line-h{margin-bottom:.3rem;}
-      .rosco-wrap{width:min(50vh,calc(100vh - 160px),360px);height:min(50vh,calc(100vh - 160px),360px);}
-      .content-area{gap:.3rem;padding:.5rem;}
-      .day-nav{padding-top:.5rem;}
-      .back-link{margin-top:.5rem;}
     }
   </style>
 </head>
@@ -96,8 +108,8 @@
 <div class="wrap">
   <div class="day-hero">
     <div class="action-btns">
-      <button class="icon-btn fav-btn"  id="fav-btn"  title="Favoritos">&#9825;</button>
-      <button class="icon-btn done-btn" id="done-btn" title="Completado">&#9734;</button>
+      <button class="icon-btn fav-btn"  id="fav-btn"  title="Añadir a favoritos">♡</button>
+      <button class="icon-btn done-btn" id="done-btn" title="Marcar como completado">☆</button>
     </div>
     <div class="ornament-line-h">
       <div class="o-line"></div><div class="o-dot"></div><div class="o-line r"></div>
@@ -105,38 +117,37 @@
     <p class="day-of-week">Lunes</p>
     <h1>21</h1>
     <p class="month-label">de Febrero</p>
-  </div>
 
-  <div class="content-area">
-    <div class="timer-row">
-      <div class="timer-display" id="timer-display">60</div>
-      <div class="timer-bar-outer"><div class="timer-bar-inner" id="timer-bar" style="width:100%"></div></div>
-    </div>
-    <div class="rosco-wrap" id="rosco-wrap">
-      <svg class="rosco-svg" id="rosco-svg" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg"></svg>
-      <div class="pregunta-wrap">
-        <div class="pregunta-txt">
-          <span class="pregunta-letra" id="pregunta-letra"></span>
-          <span id="pregunta-enunciado"></span>
+    <div class="content-area">
+      <h2 class="reto-title">Rosco Gen Z/Alpha</h2>
+      <div class="rosco-outer">
+        <div class="rosco-wrap" id="rosco-wrap">
+          <svg class="rosco-svg" id="rosco-svg" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg"></svg>
+          <div class="pregunta-wrap">
+            <div class="pregunta-txt">
+              <span class="pregunta-letra" id="pregunta-letra"></span>
+              <span id="pregunta-enunciado"></span>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="score-row">
-      <span class="score-ok"   id="score-ok">&#x2713; 0</span>
-      <span class="score-err"  id="score-err">&#x2717; 0</span>
-      <span class="score-skip" id="score-skip">&#x21BB; 12</span>
-    </div>
-    <div class="input-row">
-      <button class="btn-pasa"     id="btn-pasa">Pasapalabra</button>
-      <input  class="respuesta-input" id="respuesta-input" type="text" placeholder="Tu respuesta..." autocomplete="off" autocorrect="off" spellcheck="false"/>
-      <button class="btn-contesta" id="btn-contesta">Contestar</button>
+      <div class="score-row">
+        <span class="score-ok"   id="score-ok">&#x2713; 0</span>
+        <span class="score-err"  id="score-err">&#x2717; 0</span>
+        <span class="score-skip" id="score-skip">&#x21BB; 6</span>
+      </div>
+      <div class="input-row">
+        <button class="btn-pasa"     id="btn-pasa">Pasapalabra</button>
+        <input  class="respuesta-input" id="respuesta-input" type="text" placeholder="Tu respuesta..." autocomplete="off" autocorrect="off" spellcheck="false"/>
+        <button class="btn-contesta" id="btn-contesta">Contestar</button>
+      </div>
     </div>
   </div>
 
   <nav class="day-nav">
-    <a class="nav-btn" href="2028-02-20.html">&#8592; 25 de Enero</a>
+    <a class="nav-btn" href="2028-02-20.html">&#8592; 20 de Febrero</a>
     <span class="year-badge">50 Aniversario &middot; 2028</span>
-    <a class="nav-btn" id="next-btn" href="2028-02-22.html">27 de Enero &#8594;</a>
+    <a class="nav-btn" id="next-btn" href="2028-02-22.html">22 de Febrero &#8594;</a>
   </nav>
   <a class="back-link" href="../index.html">&#8592; Volver al Calendario</a>
 </div>
@@ -168,27 +179,6 @@
     <p class="popup-title">&#161;Tu recompensa!</p>
     <p class="popup-msg">PDTE</p>
     <button class="popup-btn" id="star-reward-close">&#161;Genial!</button>
-  </div>
-</div>
-
-<!-- popup: fallo -->
-<div class="popup-overlay" id="popup-fail">
-  <div class="popup-box">
-    <div class="popup-icon">&#129300;</div>
-    <p class="popup-title">&#161;Casi, casi!</p>
-    <p class="popup-msg">Esa no era la respuesta correcta.<br>&#161;Sigue intent&#225;ndolo!</p>
-    <button class="popup-btn" id="fail-close">Continuar</button>
-  </div>
-</div>
-
-<!-- popup: fin de juego -->
-<div class="popup-overlay" id="popup-fin">
-  <div class="popup-box">
-    <div class="popup-icon" id="fin-icon">&#127881;</div>
-    <p class="popup-title" id="fin-title">&#161;Rosco completado!</p>
-    <p class="popup-msg"   id="fin-msg"></p>
-    <button class="popup-btn" id="fin-reintentar">Reintentar</button>
-    <button class="popup-btn secondary" onclick="window.location.href='../index.html'">Volver al calendario</button>
   </div>
 </div>
 
@@ -226,7 +216,6 @@ document.getElementById('star-blocked-close').addEventListener('click',()=>popup
 popupStarBlocked.addEventListener('click',e=>{if(e.target===popupStarBlocked)popupStarBlocked.classList.remove('visible');});
 document.getElementById('star-reward-close').addEventListener('click',()=>popupStarReward.classList.remove('visible'));
 popupStarReward.addEventListener('click',e=>{if(e.target===popupStarReward)popupStarReward.classList.remove('visible');});
-document.getElementById('fail-close').addEventListener('click',()=>document.getElementById('popup-fail').classList.remove('visible'));
 function markDone(){ localStorage.setItem(DONE_KEY,'1'); updateDone(); }
 function updateDone(){ const on=localStorage.getItem(DONE_KEY)==='1'; doneBtn.innerHTML=on?'&#9733;':'&#9734;'; doneBtn.classList.toggle('active',on); }
 doneBtn.addEventListener('click',()=>{ const on=localStorage.getItem(DONE_KEY)==='1'; if(on) popupStarReward.classList.add('visible'); else if(isPreview) markDone(); else popupStarBlocked.classList.add('visible'); });
@@ -252,30 +241,40 @@ function soundCorrect() { const t=getCtx().currentTime; tone(523.25,'triangle',t
 function soundWrong()   { const t=getCtx().currentTime; tone(250,'sawtooth',t,.35,.06); tone(220,'sawtooth',t+.15,.35,.06); tone(196,'sawtooth',t+.3,.5,.06); }
 function soundPasa()    { const t=getCtx().currentTime; tone(440,'sine',t,.08,.05); tone(400,'sine',t+.09,.12,.04); }
 
-// Normalización
-function normalize(s){
-  return s.trim().toUpperCase()
-    .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
-    .replace(/\u00f1/gi,'N').replace(/\u00d1/g,'N')
-    .replace(/[^A-Z0-9 ]/g,'').replace(/\s+/g,' ').trim();
+// ── Normalización y tolerancia ──────────────────────────────────
+function normalize(str) {
+  const ARTICULOS = /\b(de|del|el|la|los|las|un|una|unos|unas|al|en|y|e|o|u|a)\b/gi;
+  return str.trim()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^\w\s]/g, '')
+    .replace(ARTICULOS, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .toUpperCase();
+}
+
+function levenshtein(a, b) {
+  const dp = Array.from({length: a.length + 1}, (_, i) =>
+    Array.from({length: b.length + 1}, (_, j) => i === 0 ? j : j === 0 ? i : 0)
+  );
+  for (let i = 1; i <= a.length; i++)
+    for (let j = 1; j <= b.length; j++)
+      dp[i][j] = a[i-1] === b[j-1]
+        ? dp[i-1][j-1]
+        : 1 + Math.min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1]);
+  return dp[a.length][b.length];
 }
 
 // Datos
 const TODAS_LETRAS = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','\u00d1','O','P','Q','R','S','T','U','V','X','Y','Z'];
 
 const PREGUNTAS_MAP = {
-  'A': { enunciado:'Con la A (Empieza): Ese pariente que en las cenas de Navidad habla de pol\u00edtica o de sus operaciones hasta que te dan ganas de dormirte en el pur\u00e9.', respuesta:'ABUELO' },
-  'B': { enunciado:'Con la B (Empieza): Lo que sueltas por la boca cuando te golpeas el dedo chico del pie contra la pata de la mesa y hay ni\u00f1os delante.', respuesta:'BLASFEMIA' },
-  'C': { enunciado:'Con la C (Contiene): Estado de la cocina justo despu\u00e9s de que \u201calguien\u201d decidiera que era buena idea fre\u00edr croquetas para diez personas.', respuesta:'CAOS' },
-  'D': { enunciado:'Con la D (Empieza): Lo que te falta cuando ves que alguien se ha comido el \u00faltimo trozo de tarta que hab\u00edas guardado con tanto amor en la nevera.', respuesta:'DIGNIDAD' },
-  'E': { enunciado:'Con la E (Empieza): Excusa que pones cuando te llaman por tel\u00e9fono y no quieres ir a un sitio, pero te pillan con la boca llena de galletas.', respuesta:'EVASIVA' },
-  'G': { enunciado:'Con la G (Empieza): Animal que describe perfectamente a tu primo/hermano cuando se tumba en el sof\u00e1 y no se levanta ni aunque haya un incendio.', respuesta:'GANDUL' },
-  'L': { enunciado:'Con la L (Empieza): Lo que se te queda en la cuenta del banco despu\u00e9s de pagar las vacaciones o una cena familiar de esas de \u201cpago yo, que no pasa nada\u201d.', respuesta:'LASTIMA' },
-  'M': { enunciado:'Con la M (Empieza): Persona de esta familia que tiene la extra\u00f1a habilidad de encontrar cosas que est\u00e1n a la vista de todos pero que t\u00fa no ve\u00edas.', respuesta:'MADRE' },
-  'N': { enunciado:'Con la N (Contiene): Sensaci\u00f3n que te recorre el cuerpo cuando escuchas a un cu\u00f1ado decir la frase: \u201cYo de eso entiendo un poco...\u201d.', respuesta:'PANICO' },
-  '\u00d1': { enunciado:'Con la \u00d1 (Contiene): Adjetivo para ese miembro de la familia que es un poco \u201cespecialito\u201d con la comida o que siempre tiene una queja sutil.', respuesta:'PESTA\u00d1EO' },
-  'T': { enunciado:'Con la T (Empieza): Palabra que define el estado de la ropa de alguien de esta mesa despu\u00e9s de comer espaguetis con tomate.', respuesta:'TRAGEDIA' },
-  'Z': { enunciado:'Con la Z (Contiene): Lo que parece que tienes en lugar de pies cuando intentas volver a casa sin hacer ruido despu\u00e9s de una fiesta pero tiras el paragu\u00fcero.', respuesta:'PEZU\u00d1AS' },
+  'B': { enunciado:'Con la B (Empieza): Lo que para ti es un compa\u00f1ero de trabajo o un compadre, para tus hijas es absolutamente cualquiera', enunciado2:'Con la B (Empieza): Lo que para ti es un compa\u00f1ero de trabajo o un compadre, para tus hijas es absolutamente cualquiera', respuesta:'BRO' },
+  'C': { enunciado:'Con la C (Empieza): Esa sensaci\u00f3n de verg\u00fcenza ajena que sientes cuando ves a alguien haciendo el rid\u00edculo.', enunciado2:'Con la C (Empieza): Esa sensaci\u00f3n de verg\u00fcenza ajena que sientes cuando ves a alguien haciendo el rid\u00edculo.', respuesta:'CRINGE' },
+  'F': { enunciado:'Con la F (Empieza): Miedo a perderse algo divertido mientras los dem\u00e1s lo est\u00e1n pasando bien.', enunciado2:'Con la F (Empieza): Miedo a perderse algo divertido mientras los dem\u00e1s lo est\u00e1n pasando bien.', respuesta:'FOMO' },
+  'G': { enunciado:'Con la G (Empieza): Cuando alguien desaparece y deja de contestar mensajes de la noche a la ma\u00f1ana.', enunciado2:'Con la G (Empieza): Cuando alguien desaparece y deja de contestar mensajes de la noche a la ma\u00f1ana.', respuesta:'GHOSTING' },
+  'H': { enunciado:'Con la H (Empieza): Persona que critica constantemente algo o a alguien.', enunciado2:'Con la H (Empieza): Persona que critica constantemente algo o a alguien.', respuesta:'HATER' },
+  'M': { enunciado:'Con la M (Empieza): Estado de \u00e1nimo o actitud con la que te identifica.', enunciado2:'Con la M (Empieza): Estado de \u00e1nimo o actitud con la que te identifica.', respuesta:'MOOD' },
 };
 
 const LETRAS_ACTIVAS = TODAS_LETRAS.filter(l => PREGUNTAS_MAP[l]);
@@ -283,7 +282,7 @@ const TOTAL = LETRAS_ACTIVAS.length;
 const CX=200, CY=200, R_EXT=190, R_INT=148;
 
 // Estado
-let estado={}, orden=[], posicion=0, timerID=null, tiempoRestante=60, juegoActivo=false;
+let estado={}, orden=[], posicion=0, juegoActivo=false, errTotal=0, falladas={};
 
 const svg = document.getElementById('rosco-svg');
 
@@ -360,55 +359,41 @@ function dibujarRosco(){
 function mostrarPregunta(){
   if(!juegoActivo){document.getElementById('pregunta-letra').textContent='';document.getElementById('pregunta-enunciado').textContent='';return;}
   const letra=LETRAS_ACTIVAS[orden[posicion]];
+  const p=PREGUNTAS_MAP[letra];
   document.getElementById('pregunta-letra').textContent=letra;
-  document.getElementById('pregunta-enunciado').textContent=PREGUNTAS_MAP[letra].enunciado;
+  document.getElementById('pregunta-enunciado').textContent=(falladas[letra]&&p.enunciado2)?p.enunciado2:p.enunciado;
 }
 
 function updateScore(){
-  let ok=0,err=0,pend=0;
-  LETRAS_ACTIVAS.forEach(l=>{const s=estado[l];if(s==='ok')ok++;else if(s==='err')err++;else if(s==='pending')pend++;});
+  let ok=0,pend=0;
+  LETRAS_ACTIVAS.forEach(l=>{const s=estado[l];if(s==='ok')ok++;else pend++;});
   document.getElementById('score-ok').innerHTML='&#x2713; '+ok;
-  document.getElementById('score-err').innerHTML='&#x2717; '+err;
+  document.getElementById('score-err').innerHTML='&#x2717; '+errTotal;
   document.getElementById('score-skip').innerHTML='&#x21BB; '+pend;
 }
 
-function updateTimerUI(){
-  const td=document.getElementById('timer-display');
-  const tb=document.getElementById('timer-bar');
-  td.textContent=tiempoRestante;
-  td.classList.toggle('urgent',tiempoRestante<=10);
-  tb.style.width=(tiempoRestante/60*100)+'%';
-  tb.classList.toggle('urgent',tiempoRestante<=10);
-}
-
-function arrancarTimer(){
-  clearInterval(timerID);tiempoRestante=60;updateTimerUI();
-  timerID=setInterval(()=>{
-    tiempoRestante--;updateTimerUI();
-    if(tiempoRestante<=0){clearInterval(timerID);finJuego('tiempo');}
-  },1000);
-}
-
 function iniciarJuego(){
-  estado={};
+  estado={};errTotal=0;falladas={};
   TODAS_LETRAS.forEach(l=>{estado[l]=PREGUNTAS_MAP[l]?'pending':'inactive';});
   orden=LETRAS_ACTIVAS.map((_,i)=>i);
   posicion=0;juegoActivo=true;
   document.getElementById('respuesta-input').disabled=false;
   document.getElementById('btn-pasa').disabled=false;
   document.getElementById('btn-contesta').disabled=false;
-  dibujarRosco();mostrarPregunta();updateScore();arrancarTimer();
+  dibujarRosco();mostrarPregunta();updateScore();
   document.getElementById('respuesta-input').focus();
 }
 
+function esPendiente(l){ return estado[l]==='pending' || estado[l]==='err'; }
+
 function siguienteLetraPendiente(){
-  const quedan=LETRAS_ACTIVAS.some(l=>estado[l]==='pending');
-  if(!quedan){finJuego('completo');return;}
+  const quedan=LETRAS_ACTIVAS.some(esPendiente);
+  if(!quedan){finJuego();return;}
   let intentos=0;
   do{
     posicion=(posicion+1)%orden.length;intentos++;
     if(intentos>orden.length)break;
-  }while(estado[LETRAS_ACTIVAS[orden[posicion]]]!=='pending');
+  }while(!esPendiente(LETRAS_ACTIVAS[orden[posicion]]));
   dibujarRosco();mostrarPregunta();updateScore();
   document.getElementById('respuesta-input').value='';
   document.getElementById('respuesta-input').focus();
@@ -426,39 +411,38 @@ function contestar(){
   const resp=normalize(document.getElementById('respuesta-input').value);
   if(!resp){document.getElementById('respuesta-input').focus();return;}
   const correctas=[].concat(PREGUNTAS_MAP[letra].respuesta).map(normalize);
-  estado[letra]=correctas.includes(resp)?'ok':'err';
-  if(correctas.includes(resp)) soundCorrect(); else soundWrong();
-  dibujarRosco();updateScore();
-  const quedan=LETRAS_ACTIVAS.some(l=>estado[l]==='pending');
-  if(!quedan){setTimeout(()=>finJuego('completo'),450);return;}
-  setTimeout(siguienteLetraPendiente,450);
+  const esCorrecta = correctas.some(c => resp===c || levenshtein(resp,c)<=1);
+
+  if(esCorrecta){
+    estado[letra]='ok';
+    soundCorrect();
+    dibujarRosco();updateScore();
+    const quedan=LETRAS_ACTIVAS.some(esPendiente);
+    if(!quedan){setTimeout(()=>finJuego(),450);return;}
+    setTimeout(siguienteLetraPendiente,450);
+  } else {
+    errTotal++;
+    falladas[letra]=true;
+    estado[letra]='err';
+    soundWrong();
+    dibujarRosco();updateScore();
+    // La letra queda marcada en rojo; al dar la vuelta el rosco vuelve a preguntarse con el enunciado ampliado (intentos infinitos)
+    setTimeout(siguienteLetraPendiente,600);
+  }
 }
 
 document.getElementById('btn-contesta').addEventListener('click',contestar);
 document.getElementById('respuesta-input').addEventListener('keydown',e=>{if(e.key==='Enter')contestar();});
 
-function finJuego(motivo){
-  clearInterval(timerID);juegoActivo=false;
+function finJuego(){
+  juegoActivo=false;
   document.getElementById('respuesta-input').disabled=true;
   document.getElementById('btn-pasa').disabled=true;
   document.getElementById('btn-contesta').disabled=true;
   dibujarRosco();
-  let ok=0,err=0,pend=0;
-  LETRAS_ACTIVAS.forEach(l=>{const s=estado[l];if(s==='ok')ok++;else if(s==='err')err++;else pend++;});
-  document.getElementById('fin-icon').textContent  = ok===TOTAL?'\uD83C\uDFC6':motivo==='tiempo'?'\u23F0':'\uD83C\uDFAF';
-  document.getElementById('fin-title').textContent = ok===TOTAL?'\u00A1Rosco completado!':motivo==='tiempo'?'\u00A1Se acab\u00F3 el tiempo!':'\u00A1Rosco terminado!';
-  document.getElementById('fin-msg').textContent   = ok+' correctas \u00B7 '+err+' errores \u00B7 '+pend+' sin contestar\n\n'+(ok===TOTAL?'\u00A1PERFECTO! Has resuelto el rosco entero.':ok>=TOTAL*.75?'\u00A1Muy bien! Buen nivel.':'\u00A1Int\u00E9ntalo otra vez!');
-  if(ok===TOTAL&&isPreview)markDone();
-  setTimeout(()=>document.getElementById('popup-fin').classList.add('visible'),500);
+  markDone();
+  setTimeout(()=>popupStarReward.classList.add('visible'),500);
 }
-
-document.getElementById('fin-reintentar').addEventListener('click',()=>{
-  document.getElementById('popup-fin').classList.remove('visible');
-  iniciarJuego();
-});
-document.getElementById('popup-fin').addEventListener('click',e=>{
-  if(e.target===document.getElementById('popup-fin'))document.getElementById('popup-fin').classList.remove('visible');
-});
 
 iniciarJuego();
 </script>
