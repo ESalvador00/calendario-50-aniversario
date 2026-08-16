@@ -269,12 +269,12 @@ function levenshtein(a, b) {
 const TODAS_LETRAS = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','\u00d1','O','P','Q','R','S','T','U','V','X','Y','Z'];
 
 const PREGUNTAS_MAP = {
-  'B': { enunciado:'Con la B (Empieza): Lo que para ti es un compa\u00f1ero de trabajo o un compadre, para tus hijas es absolutamente cualquiera', enunciado2:'Con la B (Empieza): Lo que para ti es un compa\u00f1ero de trabajo o un compadre, para tus hijas es absolutamente cualquiera', respuesta:'BRO' },
-  'C': { enunciado:'Con la C (Empieza): Esa sensaci\u00f3n de verg\u00fcenza ajena que sientes cuando ves a alguien haciendo el rid\u00edculo.', enunciado2:'Con la C (Empieza): Esa sensaci\u00f3n de verg\u00fcenza ajena que sientes cuando ves a alguien haciendo el rid\u00edculo.', respuesta:'CRINGE' },
-  'F': { enunciado:'Con la F (Empieza): Miedo a perderse algo divertido mientras los dem\u00e1s lo est\u00e1n pasando bien.', enunciado2:'Con la F (Empieza): Miedo a perderse algo divertido mientras los dem\u00e1s lo est\u00e1n pasando bien.', respuesta:'FOMO' },
-  'G': { enunciado:'Con la G (Empieza): Cuando alguien desaparece y deja de contestar mensajes de la noche a la ma\u00f1ana.', enunciado2:'Con la G (Empieza): Cuando alguien desaparece y deja de contestar mensajes de la noche a la ma\u00f1ana.', respuesta:'GHOSTING' },
-  'H': { enunciado:'Con la H (Empieza): Persona que critica constantemente algo o a alguien.', enunciado2:'Con la H (Empieza): Persona que critica constantemente algo o a alguien.', respuesta:'HATER' },
-  'M': { enunciado:'Con la M (Empieza): Estado de \u00e1nimo o actitud con la que te identifica.', enunciado2:'Con la M (Empieza): Estado de \u00e1nimo o actitud con la que te identifica.', respuesta:'MOOD' },
+  'B': { enunciado:'Con la B: tu amigo de toda la vida, tu colega de batallas, tu hermano del alma.', enunciado2:'Con la B: tu amigo de toda la vida, tu colega de batallas, tu hermano del alma. Para ti, es tu perro.', respuesta:'BRO' },
+  'D': { enunciado:'Con la D: la vía rápida y privada para enviarle un mensaje a alguien que te gusta sin que se entere todo el grupo. Dos letras.', enunciado2:'Con la D: la vía rápida y privada para enviarle un mensaje a alguien que te gusta sin que se entere todo el grupo. Dos letras. Siglas de "Mensaje Directo" en inglés.', respuesta:'DM' },
+  'G': { enunciado:'Con la G: transformación positiva espectacular de una persona, estilo, confianza o incluso de su vida.', enunciado2:'Con la G: transformación positiva espectacular de una persona, estilo, confianza o incluso de su vida. Dos palabras. El cambio radical de toda la vida pero con luces y filtros.', respuesta:'GLOW UP' },
+  'L': { enunciado:'Con la L: comodín usado para enfatizar absolutamente cualquier cosa.', enunciado2:'Con la L: comodín usado para enfatizar absolutamente cualquier cosa. Se usa aunque lo que digas sea una metáfora imposible.', respuesta:'LITERAL' },
+  'P': { enunciado:'Con la P: estar en tu mejor momento físico, mental o estético. “Estoy en mi...”', enunciado2:'Con la P: estar en tu mejor momento físico, mental o estético. “Estoy en mi...”. Como la suscripción de Amazon pero para tu propio pico de forma.', respuesta:'PRIME' },
+  'S': { enunciado:'Con la S: revisar las redes de alguien por curiosidad, interés o sospecha.', enunciado2:'Con la S: revisar las redes de alguien por curiosidad, interés o sospecha. Hacer de Sherlock Holmes desde el sofá de tu casa.', respuesta:'STALKEAR' },
 };
 
 const LETRAS_ACTIVAS = TODAS_LETRAS.filter(l => PREGUNTAS_MAP[l]);

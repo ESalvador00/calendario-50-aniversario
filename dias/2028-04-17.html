@@ -269,12 +269,12 @@ function levenshtein(a, b) {
 const TODAS_LETRAS = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','\u00d1','O','P','Q','R','S','T','U','V','X','Y','Z'];
 
 const PREGUNTAS_MAP = {
-  'B': { enunciado:'Con la B (Empieza): Lo que para ti es un compa\u00f1ero de trabajo o un compadre, para tus hijas es absolutamente cualquiera', enunciado2:'Con la B (Empieza): Lo que para ti es un compa\u00f1ero de trabajo o un compadre, para tus hijas es absolutamente cualquiera', respuesta:'BRO' },
-  'C': { enunciado:'Con la C (Empieza): Esa sensaci\u00f3n de verg\u00fcenza ajena que sientes cuando ves a alguien haciendo el rid\u00edculo.', enunciado2:'Con la C (Empieza): Esa sensaci\u00f3n de verg\u00fcenza ajena que sientes cuando ves a alguien haciendo el rid\u00edculo.', respuesta:'CRINGE' },
-  'F': { enunciado:'Con la F (Empieza): Miedo a perderse algo divertido mientras los dem\u00e1s lo est\u00e1n pasando bien.', enunciado2:'Con la F (Empieza): Miedo a perderse algo divertido mientras los dem\u00e1s lo est\u00e1n pasando bien.', respuesta:'FOMO' },
-  'G': { enunciado:'Con la G (Empieza): Cuando alguien desaparece y deja de contestar mensajes de la noche a la ma\u00f1ana.', enunciado2:'Con la G (Empieza): Cuando alguien desaparece y deja de contestar mensajes de la noche a la ma\u00f1ana.', respuesta:'GHOSTING' },
-  'H': { enunciado:'Con la H (Empieza): Persona que critica constantemente algo o a alguien.', enunciado2:'Con la H (Empieza): Persona que critica constantemente algo o a alguien.', respuesta:'HATER' },
-  'M': { enunciado:'Con la M (Empieza): Estado de \u00e1nimo o actitud con la que te identifica.', enunciado2:'Con la M (Empieza): Estado de \u00e1nimo o actitud con la que te identifica.', respuesta:'MOOD' },
+  'A': { enunciado:'Con la A: carisma medido en puntos; si lo subes, molas más. ', enunciado2:'Con la A: carisma medido en puntos; si lo subes, molas más. Si haces el ridículo, pierdes mil de golpe.', respuesta:'AURA' },
+  'C': { enunciado:'Con la C: vergüenza ajena en forma de palabra; duele solo de verlo. ', enunciado2:'Con la C: vergüenza ajena en forma de palabra; duele solo de verlo. A veces te dan ganas de tragarte la tierra.', respuesta:'CRINGE' },
+  'G': { enunciado:'Con la G: desaparecer sin dar explicaciones; el equivalente moderno de “si te he visto, no me acuerdo”.', enunciado2:'Con la G: desaparecer sin dar explicaciones; el equivalente moderno de “si te he visto, no me acuerdo”. Convertirse en un fantasma digital.', respuesta:'GHOSTING' },
+  'L': { enunciado:'Con la L: la historia de fondo, los secretos y el contexto de alguien o algo.', enunciado2:'Con la L: la historia de fondo, los secretos y el contexto de alguien o algo. También podría ser la sobrina del Luisma.', respuesta:'LORE' },
+  'P': { enunciado:'Contiene la P: la muletilla universal que sirve absolutamente para todo: coma, punto y seguido, introducción y relleno.', enunciado2:'Contiene la P: la muletilla universal que sirve absolutamente para todo: coma, punto y seguido, introducción y relleno. Dos palabras que sustituyen a la mitad del vocabulario, solo tienes que escuchar a Alex…', respuesta:'EN PLAN' },
+  'R': { enunciado:'Con la R: señal de alarma que indica que una persona, situación o relación puede traer problemas.', enunciado2:'Con la R: señal de alarma que indica que una persona, situación o relación puede traer problemas. Literalmente, una bandera de peligro de color carmesí.', respuesta:'RED FLAG' },
 };
 
 const LETRAS_ACTIVAS = TODAS_LETRAS.filter(l => PREGUNTAS_MAP[l]);
