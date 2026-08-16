@@ -155,7 +155,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-01-22 | Minijuego (Mastermind) | N/A | N/A | N/A | PDTE |
 | 2028-01-24 | Adivina quién soy | HEIMDALL | Alex_20220817.png | Alex | PDTE |
 | 2028-01-25 | Adivina el cuadro | MONA LISA / NIGHTHAWKS / WHISTLERS MOTHER | mona_lisa_hd.jpg, nighthawks_hd.jpg, whistlers_mother_hd.jpg | N/A | PDTE |
-| 2028-01-26 | Rosco de pasapalabra | BRO, CRINGE, FOMO, GHOSTING, HATER, MOOD | N/A | N/A | PDTE |
+| 2028-01-26 | Rosco de pasapalabra | AESTHETIC, CRUSH, FUNAR, HYPE, NPC, RANDOM | N/A | N/A | PDTE |
 | 2028-01-27 | Adivina el PIN | 5784 | N/A | N/A | PDTE |
 | 2028-01-28 | Timeline histórico doble | A:01-06 / B:01-06 | Timeline01_01A..06A.png + Timeline01_01B..06B.png | N/A | PDTE |
 | 2028-01-29 | Memory 4x4 | N/A | NievesEnric + 20040626 20061224 20101211 20151205 20170807 20190601 20200208 20250105 (+_E/_N) | Nieves, Enric | PDTE |
@@ -217,7 +217,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-04-13 | El poble amagat | GELIDA | Alex_20230702.png + Gelida.jpg | Alexandra | PDTE |
 | 2028-04-15 | Satisfacción con restricciones múltiples: Ordenando la habitación | Enric: armario+cajas / Nieves: escritorio+trapo / Ariadna: estantería+bolsas / Alex: cama+aspiradora | RSR04_Escenario.webp + RSR04_01A..01D.png + RSR04_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
 | 2028-04-16 | Agudeza visual — clickmap museo (coordenadas hex) | CHAD | Museo2_visual.png + Museo2_clickmap.png + Cuadros_verdes.png + Ariadna_20190601.png | Ariadna | PDTE |
-| 2028-04-17 | Rosco de pasapalabra | N/A | N/A | N/A | PDTE |
+| 2028-04-17 | Rosco de pasapalabra | AURA, CRINGE, GHOSTING, LORE, EN PLAN, RED FLAG | N/A | N/A | PDTE |
 | 2028-04-24 | Adivina el cuadro | NOCHE ESTRELLADA / CAMINANTE SOBRE MAR NUBES / CHRISTINAS WORLD | noche_estrellada_hd.jpg, caminante_mar_nubes_hd.jpg, cristinas_world_hd.jpg | N/A | PDTE |
 | 2028-04-18 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
 | 2028-04-19 | Cultura: iniciales de famosos, especial política | MADEIRA | Lugar07_01.jpg .. Lugar07_07.jpg | Ajenos | PDTE |
@@ -286,7 +286,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-07-21 | Adivina las películas | Superman, Grease, La Sirenita, Indiana Jones, American Beauty | Superman, Grease, La_Sirenita, Indiana_Jones, American_Beauty (mp3 y jpg) | N/A | PDTE |
 | 2028-07-22 | Ingenio — código SMS multi-tap | 5885554443382 | Ariadna_20130812.jpg | Ariadna | PDTE |
 | 2028-07-23 | Palabras Intraducibles - Alemán | SEHNSUCHT | AriAlex_20170611.jpg | Ariadna y Alex | PDTE |
-| 2028-07-24 | Rosco de pasapalabra | N/A | N/A | N/A | PDTE |
+| 2028-07-24 | Rosco de pasapalabra | BRO, DM, GLOW UP, LITERAL, PRIME, STALKEAR | N/A | N/A | PDTE |
 | 2028-07-25 | Timeline: monumentos y edificios | 8 monumentos famosos | estatua_libertad.jpg, torre_eiffel.jpg, cristo_redentor.jpg, opera_sidney.jpg, museo_guggenheim_bilbao.jpg, torres_petronas.jpg, burj_khalifa.jpg, marina_bay_sands.jpg | N/A | PDTE |
 | 2028-07-26 | Adivina la serie | Candy Candy, Compañeros, Los Osos Amorosos, Sensación de vivir | candy_candy.jpg/.mp3, companeros.jpg/.mp3, osos_amorosos.jpg/.mp3, sensacion_de_vivir.jpg/.mp3 | N/A | PDTE |
 | 2028-07-28 | Timeline musical, España en los 90 | 1990-1999 | Entre_dos_tierras.jpg .. Tu_calorro.jpg | N/A | PDTE |
@@ -348,7 +348,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-10-20 | Adivina las películas | Rocky, Harry Potter, Aladdin, Superdetective en Hollywood, Karate Kid | Rocky, Harry_Potter, Aladdin, Superdetective_en_Hollywood, Karate_Kid (mp3 y jpg) | N/A | PDTE |
 | 2028-10-21 | Satisfacción con restricciones múltiples: Picnic familiar | Enric: limonada+helado / Nieves: zumo+fruta / Ariadna: cola+yogur / Alex: agua+brownie | RSR10_Escenario.webp + RSR10_01A..01D.png + RSR10_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
 | 2028-10-22 | Palabras Intraducibles - Griego | MERAKI | Cumple_20170211.jpg | Nieves, Ariadna y Alex | PDTE |
-| 2028-10-23 | Rosco de pasapalabra | N/A | N/A | N/A | PDTE |
+| 2028-10-23 | Rosco de pasapalabra | BEEF, FOMO, GOAT, MOOD, RENTA, VIBE | N/A | N/A | PDTE |
 | 2028-10-24 | Adivina quién soy | GOYA | Enric_20110101.png | Enric | PDTE |
 | 2028-10-25 | Adivina el slogan | 58 anuncios míticos, hasta 5 aciertos | N/A | N/A | PDTE |
 | 2028-10-26 | Acertijos y adivinanzas - Espías lógicos | SIETE | Enric_20150314.png | Enric | PDTE |
