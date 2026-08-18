@@ -119,7 +119,7 @@
     <p class="month-label">de Noviembre</p>
 
     <div class="content-area">
-      <h2 class="reto-title">Rosco Gen Z/Alpha</h2>
+      <h2 class="reto-title">Rosco expresiones y pareados nostálgicos</h2>
       <div class="rosco-outer">
         <div class="rosco-wrap" id="rosco-wrap">
           <svg class="rosco-svg" id="rosco-svg" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg"></svg>
@@ -269,12 +269,12 @@ function levenshtein(a, b) {
 const TODAS_LETRAS = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','\u00d1','O','P','Q','R','S','T','U','V','X','Y','Z'];
 
 const PREGUNTAS_MAP = {
-  'B': { enunciado:'Con la B (Empieza): Lo que para ti es un compa\u00f1ero de trabajo o un compadre, para tus hijas es absolutamente cualquiera', enunciado2:'Con la B (Empieza): Lo que para ti es un compa\u00f1ero de trabajo o un compadre, para tus hijas es absolutamente cualquiera', respuesta:'BRO' },
-  'C': { enunciado:'Con la C (Empieza): Esa sensaci\u00f3n de verg\u00fcenza ajena que sientes cuando ves a alguien haciendo el rid\u00edculo.', enunciado2:'Con la C (Empieza): Esa sensaci\u00f3n de verg\u00fcenza ajena que sientes cuando ves a alguien haciendo el rid\u00edculo.', respuesta:'CRINGE' },
-  'F': { enunciado:'Con la F (Empieza): Miedo a perderse algo divertido mientras los dem\u00e1s lo est\u00e1n pasando bien.', enunciado2:'Con la F (Empieza): Miedo a perderse algo divertido mientras los dem\u00e1s lo est\u00e1n pasando bien.', respuesta:'FOMO' },
-  'G': { enunciado:'Con la G (Empieza): Cuando alguien desaparece y deja de contestar mensajes de la noche a la ma\u00f1ana.', enunciado2:'Con la G (Empieza): Cuando alguien desaparece y deja de contestar mensajes de la noche a la ma\u00f1ana.', respuesta:'GHOSTING' },
-  'H': { enunciado:'Con la H (Empieza): Persona que critica constantemente algo o a alguien.', enunciado2:'Con la H (Empieza): Persona que critica constantemente algo o a alguien.', respuesta:'HATER' },
-  'M': { enunciado:'Con la M (Empieza): Estado de \u00e1nimo o actitud con la que te identifica.', enunciado2:'Con la M (Empieza): Estado de \u00e1nimo o actitud con la que te identifica.', respuesta:'MOOD' },
+  'C': { enunciado:'Contiene la C: Estar un poco loco, hacer cosas extrañas o comportarse de manera peculiar.', enunciado2:'Contiene la C: Estar un poco loco, hacer cosas extrañas o comportarse de manera peculiar. Pista: Estar como una …', respuesta:'ESTAR COMO UNA CABRA' },
+  'G': { enunciado:'Con la G: Forma rimada y exagerada de decir que algo es muy bueno, moderno o estupendo.', enunciado2:'Con la G: Forma rimada y exagerada de decir que algo es muy bueno, moderno o estupendo. Pista: Guay del …', respuesta:'GUAY DEL PARAGUAY' },
+  'M': { enunciado:'Contiene la M: Algo increíble, divertido, absurdo o que parece una broma.', enunciado2:'Contiene la M: Algo increíble, divertido, absurdo o que parece una broma. Pista: De coña …', respuesta:'DE COÑA MARINERA' },
+  'N': { enunciado:'Contiene la C: Negativa rotunda y algo teatral para decir que ni hablar, de ninguna manera o que no hay posibilidad alguna.', enunciado2:'Contiene la C: Negativa rotunda y algo teatral para decir que ni hablar, de ninguna manera o que no hay posibilidad alguna. Pista: Nanay de …', respuesta:'NANAY DE LA CHINA' },
+  'P': { enunciado:'Contiene la P: Forma exageradamente alegre de decir que algo es estupendo, genial o muy bueno.', enunciado2:'Contiene la P: Forma exageradamente alegre de decir que algo es estupendo, genial o muy bueno. Pista: Chachi …', respuesta:'CHACHI PIRULI' },
+  'V': { enunciado:'Contiene la V: Expresión rimada para anunciar que algo es increíble, sorprendente o difícil de creer.', enunciado2:'Contiene la V: Expresión rimada para anunciar que algo es increíble, sorprendente o difícil de creer. Pista: Alucina, …', respuesta:'ALUCINA VECINA' },
 };
 
 const LETRAS_ACTIVAS = TODAS_LETRAS.filter(l => PREGUNTAS_MAP[l]);
