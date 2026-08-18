@@ -177,7 +177,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-02-18 | Adivina las películas | Regreso al Futuro, ET El Extraterrestre, Mision Imposible, Toy Story, Alien El octavo pasajero | Regreso_al_Futuro, ET_El_Extraterrestre, Mision_Imposible, Toy_Story, Alien_El_octavo_pasajero (mp3 y jpg) | N/A | PDTE |
 | 2028-02-19 | Satisfacción con restricciones múltiples: Organizando una fiesta | Enric: música+altavoz / Nieves: cocinar+horno / Ariadna: invitaciones+sobres / Alex: decorar+globos | RSR02_Escenario.webp + RSR02_01A..01D.png + RSR02_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
 | 2028-02-20 | Palabras Intraducibles - Japonés | IKIGAI | NievesAriAlex_20160406.jpg | Nieves, Ariadna y Alexandra | PDTE |
-| 2028-02-21 | Rosco de pasapalabra | N/A | N/A | N/A | PDTE |
+| 2028-02-21 | Rosco de pasapalabra | A OTRA PARTE BONAPARTE, DE QUE VAS CALAMAR, NI HABLAR DEL PELUQUIN, A LA CENA MAGDALENA, OKEY MAKEY, CIAO PESCAO | N/A | N/A | PDTE |
 | 2028-02-22 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
 | 2028-02-24 | Adivina quién soy | DIONISIO | David_20220805.png | David | PDTE |
 | 2028-02-25 | Adivina el PIN | 8149 | N/A | N/A | PDTE |
@@ -241,7 +241,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-05-18 | Timeline: películas de cine | blade_runner, parque_jurasico, pulp_fiction, titanic, senor_anillos_comunidad, caballero_oscuro, interstellar, parasitos | blade_runner.jpg, parque_jurasico.jpg, pulp_fiction.jpg, titanic.jpg, senor_anillos_comunidad.jpg, caballero_oscuro.jpg, interstellar.jpg, parasitos.jpg | N/A | PDTE |
 | 2028-05-20 | Ingenio — texto en Wingdings | ANNIE LENNOX | No_more_i_love_yous.mp3 | N/A | PDTE |
 | 2028-05-22 | Cultura: iniciales de famosos | CAPRI | Lugar08_01.jpg .. Lugar08_05.jpg | Ajenos | PDTE |
-| 2028-05-23 | Rosco de pasapalabra | N/A | N/A | N/A | PDTE |
+| 2028-05-23 | Rosco de pasapalabra | NO TE ENTERAS CONTRERAS, VAS LISTO EVARISTO, ESTAR AL LORO, A OTRA COSA MARIPOSA, SER MAS CHULO QUE UN OCHO, NASTI DE PLASTI | N/A | N/A | PDTE |
 | 2028-05-24 | Puzzle visual | ARI | Puzzle04_01.png .. Puzzle04_07.png | N/A | PDTE |
 | 2028-05-26 | Adivina las películas | Fiebre del Sábado Noche, Jurassic Park, Coco, Gladiator, Pulp Fiction | Fiebre_del_Sabado_Noche, Jurassic_Park, Coco, Gladiator, Pulp_Fiction (mp3 y jpg) | N/A | PDTE |
 | 2028-05-28 | Memory 4x4 | N/A | NievesEnric_20061024, NievesEnric_20200510, NievesEnric_20200627, NievesEnric_20220623, NievesEnric_20230501, NievesEnric_20251116, NievesEnric_20251207, NievesEnric_20260510 (+_E/_N) | Nieves, Enric | PDTE |
@@ -304,7 +304,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-08-17 | Adivina quién soy | NAPOLEON | Juan_20190813.png | Juan | PDTE |
 | 2028-08-18 | Adivina el PIN | 8293 | N/A | N/A | PDTE |
 | 2028-08-20 | Palabras Intraducibles - Tagalo | GIGIL | Alex_20140531.png | Alex | PDTE |
-| 2028-08-21 | Rosco de pasapalabra | N/A | N/A | N/A | PDTE |
+| 2028-08-21 | Rosco de pasapalabra | QUE PASA CALABAZA, FLIPAR EN COLORES, HASTA LUEGO LUCAS, TELA MARINERA, IRSE LA PINZA, TRANQUI TRONQUI | N/A | N/A | PDTE |
 | 2028-08-22 | Timeline: cuadros famosos | 8 cuadros famosos | impresion_sol_naciente.jpg, noche_estrellada.jpg, grito.jpg, senoritas_avinon.jpg, persistencia_memoria.jpg, guernica.jpg, marilyn_diptych.jpg, whaam.jpg | N/A | PDTE |
 | 2028-08-23 | Sigue la letra | Hijo de la luna (Mecano) | Hijo_de_la_luna.mp3 | N/A | PDTE |
 | 2028-08-24 | Adivina el cuadro | BESO / MAJA DESNUDA / MADAME X | beso_hd.jpg, maja_desnuda_hd.jpg, madame_x_hd.jpg | N/A | PDTE |
@@ -366,7 +366,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-11-16 | El poble amagat | MONISTROL DE MONTSERRAT | Nieves_20110306.png + Monistrol.jpg | Nieves | PDTE |
 | 2028-11-18 | Minijuego (El Triángulo Girado) | N/A | N/A | N/A | PDTE |
 | 2028-11-19 | Palabras Intraducibles - Yiddish | NAKHES | Alex_20250622.jpg | Alexandra | PDTE |
-| 2028-11-20 | Rosco de pasapalabra | N/A | N/A | N/A | PDTE |
+| 2028-11-20 | Rosco de pasapalabra | ESTAR COMO UNA CABRA, GUAY DEL PARAGUAY, DE COÑA MARINERA, NANAY DE LA CHINA, CHACHI PIRULI, ALUCINA VECINA | N/A | N/A | PDTE |
 | 2028-11-21 | Cultura: iniciales de famosos | MALTA | Lugar12_01.jpg .. Lugar12_05.jpg | Ajenos | PDTE |
 | 2028-11-22 | Puzzle visual | ACHI | Puzzle01_01.png .. Puzzle01_05.png | N/A | PDTE |
 | 2028-11-23 | Adivina el PIN | 3964 | ImgDial.png | N/A | PDTE |
