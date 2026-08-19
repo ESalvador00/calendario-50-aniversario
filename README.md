@@ -191,7 +191,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-03-08 | Cultura: iniciales de famosos, especial mujeres | JAMAICA | Lugar02_01.jpg .. Lugar02_07.jpg | Ajenos | PDTE |
 | 2028-03-11 | Satisfacción con restricciones múltiples: Tarde de lluvia en casa | Enric: leer+fruta / Nieves: película+palomitas / Ariadna: dibujar+galletas / Alex: videojuegos+chocolatina | RSR03_Escenario.webp + RSR03_01A..01D.png + RSR03_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
 | 2028-03-12 | Agudeza visual — cifrado César | PLATANO | Alex_20191006.png | Alex | PDTE |
-| 2028-03-13 | Rosco de pasapalabra | N/A | N/A | N/A | PDTE |
+| 2028-03-13 | Rosco de pasapalabra | BACALAO, EFECTIVIWONDER, GUAY, MARRON, PIBON, SOBAR | N/A | N/A | PDTE |
 | 2028-03-14 | Sigue la letra | Sin ti no soy nada (Amaral) | Sin_ti_no_soy_nada.mp3 | N/A | PDTE |
 | 2028-03-15 | Adivina quién soy | AGATHA CHRISTIE | Mari_20220819.png | Mari | PDTE |
 | 2028-03-16 | ¿Qué foto es más antigua? | 10 momentos vividos | PDTE | PDTE | PDTE |
@@ -263,7 +263,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-06-16 | Adivina las películas | Flashdance, El Señor de los Anillos, Batman, Up, Cinema Paradiso | Flashdance, El_Senor_de_los_Anillos, Batman, Up, Cinema_Paradiso (mp3 y jpg) | N/A | PDTE |
 | 2028-06-17 | Palabras Intraducibles - Finlandés | KAUKOKAIPUU | Nieves_20040425.jpg | Nieves | PDTE |
 | 2028-06-18 | Escape Room: 02-Sala de Control Nuclear | SOLES | ER02_EscenarioVisual.jpg + ER02_EscenarioClickmap.jpg | N/A | PDTE |
-| 2028-06-19 | Rosco de pasapalabra | N/A | N/A | N/A | PDTE |
+| 2028-06-19 | Rosco de pasapalabra | CHUNGO, EMPANADO, HEAVY, MAZAS, PIJOS, TIO | N/A | N/A | PDTE |
 | 2028-06-20 | ¿Qué foto es más antigua? | 10 momentos vividos | PDTE | PDTE | PDTE |
 | 2028-06-26 | Timeline: películas de cine | metropolis, lo_que_viento_llevo, ciudadano_kane, siete_samurais, psicosis, 2001_odisea_espacio, padrino, star_wars_iv | metropolis.jpg, lo_que_viento_llevo.jpg, ciudadano_kane.jpg, siete_samurais.jpg, psicosis.jpg, 2001_odisea_espacio.jpg, padrino.jpg, star_wars_iv.jpg | N/A | PDTE |
 | 2028-06-27 | Adivina el cuadro | HIJO HOMBRE / MATRIMONIO ARNOLFINI / AUTORRETRATO CON SOMBRERO FIELTRO GRIS | hijo_del_hombre_hd.jpg, matrimonio_arnolfini_hd.jpg, autorretrato_sombrero_gris_hd.jpg | N/A | PDTE |
@@ -328,7 +328,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-09-19 | Adivina la serie | Corrupción en Miami, Los Soprano, Musculman, Pokémon | corrupcion_miami.jpg/.mp3, soprano.jpg/.mp3, musculman.jpg/.mp3, pokemon.jpg/.mp3 | N/A | PDTE |
 | 2028-09-20 | Sigue la letra | Ella (Viceversa) | Ella.mp3 | N/A | PDTE |
 | 2028-09-22 | Adivina las películas | Pesadilla antes de Navidad, La La Land, El Último Mohicano, The Pianist, Inside Out | Pesadilla_antes_de_Navidad, La_La_Land, El_Ultimo_Mohicano, The_Pianist, Inside_Out (mp3 y jpg) | N/A | PDTE |
-| 2028-09-25 | Rosco de pasapalabra | N/A | N/A | N/A | PDTE |
+| 2028-09-25 | Rosco de pasapalabra | CHUPIPIRULI, FLIPADO, JUERGA, MOLA MAZO, PIRARSE, TRONCO | N/A | N/A | PDTE |
 | 2028-09-26 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
 | 2028-09-28 | Timeline: óperas famosas | 8 óperas famosas | aida.jpg, carmen.jpg, parsifal.jpg, dama_picas.jpg, la_boheme.jpg, tosca.jpg, madama_butterfly.jpg, caballero_rosa.jpg | N/A | PDTE |
 | 2028-09-29 | Adivina el slogan | 58 anuncios míticos, hasta 5 aciertos | N/A | N/A | PDTE |
@@ -386,7 +386,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-12-13 | Adivina quién soy | DARTH VADER | Enric_20130227.png | Enric | PDTE |
 | 2028-12-14 | Adivina el slogan | 58 anuncios míticos, hasta 5 aciertos | N/A | N/A | PDTE |
 | 2028-12-15 | Adivina las películas | Sister Act, Beetlejuice, Reservoir Dogs, El resplandor, Jumanji | Sister_Act, Beetlejuice, Reservoir_Dogs, El_resplandor, Jumanji (mp3 y jpg) | N/A | PDTE |
-| 2028-12-18 | Rosco de pasapalabra | N/A | N/A | N/A | PDTE |
+| 2028-12-18 | Rosco de pasapalabra | CURRAR, FLIPAR, MACARRA, PAPEAR, QUEDARSE A CUADROS, WALKMAN | N/A | N/A | PDTE |
 | 2028-12-19 | Cultura: iniciales de famosos, especial deporte | ONTARIO | Lugar05_01.jpg .. Lugar05_07.jpg | Ajenos | PDTE |
 | 2028-12-20 | Primeras frases de novelas | 6 novelas famosas | moby_dick.jpg, principito.jpg, mundo_feliz.jpg, busca_tiempo_perdido.jpg, familia_pascual_duarte.jpg, hp_piedra_filosofal.jpg | N/A | PDTE |
 | 2028-12-21 | Timeline: películas de cine | amanece_no_poco, tesis, familia, otros, laberinto_fauno, celda_211, reino, sociedad_nieve | amanece_no_poco.jpg, tesis.jpg, familia.jpg, otros.jpg, laberinto_fauno.jpg, celda_211.jpg, reino.jpg, sociedad_nieve.jpg | N/A | PDTE |
@@ -423,6 +423,5 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 |  Día / Ámbito | Descripción | 
 |--------------|-------------|
 |  Puzzle visuales | OK: 03-FEB, 07-MAR, 27-ABR, 24-MAY, Resto PDTE |
-|  Pasapalabra (×12 meses) |Falta por rellenar los 12 retos |
 | "¿Qué foto es más antigua?" (×12 meses) | Falta por rellenar los 12 retos | 
 |  Escape Rooms + Retos de observación | Añadir música ambiental de fondo en los días tipo Escape Room y en los retos de agudeza visual |
