@@ -303,6 +303,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-08-07 | Primeras frases de novelas | 6 novelas famosas | ana_karenina.jpg, guardian_entre_centeno.jpg, metamorfosis.jpg, rayuela.jpg, peter_pan.jpg, idiota.jpg | N/A | PDTE |
 | 2028-08-08 | Adivina el slogan | 58 anuncios míticos, hasta 5 aciertos | N/A | N/A | PDTE |
 | 2028-08-11 | Adivina las películas | La Bella y la Bestia, Solo en Casa, Halloween, Top Gun, El Caballero Oscuro | La_Bella_y_la_Bestia, Solo_en_Casa, Halloween, Top_Gun, El_Caballero_Oscuro (mp3 y jpg) | N/A | PDTE |
+| 2028-08-12 | Memory 4x4 | N/A | AriAlex + 20170904 20181209 20190830 20191214 20210808 20220410 20230619 20250421 (+_Ar/_Al) | Ariadna, Alexandra | PDTE |
 | 2028-08-14 | Adivina la serie | Doraemon, Els Barrufets, Los Problemas Crecen, Médico de Familia | doraemon.jpg/.mp3, els_barrufets.jpg/.mp3, problemas_crecen.jpg/.mp3, medico_familia.jpg/.mp3 | N/A | PDTE |
 | 2028-08-17 | Adivina quién soy | NAPOLEON | Juan_20190813.png | Juan | PDTE |
 | 2028-08-18 | Adivina el PIN | 8293 | N/A | N/A | PDTE |
