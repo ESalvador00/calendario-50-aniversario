@@ -252,6 +252,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-05-31 | Adivina el slogan | 58 anuncios míticos, hasta 5 aciertos | N/A | N/A | PDTE |
 | 2028-06-01 | Puzzle visual | ACHI | Puzzle01_01.png .. Puzzle01_05.png | N/A | PDTE |
 | 2028-06-03 | Minijuego (La Balanza Falsa) | N/A | N/A | N/A | PDTE |
+| 2028-06-04 | Memory 4x4 | N/A | AriAlex + 20141221 20150802 20160325 20160827 20170531 20180224 20220828 20240812 (+_Ar/_Al) | Ariadna, Alexandra | PDTE |
 | 2028-06-05 | Primeras frases de novelas | 6 novelas famosas | cien_anos_soledad.jpg, extranjero.jpg, hobbit.jpg, crimen_castigo.jpg, hombre_invisible.jpg, tropico_cancer.jpg | N/A | PDTE |
 | 2028-06-06 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
 | 2028-06-07 | Acertijos y adivinanzas - Máquinas trabajando | 5 | David_20101231.png | David | PDTE |
