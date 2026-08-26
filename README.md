@@ -158,7 +158,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-01-26 | Rosco de pasapalabra | AESTHETIC, CRUSH, FUNAR, HYPE, NPC, RANDOM | N/A | N/A | PDTE |
 | 2028-01-27 | Adivina el PIN | 5784 | N/A | N/A | PDTE |
 | 2028-01-28 | Timeline histórico doble | A:01-06 / B:01-06 | Timeline01_01A..06A.png + Timeline01_01B..06B.png | N/A | PDTE |
-| 2028-01-29 | Memory 4x4 | N/A | NievesEnric + 20040626 20061224 20101211 20151205 20170807 20190601 20200208 20250105 (+_E/_N) | Nieves, Enric | PDTE |
+| 2028-01-29 | Memory 4x4 | N/A | NievesEnric + 20040626 20061224 20101211 20151205 20170807 20190601 20200208 20250105 + (_E/_N) | Nieves, Enric | PDTE |
 | 2028-01-30 | Agudeza visual — banderas Código Internacional de Señales Marítimas | 99274 | FinAno2020.png | Nieves, Enric, Ari, Alex | PDTE |
 | 2028-01-31 | ¿Qué foto es más antigua? | 10 momentos vividos | PDTE | PDTE | PDTE |
 | 2028-02-01 | Primeras frases de novelas | 6 novelas famosas | don_quijote_mancha.jpg, 1984.jpg, pedro_paramo.jpg, neuromante.jpg, jane_eyre.jpg, isla_tesoro.jpg | N/A | PDTE |
@@ -168,7 +168,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-02-06 | Agudeza visual — clickmap museo (binario) | ENRIC | Museo_visual.png + Museo_clickmap.png + Ultima_cena.png + Ariadna_20190701.png | Ariadna | PDTE |
 | 2028-02-07 | Adivina la serie | Dragones y Mazmorras, Inspector Gadget, El coche Fantástico, Expediente X | dragones_mazmorras.jpg/.mp3, inspector_gadget.jpg/.mp3, coche_fantastico.jpg/.mp3, expediente_x.jpg/.mp3 | N/A | PDTE |
 | 2028-02-09 | Timeline musical, España en los 2000 | 2002-2008 | Asereje.jpg .. Tenia_tanto_que_darte.jpg | N/A | PDTE |
-| 2028-02-12 | Memory 4x4 | N/A | AriAlex + 20150606 20170513 20180825 20191026 20200429 20210401 20220422 20240511 (+_Ar/_Al) | Ariadna, Alexandra | PDTE |
+| 2028-02-12 | Memory 4x4 | N/A | AriAlex + 20150606 20170513 20180825 20191026 20200429 20210401 20220422 20240511 + (_Ar/_Al) | Ariadna, Alexandra | PDTE |
 | 2028-02-13 | Ingenio — la respuesta correcta | la respuesta correcta | AlexNieves_20180925.jpg | Alex y Nieves | PDTE |
 | 2028-02-14 | ¿Qué foto es más antigua? | 10 momentos vividos | PDTE | PDTE | PDTE |
 | 2028-02-15 | Timeline: cuadros famosos | 8 cuadros famosos | mona_lisa.jpg, creacion_adan.jpg, torre_babel.jpg, vocacion_san_mateo.jpg, leccion_anatomia.jpg, meninas.jpg, caminante_mar_nubes.jpg, libertad_guiando_pueblo.jpg | N/A | PDTE |
@@ -196,7 +196,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-03-14 | Sigue la letra | Sin ti no soy nada (Amaral) | Sin_ti_no_soy_nada.mp3 | N/A | PDTE |
 | 2028-03-15 | Adivina quién soy | AGATHA CHRISTIE | Mari_20220819.png | Mari | PDTE |
 | 2028-03-16 | ¿Qué foto es más antigua? | 10 momentos vividos | PDTE | PDTE | PDTE |
-| 2028-03-18 | Memory 4x4 | N/A | AriAlex + 20160810 20180325 20190813 20190916 20200108 20220813 20230701 20250510 (+_Ar/_Al) | Ariadna, Alexandra | PDTE |
+| 2028-03-18 | Memory 4x4 | N/A | AriAlex + 20160810 20180325 20190813 20190916 20200108 20220813 20230701 20250510 + (_Ar/_Al) | Ariadna, Alexandra | PDTE |
 | 2028-03-20 | Timeline: óperas famosas | 8 óperas famosas | orfeo.jpg, alcina.jpg, bodas_figaro.jpg, don_giovanni.jpg, flauta_magica.jpg, barbero_sevilla.jpg, norma.jpg, la_traviata.jpg | N/A | PDTE |
 | 2028-03-21 | Acertijos y adivinanzas - Madre con cinco hijos | LUIS | Ari_20131110.png | Ariadna | PDTE |
 | 2028-03-22 | Adivina el cuadro | GRITO / DAMA ARMINO / LECTORA | grito_hd.jpg, dama_armino_hd.jpg, lectora_hd.jpg | N/A | PDTE |
@@ -212,7 +212,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-04-06 | ¿Qué foto es más antigua? | 10 momentos vividos | PDTE | PDTE | PDTE |
 | 2028-04-07 | Adivina el PIN | 3152 | N/A | N/A | PDTE |
 | 2028-04-08 | Minijuego (El Lobo, la Cabra y la Col) | N/A | N/A | N/A | PDTE |
-| 2028-04-09 | Memory 4x4 | N/A | NievesEnric_20050730, NievesEnric_20101218, NievesEnric_20170807, NievesEnric_20180414, NievesEnric_20190813, NievesEnric_20191217, NievesEnric_20220816, NievesEnric_20221207 (+_E/_N) | Nieves, Enric | PDTE |
+| 2028-04-09 | Memory 4x4 | N/A | NievesEnric + 20050730 20101218 20170807 20180414 20190813 20191217 20220816 20221207 + (_E/_N) | Nieves, Enric | PDTE |
 | 2028-04-10 | Primeras frases de novelas | 6 novelas famosas | orgullo_prejuicio.jpg, cronica_muerte_anunciada.jpg, rebelion_granja.jpg, ruido_furia.jpg, dracula.jpg, coronel_no_escriba.jpg | N/A | PDTE |
 | 2028-04-11 | Adivina quién soy | DALI | Ari_20130601.png | Ariadna | PDTE |
 | 2028-04-12 | Sigue la letra | No dudaría (Antonio Flores) | No_dudaria.mp3 | N/A | PDTE |
@@ -246,13 +246,13 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-05-23 | Rosco de pasapalabra | NO TE ENTERAS CONTRERAS, VAS LISTO EVARISTO, ESTAR AL LORO, A OTRA COSA MARIPOSA, SER MAS CHULO QUE UN OCHO, NASTI DE PLASTI | N/A | N/A | PDTE |
 | 2028-05-24 | Puzzle visual | ARI | Puzzle04_01.png .. Puzzle04_07.png | N/A | PDTE |
 | 2028-05-26 | Adivina las películas | Fiebre del Sábado Noche, Jurassic Park, Coco, Gladiator, Pulp Fiction | Fiebre_del_Sabado_Noche, Jurassic_Park, Coco, Gladiator, Pulp_Fiction (mp3 y jpg) | N/A | PDTE |
-| 2028-05-28 | Memory 4x4 | N/A | NievesEnric_20061024, NievesEnric_20200510, NievesEnric_20200627, NievesEnric_20220623, NievesEnric_20230501, NievesEnric_20251116, NievesEnric_20251207, NievesEnric_20260510 (+_E/_N) | Nieves, Enric | PDTE |
+| 2028-05-28 | Memory 4x4 | N/A | NievesEnric + 20061024 20200510 20200627 20220623 20230501 20251116 20251207 20260510 + (_E/_N) | Nieves, Enric | PDTE |
 | 2028-05-29 | Adivina el logo correcto | 10 logos icónicos | Logos.png | N/A | PDTE |
 | 2028-05-30 | ¿Qué foto es más antigua? | 10 momentos vividos | PDTE | PDTE | PDTE |
 | 2028-05-31 | Adivina el slogan | 58 anuncios míticos, hasta 5 aciertos | N/A | N/A | PDTE |
 | 2028-06-01 | Puzzle visual | ACHI | Puzzle01_01.png .. Puzzle01_05.png | N/A | PDTE |
 | 2028-06-03 | Minijuego (La Balanza Falsa) | N/A | N/A | N/A | PDTE |
-| 2028-06-04 | Memory 4x4 | N/A | AriAlex + 20141221 20150802 20160325 20160827 20170531 20180224 20220828 20240812 (+_Ar/_Al) | Ariadna, Alexandra | PDTE |
+| 2028-06-04 | Memory 4x4 | N/A | AriAlex + 20141221 20150802 20160325 20160827 20170531 20180224 20220828 20240812 + (_Ar/_Al) | Ariadna, Alexandra | PDTE |
 | 2028-06-05 | Primeras frases de novelas | 6 novelas famosas | cien_anos_soledad.jpg, extranjero.jpg, hobbit.jpg, crimen_castigo.jpg, hombre_invisible.jpg, tropico_cancer.jpg | N/A | PDTE |
 | 2028-06-06 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
 | 2028-06-07 | Acertijos y adivinanzas - Máquinas trabajando | 5 | David_20101231.png | David | PDTE |
@@ -294,7 +294,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-07-26 | Adivina la serie | Candy Candy, Compañeros, Los Osos Amorosos, Sensación de vivir | candy_candy.jpg/.mp3, companeros.jpg/.mp3, osos_amorosos.jpg/.mp3, sensacion_de_vivir.jpg/.mp3 | N/A | PDTE |
 | 2028-07-28 | Timeline musical, España en los 90 | 1990-1999 | Entre_dos_tierras.jpg .. Tu_calorro.jpg | N/A | PDTE |
 | 2028-07-29 | Satisfacción con restricciones múltiples: Excursión al parque | Enric: bicicleta+Galletas / Nieves: cometa+bocadillo / Ariadna: fútbol+fruta / Alex: columpios+Patatas | RSR07_Escenario.webp + RSR07_01A..01D.png + RSR07_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
-| 2028-07-30 | Memory 4x4 | N/A | NievesEnric_20040425, NievesEnric_20061004, NievesEnric_20180714, NievesEnric_20190811, NievesEnric_20200718, NievesEnric_20200919, NievesEnric_20220514, NievesEnric_20240510 (+_E/_N) | Nieves, Enric | PDTE |
+| 2028-07-30 | Memory 4x4 | N/A | NievesEnric + 20040425 20061004 20180714 20190811 20200718 20200919 20220514 20240510 + (_E/_N) | Nieves, Enric | PDTE |
 | 2028-07-31 | Adivina el cuadro | AMERICAN GOTHIC / OFELIA / MUJER LLORANDO | american_gothic_hd.jpg, ofelia_hd.jpg, mujer_llorando_hd.jpg | N/A | PDTE |
 | 2028-08-01 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
 | 2028-08-02 | Puzzle visual | ACHI | Puzzle01_01.png .. Puzzle01_05.png | N/A | PDTE |
@@ -303,7 +303,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-08-07 | Primeras frases de novelas | 6 novelas famosas | ana_karenina.jpg, guardian_entre_centeno.jpg, metamorfosis.jpg, rayuela.jpg, peter_pan.jpg, idiota.jpg | N/A | PDTE |
 | 2028-08-08 | Adivina el slogan | 58 anuncios míticos, hasta 5 aciertos | N/A | N/A | PDTE |
 | 2028-08-11 | Adivina las películas | La Bella y la Bestia, Solo en Casa, Halloween, Top Gun, El Caballero Oscuro | La_Bella_y_la_Bestia, Solo_en_Casa, Halloween, Top_Gun, El_Caballero_Oscuro (mp3 y jpg) | N/A | PDTE |
-| 2028-08-12 | Memory 4x4 | N/A | AriAlex + 20170904 20181209 20190830 20191214 20210808 20220410 20230619 20250421 (+_Ar/_Al) | Ariadna, Alexandra | PDTE |
+| 2028-08-12 | Memory 4x4 | N/A | AriAlex + 20170904 20181209 20190830 20191214 20210808 20220410 20230619 20250421 + (_Ar/_Al) | Ariadna, Alexandra | PDTE |
 | 2028-08-14 | Adivina la serie | Doraemon, Els Barrufets, Los Problemas Crecen, Médico de Familia | doraemon.jpg/.mp3, els_barrufets.jpg/.mp3, problemas_crecen.jpg/.mp3, medico_familia.jpg/.mp3 | N/A | PDTE |
 | 2028-08-17 | Adivina quién soy | NAPOLEON | Juan_20190813.png | Juan | PDTE |
 | 2028-08-18 | Adivina el PIN | 8293 | N/A | N/A | PDTE |
@@ -332,7 +332,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-09-19 | Adivina la serie | Corrupción en Miami, Los Soprano, Musculman, Pokémon | corrupcion_miami.jpg/.mp3, soprano.jpg/.mp3, musculman.jpg/.mp3, pokemon.jpg/.mp3 | N/A | PDTE |
 | 2028-09-20 | Sigue la letra | Ella (Viceversa) | Ella.mp3 | N/A | PDTE |
 | 2028-09-22 | Adivina las películas | Pesadilla antes de Navidad, La La Land, El Último Mohicano, The Pianist, Inside Out | Pesadilla_antes_de_Navidad, La_La_Land, El_Ultimo_Mohicano, The_Pianist, Inside_Out (mp3 y jpg) | N/A | PDTE |
-| 2028-09-23 | Memory 4x4 | N/A | AriAlex + 20151212 20160407 20181013 20190723 20200107 20211224 20230506 20240706 (+_Ar/_Al) | Ariadna, Alexandra | PDTE |
+| 2028-09-23 | Memory 4x4 | N/A | AriAlex + 20151212 20160407 20181013 20190723 20200107 20211224 20230506 20240706 + (_Ar/_Al) | Ariadna, Alexandra | PDTE |
 | 2028-09-25 | Rosco de pasapalabra | CHUPIPIRULI, FLIPADO, JUERGA, MOLA MAZO, PIRARSE, TRONCO | N/A | N/A | PDTE |
 | 2028-09-26 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
 | 2028-09-28 | Timeline: óperas famosas | 8 óperas famosas | aida.jpg, carmen.jpg, parsifal.jpg, dama_picas.jpg, la_boheme.jpg, tosca.jpg, madama_butterfly.jpg, caballero_rosa.jpg | N/A | PDTE |
@@ -345,7 +345,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-10-10 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
 | 2028-10-11 | Timeline: monumentos y edificios | 8 monumentos famosos | mezquita_cordoba.jpg, santa_maria_naranco.jpg, murallas_avila.jpg, catedral_cuenca.jpg, alhambra.jpg, catedral_granada.jpg, monasterio_escorial.jpg, palacio_real_madrid.jpg | N/A | PDTE |
 | 2028-10-13 | Adivina el PIN | 2314 | N/A | N/A | PDTE |
-| 2028-10-15 | Memory 4x4 | N/A | NievesEnric_20011227, NievesEnric_20171001, NievesEnric_20181124, NievesEnric_20201010, NievesEnric_20210515, NievesEnric_20220507, NievesEnric_20230819, NievesEnric_20240819 (+_E/_N) | Nieves, Enric | PDTE |
+| 2028-10-15 | Memory 4x4 | N/A | NievesEnric + 20011227 20171001 20181124 20201010 20210515 20220507 20230819 20240819 + (_E/_N) | Nieves, Enric | PDTE |
 | 2028-10-16 | Sigue la letra | Chiquilla (Seguridad Social) | Chiquilla.mp3 | N/A | PDTE |
 | 2028-10-17 | ¿Qué foto es más antigua? | 10 momentos vividos | PDTE | PDTE | PDTE |
 | 2028-10-18 | Timeline musical, Internacional en los 90 | 1990-1999 | Ice_ice_baby.jpg, Losing_my_religion.jpg, Zombie.jpg, Wannabe.jpg, Baby_one_more_time.jpg, Genie_in_a_Bottle.jpg + .mp3 | N/A | PDTE |
@@ -365,7 +365,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-11-07 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
 | 2028-11-08 | Timeline: películas de cine | blancanieves, cenicienta, bella_durmiente, sirenita, bella_bestia, aladdin, mulan, frozen | blancanieves.jpg, cenicienta.jpg, bella_durmiente.jpg, sirenita.jpg, bella_bestia.jpg, aladdin.jpg, mulan.jpg, frozen.jpg | N/A | PDTE |
 | 2028-11-10 | Adivina las películas | Armageddon, Fama, Los Increíbles, La historia interminable, Los Goonies | Armageddon, Fama, Los_Increibles, La_historia_interminable, Los_Goonies (mp3 y jpg) | N/A | PDTE |
-| 2028-11-11 | Memory 4x4 | N/A | AriAlex + 20150411 20161025 20171209 20180908 20191101 20200101 20230708 20240401 (+_Ar/_Al) | Ariadna, Alexandra | PDTE |
+| 2028-11-11 | Memory 4x4 | N/A | AriAlex + 20150411 20161025 20171209 20180908 20191101 20200101 20230708 20240401 + (_Ar/_Al) | Ariadna, Alexandra | PDTE |
 | 2028-11-13 | Sigue la letra | Voy a pasármelo bien (Hombres G) | Voy_a_pasarmelo_bien.mp3 | N/A | PDTE |
 | 2028-11-14 | Adivina quién soy | ELEVEN | Ari_20220701.png | Ariadna | PDTE |
 | 2028-11-15 | Adivina el slogan | 58 anuncios míticos, hasta 5 aciertos | N/A | N/A | PDTE |
@@ -386,7 +386,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-12-06 | Acertijos y adivinanzas - Oficio reconocido | AGUJA | Ari_20200215.png | Ariadna | PDTE |
 | 2028-12-07 | Puzzle visual | ACHI | Puzzle01_01.png .. Puzzle01_05.png | N/A | PDTE |
 | 2028-12-09 | Satisfacción con restricciones múltiples: Juegos de mesa | Enric: ajedrez+frutos secos / Nieves: cartas+patatas / Ariadna: puzle+galletas / Alex: dominó+gominolas | RSR12_Escenario.webp + RSR12_01A..01D.png + RSR12_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
-| 2028-12-10 | Memory 4x4 | N/A | NievesEnric_20041205, NievesEnric_20061024, NievesEnric_20090122, NievesEnric_20170515, NievesEnric_20190406, NievesEnric_20220413, NievesEnric_20250413, NievesEnric_20250803 (+_E/_N) | Nieves, Enric | PDTE |
+| 2028-12-10 | Memory 4x4 | N/A | NievesEnric + 20041205 20061024 20090122 20170515 20190406 20220413 20250413 20250803 + (_E/_N) | Nieves, Enric | PDTE |
 | 2028-12-11 | Sigue la letra | Cuéntame un cuento (Celtas Cortos) | Cuentame_un_cuento.mp3 | N/A | PDTE |
 | 2028-12-12 | ¿Qué foto es más antigua? | 10 momentos vividos | PDTE | PDTE | PDTE |
 | 2028-12-13 | Adivina quién soy | DARTH VADER | Enric_20130227.png | Enric | PDTE |
