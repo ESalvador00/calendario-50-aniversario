@@ -332,6 +332,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-09-19 | Adivina la serie | Corrupción en Miami, Los Soprano, Musculman, Pokémon | corrupcion_miami.jpg/.mp3, soprano.jpg/.mp3, musculman.jpg/.mp3, pokemon.jpg/.mp3 | N/A | PDTE |
 | 2028-09-20 | Sigue la letra | Ella (Viceversa) | Ella.mp3 | N/A | PDTE |
 | 2028-09-22 | Adivina las películas | Pesadilla antes de Navidad, La La Land, El Último Mohicano, The Pianist, Inside Out | Pesadilla_antes_de_Navidad, La_La_Land, El_Ultimo_Mohicano, The_Pianist, Inside_Out (mp3 y jpg) | N/A | PDTE |
+| 2028-09-23 | Memory 4x4 | N/A | AriAlex + 20151212 20160407 20181013 20190723 20200107 20211224 20230506 20240706 (+_Ar/_Al) | Ariadna, Alexandra | PDTE |
 | 2028-09-25 | Rosco de pasapalabra | CHUPIPIRULI, FLIPADO, JUERGA, MOLA MAZO, PIRARSE, TRONCO | N/A | N/A | PDTE |
 | 2028-09-26 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
 | 2028-09-28 | Timeline: óperas famosas | 8 óperas famosas | aida.jpg, carmen.jpg, parsifal.jpg, dama_picas.jpg, la_boheme.jpg, tosca.jpg, madama_butterfly.jpg, caballero_rosa.jpg | N/A | PDTE |
