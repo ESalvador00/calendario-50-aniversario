@@ -225,6 +225,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-04-24 | Adivina el cuadro | NOCHE ESTRELLADA / CAMINANTE SOBRE MAR NUBES / CHRISTINAS WORLD | noche_estrellada_hd.jpg, caminante_mar_nubes_hd.jpg, cristinas_world_hd.jpg | N/A | PDTE |
 | 2028-04-18 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
 | 2028-04-19 | Cultura: iniciales de famosos, especial política | MADEIRA | Lugar07_01.jpg .. Lugar07_07.jpg | Ajenos | PDTE |
+| 2028-04-21 | Reinas | N/A | N/A | N/A | PDTE |
 | 2028-04-25 | Timeline: monumentos y edificios | 8 monumentos famosos | gran_piramide_guiza.jpg, partenon.jpg, coliseo.jpg, santa_sofia.jpg, mezquita_cordoba.jpg, catedral_chartres.jpg, machu_picchu.jpg, taj_mahal.jpg | N/A | PDTE |
 | 2028-04-26 | Acertijos y adivinanzas - El lago y los lirios | 47 | Ari_20190913.png | Ariadna | PDTE |
 | 2028-04-27 | Puzzle visual | ECF | Puzzle03_01.png .. Puzzle03_02.png | N/A | PDTE |
