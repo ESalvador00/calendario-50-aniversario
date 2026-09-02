@@ -191,6 +191,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-03-06 | Adivina el logo correcto | 10 logos icónicos | Logos.png | N/A | PDTE |
 | 2028-03-07 | Puzzle visual | AFI | Puzzle02_01.png .. Puzzle02_04.png | N/A | PDTE |
 | 2028-03-08 | Cultura: iniciales de famosos, especial mujeres | JAMAICA | Lugar02_01.jpg .. Lugar02_07.jpg | Ajenos | PDTE |
+| 2028-03-09 | Reinas | N/A | N/A | N/A | PDTE |
 | 2028-03-11 | Satisfacción con restricciones múltiples: Tarde de lluvia en casa | Enric: leer+fruta / Nieves: película+palomitas / Ariadna: dibujar+galletas / Alex: videojuegos+chocolatina | RSR03_Escenario.webp + RSR03_01A..01D.png + RSR03_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
 | 2028-03-12 | Agudeza visual — cifrado César | PLATANO | Alex_20191006.png | Alex | PDTE |
 | 2028-03-13 | Rosco de pasapalabra | BACALAO, EFECTIVIWONDER, GUAY, MARRON, PIBON, SOBAR | N/A | N/A | PDTE |
