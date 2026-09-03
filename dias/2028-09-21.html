@@ -20,7 +20,6 @@
     .day-of-week{font-size:.85rem;letter-spacing:.4em;text-transform:uppercase;color:rgba(201,168,76,.5);margin-bottom:1rem;}
     h1{font-family:'Playfair Display',serif;font-size:clamp(3rem,9vw,7rem);font-weight:900;line-height:1;background:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 50%,var(--gold-dark) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.5rem;}
     .month-label{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3.5vw,2.4rem);font-weight:400;font-style:italic;color:rgba(250,246,238,.45);margin-bottom:2.5rem;}
-    .content-area{width:100%;border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:2.5rem;min-height:220px;background:rgba(255,255,255,.02);color:rgba(250,246,238,.4);font-size:1rem;font-style:italic;text-align:center;display:flex;align-items:center;justify-content:center;}
     .day-nav{display:flex;justify-content:space-between;align-items:center;padding-top:2.5rem;border-top:1px solid rgba(201,168,76,.1);margin-top:2.5rem;}
     .nav-btn{font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(201,168,76,.5);text-decoration:none;padding:.6rem 1.2rem;border:1px solid rgba(201,168,76,.18);border-radius:2px;transition:all .2s;}
     .nav-btn:hover{color:var(--gold-light);border-color:rgba(201,168,76,.5);background:rgba(201,168,76,.05);}
@@ -47,14 +46,39 @@
     .popup-msg{font-size:1rem;font-style:italic;color:rgba(250,246,238,.6);line-height:1.7;margin-bottom:2rem;}
     .popup-btn{display:inline-block;padding:.7rem 2rem;border:1px solid rgba(201,168,76,.4);border-radius:2px;color:var(--gold);font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;background:none;transition:all .2s;}
     .popup-btn:hover{background:rgba(201,168,76,.1);border-color:var(--gold);}
+    .popup-help-body{text-align:left;font-style:normal;font-size:.9rem;line-height:1.9;overflow-y:auto;max-height:55vh;padding-right:.5rem;margin-bottom:1.5rem;color:rgba(250,246,238,.65);}
+    .popup-help-body::-webkit-scrollbar{width:4px;}
+    .popup-help-body::-webkit-scrollbar-track{background:rgba(255,255,255,.04);}
+    .popup-help-body::-webkit-scrollbar-thumb{background:rgba(201,168,76,.3);border-radius:2px;}
+
+    /* ── Juego Reinas ─────────────────────────────────────── */
+    .game-wrap{width:100%;display:flex;flex-direction:column;align-items:center;}
+    .game-header{margin-bottom:1.6rem;}
+    .game-title{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:var(--gold-light);letter-spacing:.03em;margin-bottom:.4rem;}
+    .game-subtitle{font-size:.95rem;font-style:italic;color:rgba(250,246,238,.45);}
+    .queens-board{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));grid-template-rows:repeat(8,minmax(0,1fr));width:min(420px,92vw);aspect-ratio:1/1;border:2px solid rgba(250,246,238,.5);border-radius:4px;overflow:hidden;touch-action:none;user-select:none;box-shadow:0 10px 40px rgba(0,0,0,.5);}
+    .q-cell{position:relative;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:clamp(1.1rem,4.5vw,1.7rem);line-height:1;transition:background .15s;min-width:0;min-height:0;overflow:hidden;}
+    .q-cell .q-mark{pointer-events:none;display:flex;align-items:center;justify-content:center;width:100%;height:100%;}
+    .q-cell.state-x .q-mark{font-size:.78em;}
+    .q-cell.state-queen .q-mark{color:#1A1410;text-shadow:0 1px 2px rgba(255,255,255,.35);filter:drop-shadow(0 0 2px rgba(255,255,255,.4));}
+    .q-cell.conflict{animation:qBlink 1s ease-in-out infinite;}
+    @keyframes qBlink{0%,100%{box-shadow:inset 0 0 0 999px rgba(200,40,40,0);}50%{box-shadow:inset 0 0 0 999px rgba(220,40,40,.55);}}
+    .queens-board.locked .q-cell{cursor:default;}
+    .queens-hint{margin-top:1.3rem;font-size:.82rem;letter-spacing:.03em;color:rgba(250,246,238,.4);font-style:italic;text-align:center;max-width:420px;}
+    .controls{margin-top:1.4rem;}
+    .controls-row{display:flex;gap:.7rem;justify-content:center;}
+    .game-btn{background:none;border:1px solid rgba(201,168,76,.35);border-radius:3px;color:rgba(201,168,76,.65);font-family:'Cormorant Garamond',serif;font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;padding:.45rem 1.1rem;cursor:pointer;transition:all .2s;}
+    .game-btn:hover{color:var(--gold);border-color:var(--gold);background:rgba(201,168,76,.07);}
+    .status-bar{margin-top:1.2rem;padding:.5rem 1.5rem;background:rgba(0,0,0,.15);border-top:1px solid rgba(201,168,76,.08);border-bottom:1px solid rgba(201,168,76,.08);font-size:.75rem;letter-spacing:.12em;text-align:center;color:rgba(250,246,238,.35);text-transform:uppercase;min-height:2rem;display:flex;align-items:center;justify-content:center;width:min(420px,92vw);}
+
     @media(max-width:600px){
       .wrap{padding:1rem 1rem 2rem;}
       .day-hero{padding:1rem 0 1rem;}
       h1{font-size:clamp(2rem,14vw,4rem);}
       .month-label{font-size:clamp(1rem,4vw,1.6rem);margin-bottom:1rem;}
-      .content-area{padding:1.2rem;min-height:120px;}
       .day-nav{margin-top:1rem;padding-top:1rem;}
       .ornament-line-h{margin-bottom:1rem;}
+      .game-header{margin-bottom:1.1rem;}
     }
 </style>
 </head>
@@ -71,8 +95,21 @@
     <p class="day-of-week">Jueves</p>
     <h1>21</h1>
     <p class="month-label">de Septiembre</p>
-    <div class="content-area">
-      <p>Espacio reservado para el contenido de este día</p>
+
+    <div class="game-wrap">
+      <div class="game-header">
+        <div class="game-title">Reinas</div>
+        <div class="game-subtitle">Una reina por fila, columna y región — sin que se toquen</div>
+      </div>
+      <div class="queens-board" id="queens-board"></div>
+      <p class="queens-hint">Toca para marcar × · vuelve a tocar para una reina · un tercer toque limpia · arrastra para marcar varias</p>
+      <div class="controls">
+        <div class="controls-row">
+          <button class="game-btn" id="reset-btn">↺ Reiniciar</button>
+          <button class="game-btn" id="help-btn">? Ayuda</button>
+        </div>
+      </div>
+      <div class="status-bar" id="status-bar">♛ Coloca las 8 reinas</div>
     </div>
   </div>
   <nav class="day-nav">
@@ -109,6 +146,28 @@
     <p class="popup-title">¡Tu recompensa!</p>
     <p class="popup-msg" id="reward-text">✨ Aquí irá la recompensa especial de este día ✨</p>
     <button class="popup-btn" id="star-reward-close">¡Genial!</button>
+  </div>
+</div>
+
+<!-- Popup ayuda -->
+<div class="popup-overlay" id="popup-help">
+  <div class="popup-box" style="max-width:500px;">
+    <div class="popup-icon">♛</div>
+    <p class="popup-title">Cómo jugar</p>
+    <div class="popup-help-body">
+      <strong style="color:var(--gold-light);">Objetivo</strong><br>
+      Toca para marcar, coloca una reina.<br>
+      · Toca una celda para marcar × · vuelve a tocar para una reina · un tercer toque limpia. Arrastra para marcar varias celdas de un trazo.<br><br>
+
+      <strong style="color:var(--gold-light);">Mecánica</strong><br>
+      Las reinas no pueden tocarse.<br>
+      · Dos reinas no pueden tocarse — ni siquiera en diagonal. Los conflictos pulsan en rojo.<br><br>
+
+      <strong style="color:var(--gold-light);">Resuelve</strong><br>
+      Una reina por región, fila, columna.<br>
+      · Una reina por fila, una por columna, una por región de color.
+    </div>
+    <button class="popup-btn" id="help-close">¡Entendido!</button>
   </div>
 </div>
 
@@ -181,10 +240,8 @@ function updateDone() {
 doneBtn.addEventListener('click', () => {
   const on = localStorage.getItem(DONE_KEY) === '1';
   if (on) {
-    // Already done → show reward
     popupStarReward.classList.add('visible');
   } else {
-    // Not done → only allowed in preview mode
     if (isPreview) {
       localStorage.setItem(DONE_KEY, '1');
       updateDone();
@@ -194,6 +251,165 @@ doneBtn.addEventListener('click', () => {
   }
 });
 updateDone();
+
+// ── Ayuda ──────────────────────────────────────────────────
+const popupHelp = document.getElementById('popup-help');
+document.getElementById('help-btn').addEventListener('click', () => popupHelp.classList.add('visible'));
+document.getElementById('help-close').addEventListener('click', () => popupHelp.classList.remove('visible'));
+popupHelp.addEventListener('click', e => { if (e.target === popupHelp) popupHelp.classList.remove('visible'); });
+
+// ── Juego: Reinas ────────────────────────────────────────────
+// Mapa de regiones (8x8), 8 colores
+const REGIONS = [
+  [8,8,8,8,8,1,1,1],
+  [8,8,8,8,8,8,8,1],
+  [8,7,8,8,2,1,1,1],
+  [8,7,7,7,2,2,2,1],
+  [8,6,6,6,5,2,2,2],
+  [8,4,4,5,5,3,3,2],
+  [8,4,4,4,4,3,3,3],
+  [8,8,4,4,4,4,3,3]
+];
+const REGION_COLOR = {
+  1:'#C9A84C', 2:'#A85C3C', 3:'#2F6E6A', 4:'#6B4E8E',
+  5:'#3A4E8E', 6:'#5C7A3A', 7:'#B23A48', 8:'#8E6B4E'
+};
+
+const boardEl  = document.getElementById('queens-board');
+const statusEl = document.getElementById('status-bar');
+const cells = [];
+let solved = false;
+let dragging = false;
+let dragState = null;
+let lastDragCell = null;
+
+for (let r = 0; r < 8; r++) {
+  cells.push([]);
+  for (let c = 0; c < 8; c++) {
+    const cell = document.createElement('div');
+    cell.className = 'q-cell';
+    cell.dataset.row = r;
+    cell.dataset.col = c;
+    cell.dataset.state = '0';
+    cell.style.background = REGION_COLOR[REGIONS[r][c]];
+
+    // Bordes: gruesos entre regiones distintas, finos dentro de la misma región
+    const region = REGIONS[r][c];
+    const top    = r === 0 || REGIONS[r-1][c] !== region;
+    const bottom = r === 7 || REGIONS[r+1][c] !== region;
+    const left   = c === 0 || REGIONS[r][c-1] !== region;
+    const right  = c === 7 || REGIONS[r][c+1] !== region;
+    const thick = '2px solid rgba(26,20,16,.75)';
+    const thin  = '1px solid rgba(26,20,16,.18)';
+    cell.style.borderTop    = top    ? thick : thin;
+    cell.style.borderBottom = bottom ? thick : thin;
+    cell.style.borderLeft   = left   ? thick : thin;
+    cell.style.borderRight  = right  ? thick : thin;
+
+    const mark = document.createElement('span');
+    mark.className = 'q-mark';
+    cell.appendChild(mark);
+
+    boardEl.appendChild(cell);
+    cells[r].push(cell);
+  }
+}
+
+function getState(cell) { return parseInt(cell.dataset.state, 10); }
+
+function setState(cell, state) {
+  cell.dataset.state = String(state);
+  cell.classList.remove('state-x', 'state-queen');
+  const mark = cell.querySelector('.q-mark');
+  if (state === 1) { mark.textContent = '❌'; cell.classList.add('state-x'); }
+  else if (state === 2) { mark.textContent = '♛'; cell.classList.add('state-queen'); }
+  else { mark.textContent = ''; }
+}
+
+function checkConflictsAndWin() {
+  const allCells = boardEl.querySelectorAll('.q-cell');
+  allCells.forEach(c => c.classList.remove('conflict'));
+
+  const queens = [];
+  allCells.forEach(c => { if (getState(c) === 2) queens.push(c); });
+
+  const conflictSet = new Set();
+  for (let i = 0; i < queens.length; i++) {
+    for (let j = i + 1; j < queens.length; j++) {
+      const a = queens[i], b = queens[j];
+      const ar = +a.dataset.row, ac = +a.dataset.col;
+      const br = +b.dataset.row, bc = +b.dataset.col;
+      const sameRow    = ar === br;
+      const sameCol    = ac === bc;
+      const sameRegion = REGIONS[ar][ac] === REGIONS[br][bc];
+      const adjacent   = Math.abs(ar - br) <= 1 && Math.abs(ac - bc) <= 1;
+      if (sameRow || sameCol || sameRegion || adjacent) {
+        conflictSet.add(a);
+        conflictSet.add(b);
+      }
+    }
+  }
+  conflictSet.forEach(c => c.classList.add('conflict'));
+
+  if (queens.length === 8 && conflictSet.size === 0 && !solved) {
+    onSolved();
+  } else if (!solved) {
+    if (conflictSet.size > 0) {
+      statusEl.textContent = '⚠️ Dos reinas se atacan';
+    } else {
+      statusEl.textContent = `♛ Reinas colocadas: ${queens.length} / 8`;
+    }
+  }
+}
+
+function onSolved() {
+  solved = true;
+  boardEl.classList.add('locked');
+  statusEl.textContent = '🎉 ¡Puzzle resuelto!';
+  localStorage.setItem(DONE_KEY, '1');
+  updateDone();
+  setTimeout(() => popupStarReward.classList.add('visible'), 500);
+}
+
+function resetGame() {
+  solved = false;
+  boardEl.classList.remove('locked');
+  boardEl.querySelectorAll('.q-cell').forEach(c => setState(c, 0));
+  statusEl.textContent = '♛ Coloca las 8 reinas';
+}
+
+document.getElementById('reset-btn').addEventListener('click', resetGame);
+
+// Toques / clics + arrastre para marcar varias
+boardEl.addEventListener('pointerdown', e => {
+  if (solved) return;
+  const cell = e.target.closest('.q-cell');
+  if (!cell) return;
+  try { boardEl.setPointerCapture(e.pointerId); } catch (err) {}
+  const prev = getState(cell);
+  const next = (prev + 1) % 3;
+  setState(cell, next);
+  dragging = true;
+  dragState = (prev === 0 && next === 1) ? 1 : null;
+  lastDragCell = cell;
+  checkConflictsAndWin();
+});
+
+boardEl.addEventListener('pointermove', e => {
+  if (!dragging || dragState === null || solved) return;
+  const el = document.elementFromPoint(e.clientX, e.clientY);
+  const cell = el && el.closest ? el.closest('.q-cell') : null;
+  if (!cell || cell === lastDragCell) return;
+  if (getState(cell) === 0) {
+    setState(cell, dragState);
+    lastDragCell = cell;
+    checkConflictsAndWin();
+  }
+});
+
+function endDrag() { dragging = false; dragState = null; lastDragCell = null; }
+window.addEventListener('pointerup', endDrag);
+window.addEventListener('pointercancel', endDrag);
 </script>
 </body>
 </html>
