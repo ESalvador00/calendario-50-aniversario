@@ -23,12 +23,11 @@
 
     .content-area{width:100%;border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:2rem;background:rgba(255,255,255,.02);display:flex;flex-direction:column;align-items:center;gap:1.1rem;}
 
-    .puzzle-title{font-size:.8rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(201,168,76,.55);}
+    .puzzle-title{width:100%;text-align:right;font-size:.8rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(201,168,76,.55);}
     .puzzle-progress{font-size:.72rem;letter-spacing:.15em;color:rgba(250,246,238,.4);text-transform:uppercase;}
 
     .puzzle-stage{position:relative;width:100%;max-width:440px;margin:0 auto;touch-action:none;}
     .puzzle-board{position:absolute;top:0;left:50%;transform:translateX(-50%);border:1px dashed rgba(201,168,76,.3);border-radius:4px;overflow:hidden;background:rgba(255,255,255,.02);}
-    .puzzle-board-guide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:.16;}
     .puzzle-board-grid{position:absolute;inset:0;display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(4,1fr);pointer-events:none;}
     .puzzle-board-grid div{border:1px dashed rgba(201,168,76,.12);}
 
@@ -94,7 +93,6 @@
       <p class="puzzle-title">9 de mayo de 2021</p>
       <div class="puzzle-stage" id="puzzle-stage">
         <div class="puzzle-board" id="puzzle-board">
-          <div class="puzzle-board-guide" id="puzzle-board-guide"></div>
           <div class="puzzle-board-grid">
             <div></div><div></div><div></div><div></div>
             <div></div><div></div><div></div><div></div>
@@ -240,7 +238,6 @@ const TOLERANCE_FACTOR = 0.32; // margen de error permitido al encajar, como fra
 
 const puzzleStage = document.getElementById('puzzle-stage');
 const puzzleBoard = document.getElementById('puzzle-board');
-const puzzleGuide  = document.getElementById('puzzle-board-guide');
 const progressEl  = document.getElementById('puzzle-progress');
 const resetBtn    = document.getElementById('reset-btn');
 
@@ -259,7 +256,6 @@ function initPuzzle() {
 
   puzzleBoard.style.width  = boardSize + 'px';
   puzzleBoard.style.height = boardSize + 'px';
-  puzzleGuide.style.backgroundImage = `url('${IMG_SRC}')`;
 
   const trayHeight = Math.round(boardSize * 1.05);
   puzzleStage.style.height = (boardSize + 20 + trayHeight) + 'px';
