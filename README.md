@@ -147,6 +147,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-01-13 | Adivina el slogan | 58 anuncios míticos, hasta 5 aciertos | N/A | N/A | PDTE |
 | 2028-01-14 | Adivina las películas | Dirty Dancing, Frozen, La Mision, Los Cazafantasmas, Matrix | Dirty_Dancing, Frozen, La_Mision, Los_Cazafantasmas, Matrix (mp3 y jpg) | N/A | PDTE |
 | 2028-01-15 | Satisfacción con restricciones múltiples: Cena del viernes | Enric: pizza+mayonesa / Nieves: pasta+carbonara / Ariadna: tortilla+pesto / Alex: hamburguesa+ketchup | RSR01_Escenario.webp + RSR01_01A..01D.png + RSR01_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
+| 2028-01-16 | Puzzle clásico | N/A | Salram_20210509.jpg | Enric, Nieves, Ariadna, Alex y Bro | PDTE |
 | 2028-01-17 | Adivina el logo correcto | 10 logos icónicos | Logos.png | N/A | PDTE |
 | 2028-01-18 | Timeline: películas de cine | muerte_ciclista, bienvenido_mister_marshall, placido, caza, espiritu_colmena, fantasma_libertad, bosque_lobo, deprisa_deprisa | muerte_ciclista.jpg, bienvenido_mister_marshall.jpg, placido.jpg, caza.jpg, espiritu_colmena.jpg, fantasma_libertad.jpg, bosque_lobo.jpg, deprisa_deprisa.jpg | N/A | PDTE |
 | 2028-01-19 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
