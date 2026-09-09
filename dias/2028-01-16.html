@@ -26,10 +26,11 @@
     .puzzle-title{width:100%;text-align:right;font-size:.8rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(201,168,76,.55);}
     .puzzle-progress{font-size:.72rem;letter-spacing:.15em;color:rgba(250,246,238,.4);text-transform:uppercase;}
 
-    .puzzle-stage{position:relative;width:100%;max-width:440px;margin:0 auto;touch-action:none;}
-    .puzzle-board{position:absolute;top:0;left:50%;transform:translateX(-50%);border:1px dashed rgba(201,168,76,.3);border-radius:4px;overflow:hidden;background:rgba(255,255,255,.02);}
+    .puzzle-stage{position:relative;width:100%;margin:0 auto;touch-action:none;}
+    .puzzle-board{position:absolute;top:0;left:0;border:1px dashed rgba(201,168,76,.3);border-radius:4px;overflow:hidden;background:rgba(255,255,255,.02);}
     .puzzle-board-grid{position:absolute;inset:0;display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(4,1fr);pointer-events:none;}
     .puzzle-board-grid div{border:1px dashed rgba(201,168,76,.12);}
+    .puzzle-tray{position:absolute;top:0;border:1px dashed rgba(201,168,76,.15);border-radius:4px;background:rgba(255,255,255,.015);pointer-events:none;}
 
     .puzzle-piece{position:absolute;top:0;left:0;cursor:grab;touch-action:none;filter:drop-shadow(0 3px 6px rgba(0,0,0,.45));}
     .puzzle-piece.dragging{cursor:grabbing;filter:drop-shadow(0 8px 16px rgba(0,0,0,.6));}
@@ -100,6 +101,7 @@
             <div></div><div></div><div></div><div></div>
           </div>
         </div>
+        <div class="puzzle-tray" id="puzzle-tray"></div>
       </div>
       <p class="puzzle-progress" id="puzzle-progress">0 / 16 piezas</p>
       <button class="reset-btn" id="reset-btn">Reiniciar puzzle</button>
@@ -238,10 +240,12 @@ const TOLERANCE_FACTOR = 0.32; // margen de error permitido al encajar, como fra
 
 const puzzleStage = document.getElementById('puzzle-stage');
 const puzzleBoard = document.getElementById('puzzle-board');
+const puzzleTray  = document.getElementById('puzzle-tray');
 const progressEl  = document.getElementById('puzzle-progress');
 const resetBtn    = document.getElementById('reset-btn');
 
-let boardSize, pieceW, pieceH, tabSize, hEdges, vEdges, pieces, placedCount, zTop;
+const STAGE_GAP = 16; // separación entre el tablero y la bandeja de piezas
+let boardSize, trayLeft, pieceW, pieceH, tabSize, hEdges, vEdges, pieces, placedCount, zTop;
 
 function initPuzzle() {
   placedCount = 0;
@@ -249,16 +253,23 @@ function initPuzzle() {
   progressEl.textContent = `0 / ${ROWS * COLS} piezas`;
   puzzleStage.querySelectorAll('.puzzle-piece').forEach(p => p.remove());
 
-  boardSize = Math.max(200, Math.min(puzzleStage.clientWidth, 440));
+  // Contenedor 2:1 (ancho:alto) — tablero a la izquierda, piezas sueltas a la derecha
+  const available = puzzleStage.clientWidth || 440;
+  boardSize = Math.max(150, Math.min((available - STAGE_GAP) / 2, 300));
+  trayLeft  = boardSize + STAGE_GAP;
   pieceW = boardSize / COLS;
   pieceH = boardSize / ROWS;
   tabSize = Math.round(pieceW * 0.22);
 
+  puzzleStage.style.width  = (boardSize * 2 + STAGE_GAP) + 'px';
+  puzzleStage.style.height = boardSize + 'px';
+
   puzzleBoard.style.width  = boardSize + 'px';
   puzzleBoard.style.height = boardSize + 'px';
 
-  const trayHeight = Math.round(boardSize * 1.05);
-  puzzleStage.style.height = (boardSize + 20 + trayHeight) + 'px';
+  puzzleTray.style.left   = trayLeft + 'px';
+  puzzleTray.style.width  = boardSize + 'px';
+  puzzleTray.style.height = boardSize + 'px';
 
   hEdges = [];
   for (let r = 0; r < ROWS - 1; r++) {
@@ -282,15 +293,29 @@ function edgeTo(ctx, x0, y0, x1, y1, bulge, vertical) {
   const lerp = (a, b, t) => a + (b - a) * t;
   const P = t => ({ x: lerp(x0, x1, t), y: lerp(y0, y1, t) });
   const off = (pt, amt) => vertical ? { x: pt.x + amt, y: pt.y } : { x: pt.x, y: pt.y + amt };
-  const a = P(0.38), b = P(0.62);
-  const aC = off(a, bulge * 0.85);
-  const bC = off(b, bulge * 0.85);
-  const m1 = off(P(0.44), bulge * 1.15);
-  const m2 = off(P(0.56), bulge * 1.15);
-  const tip = off(P(0.5), bulge * 1.3);
-  ctx.lineTo(a.x, a.y);
-  ctx.bezierCurveTo(aC.x, aC.y, m1.x, m1.y, tip.x, tip.y);
-  ctx.bezierCurveTo(m2.x, m2.y, bC.x, bC.y, b.x, b.y);
+
+  // Cuello estrecho (0.40–0.60) + cúpula redondeada y plana en la parte
+  // superior (en vez de un pico), para que el diente parezca más un botón
+  // circular que una punta — el mismo valor de "bulge" en la pieza vecina
+  // garantiza que el hueco encaje exactamente con este bulto.
+  const neckA = P(0.40), neckB = P(0.60);
+  const capA  = off(P(0.40), bulge * 0.98);
+  const capB  = off(P(0.60), bulge * 0.98);
+  const topL  = off(P(0.44), bulge * 1.12);
+  const topR  = off(P(0.56), bulge * 1.12);
+
+  ctx.lineTo(neckA.x, neckA.y);
+  ctx.bezierCurveTo(
+    off(P(0.41), bulge * 0.55).x, off(P(0.41), bulge * 0.55).y,
+    off(P(0.42), bulge * 0.98).x, off(P(0.42), bulge * 0.98).y,
+    capA.x, capA.y
+  );
+  ctx.bezierCurveTo(topL.x, topL.y, topR.x, topR.y, capB.x, capB.y);
+  ctx.bezierCurveTo(
+    off(P(0.58), bulge * 0.98).x, off(P(0.58), bulge * 0.98).y,
+    off(P(0.59), bulge * 0.55).x, off(P(0.59), bulge * 0.55).y,
+    neckB.x, neckB.y
+  );
   ctx.lineTo(x1, y1);
 }
 
@@ -314,8 +339,6 @@ function buildPieces(img) {
   sctx.drawImage(img, (boardSize - dw) / 2, (boardSize - dh) / 2, dw, dh);
 
   pieces = [];
-  const trayTop    = boardSize + 20;
-  const trayHeight = Math.round(boardSize * 1.05);
   const pad = tabSize;
   const cw = pieceW + pad * 2, ch = pieceH + pad * 2;
 
@@ -343,8 +366,8 @@ function buildPieces(img) {
 
       const targetX = c * pieceW - pad;
       const targetY = r * pieceH - pad;
-      const startX  = Math.random() * Math.max(1, boardSize - cw);
-      const startY  = trayTop + Math.random() * Math.max(1, trayHeight - ch);
+      const startX  = trayLeft + Math.random() * Math.max(1, boardSize - cw);
+      const startY  = Math.random() * Math.max(1, boardSize - ch);
 
       canvas.style.left = startX + 'px';
       canvas.style.top  = startY + 'px';
