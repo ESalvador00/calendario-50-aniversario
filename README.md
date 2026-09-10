@@ -184,7 +184,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-02-22 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
 | 2028-02-24 | Adivina quién soy | DIONISIO | David_20220805.png | David | PDTE |
 | 2028-02-25 | Adivina el PIN | 8149 | N/A | N/A | PDTE |
-| 2028-02-26 | Escape Room: 01-El archivo secreto | ENIGMA | ER01_EscenarioVisual.jpg + ER01_EscenarioClickmap.jpg | N/A | PDTE |
+| 2028-02-27 | Puzzle clásico | N/A | Salram_20210509.jpg | Enric, Nieves, Ariadna, Alex y Bro | PDTE |
 | 2028-02-28 | Sigue la letra | Llamando a la Tierra (M-Clan) | Llamando_a_la_Tierra.mp3 | N/A | PDTE |
 | 2028-02-29 | Adivina el slogan | 58 anuncios míticos, hasta 5 aciertos | N/A | N/A | PDTE |
 | 2028-03-03 | Adivina las películas | Amelie, El Guardaespaldas, Ghost, Oppenheimer, Sherlock Holmes | Amelie, El_Guardaespaldas, Ghost, Oppenheimer, Sherlock_Holmes (mp3 y jpg) | N/A | PDTE |
@@ -203,7 +203,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-03-20 | Timeline: óperas famosas | 8 óperas famosas | orfeo.jpg, alcina.jpg, bodas_figaro.jpg, don_giovanni.jpg, flauta_magica.jpg, barbero_sevilla.jpg, norma.jpg, la_traviata.jpg | N/A | PDTE |
 | 2028-03-21 | Acertijos y adivinanzas - Madre con cinco hijos | LUIS | Ari_20131110.png | Ariadna | PDTE |
 | 2028-03-22 | Adivina el cuadro | GRITO / DAMA ARMINO / LECTORA | grito_hd.jpg, dama_armino_hd.jpg, lectora_hd.jpg | N/A | PDTE |
-| 2028-03-23 | El poble amagat | FALSET | Alex_20240105.png + Falset.jpg | Alexandra| PDTE |
+| 2028-03-25 | Puzzle clásico | N/A | Salram_20210509.jpg | Enric, Nieves, Ariadna, Alex y Bro | PDTE |
 | 2028-03-26 | Palabras Intraducibles - Brasileño | CAFUNE | NievesAri_20210817.png | Nieves y Ariadna | PDTE |
 | 2028-03-27 | Adivina la serie | 7 Vidas, Aída, Los Simpson, Shin Chan | 7_vidas.jpg/.mp3, aida.jpg/.mp3, simpson.jpg/.mp3, shin_chan.jpg/.mp3 | N/A | PDTE |
 | 2028-03-28 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
@@ -226,7 +226,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-04-24 | Adivina el cuadro | NOCHE ESTRELLADA / CAMINANTE SOBRE MAR NUBES / CHRISTINAS WORLD | noche_estrellada_hd.jpg, caminante_mar_nubes_hd.jpg, cristinas_world_hd.jpg | N/A | PDTE |
 | 2028-04-18 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
 | 2028-04-19 | Cultura: iniciales de famosos, especial política | MADEIRA | Lugar07_01.jpg .. Lugar07_07.jpg | Ajenos | PDTE |
-| 2028-04-21 | Reinas | N/A | N/A | N/A | PDTE |
+| 2028-04-22 | Puzzle clásico | N/A | Salram_20210509.jpg | Enric, Nieves, Ariadna, Alex y Bro | PDTE |
 | 2028-04-25 | Timeline: monumentos y edificios | 8 monumentos famosos | gran_piramide_guiza.jpg, partenon.jpg, coliseo.jpg, santa_sofia.jpg, mezquita_cordoba.jpg, catedral_chartres.jpg, machu_picchu.jpg, taj_mahal.jpg | N/A | PDTE |
 | 2028-04-26 | Acertijos y adivinanzas - El lago y los lirios | 47 | Ari_20190913.png | Ariadna | PDTE |
 | 2028-04-27 | Puzzle visual | ECF | Puzzle03_01.png .. Puzzle03_02.png | N/A | PDTE |
@@ -250,7 +250,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-05-23 | Rosco de pasapalabra | NO TE ENTERAS CONTRERAS, VAS LISTO EVARISTO, ESTAR AL LORO, A OTRA COSA MARIPOSA, SER MAS CHULO QUE UN OCHO, NASTI DE PLASTI | N/A | N/A | PDTE |
 | 2028-05-24 | Puzzle visual | ARI | Puzzle04_01.png .. Puzzle04_07.png | N/A | PDTE |
 | 2028-05-25 | Reinas | N/A | N/A | N/A | PDTE |
-| 2028-05-26 | Adivina las películas | Fiebre del Sábado Noche, Jurassic Park, Coco, Gladiator, Pulp Fiction | Fiebre_del_Sabado_Noche, Jurassic_Park, Coco, Gladiator, Pulp_Fiction (mp3 y jpg) | N/A | PDTE |
+| 2028-05-27 | Puzzle clásico | N/A | Salram_20210509.jpg | Enric, Nieves, Ariadna, Alex y Bro | PDTE |
 | 2028-05-28 | Memory 4x4 | N/A | NievesEnric + 20061024 20200510 20200627 20220623 20230501 20251116 20251207 20260510 + (_E/_N) | Nieves, Enric | PDTE |
 | 2028-05-29 | Adivina el logo correcto | 10 logos icónicos | Logos.png | N/A | PDTE |
 | 2028-05-30 | ¿Qué foto es más antigua? | 10 momentos vividos | PDTE | PDTE | PDTE |
@@ -273,7 +273,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-06-18 | Escape Room: 02-Sala de Control Nuclear | SOLES | ER02_EscenarioVisual.jpg + ER02_EscenarioClickmap.jpg | N/A | PDTE |
 | 2028-06-19 | Rosco de pasapalabra | CHUNGO, EMPANADO, HEAVY, MAZAS, PIJOS, TIO | N/A | N/A | PDTE |
 | 2028-06-20 | ¿Qué foto es más antigua? | 10 momentos vividos | PDTE | PDTE | PDTE |
-| 2028-06-21 | Reinas | N/A | N/A | N/A | PDTE |
+| 2028-06-24 | Puzzle clásico | N/A | Salram_20210509.jpg | Enric, Nieves, Ariadna, Alex y Bro | PDTE |
 | 2028-06-26 | Timeline: películas de cine | metropolis, lo_que_viento_llevo, ciudadano_kane, siete_samurais, psicosis, 2001_odisea_espacio, padrino, star_wars_iv | metropolis.jpg, lo_que_viento_llevo.jpg, ciudadano_kane.jpg, siete_samurais.jpg, psicosis.jpg, 2001_odisea_espacio.jpg, padrino.jpg, star_wars_iv.jpg | N/A | PDTE |
 | 2028-06-27 | Adivina el cuadro | HIJO HOMBRE / MATRIMONIO ARNOLFINI / AUTORRETRATO CON SOMBRERO FIELTRO GRIS | hijo_del_hombre_hd.jpg, matrimonio_arnolfini_hd.jpg, autorretrato_sombrero_gris_hd.jpg | N/A | PDTE |
 | 2028-06-28 | Adivina el slogan | 58 anuncios míticos, hasta 5 aciertos | N/A | N/A | PDTE |
@@ -288,6 +288,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-07-11 | Timeline histórico doble | A:01-06 / B:01-06 | Timeline02_01A..06A.png + Timeline02_01B..06B.png | N/A | PDTE |
 | 2028-07-12 | Adivina quién soy | POE | David_20231209.png | David | PDTE |
 | 2028-07-13 | Adivina el slogan | 58 anuncios míticos, hasta 5 aciertos | N/A | N/A | PDTE |
+| 2028-07-15 | Puzzle clásico | N/A | Salram_20210509.jpg | Enric, Nieves, Ariadna, Alex y Bro | PDTE |
 | 2028-07-16 | Agudeza visual — Elementos químicos | BRUSELAS | Alex_20231027.png | Alex | PDTE |
 | 2028-07-17 | ¿Qué foto es más antigua? | 10 momentos vividos | PDTE | PDTE | PDTE |
 | 2028-07-18 | Cultura: iniciales de famosos | HAWAII | Lugar09_01.jpg .. Lugar09_06.jpg | Ajenos | PDTE |
@@ -315,6 +316,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-08-15 | Reinas | N/A | N/A | N/A | PDTE |
 | 2028-08-17 | Adivina quién soy | NAPOLEON | Juan_20190813.png | Juan | PDTE |
 | 2028-08-18 | Adivina el PIN | 8293 | N/A | N/A | PDTE |
+| 2028-08-19 | Puzzle clásico | N/A | Salram_20210509.jpg | Enric, Nieves, Ariadna, Alex y Bro | PDTE |
 | 2028-08-20 | Palabras Intraducibles - Tagalo | GIGIL | Alex_20140531.png | Alex | PDTE |
 | 2028-08-21 | Rosco de pasapalabra | QUE PASA CALABAZA, FLIPAR EN COLORES, HASTA LUEGO LUCAS, TELA MARINERA, IRSE LA PINZA, TRANQUI TRONQUI | N/A | N/A | PDTE |
 | 2028-08-22 | Timeline: cuadros famosos | 8 cuadros famosos | impresion_sol_naciente.jpg, noche_estrellada.jpg, grito.jpg, senoritas_avinon.jpg, persistencia_memoria.jpg, guernica.jpg, marilyn_diptych.jpg, whaam.jpg | N/A | PDTE |
@@ -336,6 +338,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-09-14 | Adivina el cuadro | GIRASOLES / TRAICION IMAGENES / GITANA DORMIDA | girasoles_hd.jpg, traicion_imagenes_hd.jpg, gitana_dormida_hd.jpg | N/A | PDTE |
 | 2028-09-15 | Adivina el PIN | 3486 | ImgMapa.png | N/A | PDTE |
 | 2028-09-16 | Ingenio — morse visual | .---.--.. | N/A | N/A | PDTE |
+| 2028-09-17 | Puzzle clásico | N/A | Salram_20210509.jpg | Enric, Nieves, Ariadna, Alex y Bro | PDTE |
 | 2028-09-18 | Cultura: iniciales de famosos, especial música | BORNEO | Lugar04_01.jpg .. Lugar04_06.jpg | Ajenos | PDTE |
 | 2028-09-19 | Adivina la serie | Corrupción en Miami, Los Soprano, Musculman, Pokémon | corrupcion_miami.jpg/.mp3, soprano.jpg/.mp3, musculman.jpg/.mp3, pokemon.jpg/.mp3 | N/A | PDTE |
 | 2028-09-20 | Sigue la letra | Ella (Viceversa) | Ella.mp3 | N/A | PDTE |
@@ -355,6 +358,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-10-10 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
 | 2028-10-11 | Timeline: monumentos y edificios | 8 monumentos famosos | mezquita_cordoba.jpg, santa_maria_naranco.jpg, murallas_avila.jpg, catedral_cuenca.jpg, alhambra.jpg, catedral_granada.jpg, monasterio_escorial.jpg, palacio_real_madrid.jpg | N/A | PDTE |
 | 2028-10-13 | Adivina el PIN | 2314 | N/A | N/A | PDTE |
+| 2028-10-14 | Puzzle clásico | N/A | Salram_20210509.jpg | Enric, Nieves, Ariadna, Alex y Bro | PDTE |
 | 2028-10-15 | Memory 4x4 | N/A | NievesEnric + 20011227 20171001 20181124 20201010 20210515 20220507 20230819 20240819 + (_E/_N) | Nieves, Enric | PDTE |
 | 2028-10-16 | Sigue la letra | Chiquilla (Seguridad Social) | Chiquilla.mp3 | N/A | PDTE |
 | 2028-10-17 | ¿Qué foto es más antigua? | 10 momentos vividos | PDTE | PDTE | PDTE |
@@ -388,10 +392,12 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-11-23 | Adivina el PIN | 3964 | ImgDial.png | N/A | PDTE |
 | 2028-11-24 | Ingenio: negro sobre negro | 300.000 | The_Rolling_Stones_Paint_It_Black.mp3 | N/A | PDTE |
 | 2028-11-25 | Satisfacción con restricciones múltiples: Merienda después del cole | Enric: tortilla+agua / Nieves: queso+zumo / Ariadna: jamón+cola / Alex: nocilla+leche | RSR11_Escenario.webp + RSR11_01A..01D.png + RSR11_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
+| 2028-11-26 | Puzzle clásico | N/A | Salram_20210509.jpg | Enric, Nieves, Ariadna, Alex y Bro | PDTE |
 | 2028-11-27 | ¿Qué foto es más antigua? | 10 momentos vividos | PDTE | PDTE | PDTE |
 | 2028-11-28 | Acertijos y adivinanzas - A lo bestia | DADO | Alex_20190605.png | Alexandra | PDTE |
 | 2028-11-29 | Adivina la serie | El Secreto de Puente Viejo, Los Fruittis, Magnum, Mofli | secreto_puente_viejo.jpg/.mp3, fruittis.jpg/.mp3, magnum.jpg/.mp3, mofli.jpg/.mp3 | N/A | PDTE |
 | 2028-11-30 | Reinas | N/A | N/A | N/A | PDTE |
+| 2028-12-02 | Puzzle clásico | N/A | Salram_20210509.jpg | Enric, Nieves, Ariadna, Alex y Bro | PDTE |
 | 2028-12-04 | El poble amagat | ESPARREGUERA | Ariadna_20191116.png + Esparreguera.jpg | Ariadna | PDTE |
 | 2028-12-05 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
 | 2028-12-06 | Acertijos y adivinanzas - Oficio reconocido | AGUJA | Ari_20200215.png | Ariadna | PDTE |
