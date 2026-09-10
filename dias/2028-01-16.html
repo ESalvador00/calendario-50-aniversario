@@ -1,3 +1,4 @@
+<!-- v5 -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -244,8 +245,9 @@ const puzzleTray  = document.getElementById('puzzle-tray');
 const progressEl  = document.getElementById('puzzle-progress');
 const resetBtn    = document.getElementById('reset-btn');
 
-const STAGE_GAP = 16; // separación entre el tablero y la bandeja de piezas
-let boardSize, trayLeft, pieceW, pieceH, tabSize, hEdges, vEdges, pieces, placedCount, zTop;
+const STAGE_GAP  = 16;  // separación entre el tablero y la bandeja de piezas
+const TRAY_RATIO = 0.42; // ancho de la bandeja de piezas relativo al tablero (no necesita ser cuadrada)
+let boardSize, trayLeft, trayWidth, pieceW, pieceH, tabSize, hEdges, vEdges, pieces, placedCount, zTop;
 
 function initPuzzle() {
   placedCount = 0;
@@ -255,20 +257,21 @@ function initPuzzle() {
 
   // Contenedor 2:1 (ancho:alto) — tablero a la izquierda, piezas sueltas a la derecha
   const available = puzzleStage.clientWidth || 440;
-  boardSize = Math.max(150, Math.min((available - STAGE_GAP) / 2, 420));
+  boardSize = Math.max(150, Math.min((available - STAGE_GAP) / (1 + TRAY_RATIO), 520));
+  trayWidth = boardSize * TRAY_RATIO;
   trayLeft  = boardSize + STAGE_GAP;
   pieceW = boardSize / COLS;
   pieceH = boardSize / ROWS;
   tabSize = Math.round(pieceW * 0.22);
 
-  puzzleStage.style.width  = (boardSize * 2 + STAGE_GAP) + 'px';
+  puzzleStage.style.width  = (boardSize + STAGE_GAP + trayWidth) + 'px';
   puzzleStage.style.height = boardSize + 'px';
 
   puzzleBoard.style.width  = boardSize + 'px';
   puzzleBoard.style.height = boardSize + 'px';
 
   puzzleTray.style.left   = trayLeft + 'px';
-  puzzleTray.style.width  = boardSize + 'px';
+  puzzleTray.style.width  = trayWidth + 'px';
   puzzleTray.style.height = boardSize + 'px';
 
   hEdges = [];
@@ -366,7 +369,7 @@ function buildPieces(img) {
 
       const targetX = c * pieceW - pad;
       const targetY = r * pieceH - pad;
-      const startX  = trayLeft + Math.random() * Math.max(1, boardSize - cw);
+      const startX  = trayLeft + Math.random() * Math.max(1, trayWidth - cw);
       const startY  = Math.random() * Math.max(1, boardSize - ch);
 
       canvas.style.left = startX + 'px';
