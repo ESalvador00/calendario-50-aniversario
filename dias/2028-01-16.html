@@ -1,4 +1,4 @@
-<!-- v5 -->
+<!-- v6 -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -10,42 +10,45 @@
   <style>
     :root{--gold:#C9A84C;--gold-light:#E8C97A;--gold-dark:#8B6914;--cream:#FAF6EE;--dark:#1A1410;}
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html,body{height:100%;}
     body{background-color:var(--dark);color:var(--cream);font-family:'Cormorant Garamond',serif;min-height:100vh;display:flex;flex-direction:column;}
     body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 25% 15%,rgba(201,168,76,.10) 0%,transparent 55%),radial-gradient(ellipse at 75% 85%,rgba(124,54,38,.10) 0%,transparent 55%);pointer-events:none;z-index:0;}
-    .wrap{position:relative;z-index:1;max-width:1000px;margin:0 auto;padding:3rem 2rem 4rem;flex:1;display:flex;flex-direction:column;}
-    .day-hero{text-align:center;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 0 2rem;position:relative;}
-    .ornament-line-h{display:flex;align-items:center;justify-content:center;gap:1rem;margin-bottom:2rem;}
+    .wrap{position:relative;z-index:1;width:100%;margin:0 auto;padding:1.5rem 2rem 2rem;flex:1;display:flex;flex-direction:column;}
+    .day-hero{text-align:center;flex:1;display:flex;flex-direction:column;align-items:center;padding:1rem 0 0;position:relative;width:100%;}
+    .ornament-line-h{display:flex;align-items:center;justify-content:center;gap:1rem;margin-bottom:1rem;}
     .o-line{height:1px;width:60px;background:linear-gradient(to right,transparent,var(--gold));}
     .o-line.r{background:linear-gradient(to left,transparent,var(--gold));}
     .o-dot{width:5px;height:5px;background:var(--gold);border-radius:50%;}
-    .day-of-week{font-size:.85rem;letter-spacing:.4em;text-transform:uppercase;color:rgba(201,168,76,.5);margin-bottom:1rem;}
-    h1{font-family:'Playfair Display',serif;font-size:clamp(3rem,9vw,7rem);font-weight:900;line-height:1;background:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 50%,var(--gold-dark) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.5rem;}
-    .month-label{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3.5vw,2.4rem);font-weight:400;font-style:italic;color:rgba(250,246,238,.45);margin-bottom:2.5rem;}
+    .day-of-week{font-size:.85rem;letter-spacing:.4em;text-transform:uppercase;color:rgba(201,168,76,.5);margin-bottom:.4rem;}
+    h1{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,7vw,5rem);font-weight:900;line-height:1;background:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 50%,var(--gold-dark) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.2rem;}
+    .month-label{font-family:'Playfair Display',serif;font-size:clamp(1.1rem,2.8vw,1.8rem);font-weight:400;font-style:italic;color:rgba(250,246,238,.45);margin-bottom:1rem;}
 
-    .content-area{width:100%;border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:2rem;background:rgba(255,255,255,.02);display:flex;flex-direction:column;align-items:center;gap:1.1rem;}
+    .content-area{width:100%;flex:none;border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:1rem;background:rgba(255,255,255,.02);display:flex;flex-direction:column;align-items:center;gap:.8rem;height:100vh;}
 
-    .puzzle-title{width:100%;text-align:right;font-size:.95rem;font-style:italic;letter-spacing:.03em;color:rgba(201,168,76,.55);}
-    .puzzle-progress{font-size:.72rem;letter-spacing:.15em;color:rgba(250,246,238,.4);text-transform:uppercase;}
+    .puzzle-title{width:100%;text-align:right;font-size:.95rem;font-style:italic;letter-spacing:.03em;color:rgba(201,168,76,.55);flex-shrink:0;}
+    .puzzle-progress{font-size:.72rem;letter-spacing:.15em;color:rgba(250,246,238,.4);text-transform:uppercase;flex-shrink:0;}
 
-    .puzzle-stage{position:relative;width:100%;margin:0 auto;touch-action:none;}
-    .puzzle-board{position:absolute;top:0;left:0;border:1px dashed rgba(201,168,76,.3);border-radius:4px;overflow:hidden;background:rgba(255,255,255,.02);}
+    /* ── Puzzle — ocupa todo el espacio disponible (alto máx. según pantalla) ── */
+    .puzzle-outer{position:relative;width:100%;flex:1;min-height:0;display:flex;align-items:center;justify-content:center;}
+    .puzzle-stage{position:relative;height:100%;max-width:100%;aspect-ratio:2/1;display:flex;gap:1.2%;touch-action:none;}
+    .puzzle-board{position:relative;flex:1 1 0;height:100%;border:1px dashed rgba(201,168,76,.3);border-radius:4px;overflow:hidden;background:rgba(255,255,255,.02);}
     .puzzle-board-grid{position:absolute;inset:0;display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(4,1fr);pointer-events:none;}
     .puzzle-board-grid div{border:1px dashed rgba(201,168,76,.12);}
-    .puzzle-tray{position:absolute;top:0;border:1px dashed rgba(201,168,76,.15);border-radius:4px;background:rgba(255,255,255,.015);pointer-events:none;}
+    .puzzle-tray{position:relative;flex:1 1 0;height:100%;border:1px dashed rgba(201,168,76,.15);border-radius:4px;background:rgba(255,255,255,.015);}
 
     .puzzle-piece{position:absolute;top:0;left:0;cursor:grab;touch-action:none;filter:drop-shadow(0 3px 6px rgba(0,0,0,.45));}
     .puzzle-piece.dragging{cursor:grabbing;filter:drop-shadow(0 8px 16px rgba(0,0,0,.6));}
     .puzzle-piece.placed{cursor:default;filter:drop-shadow(0 1px 3px rgba(0,0,0,.3));}
 
-    .reset-btn{margin-top:.4rem;padding:.55rem 1.4rem;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.35);border-radius:2px;color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:all .2s;}
+    .reset-btn{flex-shrink:0;margin-top:.2rem;padding:.55rem 1.4rem;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.35);border-radius:2px;color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:all .2s;}
     .reset-btn:hover{background:rgba(201,168,76,.2);border-color:var(--gold);}
 
-    .day-nav{display:flex;justify-content:space-between;align-items:center;padding-top:2.5rem;border-top:1px solid rgba(201,168,76,.1);margin-top:2.5rem;}
+    .day-nav{display:flex;justify-content:space-between;align-items:center;padding-top:1.5rem;border-top:1px solid rgba(201,168,76,.1);margin-top:1.5rem;}
     .nav-btn{font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(201,168,76,.5);text-decoration:none;padding:.6rem 1.2rem;border:1px solid rgba(201,168,76,.18);border-radius:2px;transition:all .2s;}
     .nav-btn:hover{color:var(--gold-light);border-color:rgba(201,168,76,.5);background:rgba(201,168,76,.05);}
     .nav-btn.disabled{opacity:0;pointer-events:none;}
     .year-badge{font-size:.7rem;letter-spacing:.3em;color:rgba(201,168,76,.25);text-transform:uppercase;}
-    .back-link{display:block;text-align:center;margin-top:2rem;color:rgba(201,168,76,.35);font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;text-decoration:none;transition:color .2s;}
+    .back-link{display:block;text-align:center;margin-top:1.2rem;color:rgba(201,168,76,.35);font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;text-decoration:none;transition:color .2s;}
     .back-link:hover{color:var(--gold);}
     /* Botones fav y done */
     .action-btns{position:absolute;top:0;right:0;display:flex;flex-direction:column;align-items:center;gap:.2rem;}
@@ -93,16 +96,18 @@
 
     <div class="content-area">
       <p class="puzzle-title">9 de mayo de 2021</p>
-      <div class="puzzle-stage" id="puzzle-stage">
-        <div class="puzzle-board" id="puzzle-board">
-          <div class="puzzle-board-grid">
-            <div></div><div></div><div></div><div></div>
-            <div></div><div></div><div></div><div></div>
-            <div></div><div></div><div></div><div></div>
-            <div></div><div></div><div></div><div></div>
+      <div class="puzzle-outer">
+        <div class="puzzle-stage" id="puzzle-stage">
+          <div class="puzzle-board" id="puzzle-board">
+            <div class="puzzle-board-grid">
+              <div></div><div></div><div></div><div></div>
+              <div></div><div></div><div></div><div></div>
+              <div></div><div></div><div></div><div></div>
+              <div></div><div></div><div></div><div></div>
+            </div>
           </div>
+          <div class="puzzle-tray" id="puzzle-tray"></div>
         </div>
-        <div class="puzzle-tray" id="puzzle-tray"></div>
       </div>
       <p class="puzzle-progress" id="puzzle-progress">0 / 16 piezas</p>
       <button class="reset-btn" id="reset-btn">Reiniciar puzzle</button>
@@ -245,9 +250,12 @@ const puzzleTray  = document.getElementById('puzzle-tray');
 const progressEl  = document.getElementById('puzzle-progress');
 const resetBtn    = document.getElementById('reset-btn');
 
-const STAGE_GAP  = 16;  // separación entre el tablero y la bandeja de piezas
-const TRAY_RATIO = 0.42; // ancho de la bandeja de piezas relativo al tablero (no necesita ser cuadrada)
-let boardSize, trayLeft, trayWidth, pieceW, pieceH, tabSize, hEdges, vEdges, pieces, placedCount, zTop;
+// El tamaño del tablero y de la bandeja NO se calculan a mano: el CSS
+// (.puzzle-stage con aspect-ratio:2/1, height:100% y max-width:100% dentro
+// de .puzzle-outer) ya encuentra el rectángulo 2:1 más grande que cabe en
+// el alto y ancho disponibles. Aquí solo leemos el resultado ya calculado
+// por el navegador (y lo releemos si la ventana cambia de tamaño).
+let boardW, boardH, trayW, trayLeft, pieceW, pieceH, tabSize, hEdges, vEdges, pieces, placedCount, zTop;
 
 function initPuzzle() {
   placedCount = 0;
@@ -255,24 +263,18 @@ function initPuzzle() {
   progressEl.textContent = `0 / ${ROWS * COLS} piezas`;
   puzzleStage.querySelectorAll('.puzzle-piece').forEach(p => p.remove());
 
-  // Contenedor 2:1 (ancho:alto) — tablero a la izquierda, piezas sueltas a la derecha
-  const available = puzzleStage.clientWidth || 440;
-  boardSize = Math.max(150, Math.min((available - STAGE_GAP) / (1 + TRAY_RATIO), 520));
-  trayWidth = boardSize * TRAY_RATIO;
-  trayLeft  = boardSize + STAGE_GAP;
-  pieceW = boardSize / COLS;
-  pieceH = boardSize / ROWS;
-  tabSize = Math.round(pieceW * 0.22);
+  const stageRect = puzzleStage.getBoundingClientRect();
+  const boardRect = puzzleBoard.getBoundingClientRect();
+  const trayRect  = puzzleTray.getBoundingClientRect();
 
-  puzzleStage.style.width  = (boardSize + STAGE_GAP + trayWidth) + 'px';
-  puzzleStage.style.height = boardSize + 'px';
+  boardW   = boardRect.width;
+  boardH   = boardRect.height;
+  trayW    = trayRect.width;
+  trayLeft = trayRect.left - stageRect.left;
 
-  puzzleBoard.style.width  = boardSize + 'px';
-  puzzleBoard.style.height = boardSize + 'px';
-
-  puzzleTray.style.left   = trayLeft + 'px';
-  puzzleTray.style.width  = trayWidth + 'px';
-  puzzleTray.style.height = boardSize + 'px';
+  pieceW  = boardW / COLS;
+  pieceH  = boardH / ROWS;
+  tabSize = Math.round(Math.min(pieceW, pieceH) * 0.22);
 
   hEdges = [];
   for (let r = 0; r < ROWS - 1; r++) {
@@ -335,11 +337,11 @@ function tracePiecePath(ctx, x, y, w, h, top, right, bottom, left) {
 
 function buildPieces(img) {
   const src = document.createElement('canvas');
-  src.width = boardSize; src.height = boardSize;
+  src.width = Math.round(boardW); src.height = Math.round(boardH);
   const sctx = src.getContext('2d');
-  const scale = Math.max(boardSize / img.naturalWidth, boardSize / img.naturalHeight);
+  const scale = Math.max(boardW / img.naturalWidth, boardH / img.naturalHeight);
   const dw = img.naturalWidth * scale, dh = img.naturalHeight * scale;
-  sctx.drawImage(img, (boardSize - dw) / 2, (boardSize - dh) / 2, dw, dh);
+  sctx.drawImage(img, (boardW - dw) / 2, (boardH - dh) / 2, dw, dh);
 
   pieces = [];
   const pad = tabSize;
@@ -369,8 +371,8 @@ function buildPieces(img) {
 
       const targetX = c * pieceW - pad;
       const targetY = r * pieceH - pad;
-      const startX  = trayLeft + Math.random() * Math.max(1, trayWidth - cw);
-      const startY  = Math.random() * Math.max(1, boardSize - ch);
+      const startX  = trayLeft + Math.random() * Math.max(1, trayW - cw);
+      const startY  = Math.random() * Math.max(1, boardH - ch);
 
       canvas.style.left = startX + 'px';
       canvas.style.top  = startY + 'px';
@@ -443,6 +445,19 @@ function attachDrag(piece) {
 }
 
 resetBtn.addEventListener('click', initPuzzle);
+
+// Recalcula y reajusta el tamaño del puzzle si cambia el tamaño de la pantalla
+// (solo si el cambio es real, para no reiniciar por pequeñas fluctuaciones)
+let resizeTimer;
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => {
+    const r = puzzleBoard.getBoundingClientRect();
+    if (Math.abs(r.width - boardW) > 4 || Math.abs(r.height - boardH) > 4) {
+      initPuzzle();
+    }
+  }, 250);
+});
 
 initPuzzle();
 </script>
