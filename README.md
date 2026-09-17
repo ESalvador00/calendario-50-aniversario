@@ -154,6 +154,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-01-20 | El poble amagat | EL PAPIOL | Enric_20210912.png + ElPapiol.jpg | Enric | PDTE |
 | 2028-01-21 | Cultura: iniciales de famosos | CORCEGA | Lugar01_01.jpg .. Lugar01_07.jpg | Ajenos | PDTE |
 | 2028-01-22 | Minijuego (Mastermind) | N/A | N/A | N/A | PDTE |
+| 2028-01-23 | Flash memory | N/A | AriAlex_20170605.jpg | Ariadna y Alex | PDTE |
 | 2028-01-24 | Adivina quién soy | HEIMDALL | Alex_20220817.png | Alex | PDTE |
 | 2028-01-25 | Adivina el cuadro | MONA LISA / NIGHTHAWKS / WHISTLERS MOTHER | mona_lisa_hd.jpg, nighthawks_hd.jpg, whistlers_mother_hd.jpg | N/A | PDTE |
 | 2028-01-26 | Rosco de pasapalabra | AESTHETIC, CRUSH, FUNAR, HYPE, NPC, RANDOM | N/A | N/A | PDTE |
