@@ -188,6 +188,16 @@
   </div>
 </div>
 
+<!-- Popup instrucciones del reto -->
+<div class="popup-overlay" id="popup-intro">
+  <div class="popup-box">
+    <div class="popup-icon">📸</div>
+    <p class="popup-title">Flash memory</p>
+    <p class="popup-msg">Vas a ver una imagen durante 10 segundos.<br>Mírala bien y memoriza todos los detalles: después te haremos algunas preguntas sobre ella.<br><br>Deberás acertar 3 para superar el reto. ¡Mucha suerte!</p>
+    <button class="popup-btn" id="intro-close">¡Allá vamos!</button>
+  </div>
+</div>
+
 <!-- Popup estrella bloqueada -->
 <div class="popup-overlay" id="popup-star-blocked">
   <div class="popup-box">
@@ -405,7 +415,7 @@ function startFlashPhase() {
   flashTimerfill.style.transition = 'none';
   flashTimerfill.style.width = '100%';
   void flashTimerfill.offsetWidth;
-  flashTimerfill.style.transition = 'width 5s linear';
+  flashTimerfill.style.transition = 'width 10s linear';
   flashTimerfill.style.width = '0%';
 
   clearTimeout(flashTimeout);
@@ -414,7 +424,7 @@ function startFlashPhase() {
     flashStage.style.display = 'none';
     quizStage.style.display = 'flex';
     loadQuestion();
-  }, 5000);
+  }, 10000);
 }
 
 // ── Fase 2: preguntas ─────────────────────────────────────────
@@ -537,7 +547,19 @@ document.addEventListener('keydown', e => {
 // ── Inicio ─────────────────────────────────────────────────
 deck = shuffle(PREGUNTAS);
 updateDots();
-startFlashPhase();
+
+const popupIntro = document.getElementById('popup-intro');
+const blocked = !isPreview && thisDate > today;
+
+flashStage.style.display = 'none';
+
+if (!blocked) {
+  document.getElementById('intro-close').addEventListener('click', () => {
+    popupIntro.classList.remove('visible');
+    startFlashPhase();
+  });
+  popupIntro.classList.add('visible');
+}
 </script>
 </body>
 </html>
