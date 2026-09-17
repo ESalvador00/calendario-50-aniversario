@@ -55,13 +55,14 @@
     .flash-img{width:100%;display:block;}
     .flash-hint{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(201,168,76,.4);}
     .flash-caption{font-size:1rem;font-style:italic;color:rgba(250,246,238,.6);max-width:480px;line-height:1.55;text-align:center;}
-    .flash-timerbar{width:100%;max-width:380px;height:4px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden;}
-    .flash-timerfill{height:100%;width:100%;background:linear-gradient(90deg,var(--gold),var(--gold-light));}
+    .flash-ready-btn{margin-top:.4rem;padding:.75rem 2.2rem;border:1px solid rgba(201,168,76,.4);border-radius:2px;color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:1rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;background:none;transition:all .2s;}
+    .flash-ready-btn:hover{background:rgba(201,168,76,.1);border-color:var(--gold);color:var(--gold-light);}
 
-    .flash-lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:150;align-items:center;justify-content:center;overflow:auto;padding:2rem;touch-action:pinch-zoom;}
+    .flash-lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:150;align-items:center;justify-content:center;overflow:hidden;padding:2rem;}
     .flash-lightbox.visible{display:flex;}
-    .flash-lightbox img{max-width:90vw;max-height:85vh;object-fit:contain;transition:transform .25s ease;cursor:zoom-in;touch-action:pinch-zoom;}
-    .flash-lightbox img.zoomed{transform:scale(2.2);cursor:zoom-out;}
+    .flash-lightbox img{max-width:90vw;max-height:85vh;object-fit:contain;transition:transform .2s ease;cursor:zoom-in;touch-action:none;user-select:none;-webkit-user-drag:none;}
+    .flash-lightbox img.zoomed{cursor:grab;}
+    .flash-lightbox img.zoomed.dragging{cursor:grabbing;transition:none;}
     .flash-lightbox-close{position:fixed;top:1.2rem;right:1.5rem;background:none;border:1px solid rgba(201,168,76,.4);color:var(--gold);font-size:1.3rem;width:2.4rem;height:2.4rem;line-height:2.2rem;text-align:center;border-radius:50%;cursor:pointer;z-index:151;}
     .flash-lightbox-close:hover{background:rgba(201,168,76,.1);}
 
@@ -130,8 +131,8 @@
           <img src="../media/AriAlex_20170605.jpg" alt="Foto casera del 5 de junio de 2017" class="flash-img" id="flash-img">
         </div>
         <p class="flash-hint" id="flash-hint">Toca la foto para ampliarla</p>
-        <p class="flash-caption" id="flash-caption">Obsérvala con atención: puedes ampliarla para fijarte en los detalles. Memorízala bien, porque en unos segundos desaparecerá.</p>
-        <div class="flash-timerbar"><div class="flash-timerfill" id="flash-timerfill"></div></div>
+        <p class="flash-caption" id="flash-caption">Obsérvala con atención: puedes ampliarla para fijarte en los detalles. Tómate el tiempo que necesites para memorizarla.</p>
+        <button class="flash-ready-btn" id="flash-ready-btn">Estoy listo</button>
       </div>
 
       <div id="quiz-stage">
@@ -193,7 +194,7 @@
   <div class="popup-box">
     <div class="popup-icon">📸</div>
     <p class="popup-title">Flash memory</p>
-    <p class="popup-msg">Vas a ver una imagen durante 10 segundos.<br>Mírala bien y memoriza todos los detalles: después te haremos algunas preguntas sobre ella.<br><br>Deberás acertar 3 para superar el reto. ¡Mucha suerte!</p>
+    <p class="popup-msg">Vas a ver una imagen. Tómate el tiempo que necesites para observarla bien y memorizar todos los detalles.<br><br>Cuando estés list@, pulsa "Estoy listo" y te haremos algunas preguntas sobre ella. Deberás acertar 3 para superar el reto. ¡Mucha suerte!</p>
     <button class="popup-btn" id="intro-close">¡Allá vamos!</button>
   </div>
 </div>
@@ -359,14 +360,12 @@ let score = 0;
 let answered = false;
 let current = null;
 let currentCorrectLetter = null;
-let flashTimeout = null;
 
 const flashStage     = document.getElementById('flash-stage');
 const flashImgWrap    = document.getElementById('flash-img-wrap');
 const flashHint       = document.getElementById('flash-hint');
 const flashCaption    = document.getElementById('flash-caption');
-const flashTimerbar   = document.querySelector('.flash-timerbar');
-const flashTimerfill  = document.getElementById('flash-timerfill');
+const flashReadyBtn   = document.getElementById('flash-ready-btn');
 const lightbox        = document.getElementById('flash-lightbox');
 const lightboxImg     = document.getElementById('flash-lightbox-img');
 
@@ -384,21 +383,66 @@ function updateDots() {
   }
 }
 
-// ── Zoom de la imagen ────────────────────────────────────────
+// ── Zoom de la imagen (con arrastre para moverla) ─────────────
+let panX = 0, panY = 0, panStartX = 0, panStartY = 0;
+let dragStartX = 0, dragStartY = 0, isDragging = false, dragMoved = false;
+
+function applyLightboxTransform() {
+  lightboxImg.style.transform = lightboxImg.classList.contains('zoomed')
+    ? `translate(${panX}px, ${panY}px) scale(2.2)`
+    : '';
+}
 function openLightbox() {
+  panX = 0; panY = 0;
   lightboxImg.classList.remove('zoomed');
+  applyLightboxTransform();
   lightbox.classList.add('visible');
 }
 function closeLightbox() {
   lightbox.classList.remove('visible');
   lightboxImg.classList.remove('zoomed');
+  panX = 0; panY = 0;
+  applyLightboxTransform();
 }
 flashImgWrap.addEventListener('click', openLightbox);
-lightboxImg.addEventListener('click', e => { e.stopPropagation(); lightboxImg.classList.toggle('zoomed'); });
+
+lightboxImg.addEventListener('click', e => {
+  e.stopPropagation();
+  if (dragMoved) { dragMoved = false; return; }
+  const nowZoomed = lightboxImg.classList.toggle('zoomed');
+  if (!nowZoomed) { panX = 0; panY = 0; }
+  applyLightboxTransform();
+});
+lightboxImg.addEventListener('pointerdown', e => {
+  if (!lightboxImg.classList.contains('zoomed')) return;
+  isDragging = true;
+  dragMoved = false;
+  dragStartX = e.clientX; dragStartY = e.clientY;
+  panStartX = panX; panStartY = panY;
+  lightboxImg.classList.add('dragging');
+  lightboxImg.setPointerCapture(e.pointerId);
+});
+lightboxImg.addEventListener('pointermove', e => {
+  if (!isDragging) return;
+  const dx = e.clientX - dragStartX;
+  const dy = e.clientY - dragStartY;
+  if (Math.abs(dx) > 3 || Math.abs(dy) > 3) dragMoved = true;
+  panX = panStartX + dx;
+  panY = panStartY + dy;
+  applyLightboxTransform();
+});
+function endLightboxDrag() {
+  if (!isDragging) return;
+  isDragging = false;
+  lightboxImg.classList.remove('dragging');
+}
+lightboxImg.addEventListener('pointerup', endLightboxDrag);
+lightboxImg.addEventListener('pointercancel', endLightboxDrag);
+
 lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
 document.getElementById('flash-lightbox-close').addEventListener('click', closeLightbox);
 
-// ── Fase 1: mostrar la foto 5 segundos ───────────────────────
+// ── Fase 1: mostrar la foto sin límite de tiempo ──────────────
 function startFlashPhase() {
   quizStage.style.display = 'none';
   quizComplete.style.display = 'none';
@@ -408,24 +452,18 @@ function startFlashPhase() {
   feedbackEl.style.display = '';
   flashHint.style.display = '';
   flashCaption.style.display = '';
-  flashTimerbar.style.display = '';
+  flashReadyBtn.style.display = '';
   flashStage.style.display = 'flex';
   closeLightbox();
-
-  flashTimerfill.style.transition = 'none';
-  flashTimerfill.style.width = '100%';
-  void flashTimerfill.offsetWidth;
-  flashTimerfill.style.transition = 'width 10s linear';
-  flashTimerfill.style.width = '0%';
-
-  clearTimeout(flashTimeout);
-  flashTimeout = setTimeout(() => {
-    closeLightbox();
-    flashStage.style.display = 'none';
-    quizStage.style.display = 'flex';
-    loadQuestion();
-  }, 10000);
 }
+
+flashReadyBtn.addEventListener('click', () => {
+  closeLightbox();
+  flashStage.style.display = 'none';
+  quizStage.style.display = 'flex';
+  loadQuestion();
+});
+
 
 // ── Fase 2: preguntas ─────────────────────────────────────────
 function nextQuestion() {
@@ -526,7 +564,7 @@ function finishQuiz() {
   quizStage.style.display = 'none';
   flashHint.style.display = 'none';
   flashCaption.style.display = 'none';
-  flashTimerbar.style.display = 'none';
+  flashReadyBtn.style.display = 'none';
   flashStage.style.display = 'flex';
   soundWin();
   setTimeout(() => {
