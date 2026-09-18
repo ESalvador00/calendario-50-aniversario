@@ -20,7 +20,7 @@
     .day-of-week{font-size:.85rem;letter-spacing:.4em;text-transform:uppercase;color:rgba(201,168,76,.5);margin-bottom:1rem;}
     h1{font-family:'Playfair Display',serif;font-size:clamp(3rem,9vw,7rem);font-weight:900;line-height:1;background:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 50%,var(--gold-dark) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.5rem;}
     .month-label{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3.5vw,2.4rem);font-weight:400;font-style:italic;color:rgba(250,246,238,.45);margin-bottom:2.5rem;}
-    .content-area{width:100%;border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:2.5rem;min-height:220px;background:rgba(255,255,255,.02);color:rgba(250,246,238,.4);font-size:1rem;font-style:italic;text-align:center;display:flex;align-items:center;justify-content:center;}
+    .content-area{width:100%;border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:2rem 1.8rem;min-height:220px;background:rgba(255,255,255,.02);display:flex;flex-direction:column;align-items:center;gap:1.2rem;}
     .day-nav{display:flex;justify-content:space-between;align-items:center;padding-top:2.5rem;border-top:1px solid rgba(201,168,76,.1);margin-top:2.5rem;}
     .nav-btn{font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(201,168,76,.5);text-decoration:none;padding:.6rem 1.2rem;border:1px solid rgba(201,168,76,.18);border-radius:2px;transition:all .2s;}
     .nav-btn:hover{color:var(--gold-light);border-color:rgba(201,168,76,.5);background:rgba(201,168,76,.05);}
@@ -47,14 +47,66 @@
     .popup-msg{font-size:1rem;font-style:italic;color:rgba(250,246,238,.6);line-height:1.7;margin-bottom:2rem;}
     .popup-btn{display:inline-block;padding:.7rem 2rem;border:1px solid rgba(201,168,76,.4);border-radius:2px;color:var(--gold);font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;background:none;transition:all .2s;}
     .popup-btn:hover{background:rgba(201,168,76,.1);border-color:var(--gold);}
+
+    /* ── Flash memory ───────────────────────────────────────── */
+    .flash-title{font-family:'Playfair Display',serif;font-size:1.15rem;font-style:italic;letter-spacing:.03em;color:rgba(201,168,76,.8);}
+    .flash-img-wrap{width:100%;max-width:380px;border:1px solid rgba(201,168,76,.25);border-radius:6px;overflow:hidden;cursor:zoom-in;position:relative;background:rgba(255,255,255,.02);}
+    .flash-img-wrap:hover{border-color:rgba(201,168,76,.5);}
+    .flash-img{width:100%;display:block;}
+    .flash-hint{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(201,168,76,.4);}
+    .flash-caption{font-size:1rem;font-style:italic;color:rgba(250,246,238,.6);max-width:480px;line-height:1.55;text-align:center;}
+    .flash-ready-btn{margin-top:.4rem;padding:.75rem 2.2rem;border:1px solid rgba(201,168,76,.4);border-radius:2px;color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:1rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;background:none;transition:all .2s;}
+    .flash-ready-btn:hover{background:rgba(201,168,76,.1);border-color:var(--gold);color:var(--gold-light);}
+
+    .flash-lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:150;align-items:center;justify-content:center;overflow:hidden;padding:2rem;}
+    .flash-lightbox.visible{display:flex;}
+    .flash-lightbox img{max-width:90vw;max-height:85vh;object-fit:contain;transition:transform .2s ease;cursor:zoom-in;touch-action:none;user-select:none;-webkit-user-drag:none;}
+    .flash-lightbox img.zoomed{cursor:grab;}
+    .flash-lightbox img.zoomed.dragging{cursor:grabbing;transition:none;}
+    .flash-lightbox-close{position:fixed;top:1.2rem;right:1.5rem;background:none;border:1px solid rgba(201,168,76,.4);color:var(--gold);font-size:1.3rem;width:2.4rem;height:2.4rem;line-height:2.2rem;text-align:center;border-radius:50%;cursor:pointer;z-index:151;}
+    .flash-lightbox-close:hover{background:rgba(201,168,76,.1);}
+
+    /* ── Preguntas (basado en Adivina el slogan) ───────────── */
+    .quiz-progress{width:560px;max-width:calc(100vw - 4rem);flex-shrink:0;display:flex;align-items:center;justify-content:center;gap:.7rem;}
+    .quiz-progress-label{font-size:.72rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(201,168,76,.5);}
+    .quiz-dots{display:flex;gap:.4rem;}
+    .quiz-dot{width:14px;height:14px;border-radius:50%;background:rgba(255,255,255,.06);border:1px solid rgba(201,168,76,.25);transition:all .35s;}
+    .quiz-dot.filled{background:radial-gradient(circle at 35% 30%,var(--gold-light),var(--gold) 60%,var(--gold-dark));border-color:var(--gold-light);box-shadow:0 0 8px rgba(201,168,76,.6);}
+    .question-card{position:relative;width:560px;max-width:calc(100vw - 4rem);flex-shrink:0;padding:1.8rem 2.2rem;border:1px solid rgba(201,168,76,.22);border-radius:6px;background:linear-gradient(135deg,rgba(201,168,76,.06),rgba(255,255,255,.015));text-align:center;}
+    .question-text{font-family:'Playfair Display',serif;font-size:clamp(1.1rem,2.3vw,1.4rem);font-style:italic;font-weight:700;color:var(--gold-light);line-height:1.5;min-height:2.4em;display:flex;align-items:center;justify-content:center;transition:opacity .3s;}
+    .options-grid{width:560px;max-width:calc(100vw - 4rem);flex-shrink:0;display:grid;grid-template-columns:1fr 1fr;gap:.9rem;}
+    .option-btn{display:flex;align-items:center;gap:.7rem;padding:.85rem 1.1rem;background:rgba(255,255,255,.03);border:1px solid rgba(201,168,76,.22);border-radius:4px;color:var(--cream);font-family:'Cormorant Garamond',serif;font-size:1.05rem;cursor:pointer;transition:all .2s;text-align:left;}
+    .option-btn:hover:not(:disabled){background:rgba(201,168,76,.1);border-color:var(--gold);transform:translateY(-1px);}
+    .option-btn:disabled{cursor:default;}
+    .option-letter{flex-shrink:0;width:1.9rem;height:1.9rem;border-radius:50%;border:1px solid rgba(201,168,76,.4);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:700;font-size:.9rem;color:var(--gold);}
+    .option-text{flex:1;line-height:1.3;}
+    .option-btn.correct{background:rgba(76,175,80,.16);border-color:#4CAF50;}
+    .option-btn.correct .option-letter{border-color:#4CAF50;color:#8ee592;}
+    .option-btn.wrong{background:rgba(224,90,106,.16);border-color:#e05a6a;}
+    .option-btn.wrong .option-letter{border-color:#e05a6a;color:#ff9aa5;}
+    .quiz-feedback{width:560px;max-width:calc(100vw - 4rem);flex-shrink:0;min-height:2.4em;text-align:center;font-size:1rem;font-style:italic;line-height:1.6;color:rgba(250,246,238,.55);transition:opacity .25s;}
+    .quiz-feedback.ok{color:#8ee592;font-weight:600;font-style:normal;}
+    .quiz-feedback.err{color:#ff9aa5;font-weight:600;font-style:normal;}
+
+    #flash-stage{display:flex;flex-direction:column;align-items:center;gap:1rem;width:100%;}
+    #quiz-stage{display:none;flex-direction:column;align-items:center;gap:1.4rem;width:100%;}
+    .quiz-complete{display:none;flex-direction:column;align-items:center;gap:.6rem;text-align:center;padding:1rem 0;}
+    .quiz-complete .popup-icon{margin-bottom:.2rem;}
+    .quiz-complete-title{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--gold-light);}
+    .quiz-complete-msg{font-size:1rem;font-style:italic;color:rgba(250,246,238,.6);line-height:1.6;max-width:420px;}
+
     @media(max-width:600px){
       .wrap{padding:1rem 1rem 2rem;}
       .day-hero{padding:1rem 0 1rem;}
       h1{font-size:clamp(2rem,14vw,4rem);}
       .month-label{font-size:clamp(1rem,4vw,1.6rem);margin-bottom:1rem;}
-      .content-area{padding:1.2rem;min-height:120px;}
+      .content-area{padding:1.4rem 1rem;min-height:120px;}
       .day-nav{margin-top:1rem;padding-top:1rem;}
       .ornament-line-h{margin-bottom:1rem;}
+      .options-grid{grid-template-columns:1fr;max-width:calc(100vw - 2rem);}
+      .question-card{padding:1.5rem 1.4rem;max-width:calc(100vw - 2rem);}
+      .quiz-progress{max-width:calc(100vw - 2rem);}
+      .quiz-feedback{max-width:calc(100vw - 2rem);}
     }
 </style>
 </head>
@@ -71,8 +123,47 @@
     <p class="day-of-week">Domingo</p>
     <h1>25</h1>
     <p class="month-label">de Junio</p>
+
     <div class="content-area">
-      <p>Espacio reservado para el contenido de este día</p>
+      <div id="flash-stage">
+        <p class="flash-title">9 de agosto de 2020</p>
+        <div class="flash-img-wrap" id="flash-img-wrap">
+          <img src="../media/NievesAriAlex_20200809.jpg" alt="Foto casera del 9 de agosto de 2020" class="flash-img" id="flash-img">
+        </div>
+        <p class="flash-hint" id="flash-hint">Toca la foto para ampliarla</p>
+        <p class="flash-caption" id="flash-caption">Obsérvala con atención: puedes ampliarla para fijarte en los detalles. Tómate el tiempo que necesites para memorizarla.</p>
+        <button class="flash-ready-btn" id="flash-ready-btn">Estoy lista</button>
+      </div>
+
+      <div id="quiz-stage">
+        <div class="quiz-progress">
+          <span class="quiz-progress-label">Aciertos</span>
+          <div class="quiz-dots" id="quiz-dots">
+            <div class="quiz-dot" id="qd-1"></div>
+            <div class="quiz-dot" id="qd-2"></div>
+            <div class="quiz-dot" id="qd-3"></div>
+          </div>
+        </div>
+
+        <div class="question-card" id="question-card">
+          <p class="question-text" id="question-text"></p>
+        </div>
+
+        <div class="options-grid" id="options-grid">
+          <button class="option-btn" id="opt-A" data-letter="A"><span class="option-letter">A</span><span class="option-text" id="opt-A-text"></span></button>
+          <button class="option-btn" id="opt-B" data-letter="B"><span class="option-letter">B</span><span class="option-text" id="opt-B-text"></span></button>
+          <button class="option-btn" id="opt-C" data-letter="C"><span class="option-letter">C</span><span class="option-text" id="opt-C-text"></span></button>
+          <button class="option-btn" id="opt-D" data-letter="D"><span class="option-letter">D</span><span class="option-text" id="opt-D-text"></span></button>
+        </div>
+
+        <p class="quiz-feedback" id="quiz-feedback">Elige tu respuesta, con el ratón, el dedo o tecleando A, B, C o D.</p>
+      </div>
+
+      <div class="quiz-complete" id="quiz-complete">
+        <div class="popup-icon">🏆</div>
+        <p class="quiz-complete-title">¡Enhorabuena!</p>
+        <p class="quiz-complete-msg">Tu memoria fotográfica no falla. ¡Menudo ojo para los detalles!</p>
+      </div>
     </div>
   </div>
   <nav class="day-nav">
@@ -83,12 +174,28 @@
   <a class="back-link" href="../index.html">&#8592; Volver al Calendario</a>
 </div>
 
+<!-- Lightbox de zoom para la foto -->
+<div class="flash-lightbox" id="flash-lightbox">
+  <button class="flash-lightbox-close" id="flash-lightbox-close" title="Cerrar">✕</button>
+  <img src="../media/NievesAriAlex_20200809.jpg" alt="Foto casera del 9 de agosto de 2020 ampliada" id="flash-lightbox-img">
+</div>
+
 <div class="popup-overlay" id="popup">
   <div class="popup-box">
     <div class="popup-icon">🎁</div>
     <p class="popup-title">¡Un poco de paciencia!</p>
     <p class="popup-msg">No seas impaciente...<br>Este día aún no ha llegado.<br>Ya llegará, y será especial. 🤍</p>
     <button class="popup-btn" onclick="window.location.href='../index.html'">Volver al calendario</button>
+  </div>
+</div>
+
+<!-- Popup instrucciones del reto -->
+<div class="popup-overlay" id="popup-intro">
+  <div class="popup-box">
+    <div class="popup-icon">📸</div>
+    <p class="popup-title">Flash memory</p>
+    <p class="popup-msg">Vas a ver una imagen. Tómate el tiempo que necesites para observarla bien y memorizar todos los detalles.<br><br>Cuando estés lista, pulsa "Estoy lista" y te haremos algunas preguntas sobre ella. Deberás acertar 3 para superar el reto. ¡Mucha suerte!</p>
+    <button class="popup-btn" id="intro-close">¡Allá vamos!</button>
   </div>
 </div>
 
@@ -107,8 +214,18 @@
   <div class="popup-box">
     <div class="popup-icon">🎁</div>
     <p class="popup-title">¡Tu recompensa!</p>
-    <p class="popup-msg" id="reward-text">✨ Aquí irá la recompensa especial de este día ✨</p>
+    <p class="popup-msg" id="reward-text">PDTE</p>
     <button class="popup-btn" id="star-reward-close">¡Genial!</button>
+  </div>
+</div>
+
+<!-- Popup fallo: se agotan las preguntas sin 3 aciertos -->
+<div class="popup-overlay" id="popup-fail">
+  <div class="popup-box">
+    <div class="popup-icon">🤔</div>
+    <p class="popup-title">¡Fíjate mejor!</p>
+    <p class="popup-msg">Esta vez la memoria te ha jugado una mala pasada.<br>Vuelve a mirar la foto con atención y vamos a intentarlo de nuevo.</p>
+    <button class="popup-btn" id="fail-close">Reintentar</button>
   </div>
 </div>
 
@@ -157,6 +274,7 @@ const DONE_KEY = 'done_2028-06-25';
 const doneBtn  = document.getElementById('done-btn');
 const popupStarBlocked = document.getElementById('popup-star-blocked');
 const popupStarReward  = document.getElementById('popup-star-reward');
+const popupFail         = document.getElementById('popup-fail');
 
 document.getElementById('star-blocked-close').addEventListener('click', () => {
   popupStarBlocked.classList.remove('visible');
@@ -172,6 +290,10 @@ popupStarReward.addEventListener('click', e => {
   if (e.target === popupStarReward) popupStarReward.classList.remove('visible');
 });
 
+function markDone() {
+  localStorage.setItem(DONE_KEY, '1');
+  updateDone();
+}
 function updateDone() {
   const on = localStorage.getItem(DONE_KEY) === '1';
   doneBtn.textContent = on ? '★' : '☆';
@@ -181,19 +303,301 @@ function updateDone() {
 doneBtn.addEventListener('click', () => {
   const on = localStorage.getItem(DONE_KEY) === '1';
   if (on) {
-    // Already done → show reward
     popupStarReward.classList.add('visible');
+  } else if (isPreview) {
+    markDone();
   } else {
-    // Not done → only allowed in preview mode
-    if (isPreview) {
-      localStorage.setItem(DONE_KEY, '1');
-      updateDone();
-    } else {
-      popupStarBlocked.classList.add('visible');
-    }
+    popupStarBlocked.classList.add('visible');
   }
 });
 updateDone();
+
+// ── Audio sintetizado ──────────────────────────────────────
+let _ctx = null;
+function getCtx() {
+  if (!_ctx) _ctx = new (window.AudioContext || window.webkitAudioContext)();
+  if (_ctx.state === 'suspended') _ctx.resume();
+  return _ctx;
+}
+function tone(freq, type, t0, dur, vol) {
+  const ctx = getCtx();
+  const osc = ctx.createOscillator(), g = ctx.createGain();
+  osc.type = type; osc.frequency.setValueAtTime(freq, t0);
+  g.gain.setValueAtTime(vol || .08, t0);
+  g.gain.exponentialRampToValueAtTime(.0001, t0 + dur);
+  osc.connect(g); g.connect(ctx.destination);
+  osc.start(t0); osc.stop(t0 + dur);
+}
+function soundCorrect() { const t = getCtx().currentTime; tone(523.25,'triangle',t,.25); tone(659.25,'triangle',t+.1,.25); tone(783.99,'triangle',t+.2,.25); tone(1046.5,'triangle',t+.3,.45); }
+function soundWrong()   { const t = getCtx().currentTime; tone(250,'sawtooth',t,.35,.06); tone(220,'sawtooth',t+.15,.35,.06); tone(196,'sawtooth',t+.3,.5,.06); }
+function soundWin()     { const t = getCtx().currentTime; [523.25,659.25,783.99,1046.5,1318.5].forEach((f,i)=>tone(f,'triangle',t+i*.13,.35,.09)); }
+
+// ── Datos: preguntas sobre la foto ──────────────────────────
+const PREGUNTAS = [
+  { pregunta: "¿De qué color es la falda que llevas?", opciones: ["Negra", "Azul", "Blanca", "De flores"], respuesta: "Azul" },
+  { pregunta: "¿Qué estampado o dibujo destaca en la camiseta de Alex?", opciones: ["Peppa Pig", "LOL Surprise", "Un unicornio", "Estrellas rojas"], respuesta: "LOL Surprise" },
+  { pregunta: "¿Qué estampado o dibujo destaca en la camiseta de Ariadna?", opciones: ["Es negra lisa", "Animal print", "Una frase motivadora", "Un león"], respuesta: "Un león" },
+  { pregunta: "¿Cuál de las tres aparece comiendo su helado en el momento de la foto?", opciones: ["Ninguna", "Tú", "Ariadna", "Alex"], respuesta: "Ariadna" },
+  { pregunta: "¿Qué adornos o pins llevan los crocs que están en la arena en primer plano?", opciones: ["Una flor y una mariposa", "Una estrella y un unicornio", "Un corazón y una carita sonriente", "Una fruta y un arcoíris"], respuesta: "Una estrella y un unicornio" },
+  { pregunta: "¿De qué color es el bolso que llevas?", opciones: ["Marrón", "Amarillo", "Azul", "Negro"], respuesta: "Amarillo" }
+];
+
+const POINTS_TO_WIN = 3;
+const LETTERS = ['A','B','C','D'];
+
+function shuffle(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+let deck = [];
+let deckPos = 0;
+let score = 0;
+let answered = false;
+let current = null;
+let currentCorrectLetter = null;
+
+const flashStage     = document.getElementById('flash-stage');
+const flashImgWrap    = document.getElementById('flash-img-wrap');
+const flashHint       = document.getElementById('flash-hint');
+const flashCaption    = document.getElementById('flash-caption');
+const flashReadyBtn   = document.getElementById('flash-ready-btn');
+const lightbox        = document.getElementById('flash-lightbox');
+const lightboxImg     = document.getElementById('flash-lightbox-img');
+
+const quizStage      = document.getElementById('quiz-stage');
+const quizComplete   = document.getElementById('quiz-complete');
+const progressRow    = document.querySelector('.quiz-progress');
+const questionCard   = document.getElementById('question-card');
+const questionText   = document.getElementById('question-text');
+const optionsGrid    = document.getElementById('options-grid');
+const feedbackEl     = document.getElementById('quiz-feedback');
+
+function updateDots() {
+  for (let i = 1; i <= POINTS_TO_WIN; i++) {
+    document.getElementById('qd-' + i).classList.toggle('filled', i <= score);
+  }
+}
+
+// ── Zoom de la imagen (con arrastre para moverla) ─────────────
+let panX = 0, panY = 0, panStartX = 0, panStartY = 0;
+let dragStartX = 0, dragStartY = 0, isDragging = false, dragMoved = false;
+
+function applyLightboxTransform() {
+  lightboxImg.style.transform = lightboxImg.classList.contains('zoomed')
+    ? `translate(${panX}px, ${panY}px) scale(2.2)`
+    : '';
+}
+function openLightbox() {
+  panX = 0; panY = 0;
+  lightboxImg.classList.remove('zoomed');
+  applyLightboxTransform();
+  lightbox.classList.add('visible');
+}
+function closeLightbox() {
+  lightbox.classList.remove('visible');
+  lightboxImg.classList.remove('zoomed');
+  panX = 0; panY = 0;
+  applyLightboxTransform();
+}
+flashImgWrap.addEventListener('click', openLightbox);
+
+lightboxImg.addEventListener('click', e => {
+  e.stopPropagation();
+  if (dragMoved) { dragMoved = false; return; }
+  const nowZoomed = lightboxImg.classList.toggle('zoomed');
+  if (!nowZoomed) { panX = 0; panY = 0; }
+  applyLightboxTransform();
+});
+lightboxImg.addEventListener('pointerdown', e => {
+  if (!lightboxImg.classList.contains('zoomed')) return;
+  isDragging = true;
+  dragMoved = false;
+  dragStartX = e.clientX; dragStartY = e.clientY;
+  panStartX = panX; panStartY = panY;
+  lightboxImg.classList.add('dragging');
+  lightboxImg.setPointerCapture(e.pointerId);
+});
+lightboxImg.addEventListener('pointermove', e => {
+  if (!isDragging) return;
+  const dx = e.clientX - dragStartX;
+  const dy = e.clientY - dragStartY;
+  if (Math.abs(dx) > 3 || Math.abs(dy) > 3) dragMoved = true;
+  panX = panStartX + dx;
+  panY = panStartY + dy;
+  applyLightboxTransform();
+});
+function endLightboxDrag() {
+  if (!isDragging) return;
+  isDragging = false;
+  lightboxImg.classList.remove('dragging');
+}
+lightboxImg.addEventListener('pointerup', endLightboxDrag);
+lightboxImg.addEventListener('pointercancel', endLightboxDrag);
+
+lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+document.getElementById('flash-lightbox-close').addEventListener('click', closeLightbox);
+
+// ── Fase 1: mostrar la foto sin límite de tiempo ──────────────
+function startFlashPhase() {
+  quizStage.style.display = 'none';
+  quizComplete.style.display = 'none';
+  progressRow.style.display = '';
+  questionCard.style.display = '';
+  optionsGrid.style.display = '';
+  feedbackEl.style.display = '';
+  flashHint.style.display = '';
+  flashCaption.style.display = '';
+  flashReadyBtn.style.display = '';
+  flashStage.style.display = 'flex';
+  closeLightbox();
+}
+
+flashReadyBtn.addEventListener('click', () => {
+  closeLightbox();
+  flashStage.style.display = 'none';
+  quizStage.style.display = 'flex';
+  loadQuestion();
+});
+
+
+// ── Fase 2: preguntas ─────────────────────────────────────────
+function nextQuestion() {
+  if (deckPos >= deck.length) return null;
+  return deck[deckPos++];
+}
+
+function loadQuestion() {
+  answered = false;
+  current = nextQuestion();
+
+  if (!current) {
+    showOutOfQuestions();
+    return;
+  }
+
+  const shuffledOpts = shuffle(current.opciones);
+  const correctIndex = shuffledOpts.indexOf(current.respuesta);
+  currentCorrectLetter = LETTERS[correctIndex];
+
+  questionText.style.opacity = 0;
+  setTimeout(() => {
+    questionText.textContent = current.pregunta;
+    questionText.style.opacity = 1;
+  }, 150);
+
+  LETTERS.forEach((letter, i) => {
+    const btn = document.getElementById('opt-' + letter);
+    btn.classList.remove('correct', 'wrong');
+    btn.disabled = false;
+    document.getElementById('opt-' + letter + '-text').textContent = shuffledOpts[i];
+  });
+
+  feedbackEl.textContent = 'Elige tu respuesta, con el ratón, el dedo o tecleando A, B, C o D.';
+  feedbackEl.className = 'quiz-feedback';
+}
+
+function selectOption(letter) {
+  if (answered || !current) return;
+  answered = true;
+
+  LETTERS.forEach(l => { document.getElementById('opt-' + l).disabled = true; });
+
+  const correct = letter === currentCorrectLetter;
+  document.getElementById('opt-' + currentCorrectLetter).classList.add('correct');
+  if (!correct) document.getElementById('opt-' + letter).classList.add('wrong');
+
+  if (correct) {
+    soundCorrect();
+    score++;
+    updateDots();
+    feedbackEl.textContent = '¡Bien visto! ✅';
+    feedbackEl.className = 'quiz-feedback ok';
+  } else {
+    soundWrong();
+    feedbackEl.textContent = 'No era así... ❌';
+    feedbackEl.className = 'quiz-feedback err';
+  }
+
+  setTimeout(() => {
+    if (score >= POINTS_TO_WIN) {
+      finishQuiz();
+    } else {
+      loadQuestion();
+    }
+  }, 1600);
+}
+
+function showOutOfQuestions() {
+  progressRow.style.display = 'none';
+  questionCard.style.display = 'none';
+  optionsGrid.style.display = 'none';
+  feedbackEl.style.display = 'none';
+  popupFail.classList.add('visible');
+}
+
+document.getElementById('fail-close').addEventListener('click', () => {
+  popupFail.classList.remove('visible');
+  resetChallenge();
+});
+popupFail.addEventListener('click', e => {
+  if (e.target === popupFail) {
+    popupFail.classList.remove('visible');
+    resetChallenge();
+  }
+});
+
+function resetChallenge() {
+  deck = shuffle(PREGUNTAS);
+  deckPos = 0;
+  score = 0;
+  updateDots();
+  startFlashPhase();
+}
+
+// ── Fase 3: cierre — se vuelve a mostrar la foto y la recompensa ─
+function finishQuiz() {
+  quizStage.style.display = 'none';
+  flashHint.style.display = 'none';
+  flashCaption.style.display = 'none';
+  flashReadyBtn.style.display = 'none';
+  flashStage.style.display = 'flex';
+  soundWin();
+  setTimeout(() => {
+    markDone();
+    popupStarReward.classList.add('visible');
+  }, 3000);
+}
+
+LETTERS.forEach(letter => {
+  document.getElementById('opt-' + letter).addEventListener('click', () => selectOption(letter));
+});
+document.addEventListener('keydown', e => {
+  if (quizStage.style.display === 'none') return;
+  const k = e.key.toUpperCase();
+  if (LETTERS.includes(k)) selectOption(k);
+});
+
+// ── Inicio ─────────────────────────────────────────────────
+deck = shuffle(PREGUNTAS);
+updateDots();
+
+const popupIntro = document.getElementById('popup-intro');
+const blocked = !isPreview && thisDate > today;
+
+flashStage.style.display = 'none';
+
+if (!blocked) {
+  document.getElementById('intro-close').addEventListener('click', () => {
+    popupIntro.classList.remove('visible');
+    startFlashPhase();
+  });
+  popupIntro.classList.add('visible');
+}
 </script>
 </body>
 </html>
