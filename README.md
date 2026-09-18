@@ -238,6 +238,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-05-02 | Adivina la serie | Alf, D'Artacán, MacGyver, Willy Fog | alf.jpg/.mp3, dartacan.jpg/.mp3, macgyver.jpg/.mp3, willy_fog.jpg/.mp3 | N/A | PDTE |
 | 2028-05-04 | Acertijos y adivinanzas - ¿Qué día es hoy? | VIERNES | Enric_20220409.png | Enric | PDTE |
 | 2028-05-06 | Minijuego (Las 5 Monedas de Tait) | N/A | N/A | N/A | PDTE |
+| 2028-05-07 | Flash memory | N/A | LosRamirez_20130608.jpg | Los Ramírez | PDTE |
 | 2028-05-08 | Adivina quién soy | VOLDEMORT | Alex_20200222.png | Alex | PDTE |
 | 2028-05-09 | Timeline musical, España en los 80 | 1980-1987 | No_dudaria.jpg .. Hijo_de_la_luna.jpg | N/A | PDTE |
 | 2028-05-10 | Adivina el cuadro | PERSISTENCIA MEMORIA / MUJER CON SOMBRILLA / MUERTE MARAT | persistencia_memoria_hd.jpg, mujer_sombrilla_hd.jpg, muerte_marat_hd.jpg | N/A | PDTE |
