@@ -278,6 +278,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-06-19 | Rosco de pasapalabra | CHUNGO, EMPANADO, HEAVY, MAZAS, PIJOS, TIO | N/A | N/A | PDTE |
 | 2028-06-20 | ¿Qué foto es más antigua? | 10 momentos vividos | PDTE | PDTE | PDTE |
 | 2028-06-24 | Puzzle clásico | N/A | Salram_20250111.jpg | Enric, Nieves, Ariadna y Alex | PDTE |
+| 2028-06-25 | Flash memory | N/A | NievesAriAlex_20200809.jpg | Nieves, Ariadna y Alex | PDTE |
 | 2028-06-26 | Timeline: películas de cine | metropolis, lo_que_viento_llevo, ciudadano_kane, siete_samurais, psicosis, 2001_odisea_espacio, padrino, star_wars_iv | metropolis.jpg, lo_que_viento_llevo.jpg, ciudadano_kane.jpg, siete_samurais.jpg, psicosis.jpg, 2001_odisea_espacio.jpg, padrino.jpg, star_wars_iv.jpg | N/A | PDTE |
 | 2028-06-27 | Adivina el cuadro | HIJO HOMBRE / MATRIMONIO ARNOLFINI / AUTORRETRATO CON SOMBRERO FIELTRO GRIS | hijo_del_hombre_hd.jpg, matrimonio_arnolfini_hd.jpg, autorretrato_sombrero_gris_hd.jpg | N/A | PDTE |
 | 2028-06-28 | Adivina el slogan | 58 anuncios míticos, hasta 5 aciertos | N/A | N/A | PDTE |
