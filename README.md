@@ -340,6 +340,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-09-06 | Acertijos y adivinanzas - Montones de paja | 1 | Gerard_20220705.png | Gerard | PDTE |
 | 2028-09-07 | El poble amagat | CERVERA | Mari_20230708.png + Cervera.jpg | Cervera | PDTE |
 | 2028-09-09 | Minijuego (El Cruce del Puente) | N/A | N/A | N/A | PDTE |
+| 2028-09-10 | Flash memory | N/A | AriAlex_20250303.jpg | Ariadna y Alex | PDTE |
 | 2028-09-12 | Adivina quién soy | MARY SHELLEY | Cristina_20130713.png | Cristina | PDTE |
 | 2028-09-13 | ¿Qué foto es más antigua? | 10 momentos vividos | PDTE | PDTE | PDTE |
 | 2028-09-14 | Adivina el cuadro | GIRASOLES / TRAICION IMAGENES / GITANA DORMIDA | girasoles_hd.jpg, traicion_imagenes_hd.jpg, gitana_dormida_hd.jpg | N/A | PDTE |
