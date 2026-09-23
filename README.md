@@ -361,6 +361,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-10-03 | Cultura: iniciales de famosos | CRETA | Lugar11_01.jpg .. Lugar11_05.jpg | Ajenos | PDTE |
 | 2028-10-04 | Reinas | N/A | N/A | N/A | PDTE |
 | 2028-10-05 | Adivina la serie | Chicho Terremoto, Juana y Sergio, El Príncipe de Bel-Air, Sexo en Nueva York | chicho_terremoto.jpg/.mp3, juana_sergio.jpg/.mp3, principe_bel_air.jpg/.mp3, sexo_nueva_york.jpg/.mp3 | N/A | PDTE |
+| 2028-10-07 | Flash memory | N/A | Salram_20230624.jpg | Enric, Nieves, Ariadna y Alex | PDTE |
 | 2028-10-08 | Escape Room: 03-Laboratorio Alquímico | Esencia Pura | ER03_EscenarioVisual.jpg + ER03_EscenarioClickmap.jpg | N/A | PDTE |
 | 2028-10-09 | Primeras frases de novelas | 6 novelas famosas | historia_dos_ciudades.jpg, tunel.jpg, matadero_cinco.jpg, lolita.jpg, veinte_mil_leguas.jpg, torre_oscura_pistolero.jpg | N/A | PDTE |
 | 2028-10-10 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
