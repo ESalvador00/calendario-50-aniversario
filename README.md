@@ -384,6 +384,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-10-30 | Adivina el cuadro | HABITACION ARLES, MAJA VESTIDA, RETRATO ADELE BLOCHBAUER I | habitacion_arles_hd.jpg, maja_vestida_hd.jpg, retrato_adele_bloch_hd.jpg| N/A | PDTE |
 | 2028-11-02 | Adivina el cuadro | DOS FRIDAS / COLUMPIO / NOVIA | dos_fridas_hd.jpg, columpio_hd.jpg, novia_hd.jpg | N/A | PDTE |
 | 2028-11-04 | Ingenio — el frutero y el arcoíris | 32215 | Ari_20150714.jpg | Ariadna | PDTE |
+| 2028-11-05 | Flash memory | N/A | Ramirez_20090122.jpg | Familia Ramírez | PDTE |
 | 2028-11-06 | Adivina el logo correcto | 10 logos icónicos | Logos.png | N/A | PDTE |
 | 2028-11-07 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
 | 2028-11-08 | Timeline: películas de cine | blancanieves, cenicienta, bella_durmiente, sirenita, bella_bestia, aladdin, mulan, frozen | blancanieves.jpg, cenicienta.jpg, bella_durmiente.jpg, sirenita.jpg, bella_bestia.jpg, aladdin.jpg, mulan.jpg, frozen.jpg | N/A | PDTE |
