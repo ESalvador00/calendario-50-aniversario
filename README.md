@@ -420,6 +420,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-12-13 | Adivina quién soy | DARTH VADER | Enric_20130227.png | Enric | PDTE |
 | 2028-12-14 | Adivina el slogan | 58 anuncios míticos, hasta 5 aciertos | N/A | N/A | PDTE |
 | 2028-12-15 | Adivina las películas | Sister Act, Beetlejuice, Reservoir Dogs, El resplandor, Jumanji | Sister_Act, Beetlejuice, Reservoir_Dogs, El_resplandor, Jumanji (mp3 y jpg) | N/A | PDTE |
+| 2028-12-16 | Flash memory | N/A | NievesAriAlex_20170831.jpg | Nieves, Ariadna y Alex | PDTE |
 | 2028-12-18 | Rosco de pasapalabra | CURRAR, FLIPAR, MACARRA, PAPEAR, QUEDARSE A CUADROS, WALKMAN | N/A | N/A | PDTE |
 | 2028-12-19 | Cultura: iniciales de famosos, especial deporte | ONTARIO | Lugar05_01.jpg .. Lugar05_07.jpg | Ajenos | PDTE |
 | 2028-12-20 | Primeras frases de novelas | 6 novelas famosas | moby_dick.jpg, principito.jpg, mundo_feliz.jpg, busca_tiempo_perdido.jpg, familia_pascual_duarte.jpg, hp_piedra_filosofal.jpg | N/A | PDTE |
