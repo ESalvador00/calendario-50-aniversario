@@ -177,14 +177,15 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-02-15 | Timeline: cuadros famosos | 8 cuadros famosos | mona_lisa.jpg, creacion_adan.jpg, torre_babel.jpg, vocacion_san_mateo.jpg, leccion_anatomia.jpg, meninas.jpg, caminante_mar_nubes.jpg, libertad_guiando_pueblo.jpg | N/A | PDTE |
 | 2028-02-16 | Acertijos y adivinanzas - El león y el unicornio | JUEVES | Alex_20180619.png | Alexandra | PDTE |
 | 2028-02-17 | El poble amagat | CALDES DE MONTBUI | Ariadna_20160221.png + CaldesMontbui.jpg | Ariadna| PDTE |
-| 2028-02-23 | Adivina el cuadro | JOVEN PERLA / NAPOLEON CRUZANDO ALPES / COLUMNA ROTA | joven_perla_hd.jpg, napoleon_cruzando_alpes_hd.jpg, columna_rota_hd.jpg | N/A | PDTE |
 | 2028-02-18 | Adivina las películas | Regreso al Futuro, ET El Extraterrestre, Mision Imposible, Toy Story, Alien El octavo pasajero | Regreso_al_Futuro, ET_El_Extraterrestre, Mision_Imposible, Toy_Story, Alien_El_octavo_pasajero (mp3 y jpg) | N/A | PDTE |
 | 2028-02-19 | Satisfacción con restricciones múltiples: Organizando una fiesta | Enric: música+altavoz / Nieves: cocinar+horno / Ariadna: invitaciones+sobres / Alex: decorar+globos | RSR02_Escenario.webp + RSR02_01A..01D.png + RSR02_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
 | 2028-02-20 | Palabras Intraducibles - Japonés | IKIGAI | NievesAriAlex_20160406.jpg | Nieves, Ariadna y Alexandra | PDTE |
 | 2028-02-21 | Rosco de pasapalabra | A OTRA PARTE BONAPARTE, DE QUE VAS CALAMAR, NI HABLAR DEL PELUQUIN, A LA CENA MAGDALENA, OKEY MAKEY, CIAO PESCAO | N/A | N/A | PDTE |
 | 2028-02-22 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
+| 2028-02-23 | Adivina el cuadro | JOVEN PERLA / NAPOLEON CRUZANDO ALPES / COLUMNA ROTA | joven_perla_hd.jpg, napoleon_cruzando_alpes_hd.jpg, columna_rota_hd.jpg | N/A | PDTE |
 | 2028-02-24 | Adivina quién soy | DIONISIO | David_20220805.png | David | PDTE |
 | 2028-02-25 | Adivina el PIN | 8149 | N/A | N/A | PDTE |
+| 2028-02-26 | Escape Room: 01-El archivo secreto | ENIGMA | ER01_EscenarioVisual.jpg + ER01_EscenarioClickmap.jpg | N/A | PDTE |
 | 2028-02-27 | Puzzle clásico | N/A | Salram_20250413.jpg | Enric, Nieves, Ariadna y Alex | PDTE |
 | 2028-02-28 | Sigue la letra | Llamando a la Tierra (M-Clan) | Llamando_a_la_Tierra.mp3 | N/A | PDTE |
 | 2028-02-29 | Adivina el slogan | 58 anuncios míticos, hasta 5 aciertos | N/A | N/A | PDTE |
@@ -205,6 +206,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-03-20 | Timeline: óperas famosas | 8 óperas famosas | orfeo.jpg, alcina.jpg, bodas_figaro.jpg, don_giovanni.jpg, flauta_magica.jpg, barbero_sevilla.jpg, norma.jpg, la_traviata.jpg | N/A | PDTE |
 | 2028-03-21 | Acertijos y adivinanzas - Madre con cinco hijos | LUIS | Ari_20131110.png | Ariadna | PDTE |
 | 2028-03-22 | Adivina el cuadro | GRITO / DAMA ARMINO / LECTORA | grito_hd.jpg, dama_armino_hd.jpg, lectora_hd.jpg | N/A | PDTE |
+| 2028-03-23 | El poble amagat | FALSET | Alex_20240105.png + Falset.jpg | Alexandra | PDTE |
 | 2028-03-25 | Puzzle clásico | N/A | Salram_20170730.jpg | Enric, Nieves, Ariadna y Alex | PDTE |
 | 2028-03-26 | Palabras Intraducibles - Brasileño | CAFUNE | NievesAri_20210817.png | Nieves y Ariadna | PDTE |
 | 2028-03-27 | Adivina la serie | 7 Vidas, Aída, Los Simpson, Shin Chan | 7_vidas.jpg/.mp3, aida.jpg/.mp3, simpson.jpg/.mp3, shin_chan.jpg/.mp3 | N/A | PDTE |
@@ -225,10 +227,11 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-04-15 | Satisfacción con restricciones múltiples: Ordenando la habitación | Enric: armario+cajas / Nieves: escritorio+trapo / Ariadna: estantería+bolsas / Alex: cama+aspiradora | RSR04_Escenario.webp + RSR04_01A..01D.png + RSR04_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
 | 2028-04-16 | Agudeza visual — clickmap museo (coordenadas hex) | CHAD | Museo2_visual.png + Museo2_clickmap.png + Cuadros_verdes.png + Ariadna_20190601.png | Ariadna | PDTE |
 | 2028-04-17 | Rosco de pasapalabra | AURA, CRINGE, GHOSTING, LORE, EN PLAN, RED FLAG | N/A | N/A | PDTE |
-| 2028-04-24 | Adivina el cuadro | NOCHE ESTRELLADA / CAMINANTE SOBRE MAR NUBES / CHRISTINAS WORLD | noche_estrellada_hd.jpg, caminante_mar_nubes_hd.jpg, cristinas_world_hd.jpg | N/A | PDTE |
 | 2028-04-18 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
 | 2028-04-19 | Cultura: iniciales de famosos, especial política | MADEIRA | Lugar07_01.jpg .. Lugar07_07.jpg | Ajenos | PDTE |
+| 2028-04-21 | Reinas | N/A | N/A | N/A | PDTE |
 | 2028-04-22 | Puzzle clásico | N/A | Salram_20220725.jpg | Enric, Nieves, Ariadna y Alex | PDTE |
+| 2028-04-24 | Adivina el cuadro | NOCHE ESTRELLADA / CAMINANTE SOBRE MAR NUBES / CHRISTINAS WORLD | noche_estrellada_hd.jpg, caminante_mar_nubes_hd.jpg, cristinas_world_hd.jpg | N/A | PDTE |
 | 2028-04-25 | Timeline: monumentos y edificios | 8 monumentos famosos | gran_piramide_guiza.jpg, partenon.jpg, coliseo.jpg, santa_sofia.jpg, mezquita_cordoba.jpg, catedral_chartres.jpg, machu_picchu.jpg, taj_mahal.jpg | N/A | PDTE |
 | 2028-04-26 | Acertijos y adivinanzas - El lago y los lirios | 47 | Ari_20190913.png | Ariadna | PDTE |
 | 2028-04-27 | Puzzle visual | ECF | Puzzle03_01.png .. Puzzle03_02.png | N/A | PDTE |
@@ -254,6 +257,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-05-23 | Rosco de pasapalabra | NO TE ENTERAS CONTRERAS, VAS LISTO EVARISTO, ESTAR AL LORO, A OTRA COSA MARIPOSA, SER MAS CHULO QUE UN OCHO, NASTI DE PLASTI | N/A | N/A | PDTE |
 | 2028-05-24 | Puzzle visual | ARI | Puzzle04_01.png .. Puzzle04_07.png | N/A | PDTE |
 | 2028-05-25 | Reinas | N/A | N/A | N/A | PDTE |
+| 2028-05-26 | Adivina las películas | Fiebre del Sábado Noche, Jurassic Park, Coco, Gladiator, Pulp Fiction | Fiebre_del_Sabado_Noche, Jurassic_Park, Coco, Gladiator, Pulp_Fiction (mp3 y jpg) | N/A | PDTE |
 | 2028-05-27 | Puzzle clásico | N/A | Salram_20140410.jpg | Enric, Nieves, Ariadna y Alex | PDTE |
 | 2028-05-28 | Memory 4x4 | N/A | NievesEnric + 20061024 20200510 20200627 20220623 20230501 20251116 20251207 20260510 + (_E/_N) | Nieves, Enric | PDTE |
 | 2028-05-29 | Adivina el logo correcto | 10 logos icónicos | Logos.png | N/A | PDTE |
@@ -277,6 +281,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-06-18 | Escape Room: 02-Sala de Control Nuclear | SOLES | ER02_EscenarioVisual.jpg + ER02_EscenarioClickmap.jpg | N/A | PDTE |
 | 2028-06-19 | Rosco de pasapalabra | CHUNGO, EMPANADO, HEAVY, MAZAS, PIJOS, TIO | N/A | N/A | PDTE |
 | 2028-06-20 | ¿Qué foto es más antigua? | 10 momentos vividos | PDTE | PDTE | PDTE |
+| 2028-06-21 | Reinas | N/A | N/A | N/A | PDTE |
 | 2028-06-24 | Puzzle clásico | N/A | Salram_20250111.jpg | Enric, Nieves, Ariadna y Alex | PDTE |
 | 2028-06-25 | Flash memory | N/A | NievesAriAlex_20200809.jpg | Nieves, Ariadna y Alex | PDTE |
 | 2028-06-26 | Timeline: películas de cine | metropolis, lo_que_viento_llevo, ciudadano_kane, siete_samurais, psicosis, 2001_odisea_espacio, padrino, star_wars_iv | metropolis.jpg, lo_que_viento_llevo.jpg, ciudadano_kane.jpg, siete_samurais.jpg, psicosis.jpg, 2001_odisea_espacio.jpg, padrino.jpg, star_wars_iv.jpg | N/A | PDTE |
