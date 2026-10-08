@@ -162,7 +162,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-01-28 | Timeline histórico doble | A:01-06 / B:01-06 | Timeline01_01A..06A.png + Timeline01_01B..06B.png | N/A | PDTE |
 | 2028-01-29 | Memory 4x4 | N/A | NievesEnric + 20040626 20061224 20101211 20151205 20170807 20190601 20200208 20250105 + (_E/_N) | Nieves, Enric | PDTE |
 | 2028-01-30 | Agudeza visual — banderas Código Internacional de Señales Marítimas | 99274 | FinAno2020.png | Nieves, Enric, Ari, Alex | PDTE |
-| 2028-01-31 | ¿Qué foto es más antigua? | 10 momentos vividos | PDTE | PDTE | PDTE |
+| 2028-01-31 | Simón Dice | N/A | salram_off_*.png / salram_on_*.png | Enric, Nieves, Ariadna y Alex | PDTE |
 | 2028-02-01 | Primeras frases de novelas | 6 novelas famosas | don_quijote_mancha.jpg, 1984.jpg, pedro_paramo.jpg, neuromante.jpg, jane_eyre.jpg, isla_tesoro.jpg | N/A | PDTE |
 | 2028-02-02 | Cultura: iniciales de famosos, especial cine | QUEBEC | Lugar06_01.jpg .. Lugar06_06.jpg | Ajenos | PDTE |
 | 2028-02-03 | Puzzle visual | ALEX | Puzzle01_01.png .. Puzzle01_05.png | N/A | PDTE |
@@ -173,7 +173,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-02-10 | Reinas | N/A | N/A | N/A | PDTE |
 | 2028-02-12 | Memory 4x4 | N/A | AriAlex + 20150606 20170513 20180825 20191026 20200429 20210401 20220422 20240511 + (_Ar/_Al) | Ariadna, Alexandra | PDTE |
 | 2028-02-13 | Ingenio — la respuesta correcta | la respuesta correcta | AlexNieves_20180925.jpg | Alex y Nieves | PDTE |
-| 2028-02-14 | ¿Qué foto es más antigua? | 10 momentos vividos | PDTE | PDTE | PDTE |
+| 2028-02-14 | Simón Dice | N/A | salram_off_*.png / salram_on_*.png | Enric, Nieves, Ariadna y Alex | PDTE |
 | 2028-02-15 | Timeline: cuadros famosos | 8 cuadros famosos | mona_lisa.jpg, creacion_adan.jpg, torre_babel.jpg, vocacion_san_mateo.jpg, leccion_anatomia.jpg, meninas.jpg, caminante_mar_nubes.jpg, libertad_guiando_pueblo.jpg | N/A | PDTE |
 | 2028-02-16 | Acertijos y adivinanzas - El león y el unicornio | JUEVES | Alex_20180619.png | Alexandra | PDTE |
 | 2028-02-17 | El poble amagat | CALDES DE MONTBUI | Ariadna_20160221.png + CaldesMontbui.jpg | Ariadna| PDTE |
@@ -201,7 +201,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-03-13 | Rosco de pasapalabra | BACALAO, EFECTIVIWONDER, GUAY, MARRON, PIBON, SOBAR | N/A | N/A | PDTE |
 | 2028-03-14 | Sigue la letra | Sin ti no soy nada (Amaral) | Sin_ti_no_soy_nada.mp3 | N/A | PDTE |
 | 2028-03-15 | Adivina quién soy | AGATHA CHRISTIE | Mari_20220819.png | Mari | PDTE |
-| 2028-03-16 | ¿Qué foto es más antigua? | 10 momentos vividos | PDTE | PDTE | PDTE |
+| 2028-03-16 | Simón Dice | N/A | salram_off_*.png / salram_on_*.png | Enric, Nieves, Ariadna y Alex | PDTE |
 | 2028-03-18 | Memory 4x4 | N/A | AriAlex + 20160810 20180325 20190813 20190916 20200108 20220813 20230701 20250510 + (_Ar/_Al) | Ariadna, Alexandra | PDTE |
 | 2028-03-20 | Timeline: óperas famosas | 8 óperas famosas | orfeo.jpg, alcina.jpg, bodas_figaro.jpg, don_giovanni.jpg, flauta_magica.jpg, barbero_sevilla.jpg, norma.jpg, la_traviata.jpg | N/A | PDTE |
 | 2028-03-21 | Acertijos y adivinanzas - Madre con cinco hijos | LUIS | Ari_20131110.png | Ariadna | PDTE |
@@ -216,7 +216,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-04-02 | Agudeza visual — Jeroglífico | USO LA MENTE | Ari_20150512.jpg | Ariadna | PDTE |
 | 2028-04-03 | Adivina la serie | Anatomía de Grey, Caballeros del Zodiaco, Dragon Ball, Urgencias | anatomia_grey.jpg/.mp3, caballeros_zodiaco.jpg/.mp3, dragon_ball.jpg/.mp3, urgencias.jpg/.mp3 | N/A | PDTE |
 | 2028-04-05 | Adivina el slogan | 58 anuncios míticos, hasta 5 aciertos | N/A | N/A | PDTE |
-| 2028-04-06 | ¿Qué foto es más antigua? | 10 momentos vividos | PDTE | PDTE | PDTE |
+| 2028-04-06 | Simón Dice | N/A | salram_off_*.png / salram_on_*.png | Enric, Nieves, Ariadna y Alex | PDTE |
 | 2028-04-07 | Adivina el PIN | 3152 | N/A | N/A | PDTE |
 | 2028-04-08 | Minijuego (El Lobo, la Cabra y la Col) | N/A | N/A | N/A | PDTE |
 | 2028-04-09 | Memory 4x4 | N/A | NievesEnric + 20050730 20101218 20170807 20180414 20190813 20191217 20220816 20221207 + (_E/_N) | Nieves, Enric | PDTE |
@@ -261,7 +261,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-05-27 | Puzzle clásico | N/A | Salram_20140410.jpg | Enric, Nieves, Ariadna y Alex | PDTE |
 | 2028-05-28 | Memory 4x4 | N/A | NievesEnric + 20061024 20200510 20200627 20220623 20230501 20251116 20251207 20260510 + (_E/_N) | Nieves, Enric | PDTE |
 | 2028-05-29 | Adivina el logo correcto | 10 logos icónicos | Logos.png | N/A | PDTE |
-| 2028-05-30 | ¿Qué foto es más antigua? | 10 momentos vividos | PDTE | PDTE | PDTE |
+| 2028-05-30 | Simón Dice | N/A | salram_off_*.png / salram_on_*.png | Enric, Nieves, Ariadna y Alex | PDTE |
 | 2028-05-31 | Adivina el slogan | 58 anuncios míticos, hasta 5 aciertos | N/A | N/A | PDTE |
 | 2028-06-01 | Puzzle visual | ACHI | Puzzle01_01.png .. Puzzle01_05.png | N/A | PDTE |
 | 2028-06-03 | Minijuego (La Balanza Falsa) | N/A | N/A | N/A | PDTE |
@@ -280,7 +280,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-06-17 | Palabras Intraducibles - Finlandés | KAUKOKAIPUU | Nieves_20040425.jpg | Nieves | PDTE |
 | 2028-06-18 | Escape Room: 02-Sala de Control Nuclear | SOLES | ER02_EscenarioVisual.jpg + ER02_EscenarioClickmap.jpg | N/A | PDTE |
 | 2028-06-19 | Rosco de pasapalabra | CHUNGO, EMPANADO, HEAVY, MAZAS, PIJOS, TIO | N/A | N/A | PDTE |
-| 2028-06-20 | ¿Qué foto es más antigua? | 10 momentos vividos | PDTE | PDTE | PDTE |
+| 2028-06-20 | Simón Dice | N/A | salram_off_*.png / salram_on_*.png | Enric, Nieves, Ariadna y Alex | PDTE |
 | 2028-06-21 | Reinas | N/A | N/A | N/A | PDTE |
 | 2028-06-24 | Puzzle clásico | N/A | Salram_20250111.jpg | Enric, Nieves, Ariadna y Alex | PDTE |
 | 2028-06-25 | Flash memory | N/A | NievesAriAlex_20200809.jpg | Nieves, Ariadna y Alex | PDTE |
@@ -301,7 +301,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-07-13 | Adivina el slogan | 58 anuncios míticos, hasta 5 aciertos | N/A | N/A | PDTE |
 | 2028-07-15 | Puzzle clásico | N/A | Salram_20191124.jpg | Enric, Nieves, Ariadna y Alex | PDTE |
 | 2028-07-16 | Agudeza visual — Elementos químicos | BRUSELAS | Alex_20231027.png | Alex | PDTE |
-| 2028-07-17 | ¿Qué foto es más antigua? | 10 momentos vividos | PDTE | PDTE | PDTE |
+| 2028-07-17 | Simón Dice | N/A | salram_off_*.png / salram_on_*.png | Enric, Nieves, Ariadna y Alex | PDTE |
 | 2028-07-18 | Cultura: iniciales de famosos | HAWAII | Lugar09_01.jpg .. Lugar09_06.jpg | Ajenos | PDTE |
 | 2028-07-19 | Sigue la letra | Vino tinto (Estopa) | Vino_tinto.mp3 | N/A | PDTE |
 | 2028-07-20 | Reinas | N/A | N/A | N/A | PDTE |
@@ -335,7 +335,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-08-23 | Sigue la letra | Hijo de la luna (Mecano) | Hijo_de_la_luna.mp3 | N/A | PDTE |
 | 2028-08-24 | Adivina el cuadro | BESO / MAJA DESNUDA / MADAME X | beso_hd.jpg, maja_desnuda_hd.jpg, madame_x_hd.jpg | N/A | PDTE |
 | 2028-08-26 | Minijuego (Las Jarras de Agua) | N/A | N/A | N/A | PDTE |
-| 2028-08-28 | ¿Qué foto es más antigua? | 10 momentos vividos | PDTE | PDTE | PDTE |
+| 2028-08-28 | Simón Dice | N/A | salram_off_*.png / salram_on_*.png | Enric, Nieves, Ariadna y Alex | PDTE |
 | 2028-08-29 | Acertijos y adivinanzas - El carnicero | CARNE | Cris_20100317.png | Cristina | PDTE |
 | 2028-08-30 | Cultura: iniciales de famosos | MALLORCA | Lugar10_01.jpg .. Lugar10_08.jpg | Ajenos | PDTE |
 | 2028-09-02 | Satisfacción con restricciones múltiples: Tarde de manualidades | Enric: pintar+témperas / Nieves: modelar+plastilina / Ariadna: pegar+pegatinas / Alex: recortar+cartulina | RSR09_Escenario.webp + RSR09_01A..01D.png + RSR09_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
@@ -347,7 +347,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-09-09 | Minijuego (El Cruce del Puente) | N/A | N/A | N/A | PDTE |
 | 2028-09-10 | Flash memory | N/A | AriAlex_20250303.jpg | Ariadna y Alex | PDTE |
 | 2028-09-12 | Adivina quién soy | MARY SHELLEY | Cristina_20130713.png | Cristina | PDTE |
-| 2028-09-13 | ¿Qué foto es más antigua? | 10 momentos vividos | PDTE | PDTE | PDTE |
+| 2028-09-13 | Simón Dice | N/A | salram_off_*.png / salram_on_*.png | Enric, Nieves, Ariadna y Alex | PDTE |
 | 2028-09-14 | Adivina el cuadro | GIRASOLES / TRAICION IMAGENES / GITANA DORMIDA | girasoles_hd.jpg, traicion_imagenes_hd.jpg, gitana_dormida_hd.jpg | N/A | PDTE |
 | 2028-09-15 | Adivina el PIN | 3486 | ImgMapa.png | N/A | PDTE |
 | 2028-09-16 | Ingenio — morse visual | .---.--.. | N/A | N/A | PDTE |
@@ -375,7 +375,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-10-14 | Puzzle clásico | N/A | Salram_20230624.jpg | Enric, Nieves, Ariadna y Alex | PDTE |
 | 2028-10-15 | Memory 4x4 | N/A | NievesEnric + 20011227 20171001 20181124 20201010 20210515 20220507 20230819 20240819 + (_E/_N) | Nieves, Enric | PDTE |
 | 2028-10-16 | Sigue la letra | Chiquilla (Seguridad Social) | Chiquilla.mp3 | N/A | PDTE |
-| 2028-10-17 | ¿Qué foto es más antigua? | 10 momentos vividos | PDTE | PDTE | PDTE |
+| 2028-10-17 | Simón Dice | N/A | salram_off_*.png / salram_on_*.png | Enric, Nieves, Ariadna y Alex | PDTE |
 | 2028-10-18 | Timeline musical, Internacional en los 90 | 1990-1999 | Ice_ice_baby.jpg, Losing_my_religion.jpg, Zombie.jpg, Wannabe.jpg, Baby_one_more_time.jpg, Genie_in_a_Bottle.jpg + .mp3 | N/A | PDTE |
 | 2028-10-19 | El poble amagat | CASTELLÓ D’EMPÚRIES | Ariadna_20190215.png + CastelloEmpuries.jpg | Ariadna | PDTE |
 | 2028-10-20 | Adivina las películas | Rocky, Harry Potter, Aladdin, Superdetective en Hollywood, Karate Kid | Rocky, Harry_Potter, Aladdin, Superdetective_en_Hollywood, Karate_Kid (mp3 y jpg) | N/A | PDTE |
@@ -408,7 +408,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-11-24 | Ingenio: negro sobre negro | 300.000 | The_Rolling_Stones_Paint_It_Black.mp3 | N/A | PDTE |
 | 2028-11-25 | Satisfacción con restricciones múltiples: Merienda después del cole | Enric: tortilla+agua / Nieves: queso+zumo / Ariadna: jamón+cola / Alex: nocilla+leche | RSR11_Escenario.webp + RSR11_01A..01D.png + RSR11_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
 | 2028-11-26 | Puzzle clásico | N/A | Salram_20200919.jpg | Enric, Nieves, Ariadna y Alex | PDTE |
-| 2028-11-27 | ¿Qué foto es más antigua? | 10 momentos vividos | PDTE | PDTE | PDTE |
+| 2028-11-27 | Simón Dice | N/A | salram_off_*.png / salram_on_*.png | Enric, Nieves, Ariadna y Alex | PDTE |
 | 2028-11-28 | Acertijos y adivinanzas - A lo bestia | DADO | Alex_20190605.png | Alexandra | PDTE |
 | 2028-11-29 | Adivina la serie | El Secreto de Puente Viejo, Los Fruittis, Magnum, Mofli | secreto_puente_viejo.jpg/.mp3, fruittis.jpg/.mp3, magnum.jpg/.mp3, mofli.jpg/.mp3 | N/A | PDTE |
 | 2028-11-30 | Reinas | N/A | N/A | N/A | PDTE |
@@ -421,7 +421,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-12-09 | Satisfacción con restricciones múltiples: Juegos de mesa | Enric: ajedrez+frutos secos / Nieves: cartas+patatas / Ariadna: puzle+galletas / Alex: dominó+gominolas | RSR12_Escenario.webp + RSR12_01A..01D.png + RSR12_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
 | 2028-12-10 | Memory 4x4 | N/A | NievesEnric + 20041205 20061024 20090122 20170515 20190406 20220413 20250413 20250803 + (_E/_N) | Nieves, Enric | PDTE |
 | 2028-12-11 | Sigue la letra | Cuéntame un cuento (Celtas Cortos) | Cuentame_un_cuento.mp3 | N/A | PDTE |
-| 2028-12-12 | ¿Qué foto es más antigua? | 10 momentos vividos | PDTE | PDTE | PDTE |
+| 2028-12-12 | Simón Dice | N/A | salram_off_*.png / salram_on_*.png | Enric, Nieves, Ariadna y Alex | PDTE |
 | 2028-12-13 | Adivina quién soy | DARTH VADER | Enric_20130227.png | Enric | PDTE |
 | 2028-12-14 | Adivina el slogan | 58 anuncios míticos, hasta 5 aciertos | N/A | N/A | PDTE |
 | 2028-12-15 | Adivina las películas | Sister Act, Beetlejuice, Reservoir Dogs, El resplandor, Jumanji | Sister_Act, Beetlejuice, Reservoir_Dogs, El_resplandor, Jumanji (mp3 y jpg) | N/A | PDTE |
