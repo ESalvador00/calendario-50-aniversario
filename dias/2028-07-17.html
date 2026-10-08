@@ -7,12 +7,18 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
-    :root{--gold:#C9A84C;--gold-light:#E8C97A;--gold-dark:#8B6914;--cream:#FAF6EE;--dark:#1A1410;}
+    :root{
+      --gold:#C9A84C;--gold-light:#E8C97A;--gold-dark:#8B6914;
+      --cream:#FAF6EE;--dark:#1A1410;
+    }
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
     body{background-color:var(--dark);color:var(--cream);font-family:'Cormorant Garamond',serif;min-height:100vh;display:flex;flex-direction:column;}
-    body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 25% 15%,rgba(201,168,76,.10) 0%,transparent 55%),radial-gradient(ellipse at 75% 85%,rgba(124,54,38,.10) 0%,transparent 55%);pointer-events:none;z-index:0;}
-    .wrap{position:relative;z-index:1;width:100%;max-width:960px;margin:0 auto;padding:3rem 2rem 4rem;flex:1;display:flex;flex-direction:column;}
-    .day-hero{text-align:center;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 0 2rem;position:relative;}
+    body::before{content:'';position:fixed;inset:0;
+      background:radial-gradient(ellipse at 25% 15%,rgba(201,168,76,.10) 0%,transparent 55%),
+                 radial-gradient(ellipse at 75% 85%,rgba(124,54,38,.10) 0%,transparent 55%);
+      pointer-events:none;z-index:0;}
+    .wrap{position:relative;z-index:1;max-width:800px;margin:0 auto;padding:3rem 2rem 4rem;flex:1;display:flex;flex-direction:column;}
+    .day-hero{text-align:center;flex:1;display:flex;flex-direction:column;align-items:center;padding:3rem 0 2rem;position:relative;}
     .ornament-line-h{display:flex;align-items:center;justify-content:center;gap:1rem;margin-bottom:2rem;}
     .o-line{height:1px;width:60px;background:linear-gradient(to right,transparent,var(--gold));}
     .o-line.r{background:linear-gradient(to left,transparent,var(--gold));}
@@ -20,40 +26,77 @@
     .day-of-week{font-size:.85rem;letter-spacing:.4em;text-transform:uppercase;color:rgba(201,168,76,.5);margin-bottom:1rem;}
     h1{font-family:'Playfair Display',serif;font-size:clamp(3rem,9vw,7rem);font-weight:900;line-height:1;background:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 50%,var(--gold-dark) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.5rem;}
     .month-label{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3.5vw,2.4rem);font-weight:400;font-style:italic;color:rgba(250,246,238,.45);margin-bottom:2.5rem;}
-    .content-area{width:100%;border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:2rem 1.5rem;background:rgba(255,255,255,.02);display:flex;flex-direction:column;align-items:center;gap:1.8rem;}
-    .foto-intro{font-size:.8rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(201,168,76,.55);}
-    /* game-arena: fila con las dos fotos y el timer en medio */
-    .game-arena{width:100%;display:flex;align-items:flex-end;justify-content:center;gap:10px;user-select:none;}
-    /* foto-card-wrap: contenedor ESTÁTICO — nunca rota, nunca cambia de tamaño */
-    .foto-card-wrap{flex:1;min-width:0;aspect-ratio:1/1;position:relative;cursor:pointer;}
-    /* foto-card: capa interior que rota y tiene overflow:hidden para recortar la img */
-    .foto-card{position:absolute;inset:0;border:1px solid rgba(201,168,76,.2);border-radius:4px;overflow:hidden;background:rgba(255,255,255,.02);display:flex;flex-direction:column;align-items:stretch;justify-content:flex-end;transition:border-color .3s,background .3s,box-shadow .3s;transform-origin:center bottom;will-change:transform;}
-    @keyframes swayR{0%,100%{transform:rotate(0deg);}50%{transform:rotate(5deg);}}
-    @keyframes swayL{0%,100%{transform:rotate(0deg);}50%{transform:rotate(-5deg);}}
-    .foto-card-wrap.card-a .foto-card.playing{animation:swayR 2.8s ease-in-out infinite;}
-    .foto-card-wrap.card-b .foto-card.playing{animation:swayL 2.8s ease-in-out infinite;}
-    .foto-card-wrap:hover .foto-card{border-color:var(--gold);background:rgba(201,168,76,.05);box-shadow:0 6px 28px rgba(0,0,0,.45);}
-    .foto-card.ok {border-color:#4CAF50!important;background:rgba(76,175,80,.07)!important;animation:none!important;}
-    .foto-card.err{border-color:#E05A6A!important;background:rgba(224,90,106,.07)!important;animation:none!important;}
-    .foto-card img{width:100%;height:100%;object-fit:cover;pointer-events:none;display:block;position:absolute;top:0;left:0;}
-    .fecha-label{position:relative;z-index:2;width:100%;text-align:center;padding:.35rem .5rem;background:rgba(26,20,16,.75);font-family:'Playfair Display',serif;font-size:.75rem;letter-spacing:.15em;color:var(--gold-light);display:none;}
-    .fecha-label.visible{display:block;}
-    .dificultad{font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--gold);letter-spacing:.2em;text-align:center;min-height:1.6em;}
-    /* timer-rail: altura ligada al aspect-ratio del wrap vía JS */
-    .timer-rail{display:flex;flex-direction:column;gap:5px;width:8px;flex-shrink:0;}
-    .t-seg{flex:1;border-radius:3px;background:rgba(201,168,76,.12);transition:background .4s ease,box-shadow .4s ease;}
-    .t-seg.on{background:var(--gold);box-shadow:0 0 10px rgba(201,168,76,.5);}
-    .prog-row{display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap;}
-    .prog-dot{width:10px;height:10px;border-radius:50%;border:1.5px solid rgba(201,168,76,.3);background:transparent;transition:all .4s ease;}
-    .prog-dot.current{background:var(--gold);border-color:var(--gold-light);transform:scale(1.4);box-shadow:0 0 8px rgba(201,168,76,.5);}
-    .prog-dot.correct{background:#4CAF50;border-color:#4CAF50;box-shadow:0 0 8px rgba(76,175,80,.6);transform:scale(1);}
-    .prog-dot.wrong  {background:#E05A6A;border-color:#E05A6A;box-shadow:0 0 8px rgba(224,90,106,.6);transform:scale(1);}
-    .final-wrap{display:none;flex-direction:column;align-items:center;gap:.9rem;text-align:center;}
-    .final-wrap.visible{display:flex;}
-    .final-score{font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:900;background:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 50%,var(--gold-dark) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-    .final-sub{font-style:italic;color:rgba(250,246,238,.5);font-size:1rem;line-height:1.6;}
-    .btn-validar{padding:.55rem 1.4rem;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.35);border-radius:2px;color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:all .2s;}
-    .btn-validar:hover{background:rgba(201,168,76,.2);border-color:var(--gold);}
+    .game-wrap{width:100%;background:none;border:none;}
+    .status-bar{display:flex;justify-content:center;align-items:center;gap:2.5rem;padding:.75rem 1.5rem;flex-wrap:wrap;}
+    .stat-pill{display:flex;flex-direction:column;align-items:center;gap:.1rem;}
+    .stat-label{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(201,168,76,.45);}
+    .stat-value{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:var(--gold-light);}
+    .stat-value.record{color:#66ffaa;text-shadow:0 0 8px rgba(102,255,170,.4);}
+    .turn-display{padding:.6rem 1rem;text-align:center;font-size:.78rem;letter-spacing:.25em;text-transform:uppercase;transition:all .3s;min-height:2.2rem;}
+    .turn-display.system{color:#ff9900;text-shadow:0 0 12px rgba(255,153,0,.5);}
+    .turn-display.player{color:#22ff44;text-shadow:0 0 12px rgba(34,255,68,.5);}
+    .turn-display.idle{color:rgba(201,168,76,.4);}
+    .timer-wrap{height:3px;background:rgba(255,255,255,.07);position:relative;overflow:hidden;max-width:420px;margin:0 auto;border-radius:2px;}
+    .timer-fill{height:100%;background:linear-gradient(to right,#22ff44,#ff9900);width:100%;}
+    .timer-fill.danger{background:linear-gradient(to right,#ff3333,#ff6600);}
+    .simon-arena{padding:2.4rem 1rem 2rem;display:flex;align-items:center;justify-content:center;}
+    .simon-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr 1fr;
+      grid-template-rows:1fr 1fr 1fr;
+      gap:clamp(2px,1vw,8px);
+      width:min(88vw,460px);
+      height:min(88vw,460px);
+    }
+    .simon-btn{
+      position:relative;display:block;padding:0;border:none;background:none;
+      cursor:pointer;outline:none;width:100%;height:100%;
+      -webkit-tap-highlight-color:transparent;user-select:none;
+      transform-origin:center center;
+      z-index:1;
+    }
+    .simon-btn:disabled{cursor:default;}
+    .simon-btn img{
+      position:absolute;inset:0;width:100%;height:100%;
+      object-fit:contain;pointer-events:none;-webkit-user-drag:none;
+    }
+    .simon-btn .img-on{opacity:0;}
+    .simon-btn.lit .img-on{opacity:1;}
+    .simon-btn.lit .img-off{opacity:0;}
+    .simon-btn.lit{
+      z-index:5;
+      animation:spring var(--spring,500ms) cubic-bezier(.3,.7,.4,1) forwards;
+      filter:drop-shadow(0 0 14px rgba(232,201,122,.55));
+    }
+    /* efecto muelle: se estira, rebota y se asienta ligeramente mas grande */
+    @keyframes spring{
+      0%  {transform:scale(1);}
+      22% {transform:scale(1.34);}
+      42% {transform:scale(1.08);}
+      62% {transform:scale(1.25);}
+      80% {transform:scale(1.14);}
+      100%{transform:scale(1.18);}
+    }
+    .btn-up    {grid-column:2;grid-row:1;}
+    .btn-right {grid-column:3;grid-row:2;}
+    .btn-down  {grid-column:2;grid-row:3;}
+    .btn-left  {grid-column:1;grid-row:2;}
+    @keyframes error-flash{
+      0%{filter:brightness(2.4) saturate(0);}
+      30%{filter:brightness(1) saturate(0);}
+      60%{filter:brightness(2.4) saturate(0);}
+      100%{filter:brightness(1) saturate(1);}
+    }
+    .btn-error{animation:error-flash .5s ease-out;}
+    .controls{padding:.65rem 1.5rem 1rem;display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap;border-top:1px solid rgba(201,168,76,.06);}
+    .reset-link{
+      font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;
+      color:rgba(201,168,76,.55);cursor:pointer;
+      border:1px solid rgba(201,168,76,.3);background:none;
+      padding:.3rem .9rem;border-radius:2px;
+      transition:all .2s;font-family:'Cormorant Garamond',serif;
+    }
+    .reset-link:hover{color:var(--gold);border-color:var(--gold);background:rgba(201,168,76,.06);}
     .day-nav{display:flex;justify-content:space-between;align-items:center;padding-top:2.5rem;border-top:1px solid rgba(201,168,76,.1);margin-top:2.5rem;}
     .nav-btn{font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(201,168,76,.5);text-decoration:none;padding:.6rem 1.2rem;border:1px solid rgba(201,168,76,.18);border-radius:2px;transition:all .2s;}
     .nav-btn:hover{color:var(--gold-light);border-color:rgba(201,168,76,.5);background:rgba(201,168,76,.05);}
@@ -65,42 +108,38 @@
     .icon-btn:hover{transform:scale(1.2);}
     .fav-btn{color:rgba(250,246,238,.2);}
     .fav-btn.active{color:#e05a6a;}
-    .fav-btn.active:hover{color:#ff7a88;}
     .done-btn{color:var(--gold);opacity:.6;}
     .done-btn.active{color:var(--gold);opacity:1;}
-    .done-btn.active:hover{color:var(--gold-light);opacity:1;}
-    .popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:100;align-items:center;justify-content:center;}
+    .popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:100;align-items:center;justify-content:center;}
     .popup-overlay.visible{display:flex;}
-    .popup-box{background:var(--dark);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:3rem 2.5rem;max-width:420px;width:90%;text-align:center;box-shadow:0 0 60px rgba(0,0,0,.8);}
-    .popup-icon{font-size:3rem;margin-bottom:1rem;}
-    .popup-title{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--gold-light);margin-bottom:1rem;}
-    .popup-msg{font-size:1rem;font-style:italic;color:rgba(250,246,238,.6);line-height:1.7;margin-bottom:2rem;}
-    .popup-btn{display:inline-block;padding:.7rem 2rem;border:1px solid rgba(201,168,76,.4);border-radius:2px;color:var(--gold);font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;background:none;transition:all .2s;}
+    .popup-box{background:var(--dark);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:1.8rem 1.8rem 1.5rem;max-width:440px;width:90%;text-align:center;box-shadow:0 0 60px rgba(0,0,0,.9);max-height:90vh;overflow-y:auto;}
+    .popup-icon{font-size:3rem;margin-bottom:.8rem;}
+    .popup-title{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:var(--gold-light);margin-bottom:.8rem;}
+    .popup-msg{font-size:.95rem;font-style:italic;color:rgba(250,246,238,.6);line-height:1.7;margin-bottom:1.8rem;}
+    .popup-btns{display:flex;gap:.7rem;justify-content:center;flex-wrap:wrap;}
+    .popup-btn{display:inline-block;padding:.65rem 1.8rem;border:1px solid rgba(201,168,76,.4);border-radius:2px;color:var(--gold);font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;background:none;transition:all .2s;font-family:'Cormorant Garamond',serif;}
     .popup-btn:hover{background:rgba(201,168,76,.1);border-color:var(--gold);}
-    .continuar-hint{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(201,168,76,.35);animation:pulseHint 1.4s ease-in-out infinite;}
-    @keyframes pulseHint{0%,100%{opacity:.35;}50%{opacity:.75;}}
+    .popup-btn.primary{background:rgba(201,168,76,.12);border-color:var(--gold);}
+    .new-record{color:#66ffaa;text-shadow:0 0 10px rgba(102,255,170,.5);font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;display:block;margin-bottom:.6rem;}
     @media(max-width:600px){
       .wrap{padding:1rem 1rem 2rem;}
       .day-hero{padding:1rem 0 1rem;}
       h1{font-size:clamp(2rem,14vw,4rem);}
       .month-label{font-size:clamp(1rem,4vw,1.6rem);margin-bottom:1rem;}
-      .content-area{padding:1rem;gap:1rem;}
-      .game-arena{gap:6px;}
-      .content-area{padding:1rem .75rem;}
       .day-nav{margin-top:1rem;padding-top:1rem;}
       .ornament-line-h{margin-bottom:1rem;}
+      .status-bar{gap:1.2rem;}
+      .simon-arena{padding:1.4rem .5rem 1.2rem;}
     }
   </style>
 </head>
 <body>
 <div class="wrap">
   <div class="day-hero">
-
     <div class="action-btns">
       <button class="icon-btn fav-btn"  id="fav-btn"  title="Añadir a favoritos">&#9825;</button>
       <button class="icon-btn done-btn" id="done-btn" title="Marcar como completado">&#9734;</button>
     </div>
-
     <div class="ornament-line-h">
       <div class="o-line"></div><div class="o-dot"></div><div class="o-line r"></div>
     </div>
@@ -108,45 +147,43 @@
     <h1>17</h1>
     <p class="month-label">de Julio</p>
 
-    <div class="content-area">
-
-      <p class="foto-intro">¿Qué foto es más antigua?</p>
-
-      <div class="game-arena" id="game-arena">
-        <div class="foto-card-wrap card-a" id="wrap-a">
-          <div class="foto-card" id="card-a">
-            <img id="img-a" src="" alt="Foto A" draggable="false"/>
-            <div class="fecha-label" id="fecha-a"></div>
-          </div>
+    <!-- MINIJUEGO -->
+    <div class="game-wrap">
+      <div class="status-bar">
+        <div class="stat-pill">
+          <span class="stat-label">Puntuaci&#243;n</span>
+          <span class="stat-value" id="stat-score">0</span>
         </div>
-
-        <div class="timer-rail" id="timer-rail">
-          <div class="t-seg on" id="seg-5"></div>
-          <div class="t-seg on" id="seg-4"></div>
-          <div class="t-seg on" id="seg-3"></div>
-          <div class="t-seg on" id="seg-2"></div>
-          <div class="t-seg on" id="seg-1"></div>
+        <div class="stat-pill">
+          <span class="stat-label">R&#233;cord</span>
+          <span class="stat-value record" id="stat-record">0</span>
         </div>
-
-        <div class="foto-card-wrap card-b" id="wrap-b">
-          <div class="foto-card" id="card-b">
-            <img id="img-b" src="" alt="Foto B" draggable="false"/>
-            <div class="fecha-label" id="fecha-b"></div>
-          </div>
+        <div class="stat-pill">
+          <span class="stat-label">Nivel</span>
+          <span class="stat-value" id="stat-level">&#8212;</span>
         </div>
       </div>
 
-      <p class="dificultad" id="dificultad"></p>
+      <div class="turn-display idle" id="turn-display">&#8212; Cargando&#8230; &#8212;</div>
+      <div class="timer-wrap"><div class="timer-fill" id="timer-fill"></div></div>
 
-      <div class="prog-row" id="prog-row"></div>
-
-      <div class="final-wrap" id="final-wrap">
-        <div class="final-score" id="final-score"></div>
-        <p class="final-sub" id="final-sub"></p>
-        <button class="btn-validar" id="btn-reiniciar">Volver a intentarlo</button>
+      <div class="simon-arena">
+        <div class="simon-grid">
+          <button class="simon-btn btn-up"    id="btn-up"    data-dir="up"    title="Nieves"   aria-label="Nieves"   disabled><img class="img-off" src="../media/salram_off_nieves.png"   alt="" draggable="false"><img class="img-on" src="../media/salram_on_nieves.png"   alt="" draggable="false"></button>
+          <button class="simon-btn btn-right" id="btn-right" data-dir="right" title="Alex"     aria-label="Alex"     disabled><img class="img-off" src="../media/salram_off_alex.png"     alt="" draggable="false"><img class="img-on" src="../media/salram_on_alex.png"     alt="" draggable="false"></button>
+          <button class="simon-btn btn-down"  id="btn-down"  data-dir="down"  title="Enric"    aria-label="Enric"    disabled><img class="img-off" src="../media/salram_off_enric.png"    alt="" draggable="false"><img class="img-on" src="../media/salram_on_enric.png"    alt="" draggable="false"></button>
+          <button class="simon-btn btn-left"  id="btn-left"  data-dir="left"  title="Ariadna"  aria-label="Ariadna"  disabled><img class="img-off" src="../media/salram_off_ariadna.png"  alt="" draggable="false"><img class="img-on" src="../media/salram_on_ariadna.png"  alt="" draggable="false"></button>
+        </div>
       </div>
 
+      <div class="controls">
+        <button class="reset-link" id="pause-btn">&#9654; Iniciar</button>
+        <button class="reset-link" id="reset-btn">&#8635; Reiniciar</button>
+        <button class="reset-link" id="help-btn">? Ayuda</button>
+      </div>
     </div>
+    <!-- FIN MINIJUEGO -->
+
   </div>
 
   <nav class="day-nav">
@@ -157,12 +194,12 @@
   <a class="back-link" href="../index.html">&#8592; Volver al Calendario</a>
 </div>
 
-<!-- Popup: día futuro -->
+<!-- Popup: dia futuro -->
 <div class="popup-overlay" id="popup">
   <div class="popup-box">
-    <div class="popup-icon">🎁</div>
-    <p class="popup-title">¡Un poco de paciencia!</p>
-    <p class="popup-msg">No seas impaciente...<br>Este día aún no ha llegado.<br>Ya llegará, y será especial. 🤍</p>
+    <div class="popup-icon">&#127873;</div>
+    <p class="popup-title">&#161;Un poco de paciencia!</p>
+    <p class="popup-msg">No seas impaciente&#8230;<br>Este d&#237;a a&#250;n no ha llegado.<br>Ya llegar&#225;, y ser&#225; especial. &#129372;</p>
     <button class="popup-btn" onclick="window.location.href='../index.html'">Volver al calendario</button>
   </div>
 </div>
@@ -170,9 +207,9 @@
 <!-- Popup: estrella bloqueada -->
 <div class="popup-overlay" id="popup-star-blocked">
   <div class="popup-box">
-    <div class="popup-icon">🏆</div>
-    <p class="popup-title">¡Tu recompensa te espera!</p>
-    <p class="popup-msg">Para acceder a tu recompensa primero debes resolver el desafío de hoy...<br><br>¡Tú puedes! 💪</p>
+    <div class="popup-icon">&#127942;</div>
+    <p class="popup-title">&#161;Tu recompensa te espera!</p>
+    <p class="popup-msg">Para acceder a tu recompensa primero debes resolver el desaf&#237;o de hoy&#8230;<br><br>&#161;T&#250; puedes! &#128170;</p>
     <button class="popup-btn" id="star-blocked-close">Volver</button>
   </div>
 </div>
@@ -180,35 +217,55 @@
 <!-- Popup: recompensa -->
 <div class="popup-overlay" id="popup-star-reward">
   <div class="popup-box">
-    <div class="popup-icon">🎁</div>
-    <p class="popup-title">¡Tu recompensa!</p>
-    <p class="popup-msg">PDTE</p>
-    <button class="popup-btn" id="star-reward-close">¡Genial!</button>
+    <div class="popup-icon">&#127873;</div>
+    <p class="popup-title">&#161;Tu recompensa!</p>
+    <p class="popup-msg" id="reward-text">&#10024; Aqu&#237; ir&#225; la recompensa especial de este d&#237;a &#10024;</p>
+    <button class="popup-btn" id="star-reward-close">&#161;Genial!</button>
   </div>
 </div>
 
-<!-- Popup: fallo -->
+<!-- Popup: fin de partida -->
 <div class="popup-overlay" id="popup-fail">
   <div class="popup-box">
-    <div class="popup-icon">🤔</div>
-    <p class="popup-title">¡Casi, casi!</p>
-    <p class="popup-msg">Esa no era la respuesta correcta.<br>¡Sigue intentándolo!</p>
-    <button class="popup-btn" id="fail-close">Continuar</button>
+    <div class="popup-icon" id="fail-icon">&#9889;</div>
+    <p class="popup-title" id="fail-title">&#161;Secuencia incorrecta!</p>
+    <p class="popup-msg" id="fail-msg"></p>
+    <div class="popup-btns">
+      <button class="popup-btn primary" id="fail-reward-btn">Ver recompensa &#9733;</button>
+    </div>
   </div>
 </div>
 
-<!-- Popup: introducción -->
-<div class="popup-overlay visible" id="popup-intro">
+<!-- Popup: ayuda -->
+<div class="popup-overlay" id="popup-help">
   <div class="popup-box">
-    <div class="popup-icon">📷</div>
-    <p class="popup-title">¿Qué foto es más antigua?</p>
-    <p class="popup-msg">Se mostrarán dos fotos de personas que conoces.<br>Debes adivinar cuál fue tomada <strong style="color:var(--gold-light)">antes</strong>.<br><br>Tienes <strong style="color:var(--gold-light)">5 segundos</strong> para decidir.<br>¡A ver qué tal tienes la memoria!</p>
-    <button class="popup-btn" id="intro-start">¡Empezar!</button>
+    <div class="popup-icon">&#127918;</div>
+    <p class="popup-title">C&#243;mo jugar</p>
+    <p class="popup-msg" style="text-align:left;font-style:normal;font-size:.88rem;line-height:1.8;margin-bottom:1.2rem;">
+      <strong style="color:var(--gold-light);">Objetivo</strong><br>
+      Memoriza y repite la secuencia de caras de la familia. Cada ronda a&#241;ade una cara m&#225;s. &#191;Hasta d&#243;nde llegar&#225;s?<br><br>
+      <strong style="color:var(--gold-light);">Las caras</strong><br>
+      &middot; &#8593;&nbsp;Arriba: Nieves<br>
+      &middot; &#8592;&nbsp;Izquierda: Ariadna<br>
+      &middot; &#8594;&nbsp;Derecha: Alex<br>
+      &middot; &#8595;&nbsp;Abajo: Enric<br><br>
+      <strong style="color:var(--gold-light);">Turno del Sistema</strong><br>
+      Las caras se iluminan una a una y &#171;saltan&#187; en orden. Obs&#233;rvalas con atenci&#243;n; durante esta fase no puedes pulsar nada.<br><br>
+      <strong style="color:var(--gold-light);">Tu Turno</strong><br>
+      Repite la secuencia en el mismo orden pulsando las caras. Tienes unos segundos por pulsaci&#243;n; la barra superior muestra el tiempo restante.<br><br>
+      <strong style="color:var(--gold-light);">Controles</strong><br>
+      &middot; Clic&nbsp;/ Tap sobre las caras.<br>
+      &middot; Teclas de cursor: &#8593; &#8592; &#8594; &#8595;.<br>
+      &middot; Barra espaciadora: pausar / reanudar.<br><br>
+      <strong style="color:var(--gold-light);">Fin de Partida</strong><br>
+      La partida termina si pulsas la cara incorrecta o se agota el tiempo. A partir del nivel&nbsp;5 el ritmo se acelera ligeramente. Se mostrar&#225; tu puntuaci&#243;n y tu r&#233;cord, que se guarda autom&#225;ticamente.
+    </p>
+    <button class="popup-btn" id="help-close">&#161;Entendido!</button>
   </div>
 </div>
 
 <script>
-// ── Preview / bloqueo ─────────────────────────────────────────
+// PREVIEW & DATE GUARD
 const PREVIEW_KEY = 'cal_preview';
 const isPreview   = localStorage.getItem(PREVIEW_KEY) === '1';
 const today       = new Date(); today.setHours(0,0,0,0);
@@ -222,22 +279,22 @@ if (!isPreview && thisDate > today) {
   popup.classList.add('visible');
 }
 if (!isPreview && nextDateStr) {
-  const nextDate = new Date(nextDateStr); nextDate.setHours(0,0,0,0);
-  if (nextDate > today) {
-    const nextBtn = document.getElementById('next-btn');
-    if (nextBtn) nextBtn.addEventListener('click', e => { e.preventDefault(); popup.classList.add('visible'); });
+  const nd = new Date(nextDateStr); nd.setHours(0,0,0,0);
+  if (nd > today) {
+    const nb = document.getElementById('next-btn');
+    if (nb) nb.addEventListener('click', e => { e.preventDefault(); popup.classList.add('visible'); });
   }
 }
 popup.addEventListener('click', e => { if (e.target === popup) window.location.href = '../index.html'; });
 
-// ── Favoritos ─────────────────────────────────────────────────
+// FAV
 const FAV_KEY = 'fav_2028-07-17';
 const favBtn  = document.getElementById('fav-btn');
 function updateFav() {
   const on = localStorage.getItem(FAV_KEY) === '1';
-  favBtn.textContent = on ? '❤' : '♡';
+  favBtn.textContent = on ? '\u2764' : '\u2661';
   favBtn.classList.toggle('active', on);
-  favBtn.title = on ? 'Quitar de favoritos' : 'Añadir a favoritos';
+  favBtn.title = on ? 'Quitar de favoritos' : 'A\u00f1adir a favoritos';
 }
 favBtn.addEventListener('click', () => {
   const on = localStorage.getItem(FAV_KEY) === '1';
@@ -246,253 +303,351 @@ favBtn.addEventListener('click', () => {
 });
 updateFav();
 
-// ── Completado ────────────────────────────────────────────────
-const DONE_KEY         = 'done_2028-07-17';
-const doneBtn          = document.getElementById('done-btn');
+// DONE / REWARD
+const DONE_KEY = 'done_2028-07-17';
+const doneBtn  = document.getElementById('done-btn');
 const popupStarBlocked = document.getElementById('popup-star-blocked');
 const popupStarReward  = document.getElementById('popup-star-reward');
-
 document.getElementById('star-blocked-close').addEventListener('click', () => popupStarBlocked.classList.remove('visible'));
 popupStarBlocked.addEventListener('click', e => { if (e.target === popupStarBlocked) popupStarBlocked.classList.remove('visible'); });
 document.getElementById('star-reward-close').addEventListener('click', () => popupStarReward.classList.remove('visible'));
 popupStarReward.addEventListener('click', e => { if (e.target === popupStarReward) popupStarReward.classList.remove('visible'); });
-document.getElementById('fail-close').addEventListener('click', () => document.getElementById('popup-fail').classList.remove('visible'));
-
-function markDone() { localStorage.setItem(DONE_KEY, '1'); updateDone(); }
+function markDone() { localStorage.setItem(DONE_KEY,'1'); updateDone(); }
+function showReward() { popupStarReward.classList.add('visible'); }
 function updateDone() {
   const on = localStorage.getItem(DONE_KEY) === '1';
-  doneBtn.textContent = on ? '★' : '☆';
+  doneBtn.textContent = on ? '\u2605' : '\u2606';
   doneBtn.classList.toggle('active', on);
   doneBtn.title = on ? 'Ver recompensa' : 'Marcar como completado';
 }
 doneBtn.addEventListener('click', () => {
   const on = localStorage.getItem(DONE_KEY) === '1';
-  if (on)             { popupStarReward.classList.add('visible'); }
-  else if (isPreview) { markDone(); }
-  else                { popupStarBlocked.classList.add('visible'); }
+  if (on) showReward();
+  else if (isPreview) markDone();
+  else popupStarBlocked.classList.add('visible');
 });
 updateDone();
 
-// ── Datos del juego ───────────────────────────────────────────
-const FOTOS_BASE = [
-  { name:'Adidas',       label:'*',   correct:'B', fechaA:'ENE-2022', fechaB:'MAR-2018' },
-  { name:'CocaCola',     label:'**',  correct:'B', fechaA:'JUL-2021', fechaB:'FEB-2015' },
-  { name:'Facebook',     label:'*',   correct:'A', fechaA:'ABR-2017', fechaB:'SEP-2019' },
-  { name:'Fila',         label:'**',  correct:'B', fechaA:'MAY-2020', fechaB:'OCT-2014' },
-  { name:'KFC',          label:'***', correct:'A', fechaA:'AGO-2013', fechaB:'DIC-2016' },
-  { name:'MercedesBenz', label:'**',  correct:'B', fechaA:'NOV-2022', fechaB:'JUN-2011' },
-  { name:'Netflix',      label:'*',   correct:'A', fechaA:'MAR-2016', fechaB:'ENE-2020' },
-  { name:'Spotify',      label:'***', correct:'A', fechaA:'FEB-2012', fechaB:'AGO-2018' },
-  { name:'Switch',       label:'**',  correct:'A', fechaA:'OCT-2015', fechaB:'MAY-2021' },
-  { name:'UPS',          label:'***', correct:'B', fechaA:'SEP-2019', fechaB:'ABR-2010' },
-];
-function shuffle(arr) {
-  const a=[...arr];
-  for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}
-  return a;
+// ════════════════════════════════════════
+//  SIMON DICE (CARAS) — GAME ENGINE
+// ════════════════════════════════════════
+var DIRS          = ['up','right','down','left'];
+var HIGHSCORE_KEY = 'simon_highscore_2028-07-17';
+var TIMEOUT_BASE  = 4500;
+var TIMEOUT_MIN   = 2000;
+var FLASH_ON      = 520;
+var FLASH_OFF     = 200;
+
+var audioCtx = null;
+function getAudioCtx() {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  return audioCtx;
 }
-let FOTOS = shuffle(FOTOS_BASE);
-const TOTAL = FOTOS.length;
+var TONES = { up:523.25, right:659.25, down:392.0, left:293.66 };
 
-// ── Audio sintetizado ─────────────────────────────────────────
-let _ctx = null;
-function getCtx() {
-  if (!_ctx) _ctx = new (window.AudioContext || window.webkitAudioContext)();
-  if (_ctx.state === 'suspended') _ctx.resume();
-  return _ctx;
+function playTone(freq, duration, type, volume) {
+  duration = duration || 0.35; type = type || 'sine'; volume = volume || 0.55;
+  try {
+    var ctx  = getAudioCtx();
+    var osc  = ctx.createOscillator();
+    var gain = ctx.createGain();
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.type = type;
+    osc.frequency.setValueAtTime(freq, ctx.currentTime);
+    gain.gain.setValueAtTime(volume, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+    osc.start(ctx.currentTime);
+    osc.stop(ctx.currentTime + duration);
+  } catch(e) {}
 }
-function tone(freq, type, t0, dur, vol) {
-  const ctx = getCtx();
-  const osc = ctx.createOscillator(), g = ctx.createGain();
-  osc.type = type; osc.frequency.setValueAtTime(freq, t0);
-  g.gain.setValueAtTime(vol || .08, t0);
-  g.gain.exponentialRampToValueAtTime(.0001, t0 + dur);
-  osc.connect(g); g.connect(ctx.destination);
-  osc.start(t0); osc.stop(t0 + dur);
-}
-function soundTick()    { const t=getCtx().currentTime; tone(380,'sine',t,.08,.04); }
-function soundCorrect() { const t=getCtx().currentTime; tone(523.25,'triangle',t,.25); tone(659.25,'triangle',t+.1,.25); tone(783.99,'triangle',t+.2,.25); tone(1046.5,'triangle',t+.3,.45); }
-function soundWrong()   { const t=getCtx().currentTime; tone(250,'sawtooth',t,.35,.06); tone(220,'sawtooth',t+.15,.35,.06); tone(196,'sawtooth',t+.3,.5,.06); }
-
-// ── Estado ────────────────────────────────────────────────────
-let step=0, timeLeft=5, timerID=null, busy=false, aciertos=0;
-let waitingForNext = false;
-
-const wrapA     = document.getElementById('wrap-a');
-const wrapB     = document.getElementById('wrap-b');
-const cardA     = document.getElementById('card-a');
-const cardB     = document.getElementById('card-b');
-const imgA      = document.getElementById('img-a');
-const imgB      = document.getElementById('img-b');
-const fechaA    = document.getElementById('fecha-a');
-const fechaB    = document.getElementById('fecha-b');
-
-// Sync timer-rail height to foto-card-wrap height (aspect-ratio driven)
-function syncTimerHeight(){
-  const h = wrapA.getBoundingClientRect().height;
-  if(h>0) document.getElementById('timer-rail').style.height = h+'px';
-}
-window.addEventListener('resize', syncTimerHeight);
-const progRow   = document.getElementById('prog-row');
-const finalWrap = document.getElementById('final-wrap');
-const gameArena = document.getElementById('game-arena');
-const dificultad= document.getElementById('dificultad');
-
-for (let i=0; i<TOTAL; i++) {
-  const d = document.createElement('div');
-  d.className = 'prog-dot' + (i===0?' current':'');
-  d.id = 'pd-'+i;
-  progRow.appendChild(d);
+function playError() { playTone(110, 0.5, 'sawtooth', 0.4); }
+function playNewRecord() {
+  [523,659,784,1047].forEach(function(f,i){ setTimeout(function(){ playTone(f,0.2,'sine',0.5); }, i*130); });
 }
 
-// ── Temporizador ──────────────────────────────────────────────
-function updateTimer() {
-  for (let i=1; i<=5; i++)
-    document.getElementById('seg-'+i).classList.toggle('on', i<=timeLeft);
-}
-function startSway(){ cardA.classList.add('playing'); cardB.classList.add('playing'); }
-function stopSway() { cardA.classList.remove('playing'); cardB.classList.remove('playing'); }
+var sequence       = [];
+var playerIdx      = 0;
+var score          = 0;
+var phase          = 'idle';   // 'idle' | 'system' | 'player'
+var paused         = true;     // arranca pausado
+var timerHandle    = null;
+var timerStart     = null;
+var timerDur       = TIMEOUT_BASE;
+var animFrame      = null;
+var timerRemaining = 0;        // ms restantes al pausar en turno jugador
 
-function startTimer() {
-  clearInterval(timerID); timeLeft=5; updateTimer();
-  timerID = setInterval(()=>{
-    timeLeft--;
-    if (timeLeft>0) soundTick();
-    updateTimer();
-    if (timeLeft<=0) { clearInterval(timerID); resolve(null); }
-  }, 1000);
-}
+function getBtn(dir) { return document.getElementById('btn-' + dir); }
 
-
-// ── Mostrar fechas y esperar input del usuario ─────────────────
-function showFechasAndWait(foto, isCorrect) {
-  fechaA.textContent = foto.fechaA;
-  fechaB.textContent = foto.fechaB;
-  fechaA.classList.add('visible');
-  fechaB.classList.add('visible');
-
-  // Hint de continuar
-  const hint = document.createElement('p');
-  hint.className = 'continuar-hint';
-  hint.id = 'continuar-hint';
-  hint.textContent = 'Pulsa cualquier tecla o toca la pantalla para continuar';
-  gameArena.parentNode.insertBefore(hint, dificultad);
-
-  waitingForNext = true;
+function setTurnDisplay(text, cls) {
+  var el = document.getElementById('turn-display');
+  el.textContent = text;
+  el.className = 'turn-display ' + cls;
 }
 
-function nextStep() {
-  if (!waitingForNext) return;
-  waitingForNext = false;
-  const hint = document.getElementById('continuar-hint');
-  if (hint) hint.remove();
-  fechaA.classList.remove('visible');
-  fechaB.classList.remove('visible');
-  step++;
-  loadStep(step);
+function updateScoreDisplay() {
+  document.getElementById('stat-score').textContent  = score;
+  document.getElementById('stat-record').textContent = getHighScore();
+  document.getElementById('stat-level').textContent  = sequence.length > 0 ? sequence.length : '\u2014';
 }
 
-function loadStep(i) {
-  if (i>=TOTAL) { endGame(); return; }
-  busy=false;
-  const foto=FOTOS[i];
-  imgA.src='../media/'+foto.name+'_A.png';
-  imgB.src='../media/'+foto.name+'_B.png';
-  dificultad.textContent = foto.label;
-  document.querySelectorAll('.prog-dot').forEach(d=>d.classList.remove('current'));
-  document.getElementById('pd-'+i).classList.add('current');
-  cardA.className='foto-card';
-  cardB.className='foto-card';
-  startSway(); startTimer();
-  syncTimerHeight();
-}
-
-function resolve(choice) {
-  if (busy) return; busy=true;
-  clearInterval(timerID); stopSway();
-  const foto=FOTOS[step];
-  const dot=document.getElementById('pd-'+step);
-  dot.classList.remove('current');
-  let isCorrect = false;
-  if (choice===foto.correct) {
-    soundCorrect(); dot.classList.add('correct'); aciertos++; isCorrect=true;
-    (choice==='A'?cardA:cardB).classList.add('ok');
-    (choice==='A'?cardB:cardA).classList.add('err');
+function updatePauseBtn() {
+  var btn = document.getElementById('pause-btn');
+  if (paused) {
+    btn.innerHTML = '&#9654; ' + (sequence.length === 0 ? 'Iniciar' : 'Reanudar');
   } else {
-    soundWrong(); dot.classList.add('wrong');
-    if (choice) (choice==='A'?cardA:cardB).classList.add('err');
-    (foto.correct==='A'?cardA:cardB).classList.add('ok');
-    (foto.correct==='A'?cardB:cardA).classList.add('err');
-  }
-  showFechasAndWait(foto, isCorrect);
-}
-
-function endGame() {
-  gameArena.style.opacity='.2'; gameArena.style.pointerEvents='none';
-  finalWrap.classList.add('visible');
-  document.getElementById('final-score').textContent=aciertos+' / '+TOTAL;
-  if (aciertos>=8) {
-    document.getElementById('final-sub').textContent='¡Reto superado! '+(aciertos===TOTAL?'¡Perfecta memoria! Recuerdas cada instante como si fuera ayer.':aciertos>=9?'¡Muy bien! Tienes la memoria de un elefante.':'Nada mal, algunos recuerdos son difíciles de ordenar en el tiempo.');
-    document.getElementById('btn-reiniciar').style.display='none';
-    if (isPreview) { markDone(); }
-    setTimeout(()=>popupStarReward.classList.add('visible'),600);
-  } else {
-    const msgs = [
-      'El tiempo lo borra todo... o casi todo. ¡A estrujar más la memoria!',
-      'Los años pasan volando, ¿verdad? ¡Inténtalo de nuevo!',
-      'Hace tanto tiempo de algunas de esas fotos... ¡Vuelve a intentarlo!'
-    ];
-    const msg = msgs[Math.floor(Math.random()*msgs.length)];
-    document.getElementById('final-sub').textContent='Reto no superado — necesitas al menos 8 aciertos. '+msg;
-    document.getElementById('btn-reiniciar').style.display='';
+    btn.innerHTML = '&#9646;&#9646; Pausar';
   }
 }
 
-document.getElementById('btn-reiniciar').addEventListener('click',()=>{
-  step=0; aciertos=0; waitingForNext=false;
-  FOTOS = shuffle(FOTOS_BASE);
-  gameArena.style.opacity=''; gameArena.style.pointerEvents='';
-  finalWrap.classList.remove('visible');
-  document.getElementById('btn-reiniciar').style.display='';
-  document.querySelectorAll('.prog-dot').forEach(d=>{d.className='prog-dot';});
-  const oldHint = document.getElementById('continuar-hint');
-  if (oldHint) oldHint.remove();
-  loadStep(0);
+function getHighScore() { return parseInt(localStorage.getItem(HIGHSCORE_KEY) || '0', 10); }
+function saveHighScore(s) {
+  var cur = getHighScore();
+  if (s > cur) { localStorage.setItem(HIGHSCORE_KEY, String(s)); return true; }
+  return false;
+}
+
+function setButtonsDisabled(disabled) {
+  DIRS.forEach(function(d){ getBtn(d).disabled = disabled; });
+}
+
+function flashButton(dir, onMs, offMs) {
+  return new Promise(function(resolve) {
+    var btn = getBtn(dir);
+    btn.style.setProperty('--spring', onMs + 'ms');
+    btn.classList.add('lit');
+    playTone(TONES[dir], onMs / 1000 * 0.9);
+    setTimeout(function() {
+      btn.classList.remove('lit');
+      setTimeout(resolve, offMs);
+    }, onMs);
+  });
+}
+
+function startTimerBar(duration) {
+  clearTimerBar();
+  timerDur   = duration;
+  timerStart = performance.now();
+  var fill = document.getElementById('timer-fill');
+  fill.style.width = '100%';
+  fill.classList.remove('danger');
+  function tick(now) {
+    var pct = Math.max(0, 1 - (now - timerStart) / timerDur);
+    fill.style.width = (pct * 100) + '%';
+    if (pct < 0.3) fill.classList.add('danger');
+    else fill.classList.remove('danger');
+    if (pct > 0) animFrame = requestAnimationFrame(tick);
+  }
+  animFrame = requestAnimationFrame(tick);
+}
+
+function clearTimerBar() {
+  if (animFrame) { cancelAnimationFrame(animFrame); animFrame = null; }
+  var fill = document.getElementById('timer-fill');
+  fill.style.width = '100%';
+  fill.classList.remove('danger');
+}
+
+function stopPlayerTimer() {
+  if (timerHandle) { clearTimeout(timerHandle); timerHandle = null; }
+  clearTimerBar();
+}
+
+function startPlayerTimer(remaining) {
+  stopPlayerTimer();
+  var speedMult = Math.max(1.0 - 0.04 * Math.max(0, sequence.length - 5), 0.4);
+  var dur = (remaining !== undefined && remaining > 0) ? remaining : Math.max(TIMEOUT_MIN, TIMEOUT_BASE * speedMult);
+  startTimerBar(dur);
+  timerHandle = setTimeout(function() {
+    if (phase === 'player' && !paused) endGame('tiempo');
+  }, dur);
+}
+
+// ── PAUSA / REANUDAR ────────────────────────────────────
+function togglePause() {
+  if (phase === 'system') return; // no interrumpir secuencia sistema
+  if (paused) {
+    paused = false;
+    updatePauseBtn();
+    if (sequence.length === 0) {
+      startGame();
+    } else if (phase === 'player') {
+      setTurnDisplay('Turno: T\u00fa', 'player');
+      setButtonsDisabled(false);
+      startPlayerTimer(timerRemaining > 0 ? timerRemaining : undefined);
+      timerRemaining = 0;
+    } else if (phase === 'idle') {
+      nextRound();
+    }
+  } else {
+    if (phase === 'player') {
+      timerRemaining = Math.max(0, timerDur - (performance.now() - timerStart));
+      stopPlayerTimer();
+      setButtonsDisabled(true);
+    }
+    paused = true;
+    updatePauseBtn();
+    setTurnDisplay('\u23f8 Pausa', 'idle');
+  }
+}
+
+// ─── GAME FUNCTIONS ─────────────────────────────────────
+function startGame() {
+  score = 0; sequence = []; playerIdx = 0; phase = 'idle';
+  timerRemaining = 0;
+  clearTimerBar();
+  closePopupFail();
+  updateScoreDisplay();
+  if (!paused) nextRound();
+}
+
+function nextRound() {
+  if (paused) return;
+  sequence.push(DIRS[Math.floor(Math.random() * DIRS.length)]);
+  updateScoreDisplay();
+  setTimeout(function(){ if (!paused) playSequence(); }, 600);
+}
+
+function playSequence() {
+  if (paused) return;
+  phase = 'system';
+  setButtonsDisabled(true);
+  setTurnDisplay('Turno: Sistema', 'system');
+  clearTimerBar();
+
+  var speedMult = Math.max(1.0 - 0.04 * Math.max(0, sequence.length - 5), 0.4);
+  var onMs  = Math.max(Math.round(FLASH_ON  * speedMult), 160);
+  var offMs = Math.max(Math.round(FLASH_OFF * speedMult), 80);
+
+  var chain = Promise.resolve();
+  sequence.forEach(function(dir) {
+    chain = chain.then(function(){ return flashButton(dir, onMs, offMs); });
+  });
+  chain.then(function() {
+    if (paused) return;
+    playerIdx = 0;
+    phase = 'player';
+    timerRemaining = 0;
+    setTurnDisplay('Turno: T\u00fa', 'player');
+    setButtonsDisabled(false);
+    startPlayerTimer();
+  });
+}
+
+function handlePlayerInput(dir) {
+  if (phase !== 'player' || paused) return;
+  stopPlayerTimer();
+  var btn = getBtn(dir);
+  btn.style.setProperty('--spring', '320ms');
+  btn.classList.add('lit');
+  playTone(TONES[dir], 0.25);
+  setTimeout(function(){ btn.classList.remove('lit'); }, 320);
+  checkInput(dir);
+}
+
+function checkInput(dir) {
+  if (dir !== sequence[playerIdx]) { endGame('error'); return; }
+  playerIdx++;
+  if (playerIdx === sequence.length) {
+    score++;
+    updateScoreDisplay();
+    phase = 'idle';
+    setTurnDisplay('\u00a1Correcto! \u2713', 'system');
+    setButtonsDisabled(true);
+    setTimeout(function(){ nextRound(); }, 900);
+  } else {
+    startPlayerTimer();
+  }
+}
+
+function endGame(reason) {
+  phase = 'idle';
+  paused = true;
+  stopPlayerTimer();
+  setButtonsDisabled(true);
+  clearTimerBar();
+  updatePauseBtn();
+  DIRS.forEach(function(d) {
+    var b = getBtn(d);
+    b.classList.remove('lit');
+    b.classList.add('btn-error');
+    setTimeout(function(){ b.classList.remove('btn-error'); }, 550);
+  });
+  playError();
+  var isRecord = saveHighScore(score);
+  var rec = getHighScore();
+  updateScoreDisplay();
+  setTurnDisplay('\u2014 Fin de partida \u2014', 'idle');
+
+  if (isRecord && score > 0) {
+    playNewRecord();
+    markDone();
+    document.getElementById('fail-icon').textContent = '\uD83C\uDFC6';
+    document.getElementById('fail-title').textContent = '\u00a1Nuevo r\u00e9cord!';
+    document.getElementById('fail-msg').innerHTML =
+      '<span class="new-record">\uD83C\uDFC6 \u00a1Has batido el r\u00e9cord!</span>' +
+      'Puntuaci\u00f3n: <strong>' + score + '</strong><br>R\u00e9cord anterior: <strong>' + rec + '</strong>';
+  } else {
+    var title = reason === 'tiempo' ? '\u00a1Se acab\u00f3 el tiempo!' : '\u00a1Secuencia incorrecta!';
+    document.getElementById('fail-icon').textContent = '\u26a1';
+    document.getElementById('fail-title').textContent = title;
+    document.getElementById('fail-msg').innerHTML =
+      'Tu puntuaci\u00f3n: <strong>' + score + '</strong><br>R\u00e9cord: <strong>' + rec + '</strong>';
+  }
+  setTimeout(function(){ document.getElementById('popup-fail').classList.add('visible'); }, 500);
+}
+
+function resetGame() {
+  stopPlayerTimer();
+  paused = true; phase = 'idle';
+  sequence = []; score = 0; playerIdx = 0; timerRemaining = 0;
+  setButtonsDisabled(true); clearTimerBar();
+  setTurnDisplay('\u2014 Pulsa Iniciar para comenzar \u2014', 'idle');
+  updateScoreDisplay(); updatePauseBtn(); closePopupFail();
+}
+
+function closePopupFail() { document.getElementById('popup-fail').classList.remove('visible'); }
+
+// ─── EVENTS ─────────────────────────────────────────────
+DIRS.forEach(function(dir) {
+  getBtn(dir).addEventListener('click', function(){ handlePlayerInput(dir); });
+  getBtn(dir).addEventListener('touchstart', function(e){
+    e.preventDefault(); handlePlayerInput(dir);
+  }, { passive: false });
 });
 
-// ── Interacción: elegir foto ──────────────────────────────────
-wrapA.addEventListener('click',()=>{
-  if (waitingForNext) { nextStep(); return; }
-  if (!busy) resolve('A');
-});
-wrapB.addEventListener('click',()=>{
-  if (waitingForNext) { nextStep(); return; }
-  if (!busy) resolve('B');
+document.addEventListener('keydown', function(e) {
+  if (e.key === ' ') { e.preventDefault(); togglePause(); return; }
+  if (phase !== 'player' || paused) return;
+  var map = { ArrowUp:'up', ArrowRight:'right', ArrowDown:'down', ArrowLeft:'left' };
+  var dir = map[e.key];
+  if (dir) { e.preventDefault(); handlePlayerInput(dir); }
 });
 
-document.addEventListener('keydown',e=>{
-  if (waitingForNext) { nextStep(); return; }
-  if (busy) return;
-  if (e.key==='ArrowLeft')  resolve('A');
-  if (e.key==='ArrowRight') resolve('B');
+document.getElementById('pause-btn').addEventListener('click', function(){ togglePause(); });
+
+document.getElementById('reset-btn').addEventListener('click', function(){ resetGame(); });
+document.getElementById('fail-reward-btn').addEventListener('click', function(){
+  closePopupFail();
+  resetGame();
+  if (localStorage.getItem(DONE_KEY) === '1') showReward();
+});
+document.getElementById('popup-fail').addEventListener('click', function(e){
+  if (e.target === document.getElementById('popup-fail')) closePopupFail();
+});
+var popupHelpEl = document.getElementById('popup-help');
+document.getElementById('help-btn').addEventListener('click', function(){ popupHelpEl.classList.add('visible'); });
+document.getElementById('help-close').addEventListener('click', function(){ popupHelpEl.classList.remove('visible'); });
+popupHelpEl.addEventListener('click', function(e){ if (e.target === popupHelpEl) popupHelpEl.classList.remove('visible'); });
+
+// Precarga de imagenes (evita parpadeos al encenderse)
+['nieves','ariadna','alex','enric'].forEach(function(n){
+  ['off','on'].forEach(function(st){ var im = new Image(); im.src = '../media/salram_' + st + '_' + n + '.png'; });
 });
 
-let _tx=null;
-document.addEventListener('touchstart',e=>{ _tx=e.touches[0].clientX; },{passive:true});
-document.addEventListener('touchend',e=>{
-  if (_tx===null) return;
-  const dx=e.changedTouches[0].clientX-_tx; _tx=null;
-  if (waitingForNext) { nextStep(); return; }
-  if (Math.abs(dx)<40||busy) return;
-  resolve(dx<0?'B':'A');
-});
-
-const popupIntro = document.getElementById('popup-intro');
-document.getElementById('intro-start').addEventListener('click',()=>{
-  popupIntro.classList.remove('visible');
-  loadStep(0);
-  setTimeout(syncTimerHeight, 50);
-});
+// INIT — arranca pausado
+updateScoreDisplay();
+updatePauseBtn();
+setTurnDisplay('\u2014 Pulsa Iniciar para comenzar \u2014', 'idle');
 </script>
 </body>
 </html>
