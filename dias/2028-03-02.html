@@ -293,7 +293,7 @@ function toast(msg, tipo, ms) {
 // ── Elementos ──────────────────────────────────────────────
 const TOTAL      = 3;
 const ZOOM       = 2.5;     // aumento de la lupa
-const CLUE_MS    = 5500;    // duración de la pista visual
+const CLUE_MS    = 4000;    // duración de la pista visual
 const sides = {
   a: { wrap: document.getElementById('wrap-a'), img: document.getElementById('img-a'), lens: document.getElementById('lens-a'), ov: document.getElementById('ov-a') },
   b: { wrap: document.getElementById('wrap-b'), img: document.getElementById('img-b'), lens: document.getElementById('lens-b'), ov: document.getElementById('ov-b') },
@@ -321,6 +321,7 @@ sides.a.img.addEventListener('load', fitStage);
 if (sides.a.img.complete) fitStage();
 window.addEventListener('resize', () => {
   fitStage();
+  if (typeof sizeMarks === 'function') sizeMarks();
   if (clueActive && clueRefresh) clueRefresh(); else hideLens();
 });
 
@@ -478,17 +479,24 @@ function renderCounter() {
   for (let i = 0; i < TOTAL; i++) document.getElementById('dif-' + (i + 1)).classList.toggle('on', i < found.size);
 }
 
+// El círculo de acierto mide lo mismo que la lupa (y se reajusta al redimensionar)
+function sizeMarks() {
+  Object.values(sides).forEach(s => {
+    const D = lensDiameter(s) + 'px';
+    s.wrap.querySelectorAll('.dif-mark').forEach(m => { m.style.width = D; });
+  });
+}
+
 function addMark(k) {
   const d = diffs[k];
-  const diam = Math.max(d.r * 2 * 1.35, CW * 0.04);
   Object.values(sides).forEach(s => {
     const m = document.createElement('div');
     m.className = 'dif-mark';
-    m.style.left   = (d.cx / CW * 100) + '%';
-    m.style.top    = (d.cy / CH * 100) + '%';
-    m.style.width  = (diam / CW * 100) + '%';
+    m.style.left = (d.cx / CW * 100) + '%';
+    m.style.top  = (d.cy / CH * 100) + '%';
     s.wrap.appendChild(m);
   });
+  sizeMarks();
 }
 
 function verificar(rx, ry) {
