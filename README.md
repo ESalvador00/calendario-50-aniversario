@@ -189,6 +189,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-02-27 | Puzzle clásico | N/A | Salram_20250413.jpg | Enric, Nieves, Ariadna y Alex | PDTE |
 | 2028-02-28 | Sigue la letra | Llamando a la Tierra (M-Clan) | Llamando_a_la_Tierra.mp3 | N/A | PDTE |
 | 2028-02-29 | Adivina el slogan | 58 anuncios míticos, hasta 5 aciertos | N/A | N/A | PDTE |
+| 2028-03-02 | Encuentra las 3 diferencias | N/A | NievesAriAlex_20250510_*.jpg (Original, Modifica, Clickmap) | Nieves, Ariadna y Alex | PDTE |
 | 2028-03-03 | Adivina las películas | Amelie, El Guardaespaldas, Ghost, Oppenheimer, Sherlock Holmes | Amelie, El_Guardaespaldas, Ghost, Oppenheimer, Sherlock_Holmes (mp3 y jpg) | N/A | PDTE |
 | 2028-03-04 | Minijuego (Simón Dice) | N/A | N/A | N/A | PDTE |
 | 2028-03-05 | Flash memory | N/A | NievesAriAlex_20160106.jpg | Nieves, Ariadna y Alex | PDTE |
@@ -464,5 +465,5 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 |  Día / Ámbito | Descripción | 
 |--------------|-------------|
 |  Puzzle visuales | OK: 03-FEB, 07-MAR, 27-ABR, 24-MAY, Resto PDTE |
-| "¿Qué foto es más antigua?" (×12 meses) | Falta por rellenar los 12 retos | 
+| 04/03/2028  | Minijuego (Simón Dice) --> reemplazar por otro contenido | 
 |  Escape Rooms + Retos de observación | Añadir música ambiental de fondo en los días tipo Escape Room y en los retos de agudeza visual |
