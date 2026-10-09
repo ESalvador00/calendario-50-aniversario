@@ -82,12 +82,13 @@
 
     /* ── Reto "Encuentra las 3 diferencias" ── */
     /* Página a todo el ancho de pantalla (el resto de estilos, idénticos a 2028-02-06) */
-    .wrap{max-width:none;}
+    .wrap{max-width:none;width:100%;}
     @media(min-width:601px){.wrap{padding:3rem 1rem 4rem;}}
     .content-area{padding:1rem;}
 
     .foto-titulo{font-family:'Playfair Display',serif;font-size:.8rem;font-weight:400;font-style:italic;color:rgba(201,168,76,.7);letter-spacing:.06em;text-align:right;width:100%;margin-bottom:0;}
     .reto-img-wrap{width:100%;display:flex;flex-direction:column;gap:.4rem;}
+    .reto-img-wrap{margin:0 auto;}
     .codigo-wrap{width:100%;display:flex;flex-direction:column;align-items:center;gap:.9rem;}
     .codigo-label{font-size:.8rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(201,168,76,.55);}
 
@@ -292,7 +293,7 @@ function toast(msg, tipo, ms) {
 // ── Elementos ──────────────────────────────────────────────
 const TOTAL      = 3;
 const ZOOM       = 2.5;     // aumento de la lupa
-const CLUE_MS    = 3500;    // duración de la pista visual
+const CLUE_MS    = 5500;    // duración de la pista visual
 const sides = {
   a: { wrap: document.getElementById('wrap-a'), img: document.getElementById('img-a'), lens: document.getElementById('lens-a'), ov: document.getElementById('ov-a') },
   b: { wrap: document.getElementById('wrap-b'), img: document.getElementById('img-b'), lens: document.getElementById('lens-b'), ov: document.getElementById('ov-b') },
@@ -300,26 +301,47 @@ const sides = {
 const stage = document.getElementById('dif-stage');
 let clueActive = false;
 
+const retoWrap = document.querySelector('.reto-img-wrap');
+const contentArea = document.querySelector('.content-area');
+
+// Tamaño de las fotos: como máximo el alto de la ventana y la mitad del ancho disponible
 function fitStage() {
   const im = sides.a.img;
-  if (im.naturalWidth && im.naturalHeight) stage.style.setProperty('--ar', (im.naturalWidth / im.naturalHeight).toFixed(4));
+  if (!im.naturalWidth || !im.naturalHeight) return;
+  const ar   = im.naturalWidth / im.naturalHeight;
+  const cs   = getComputedStyle(contentArea);
+  const availW = contentArea.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+  const availH = Math.max(200, window.innerHeight - 60);   // 60px: título de la foto + margen
+  const gap    = parseFloat(getComputedStyle(stage).columnGap) || 0;
+  const stacked = window.matchMedia('(max-width:700px)').matches;
+  const w = stacked ? Math.min(availW, availH * ar) : Math.min((availW - gap) / 2, availH * ar);
+  retoWrap.style.width = Math.floor(stacked ? w : w * 2 + gap) + 'px';
 }
 sides.a.img.addEventListener('load', fitStage);
 if (sides.a.img.complete) fitStage();
+window.addEventListener('resize', () => {
+  fitStage();
+  if (clueActive && clueRefresh) clueRefresh(); else hideLens();
+});
 
 // ── Lupa espejo ────────────────────────────────────────────
-function showLens(relX, relY) {
-  Object.values(sides).forEach(s => {
+function lensDiameter(s) {
+  return Math.round(Math.min(165, Math.max(82, s.wrap.clientWidth * 0.18)));
+}
+// srcs (opcional): imagen distinta por lado para el fondo de la lupa; zoom (opcional)
+function showLens(relX, relY, srcs, zoom) {
+  const Z = zoom || ZOOM;
+  Object.entries(sides).forEach(([key, s]) => {
     const w = s.wrap.clientWidth, h = s.wrap.clientHeight;
-    const D = Math.round(Math.min(220, Math.max(110, w * 0.24)));
+    const D = lensDiameter(s);
     const x = relX * w, y = relY * h;
     const L = s.lens;
     L.style.width = L.style.height = D + 'px';
     L.style.left = (x - D / 2) + 'px';
     L.style.top  = (y - D / 2) + 'px';
-    L.style.backgroundImage = 'url("' + s.img.currentSrc + '")';
-    L.style.backgroundSize  = (w * ZOOM) + 'px ' + (h * ZOOM) + 'px';
-    L.style.backgroundPosition = (D / 2 - x * ZOOM) + 'px ' + (D / 2 - y * ZOOM) + 'px';
+    L.style.backgroundImage = 'url("' + (srcs ? srcs[key] : s.img.currentSrc) + '")';
+    L.style.backgroundSize  = (w * Z) + 'px ' + (h * Z) + 'px';
+    L.style.backgroundPosition = (D / 2 - x * Z) + 'px ' + (D / 2 - y * Z) + 'px';
     L.classList.add('visible');
   });
 }
@@ -333,16 +355,16 @@ function relPos(s, e) {
 
 Object.values(sides).forEach(s => {
   const move = e => {
-    if (clueActive) { hideLens(); return; }
+    if (clueActive) return;
     const [rx, ry] = relPos(s, e);
     showLens(rx, ry);
   };
   s.wrap.addEventListener('pointerenter', move);
   s.wrap.addEventListener('pointermove',  move);
   s.wrap.addEventListener('pointerdown',  move);
-  s.wrap.addEventListener('pointerleave', hideLens);
-  s.wrap.addEventListener('pointerup', e => { if (e.pointerType !== 'mouse') hideLens(); });
-  s.wrap.addEventListener('pointercancel', hideLens);
+  s.wrap.addEventListener('pointerleave', () => { if (!clueActive) hideLens(); });
+  s.wrap.addEventListener('pointerup', e => { if (e.pointerType !== 'mouse' && !clueActive) hideLens(); });
+  s.wrap.addEventListener('pointercancel', () => { if (!clueActive) hideLens(); });
   s.wrap.addEventListener('click', e => {
     if (clueActive) return;
     const [rx, ry] = relPos(s, e);
@@ -540,12 +562,25 @@ function pintarPista(s, k, mk) {
   ov.classList.add('visible');
 }
 
+let clueRefresh = null;
+
 function mostrarPista(i) {
   if (clueActive || !cmReady || !diffs[i]) return;
   clueActive = true;
   hideLens();
   const mk = mascaraDiferencia(i);
   Object.values(sides).forEach(s => pintarPista(s, i, mk));
+  // La lupa se coloca sobre la diferencia y amplía la imagen en B/N con la zona en color
+  const srcs = {};
+  Object.entries(sides).forEach(([key, s]) => { srcs[key] = s.ov.toDataURL('image/jpeg', 0.9); });
+  const d = diffs[i];
+  clueRefresh = () => {
+    const s = sides.a, w = s.wrap.clientWidth;
+    const dd = (d.r * 2 + 12) / CW * w;                       // diámetro de la zona en pantalla
+    const z  = Math.max(1.3, Math.min(ZOOM, lensDiameter(s) * 0.8 / dd));
+    showLens(d.cx / CW, d.cy / CH, srcs, z);
+  };
+  clueRefresh();
   setTimeout(() => {
     Object.values(sides).forEach(s => s.ov.classList.remove('visible'));
     const eraAmbar = pistaEstado[i] === 1;
@@ -553,6 +588,8 @@ function mostrarPista(i) {
     if (eraAmbar && i + 1 < dotIds.length) pistaEstado[i + 1] = 1;
     renderDots();
     clueActive = false;
+    clueRefresh = null;
+    hideLens();
   }, CLUE_MS);
 }
 
