@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
+
     :root{--gold:#C9A84C;--gold-light:#E8C97A;--gold-dark:#8B6914;--cream:#FAF6EE;--dark:#1A1410;}
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
     body{background-color:var(--dark);color:var(--cream);font-family:'Cormorant Garamond',serif;min-height:100vh;display:flex;flex-direction:column;}
@@ -20,7 +21,21 @@
     .day-of-week{font-size:.85rem;letter-spacing:.4em;text-transform:uppercase;color:rgba(201,168,76,.5);margin-bottom:1rem;}
     h1{font-family:'Playfair Display',serif;font-size:clamp(3rem,9vw,7rem);font-weight:900;line-height:1;background:linear-gradient(135deg,var(--gold-light) 0%,var(--gold) 50%,var(--gold-dark) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.5rem;}
     .month-label{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3.5vw,2.4rem);font-weight:400;font-style:italic;color:rgba(250,246,238,.45);margin-bottom:2.5rem;}
-    .content-area{width:100%;border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:2.5rem;min-height:220px;background:rgba(255,255,255,.02);color:rgba(250,246,238,.4);font-size:1rem;font-style:italic;text-align:center;display:flex;align-items:center;justify-content:center;}
+
+    /* ── Área de contenido ── */
+    .content-area{width:100%;border:1px solid rgba(201,168,76,.15);border-radius:4px;padding:2rem;background:rgba(255,255,255,.02);display:flex;flex-direction:column;align-items:center;gap:1.8rem;}
+
+    /* ── Bolitas de pistas ── */
+    .pistas-wrap{display:flex;gap:.7rem;align-items:center;justify-content:center;flex-wrap:nowrap;}
+    .pista-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;letter-spacing:0;cursor:default;border:2px solid transparent;transition:all .25s;user-select:none;font-family:'Cormorant Garamond',serif;}
+    .pista-dot.rojo  {background:rgba(180,50,50,.25); border-color:rgba(180,50,50,.4); color:rgba(255,120,120,.5);}
+    .pista-dot.ambar {background:rgba(220,160,40,.2);  border-color:rgba(220,160,40,.7); color:rgba(240,190,80,.9); cursor:pointer; animation:pulse-ambar 1.5s ease-in-out infinite;}
+    .pista-dot.verde {background:rgba(50,180,100,.2);  border-color:rgba(50,180,100,.6); color:rgba(80,220,130,.9); cursor:pointer;}
+    .pista-dot.ambar:hover{background:rgba(220,160,40,.35);}
+    .pista-dot.verde:hover{background:rgba(50,180,100,.35);}
+    @keyframes pulse-ambar{0%,100%{box-shadow:0 0 0 0 rgba(220,160,40,.4);}50%{box-shadow:0 0 0 5px rgba(220,160,40,.0);}}
+
+    /* ── Nav ── */
     .day-nav{display:flex;justify-content:space-between;align-items:center;padding-top:2.5rem;border-top:1px solid rgba(201,168,76,.1);margin-top:2.5rem;}
     .nav-btn{font-size:.8rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(201,168,76,.5);text-decoration:none;padding:.6rem 1.2rem;border:1px solid rgba(201,168,76,.18);border-radius:2px;transition:all .2s;}
     .nav-btn:hover{color:var(--gold-light);border-color:rgba(201,168,76,.5);background:rgba(201,168,76,.05);}
@@ -28,7 +43,8 @@
     .year-badge{font-size:.7rem;letter-spacing:.3em;color:rgba(201,168,76,.25);text-transform:uppercase;}
     .back-link{display:block;text-align:center;margin-top:2rem;color:rgba(201,168,76,.35);font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;text-decoration:none;transition:color .2s;}
     .back-link:hover{color:var(--gold);}
-    /* Botones fav y done */
+
+    /* ── Action btns ── */
     .action-btns{position:absolute;top:0;right:0;display:flex;flex-direction:column;align-items:center;gap:.2rem;}
     .icon-btn{background:none;border:none;cursor:pointer;font-size:2rem;line-height:1;transition:color .2s,transform .2s;padding:.2rem;}
     .icon-btn:hover{transform:scale(1.2);}
@@ -38,7 +54,8 @@
     .done-btn{color:var(--gold);opacity:0.6;}
     .done-btn.active{color:var(--gold);opacity:1;}
     .done-btn.active:hover{color:var(--gold-light);opacity:1;}
-    /* Popup */
+
+    /* ── Popups ── */
     .popup-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:100;align-items:center;justify-content:center;}
     .popup-overlay.visible{display:flex;}
     .popup-box{background:var(--dark);border:1px solid rgba(201,168,76,.35);border-radius:6px;padding:3rem 2.5rem;max-width:420px;width:90%;text-align:center;box-shadow:0 0 60px rgba(0,0,0,.8);}
@@ -47,16 +64,61 @@
     .popup-msg{font-size:1rem;font-style:italic;color:rgba(250,246,238,.6);line-height:1.7;margin-bottom:2rem;}
     .popup-btn{display:inline-block;padding:.7rem 2rem;border:1px solid rgba(201,168,76,.4);border-radius:2px;color:var(--gold);font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;background:none;transition:all .2s;}
     .popup-btn:hover{background:rgba(201,168,76,.1);border-color:var(--gold);}
+
+    /* ── Mobile ── */
     @media(max-width:600px){
       .wrap{padding:1rem 1rem 2rem;}
       .day-hero{padding:1rem 0 1rem;}
       h1{font-size:clamp(2rem,14vw,4rem);}
       .month-label{font-size:clamp(1rem,4vw,1.6rem);margin-bottom:1rem;}
-      .content-area{padding:1.2rem;min-height:120px;}
+      .content-area{padding:1rem;gap:1rem;}
+      .reto-img-clickable{max-height:260px;}
+      .pistas-wrap{gap:.4rem;}
+      .pista-dot{width:24px;height:24px;font-size:.7rem;}
+      .codigo-row{max-width:100%;}
       .day-nav{margin-top:1rem;padding-top:1rem;}
       .ornament-line-h{margin-bottom:1rem;}
     }
-</style>
+
+    /* ── Reto "Encuentra las 3 diferencias" ── */
+    .wrap{max-width:1500px;padding:1.5rem 1.5rem 3rem;}
+    .day-hero{justify-content:flex-start;padding:1.5rem 0 1rem;}
+    .ornament-line-h{margin-bottom:.8rem;}
+    .day-of-week{margin-bottom:.4rem;}
+    h1{font-size:clamp(2.2rem,5vw,3.6rem);}
+    .month-label{font-size:clamp(1.1rem,2.2vw,1.6rem);margin-bottom:1rem;}
+    .content-area{padding:1rem 1.2rem 1.4rem;gap:1rem;}
+
+    .foto-titulo{font-family:'Playfair Display',serif;font-size:clamp(1rem,2vw,1.35rem);font-weight:400;font-style:italic;color:rgba(201,168,76,.8);letter-spacing:.06em;text-align:center;width:100%;}
+
+    /* Dos imágenes lado a lado; --ar (ancho/alto) se fija al cargar para que quepan en pantalla */
+    .dif-stage{--ar:1.5;display:flex;gap:.6rem;width:100%;max-width:max(320px, calc(2 * (100vh - 400px) * var(--ar) + .6rem));margin:0 auto;}
+    .dif-wrap{position:relative;flex:1 1 0;min-width:0;overflow:hidden;border-radius:3px;border:1px solid rgba(201,168,76,.18);cursor:crosshair;touch-action:none;user-select:none;-webkit-user-select:none;background:#000;}
+    .dif-wrap img.dif-img{display:block;width:100%;height:auto;-webkit-user-drag:none;}
+    .dif-overlay{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:0;transition:opacity .35s;}
+    .dif-overlay.visible{opacity:1;}
+    .dif-lens{position:absolute;display:none;border-radius:50%;pointer-events:none;background-repeat:no-repeat;box-shadow:0 0 0 2px var(--gold),0 0 0 4px rgba(26,20,16,.8),0 6px 22px rgba(0,0,0,.6);z-index:5;}
+    .dif-lens.visible{display:block;}
+    .dif-mark{position:absolute;border:3px solid #e8262e;border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;z-index:3;box-shadow:0 0 8px rgba(232,38,46,.7);aspect-ratio:1;}
+
+    .dif-texto{font-size:1.05rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(201,168,76,.65);text-align:center;}
+    .dif-counter{display:flex;gap:.9rem;align-items:center;justify-content:center;}
+    .dif-dot{width:22px;height:22px;border-radius:50%;border:2px solid rgba(201,168,76,.35);background:rgba(255,255,255,.03);transition:all .35s;}
+    .dif-dot.on{background:var(--gold);border-color:var(--gold-light);box-shadow:0 0 12px rgba(201,168,76,.7);}
+    .pistas-wrap{margin-top:.2rem;}
+
+    .dif-toast{position:fixed;left:50%;bottom:2.2rem;transform:translate(-50%,20px);max-width:90vw;padding:.9rem 1.6rem;border-radius:4px;background:rgba(26,20,16,.96);border:1px solid rgba(201,168,76,.5);color:var(--cream);font-size:1.1rem;font-style:italic;text-align:center;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;z-index:150;box-shadow:0 0 30px rgba(0,0,0,.7);}
+    .dif-toast.visible{opacity:1;transform:translate(-50%,0);}
+    .dif-toast.ok{border-color:var(--gold-light);color:var(--gold-light);}
+    .dif-toast.ko{border-color:rgba(255,120,120,.5);}
+
+    @media(max-width:700px){
+      .wrap{padding:.6rem .6rem 2rem;}
+      .dif-stage{flex-direction:column;max-width:none;}
+      .dif-wrap{flex:none;width:100%;}
+      .content-area{padding:.7rem;}
+    }
+  </style>
 </head>
 <body>
 <div class="wrap">
@@ -71,10 +133,40 @@
     <p class="day-of-week">Jueves</p>
     <h1>2</h1>
     <p class="month-label">de Marzo</p>
+
     <div class="content-area">
-      <p>Espacio reservado para el contenido de este día</p>
+      <p class="foto-titulo">10 de mayo de 2025</p>
+
+      <!-- Dos imágenes: original (izq.) y modificada (der.) -->
+      <div class="dif-stage" id="dif-stage">
+        <div class="dif-wrap" id="wrap-a">
+          <img class="dif-img" id="img-a" src="../media/NievesAriAlex_20250510_Original.jpg" alt="Foto original" draggable="false"/>
+          <canvas class="dif-overlay" id="ov-a"></canvas>
+          <div class="dif-lens" id="lens-a"></div>
+        </div>
+        <div class="dif-wrap" id="wrap-b">
+          <img class="dif-img" id="img-b" src="../media/NievesAriAlex_20250510_Modifica.jpg" alt="Foto modificada" draggable="false"/>
+          <canvas class="dif-overlay" id="ov-b"></canvas>
+          <div class="dif-lens" id="lens-b"></div>
+        </div>
+      </div>
+
+      <p class="dif-texto">Encuentra las tres diferencias</p>
+      <div class="dif-counter" id="dif-counter">
+        <div class="dif-dot" id="dif-1"></div>
+        <div class="dif-dot" id="dif-2"></div>
+        <div class="dif-dot" id="dif-3"></div>
+      </div>
+
+      <!-- Bolitas de pistas -->
+      <div class="pistas-wrap">
+        <div class="pista-dot ambar" id="pista-1" title="Pista 1">1</div>
+        <div class="pista-dot rojo"  id="pista-2" title="Pista 2">2</div>
+        <div class="pista-dot rojo"  id="pista-3" title="Pista 3">3</div>
+      </div>
     </div>
   </div>
+
   <nav class="day-nav">
     <a class="nav-btn" href="2028-03-01.html">&#8592; 1 de Marzo</a>
     <span class="year-badge">50 Aniversario · 2028</span>
@@ -83,6 +175,9 @@
   <a class="back-link" href="../index.html">&#8592; Volver al Calendario</a>
 </div>
 
+<div class="dif-toast" id="dif-toast"></div>
+
+<!-- Popup: día futuro -->
 <div class="popup-overlay" id="popup">
   <div class="popup-box">
     <div class="popup-icon">🎁</div>
@@ -92,7 +187,7 @@
   </div>
 </div>
 
-<!-- Popup estrella bloqueada -->
+<!-- Popup: estrella bloqueada -->
 <div class="popup-overlay" id="popup-star-blocked">
   <div class="popup-box">
     <div class="popup-icon">🏆</div>
@@ -102,7 +197,7 @@
   </div>
 </div>
 
-<!-- Popup recompensa del día -->
+<!-- Popup: recompensa -->
 <div class="popup-overlay" id="popup-star-reward">
   <div class="popup-box">
     <div class="popup-icon">🎁</div>
@@ -112,20 +207,22 @@
   </div>
 </div>
 
+<!-- Canvas oculto para leer el clickmap -->
+<canvas id="clickmap-canvas" style="display:none;"></canvas>
+
 <script>
-const PREVIEW_KEY  = 'cal_preview';
-const isPreview    = localStorage.getItem(PREVIEW_KEY) === '1';
-const today        = new Date(); today.setHours(0,0,0,0);
-const thisDate     = new Date('2028-03-02'); thisDate.setHours(0,0,0,0);
-const nextDateStr  = '2028-03-03';
-const popup        = document.getElementById('popup');
+const PREVIEW_KEY = 'cal_preview';
+const isPreview   = localStorage.getItem(PREVIEW_KEY) === '1';
+const today       = new Date(); today.setHours(0,0,0,0);
+const thisDate    = new Date('2028-03-02'); thisDate.setHours(0,0,0,0);
+const nextDateStr = '2028-03-03';
+const popup       = document.getElementById('popup');
 
 if (!isPreview && thisDate > today) {
   document.querySelector('.day-hero').style.filter = 'blur(4px)';
   document.querySelector('.day-nav').style.visibility = 'hidden';
   popup.classList.add('visible');
 }
-
 if (!isPreview && nextDateStr) {
   const nextDate = new Date(nextDateStr); nextDate.setHours(0,0,0,0);
   if (nextDate > today) {
@@ -133,10 +230,9 @@ if (!isPreview && nextDateStr) {
     if (nextBtn) nextBtn.addEventListener('click', e => { e.preventDefault(); popup.classList.add('visible'); });
   }
 }
-
 popup.addEventListener('click', e => { if (e.target === popup) window.location.href = '../index.html'; });
 
-// ── Favourite ──────────────────────────────────────────────
+// ── Favourites ─────────────────────────────────────────────
 const FAV_KEY = 'fav_2028-03-02';
 const favBtn  = document.getElementById('fav-btn');
 function updateFav() {
@@ -152,26 +248,21 @@ favBtn.addEventListener('click', () => {
 });
 updateFav();
 
-// ── Done (actividad completada) ────────────────────────────
-const DONE_KEY = 'done_2028-03-02';
-const doneBtn  = document.getElementById('done-btn');
+// ── Done ───────────────────────────────────────────────────
+const DONE_KEY         = 'done_2028-03-02';
+const doneBtn          = document.getElementById('done-btn');
 const popupStarBlocked = document.getElementById('popup-star-blocked');
 const popupStarReward  = document.getElementById('popup-star-reward');
 
-document.getElementById('star-blocked-close').addEventListener('click', () => {
-  popupStarBlocked.classList.remove('visible');
-});
-popupStarBlocked.addEventListener('click', e => {
-  if (e.target === popupStarBlocked) popupStarBlocked.classList.remove('visible');
-});
+document.getElementById('star-blocked-close').addEventListener('click', () => popupStarBlocked.classList.remove('visible'));
+popupStarBlocked.addEventListener('click', e => { if (e.target === popupStarBlocked) popupStarBlocked.classList.remove('visible'); });
+document.getElementById('star-reward-close').addEventListener('click', () => popupStarReward.classList.remove('visible'));
+popupStarReward.addEventListener('click', e => { if (e.target === popupStarReward) popupStarReward.classList.remove('visible'); });
 
-document.getElementById('star-reward-close').addEventListener('click', () => {
-  popupStarReward.classList.remove('visible');
-});
-popupStarReward.addEventListener('click', e => {
-  if (e.target === popupStarReward) popupStarReward.classList.remove('visible');
-});
-
+function markDone() {
+  localStorage.setItem(DONE_KEY, '1');
+  updateDone();
+}
 function updateDone() {
   const on = localStorage.getItem(DONE_KEY) === '1';
   doneBtn.textContent = on ? '★' : '☆';
@@ -181,19 +272,298 @@ function updateDone() {
 doneBtn.addEventListener('click', () => {
   const on = localStorage.getItem(DONE_KEY) === '1';
   if (on) {
-    // Already done → show reward
     popupStarReward.classList.add('visible');
   } else {
-    // Not done → only allowed in preview mode
-    if (isPreview) {
-      localStorage.setItem(DONE_KEY, '1');
-      updateDone();
-    } else {
-      popupStarBlocked.classList.add('visible');
-    }
+    if (isPreview) { markDone(); } else { popupStarBlocked.classList.add('visible'); }
   }
 });
 updateDone();
+
+// ── Toast ──────────────────────────────────────────────────
+const toastEl = document.getElementById('dif-toast');
+let toastTimer = null;
+function toast(msg, tipo, ms) {
+  toastEl.textContent = msg;
+  toastEl.className = 'dif-toast visible ' + (tipo || '');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toastEl.classList.remove('visible'), ms || 2200);
+}
+
+// ── Elementos ──────────────────────────────────────────────
+const TOTAL      = 3;
+const ZOOM       = 2.5;     // aumento de la lupa
+const CLUE_MS    = 3500;    // duración de la pista visual
+const sides = {
+  a: { wrap: document.getElementById('wrap-a'), img: document.getElementById('img-a'), lens: document.getElementById('lens-a'), ov: document.getElementById('ov-a') },
+  b: { wrap: document.getElementById('wrap-b'), img: document.getElementById('img-b'), lens: document.getElementById('lens-b'), ov: document.getElementById('ov-b') },
+};
+const stage = document.getElementById('dif-stage');
+let clueActive = false;
+
+function fitStage() {
+  const im = sides.a.img;
+  if (im.naturalWidth && im.naturalHeight) stage.style.setProperty('--ar', (im.naturalWidth / im.naturalHeight).toFixed(4));
+}
+sides.a.img.addEventListener('load', fitStage);
+if (sides.a.img.complete) fitStage();
+
+// ── Lupa espejo ────────────────────────────────────────────
+function showLens(relX, relY) {
+  Object.values(sides).forEach(s => {
+    const w = s.wrap.clientWidth, h = s.wrap.clientHeight;
+    const D = Math.round(Math.min(220, Math.max(110, w * 0.24)));
+    const x = relX * w, y = relY * h;
+    const L = s.lens;
+    L.style.width = L.style.height = D + 'px';
+    L.style.left = (x - D / 2) + 'px';
+    L.style.top  = (y - D / 2) + 'px';
+    L.style.backgroundImage = 'url("' + s.img.currentSrc + '")';
+    L.style.backgroundSize  = (w * ZOOM) + 'px ' + (h * ZOOM) + 'px';
+    L.style.backgroundPosition = (D / 2 - x * ZOOM) + 'px ' + (D / 2 - y * ZOOM) + 'px';
+    L.classList.add('visible');
+  });
+}
+function hideLens() { Object.values(sides).forEach(s => s.lens.classList.remove('visible')); }
+
+function relPos(s, e) {
+  const r = s.wrap.getBoundingClientRect();
+  return [Math.min(1, Math.max(0, (e.clientX - r.left) / r.width)),
+          Math.min(1, Math.max(0, (e.clientY - r.top)  / r.height))];
+}
+
+Object.values(sides).forEach(s => {
+  const move = e => {
+    if (clueActive) { hideLens(); return; }
+    const [rx, ry] = relPos(s, e);
+    showLens(rx, ry);
+  };
+  s.wrap.addEventListener('pointerenter', move);
+  s.wrap.addEventListener('pointermove',  move);
+  s.wrap.addEventListener('pointerdown',  move);
+  s.wrap.addEventListener('pointerleave', hideLens);
+  s.wrap.addEventListener('pointerup', e => { if (e.pointerType !== 'mouse') hideLens(); });
+  s.wrap.addEventListener('pointercancel', hideLens);
+  s.wrap.addEventListener('click', e => {
+    if (clueActive) return;
+    const [rx, ry] = relPos(s, e);
+    verificar(rx, ry);
+  });
+  s.wrap.addEventListener('contextmenu', e => e.preventDefault());
+});
+
+// ── Clickmap ───────────────────────────────────────────────
+// Píxel rojo = diferencia · píxel blanco = no es diferencia
+const cmCanvas = document.getElementById('clickmap-canvas');
+const cmCtx    = cmCanvas.getContext('2d', { willReadFrequently: true });
+const cmImg    = new Image();
+cmImg.crossOrigin = 'anonymous';
+cmImg.src = '../media/NievesAriAlex_20250510_Clickmap.jpg';
+
+let cmReady = false;
+let CW = 0, CH = 0;
+let labels = null;      // etiqueta de componente conexa por píxel (0 = no rojo)
+let compToDiff = [];    // componente → índice de diferencia (0..2)
+let diffs = [];         // {cx, cy, r, minX, maxX, minY, maxY} ordenadas de izquierda a derecha
+
+function esRojo(r, g, b) { return r > 150 && g < 120 && b < 120 && (r - Math.max(g, b)) > 70; }
+
+cmImg.onload = () => {
+  CW = cmCanvas.width  = cmImg.naturalWidth;
+  CH = cmCanvas.height = cmImg.naturalHeight;
+  cmCtx.drawImage(cmImg, 0, 0);
+  try { analizarClickmap(); cmReady = true; }
+  catch (err) { console.error('Clickmap no legible (¿abierto como file://?)', err); }
+};
+
+// Agrupa los píxeles rojos en regiones. Se quedan las 3 mayores como diferencias
+// y cualquier resto (ruido JPEG, partes separadas) se une a la más cercana.
+function analizarClickmap() {
+  const data = cmCtx.getImageData(0, 0, CW, CH).data;
+  const N = CW * CH;
+  labels = new Int32Array(N);
+  const stack = new Int32Array(N);
+  const comps = [null];
+  for (let i = 0; i < N; i++) {
+    if (labels[i] || !esRojo(data[i*4], data[i*4+1], data[i*4+2])) continue;
+    const id = comps.length;
+    const c = { area: 0, sx: 0, sy: 0, minX: CW, maxX: 0, minY: CH, maxY: 0 };
+    let sp = 0; stack[sp++] = i; labels[i] = id;
+    while (sp) {
+      const p = stack[--sp], x = p % CW, y = (p - x) / CW;
+      c.area++; c.sx += x; c.sy += y;
+      if (x < c.minX) c.minX = x; if (x > c.maxX) c.maxX = x;
+      if (y < c.minY) c.minY = y; if (y > c.maxY) c.maxY = y;
+      for (let dy = -1; dy <= 1; dy++) {
+        const yy = y + dy; if (yy < 0 || yy >= CH) continue;
+        for (let dx = -1; dx <= 1; dx++) {
+          const xx = x + dx; if (xx < 0 || xx >= CW) continue;
+          const q = yy * CW + xx;
+          if (labels[q] || !esRojo(data[q*4], data[q*4+1], data[q*4+2])) continue;
+          labels[q] = id; stack[sp++] = q;
+        }
+      }
+    }
+    comps.push(c);
+  }
+  const ids = comps.map((c, i) => i).slice(1).sort((p, q) => comps[q].area - comps[p].area);
+  const seeds = ids.slice(0, TOTAL);
+  if (seeds.length < TOTAL) console.warn('El clickmap tiene menos de ' + TOTAL + ' zonas rojas');
+  compToDiff = new Array(comps.length).fill(0);
+  const groups = seeds.map(id => ({ minX: comps[id].minX, maxX: comps[id].maxX, minY: comps[id].minY, maxY: comps[id].maxY,
+                                    cx: comps[id].sx / comps[id].area, cy: comps[id].sy / comps[id].area }));
+  seeds.forEach((id, k) => compToDiff[id] = k);
+  ids.slice(TOTAL).forEach(id => {
+    const c = comps[id], cx = c.sx / c.area, cy = c.sy / c.area;
+    let best = 0, bd = Infinity;
+    groups.forEach((g, k) => { const d = Math.hypot(g.cx - cx, g.cy - cy); if (d < bd) { bd = d; best = k; } });
+    compToDiff[id] = best;
+    const g = groups[best];
+    g.minX = Math.min(g.minX, c.minX); g.maxX = Math.max(g.maxX, c.maxX);
+    g.minY = Math.min(g.minY, c.minY); g.maxY = Math.max(g.maxY, c.maxY);
+  });
+  diffs = groups.map(g => {
+    const cx = (g.minX + g.maxX) / 2, cy = (g.minY + g.maxY) / 2;
+    const r = Math.hypot(g.maxX - g.minX, g.maxY - g.minY) / 2;
+    return { cx, cy, r, minX: g.minX, maxX: g.maxX, minY: g.minY, maxY: g.maxY };
+  });
+  // Orden estable: de izquierda a derecha (así se numeran las pistas 1, 2, 3)
+  const order = diffs.map((d, i) => i).sort((p, q) => diffs[p].cx - diffs[q].cx);
+  const remap = []; order.forEach((old, nuevo) => remap[old] = nuevo);
+  diffs = order.map(i => diffs[i]);
+  compToDiff = compToDiff.map(k => remap[k]);
+}
+
+// Devuelve el índice de diferencia en (rx, ry) o -1 si el píxel no es rojo.
+function diferenciaEn(rx, ry) {
+  const px = Math.round(rx * (CW - 1)), py = Math.round(ry * (CH - 1));
+  const R = 2; // pequeña tolerancia por compresión JPEG
+  let bestD = Infinity, bestId = 0;
+  for (let dy = -R; dy <= R; dy++) {
+    const y = py + dy; if (y < 0 || y >= CH) continue;
+    for (let dx = -R; dx <= R; dx++) {
+      const x = px + dx; if (x < 0 || x >= CW) continue;
+      const id = labels[y * CW + x];
+      if (id) { const d = dx*dx + dy*dy; if (d < bestD) { bestD = d; bestId = id; } }
+    }
+  }
+  return bestId ? compToDiff[bestId] : -1;
+}
+
+// ── Aciertos ───────────────────────────────────────────────
+const found = new Set();
+
+function renderCounter() {
+  for (let i = 0; i < TOTAL; i++) document.getElementById('dif-' + (i + 1)).classList.toggle('on', i < found.size);
+}
+
+function addMark(k) {
+  const d = diffs[k];
+  const diam = Math.max(d.r * 2 * 1.35, CW * 0.04);
+  Object.values(sides).forEach(s => {
+    const m = document.createElement('div');
+    m.className = 'dif-mark';
+    m.style.left   = (d.cx / CW * 100) + '%';
+    m.style.top    = (d.cy / CH * 100) + '%';
+    m.style.width  = (diam / CW * 100) + '%';
+    s.wrap.appendChild(m);
+  });
+}
+
+function verificar(rx, ry) {
+  if (!cmReady) { toast('Un momento, cargando la imagen…', '', 1500); return; }
+  const k = diferenciaEn(rx, ry);
+  if (k < 0) { toast('Eso es igual en las dos fotos. ¡Sigue buscando! 🔍', 'ko'); return; }
+  if (found.has(k)) { toast('Esa diferencia ya la habías encontrado 😉', '', 1800); return; }
+  found.add(k);
+  addMark(k);
+  renderCounter();
+  if (found.size >= TOTAL) {
+    toast('🎉 ¡Enhorabuena! Has encontrado las 3 diferencias', 'ok', 2600);
+    hideLens();
+    markDone();
+    setTimeout(() => popupStarReward.classList.add('visible'), 1400);
+  } else {
+    toast('✨ ¡Enhorabuena! Una diferencia más (' + found.size + '/' + TOTAL + ')', 'ok');
+  }
+}
+
+// ── Pistas visuales ────────────────────────────────────────
+const dotIds    = ['pista-1', 'pista-2', 'pista-3'];
+let pistaEstado = [1, 0, 0];   // 0 rojo · 1 ámbar · 2 verde
+
+function renderDots() {
+  dotIds.forEach((id, i) => {
+    document.getElementById(id).className = 'pista-dot ' + ['rojo', 'ambar', 'verde'][pistaEstado[i]];
+  });
+}
+
+// Máscara (con un pequeño margen) de la diferencia k, en coordenadas del clickmap
+function mascaraDiferencia(k) {
+  const d = diffs[k], R = Math.max(4, Math.round(Math.max(CW, CH) * 0.006));
+  const x0 = Math.max(0, d.minX - R), x1 = Math.min(CW - 1, d.maxX + R);
+  const y0 = Math.max(0, d.minY - R), y1 = Math.min(CH - 1, d.maxY + R);
+  const w = x1 - x0 + 1, h = y1 - y0 + 1;
+  const base = new Uint8Array(w * h);
+  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
+    const id = labels[(y + y0) * CW + (x + x0)];
+    if (id && compToDiff[id] === k) base[y * w + x] = 1;
+  }
+  const tmp = new Uint8Array(w * h), out = new Uint8Array(w * h);
+  for (let y = 0; y < h; y++) {           // dilatación horizontal
+    const pre = new Int32Array(w + 1);
+    for (let x = 0; x < w; x++) pre[x + 1] = pre[x] + base[y * w + x];
+    for (let x = 0; x < w; x++) tmp[y * w + x] = (pre[Math.min(w, x + R + 1)] - pre[Math.max(0, x - R)]) > 0 ? 1 : 0;
+  }
+  for (let x = 0; x < w; x++) {           // dilatación vertical
+    const pre = new Int32Array(h + 1);
+    for (let y = 0; y < h; y++) pre[y + 1] = pre[y] + tmp[y * w + x];
+    for (let y = 0; y < h; y++) out[y * w + x] = (pre[Math.min(h, y + R + 1)] - pre[Math.max(0, y - R)]) > 0 ? 1 : 0;
+  }
+  return { m: out, x0, y0, w, h };
+}
+
+// Pinta la imagen en blanco y negro salvo la zona de la diferencia k
+function pintarPista(s, k, mk) {
+  const ov = s.ov;
+  ov.width = CW; ov.height = CH;
+  const ctx = ov.getContext('2d', { willReadFrequently: true });
+  ctx.drawImage(s.img, 0, 0, CW, CH);
+  const im = ctx.getImageData(0, 0, CW, CH), px = im.data;
+  for (let y = 0; y < CH; y++) for (let x = 0; x < CW; x++) {
+    const mx = x - mk.x0, my = y - mk.y0;
+    if (mx >= 0 && my >= 0 && mx < mk.w && my < mk.h && mk.m[my * mk.w + mx]) continue;
+    const i = (y * CW + x) * 4;
+    const g = 0.299 * px[i] + 0.587 * px[i+1] + 0.114 * px[i+2];
+    px[i] = px[i+1] = px[i+2] = g;
+  }
+  ctx.putImageData(im, 0, 0);
+  ov.classList.add('visible');
+}
+
+function mostrarPista(i) {
+  if (clueActive || !cmReady || !diffs[i]) return;
+  clueActive = true;
+  hideLens();
+  const mk = mascaraDiferencia(i);
+  Object.values(sides).forEach(s => pintarPista(s, i, mk));
+  setTimeout(() => {
+    Object.values(sides).forEach(s => s.ov.classList.remove('visible'));
+    const eraAmbar = pistaEstado[i] === 1;
+    pistaEstado[i] = 2;
+    if (eraAmbar && i + 1 < dotIds.length) pistaEstado[i + 1] = 1;
+    renderDots();
+    clueActive = false;
+  }, CLUE_MS);
+}
+
+dotIds.forEach((id, i) => {
+  document.getElementById(id).addEventListener('click', () => {
+    if (pistaEstado[i] === 0) return;
+    mostrarPista(i);
+  });
+});
+renderDots();
+renderCounter();
 </script>
 </body>
 </html>
