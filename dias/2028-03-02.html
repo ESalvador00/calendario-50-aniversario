@@ -81,18 +81,18 @@
     }
 
     /* ── Reto "Encuentra las 3 diferencias" ── */
-    .wrap{max-width:1500px;padding:1.5rem 1.5rem 3rem;}
-    .day-hero{justify-content:flex-start;padding:1.5rem 0 1rem;}
-    .ornament-line-h{margin-bottom:.8rem;}
-    .day-of-week{margin-bottom:.4rem;}
-    h1{font-size:clamp(2.2rem,5vw,3.6rem);}
-    .month-label{font-size:clamp(1.1rem,2.2vw,1.6rem);margin-bottom:1rem;}
-    .content-area{padding:1rem 1.2rem 1.4rem;gap:1rem;}
+    /* Página a todo el ancho de pantalla (el resto de estilos, idénticos a 2028-02-06) */
+    .wrap{max-width:none;}
+    @media(min-width:601px){.wrap{padding:3rem 1rem 4rem;}}
+    .content-area{padding:1rem;}
 
-    .foto-titulo{font-family:'Playfair Display',serif;font-size:clamp(1rem,2vw,1.35rem);font-weight:400;font-style:italic;color:rgba(201,168,76,.8);letter-spacing:.06em;text-align:center;width:100%;}
+    .foto-titulo{font-family:'Playfair Display',serif;font-size:.8rem;font-weight:400;font-style:italic;color:rgba(201,168,76,.7);letter-spacing:.06em;text-align:right;width:100%;margin-bottom:0;}
+    .reto-img-wrap{width:100%;display:flex;flex-direction:column;gap:.4rem;}
+    .codigo-wrap{width:100%;display:flex;flex-direction:column;align-items:center;gap:.9rem;}
+    .codigo-label{font-size:.8rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(201,168,76,.55);}
 
     /* Dos imágenes lado a lado; --ar (ancho/alto) se fija al cargar para que quepan en pantalla */
-    .dif-stage{--ar:1.5;display:flex;gap:.6rem;width:100%;max-width:max(320px, calc(2 * (100vh - 400px) * var(--ar) + .6rem));margin:0 auto;}
+    .dif-stage{display:flex;gap:.6rem;width:100%;}
     .dif-wrap{position:relative;flex:1 1 0;min-width:0;overflow:hidden;border-radius:3px;border:1px solid rgba(201,168,76,.18);cursor:crosshair;touch-action:none;user-select:none;-webkit-user-select:none;background:#000;}
     .dif-wrap img.dif-img{display:block;width:100%;height:auto;-webkit-user-drag:none;}
     .dif-overlay{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:0;transition:opacity .35s;}
@@ -101,11 +101,9 @@
     .dif-lens.visible{display:block;}
     .dif-mark{position:absolute;border:3px solid #e8262e;border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;z-index:3;box-shadow:0 0 8px rgba(232,38,46,.7);aspect-ratio:1;}
 
-    .dif-texto{font-size:1.05rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(201,168,76,.65);text-align:center;}
     .dif-counter{display:flex;gap:.9rem;align-items:center;justify-content:center;}
     .dif-dot{width:22px;height:22px;border-radius:50%;border:2px solid rgba(201,168,76,.35);background:rgba(255,255,255,.03);transition:all .35s;}
     .dif-dot.on{background:var(--gold);border-color:var(--gold-light);box-shadow:0 0 12px rgba(201,168,76,.7);}
-    .pistas-wrap{margin-top:.2rem;}
 
     .dif-toast{position:fixed;left:50%;bottom:2.2rem;transform:translate(-50%,20px);max-width:90vw;padding:.9rem 1.6rem;border-radius:4px;background:rgba(26,20,16,.96);border:1px solid rgba(201,168,76,.5);color:var(--cream);font-size:1.1rem;font-style:italic;text-align:center;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;z-index:150;box-shadow:0 0 30px rgba(0,0,0,.7);}
     .dif-toast.visible{opacity:1;transform:translate(-50%,0);}
@@ -113,9 +111,7 @@
     .dif-toast.ko{border-color:rgba(255,120,120,.5);}
 
     @media(max-width:700px){
-      .wrap{padding:.6rem .6rem 2rem;}
       .dif-stage{flex-direction:column;max-width:none;}
-      .dif-wrap{flex:none;width:100%;}
       .content-area{padding:.7rem;}
     }
   </style>
@@ -135,6 +131,7 @@
     <p class="month-label">de Marzo</p>
 
     <div class="content-area">
+      <div class="reto-img-wrap">
       <p class="foto-titulo">10 de mayo de 2025</p>
 
       <!-- Dos imágenes: original (izq.) y modificada (der.) -->
@@ -150,8 +147,10 @@
           <div class="dif-lens" id="lens-b"></div>
         </div>
       </div>
+      </div>
 
-      <p class="dif-texto">Encuentra las tres diferencias</p>
+      <div class="codigo-wrap">
+      <p class="codigo-label">Encuentra las tres diferencias</p>
       <div class="dif-counter" id="dif-counter">
         <div class="dif-dot" id="dif-1"></div>
         <div class="dif-dot" id="dif-2"></div>
@@ -163,6 +162,7 @@
         <div class="pista-dot ambar" id="pista-1" title="Pista 1">1</div>
         <div class="pista-dot rojo"  id="pista-2" title="Pista 2">2</div>
         <div class="pista-dot rojo"  id="pista-3" title="Pista 3">3</div>
+      </div>
       </div>
     </div>
   </div>
