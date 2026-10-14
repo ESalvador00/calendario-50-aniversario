@@ -242,6 +242,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-04-30 | Palabras Intraducibles - Galés | HIRAETH | Sants_Mudanza_20190821.jpg | Ninguno | PDTE |
 | 2028-05-02 | Adivina la serie | Alf, D'Artacán, MacGyver, Willy Fog | alf.jpg/.mp3, dartacan.jpg/.mp3, macgyver.jpg/.mp3, willy_fog.jpg/.mp3 | N/A | PDTE |
 | 2028-05-04 | Acertijos y adivinanzas - ¿Qué día es hoy? | VIERNES | Enric_20220409.png | Enric | PDTE |
+| 2028-05-05 | Encuentra las 3 diferencias | N/A | NievesAriAlex_20220226_*.jpg (Original, Modifica, Clickmap) | Ariadna | PDTE |
 | 2028-05-06 | Minijuego (Las 5 Monedas de Tait) | N/A | N/A | N/A | PDTE |
 | 2028-05-07 | Flash memory | N/A | LosRamirez_20130608.jpg | Los Ramírez | PDTE |
 | 2028-05-08 | Adivina quién soy | VOLDEMORT | Alex_20200222.png | Alex | PDTE |
