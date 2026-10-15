@@ -315,6 +315,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-07-24 | Rosco de pasapalabra | BRO, DM, GLOW UP, LITERAL, PRIME, STALKEAR | N/A | N/A | PDTE |
 | 2028-07-25 | Timeline: monumentos y edificios | 8 monumentos famosos | estatua_libertad.jpg, torre_eiffel.jpg, cristo_redentor.jpg, opera_sidney.jpg, museo_guggenheim_bilbao.jpg, torres_petronas.jpg, burj_khalifa.jpg, marina_bay_sands.jpg | N/A | PDTE |
 | 2028-07-26 | Adivina la serie | Candy Candy, Compañeros, Los Osos Amorosos, Sensación de vivir | candy_candy.jpg/.mp3, companeros.jpg/.mp3, osos_amorosos.jpg/.mp3, sensacion_de_vivir.jpg/.mp3 | N/A | PDTE |
+| 2028-07-27 | Encuentra las 3 diferencias | N/A | NievesAriAlex_20190302_*.jpg (Original, Modifica, Clickmap) | Nieves, Ariadna y Alex | PDTE |
 | 2028-07-28 | Timeline musical, España en los 90 | 1990-1999 | Entre_dos_tierras.jpg .. Tu_calorro.jpg | N/A | PDTE |
 | 2028-07-29 | Satisfacción con restricciones múltiples: Excursión al parque | Enric: bicicleta+Galletas / Nieves: cometa+bocadillo / Ariadna: fútbol+fruta / Alex: columpios+Patatas | RSR07_Escenario.webp + RSR07_01A..01D.png + RSR07_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
 | 2028-07-30 | Memory 4x4 | N/A | NievesEnric + 20040425 20061004 20180714 20190811 20200718 20200919 20220514 20240510 + (_E/_N) | Nieves, Enric | PDTE |
@@ -326,6 +327,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-08-06 | Flash memory | N/A | NievesAriAlex_20230702.jpg | Nieves, Ariadna y Alex | PDTE |
 | 2028-08-07 | Primeras frases de novelas | 6 novelas famosas | ana_karenina.jpg, guardian_entre_centeno.jpg, metamorfosis.jpg, rayuela.jpg, peter_pan.jpg, idiota.jpg | N/A | PDTE |
 | 2028-08-08 | Adivina el slogan | 58 anuncios míticos, hasta 5 aciertos | N/A | N/A | PDTE |
+| 2028-08-09 | Encuentra las 3 diferencias | N/A | NievesAriAlex_20230218_*.jpg (Original, Modifica, Clickmap) | Nieves, Ariadna y Alex | PDTE |
 | 2028-08-11 | Adivina las películas | La Bella y la Bestia, Solo en Casa, Halloween, Top Gun, El Caballero Oscuro | La_Bella_y_la_Bestia, Solo_en_Casa, Halloween, Top_Gun, El_Caballero_Oscuro (mp3 y jpg) | N/A | PDTE |
 | 2028-08-12 | Memory 4x4 | N/A | AriAlex + 20170904 20181209 20190830 20191214 20210808 20220410 20230619 20250421 + (_Ar/_Al) | Ariadna, Alexandra | PDTE |
 | 2028-08-14 | Adivina la serie | Doraemon, Els Barrufets, Los Problemas Crecen, Médico de Familia | doraemon.jpg/.mp3, els_barrufets.jpg/.mp3, problemas_crecen.jpg/.mp3, medico_familia.jpg/.mp3 | N/A | PDTE |
@@ -348,6 +350,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-09-05 | Puzzle visual | ACHI | Puzzle01_01.png .. Puzzle01_05.png | N/A | PDTE |
 | 2028-09-06 | Acertijos y adivinanzas - Montones de paja | 1 | Gerard_20220705.png | Gerard | PDTE |
 | 2028-09-07 | El poble amagat | CERVERA | Mari_20230708.png + Cervera.jpg | Cervera | PDTE |
+| 2028-09-08 | Encuentra las 3 diferencias | N/A | NievesAriAlex_20200222_*.jpg (Original, Modifica, Clickmap) | Nieves, Ariadna y Alex | PDTE |
 | 2028-09-09 | Minijuego (El Cruce del Puente) | N/A | N/A | N/A | PDTE |
 | 2028-09-10 | Flash memory | N/A | AriAlex_20250303.jpg | Ariadna y Alex | PDTE |
 | 2028-09-12 | Adivina quién soy | MARY SHELLEY | Cristina_20130713.png | Cristina | PDTE |
@@ -389,6 +392,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-10-24 | Adivina quién soy | GOYA | Enric_20110101.png | Enric | PDTE |
 | 2028-10-25 | Adivina el slogan | 58 anuncios míticos, hasta 5 aciertos | N/A | N/A | PDTE |
 | 2028-10-26 | Acertijos y adivinanzas - Espías lógicos | SIETE | Enric_20150314.png | Enric | PDTE |
+| 2028-10-27 | Encuentra las 3 diferencias | N/A | NievesAriAlex_20160206_*.jpg (Original, Modifica, Clickmap) | Nieves, Ariadna y Alex | PDTE |
 | 2028-10-28 | Minijuego (Reparto de Combustible) | N/A | N/A | N/A | PDTE |
 | 2028-10-30 | Adivina el cuadro | HABITACION ARLES, MAJA VESTIDA, RETRATO ADELE BLOCHBAUER I | habitacion_arles_hd.jpg, maja_vestida_hd.jpg, retrato_adele_bloch_hd.jpg| N/A | PDTE |
 | 2028-11-02 | Adivina el cuadro | DOS FRIDAS / COLUMPIO / NOVIA | dos_fridas_hd.jpg, columpio_hd.jpg, novia_hd.jpg | N/A | PDTE |
@@ -403,6 +407,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-11-14 | Adivina quién soy | ELEVEN | Ari_20220701.png | Ariadna | PDTE |
 | 2028-11-15 | Adivina el slogan | 58 anuncios míticos, hasta 5 aciertos | N/A | N/A | PDTE |
 | 2028-11-16 | El poble amagat | MONISTROL DE MONTSERRAT | Nieves_20110306.png + Monistrol.jpg | Nieves | PDTE |
+| 2028-11-17 | Encuentra las 3 diferencias | N/A | NievesAriAlex_20180209_*.jpg (Original, Modifica, Clickmap) | Nieves, Ariadna y Alex | PDTE |
 | 2028-11-18 | Minijuego (El Triángulo Girado) | N/A | N/A | N/A | PDTE |
 | 2028-11-19 | Palabras Intraducibles - Yiddish | NAKHES | Alex_20250622.jpg | Alexandra | PDTE |
 | 2028-11-20 | Rosco de pasapalabra | ESTAR COMO UNA CABRA, GUAY DEL PARAGUAY, DE COÑA MARINERA, NANAY DE LA CHINA, CHACHI PIRULI, ALUCINA VECINA | N/A | N/A | PDTE |
@@ -434,6 +439,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-12-19 | Cultura: iniciales de famosos, especial deporte | ONTARIO | Lugar05_01.jpg .. Lugar05_07.jpg | Ajenos | PDTE |
 | 2028-12-20 | Primeras frases de novelas | 6 novelas famosas | moby_dick.jpg, principito.jpg, mundo_feliz.jpg, busca_tiempo_perdido.jpg, familia_pascual_duarte.jpg, hp_piedra_filosofal.jpg | N/A | PDTE |
 | 2028-12-21 | Timeline: películas de cine | amanece_no_poco, tesis, familia, otros, laberinto_fauno, celda_211, reino, sociedad_nieve | amanece_no_poco.jpg, tesis.jpg, familia.jpg, otros.jpg, laberinto_fauno.jpg, celda_211.jpg, reino.jpg, sociedad_nieve.jpg | N/A | PDTE |
+| 2028-12-22 | Encuentra las 3 diferencias | N/A | NievesAriAlex_20210214_*.jpg (Original, Modifica, Clickmap) | Nieves, Ariadna y Alex | PDTE |
 | 2028-12-23 | Minijuego (La Torre de Hanoi) | N/A | N/A | N/A | PDTE |
 | 2028-12-27 | Adivina la serie | Embrujadas, Érase una vez, Ranma, V | embrujadas.jpg/.mp3, erase_una_vez.jpg/.mp3, ranma.jpg/.mp3, v.jpg/.mp3 | N/A | PDTE |
 | 2028-12-28 | Adivina el cuadro | GRAN OLA KANAGAWA, ESPERANZA II, JOVEN AZUL | gran_ola_kanagawa_hd.jpg, esperanza_ii_hd.jpg, joven_azul_hd.jpg | N/A | PDTE |
