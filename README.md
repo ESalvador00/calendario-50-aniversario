@@ -165,7 +165,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-01-31 | Simón Dice | N/A | salram_off_*.png / salram_on_*.png | Enric, Nieves, Ariadna y Alex | PDTE |
 | 2028-02-01 | Primeras frases de novelas | 6 novelas famosas | don_quijote_mancha.jpg, 1984.jpg, pedro_paramo.jpg, neuromante.jpg, jane_eyre.jpg, isla_tesoro.jpg | N/A | PDTE |
 | 2028-02-02 | Cultura: iniciales de famosos, especial cine | QUEBEC | Lugar06_01.jpg .. Lugar06_06.jpg | Ajenos | PDTE |
-| 2028-02-03 | Puzzle visual | ALEX | Puzzle01_01.png .. Puzzle01_05.png | N/A | PDTE |
+| 2028-02-03 | Encuentra las 3 diferencias | N/A | NievesAriAlex_20240210_*.jpg (Original, Modifica, Clickmap) | Nieves, Ariadna y Alex | PDTE |
 | 2028-02-05 | Minijuego (Ranas Saltadoras) | N/A | N/A | N/A | PDTE |
 | 2028-02-06 | Agudeza visual — clickmap museo (binario) | ENRIC | Museo_visual.png + Museo_clickmap.png + Ultima_cena.png + Ariadna_20190701.png | Ariadna | PDTE |
 | 2028-02-07 | Adivina la serie | Dragones y Mazmorras, Inspector Gadget, El coche Fantástico, Expediente X | dragones_mazmorras.jpg/.mp3, inspector_gadget.jpg/.mp3, coche_fantastico.jpg/.mp3, expediente_x.jpg/.mp3 | N/A | PDTE |
@@ -225,7 +225,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-04-11 | Adivina quién soy | DALI | Ari_20130601.png | Ariadna | PDTE |
 | 2028-04-12 | Sigue la letra | No dudaría (Antonio Flores) | No_dudaria.mp3 | N/A | PDTE |
 | 2028-04-13 | El poble amagat | GELIDA | Alex_20230702.png + Gelida.jpg | Alexandra | PDTE |
-| 2028-04-14 | Encuentra las 3 diferencias | N/A | NievesAriAlex_20170225_*.jpg (Original, Modifica, Clickmap) | Ariadna | PDTE |
+| 2028-04-14 | Encuentra las 3 diferencias | N/A | NievesAriAlex_20170225_*.jpg (Original, Modifica, Clickmap) | Nieves, Ariadna y Alex | PDTE |
 | 2028-04-15 | Satisfacción con restricciones múltiples: Ordenando la habitación | Enric: armario+cajas / Nieves: escritorio+trapo / Ariadna: estantería+bolsas / Alex: cama+aspiradora | RSR04_Escenario.webp + RSR04_01A..01D.png + RSR04_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
 | 2028-04-16 | Agudeza visual — clickmap museo (coordenadas hex) | CHAD | Museo2_visual.png + Museo2_clickmap.png + Cuadros_verdes.png + Ariadna_20190601.png | Ariadna | PDTE |
 | 2028-04-17 | Rosco de pasapalabra | AURA, CRINGE, GHOSTING, LORE, EN PLAN, RED FLAG | N/A | N/A | PDTE |
@@ -242,7 +242,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-04-30 | Palabras Intraducibles - Galés | HIRAETH | Sants_Mudanza_20190821.jpg | Ninguno | PDTE |
 | 2028-05-02 | Adivina la serie | Alf, D'Artacán, MacGyver, Willy Fog | alf.jpg/.mp3, dartacan.jpg/.mp3, macgyver.jpg/.mp3, willy_fog.jpg/.mp3 | N/A | PDTE |
 | 2028-05-04 | Acertijos y adivinanzas - ¿Qué día es hoy? | VIERNES | Enric_20220409.png | Enric | PDTE |
-| 2028-05-05 | Encuentra las 3 diferencias | N/A | NievesAriAlex_20220226_*.jpg (Original, Modifica, Clickmap) | Ariadna | PDTE |
+| 2028-05-05 | Encuentra las 3 diferencias | N/A | NievesAriAlex_20220226_*.jpg (Original, Modifica, Clickmap) | Nieves, Ariadna y Alex | PDTE |
 | 2028-05-06 | Minijuego (Las 5 Monedas de Tait) | N/A | N/A | N/A | PDTE |
 | 2028-05-07 | Flash memory | N/A | LosRamirez_20130608.jpg | Los Ramírez | PDTE |
 | 2028-05-08 | Adivina quién soy | VOLDEMORT | Alex_20200222.png | Alex | PDTE |
