@@ -169,7 +169,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-02-05 | Minijuego (Ranas Saltadoras) | N/A | N/A | N/A | PDTE |
 | 2028-02-06 | Agudeza visual — clickmap museo (binario) | ENRIC | Museo_visual.png + Museo_clickmap.png + Ultima_cena.png + Ariadna_20190701.png | Ariadna | PDTE |
 | 2028-02-07 | Adivina la serie | Dragones y Mazmorras, Inspector Gadget, El coche Fantástico, Expediente X | dragones_mazmorras.jpg/.mp3, inspector_gadget.jpg/.mp3, coche_fantastico.jpg/.mp3, expediente_x.jpg/.mp3 | N/A | PDTE |
-| 2028-02-08 | Paraulògic | 163 palabras (DIMINUTA, MUNDANITAT) | T, A, I, N, D, U + M | N/A | N/A | PDTE |
+| 2028-02-08 | Paraulògic (letras T A I N D U + M central) | 163 palabras; supermots: DIMINUTA, MUNDANITAT; completado al 10 % | N/A | N/A | PDTE |
 | 2028-02-09 | Timeline musical, España en los 2000 | 2002-2008 | Asereje.jpg .. Tenia_tanto_que_darte.jpg | N/A | PDTE |
 | 2028-02-10 | Reinas | N/A | N/A | N/A | PDTE |
 | 2028-02-12 | Memory 4x4 | N/A | AriAlex + 20150606 20170513 20180825 20191026 20200429 20210401 20220422 20240511 + (_Ar/_Al) | Ariadna, Alexandra | PDTE |
@@ -208,6 +208,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-03-21 | Acertijos y adivinanzas - Madre con cinco hijos | LUIS | Ari_20131110.png | Ariadna | PDTE |
 | 2028-03-22 | Adivina el cuadro | GRITO / DAMA ARMINO / LECTORA | grito_hd.jpg, dama_armino_hd.jpg, lectora_hd.jpg | N/A | PDTE |
 | 2028-03-23 | El poble amagat | FALSET | Alex_20240105.png + Falset.jpg | Alexandra | PDTE |
+| 2028-03-24 | Paraulògic | 106 palabras (DEIXADOR, DEIXADORA, EIXORDADOR, EIXORDADORA, EIXORDAR) | R, E, I, D, A, O + X | N/A | PDTE |
 | 2028-03-25 | Puzzle clásico | N/A | Salram_20170730.jpg | Enric, Nieves, Ariadna y Alex | PDTE |
 | 2028-03-26 | Palabras Intraducibles - Brasileño | CAFUNE | NievesAri_20210817.png | Nieves y Ariadna | PDTE |
 | 2028-03-27 | Adivina la serie | 7 Vidas, Aída, Los Simpson, Shin Chan | 7_vidas.jpg/.mp3, aida.jpg/.mp3, simpson.jpg/.mp3, shin_chan.jpg/.mp3 | N/A | PDTE |
