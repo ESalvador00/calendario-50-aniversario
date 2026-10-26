@@ -191,10 +191,9 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-02-29 | Adivina el slogan | 58 anuncios míticos, hasta 5 aciertos | N/A | N/A | PDTE |
 | 2028-03-02 | Encuentra las 3 diferencias | N/A | NievesAriAlex_20250510_*.jpg (Original, Modifica, Clickmap) | Nieves, Ariadna y Alex | PDTE |
 | 2028-03-03 | Adivina las películas | Amelie, El Guardaespaldas, Ghost, Oppenheimer, Sherlock Holmes | Amelie, El_Guardaespaldas, Ghost, Oppenheimer, Sherlock_Holmes (mp3 y jpg) | N/A | PDTE |
-| 2028-03-04 | Minijuego (Simón Dice) | N/A | N/A | N/A | PDTE |
 | 2028-03-05 | Flash memory | N/A | NievesAriAlex_20160106.jpg | Nieves, Ariadna y Alex | PDTE |
 | 2028-03-06 | Adivina el logo correcto | 10 logos icónicos | Logos.png | N/A | PDTE |
-| 2028-03-07 | Puzzle visual | AFI | Puzzle02_01.png .. Puzzle02_04.png | N/A | PDTE |
+| 2028-03-07 | Puzzle visual | FIA | Puzzle02_01.png .. Puzzle02_04.png | N/A | PDTE |
 | 2028-03-08 | Cultura: iniciales de famosos, especial mujeres | JAMAICA | Lugar02_01.jpg .. Lugar02_07.jpg | Ajenos | PDTE |
 | 2028-03-09 | Reinas | N/A | N/A | N/A | PDTE |
 | 2028-03-11 | Satisfacción con restricciones múltiples: Tarde de lluvia en casa | Enric: leer+fruta / Nieves: película+palomitas / Ariadna: dibujar+galletas / Alex: videojuegos+chocolatina | RSR03_Escenario.webp + RSR03_01A..01D.png + RSR03_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
@@ -236,7 +235,6 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-04-24 | Adivina el cuadro | NOCHE ESTRELLADA / CAMINANTE SOBRE MAR NUBES / CHRISTINAS WORLD | noche_estrellada_hd.jpg, caminante_mar_nubes_hd.jpg, cristinas_world_hd.jpg | N/A | PDTE |
 | 2028-04-25 | Timeline: monumentos y edificios | 8 monumentos famosos | gran_piramide_guiza.jpg, partenon.jpg, coliseo.jpg, santa_sofia.jpg, mezquita_cordoba.jpg, catedral_chartres.jpg, machu_picchu.jpg, taj_mahal.jpg | N/A | PDTE |
 | 2028-04-26 | Acertijos y adivinanzas - El lago y los lirios | 47 | Ari_20190913.png | Ariadna | PDTE |
-| 2028-04-27 | Puzzle visual | ECF | Puzzle03_01.png .. Puzzle03_02.png | N/A | PDTE |
 | 2028-04-28 | Adivina las películas | El Rey León, Titanic, Piratas del Caribe, Forrest Gump, Braveheart | El_Rey_Leon, Titanic, Piratas_del_Caribe, Forrest_Gump, Braveheart (mp3 y jpg) | N/A | PDTE |
 | 2028-04-29 | Flash memory | N/A | AriAlex_20180722.jpg | Ariadna y Alex | PDTE |
 | 2028-04-30 | Palabras Intraducibles - Galés | HIRAETH | Sants_Mudanza_20190821.jpg | Ninguno | PDTE |
@@ -258,7 +256,6 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-05-20 | Ingenio — texto en Wingdings | ANNIE LENNOX | No_more_i_love_yous.mp3 | N/A | PDTE |
 | 2028-05-22 | Cultura: iniciales de famosos | CAPRI | Lugar08_01.jpg .. Lugar08_05.jpg | Ajenos | PDTE |
 | 2028-05-23 | Rosco de pasapalabra | NO TE ENTERAS CONTRERAS, VAS LISTO EVARISTO, ESTAR AL LORO, A OTRA COSA MARIPOSA, SER MAS CHULO QUE UN OCHO, NASTI DE PLASTI | N/A | N/A | PDTE |
-| 2028-05-24 | Puzzle visual | ARI | Puzzle04_01.png .. Puzzle04_07.png | N/A | PDTE |
 | 2028-05-25 | Reinas | N/A | N/A | N/A | PDTE |
 | 2028-05-26 | Adivina las películas | Fiebre del Sábado Noche, Jurassic Park, Coco, Gladiator, Pulp Fiction | Fiebre_del_Sabado_Noche, Jurassic_Park, Coco, Gladiator, Pulp_Fiction (mp3 y jpg) | N/A | PDTE |
 | 2028-05-27 | Puzzle clásico | N/A | Salram_20140410.jpg | Enric, Nieves, Ariadna y Alex | PDTE |
@@ -266,7 +263,6 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-05-29 | Adivina el logo correcto | 10 logos icónicos | Logos.png | N/A | PDTE |
 | 2028-05-30 | Simón Dice | N/A | salram_off_*.png / salram_on_*.png | Enric, Nieves, Ariadna y Alex | PDTE |
 | 2028-05-31 | Adivina el slogan | 58 anuncios míticos, hasta 5 aciertos | N/A | N/A | PDTE |
-| 2028-06-01 | Puzzle visual | ACHI | Puzzle01_01.png .. Puzzle01_05.png | N/A | PDTE |
 | 2028-06-02 | Encuentra las 3 diferencias | N/A | NievesAriAlex_20171224_*.jpg (Original, Modifica, Clickmap) | Nieves, Ariadna y Alex | PDTE |
 | 2028-06-03 | Minijuego (La Balanza Falsa) | N/A | N/A | N/A | PDTE |
 | 2028-06-04 | Memory 4x4 | N/A | AriAlex + 20141221 20150802 20160325 20160827 20170531 20180224 20220828 20240812 + (_Ar/_Al) | Ariadna, Alexandra | PDTE |
@@ -293,7 +289,6 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-06-28 | Adivina el slogan | 58 anuncios míticos, hasta 5 aciertos | N/A | N/A | PDTE |
 | 2028-06-30 | Adivina el PIN | 1243 | ImgFiguras.png | N/A | PDTE |
 | 2028-07-02 | Flash memory | N/A | MGAA_20170114.jpg | Mari, Gerard, Ariadna y Alex | PDTE |
-| 2028-07-03 | Puzzle visual | ACHI | Puzzle01_01.png .. Puzzle01_05.png | N/A | PDTE |
 | 2028-07-04 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
 | 2028-07-05 | Acertijos y adivinanzas - Raro, raro | CAMISA | Ari_20140523.png | Ariadna | PDTE |
 | 2028-07-06 | El poble amagat | ARTES | Ariadna_20230310.png + Artes.jpg | Ariadna | PDTE |
@@ -347,7 +342,6 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-09-02 | Satisfacción con restricciones múltiples: Tarde de manualidades | Enric: pintar+témperas / Nieves: modelar+plastilina / Ariadna: pegar+pegatinas / Alex: recortar+cartulina | RSR09_Escenario.webp + RSR09_01A..01D.png + RSR09_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
 | 2028-09-03 | Palabras Intraducibles - Finlandés | SISU | Nieves_20160102.jpg | Nieves | PDTE |
 | 2028-09-04 | Adivina el logo correcto | 10 logos icónicos | Logos.png | N/A | PDTE |
-| 2028-09-05 | Puzzle visual | ACHI | Puzzle01_01.png .. Puzzle01_05.png | N/A | PDTE |
 | 2028-09-06 | Acertijos y adivinanzas - Montones de paja | 1 | Gerard_20220705.png | Gerard | PDTE |
 | 2028-09-07 | El poble amagat | CERVERA | Mari_20230708.png + Cervera.jpg | Cervera | PDTE |
 | 2028-09-08 | Encuentra las 3 diferencias | N/A | NievesAriAlex_20200222_*.jpg (Original, Modifica, Clickmap) | Nieves, Ariadna y Alex | PDTE |
@@ -369,7 +363,6 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-09-26 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
 | 2028-09-28 | Timeline: óperas famosas | 8 óperas famosas | aida.jpg, carmen.jpg, parsifal.jpg, dama_picas.jpg, la_boheme.jpg, tosca.jpg, madama_butterfly.jpg, caballero_rosa.jpg | N/A | PDTE |
 | 2028-09-29 | Adivina el slogan | 58 anuncios míticos, hasta 5 aciertos | N/A | N/A | PDTE |
-| 2028-10-02 | Puzzle visual | ACHI | Puzzle01_01.png .. Puzzle01_05.png | N/A | PDTE |
 | 2028-10-03 | Cultura: iniciales de famosos | CRETA | Lugar11_01.jpg .. Lugar11_05.jpg | Ajenos | PDTE |
 | 2028-10-04 | Reinas | N/A | N/A | N/A | PDTE |
 | 2028-10-05 | Adivina la serie | Chicho Terremoto, Juana y Sergio, El Príncipe de Bel-Air, Sexo en Nueva York | chicho_terremoto.jpg/.mp3, juana_sergio.jpg/.mp3, principe_bel_air.jpg/.mp3, sexo_nueva_york.jpg/.mp3 | N/A | PDTE |
@@ -412,7 +405,6 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-11-19 | Palabras Intraducibles - Yiddish | NAKHES | Alex_20250622.jpg | Alexandra | PDTE |
 | 2028-11-20 | Rosco de pasapalabra | ESTAR COMO UNA CABRA, GUAY DEL PARAGUAY, DE COÑA MARINERA, NANAY DE LA CHINA, CHACHI PIRULI, ALUCINA VECINA | N/A | N/A | PDTE |
 | 2028-11-21 | Cultura: iniciales de famosos | MALTA | Lugar12_01.jpg .. Lugar12_05.jpg | Ajenos | PDTE |
-| 2028-11-22 | Puzzle visual | ACHI | Puzzle01_01.png .. Puzzle01_05.png | N/A | PDTE |
 | 2028-11-23 | Adivina el PIN | 3964 | ImgDial.png | N/A | PDTE |
 | 2028-11-24 | Ingenio: negro sobre negro | 300.000 | The_Rolling_Stones_Paint_It_Black.mp3 | N/A | PDTE |
 | 2028-11-25 | Satisfacción con restricciones múltiples: Merienda después del cole | Enric: tortilla+agua / Nieves: queso+zumo / Ariadna: jamón+cola / Alex: nocilla+leche | RSR11_Escenario.webp + RSR11_01A..01D.png + RSR11_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
@@ -425,7 +417,6 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-12-04 | El poble amagat | ESPARREGUERA | Ariadna_20191116.png + Esparreguera.jpg | Ariadna | PDTE |
 | 2028-12-05 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
 | 2028-12-06 | Acertijos y adivinanzas - Oficio reconocido | AGUJA | Ari_20200215.png | Ariadna | PDTE |
-| 2028-12-07 | Puzzle visual | ACHI | Puzzle01_01.png .. Puzzle01_05.png | N/A | PDTE |
 | 2028-12-08 | Reinas | N/A | N/A | N/A | PDTE |
 | 2028-12-09 | Satisfacción con restricciones múltiples: Juegos de mesa | Enric: ajedrez+frutos secos / Nieves: cartas+patatas / Ariadna: puzle+galletas / Alex: dominó+gominolas | RSR12_Escenario.webp + RSR12_01A..01D.png + RSR12_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
 | 2028-12-10 | Memory 4x4 | N/A | NievesEnric + 20041205 20061024 20090122 20170515 20190406 20220413 20250413 20250803 + (_E/_N) | Nieves, Enric | PDTE |
@@ -473,6 +464,4 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 
 |  Día / Ámbito | Descripción | 
 |--------------|-------------|
-|  Puzzle visuales | OK: 03-FEB, 07-MAR, 27-ABR, 24-MAY, Resto PDTE |
-| 04/03/2028  | Minijuego (Simón Dice) --> reemplazar por otro contenido | 
 |  Escape Rooms + Retos de observación | Añadir música ambiental de fondo en los días tipo Escape Room y en los retos de agudeza visual |
