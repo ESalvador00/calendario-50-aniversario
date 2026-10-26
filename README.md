@@ -169,6 +169,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-02-05 | Minijuego (Ranas Saltadoras) | N/A | N/A | N/A | PDTE |
 | 2028-02-06 | Agudeza visual — clickmap museo (binario) | ENRIC | Museo_visual.png + Museo_clickmap.png + Ultima_cena.png + Ariadna_20190701.png | Ariadna | PDTE |
 | 2028-02-07 | Adivina la serie | Dragones y Mazmorras, Inspector Gadget, El coche Fantástico, Expediente X | dragones_mazmorras.jpg/.mp3, inspector_gadget.jpg/.mp3, coche_fantastico.jpg/.mp3, expediente_x.jpg/.mp3 | N/A | PDTE |
+| 2028-02-08 | Paraulògic (letras T A I N D U + M central) | 163 palabras; supermots: DIMINUTA, MUNDANITAT; completado al 10 % | N/A | N/A | PDTE |
 | 2028-02-09 | Timeline musical, España en los 2000 | 2002-2008 | Asereje.jpg .. Tenia_tanto_que_darte.jpg | N/A | PDTE |
 | 2028-02-10 | Reinas | N/A | N/A | N/A | PDTE |
 | 2028-02-12 | Memory 4x4 | N/A | AriAlex + 20150606 20170513 20180825 20191026 20200429 20210401 20220422 20240511 + (_Ar/_Al) | Ariadna, Alexandra | PDTE |
@@ -316,7 +317,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-07-30 | Memory 4x4 | N/A | NievesEnric + 20040425 20061004 20180714 20190811 20200718 20200919 20220514 20240510 + (_E/_N) | Nieves, Enric | PDTE |
 | 2028-07-31 | Adivina el cuadro | AMERICAN GOTHIC / OFELIA / MUJER LLORANDO | american_gothic_hd.jpg, ofelia_hd.jpg, mujer_llorando_hd.jpg | N/A | PDTE |
 | 2028-08-01 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
-| 2028-08-02 | Puzzle visual | ACHI | Puzzle01_01.png .. Puzzle01_05.png | N/A | PDTE |
+| 2028-08-02 | Puzzle visual | ALEX | Puzzle01_01.png .. Puzzle01_05.png | N/A | PDTE |
 | 2028-08-03 | El poble amagat | ALTAFULLA | Nieves_20190209.png + Altafulla.jpg | Nieves | PDTE |
 | 2028-08-05 | Satisfacción con restricciones múltiples: Noche de películas | Enric: misterio+helado / Nieves: comedia+pizza / Ariadna: aventuras+nachos / Alex: animación+palomitas | RSR08_Escenario.webp + RSR08_01A..01D.png + RSR08_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
 | 2028-08-06 | Flash memory | N/A | NievesAriAlex_20230702.jpg | Nieves, Ariadna y Alex | PDTE |
