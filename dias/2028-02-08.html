@@ -101,6 +101,14 @@
     .popup-msg.pl-rules{text-align:left;font-style:normal;font-size:1.05rem;}
     .popup-msg.pl-rules ul{padding-left:1.2rem;}
     .popup-msg.pl-rules li{margin-bottom:.4rem;}
+    #popup-pl-help .popup-box{max-height:90vh;max-height:90dvh;display:flex;flex-direction:column;padding:2rem 1.5rem;}
+    #popup-pl-help .popup-icon,#popup-pl-help .popup-title,#popup-pl-help .popup-btn{flex-shrink:0;}
+    #popup-pl-help .popup-msg{flex:1 1 auto;min-height:0;overflow-y:auto;padding-right:.6rem;margin-bottom:1.2rem;overflow-y:scroll;}
+    @supports not selector(::-webkit-scrollbar){#popup-pl-help .popup-msg{scrollbar-width:thin;scrollbar-color:rgba(201,168,76,.5) rgba(255,255,255,.05);}}
+    #popup-pl-help .popup-btn{align-self:center;}
+    #popup-pl-help .popup-msg::-webkit-scrollbar{width:8px;}
+    #popup-pl-help .popup-msg::-webkit-scrollbar-thumb{background:rgba(201,168,76,.5);border-radius:4px;}
+    #popup-pl-help .popup-msg::-webkit-scrollbar-track{background:rgba(255,255,255,.05);border-radius:4px;}
     .popup-btns{display:flex;gap:.8rem;justify-content:center;}
     @media(max-width:700px){
       .content-area.paraulogic{grid-template-columns:1fr;padding:1rem;gap:1.5rem;}
