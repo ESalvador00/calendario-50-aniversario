@@ -96,6 +96,12 @@
     .pl-sec summary .c{color:var(--gold-light);font-family:'Playfair Display',serif;font-size:.95rem;}
     .pl-words{padding:.2rem .8rem .7rem;font-style:italic;color:#F08A24;font-size:1.05rem;line-height:1.5;overflow-wrap:anywhere;}
     .pl-words b{font-weight:700;text-transform:uppercase;font-style:italic;}
+    .pl-btns2{margin-top:-.2rem;}
+    .pl-btn.small{font-size:.8rem;padding:.45rem .4rem;border-color:rgba(201,168,76,.25);color:rgba(201,168,76,.75);}
+    .popup-msg.pl-rules{text-align:left;font-style:normal;font-size:1.05rem;}
+    .popup-msg.pl-rules ul{padding-left:1.2rem;}
+    .popup-msg.pl-rules li{margin-bottom:.4rem;}
+    .popup-btns{display:flex;gap:.8rem;justify-content:center;}
     @media(max-width:700px){
       .content-area.paraulogic{grid-template-columns:1fr;padding:1rem;gap:1.5rem;}
     }
@@ -122,6 +128,10 @@
           <button class="pl-btn" id="pl-del" type="button">Esborrar</button>
           <button class="pl-btn rot" id="pl-rot" type="button" title="Girar" aria-label="Girar"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg></button>
           <button class="pl-btn" id="pl-ok" type="button">Validar</button>
+        </div>
+        <div class="pl-btns pl-btns2">
+          <button class="pl-btn small" id="pl-help" type="button">Com es juga</button>
+          <button class="pl-btn small" id="pl-reset" type="button">Reiniciar joc</button>
         </div>
       </div>
       <div class="pl-score">
@@ -167,6 +177,38 @@
     <p class="popup-title">¡Tu recompensa!</p>
     <p class="popup-msg" id="reward-text">✨ Aquí irá la recompensa especial de este día ✨</p>
     <button class="popup-btn" id="star-reward-close">¡Genial!</button>
+  </div>
+</div>
+
+<div class="popup-overlay" id="popup-pl-help">
+  <div class="popup-box">
+    <div class="popup-icon">⬡</div>
+    <p class="popup-title">Com es juga</p>
+    <div class="popup-msg pl-rules">
+      <ul>
+        <li>Forma paraules en català amb les 7 lletres. Pots repetir lletres tantes vegades com vulguis.</li>
+        <li>Totes les paraules han de contenir la <b>lletra central</b> (hexàgon vermell).</li>
+        <li>Escriu al quadre o fes clic als hexàgons i prem <b>Validar</b> (o Intro).</li>
+        <li>Els accents, les dièresis i les majúscules no importen.</li>
+        <li>El botó de girar barreja les lletres de fora; la central no es mou.</li>
+        <li>Els <b>supermots</b> són paraules que contenen les 7 lletres.</li>
+        <li>Al marcador veuràs les paraules trobades, agrupades per la lletra inicial. Quan en trobis el 10 % superaràs el repte, però pots seguir jugant.</li>
+        <li>El teu progrés es guarda: pots tancar i continuar un altre dia.</li>
+      </ul>
+    </div>
+    <button class="popup-btn" id="pl-help-close">Entesos</button>
+  </div>
+</div>
+
+<div class="popup-overlay" id="popup-pl-reset">
+  <div class="popup-box">
+    <div class="popup-icon">⚠️</div>
+    <p class="popup-title">Reiniciar el joc?</p>
+    <p class="popup-msg">S'esborraran totes les paraules trobades i començaràs de zero.<br>Aquesta acció no es pot desfer.</p>
+    <div class="popup-btns">
+      <button class="popup-btn" id="pl-reset-no">Cancel·lar</button>
+      <button class="popup-btn" id="pl-reset-yes">Reiniciar</button>
+    </div>
   </div>
 </div>
 
@@ -378,6 +420,21 @@ updateDone();
     drawHexes(true);
   });
   document.getElementById('pl-ok').addEventListener('click', validate);
+
+  const helpP = document.getElementById('popup-pl-help'), resetP = document.getElementById('popup-pl-reset');
+  const hide = p => p.classList.remove('visible');
+  document.getElementById('pl-help').addEventListener('click', () => helpP.classList.add('visible'));
+  document.getElementById('pl-help-close').addEventListener('click', () => hide(helpP));
+  document.getElementById('pl-reset').addEventListener('click', () => resetP.classList.add('visible'));
+  document.getElementById('pl-reset-no').addEventListener('click', () => hide(resetP));
+  [helpP, resetP].forEach(p => p.addEventListener('click', e => { if (e.target === p) hide(p); }));
+  document.getElementById('pl-reset-yes').addEventListener('click', () => {
+    found = []; save();
+    input.value = ''; input.className = 'pl-input'; input.readOnly = false; busy = false;
+    Object.values(secRefs).forEach(r => r.d.open = false);
+    renderScore(null);
+    hide(resetP);
+  });
 
   drawHexes(false);
   renderScore(null);
