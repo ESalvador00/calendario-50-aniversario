@@ -169,7 +169,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-02-05 | Minijuego (Ranas Saltadoras) | N/A | N/A | N/A | PDTE |
 | 2028-02-06 | Agudeza visual — clickmap museo (binario) | ENRIC | Museo_visual.png + Museo_clickmap.png + Ultima_cena.png + Ariadna_20190701.png | Ariadna | PDTE |
 | 2028-02-07 | Adivina la serie | Dragones y Mazmorras, Inspector Gadget, El coche Fantástico, Expediente X | dragones_mazmorras.jpg/.mp3, inspector_gadget.jpg/.mp3, coche_fantastico.jpg/.mp3, expediente_x.jpg/.mp3 | N/A | PDTE |
-| 2028-02-08 | Paraulògic (letras T A I N D U + M central) | 163 palabras; supermots: DIMINUTA, MUNDANITAT; completado al 10 % | N/A | N/A | PDTE |
+| 2028-02-08 | Paraulògic | 163 palabras (DIMINUTA, MUNDANITAT) | T, A, I, N, D, U + M | N/A | PDTE |
 | 2028-02-09 | Timeline musical, España en los 2000 | 2002-2008 | Asereje.jpg .. Tenia_tanto_que_darte.jpg | N/A | PDTE |
 | 2028-02-10 | Reinas | N/A | N/A | N/A | PDTE |
 | 2028-02-12 | Memory 4x4 | N/A | AriAlex + 20150606 20170513 20180825 20191026 20200429 20210401 20220422 20240511 + (_Ar/_Al) | Ariadna, Alexandra | PDTE |
@@ -237,10 +237,12 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-04-24 | Adivina el cuadro | NOCHE ESTRELLADA / CAMINANTE SOBRE MAR NUBES / CHRISTINAS WORLD | noche_estrellada_hd.jpg, caminante_mar_nubes_hd.jpg, cristinas_world_hd.jpg | N/A | PDTE |
 | 2028-04-25 | Timeline: monumentos y edificios | 8 monumentos famosos | gran_piramide_guiza.jpg, partenon.jpg, coliseo.jpg, santa_sofia.jpg, mezquita_cordoba.jpg, catedral_chartres.jpg, machu_picchu.jpg, taj_mahal.jpg | N/A | PDTE |
 | 2028-04-26 | Acertijos y adivinanzas - El lago y los lirios | 47 | Ari_20190913.png | Ariadna | PDTE |
+| 2028-04-27 | Paraulògic | 131 palabras (ORGANZÍ) | I, A, O, Z, R, N + G | N/A | PDTE |
 | 2028-04-28 | Adivina las películas | El Rey León, Titanic, Piratas del Caribe, Forrest Gump, Braveheart | El_Rey_Leon, Titanic, Piratas_del_Caribe, Forrest_Gump, Braveheart (mp3 y jpg) | N/A | PDTE |
 | 2028-04-29 | Flash memory | N/A | AriAlex_20180722.jpg | Ariadna y Alex | PDTE |
 | 2028-04-30 | Palabras Intraducibles - Galés | HIRAETH | Sants_Mudanza_20190821.jpg | Ninguno | PDTE |
 | 2028-05-02 | Adivina la serie | Alf, D'Artacán, MacGyver, Willy Fog | alf.jpg/.mp3, dartacan.jpg/.mp3, macgyver.jpg/.mp3, willy_fog.jpg/.mp3 | N/A | PDTE |
+| 2028-05-03 | Paraulògic | 122 palabras (MANLLEUENC, MANLLEUENCA, MULENCA) | A, E, U, C, M, L + N | N/A | PDTE |
 | 2028-05-04 | Acertijos y adivinanzas - ¿Qué día es hoy? | VIERNES | Enric_20220409.png | Enric | PDTE |
 | 2028-05-05 | Encuentra las 3 diferencias | N/A | NievesAriAlex_20220226_*.jpg (Original, Modifica, Clickmap) | Nieves, Ariadna y Alex | PDTE |
 | 2028-05-06 | Minijuego (Las 5 Monedas de Tait) | N/A | N/A | N/A | PDTE |
@@ -284,6 +286,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-06-19 | Rosco de pasapalabra | CHUNGO, EMPANADO, HEAVY, MAZAS, PIJOS, TIO | N/A | N/A | PDTE |
 | 2028-06-20 | Simón Dice | N/A | salram_off_*.png / salram_on_*.png | Enric, Nieves, Ariadna y Alex | PDTE |
 | 2028-06-21 | Reinas | N/A | N/A | N/A | PDTE |
+| 2028-06-22 | Paraulògic | 144 palabras (TITUBACIÓ) | A, O, U, B, T, C + I | N/A | PDTE |
 | 2028-06-24 | Puzzle clásico | N/A | Salram_20250111.jpg | Enric, Nieves, Ariadna y Alex | PDTE |
 | 2028-06-25 | Flash memory | N/A | NievesAriAlex_20200809.jpg | Nieves, Ariadna y Alex | PDTE |
 | 2028-06-26 | Timeline: películas de cine | metropolis, lo_que_viento_llevo, ciudadano_kane, siete_samurais, psicosis, 2001_odisea_espacio, padrino, star_wars_iv | metropolis.jpg, lo_que_viento_llevo.jpg, ciudadano_kane.jpg, siete_samurais.jpg, psicosis.jpg, 2001_odisea_espacio.jpg, padrino.jpg, star_wars_iv.jpg | N/A | PDTE |
@@ -291,6 +294,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-06-28 | Adivina el slogan | 58 anuncios míticos, hasta 5 aciertos | N/A | N/A | PDTE |
 | 2028-06-30 | Adivina el PIN | 1243 | ImgFiguras.png | N/A | PDTE |
 | 2028-07-02 | Flash memory | N/A | MGAA_20170114.jpg | Mari, Gerard, Ariadna y Alex | PDTE |
+| 2028-07-03 | Paraulògic | 157 palabras (ENCLOURE, CONCLOURE) | O, E, U, L, R, N + C | N/A | PDTE |
 | 2028-07-04 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
 | 2028-07-05 | Acertijos y adivinanzas - Raro, raro | CAMISA | Ari_20140523.png | Ariadna | PDTE |
 | 2028-07-06 | El poble amagat | ARTES | Ariadna_20230310.png + Artes.jpg | Ariadna | PDTE |
