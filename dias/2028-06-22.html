@@ -56,6 +56,63 @@
       .day-nav{margin-top:1rem;padding-top:1rem;}
       .ornament-line-h{margin-bottom:1rem;}
     }
+
+    /* ── Paraulògic ── */
+    .wrap{max-width:1000px;}
+    .content-area.paraulogic{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:start;text-align:left;font-style:normal;color:var(--cream);padding:2rem;min-height:0;}
+    .pl-game{display:flex;flex-direction:column;align-items:center;gap:1rem;}
+    .pl-hexes{width:100%;max-width:320px;}
+    .pl-hexes svg{width:100%;height:auto;display:block;user-select:none;-webkit-user-select:none;}
+    .hex{cursor:pointer;transform-box:fill-box;transform-origin:center;transition:transform .15s;}
+    .hex polygon{stroke:rgba(0,0,0,.25);stroke-width:2;transition:fill .15s,stroke .15s,filter .15s;}
+    .hex.out polygon{fill:#3F6FB0;}
+    .hex.mid polygon{fill:#E8756A;}
+    .hex text{font-family:'Playfair Display',serif;font-weight:700;font-size:34px;fill:#fff;text-anchor:middle;dominant-baseline:central;pointer-events:none;}
+    .hex:hover{transform:scale(1.08);}
+    .hex:hover polygon{stroke:var(--gold-light);stroke-width:3.5;filter:brightness(1.25);}
+    .hex.spin{animation:plspin .35s ease;}
+    @keyframes plspin{from{opacity:.2;transform:rotate(-25deg) scale(.9);}to{opacity:1;transform:none;}}
+    .pl-input{width:100%;max-width:320px;font-family:'Playfair Display',serif;font-size:1.5rem;letter-spacing:.15em;text-align:center;text-transform:uppercase;color:var(--gold-light);background:rgba(255,255,255,.05);border:1px solid rgba(201,168,76,.4);border-radius:3px;padding:.6rem .5rem;outline:none;caret-color:var(--gold);}
+    .pl-input:focus{border-color:var(--gold);}
+    .pl-input.ok{color:#5fd28a;border-color:#5fd28a;letter-spacing:.05em;font-size:1.25rem;}
+    .pl-input.err{color:#ff6b6b;border-color:#ff6b6b;letter-spacing:.03em;font-size:1.15rem;}
+    .pl-input.warn{color:#f0b24a;border-color:#f0b24a;letter-spacing:.03em;font-size:1.15rem;}
+    .pl-btns{display:flex;gap:.6rem;width:100%;max-width:320px;}
+    .pl-btn{flex:1;display:flex;align-items:center;justify-content:center;padding:.6rem .4rem;background:none;border:1px solid rgba(201,168,76,.4);border-radius:2px;color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:.95rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:all .2s;}
+    .pl-btn:hover{background:rgba(201,168,76,.12);border-color:var(--gold);color:var(--gold-light);}
+    .pl-btn.rot{flex:0 0 3.2rem;}
+    .pl-btn svg{width:1.3rem;height:1.3rem;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+    .pl-score{display:flex;flex-direction:column;gap:1rem;min-width:0;}
+    .pl-totals{display:grid;grid-template-columns:1fr 1fr;gap:.2rem 1rem;text-align:center;padding-bottom:.9rem;border-bottom:1px solid rgba(201,168,76,.2);}
+    .pl-totals .lbl{font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(201,168,76,.6);}
+    .pl-totals .val{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--gold-light);}
+    .pl-secs{display:flex;flex-direction:column;gap:.4rem;}
+    .pl-sec{border:1px solid rgba(201,168,76,.18);border-radius:3px;background:rgba(255,255,255,.02);}
+    .pl-sec summary{display:flex;justify-content:space-between;align-items:center;padding:.5rem .8rem;cursor:pointer;list-style:none;font-size:1rem;color:rgba(250,246,238,.85);}
+    .pl-sec summary::-webkit-details-marker{display:none;}
+    .pl-sec summary::before{content:'▸';color:var(--gold);margin-right:.5rem;transition:transform .2s;display:inline-block;}
+    .pl-sec[open] summary::before{transform:rotate(90deg);}
+    .pl-sec summary .t{flex:1;}
+    .pl-sec summary .c{color:var(--gold-light);font-family:'Playfair Display',serif;font-size:.95rem;}
+    .pl-words{padding:.2rem .8rem .7rem;font-style:italic;color:#F08A24;font-size:1.05rem;line-height:1.5;overflow-wrap:anywhere;}
+    .pl-words b{font-weight:700;text-transform:uppercase;font-style:italic;}
+    .pl-btns2{margin-top:-.2rem;}
+    .pl-btn.small{font-size:.8rem;padding:.45rem .4rem;border-color:rgba(201,168,76,.25);color:rgba(201,168,76,.75);}
+    .popup-msg.pl-rules{text-align:left;font-style:normal;font-size:1.05rem;}
+    .popup-msg.pl-rules ul{padding-left:1.2rem;}
+    .popup-msg.pl-rules li{margin-bottom:.4rem;}
+    #popup-pl-help .popup-box{max-height:90vh;max-height:90dvh;display:flex;flex-direction:column;padding:2rem 1.5rem;}
+    #popup-pl-help .popup-icon,#popup-pl-help .popup-title,#popup-pl-help .popup-btn{flex-shrink:0;}
+    #popup-pl-help .popup-msg{flex:1 1 auto;min-height:0;overflow-y:auto;padding-right:.6rem;margin-bottom:1.2rem;overflow-y:scroll;}
+    @supports not selector(::-webkit-scrollbar){#popup-pl-help .popup-msg{scrollbar-width:thin;scrollbar-color:rgba(201,168,76,.5) rgba(255,255,255,.05);}}
+    #popup-pl-help .popup-btn{align-self:center;}
+    #popup-pl-help .popup-msg::-webkit-scrollbar{width:8px;}
+    #popup-pl-help .popup-msg::-webkit-scrollbar-thumb{background:rgba(201,168,76,.5);border-radius:4px;}
+    #popup-pl-help .popup-msg::-webkit-scrollbar-track{background:rgba(255,255,255,.05);border-radius:4px;}
+    .popup-btns{display:flex;gap:.8rem;justify-content:center;}
+    @media(max-width:700px){
+      .content-area.paraulogic{grid-template-columns:1fr;padding:1rem;gap:1.5rem;}
+    }
 </style>
 </head>
 <body>
@@ -71,8 +128,27 @@
     <p class="day-of-week">Jueves</p>
     <h1>22</h1>
     <p class="month-label">de Junio</p>
-    <div class="content-area">
-      <p>Espacio reservado para el contenido de este día</p>
+    <div class="content-area paraulogic">
+      <div class="pl-game">
+        <div class="pl-hexes"><svg id="pl-svg" viewBox="-125 -125 250 250" aria-label="Lletres"></svg></div>
+        <input type="text" id="pl-input" class="pl-input" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-label="Paraula">
+        <div class="pl-btns">
+          <button class="pl-btn" id="pl-del" type="button">Esborrar</button>
+          <button class="pl-btn rot" id="pl-rot" type="button" title="Girar" aria-label="Girar"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg></button>
+          <button class="pl-btn" id="pl-ok" type="button">Validar</button>
+        </div>
+        <div class="pl-btns pl-btns2">
+          <button class="pl-btn small" id="pl-help" type="button">Com es juga</button>
+          <button class="pl-btn small" id="pl-reset" type="button">Reiniciar joc</button>
+        </div>
+      </div>
+      <div class="pl-score">
+        <div class="pl-totals">
+          <div class="lbl">Paraules trobades</div><div class="lbl">Supermots</div>
+          <div class="val" id="pl-found">0/0 (0.00%)</div><div class="val" id="pl-super">0/0</div>
+        </div>
+        <div class="pl-secs" id="pl-secs"></div>
+      </div>
     </div>
   </div>
   <nav class="day-nav">
@@ -109,6 +185,38 @@
     <p class="popup-title">¡Tu recompensa!</p>
     <p class="popup-msg" id="reward-text">✨ Aquí irá la recompensa especial de este día ✨</p>
     <button class="popup-btn" id="star-reward-close">¡Genial!</button>
+  </div>
+</div>
+
+<div class="popup-overlay" id="popup-pl-help">
+  <div class="popup-box">
+    <div class="popup-icon">⬡</div>
+    <p class="popup-title">Com es juga</p>
+    <div class="popup-msg pl-rules">
+      <ul>
+        <li>Forma paraules en català amb les 7 lletres. Pots repetir lletres tantes vegades com vulguis.</li>
+        <li>Totes les paraules han de contenir la <b>lletra central</b> (hexàgon vermell).</li>
+        <li>Escriu al quadre o fes clic als hexàgons i prem <b>Validar</b> (o Intro).</li>
+        <li>Els accents, les dièresis i les majúscules no importen.</li>
+        <li>El botó de girar barreja les lletres de fora; la central no es mou.</li>
+        <li>Els <b>supermots</b> són paraules que contenen les 7 lletres.</li>
+        <li>Al marcador veuràs les paraules trobades, agrupades per la lletra inicial. Quan en trobis el 10 % superaràs el repte, però pots seguir jugant.</li>
+        <li>El teu progrés es guarda: pots tancar i continuar un altre dia.</li>
+      </ul>
+    </div>
+    <button class="popup-btn" id="pl-help-close">Entesos</button>
+  </div>
+</div>
+
+<div class="popup-overlay" id="popup-pl-reset">
+  <div class="popup-box">
+    <div class="popup-icon">⚠️</div>
+    <p class="popup-title">Reiniciar el joc?</p>
+    <p class="popup-msg">S'esborraran totes les paraules trobades i començaràs de zero.<br>Aquesta acció no es pot desfer.</p>
+    <div class="popup-btns">
+      <button class="popup-btn" id="pl-reset-no">Cancel·lar</button>
+      <button class="popup-btn" id="pl-reset-yes">Reiniciar</button>
+    </div>
   </div>
 </div>
 
@@ -194,6 +302,151 @@ doneBtn.addEventListener('click', () => {
   }
 });
 updateDone();
+
+// ── Paraulògic ─────────────────────────────────────────────
+(function(){
+  const CENTER = 'I';
+  const OUTER  = ['A','O','U','B','T','C'];
+  const LETTERS = new Set([CENTER, ...OUTER]);
+  const PL_KEY = 'paraulogic_2028-06-22';
+  const THRESHOLD = 10; // % para completar
+  const RAW = {"A": ["abiòtic", "abiòtica", "acàcia", "acci", "àccia", "acció", "ací", "acotació", "actiu", "actuació", "acuit", "acuïtat", "ai-ai", "atàctic", "atàctica", "àtic", "àtica", "autoic", "autoica"], "B": ["babaia", "baboia", "babuí", "bacci-", "bací", "baciu", "bai", "baia", "bati-", "bicoca", "bio-", "biota", "biòtic", "biòtica", "biotita", "bit", "bita", "bitó o bitò", "bitoc", "bobiot", "bocí", "bocoi", "boia", "boïc", "boicot", "botí", "botit", "bubi", "buccí", "buit"], "C": ["càbit", "cabotí", "cacic", "cacicat", "cactàcia", "cai", "caiac", "caòtic", "caòtica", "catabàtic", "catabàtica", "catió", "caució", "cia", "ciati", "ciàtic", "ciàtica", "cicuta", "-cit", "cita", "citació", "cito-", "ciutat", "coacció", "coactiu", "coatí", "cobai", "còccic", "còccica", "cocció", "coi", "coiot", "coit", "cotí", "cúbic", "cúbica", "cubicació", "cúbit", "cubito-", "cuïc", "cuit", "cuita", "cuitat"], "I": ["iac", "iai", "iaia", "iaio", "ica", "icac", "ictio-", "io-io", "iot", "iota", "iuca"], "O": ["obi", "òbit", "occità", "oci", "oiat", "oioi", "oòcit", "òtic", "òtica", "otoció"], "T": ["tàbic", "tàbica", "tàcit", "tàcita", "tàctic", "tàctica", "tacticitat", "tai", "tia", "tibat", "tíbia", "tibio-", "tic", "tic-tac", "tio- o tió", "tit", "tita o tità", "tití", "titit", "titot", "titota", "TITUBACIÓ", "toia", "tubi-", "tuia", "tuïció", "tuït", "tuïtiu", "tuti"], "U": ["ubic", "ubicació"]};
+
+  const norm = s => s.normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[-·]/g,'').trim().toUpperCase();
+
+  // Diccionario: id (primera variante normalizada) → entrada
+  const entries = [];      // {id, init, label, isSuper}
+  const lookup  = {};      // variante normalizada → id
+  Object.keys(RAW).forEach(init => RAW[init].forEach(raw => {
+    const vars = raw.split(' o ').map(v => v.trim());
+    const keys = vars.map(norm);
+    const id = keys[0];
+    const uniq = [], seen = new Set();
+    vars.forEach((v,i) => { const t = v.replace(/-/g,''); if(!seen.has(keys[i])){ seen.add(keys[i]); uniq.push(t.toLowerCase()); } });
+    const isSuper = [...LETTERS].every(l => id.includes(l));
+    entries.push({id, init, label: uniq.join(' / '), isSuper});
+    keys.forEach(k => lookup[k] = id);
+  }));
+  const byId = {}; entries.forEach(e => byId[e.id] = e);
+  const TOTAL = entries.length;
+  const SUPERS = entries.filter(e => e.isSuper).length;
+  const INITS = Object.keys(RAW).sort();
+
+  // Progreso
+  let found = [];
+  try { const p = JSON.parse(localStorage.getItem(PL_KEY)||'{}'); if (Array.isArray(p.found)) found = p.found.filter(id => byId[id]); } catch(e){}
+  const save = () => { try { localStorage.setItem(PL_KEY, JSON.stringify({found})); } catch(e){} };
+
+  // ── Hexágonos ──
+  const svg = document.getElementById('pl-svg');
+  const R = 44, GAP = 6, D = Math.sqrt(3)*R + GAP;
+  const hexPts = (cx,cy) => [0,1,2,3,4,5].map(i => { const a = Math.PI/3*i; return (cx+R*Math.cos(a)).toFixed(1)+','+(cy+R*Math.sin(a)).toFixed(1); }).join(' ');
+  let outer = OUTER.slice();
+  function drawHexes(spin){
+    const NS = 'http://www.w3.org/2000/svg';
+    svg.innerHTML = '';
+    const items = [{l:CENTER,x:0,y:0,cls:'mid'}];
+    outer.forEach((l,i) => { const a = Math.PI/180*(30+60*i); items.push({l, x:D*Math.cos(a), y:D*Math.sin(a), cls:'out'}); });
+    items.forEach(it => {
+      const g = document.createElementNS(NS,'g'); g.setAttribute('class','hex '+it.cls+(spin&&it.cls==='out'?' spin':''));
+      const p = document.createElementNS(NS,'polygon'); p.setAttribute('points', hexPts(it.x,it.y));
+      const t = document.createElementNS(NS,'text'); t.setAttribute('x',it.x.toFixed(1)); t.setAttribute('y',it.y.toFixed(1)); t.textContent = it.l;
+      g.appendChild(p); g.appendChild(t);
+      g.addEventListener('click', () => addLetter(it.l));
+      svg.appendChild(g);
+    });
+  }
+
+  // ── Input ──
+  const input = document.getElementById('pl-input');
+  let busy = false;
+  const addLetter = l => { if (busy) return; input.value += l; input.focus(); };
+  input.addEventListener('input', () => {
+    if (busy) return;
+    const clean = [...input.value.normalize('NFD').replace(/[̀-ͯ]/g,'').toUpperCase()].filter(c => LETTERS.has(c)).join('');
+    input.value = clean;
+  });
+  input.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); validate(); } });
+
+  function flash(msg, cls, after){
+    busy = true; input.value = msg; input.className = 'pl-input '+cls; input.readOnly = true;
+    setTimeout(() => { input.value=''; input.className='pl-input'; input.readOnly=false; busy=false; if(after) after(); }, 1500);
+  }
+
+  // ── Marcador ──
+  const secsEl = document.getElementById('pl-secs');
+  const secRefs = {};
+  INITS.forEach(init => {
+    const d = document.createElement('details'); d.className = 'pl-sec';
+    d.innerHTML = '<summary><span class="t">Comencen per: '+init+'</span><span class="c"></span></summary><div class="pl-words"></div>';
+    secsEl.appendChild(d);
+    secRefs[init] = {d, c:d.querySelector('.c'), w:d.querySelector('.pl-words'), total: entries.filter(e=>e.init===init).length};
+  });
+  function renderScore(openInit){
+    const pct = TOTAL ? found.length/TOTAL*100 : 0;
+    document.getElementById('pl-found').textContent = found.length+'/'+TOTAL+' ('+pct.toFixed(2)+'%)';
+    const sf = found.filter(id => byId[id].isSuper).length;
+    document.getElementById('pl-super').textContent = sf+'/'+SUPERS;
+    INITS.forEach(init => {
+      const r = secRefs[init];
+      const list = found.map(id => byId[id]).filter(e => e.init===init).sort((a,b)=>a.label.localeCompare(b.label,'ca'));
+      r.c.textContent = list.length+'/'+r.total;
+      r.w.innerHTML = list.map(e => e.isSuper ? '<b>'+e.label+'</b>' : e.label).join(', ');
+      r.w.style.display = list.length ? '' : 'none';
+      if (openInit === init) r.d.open = true;
+    });
+  }
+
+  // ── Validar ──
+  function validate(){
+    if (busy) return;
+    const w = norm(input.value);
+    if (!w) return;
+    if (!w.includes(CENTER)) return flash('Falta la lletra central','err');
+    const id = lookup[w];
+    if (!id) return flash('Paraula no trobada','err');
+    if (found.includes(id)) return flash('Ja la tens!','warn');
+    const before = found.length/TOTAL*100;
+    found.push(id); save();
+    renderScore(byId[id].init);
+    const after = found.length/TOTAL*100;
+    const reached = before < THRESHOLD && after >= THRESHOLD;
+    flash('Molt bé!','ok', () => {
+      if (after >= THRESHOLD && localStorage.getItem(DONE_KEY) !== '1') {
+        markDone();
+        popupStarReward.classList.add('visible');
+      }
+    });
+  }
+
+  function markDone(){ localStorage.setItem(DONE_KEY,'1'); updateDone(); }
+
+  document.getElementById('pl-del').addEventListener('click', () => { if(!busy){ input.value=''; input.focus(); } });
+  document.getElementById('pl-rot').addEventListener('click', () => {
+    if (busy) return;
+    for (let i = outer.length-1; i>0; i--) { const j = Math.floor(Math.random()*(i+1)); [outer[i],outer[j]] = [outer[j],outer[i]]; }
+    drawHexes(true);
+  });
+  document.getElementById('pl-ok').addEventListener('click', validate);
+
+  const helpP = document.getElementById('popup-pl-help'), resetP = document.getElementById('popup-pl-reset');
+  const hide = p => p.classList.remove('visible');
+  document.getElementById('pl-help').addEventListener('click', () => helpP.classList.add('visible'));
+  document.getElementById('pl-help-close').addEventListener('click', () => hide(helpP));
+  document.getElementById('pl-reset').addEventListener('click', () => resetP.classList.add('visible'));
+  document.getElementById('pl-reset-no').addEventListener('click', () => hide(resetP));
+  [helpP, resetP].forEach(p => p.addEventListener('click', e => { if (e.target === p) hide(p); }));
+  document.getElementById('pl-reset-yes').addEventListener('click', () => {
+    found = []; save();
+    input.value = ''; input.className = 'pl-input'; input.readOnly = false; busy = false;
+    Object.values(secRefs).forEach(r => r.d.open = false);
+    renderScore(null);
+    hide(resetP);
+  });
+
+  drawHexes(false);
+  renderScore(null);
+})();
 </script>
 </body>
 </html>
