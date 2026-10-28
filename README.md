@@ -333,6 +333,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-08-12 | Memory 4x4 | N/A | AriAlex + 20170904 20181209 20190830 20191214 20210808 20220410 20230619 20250421 + (_Ar/_Al) | Ariadna, Alexandra | PDTE |
 | 2028-08-14 | Adivina la serie | Doraemon, Els Barrufets, Los Problemas Crecen, Médico de Familia | doraemon.jpg/.mp3, els_barrufets.jpg/.mp3, problemas_crecen.jpg/.mp3, medico_familia.jpg/.mp3 | N/A | PDTE |
 | 2028-08-15 | Reinas | N/A | N/A | N/A | PDTE |
+| 2028-08-16 | Paraulògic | 123 palabras (REPRODUIR) | O, E, U, P, I, D + R | N/A | PDTE |
 | 2028-08-17 | Adivina quién soy | NAPOLEON | Juan_20190813.png | Juan | PDTE |
 | 2028-08-18 | Adivina el PIN | 8293 | N/A | N/A | PDTE |
 | 2028-08-19 | Puzzle clásico | N/A | Salram_20250805.jpg | Enric, Nieves, Ariadna y Alex | PDTE |
