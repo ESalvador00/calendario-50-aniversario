@@ -349,6 +349,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-09-02 | Satisfacción con restricciones múltiples: Tarde de manualidades | Enric: pintar+témperas / Nieves: modelar+plastilina / Ariadna: pegar+pegatinas / Alex: recortar+cartulina | RSR09_Escenario.webp + RSR09_01A..01D.png + RSR09_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
 | 2028-09-03 | Palabras Intraducibles - Finlandés | SISU | Nieves_20160102.jpg | Nieves | PDTE |
 | 2028-09-04 | Adivina el logo correcto | 10 logos icónicos | Logos.png | N/A | PDTE |
+| 2028-09-05 | Paraulògic | 104 palabras (FUSULINA) | L, A, U, S, I, F + N | N/A | PDTE |
 | 2028-09-06 | Acertijos y adivinanzas - Montones de paja | 1 | Gerard_20220705.png | Gerard | PDTE |
 | 2028-09-07 | El poble amagat | CERVERA | Mari_20230708.png + Cervera.jpg | Cervera | PDTE |
 | 2028-09-08 | Encuentra las 3 diferencias | N/A | NievesAriAlex_20200222_*.jpg (Original, Modifica, Clickmap) | Nieves, Ariadna y Alex | PDTE |
