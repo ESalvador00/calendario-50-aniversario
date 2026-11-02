@@ -200,7 +200,7 @@
         <li>Els accents, les dièresis i les majúscules no importen.</li>
         <li>El botó de girar barreja les lletres de fora; la central no es mou.</li>
         <li>Els <b>supermots</b> són paraules que contenen les 7 lletres.</li>
-        <li>Al marcador veuràs les paraules trobades, agrupades per la lletra inicial. Quan en trobis el 10 % superaràs el repte, però pots seguir jugant.</li>
+        <li>Al marcador veuràs les paraules trobades, agrupades per la lletra inicial. Quan en trobis 10 superaràs el repte, però pots seguir jugant.</li>
         <li>El teu progrés es guarda: pots tancar i continuar un altre dia.</li>
       </ul>
     </div>
@@ -309,7 +309,7 @@ updateDone();
   const OUTER  = ['A','E','U','C','M','L'];
   const LETTERS = new Set([CENTER, ...OUTER]);
   const PL_KEY = 'paraulogic_2028-05-03';
-  const THRESHOLD = 10; // % para completar
+  const THRESHOLD = 10; // paraules trobades per completar
   const RAW = {"A": ["acne", "alana", "alcanna", "alena", "allèn", "allenc", "almanac", "alna", "aluman", "alumna", "alumne", "amén", "amena", "ana-", "anal", "analema", "anca", "ànec", "anell", "anella", "aneuenc", "aneuenca", "anual"], "C": ["calanca", "calena", "camena", "can", "cana", "canac", "canaca", "canal", "canalé", "canalla", "canana", "cananea", "cananeu", "canca", "cancan", "cancell", "canell", "canella", "cànem", "cànula", "cen-", "cena", "cenacle", "clan", "culana", "cuneal"], "E": ["ecumene", "elenc", "emmanlleu", "ena", "encall", "encenall", "ènema", "enllà", "enne-", "ennea-", "ennuec", "ènula", "eunuc"], "L": ["lauan", "llacuna", "llamenc", "llamenca", "llana", "llauna", "llémena", "llenca o llença", "llucana", "lluna", "llunell", "lucana", "lumen", "lúnula"], "M": ["-man", "mana", "manc", "manca", "mànec", "maneula", "manlleu", "MANLLEUENC", "MANLLEUENCA", "mannà", "mannan", "manu-", "manual", "manuella", "melan-", "melena", "men-", "mena", "menú", "menuell", "mulenc", "MULENCA", "mullena"], "N": ["nan", "nana", "nau", "nen", "nena", "neu", "neula", "neulella", "neuma", "nua", "nuc", "nuca", "nucel·la", "núcula", "nul", "nul·la", "numen", "nun", "nuu"], "U": ["ulna", "una", "unè", "unena"]};
 
   const norm = s => s.normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[-·]/g,'').trim().toUpperCase();
@@ -406,10 +406,10 @@ updateDone();
     const id = lookup[w];
     if (!id) return flash('Paraula no trobada','err');
     if (found.includes(id)) return flash('Ja la tens!','warn');
-    const before = found.length/TOTAL*100;
+    const before = found.length;
     found.push(id); save();
     renderScore(byId[id].init);
-    const after = found.length/TOTAL*100;
+    const after = found.length;
     const reached = before < THRESHOLD && after >= THRESHOLD;
     flash('Molt bé!','ok', () => {
       if (after >= THRESHOLD && localStorage.getItem(DONE_KEY) !== '1') {

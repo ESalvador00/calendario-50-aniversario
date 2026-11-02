@@ -200,7 +200,7 @@
         <li>Els accents, les dièresis i les majúscules no importen.</li>
         <li>El botó de girar barreja les lletres de fora; la central no es mou.</li>
         <li>Els <b>supermots</b> són paraules que contenen les 7 lletres.</li>
-        <li>Al marcador veuràs les paraules trobades, agrupades per la lletra inicial. Quan en trobis el 10 % superaràs el repte, però pots seguir jugant.</li>
+        <li>Al marcador veuràs les paraules trobades, agrupades per la lletra inicial. Quan en trobis 10 superaràs el repte, però pots seguir jugant.</li>
         <li>El teu progrés es guarda: pots tancar i continuar un altre dia.</li>
       </ul>
     </div>
@@ -309,7 +309,7 @@ updateDone();
   const OUTER  = ['I','A','O','Z','R','N'];
   const LETTERS = new Set([CENTER, ...OUTER]);
   const PL_KEY = 'paraulogic_2028-04-27';
-  const THRESHOLD = 10; // % para completar
+  const THRESHOLD = 10; // paraules trobades per completar
   const RAW = {"A": ["agà", "agar", "agar-agar", "agarrar", "àgio", "-agog", "-agoga", "-agogia o -agògia", "agonia", "àgora", "-agra o agra", "agrair", "agranar", "agrari", "agrària", "agri-", "agrir", "agro- o agró", "agror", "anagogia", "angaria", "-angi o angi-", "angina", "angio-", "angora", "angorina", "arangí", "arginina", "argó", "àzig", "àziga", "azigo-"], "G": ["gag", "gai", "gaia", "gaig", "gairó", "gana", "ganga", "gaó", "gara-gara", "gàrgara", "garoina", "garra", "garrí", "garriga", "garrigar", "garrina", "garrinar", "garró", "garronar", "gazània", "giga o giga-", "-gin o gin o gin-", "-gina", "-gínia", "gino-", "gir", "gira", "girar", "girigar", "giro- o giró", "gironí", "gironina", "goa", "goig", "-gon o gon-", "-gona", "gong", "gongorí", "gongorina", "-goni", "-gonia", "gonio- o gonió", "gono-", "gorg", "gorga", "gorgònia", "gorgorà", "gori-gori", "gorra", "gorrí", "gorrió", "gra", "gran", "grana", "granar", "grani-", "grano-", "granor", "graó", "gro", "grog", "groga", "grogor"], "I": ["ignar", "ignara", "igni o igni-", "ígnia", "ignorar", "ioga", "irrigar", "irrogar"], "N": ["nagana", "naringina", "ngai", "ning-nang", "ning-ning", "noga"], "O": ["oogoni", "oogònia", "òrgan", "organo-", "ORGANZÍ", "orgia", "originar", "originari", "originària"], "R": ["raig", "rang", "rigor", "ring", "roig", "-rràgia"], "Z": ["zig-", "ziga-zaga", "zigo-", "zig-zag", "zíngar", "zíngara", "zing-zing"]};
 
   const norm = s => s.normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/-/g,'').trim().toUpperCase();
@@ -406,10 +406,10 @@ updateDone();
     const id = lookup[w];
     if (!id) return flash('Paraula no trobada','err');
     if (found.includes(id)) return flash('Ja la tens!','warn');
-    const before = found.length/TOTAL*100;
+    const before = found.length;
     found.push(id); save();
     renderScore(byId[id].init);
-    const after = found.length/TOTAL*100;
+    const after = found.length;
     const reached = before < THRESHOLD && after >= THRESHOLD;
     flash('Molt bé!','ok', () => {
       if (after >= THRESHOLD && localStorage.getItem(DONE_KEY) !== '1') {

@@ -200,7 +200,7 @@
         <li>Els accents, les dièresis i les majúscules no importen.</li>
         <li>El botó de girar barreja les lletres de fora; la central no es mou.</li>
         <li>Els <b>supermots</b> són paraules que contenen les 7 lletres.</li>
-        <li>Al marcador veuràs les paraules trobades, agrupades per la lletra inicial. Quan en trobis el 10 % superaràs el repte, però pots seguir jugant.</li>
+        <li>Al marcador veuràs les paraules trobades, agrupades per la lletra inicial. Quan en trobis 10 superaràs el repte, però pots seguir jugant.</li>
         <li>El teu progrés es guarda: pots tancar i continuar un altre dia.</li>
       </ul>
     </div>
@@ -309,7 +309,7 @@ updateDone();
   const OUTER  = ['A','E','U','I','Q','X'];
   const LETTERS = new Set([CENTER, ...OUTER]);
   const PL_KEY = 'paraulogic_2028-10-02';
-  const THRESHOLD = 10; // % para completar
+  const THRESHOLD = 10; // paraules trobades per completar
   const RAW = {"A": ["aixeta", "aquità", "atauxia", "atàxia", "ataxita", "atea", "ateu", "atxa", "aut-", "aute"], "E": ["eixit", "eixut", "eixuta", "equitat", "equitatiu", "etè", "etí", "etiqueta", "eutèxia", "èxeat", "èxit"], "Q": ["queixut", "queta", "quiet", "quieta", "quiti", "quítia", "quítxua"], "T": ["tai", "taqui- o taquí", "tat", "tatà", "tatú", "tatx", "tatxa", "tau", "taüt", "tau-tau", "taxa", "taxatiu", "-taxi o taxi o taxi-", "teatí", "tei", "teia", "teix", "teixit", "tet", "teta", "teu", "teua", "tex", "texà", "text", "tia", "tiquet", "tit", "tita o tità", "titet", "titeta", "tití", "titit", "tuia", "tuït", "tuïtiu", "tut", "tuta", "tuti", "tutú", "txa-txa-txa", "txetxè", "txitxa"], "X": ["xat", "xata", "xiïta", "xiquet", "XIQUETA", "xueta", "xuït", "xut", "xuta"]};
 
   const norm = s => s.normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[-\s·]/g,'').trim().toUpperCase();
@@ -406,10 +406,10 @@ updateDone();
     const id = lookup[w];
     if (!id) return flash('Paraula no trobada','err');
     if (found.includes(id)) return flash('Ja la tens!','warn');
-    const before = found.length/TOTAL*100;
+    const before = found.length;
     found.push(id); save();
     renderScore(byId[id].init);
-    const after = found.length/TOTAL*100;
+    const after = found.length;
     const reached = before < THRESHOLD && after >= THRESHOLD;
     flash('Molt bé!','ok', () => {
       if (after >= THRESHOLD && localStorage.getItem(DONE_KEY) !== '1') {

@@ -200,7 +200,7 @@
         <li>Els accents, les dièresis i les majúscules no importen.</li>
         <li>El botó de girar barreja les lletres de fora; la central no es mou.</li>
         <li>Els <b>supermots</b> són paraules que contenen les 7 lletres.</li>
-        <li>Al marcador veuràs les paraules trobades, agrupades per la lletra inicial. Quan en trobis el 10 % superaràs el repte, però pots seguir jugant.</li>
+        <li>Al marcador veuràs les paraules trobades, agrupades per la lletra inicial. Quan en trobis 10 superaràs el repte, però pots seguir jugant.</li>
         <li>El teu progrés es guarda: pots tancar i continuar un altre dia.</li>
       </ul>
     </div>
@@ -309,7 +309,7 @@ updateDone();
   const OUTER  = ['D','E','I','N','X','P'];
   const LETTERS = new Set([CENTER, ...OUTER]);
   const PL_KEY = 'paraulogic_2028-11-09';
-  const THRESHOLD = 10; // % para completar
+  const THRESHOLD = 10; // paraules trobades per completar
   const RAW = {"A": ["addend", "addenda", "aden-", "adeni-", "adenina", "adip-", "aede", "ai-ai", "ain", "aïnada", "aixa o aixà", "aixada", "aixadada", "aixapeïda", "així", "ana-", "anada", "anadènia", "anap", "andana", "andanada", "andí", "andina", "àneda", "aní", "annex", "annexa", "apa", "APÈNDIX", "àpex", "api o api-", "apnea", "axi-"], "D": ["dad", "dada o dadà", "daina", "dandi", "dea", "deixa", "deixada", "deixia", "dena", "dia o dia-", "diada", "diana", "dida", "dienda", "dina", "dinada", "díndia"], "E": ["eia", "eina", "eixa", "eixea", "eixida", "ena", "endidada", "ennea-", "exa-", "exina"], "I": ["iai", "iaia", "idea", "indià o índia", "indiana", "INEXPIADA", "ínia", "inxa", "íxia"], "N": ["nada", "nadada", "naia", "nàiada", "naip", "nan", "nana", "nap", "napa", "napada", "napea", "nàpia", "nedada", "nena", "nènia", "nèxia", "niada", "nina", "ninada"], "P": ["padda", "paia", "païda", "pai-pai", "paixà", "pan-", "pana", "panada", "panda", "panna", "panxa", "panxada", "pap", "papa o papà", "papada", "papaia", "papaïna", "-peda", "pedada", "pedani", "pedania o pedània", "-pèdia o pèdia", "peia", "peixada", "peixena", "pena", "penada", "penià", "peniana", "penna", "pennada", "pepa", "pepida", "pia", "pian", "pineda", "pinna", "pinnada", "pipa", "pipada", "pipínida", "pixa", "pixada", "pixadina"], "X": ["xai", "xaia", "xaiada", "xanxa", "xap", "xapa", "xapada", "xeixa", "xena", "xinxa", "xip-xap", "xixina"]};
 
   const norm = s => s.normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[-\s·]/g,'').trim().toUpperCase();
@@ -406,10 +406,10 @@ updateDone();
     const id = lookup[w];
     if (!id) return flash('Paraula no trobada','err');
     if (found.includes(id)) return flash('Ja la tens!','warn');
-    const before = found.length/TOTAL*100;
+    const before = found.length;
     found.push(id); save();
     renderScore(byId[id].init);
-    const after = found.length/TOTAL*100;
+    const after = found.length;
     const reached = before < THRESHOLD && after >= THRESHOLD;
     flash('Molt bé!','ok', () => {
       if (after >= THRESHOLD && localStorage.getItem(DONE_KEY) !== '1') {

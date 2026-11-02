@@ -200,7 +200,7 @@
         <li>Els accents, les dièresis i les majúscules no importen.</li>
         <li>El botó de girar barreja les lletres de fora; la central no es mou.</li>
         <li>Els <b>supermots</b> són paraules que contenen les 7 lletres.</li>
-        <li>Al marcador veuràs les paraules trobades, agrupades per la lletra inicial. Quan en trobis el 10 % superaràs el repte, però pots seguir jugant.</li>
+        <li>Al marcador veuràs les paraules trobades, agrupades per la lletra inicial. Quan en trobis 10 superaràs el repte, però pots seguir jugant.</li>
         <li>El teu progrés es guarda: pots tancar i continuar un altre dia.</li>
       </ul>
     </div>
@@ -309,7 +309,7 @@ updateDone();
   const OUTER  = ['O','E','U','L','R','N'];
   const LETTERS = new Set([CENTER, ...OUTER]);
   const PL_KEY = 'paraulogic_2028-07-03';
-  const THRESHOLD = 10; // % para completar
+  const THRESHOLD = 10; // paraules trobades per completar
   const RAW = {"C": ["cec", "-cel o cel", "-cele", "cell", "celler", "cellerer", "celo-", "cen-", "ceno-", "cer", "cerc o cerç", "cercle", "cèrcol", "cercoler", "cerer", "cero o cero-", "cerrell", "cerro", "clec", "clero", "cloc-cloc", "clon", "clor o clor-", "cloro-", "clorur", "cloure", "cluc", "clucull", "coc", "cocco-", "coco o cocó", "cocou", "cocouer", "còcul", "coer", "col o col-", "cole-", "coler", "coll", "coller", "colleró", "colló", "colon o còlon", "color", "colur", "con o con-", "conc", "CONCLOURE", "conco", "concolor", "concórrer", "conlloc", "cononcle", "conreu", "conró", "-cor o cor o cor-", "corc", "corcó", "corcoll", "corn", "corne-", "cornell", "corneller", "corneo-", "corner o córner", "coronel", "coronell", "còrrec", "córrer", "correu", "corró", "coure", "courer", "crec", "creu", "creuer", "creure", "croc", "crol", "-cron o cron o cron-", "crono-", "cru", "cruel", "cruenc", "cruor o crúor", "cuc", "cucurell", "cucurull", "cuell", "cuer", "cul", "culer", "culler", "cullerer", "curro", "curroc", "curul", "curull"], "E": ["eco o eco-", "ecu", "elenc", "ENCLOURE", "encoler", "encórrer", "enlloc", "ennuec", "enroc", "eocè", "eunuc"], "L": ["leuc-", "leuco-", "llec", "llécol", "llencer", "lloc", "lluc o lluç", "lòcul", "lucre"], "N": ["necr-", "necro-", "noc", "nocer", "noruec", "nuc", "nucleo- o nucleó", "nuclèol"], "O": ["ocel", "ocell", "ocórrer", "ocre", "ocro-", "òcul", "onc-", "oncle", "onco-", "orc"], "R": ["rec", "recel", "recer", "recloure", "recórrer", "recoure", "recull", "relluc", "renec o rènec", "renoc", "rerecor", "roc", "rococó", "ronc", "roncor", "rònec", "ruc", "rucó", "ruec"], "U": ["ullcluc", "urc"]};
 
   const norm = s => s.normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[-·]/g,'').trim().toUpperCase();
@@ -406,10 +406,10 @@ updateDone();
     const id = lookup[w];
     if (!id) return flash('Paraula no trobada','err');
     if (found.includes(id)) return flash('Ja la tens!','warn');
-    const before = found.length/TOTAL*100;
+    const before = found.length;
     found.push(id); save();
     renderScore(byId[id].init);
-    const after = found.length/TOTAL*100;
+    const after = found.length;
     const reached = before < THRESHOLD && after >= THRESHOLD;
     flash('Molt bé!','ok', () => {
       if (after >= THRESHOLD && localStorage.getItem(DONE_KEY) !== '1') {

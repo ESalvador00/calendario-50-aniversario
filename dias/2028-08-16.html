@@ -200,7 +200,7 @@
         <li>Els accents, les dièresis i les majúscules no importen.</li>
         <li>El botó de girar barreja les lletres de fora; la central no es mou.</li>
         <li>Els <b>supermots</b> són paraules que contenen les 7 lletres.</li>
-        <li>Al marcador veuràs les paraules trobades, agrupades per la lletra inicial. Quan en trobis el 10 % superaràs el repte, però pots seguir jugant.</li>
+        <li>Al marcador veuràs les paraules trobades, agrupades per la lletra inicial. Quan en trobis 10 superaràs el repte, però pots seguir jugant.</li>
         <li>El teu progrés es guarda: pots tancar i continuar un altre dia.</li>
       </ul>
     </div>
@@ -309,7 +309,7 @@ updateDone();
   const OUTER  = ['O','E','U','P','I','D'];
   const LETTERS = new Set([CENTER, ...OUTER]);
   const PL_KEY = 'paraulogic_2028-08-16';
-  const THRESHOLD = 10; // % para completar
+  const THRESHOLD = 10; // paraules trobades per completar
   const RAW = {"D": ["deduir", "deïdor", "de iure", "deperir", "derruir", "deure", "diedre o díedre", "dir", "dori", "dropo", "dur", "dúrio", "duro"], "E": ["-edre", "edredó", "eduir", "èider", "erer", "ero-", "erro", "error", "euri-", "euro o euro-", "europeu", "europi"], "I": ["iodur", "irid-", "iridi", "iridio-", "irido-"], "O": ["odre", "odrer", "oïdor", "oir", "operó", "orde", "ordi", "ordidor", "ordier", "ordir", "ordre", "oro o oro- o oró", "orri"], "P": ["pedrer", "pedró", "peier", "peiró", "per o per-", "perdedor", "perdiu", "perdó", "perdre", "pereopodi", "perer", "peri-", "peridi", "període", "perir", "però", "pipiripip", "pir-", "pirè", "piro-", "pirop", "poder", "podrir", "poper", "popurri", "-por o por", "porrer", "porro o porró", "pre-", "predi", "predir", "preu", "prió", "prior", "pro o pro-", "produir", "proer", "prop", "propè", "proper", "propi o propí", "prou", "pruir", "pudir", "pudor", "puerperi", "pur", "puré", "purí", "purpureo-", "purpuri o purpurí"], "R": ["redeu", "redir", "redó", "reduir", "rei", "reo-", "repeu", "repodrir", "REPRODUIR", "repropi", "repudi", "rere o rere-", "reu", "rieró", "riu", "riure", "roder", "rodi", "rodo- o rodó", "roí", "rou", "roure", "rouró", "rude"], "U": ["urdú", "ureid", "ureo-", "uro-", "urpir"]};
 
   const norm = s => s.normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[-\s]/g,'').trim().toUpperCase();
@@ -406,10 +406,10 @@ updateDone();
     const id = lookup[w];
     if (!id) return flash('Paraula no trobada','err');
     if (found.includes(id)) return flash('Ja la tens!','warn');
-    const before = found.length/TOTAL*100;
+    const before = found.length;
     found.push(id); save();
     renderScore(byId[id].init);
-    const after = found.length/TOTAL*100;
+    const after = found.length;
     const reached = before < THRESHOLD && after >= THRESHOLD;
     flash('Molt bé!','ok', () => {
       if (after >= THRESHOLD && localStorage.getItem(DONE_KEY) !== '1') {

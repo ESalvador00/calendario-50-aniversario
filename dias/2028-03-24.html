@@ -200,7 +200,7 @@
         <li>Els accents, les dièresis i les majúscules no importen.</li>
         <li>El botó de girar barreja les lletres de fora; la central no es mou.</li>
         <li>Els <b>supermots</b> són paraules que contenen les 7 lletres.</li>
-        <li>Al marcador veuràs les paraules trobades, agrupades per la lletra inicial. Quan en trobis el 10 % superaràs el repte, però pots seguir jugant.</li>
+        <li>Al marcador veuràs les paraules trobades, agrupades per la lletra inicial. Quan en trobis 10 superaràs el repte, però pots seguir jugant.</li>
         <li>El teu progrés es guarda: pots tancar i continuar un altre dia.</li>
       </ul>
     </div>
@@ -309,7 +309,7 @@ updateDone();
   const OUTER  = ['R','E','I','D','A','O'];
   const LETTERS = new Set([CENTER, ...OUTER]);
   const PL_KEY = 'paraulogic_2028-03-24';
-  const THRESHOLD = 10; // % para completar
+  const THRESHOLD = 10; // paraules trobades per completar
   const RAW = {"A": ["aixa o aixà", "aixada", "aixadada", "aixadó", "aixerriar", "així", "això", "arraix", "arraixa", "arxi-", "axi-", "axo- o axó", "axoide"], "D": ["daixò", "daixo-daixo", "deix", "deixa", "deixada", "DEIXADOR", "DEIXADORA", "deixar", "deixia", "dexio-", "dioxà", "diòxid", "dixi", "-dox", "-doxa", "-dòxia", "doxo-"], "E": ["eix", "eixa", "eixarreïda", "eixarreir", "eixe", "eixea", "eixerida", "eixida", "eixir", "EIXORDADOR", "EIXORDADORA", "EIXORDAR", "exa-", "exedra", "exo- o exó", "èxode", "exordi"], "I": ["ídix", "íxia", "ixòdid"], "O": ["orèxia", "òrix", "oxi-", "òxid", "oxidar", "oxo-"], "R": ["redox", "reeixida", "reeixir", "reix", "reixa", "reixada", "reixaire"], "X": ["xador", "xai", "xaia", "xaiada", "xaiar", "xaier", "xaiera", "xaira", "xaire", "xara", "xarada", "xardor", "xare", "xaria", "xaró", "xarrada", "xarrador", "xarradora", "xarrar", "xarrera", "xarrió", "xarxa", "xarxada", "xarxaire", "xarxó", "xeix", "xeixa", "xera", "xereix", "xero-", "xerra", "xerrada", "xerrador", "xerradora", "xerraire", "xerrar", "xerrera", "xerri", "xèrria", "xiroi", "xiroia", "xorra", "xorrar"]};
 
   const norm = s => s.normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/-/g,'').trim().toUpperCase();
@@ -406,10 +406,10 @@ updateDone();
     const id = lookup[w];
     if (!id) return flash('Paraula no trobada','err');
     if (found.includes(id)) return flash('Ja la tens!','warn');
-    const before = found.length/TOTAL*100;
+    const before = found.length;
     found.push(id); save();
     renderScore(byId[id].init);
-    const after = found.length/TOTAL*100;
+    const after = found.length;
     const reached = before < THRESHOLD && after >= THRESHOLD;
     flash('Molt bé!','ok', () => {
       if (after >= THRESHOLD && localStorage.getItem(DONE_KEY) !== '1') {

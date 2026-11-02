@@ -200,7 +200,7 @@
         <li>Els accents, les dièresis i les majúscules no importen.</li>
         <li>El botó de girar barreja les lletres de fora; la central no es mou.</li>
         <li>Els <b>supermots</b> són paraules que contenen les 7 lletres.</li>
-        <li>Al marcador veuràs les paraules trobades, agrupades per la lletra inicial. Quan en trobis el 10 % superaràs el repte, però pots seguir jugant.</li>
+        <li>Al marcador veuràs les paraules trobades, agrupades per la lletra inicial. Quan en trobis 10 superaràs el repte, però pots seguir jugant.</li>
         <li>El teu progrés es guarda: pots tancar i continuar un altre dia.</li>
       </ul>
     </div>
@@ -309,7 +309,7 @@ updateDone();
   const OUTER  = ['T','A','I','N','D','U'];
   const LETTERS = new Set([CENTER, ...OUTER]);
   const PL_KEY = 'paraulogic_2028-02-08';
-  const THRESHOLD = 10; // % para completar
+  const THRESHOLD = 10; // paraules trobades per completar
   const RAW = {"A": ["adam", "adamantí", "adamantina", "adamita", "adiamantada", "adiamantat", "adinàmia", "aimia", "aimina", "aiminada", "ama", "amanida", "amanita", "amanitina", "amant", "amantina", "amatada", "amatat", "amatiu", "amiant", "amida", "amidina", "amímia", "amina", "aminada", "aminat", "amit", "amitat", "ammina", "amni", "amunt", "andami", "ànim", "ànima", "animada", "animat", "annamita"], "D": ["dama o damà", "damnada", "damnat", "damunt", "diamant", "diamantada", "diamantat", "diamantí", "diamantina", "diamina", "dídim", "dídima", "didimi", "didínam", "didínama", "dimidiada", "dimidiat", "diminut", "DIMINUTA", "diminutiu", "dinamita", "duma", "dumdum"], "I": ["imada", "imam", "imamat", "imant", "imida", "imina", "imitatiu", "immund", "immunda", "immunitat", "immutatiu", "inanimada", "inanimat", "indamina", "íntim", "intima o íntima", "intimitat"], "M": ["mai", "maia o maià", "maina", "mainada", "mam", "mama o mamà", "mamada", "mami-", "màmia", "mamut", "-man", "mana", "manada", "manaia", "manat", "manatí", "mandant", "mandat", "-mania o mania", "mannà", "mannan", "mant", "manta", "mantí", "manu-", "mat", "mata", "matí", "matinada", "matitat", "matuta", "matutí", "matutina", "mau", "mia", "mida", "mim", "mina", "mini o mini-", "mínim", "mínima", "mínimum", "minut", "minuta", "minutant", "mitat", "muda", "mudada", "mudat", "mundà", "mundana", "MUNDANITAT", "mundina", "munt", "munta o muntà", "muntada", "muntana", "muntant", "mut", "mutant", "mutu", "mútua", "mutuant"], "N": ["nimi", "nímia", "numantí", "numantina", "númida"], "T": ["tamàndua", "tamín", "tam-tam", "tatami", "tiama", "tiamina", "tim", "-tímia", "tímid", "tímida", "timidina", "timiditat", "timina", "tinamú", "túmid", "túmida", "tumiditat"], "U": ["unanimitat"]};
 
   const norm = s => s.normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/-/g,'').trim().toUpperCase();
@@ -406,10 +406,10 @@ updateDone();
     const id = lookup[w];
     if (!id) return flash('Paraula no trobada','err');
     if (found.includes(id)) return flash('Ja la tens!','warn');
-    const before = found.length/TOTAL*100;
+    const before = found.length;
     found.push(id); save();
     renderScore(byId[id].init);
-    const after = found.length/TOTAL*100;
+    const after = found.length;
     const reached = before < THRESHOLD && after >= THRESHOLD;
     flash('Molt bé!','ok', () => {
       if (after >= THRESHOLD && localStorage.getItem(DONE_KEY) !== '1') {
