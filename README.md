@@ -192,6 +192,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-02-29 | Adivina el slogan | 58 anuncios míticos, hasta 5 aciertos | N/A | N/A | PDTE |
 | 2028-03-02 | Encuentra las 3 diferencias | N/A | NievesAriAlex_20250510_*.jpg (Original, Modifica, Clickmap) | Nieves, Ariadna y Alex | PDTE |
 | 2028-03-03 | Adivina las películas | Amelie, El Guardaespaldas, Ghost, Oppenheimer, Sherlock Holmes | Amelie, El_Guardaespaldas, Ghost, Oppenheimer, Sherlock_Holmes (mp3 y jpg) | N/A | PDTE |
+| 2028-03-04 | Ingenio — ASCII | VERNE | Alex_20260610.jpg | Alex | PDTE |
 | 2028-03-05 | Flash memory | N/A | NievesAriAlex_20160106.jpg | Nieves, Ariadna y Alex | PDTE |
 | 2028-03-06 | Adivina el logo correcto | 10 logos icónicos | Logos.png | N/A | PDTE |
 | 2028-03-07 | Puzzle visual | FIA | Puzzle02_01.png .. Puzzle02_04.png | N/A | PDTE |
