@@ -371,6 +371,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-09-26 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
 | 2028-09-28 | Timeline: óperas famosas | 8 óperas famosas | aida.jpg, carmen.jpg, parsifal.jpg, dama_picas.jpg, la_boheme.jpg, tosca.jpg, madama_butterfly.jpg, caballero_rosa.jpg | N/A | PDTE |
 | 2028-09-29 | Adivina el slogan | 58 anuncios míticos, hasta 5 aciertos | N/A | N/A | PDTE |
+| 2028-10-02 | Paraulògic | 80 palabras (XIQUETA) | A, E, U, I, Q, X + T | N/A | PDTE |
 | 2028-10-03 | Cultura: iniciales de famosos | CRETA | Lugar11_01.jpg .. Lugar11_05.jpg | Ajenos | PDTE |
 | 2028-10-04 | Reinas | N/A | N/A | N/A | PDTE |
 | 2028-10-05 | Adivina la serie | Chicho Terremoto, Juana y Sergio, El Príncipe de Bel-Air, Sexo en Nueva York | chicho_terremoto.jpg/.mp3, juana_sergio.jpg/.mp3, principe_bel_air.jpg/.mp3, sexo_nueva_york.jpg/.mp3 | N/A | PDTE |
@@ -402,6 +403,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-11-06 | Adivina el logo correcto | 10 logos icónicos | Logos.png | N/A | PDTE |
 | 2028-11-07 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
 | 2028-11-08 | Timeline: películas de cine | blancanieves, cenicienta, bella_durmiente, sirenita, bella_bestia, aladdin, mulan, frozen | blancanieves.jpg, cenicienta.jpg, bella_durmiente.jpg, sirenita.jpg, bella_bestia.jpg, aladdin.jpg, mulan.jpg, frozen.jpg | N/A | PDTE |
+| 2028-11-09 | Paraulògic | 144 palabras (INEXPIADA, APÈNDIX) | D, E, I, N, X, P + A | N/A | PDTE |
 | 2028-11-10 | Adivina las películas | Armageddon, Fama, Los Increíbles, La historia interminable, Los Goonies | Armageddon, Fama, Los_Increibles, La_historia_interminable, Los_Goonies (mp3 y jpg) | N/A | PDTE |
 | 2028-11-11 | Memory 4x4 | N/A | AriAlex + 20150411 20161025 20171209 20180908 20191101 20200101 20230708 20240401 + (_Ar/_Al) | Ariadna, Alexandra | PDTE |
 | 2028-11-13 | Sigue la letra | Voy a pasármelo bien (Hombres G) | Voy_a_pasarmelo_bien.mp3 | N/A | PDTE |
