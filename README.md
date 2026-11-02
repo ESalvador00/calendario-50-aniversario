@@ -427,6 +427,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-12-04 | El poble amagat | ESPARREGUERA | Ariadna_20191116.png + Esparreguera.jpg | Ariadna | PDTE |
 | 2028-12-05 | Laberinto Invisible | N/A | N/A | N/A | PDTE |
 | 2028-12-06 | Acertijos y adivinanzas - Oficio reconocido | AGUJA | Ari_20200215.png | Ariadna | PDTE |
+| 2028-12-07 | Paraulògic | 69 palabras (REPULSIU) | S, E, I, P, R, L + U | N/A | PDTE |
 | 2028-12-08 | Reinas | N/A | N/A | N/A | PDTE |
 | 2028-12-09 | Satisfacción con restricciones múltiples: Juegos de mesa | Enric: ajedrez+frutos secos / Nieves: cartas+patatas / Ariadna: puzle+galletas / Alex: dominó+gominolas | RSR12_Escenario.webp + RSR12_01A..01D.png + RSR12_02A..02D.png | Enric, Nieves, Ariadna, Alex | PDTE |
 | 2028-12-10 | Memory 4x4 | N/A | NievesEnric + 20041205 20061024 20090122 20170515 20190406 20220413 20250413 20250803 + (_E/_N) | Nieves, Enric | PDTE |
