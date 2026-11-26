@@ -408,6 +408,7 @@ let pistaEstado = [1, 0, 0]; // tantos 0 como pistas extra tras la primera
 | 2028-11-09 | Paraulògic | 144 palabras (INEXPIADA, APÈNDIX) | D, E, I, N, X, P + A | N/A | PDTE |
 | 2028-11-10 | Adivina las películas | Armageddon, Fama, Los Increíbles, La historia interminable, Los Goonies | Armageddon, Fama, Los_Increibles, La_historia_interminable, Los_Goonies (mp3 y jpg) | N/A | PDTE |
 | 2028-11-11 | Memory 4x4 | N/A | AriAlex + 20150411 20161025 20171209 20180908 20191101 20200101 20230708 20240401 + (_Ar/_Al) | Ariadna, Alexandra | PDTE |
+| 2028-11-12 | Ingenio — LSE | DALI | Ariadna_20200617.jpg | Ariadna | PDTE |
 | 2028-11-13 | Sigue la letra | Voy a pasármelo bien (Hombres G) | Voy_a_pasarmelo_bien.mp3 | N/A | PDTE |
 | 2028-11-14 | Adivina quién soy | ELEVEN | Ari_20220701.png | Ariadna | PDTE |
 | 2028-11-15 | Adivina el slogan | 58 anuncios míticos, hasta 5 aciertos | N/A | N/A | PDTE |
